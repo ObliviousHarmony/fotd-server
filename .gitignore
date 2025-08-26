@@ -1,0 +1,9 @@
+# Editor Files
+.vs
+.vscode
+
+# User Files
+CMakeUserPresets.json
+
+# Build Artifacts
+/out
