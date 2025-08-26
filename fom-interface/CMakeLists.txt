@@ -8,7 +8,7 @@ add_compile_definitions(
 	_CRT_SECURE_NO_DEPRECATE
 )
 
-add_library(FOMInterface STATIC
+add_library(FOMInterface SHARED
 	src/PacketServer.cpp
 )
 
@@ -33,7 +33,8 @@ endif()
 
 install(TARGETS FOMInterface
 	EXPORT FOMInterfaceTargets
-	ARCHIVE DESTINATION lib
 	LIBRARY DESTINATION lib
+	RUNTIME DESTINATION lib
+	INCLUDES DESTINATION include
 )
 install(DIRECTORY include/ DESTINATION include)

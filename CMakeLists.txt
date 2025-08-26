@@ -4,3 +4,4 @@ project(FOMServer)
 
 add_subdirectory(extern/raknet)
 add_subdirectory(fom-interface)
+add_subdirectory(server)

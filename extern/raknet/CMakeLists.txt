@@ -18,7 +18,6 @@ add_compile_definitions(
 
 add_library(RakNet STATIC
 	src/_FindFirst.cpp
-	src/AsynchronousFileIO.cpp
 	src/AutoRPC.cpp
 	src/BigInt.cpp
 	src/BitStream_NoTemplate.cpp
@@ -133,6 +132,6 @@ endif()
 install(TARGETS RakNet
 	EXPORT RakNetTargets
 	ARCHIVE DESTINATION lib
-	LIBRARY DESTINATION lib
+	INCLUDES DESTINATION include
 )
 install(DIRECTORY include/ DESTINATION include)
