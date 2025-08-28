@@ -9,29 +9,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\NativeLib\NativeLib.vcxproj" Condition="'$(OS)' == 'Windows_NT'" />
+		<ProjectReference Include="..\base-server\FOMBaseServer.csproj" />
 	</ItemGroup>
-	
-	<!-- Windows host (default) -->
-	<PropertyGroup>
-		<FOMInterfaceLibFile>$(MSBuildThisFileDirectory)../out/build/$(Configuration)/fom-interface/FOMInterface.dll</FOMInterfaceLibFile>
-	</PropertyGroup>
-
-	<!-- Linux host -->
-	<PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
-		<FOMInterfaceLibFile>$(MSBuildThisFileDirectory)../out/build/$(Configuration)/fom-interface/libFOMInterface.so</FOMInterfaceLibFile>
-	</PropertyGroup>
-
-	<!-- Docker Linux -->
-	<PropertyGroup Condition="'$(FOMServerBuildEnvironment)' == 'Docker'">
-		<FOMInterfaceLibFile>/out/cpp/build/$(Configuration)/fom-interface/libFOMInterface.so</FOMInterfaceLibFile>
-	</PropertyGroup>
-
-	<!-- Move the FOMInterface library-->
-	<Target Name="CopyNativeLib" AfterTargets="Build">
-		<Error Condition="!Exists('$(FOMInterfaceLibFile)')" 
-			Text="Native library not found: $(FOMInterfaceLibFile). Did you run CMake first?" />
-		<Message Text="Copying $(FOMInterfaceLibFile) → $(TargetDir)" Importance="high" />
-		<Copy SourceFiles="$(FOMInterfaceLibFile)" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
-	</Target>
 </Project>

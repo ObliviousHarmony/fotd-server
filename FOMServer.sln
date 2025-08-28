@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FOMWorldServer", "world-ser
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NativeLib", "NativeLib\NativeLib.vcxproj", "{302F700C-184A-F712-82ED-F406D0FC1381}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FOMBaseServer", "base-server\FOMBaseServer.csproj", "{E95B8946-E7D2-3923-75A6-E10B70B55659}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{302F700C-184A-F712-82ED-F406D0FC1381}.Release|x64.Build.0 = Release|x64
 		{302F700C-184A-F712-82ED-F406D0FC1381}.Release|x86.ActiveCfg = Release|Win32
 		{302F700C-184A-F712-82ED-F406D0FC1381}.Release|x86.Build.0 = Release|Win32
+		{E95B8946-E7D2-3923-75A6-E10B70B55659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E95B8946-E7D2-3923-75A6-E10B70B55659}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E95B8946-E7D2-3923-75A6-E10B70B55659}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E95B8946-E7D2-3923-75A6-E10B70B55659}.Debug|x64.Build.0 = Debug|Any CPU
+		{E95B8946-E7D2-3923-75A6-E10B70B55659}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E95B8946-E7D2-3923-75A6-E10B70B55659}.Debug|x86.Build.0 = Debug|Any CPU
+		{E95B8946-E7D2-3923-75A6-E10B70B55659}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E95B8946-E7D2-3923-75A6-E10B70B55659}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E95B8946-E7D2-3923-75A6-E10B70B55659}.Release|x64.ActiveCfg = Release|Any CPU
+		{E95B8946-E7D2-3923-75A6-E10B70B55659}.Release|x64.Build.0 = Release|Any CPU
+		{E95B8946-E7D2-3923-75A6-E10B70B55659}.Release|x86.ActiveCfg = Release|Any CPU
+		{E95B8946-E7D2-3923-75A6-E10B70B55659}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

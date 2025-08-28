@@ -22,5 +22,6 @@ rsync -a --delete \
 # Build projects into /out/dotnet/<project>/<config>, forwarding extra args
 mkdir -p /out/dotnet
 cd /workspace
+dotnet build base-server   -c $FOMSERVER_BUILD_CONFIG -o /out/dotnet/base-server/$FOMSERVER_BUILD_CONFIG "$@"
 dotnet build master-server -c $FOMSERVER_BUILD_CONFIG -o /out/dotnet/master-server/$FOMSERVER_BUILD_CONFIG "$@"
 dotnet build world-server  -c $FOMSERVER_BUILD_CONFIG -o /out/dotnet/world-server/$FOMSERVER_BUILD_CONFIG "$@"
