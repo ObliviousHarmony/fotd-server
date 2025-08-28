@@ -9,7 +9,7 @@ if [[ "$FOMSERVER_BUILD_CONFIG" != "Debug" && "$FOMSERVER_BUILD_CONFIG" != "Rele
 fi
 shift # drop the config argument, leaving the rest in "$@"
 
-# Sync source into container-local workspace
+# Sync source into container-local workspace.
 rsync -a --delete \
 	--exclude='.vs' \
 	--exclude='.vscode' \
@@ -21,9 +21,9 @@ rsync -a --delete \
 	--exclude='/server-tests/obj' \
 	/src/ /workspace/
 
-# Build projects into /out/dotnet/<project>/<config>, forwarding extra args
+# Build, passing through any arguments.
 mkdir -p /out/dotnet
 cd /workspace
-dotnet build base-server   -c $FOMSERVER_BUILD_CONFIG -o /out/dotnet/base-server/$FOMSERVER_BUILD_CONFIG "$@"
-dotnet build master-server -c $FOMSERVER_BUILD_CONFIG -o /out/dotnet/master-server/$FOMSERVER_BUILD_CONFIG "$@"
-dotnet build world-server  -c $FOMSERVER_BUILD_CONFIG -o /out/dotnet/world-server/$FOMSERVER_BUILD_CONFIG "$@"
+# We're targeting the tests project because it will transitively build the others.
+# This avoids the stdout pollution from 4 separate restore/build loops.
+dotnet build server-tests -c $FOMSERVER_BUILD_CONFIG "$@"

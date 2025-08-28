@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 	<ItemGroup Label="ProjectConfigurations">
-		<ProjectConfiguration Include="Debug|Win32">
-			<Configuration>Debug</Configuration>
-			<Platform>Win32</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Release|Win32">
-			<Configuration>Release</Configuration>
-			<Platform>Win32</Platform>
-		</ProjectConfiguration>
 		<ProjectConfiguration Include="Debug|x64">
 			<Configuration>Debug</Configuration>
 			<Platform>x64</Platform>
@@ -18,83 +10,39 @@
 			<Platform>x64</Platform>
 		</ProjectConfiguration>
 	</ItemGroup>
-	<PropertyGroup Label="Configuration">
-		<OutDir>$(ProjectDir)\</OutDir>
-		<IntDir>$(ProjectDir)\obj\</IntDir>
-	</PropertyGroup>
+
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>17.0</VCProjectVersion>
 		<ProjectGuid>{302F700C-184A-F712-82ED-F406D0FC1381}</ProjectGuid>
-		<Keyword>Win32Proj</Keyword>
+		<Keyword>MakeFileProj</Keyword>
+		<RestoreProjectStyle>None</RestoreProjectStyle>
 	</PropertyGroup>
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" Condition=" '$(OS)' == 'Windows_NT' " />
+
+	<PropertyGroup Label="Configuration">
 		<ConfigurationType>Makefile</ConfigurationType>
-		<UseDebugLibraries>true</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-		<ConfigurationType>Makefile</ConfigurationType>
-		<UseDebugLibraries>false</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-		<ConfigurationType>Makefile</ConfigurationType>
-		<UseDebugLibraries>true</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-		<ConfigurationType>Makefile</ConfigurationType>
-		<UseDebugLibraries>false</UseDebugLibraries>
-		<PlatformToolset>v143</PlatformToolset>
-	</PropertyGroup>
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-	<ImportGroup Label="ExtensionSettings">
-	</ImportGroup>
-	<ImportGroup Label="Shared">
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-	</ImportGroup>
-	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-	</ImportGroup>
-	<PropertyGroup Label="UserMacros" />
+
+	<Target Name="Build" Condition="'$(OS)' != 'Windows_NT'" />
+	<Target Name="Clean" Condition="'$(OS)' != 'Windows_NT'" />
+	<Target Name="Rebuild" Condition="'$(OS)' != 'Windows_NT'" />
+
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
 		<NMakeBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration)</NMakeBuildCommandLine>
 		<NMakeCleanCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration) --target clean</NMakeCleanCommandLine>
 		<NMakeReBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration) --clean-first</NMakeReBuildCommandLine>
 		<NMakePreprocessorDefinitions>_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-		<NMakeBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration)</NMakeBuildCommandLine>
-		<NMakeCleanCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration) --target clean</NMakeCleanCommandLine>
-		<NMakeReBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration) --clean-first</NMakeReBuildCommandLine>
-		<NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-		<NMakeBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration)</NMakeBuildCommandLine>
-		<NMakeCleanCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration) --target clean</NMakeCleanCommandLine>
-		<NMakeReBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration) --clean-first</NMakeReBuildCommandLine>
-		<NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-	</PropertyGroup>
+
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
 		<NMakeBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration)</NMakeBuildCommandLine>
 		<NMakeCleanCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration) --target clean</NMakeCleanCommandLine>
 		<NMakeReBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration) --clean-first</NMakeReBuildCommandLine>
 		<NMakePreprocessorDefinitions>NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
 	</PropertyGroup>
-	<ItemDefinitionGroup>
-	</ItemDefinitionGroup>
-	<ItemGroup>
-	</ItemGroup>
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-	<ImportGroup Label="ExtensionTargets">
-	</ImportGroup>
+
+	<!-- Import MSVC props/targets -->
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" Condition=" '$(OS)' == 'Windows_NT' " />
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" Condition=" '$(OS)' == 'Windows_NT' " />
 </Project>

@@ -9,8 +9,8 @@ if [[ "$FOMSERVER_BUILD_CONFIG" != "Debug" && "$FOMSERVER_BUILD_CONFIG" != "Rele
 fi
 shift # drop the config argument, leaving the rest in "$@"
 
-# Ensure tests run on the already-built output
+# Ensure tests run on the already-built output.
 cd /out/cpp/build/$FOMSERVER_BUILD_CONFIG
 
-# Pass any arguments directly to ctest
+# Pass any arguments directly to ctest.
 ctest "$@"
