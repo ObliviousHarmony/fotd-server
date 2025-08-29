@@ -2,8 +2,14 @@ cmake_minimum_required(VERSION 3.28)
 
 project(FOMNetwork)
 
+# Use C++11 so that we can take advantage of some of its features.
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 add_library(FOMNetwork SHARED
-	src/PacketServer.cpp
+	src/ClientAPI.cpp
+	src/ServerAPI.cpp
+	src/PacketAPI.cpp
 )
 
 target_include_directories(FOMNetwork
@@ -24,11 +30,3 @@ if(WIN32)
 		wsock32 ws2_32
 	)
 endif()
-
-install(TARGETS FOMNetwork
-	EXPORT FOMNetworkTargets
-	LIBRARY DESTINATION lib
-	RUNTIME DESTINATION lib
-	INCLUDES DESTINATION include
-)
-install(DIRECTORY include/ DESTINATION include)

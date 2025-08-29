@@ -7,32 +7,29 @@ classDiagram
 
 class BasePacket {
 	<<abstract struct>>
-	+byte~PacketID~ id
+	+uint8_t~PacketID~ id
 }
 
-namespace Public {
-	class FOMNetwork_SERVER_API[ "EXPORTED SERVER FUNCTIONS" ] {
-		+FOMNetwork_Server_Startup() RakPeerInterface**
-		+FOMNetwork_Server_Shutdown( RakPeerInterface* peer ) void
+namespace EXPORTED {
+	class FOMNetwork_SERVER_API[ "SERVER FUNCTIONS" ] {
+		+FOMNetwork_Server_Startup(uint16_t port) RakPeerInterface**
+		+FOMNetwork_Server_Shutdown(RakPeerInterface* peer) void
 	}
 
-	class FOMNetwork_CLIENT_API[ "EXPORTED CLIENT FUNCTIONS" ] {
-		+FOMNetwork_Client_Connect() RakPeerInterface**
-		+FOMNetwork_Client_Disconnect( RakPeerInterface* peer ) void
+	class FOMNetwork_CLIENT_API[ "CLIENT FUNCTIONS" ] {
+		+FOMNetwork_Client_Connect(const uint8_t* hostAddress, uint32_t hostAddressLen, uint16_t port) RakPeerInterface**
+		+FOMNetwork_Client_Disconnect(RakPeerInterface* peer) void
 	}
 
-	class FOMNetwork_RECEIVE_API[ "EXPORTED RECEIVE FUNCTIONS" ] {
-		+FOMNetwork_ReceivePackets( RakPeerInterface* peer ) ReceivedPackets
-		+FOMNetwork_ProcessPackets( RakPeerInterface* peer, ReceivedPackets received, out FOMPacket[] packetBuffer ) void
-	}
-
-	class FOMNetwork_SEND_API[ "EXPORTED SEND FUNCTIONS" ] {
-		+FOMNetwork_Send( RakPeerInterface* peer, SendPacket[] packets, int numPackets ) void
+	class FOMNetwork_PACKET_API[ "PACKET FUNCTIONS" ] {
+		+FOMNetwork_ReceivePackets(RakPeerInterface* peer) ReceivedPackets
+		+FOMNetwork_ProcessPackets(RakPeerInterface* peer, ReceivedPackets received, FOMPacket* packetBuffer, uint32_t packetBufferLen) uint32_t
+		+void FOMNetwork_Send(RakPeerInterface* peer, SendPacket* packets, uint32_t count) void
 	}
 
 	class ExamplePacket {
 		<<struct>>
-		+byte~PacketID~ id
+		+uint8_t~PacketID~ id
 		+int playerID
 	}
 
@@ -42,16 +39,23 @@ namespace Public {
 		+int numPackets
 	}
 
+	class FOMNetworkAddress {
+		<<struct>>
+		+uint32_t binaryAddress
+		+uint16_t port
+	}
+
 	class SendPacket {
 		<<struct>>
-		+SystemAddress address
+		+FOMNetworkAddress address
 		+FOMPacket data
-		+int priority
-		+int reliability
-		+byte broadcast
+		+int32_t priority
+		+int32_t reliability
+		+int8_t broadcast
 	}
 }
 ExamplePacket <|-- BasePacket
+SendPacket <|-- FOMNetworkAddress
 
 class FOMPacket
 FOMPacket <|-- BasePacket
@@ -60,10 +64,10 @@ PacketSerializer ..> FOMPacket
 
 note for FOMPacket "A discriminated union of all of the packet struct types."
 
-FOMNetwork_RECEIVE_API ..> ReceivedPackets
-FOMNetwork_SEND_API ..> SendPacket
+FOMNetwork_PACKET_API ..> ReceivedPackets
+FOMNetwork_PACKET_API ..> SendPacket
 
-note for FOMNetwork_RECEIVE_API "First, ReceivePackets is called and it collects pending packets from
+note for FOMNetwork_PACKET_API "First, ReceivePackets is called and it collects pending packets from
 								 RakPeerInterface. It loads pointers to all of the packets into an
 								 array and returns a ReceivedPackets struct.
 								 
@@ -73,13 +77,13 @@ note for FOMNetwork_RECEIVE_API "First, ReceivePackets is called and it collects
 
 class PacketSerializer {
 	<<abstract>>
-	+Serialize( FOMPacket packet ) BitStream
-	+Deserialize( Packet* packet ) FOMPacket
+	+Serialize(FOMPacket packet) BitStream
+	+Deserialize(Packet* packet) FOMPacket
 }
 
 class ExamplePacketSerializer {
-	+Serialize( ExamplePacket packet ) BitStream
-	+Deserialize( Packet* packet ) ExamplePacket
+	+Serialize(ExamplePacket packet) BitStream
+	+Deserialize(Packet* packet) ExamplePacket
 }
 ExamplePacketSerializer <|-- PacketSerializer
 ExamplePacketSerializer ..> ExamplePacket

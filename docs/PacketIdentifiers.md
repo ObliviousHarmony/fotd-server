@@ -1,4 +1,4 @@
-# Packet Types
+# Packet Identifiers
 
 | Type                        | ID  |
 |-----------------------------|-----|
