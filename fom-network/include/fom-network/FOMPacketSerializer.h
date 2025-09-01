@@ -2,14 +2,14 @@
 
 #include <memory>
 #include <unordered_map>
+#include <fom-network/FOMNetworkExport.h>
 #include <fom-network/FOMPacket.h>
-#include <raknet/BitStream.h>
-#include "packet-serializers/PacketSerializers.h"
+#include <fom-network/PacketSerializers.h>
 
 /**
  * Handles packet serialization and deserialization based on packet ID.
  */
-class FOMPacketSerializer {
+class FOM_API FOMPacketSerializer {
 public:
 	/**
 	* Serializes a packet structure into a bitstream buffer.

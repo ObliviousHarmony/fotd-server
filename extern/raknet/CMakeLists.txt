@@ -109,11 +109,14 @@ target_include_directories(RakNet
 
 # Windows-specific
 if(WIN32)
-	set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+	set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 	target_link_libraries(RakNet wsock32 ws2_32)
 
 	# We don't want to see warnings for RakNet code.
 	target_compile_options(RakNet PRIVATE /w)
+
+	# RakNet has warnings that we're not going to fix!
+	target_compile_options(RakNet PRIVATE /w)  # disables all warnings
 endif()
 
 # Linux-specific

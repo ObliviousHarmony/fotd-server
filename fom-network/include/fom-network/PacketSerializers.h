@@ -1,6 +1,7 @@
 #pragma once
 
 #include <raknet/BitStream.h>
+#include <fom-network/FOMNetworkExport.h>
 #include <fom-network/FOMPacket.h>
 
 /**
@@ -21,7 +22,7 @@ public:
  * can use the correct types for each packet.
  */
 #define DECLARE_SERIALIZER(TYPE, PACKETID, UNION_FIELD)									\
-class TYPE##Serializer : public IPacketSerializer {										\
+class FOM_API TYPE##Serializer : public IPacketSerializer {								\
 public:																					\
 	static TYPE##Serializer& GetInstance() {											\
 		static TYPE##Serializer instance;												\

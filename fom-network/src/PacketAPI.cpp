@@ -1,6 +1,6 @@
 #include <vector>
 #include <fom-network/PacketAPI.h>
-#include "FOMPacketSerializer.h"
+#include <fom-network/FOMPacketSerializer.h>
 
 /**
  * The maximum number of packets that can be received each tick.
@@ -9,7 +9,7 @@
  * more packets being received than pulled off the queue.
  */
 namespace FOM {
-	constexpr std::size_t MaxBufferedPackets = 256;
+	constexpr uint32_t MaxBufferedPackets = 256;
 }
 
 ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {

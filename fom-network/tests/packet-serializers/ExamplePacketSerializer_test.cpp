@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <raknet/BitStream.h>
-#include "packet-serializers/PacketSerializers.h"
+#include <fom-network/PacketSerializers.h>
 
 // Equality operator for ExamplePacket to simplify assertions
 bool operator==(const ExamplePacket& lhs, const ExamplePacket& rhs) {

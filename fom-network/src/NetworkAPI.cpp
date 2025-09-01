@@ -4,11 +4,14 @@
 #include <fom-network/FOMPacket.h>
 
 int8_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures, uint32_t count) {
+#pragma warning(push)
+#pragma warning(disable: 4267)
     // List all of the structs that we have defined in the library
     // so that they can be compared to the consumer's structs.
     std::unordered_map<uint8_t, uint32_t> libraryMap = {
         {0, sizeof(ExamplePacket)}
     };
+#pragma warning(pop)
 
     // Both should have the same number of packets defined.
     if (libraryMap.size() != count) {

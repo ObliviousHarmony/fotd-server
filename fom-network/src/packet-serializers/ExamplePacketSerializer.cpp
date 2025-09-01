@@ -1,6 +1,6 @@
 #include <raknet/BitStream.h>
 #include <fom-network/FOMPacket.h>
-#include "PacketSerializers.h"
+#include <fom-network/PacketSerializers.h>
 
 bool ExamplePacketSerializer::Serialize(RakNet::BitStream& bs, const ExamplePacket& p) const {
 	bs.Write(p.exampleField1);

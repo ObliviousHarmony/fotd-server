@@ -11,7 +11,7 @@ add_library(FOMNetwork SHARED
 	src/NetworkAPI.cpp
 	src/FOMPacketSerializer.cpp
 	src/packet-serializers/ExamplePacketSerializer.cpp
- )
+)
 
 target_include_directories(FOMNetwork
 	PUBLIC
@@ -25,11 +25,16 @@ target_link_libraries(FOMNetwork
 
 # Windows-specific
 if(WIN32)
-	set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+	set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
 	target_link_libraries(FOMNetwork
 		PRIVATE
 		wsock32 ws2_32
 	)
+endif()
+
+# Linux-specific
+if(UNIX AND NOT WIN32)
+    target_compile_options(FOMNetwork PRIVATE -fvisibility=hidden -fvisibility-inlines-hidden)
 endif()
 
 add_subdirectory(tests)

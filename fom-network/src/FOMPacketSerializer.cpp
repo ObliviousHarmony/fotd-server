@@ -1,5 +1,5 @@
 #include <unordered_map>
-#include "FOMPacketSerializer.h"
+#include <fom-network/FOMPacketSerializer.h>
 
 /**
  * We need to initialize the map with all of the serializers we want to be able to use.
