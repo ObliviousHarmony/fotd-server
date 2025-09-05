@@ -28,18 +28,18 @@ public:																					\
 		static TYPE##Serializer instance;												\
 		return instance;																\
 	}																					\
-    bool SerializePacket(RakNet::BitStream& bs, const FOMPacket& p) const override {	\
-        return Serialize(bs, p.data.UNION_FIELD);										\
-    }																					\
-    FOMPacket DeserializePacket(RakNet::BitStream& bs) const override {					\
-        TYPE obj = Deserialize(bs);														\
-        FOMPacket packet{};																\
-        packet.ID = PacketIdentifier::PACKETID;											\
-        packet.data.UNION_FIELD = obj;													\
-        return packet;																	\
-    }																					\
-    bool Serialize(RakNet::BitStream& bs, const TYPE& p) const;							\
-    TYPE Deserialize(RakNet::BitStream& bs) const;										\
+	bool SerializePacket(RakNet::BitStream& bs, const FOMPacket& p) const override {	\
+		return Serialize(bs, p.data.UNION_FIELD);										\
+	}																					\
+	FOMPacket DeserializePacket(RakNet::BitStream& bs) const override {					\
+		TYPE obj = Deserialize(bs);														\
+		FOMPacket packet{};																\
+		packet.ID = PacketIdentifier::PACKETID;											\
+		packet.data.UNION_FIELD = obj;													\
+		return packet;																	\
+	}																					\
+	bool Serialize(RakNet::BitStream& bs, const TYPE& p) const;							\
+	TYPE Deserialize(RakNet::BitStream& bs) const;										\
 };																			
 
 /**
