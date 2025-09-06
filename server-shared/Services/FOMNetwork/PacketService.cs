@@ -12,14 +12,14 @@ namespace FOMServer.Shared.Services.FOMNetwork
 		/// <inheritdoc />
 		public void Process(IntPtr peer, ref ReceivedPackets received, Span<FOMPacket> packetBuffer)
 		{
-			if (packetBuffer.Length < received.count)
+			if (packetBuffer.Length < received.Count)
 				throw new ArgumentException("Buffer too small.");
 
 			unsafe
 			{
 				fixed (FOMPacket* ptr = &MemoryMarshal.GetReference(packetBuffer))
 				{
-					FOMNetwork_ProcessPackets(peer, received, ptr, received.count);
+					FOMNetwork_ProcessPackets(peer, received, ptr, received.Count);
 				}
 			}
 		}

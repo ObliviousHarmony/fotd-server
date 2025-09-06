@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 
 /**
  * This file contains all of the packet structures defined in `fom-network/include/fom-network/FOMPacket.h`.
- * 
+ *
  * In order for the interop to work correctly and efficiently, ALL of them must:
- * 
+ *
  * - Match the C++ structure's data type sizes and layout EXACTLY.
  * - Use only blittable types (no bools, no strings, no arrays, no reference types)
  * - Be marked with `[StructLayout(LayoutKind.Sequential, Pack = 1)]` to ensure no padding is added.
@@ -35,7 +35,7 @@ namespace FOMServer.Shared.Models
 		}
 
 		public PacketIdentifier ID;
-		public NetworkAddress sender;
-		public FOMPacketData data;
+		public NetworkAddress Sender;
+		public FOMPacketData Data;
 	}
 }

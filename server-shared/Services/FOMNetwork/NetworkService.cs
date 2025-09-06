@@ -14,7 +14,7 @@ namespace FOMServer.Shared.Services.FOMNetwork
 			try
 			{
 				structures = [
-					new PacketStructure { id = PacketIdentifier.ID_FOM_PACKET_ERROR, size = Marshal.SizeOf<FOMPacketError>() },
+					new PacketStructure { ID = PacketIdentifier.ID_FOM_PACKET_ERROR, Size = Marshal.SizeOf<FOMPacketError>() },
 				];
 			} catch (Exception ex)
 			{

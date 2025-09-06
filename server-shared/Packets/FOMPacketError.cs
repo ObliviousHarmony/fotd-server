@@ -20,7 +20,7 @@ namespace FOMServer.Shared.Packets
 			ERROR_DESERIALIZATION
 		}
 
-		public PacketIdentifier offendingID;
-		public FOMPacketErrorCode errorCode;
+		public PacketIdentifier OffendingID;
+		public FOMPacketErrorCode ErrorCode;
 	}
 }

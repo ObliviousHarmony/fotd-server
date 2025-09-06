@@ -10,8 +10,8 @@ namespace FOMServer.Shared.Models
 	public struct PacketStructure
 	{
 		// Must match the struct in `fom-network/include/fom-network/NetworkAPI.h`
-		public PacketIdentifier id;
-		public int size;
+		public PacketIdentifier ID;
+		public int Size;
 	}
 
 	/// <summary>
@@ -26,8 +26,8 @@ namespace FOMServer.Shared.Models
 	public struct ReceivedPackets
 	{
 		// Must match the struct in `fom-network/include/fom-network/PacketAPI.h`
-		public IntPtr packets;
-		public int count;
+		public IntPtr Packets;
+		public int Count;
 	}
 
 	/// <summary>
@@ -42,12 +42,12 @@ namespace FOMServer.Shared.Models
 	public struct SendPacket
 	{
 		// Must match the struct in `fom-network/include/fom-network/PacketAPI.h`
-		public NetworkAddress destination;
-		public FOMPacket data;
-		public PacketPriority priority;
-		public PacketReliability reliability;
-		public byte orderingChannel;
-		public byte broadcast;
+		public NetworkAddress Destination;
+		public FOMPacket Data;
+		public PacketPriority Priority;
+		public PacketReliability Reliability;
+		public byte OrderingChannel;
+		public byte Broadcast;
 	}
 
 }

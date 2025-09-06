@@ -5,6 +5,6 @@ namespace FOMServer.Shared.Packets
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public struct ExamplePacket
 	{
-		public int exampleField1;
+		public int ExampleField1;
 	}
 }

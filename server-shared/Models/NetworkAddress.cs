@@ -8,7 +8,7 @@ namespace FOMServer.Shared.Models
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public struct NetworkAddress
 	{
-		public uint address;
-		public short port;
+		public uint Address;
+		public short Port;
 	}
 }
