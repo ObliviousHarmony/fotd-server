@@ -3,12 +3,28 @@ namespace FOMServer.Shared.Enums
 	/// <summary>
 	/// The packet identifiers used in the FOM server-client communication.
 	/// </summary>
+	/// <remarks>
+	/// These MUST be kept up-to-date with `fom-network/include/fom-network/PacketIdentifier.h`
+	/// </remarks>
 	public enum PacketIdentifier : byte
 	{
-		// These MUST be kept up-to-date with `fom-network/include/fom-network/PacketIdentifier.h`
+		// It's fine that this overlaps with a reserved RakNet ID since we aren't using the internal packet in our interop.
 		ID_FOM_PACKET_ERROR = 0,
-		ID_FOM_PACKET_START = 104,
 
+		// These are the RakNet packet IDs that cross the interop boundary.
+		ID_CONNECTION_REQUEST_ACCEPTED = 14,
+		ID_CONNECTION_ATTEMPT_FAILED = 15,
+		ID_ALREADY_CONNECTED = 16,
+		ID_NEW_INCOMING_CONNECTION = 17,
+		ID_NO_FREE_INCOMING_CONNECTIONS = 18,
+		ID_DISCONNECTION_NOTIFICATION = 19,
+		ID_CONNECTION_LOST = 20,
+		ID_RSA_PUBLIC_KEY_MISMATCH = 21,
+		ID_CONNECTION_BANNED = 22,
+		ID_INVALID_PASSWORD = 23,
+		ID_MODIFIED_PACKET = 24,
+
+		ID_FOM_PACKET_START = 104,
 		// 104 ( = ID_FOM_PACKET_START)
 		// 105
 		// 106
