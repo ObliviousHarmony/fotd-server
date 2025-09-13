@@ -1,4 +1,5 @@
 #include <vector>
+#include <iostream>
 #include <fom-network/PacketAPI.h>
 #include <fom-network/FOMPacketSerializer.h>
 
@@ -39,8 +40,10 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
 	// The array and the packets contained must all be deallocated
 	// in FOMNetwork_ProcessPackets so that we don't leak memory!
 	received.count = receiveBuffer.size();
-	received.packets = new Packet*[receiveBuffer.size()];
-	std::copy(receiveBuffer.begin(), receiveBuffer.end(), received.packets);
+	if (received.count > 0) {
+		received.packets = new Packet * [receiveBuffer.size()];
+		std::copy(receiveBuffer.begin(), receiveBuffer.end(), received.packets);
+	}
 
 	return received;
 }
