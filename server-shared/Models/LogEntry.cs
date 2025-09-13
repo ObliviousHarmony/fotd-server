@@ -1,4 +1,3 @@
-using System;
 using FOMServer.Shared.Enums;
 
 namespace FOMServer.Shared.Models
