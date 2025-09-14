@@ -9,7 +9,7 @@
  * - include/fom-network/FOMPacket.h: Requires a packet struct.
  * - src/packet-serializers/PacketSerializers.h: Requires a serializer declaration.
  * - src/packet-serializers/<PacketName>Serializer.cpp: Requires a serializer implementation.
- * - src/FOMPacketSerializer.cpp: Requires adding to the serializer map.
+ * - src/FOMDataSerializer.cpp: Requires adding to the serializer map.
  */
 
 /**

@@ -27,9 +27,9 @@
  * Error codes for sending/receiving packets.
  */
 enum FOMPacketErrorCode : uint8_t {
-    ERROR_MISSING_PACKET_ID,
-    ERROR_UNHANDLED_PACKET_ID,
-    ERROR_DESERIALIZATION
+	ERROR_MISSING_PACKET_ID,
+	ERROR_UNHANDLED_PACKET_ID,
+	ERROR_DESERIALIZATION
 };
 
 /**
@@ -41,10 +41,7 @@ enum FOMPacketErrorCode : uint8_t {
  * The network address for a system.
  */
 struct NetworkAddress {
-	/* The binary destination address for the packet or the excluded address if it's broadcasted. */
 	uint32_t binaryAddress;
-
-	/* The destination port for the packet or the excluded address if it's broadcasted. */
 	uint16_t port;
 };
 ASSERT_BLITTABLE(NetworkAddress);
@@ -53,22 +50,27 @@ ASSERT_BLITTABLE(NetworkAddress);
  * An error took place when processing/sending a packet.
  */
 struct FOMPacketError {
-    PacketIdentifier offendingID;
-    FOMPacketErrorCode errorCode;
+	PacketIdentifier offendingID;
+	FOMPacketErrorCode errorCode;
 };
 ASSERT_BLITTABLE(FOMPacketError);
 
 /**
- * A discriminated union representing all of FoM's network packets.
+ * A union representing all of FoM's packet data types.
+ */
+struct FOMData {
+	union {
+		FOMPacketError error;
+	};
+};
+
+/**
+ * A FoM network packet to be passed across the interop boundary.
  */
 struct FOMPacket {
 	PacketIdentifier ID;
 	NetworkAddress sender;
-
-	union
-	{
-        FOMPacketError error;
-	} data;
+	FOMData data;
 };
 
 #pragma pack(pop)

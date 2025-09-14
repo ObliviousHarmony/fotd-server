@@ -42,8 +42,9 @@ namespace FOMServer.Shared.Models
 	public struct SendPacket
 	{
 		// Must match the struct in `fom-network/include/fom-network/PacketAPI.h`
-		public NetworkAddress Destination;
-		public FOMPacket Data;
+		public PacketIdentifier ID;
+		public FOMData Data;
+		public NetworkAddress NetworkAddress;
 		public PacketPriority Priority;
 		public PacketReliability Reliability;
 		public byte OrderingChannel;

@@ -15,26 +15,26 @@ using System.Runtime.InteropServices;
 namespace FOMServer.Shared.Models
 {
 	/// <summary>
+	/// Represents a union of possible packet data types.
+	/// </summary>
+	/// <remarks>
+	/// This structure uses explicit layout to allow overlapping fields, enabling it to store different kinds
+	/// of packet data. Only one of the fields should be accessed at a time, as they share the same memory space.
+	/// </remarks>
+	[StructLayout(LayoutKind.Explicit, Pack = 1)]
+	public struct FOMData
+	{
+		[FieldOffset(0)] public FOMPacketError error;
+	}
+
+	/// <summary>
 	/// The main structure for all packets.
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public struct FOMPacket
 	{
-		/// <summary>
-		/// Represents a union of possible packet data types.
-		/// </summary>
-		/// <remarks>
-		/// This structure uses explicit layout to allow overlapping fields, enabling it to store different kinds
-		/// of packet data. Only one of the fields should be accessed at a time, as they share the same memory space.
-		/// </remarks>
-		[StructLayout(LayoutKind.Explicit, Pack = 1)]
-		public struct FOMPacketData
-		{
-			[FieldOffset(0)] public FOMPacketError error;
-		}
-
 		public PacketIdentifier ID;
 		public NetworkAddress Sender;
-		public FOMPacketData Data;
+		public FOMData Data;
 	}
 }

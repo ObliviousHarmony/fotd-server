@@ -28,11 +28,14 @@ struct ReceivedPackets {
  * @note This structure MUST only contain C# blittable types.
  */
 struct SendPacket {
-	/* The destination for the packet or the excluded address if it is a broadcast. */
-	NetworkAddress destination;
+	/* The identifier for the packet being sent. */
+	PacketIdentifier id;
 
 	/* The discriminated union for communicating packet data. */
-	FOMPacket data;
+	FOMData data;
+
+	/* The destination for the packet or the excluded address if it is a broadcast. */
+	NetworkAddress networkAddress;
 
 	/* The priority of the packet to be sent to the networking library. */
 	uint8_t priority;
