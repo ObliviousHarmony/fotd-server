@@ -85,7 +85,6 @@ namespace FOMServer.Shared.Services
 			}
 			catch (OperationCanceledException)
 			{
-				// Expected when cancellation occurs
 			}
 
 			loggingTask = null;

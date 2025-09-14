@@ -1,3 +1,4 @@
+using FOMServer.Shared.Enums;
 using FOMServer.Shared.Extensions;
 using FOMServer.Shared.Models;
 
@@ -8,6 +9,8 @@ namespace FOMServer.Shared.Services
 	/// </summary>
 	public interface IPacketHandler
 	{
+		PacketIdentifier PacketID { get; }
+
 		void Handle(FOMPacket packet);
 	}
 
@@ -23,6 +26,8 @@ namespace FOMServer.Shared.Services
 		{
 			this.logService = logService;
 		}
+
+		public abstract PacketIdentifier PacketID { get; }
 
 		/// <summary>
 		/// Handles an incoming packet by extracting its data and passing it to the type-specific handler.
