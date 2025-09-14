@@ -24,7 +24,7 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
 	receiveBuffer.clear();
 	receiveBuffer.reserve(FOM::MaxBufferedPackets);
 
-	// Limit the number of packets 
+	// Limit the number of packets
 	while (receiveBuffer.size() < FOM::MaxBufferedPackets) {
 		Packet* packet = peer->Receive();
 		if (!packet) {
@@ -89,6 +89,11 @@ void FOMNetwork_Send(RakPeerInterface* peer, const SendPacket* packets, int32_t 
 
 	for (int32_t i = 0; i < count; i++) {
 		const SendPacket& s = packets[i];
+
+		// Make sure that we can't send RakNet packets.
+		if (s.id < ID_FOM_PACKET_START) {
+			continue;
+		}
 
 		SystemAddress address = UNASSIGNED_SYSTEM_ADDRESS;
 		if (s.networkAddress.binaryAddress != 0 ) {
