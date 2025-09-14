@@ -1,5 +1,4 @@
 using FOMServer.Shared.Enums;
-using FOMServer.Shared.Handlers;
 using FOMServer.Shared.Models;
 using System.Threading.Channels;
 
@@ -14,7 +13,6 @@ namespace FOMServer.Shared.Services
 	public class PacketProcessor : IDisposable
 	{
 		private readonly Channel<FOMPacket> packetQueue = Channel.CreateUnbounded<FOMPacket>();
-		private readonly Channel<FOMPacket> priorityPacketQueue = Channel.CreateUnbounded<FOMPacket>();
 		private readonly List<Task> workers = new();
 		private readonly Dictionary<PacketIdentifier, IPacketHandler> handlers;
 
@@ -26,14 +24,11 @@ namespace FOMServer.Shared.Services
 		}
 
 		/// <summary>
-		/// Enqueue a packet for processing. Routes to priority queue if applicable.
+		/// Enqueue a packet for processing.
 		/// </summary>
 		public void Enqueue(FOMPacket packet)
 		{
-			if (IsPriorityPacket(packet))
-				priorityPacketQueue.Writer.TryWrite(packet);
-			else
-				packetQueue.Writer.TryWrite(packet);
+			packetQueue.Writer.TryWrite(packet);
 		}
 
 		/// <summary>
@@ -71,7 +66,6 @@ namespace FOMServer.Shared.Services
 
 			cts.Cancel();
 			packetQueue.Writer.Complete();
-			priorityPacketQueue.Writer.Complete();
 
 			try
 			{
@@ -95,19 +89,13 @@ namespace FOMServer.Shared.Services
 			{
 				FOMPacket packet;
 
-				// Try the priority queue first so that those packets are handled before others.
-				var queue = await Task.WhenAny(
-					priorityPacketQueue.Reader.ReadAsync(ct).AsTask(),
-					packetQueue.Reader.ReadAsync(ct).AsTask()
-				);
-
 				try
 				{
-					packet = await queue;
+					packet = await packetQueue.Reader.ReadAsync(ct);
 				}
 				catch (ChannelClosedException)
 				{
-					continue;
+					break;
 				}
 
 				if (handlers.TryGetValue(packet.ID, out var handler))
@@ -115,16 +103,6 @@ namespace FOMServer.Shared.Services
 				else
 					OnUnhandledPacket(packet);
 			}
-		}
-
-		/// <summary>
-		/// Checks to see whether a packet should be handled as a priority packet.
-		/// </summary>
-		/// <param name="packet">The packet to check.</param>
-		/// <returns>True if a priority packet, otherwise false.</returns>
-		private bool IsPriorityPacket(FOMPacket packet)
-		{
-			return false;
 		}
 
 		/// <summary>
