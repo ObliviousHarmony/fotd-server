@@ -52,13 +52,13 @@ namespace FOMServer.Shared.Services
 		/// <summary>
 		/// Starts the background logging task.
 		/// </summary>
-		/// <param name="parentToken">The parent's cancellation token.</param>
-		public Task StartAsync(CancellationToken parentToken)
+		/// <param name="ctParent">The parent's cancellation token.</param>
+		public void Start(CancellationToken ctParent)
 		{
 			if (loggingTask != null)
-				return Task.CompletedTask;
+				return;
 
-			cts = CancellationTokenSource.CreateLinkedTokenSource(parentToken);
+			cts = CancellationTokenSource.CreateLinkedTokenSource(ctParent);
 
 			loggingTask = Task.Factory.StartNew(
 				async () => await ProcessLoopAsync(cts.Token),
@@ -66,8 +66,6 @@ namespace FOMServer.Shared.Services
 				TaskCreationOptions.LongRunning,
 				TaskScheduler.Default
 			).Unwrap();
-
-			return Task.CompletedTask;
 		}
 
 		/// <summary>
@@ -100,15 +98,15 @@ namespace FOMServer.Shared.Services
 		/// </summary>
 		private async Task ProcessLoopAsync(CancellationToken ct)
 		{
-			await foreach (var entry in this.logChannel.Reader.ReadAllAsync(ct))
+			await foreach (var entry in logChannel.Reader.ReadAllAsync(ct))
 			{
 				var formatted = entry.ToString();
 
-				if (this.writeConsole)
+				if (writeConsole)
 					Console.WriteLine(formatted);
 
-				if (this.logFileWriter != null)
-					await this.logFileWriter.WriteLineAsync(formatted);
+				if (logFileWriter != null)
+					await logFileWriter.WriteLineAsync(formatted);
 			}
 		}
 
