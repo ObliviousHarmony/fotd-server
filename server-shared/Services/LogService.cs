@@ -4,7 +4,7 @@ using System.Threading.Channels;
 
 namespace FOMServer.Shared.Services
 {
-	public class LoggingService : ILoggingService, IDisposable
+	public class LogService : ILogService, IDisposable
 	{
 		private static readonly Meter Meter = new("FOMServer.Logging");
 		private static readonly Counter<long> LogEnqueuedCounter =
@@ -15,7 +15,7 @@ namespace FOMServer.Shared.Services
 		private readonly bool writeConsole;
 		private StreamWriter? logFileWriter;
 
-		public LoggingService(bool writeConsole = true, string? logFilePath = null)
+		public LogService(bool writeConsole = true, string? logFilePath = null)
 		{
 			this.logChannel = Channel.CreateUnbounded<LogEntry>(new UnboundedChannelOptions
 			{

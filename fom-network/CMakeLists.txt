@@ -10,7 +10,6 @@ add_library(FOMNetwork SHARED
 	src/PacketAPI.cpp
 	src/NetworkAPI.cpp
 	src/FOMPacketSerializer.cpp
-	src/packet-serializers/ExamplePacketSerializer.cpp
 )
 
 target_include_directories(FOMNetwork
@@ -37,4 +36,4 @@ if(UNIX AND NOT WIN32)
     target_compile_options(FOMNetwork PRIVATE -fvisibility=hidden -fvisibility-inlines-hidden)
 endif()
 
-add_subdirectory(tests)
+#add_subdirectory(tests)

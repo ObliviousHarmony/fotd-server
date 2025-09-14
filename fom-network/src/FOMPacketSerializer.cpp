@@ -5,7 +5,7 @@
  * We need to initialize the map with all of the serializers we want to be able to use.
  */
 static std::unordered_map<uint32_t, IPacketSerializer*> serializerMap = {
-	{ ID_FOM_PACKET_START, &ExamplePacketSerializer::GetInstance() }
+	//{ ID_FOM_PACKET_START, &ExamplePacketSerializer::GetInstance() }
 };
 
 bool FOMPacketSerializer::Serialize(RakNet::BitStream& bs, const FOMPacket& p) {

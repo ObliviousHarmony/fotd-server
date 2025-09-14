@@ -47,5 +47,19 @@ namespace FOMServer.Shared.Models
 		{
 			return $"[{timestamp:O}][{level}]: {Text}";
 		}
+
+		public static LogEntry Create(LogLevel level, string text)
+		{
+			return new LogEntry
+			{
+				Type = LogEntry.EntryType.Message,
+				Level = level,
+				Timestamp = DateTime.UtcNow,
+				Message = new MessageLogEntry
+				{
+					Text = text
+				}
+			};
+		}
 	}
 }

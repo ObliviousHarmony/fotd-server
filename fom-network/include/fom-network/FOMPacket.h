@@ -59,14 +59,6 @@ struct FOMPacketError {
 ASSERT_BLITTABLE(FOMPacketError);
 
 /**
- * An example packet structure.
- */
-struct ExamplePacket {
-	uint8_t exampleField1;
-};
-ASSERT_BLITTABLE(ExamplePacket);
-
-/**
  * A discriminated union representing all of FoM's network packets.
  */
 struct FOMPacket {
@@ -76,7 +68,6 @@ struct FOMPacket {
 	union
 	{
         FOMPacketError error;
-		ExamplePacket example;
 	} data;
 };
 

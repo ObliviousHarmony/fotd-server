@@ -31,7 +31,6 @@ namespace FOMServer.Shared.Models
 		public struct FOMPacketData
 		{
 			[FieldOffset(0)] public FOMPacketError error;
-			[FieldOffset(0)] public ExamplePacket example;
 		}
 
 		public PacketIdentifier ID;

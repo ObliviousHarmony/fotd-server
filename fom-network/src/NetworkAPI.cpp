@@ -9,7 +9,7 @@ int8_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures, int32
 	// List all of the structs that we have defined in the library
 	// so that they can be compared to the consumer's structs.
 	std::unordered_map<uint8_t, uint32_t> libraryMap = {
-		{0, sizeof(ExamplePacket)}
+		{ ID_FOM_PACKET_ERROR, sizeof(FOMPacketError) },
 	};
 #pragma warning(pop)
 
