@@ -13,7 +13,7 @@ namespace FOMServer.Shared.Handlers
 		/// </summary>
 		public override void Handle(NetworkAddress sender, FOMPacketError data)
 		{
-			this.logService.Enqueue(
+			logService.Write(
 				MessageLogEntry.Create(Enums.LogLevel.Error, $"Received error packet from {sender}: Packet ID={data.OffendingID} Code={data.ErrorCode}")
 			);
 		}

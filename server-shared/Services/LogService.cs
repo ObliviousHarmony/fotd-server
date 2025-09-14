@@ -10,10 +10,12 @@ namespace FOMServer.Shared.Services
 		private static readonly Counter<long> LogEnqueuedCounter =
 			Meter.CreateCounter<long>("log.entries.enqueued", unit: "entries", description: "Number of log entries enqueued");
 
-		private Thread? loggingThread;
 		private readonly Channel<LogEntry> logChannel;
 		private readonly bool writeConsole;
 		private StreamWriter? logFileWriter;
+
+		private Task? loggingTask;
+		private CancellationTokenSource? cts;
 
 		public LogService(bool writeConsole = true, string? logFilePath = null)
 		{
@@ -36,22 +38,9 @@ namespace FOMServer.Shared.Services
 		}
 
 		/// <summary>
-		/// Disposes of the service.
-		/// </summary>
-		public void Dispose()
-		{
-			Stop();
-			if (this.logFileWriter != null)
-			{
-				this.logFileWriter.Dispose();
-				this.logFileWriter = null;
-			}
-		}
-
-		/// <summary>
 		/// Enqueue a log entry for processing.
 		/// </summary>
-		public void Enqueue(LogEntry entry)
+		public void Write(LogEntry entry)
 		{
 			if (!logChannel.Writer.TryWrite(entry))
 				throw new InvalidOperationException("Logging channel is closed.");
@@ -59,52 +48,80 @@ namespace FOMServer.Shared.Services
 			LogEnqueuedCounter.Add(1, KeyValuePair.Create<string, object?>("level", entry.Level.ToString()));
 		}
 
+
 		/// <summary>
-		/// Starts the dedicated logging thread.
+		/// Starts the background logging task.
 		/// </summary>
-		public void Run()
+		/// <param name="parentToken">The parent's cancellation token.</param>
+		public Task StartAsync(CancellationToken parentToken)
 		{
-			if (this.loggingThread != null)
+			if (loggingTask != null)
+				return Task.CompletedTask;
+
+			cts = CancellationTokenSource.CreateLinkedTokenSource(parentToken);
+
+			loggingTask = Task.Factory.StartNew(
+				async () => await ProcessLoopAsync(cts.Token),
+				cts.Token,
+				TaskCreationOptions.LongRunning,
+				TaskScheduler.Default
+			).Unwrap();
+
+			return Task.CompletedTask;
+		}
+
+		/// <summary>
+		/// Stops the logging service gracefully.
+		/// </summary>
+		public async Task StopAsync()
+		{
+			if (loggingTask == null)
 				return;
 
-			loggingThread = new Thread(() =>
+			cts?.Cancel();
+			logChannel.Writer.Complete();
+
+			try
 			{
-				ProcessLoopAsync().GetAwaiter().GetResult();
-			})
+				await loggingTask;
+			}
+			catch (OperationCanceledException)
 			{
-				IsBackground = true,
-				Name = "LoggingServiceThread"
-			};
-			loggingThread.Start();
+				// Expected when cancellation occurs
+			}
+
+			loggingTask = null;
+			cts?.Dispose();
+			cts = null;
 		}
 
 		/// <summary>
 		/// Main loop that consumes log entries from the channel.
 		/// </summary>
-		private async Task ProcessLoopAsync()
+		private async Task ProcessLoopAsync(CancellationToken ct)
 		{
-			await foreach (var entry in this.logChannel.Reader.ReadAllAsync())
+			await foreach (var entry in this.logChannel.Reader.ReadAllAsync(ct))
 			{
 				var formatted = entry.ToString();
 
 				if (this.writeConsole)
 					Console.WriteLine(formatted);
+
 				if (this.logFileWriter != null)
 					await this.logFileWriter.WriteLineAsync(formatted);
 			}
 		}
 
 		/// <summary>
-		/// Stop the logging service gracefully.
+		/// Dispose of resources and stop the service if needed.
 		/// </summary>
-		public void Stop()
+		public void Dispose()
 		{
-			if (this.loggingThread == null)
-				return;
+			if (loggingTask != null)
+				StopAsync().GetAwaiter().GetResult();
 
-			this.logChannel.Writer.Complete();
-			this.loggingThread.Join();
-			this.loggingThread = null;
+			if (logFileWriter != null)
+				logFileWriter.Dispose();
 		}
 	}
 }
