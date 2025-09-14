@@ -19,11 +19,13 @@ namespace FOMServer.Shared.Services
 
 		public LogService(bool writeConsole = true, string? logFilePath = null)
 		{
-			this.logChannel = Channel.CreateUnbounded<LogEntry>(new UnboundedChannelOptions
-			{
-				SingleReader = true,
-				SingleWriter = false
-			});
+			this.logChannel = Channel.CreateUnbounded<LogEntry>(
+				new UnboundedChannelOptions
+				{
+					SingleReader = true,
+					SingleWriter = false
+				}
+			);
 
 			this.writeConsole = writeConsole;
 
@@ -40,7 +42,7 @@ namespace FOMServer.Shared.Services
 		/// <summary>
 		/// Enqueue a log entry for processing.
 		/// </summary>
-		public void Write(LogEntry entry)
+		public void Write(in LogEntry entry)
 		{
 			if (!logChannel.Writer.TryWrite(entry))
 				throw new InvalidOperationException("Logging channel is closed.");

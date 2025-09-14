@@ -7,6 +7,6 @@ namespace FOMServer.Shared.Services
 	/// </summary>
 	public interface ILogService
 	{
-		void Write(LogEntry entry);
+		void Write(in LogEntry entry);
 	}
 }

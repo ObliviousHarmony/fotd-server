@@ -14,7 +14,7 @@ namespace FOMServer.Shared.Handlers
 		/// <summary>
 		/// Handles the error packet that was received.
 		/// </summary>
-		public override void Handle(NetworkAddress sender, FOMPacketError data)
+		public override void Handle(NetworkAddress sender, in FOMPacketError data)
 		{
 			logService.Write(
 				MessageLogEntry.Create(Enums.LogLevel.Error, $"Received error packet from {sender}: Packet ID={data.OffendingID} Code={data.ErrorCode}")

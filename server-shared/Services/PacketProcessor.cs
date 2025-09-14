@@ -12,21 +12,29 @@ namespace FOMServer.Shared.Services
 	/// </summary>
 	public class PacketProcessor : IDisposable
 	{
-		private readonly Channel<FOMPacket> packetQueue = Channel.CreateUnbounded<FOMPacket>();
+		private readonly Channel<FOMPacket> packetQueue;
 		private readonly List<Task> workers = new();
 		private readonly Dictionary<PacketIdentifier, IPacketHandler> handlers;
 
 		private CancellationTokenSource? cts;
 
-		public PacketProcessor(IEnumerable<IPacketHandler> handlersFromDI)
+		public PacketProcessor(
+			IEnumerable<IPacketHandler> handlersFromDI)
 		{
-			handlers = handlersFromDI.ToDictionary(h => h.PacketID);
+			this.packetQueue = Channel.CreateUnbounded<FOMPacket>(
+				new UnboundedChannelOptions
+				{
+					SingleReader = false,
+					SingleWriter = true
+				}
+			);
+			this.handlers = handlersFromDI.ToDictionary(h => h.PacketID);
 		}
 
 		/// <summary>
 		/// Enqueue a packet for processing.
 		/// </summary>
-		public void Enqueue(FOMPacket packet)
+		public void Enqueue(in FOMPacket packet)
 		{
 			packetQueue.Writer.TryWrite(packet);
 		}

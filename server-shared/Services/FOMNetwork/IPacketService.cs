@@ -1,3 +1,4 @@
+using System.Buffers;
 using FOMServer.Shared.Models;
 
 namespace FOMServer.Shared.Services.FOMNetwork
@@ -5,25 +6,30 @@ namespace FOMServer.Shared.Services.FOMNetwork
 	public interface IPacketService
 	{
 		/// <summary>
-		/// Polls the network interface for packets and returns them in a buffer.
+		/// The maximum number of packets that can be buffered at once.
 		/// </summary>
-		/// <param name="peer">The network peer to read.</param>
-		/// <returns>A structure containing the library's packet buffer and the number of packets.</returns>
-		ReceivedPackets Receive(IntPtr peer);
+		/// <remarks>
+		/// Must match `fom-network/src/PacketAPI.cpp` MaxBufferedPackets.
+		/// </remarks>
+		public const int MaxBufferedPackets = 256;
 
 		/// <summary>
-		/// Uses the received packets to fill a buffer with deserialized FOMPacket structures.
+		/// Polls the network interface for packets, parses them, and returns them in a memory buffer.
 		/// </summary>
-		/// <param name="peer">The network peer to read.</param>
-		/// <param name="received">The packets received from a call to Receive().</param>
-		/// <param name="packetBuffer">A buffer for the number of FOMPacket instances received by the library.</param>
-		void Process(IntPtr peer, ref ReceivedPackets received, Span<FOMPacket> packetBuffer);
+		/// <remarks>
+		/// By returning a buffer we can avoid allocating new memory for the packets to be stored
+		/// in after parsing. The returned buffer must NEVER be used after the next call to
+		/// Receive, as it will be overwritten.
+		/// </remarks>
+		/// <param name="peer">The peer to receive packets using.</param>
+		/// <returns>The buffer containing the received packets.</returns>
+		Span<FOMPacket> Receive(IntPtr peer);
 
 		/// <summary>
 		/// Sends packets to the specified destinations.
 		/// </summary>
 		/// <param name="peer">The peer to send packets using.</param>
-		/// <param name="packets">An array of packets to send.</param>
-		void Send(IntPtr peer, SendPacket[] packets);
+		/// <param name="packets">A buffer of packets to send.</param>
+		void Send(IntPtr peer, Span<SendPacket> packets);
 	}
 }

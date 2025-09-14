@@ -11,7 +11,7 @@ namespace FOMServer.Shared.Services
 	{
 		PacketIdentifier PacketID { get; }
 
-		void Handle(FOMPacket packet);
+		void Handle(in FOMPacket packet);
 	}
 
 	/// <summary>
@@ -33,7 +33,7 @@ namespace FOMServer.Shared.Services
 		/// Handles an incoming packet by extracting its data and passing it to the type-specific handler.
 		/// </summary>
 		/// <param name="packet">The packet to handle.</param>
-		public void Handle(FOMPacket packet)
+		public void Handle(in FOMPacket packet)
 		{
 			Handle(
 				packet.Sender,
@@ -46,6 +46,6 @@ namespace FOMServer.Shared.Services
 		/// </summary>
 		/// <param name="sender">The sender of the packet.</param>
 		/// <param name="data">The data property from the packet.</param>
-		public abstract void Handle(NetworkAddress sender, TPacketData data);
+		public abstract void Handle(NetworkAddress sender, in TPacketData data);
 	}
 }
