@@ -3,7 +3,7 @@
 #include <fom-network/NetworkAPI.h>
 #include <fom-network/FOMPacket.h>
 
-int8_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures, int32_t count) {
+int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures, int32_t count) {
 #pragma warning(push)
 #pragma warning(disable: 4267)
 	// List all of the structs that we have defined in the library

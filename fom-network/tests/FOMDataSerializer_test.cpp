@@ -2,17 +2,17 @@
 #include <raknet/BitStream.h>
 #include <fom-network/FOMDataSerializer.h>
 
-TEST(FOMDataSerializer, DeserializeUnhandledPacketID) {
+TEST(FOMDataSerializer, ReadUnhandledPacketID) {
 	RakNet::BitStream bs;
 
 	try {
-		FOMDataSerializer::Deserialize(bs, (PacketIdentifier)ID_INTERNAL_PING);
-		FAIL() << "Expected DeserializationError";
-	} catch (const FOMDataSerializer::DeserializationError& e) {
+		FOMDataSerializer::Read(bs, (PacketIdentifier)ID_INTERNAL_PING);
+		FAIL() << "Expected ReadError";
+	} catch (const FOMDataSerializer::ReadError& e) {
 		ASSERT_EQ(e.error.offendingID, ID_INTERNAL_PING);
 		ASSERT_EQ(e.error.errorCode, FOMPacketErrorCode::ERROR_UNHANDLED_PACKET_ID);
 	} catch (...) {
-		FAIL() << "Expected DeserializationError";
+		FAIL() << "Expected ReadError";
 	}
 }
 
@@ -20,5 +20,5 @@ TEST(FOMDataSerializer, ForwardCertainRakNetID) {
 	RakNet::BitStream bs;
 
 	// Will not throw since this is a handled RakNet ID.
-	FOMDataSerializer::Deserialize(bs, (PacketIdentifier)ID_NEW_INCOMING_CONNECTION);
+	FOMDataSerializer::Read(bs, (PacketIdentifier)ID_NEW_INCOMING_CONNECTION);
 }

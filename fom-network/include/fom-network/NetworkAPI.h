@@ -31,13 +31,13 @@ extern "C" {
 	 * Validates the consumer's packet structures to make sure
 	 * they are compatible with the network API.
 	 *
-	 * @return int8_t The status code.
+	 * @return int32_t The status code.
 	 * @retval 0 Success.
 	 * @retval -1 Mismatched struct count.
 	 * @retval -2 Library missing struct.
 	 * @retval -3 Mismatched struct size.
 	 */
-	FOM_API int8_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures, int32_t count);
+	FOM_API int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures, int32_t count);
 
 #ifdef __cplusplus
 }

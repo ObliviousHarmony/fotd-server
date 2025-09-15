@@ -31,6 +31,6 @@ namespace FOMServer.Shared.Services.FOMNetwork
 		}
 
 		[LibraryImport("FOMNetwork")]
-		private static partial sbyte FOMNetwork_ValidatePacketStructs(PacketStructure[] structures, int count);
+		private static partial int FOMNetwork_ValidatePacketStructs(PacketStructure[] structures, int count);
 	}
 }

@@ -48,7 +48,7 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
 	return received;
 }
 
-int8_t FOMNetwork_ProcessPackets(RakPeerInterface* peer, const ReceivedPackets received, FOMPacket* packetBuffer, int32_t packetBufferLen) {
+int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer, const ReceivedPackets received, FOMPacket* packetBuffer, int32_t packetBufferLen) {
 	if (!peer || !received.packets || received.count == 0) {
 		return 0;
 	}
@@ -68,7 +68,15 @@ int8_t FOMNetwork_ProcessPackets(RakPeerInterface* peer, const ReceivedPackets r
 		// Deserialize the bitstream into a packet structure that can be returned to the consumer.
 		FOMPacket& fp = packetBuffer[i]; // Don't allocate, just use the provided buffer.
 		bs.Read(fp.ID); // First byte is always the packet ID.
-		fp.data = FOMDataSerializer::Deserialize(bs, fp.ID);
+
+		try {
+			fp.data = FOMDataSerializer::Read(bs, fp.ID);
+		} catch (const FOMDataSerializer::ReadError& e) {
+			// Make sure that read errors are communicated to the consumer.
+			fp.ID = ID_FOM_PACKET_ERROR;
+			fp.data.error = e.error;
+		}
+
 		fp.sender.binaryAddress = p->systemAddress.binaryAddress;
 		fp.sender.port = p->systemAddress.port;
 
@@ -82,18 +90,14 @@ int8_t FOMNetwork_ProcessPackets(RakPeerInterface* peer, const ReceivedPackets r
 	return 0;
 }
 
-void FOMNetwork_Send(RakPeerInterface* peer, const SendPacket* packets, int32_t count) {
+int32_t FOMNetwork_Send(RakPeerInterface* peer, const SendPacket* packets, int32_t count) {
 	if (!peer || !packets || count == 0) {
-		return;
+		return -1;
 	}
 
+	int32_t packetsSent = 0;
 	for (int32_t i = 0; i < count; i++) {
 		const SendPacket& s = packets[i];
-
-		// Make sure that we can't send RakNet packets.
-		if (s.id < ID_FOM_PACKET_START) {
-			continue;
-		}
 
 		SystemAddress address = UNASSIGNED_SYSTEM_ADDRESS;
 		if (s.networkAddress.binaryAddress != 0 ) {
@@ -103,14 +107,17 @@ void FOMNetwork_Send(RakPeerInterface* peer, const SendPacket* packets, int32_t 
 
 		RakNet::BitStream bs;
 		bs.Write(s.id);
-		if (!FOMDataSerializer::Serialize(bs, s.id, s.data)) {
+		if (!FOMDataSerializer::Write(bs, s.id, s.data)) {
 			continue;
 		}
 
+		packetsSent++;
 		if (s.broadcast) {
 			peer->Send(&bs, (PacketPriority)s.priority, (PacketReliability)s.reliability, s.orderingChannel, address, s.broadcast);
 		} else {
 			peer->Send(&bs, (PacketPriority)s.priority, (PacketReliability)s.reliability, s.orderingChannel, address, s.broadcast);
 		}
 	}
+
+	return packetsSent;
 }

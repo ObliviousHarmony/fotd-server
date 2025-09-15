@@ -56,9 +56,9 @@ namespace FOMServer.Shared.Services.FOMNetwork
 		private static partial ReceivedPackets FOMNetwork_ReceivePackets(IntPtr peer);
 
 		[LibraryImport("FOMNetwork")]
-		private static unsafe partial sbyte FOMNetwork_ProcessPackets(IntPtr peer, ReceivedPackets received, FOMPacket* packetBuffer, int packetBufferLen);
+		private static unsafe partial int FOMNetwork_ProcessPackets(IntPtr peer, ReceivedPackets received, FOMPacket* packetBuffer, int packetBufferLen);
 
 		[LibraryImport("FOMNetwork")]
-		private static unsafe partial void FOMNetwork_Send(IntPtr peer, SendPacket* packets, int count);
+		private static unsafe partial int FOMNetwork_Send(IntPtr peer, SendPacket* packets, int count);
 	}
 }
