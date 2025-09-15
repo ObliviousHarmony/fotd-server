@@ -2,6 +2,7 @@ using Microsoft.Extensions.DependencyInjection;
 using FOMServer.Shared.Extensions;
 using FOMServer.Shared.Services;
 using FOMServer.Master.Services;
+using FOMServer.Master.Handlers;
 
 namespace FOMServer.Master
 {
@@ -16,8 +17,16 @@ namespace FOMServer.Master
 			services.AddSingleton<ServerNetworkManager>();
 			services.AddSingleton<ISendPackets, ServerNetworkManager>(sp => sp.GetRequiredService<ServerNetworkManager>());
 
+			AddPacketHandlers(services);
+
 			services.AddSingleton<Server>();
 			return services.BuildServiceProvider();
+		}
+
+		private static ServiceCollection AddPacketHandlers(this ServiceCollection services)
+		{
+			services.AddSingleton<IPacketHandler, LoginRequestPacketHandler>();
+			return services;
 		}
 	}
 }

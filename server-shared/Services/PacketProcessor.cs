@@ -14,17 +14,23 @@ namespace FOMServer.Shared.Services
 	/// </summary>
 	public class PacketProcessor : IDisposable
 	{
-		private readonly Channel<FOMPacket> packetQueue;
-		private readonly List<Task> workers = new();
+		private readonly ILogService logService;
 		private readonly RakNetPacketHandler rakNetPacketHandler;
 		private readonly Dictionary<PacketIdentifier, IPacketHandler> handlers;
+		private readonly Channel<FOMPacket> packetQueue;
+		private readonly List<Task> workers = new();
 
 		private CancellationTokenSource? cts;
 
 		public PacketProcessor(
+			ILogService logService,
 			RakNetPacketHandler rakNetPacketHandler,
 			IEnumerable<IPacketHandler> handlersFromDI
 		) {
+			this.logService = logService;
+			this.rakNetPacketHandler = rakNetPacketHandler;
+			this.handlers = handlersFromDI.ToDictionary(h => h.PacketID);
+
 			this.packetQueue = Channel.CreateUnbounded<FOMPacket>(
 				new UnboundedChannelOptions
 				{
@@ -32,8 +38,6 @@ namespace FOMServer.Shared.Services
 					SingleWriter = true
 				}
 			);
-			this.rakNetPacketHandler = rakNetPacketHandler;
-			this.handlers = handlersFromDI.ToDictionary(h => h.PacketID);
 		}
 
 		/// <summary>
@@ -163,6 +167,7 @@ namespace FOMServer.Shared.Services
 		/// <param name="packet">The packet to handle.</param>
 		private void OnUnhandledPacket(FOMPacket packet)
 		{
+			this.logService.WriteMessage(LogLevel.Error, $"No handler for packet {packet.ID} from {packet.Sender}");
 		}
 
 		public void Dispose()
