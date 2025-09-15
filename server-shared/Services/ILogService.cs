@@ -1,3 +1,4 @@
+using FOMServer.Shared.Enums;
 using FOMServer.Shared.Models;
 
 namespace FOMServer.Shared.Services
@@ -8,5 +9,6 @@ namespace FOMServer.Shared.Services
 	public interface ILogService
 	{
 		void Write(in LogEntry entry);
+		void WriteMessage(LogLevel level, string message);
 	}
 }

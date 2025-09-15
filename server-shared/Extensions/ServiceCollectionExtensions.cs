@@ -1,4 +1,3 @@
-using FOMServer.Shared.Factories;
 using FOMServer.Shared.Services;
 using FOMServer.Shared.Services.FOMNetwork;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,7 +17,6 @@ namespace FOMServer.Shared.Extensions
 			// Shared Services
 			services.AddSingleton<ILogService, LogService>();
 			services.AddSingleton<PacketProcessor>();
-			services.AddSingleton<NetworkManagerFactory>();
 		}
 	}
 }

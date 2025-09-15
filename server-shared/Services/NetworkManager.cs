@@ -8,7 +8,7 @@ namespace FOMServer.Shared.Services
     /// <summary>
 	/// Responsible for sending and receiving packets.
 	/// </summary>
-	public class NetworkManager : ISendPackets, IClientSendPackets, IDisposable
+	public abstract class NetworkManager : ISendPackets, IClientSendPackets, IDisposable
 	{
 		/// <summary>
 		/// A buffer for holding packets to send via the API.
@@ -20,8 +20,8 @@ namespace FOMServer.Shared.Services
 		/// </remarks>
 		private static readonly SendPacket[] SendBuffer = new SendPacket[IPacketService.MaxBufferedPackets];
 
-		private readonly IntPtr peer;
-		private readonly Action<IntPtr> releasePeer;
+		protected IntPtr peer;
+		protected readonly ILogService logService;
 		private readonly IPacketService packetService;
 		private readonly PacketProcessor packetProcessor;
 		private readonly Channel<SendPacket> sendQueue;
@@ -29,13 +29,12 @@ namespace FOMServer.Shared.Services
 		private CancellationTokenSource? cts;
 
 		public NetworkManager(
-			IntPtr peer,
-			Action<IntPtr> releasePeer,
+			ILogService logService,
 			IPacketService packetService,
 			PacketProcessor packetProcessor
 		) {
-			this.peer = peer;
-			this.releasePeer = releasePeer;
+			this.peer = IntPtr.Zero;
+			this.logService = logService;
 			this.packetService = packetService;
 			this.packetProcessor = packetProcessor;
 
@@ -47,50 +46,22 @@ namespace FOMServer.Shared.Services
 			});
 		}
 
-		/// <inheritdoc />
-		public void Send(
-			PacketIdentifier id,
-			FOMData data,
-			NetworkAddress destination,
-			PacketPriority priority,
-			PacketReliability reliability,
-			byte orderingChannel = 0
-		) {
-			SendPacket packet = new()
-			{
-				ID = id,
-				Data = data,
-				NetworkAddress = destination,
-				Priority = priority,
-				Reliability = reliability,
-				OrderingChannel = orderingChannel,
-				Broadcast = 0
-			};
-
-			sendQueue.Writer.TryWrite(packet);
+		/// <summary>
+		/// Starts the peer used by the network manager.
+		/// </summary>
+		public virtual void StartPeer()
+		{
+			if (peer != IntPtr.Zero)
+				throw new InvalidOperationException("Peer is already initialized.");
 		}
 
-		/// <inheritdoc />
-		public void Broadcast(
-			PacketIdentifier id,
-			FOMData data,
-			NetworkAddress excludedAddress,
-			PacketPriority priority,
-			PacketReliability reliability,
-			byte orderingChannel = 0
-		) {
-			SendPacket packet = new()
-			{
-				ID = id,
-				Data = data,
-				NetworkAddress = excludedAddress,
-				Priority = priority,
-				Reliability = reliability,
-				OrderingChannel = orderingChannel,
-				Broadcast = 1
-			};
-
-			sendQueue.Writer.TryWrite(packet);
+		/// <summary>
+		/// Shuts down the peer used by the network manager.
+		/// </summary>
+		public virtual void ShutdownPeer()
+		{
+			if (peer == IntPtr.Zero)
+				throw new InvalidOperationException("Peer is not initialized.");
 		}
 
 		/// <summary>
@@ -100,6 +71,9 @@ namespace FOMServer.Shared.Services
 		{
 			if (networkTask != null)
 				return;
+
+			if (peer == IntPtr.Zero)
+				throw new InvalidOperationException("Peer is not initialized.");
 
 			cts = CancellationTokenSource.CreateLinkedTokenSource(parentToken);
 
@@ -156,10 +130,67 @@ namespace FOMServer.Shared.Services
 			}
 		}
 
+		/// <inheritdoc />
+		public void Send(
+			PacketIdentifier id,
+			FOMData data,
+			NetworkAddress destination,
+			PacketPriority priority,
+			PacketReliability reliability,
+			byte orderingChannel = 0
+		) {
+			if (peer == IntPtr.Zero)
+				throw new InvalidOperationException("Peer is not initialized.");
+
+			SendPacket packet = new()
+			{
+				ID = id,
+				Data = data,
+				NetworkAddress = destination,
+				Priority = priority,
+				Reliability = reliability,
+				OrderingChannel = orderingChannel,
+				Broadcast = 0
+			};
+
+			sendQueue.Writer.TryWrite(packet);
+		}
+
+		/// <inheritdoc />
+		public void Broadcast(
+			PacketIdentifier id,
+			FOMData data,
+			NetworkAddress excludedAddress,
+			PacketPriority priority,
+			PacketReliability reliability,
+			byte orderingChannel = 0
+		) {
+			if (peer == IntPtr.Zero)
+				throw new InvalidOperationException("Peer is not initialized.");
+
+			SendPacket packet = new()
+			{
+				ID = id,
+				Data = data,
+				NetworkAddress = excludedAddress,
+				Priority = priority,
+				Reliability = reliability,
+				OrderingChannel = orderingChannel,
+				Broadcast = 1
+			};
+
+			sendQueue.Writer.TryWrite(packet);
+		}
+
 		public void Dispose()
 		{
 			StopAsync().GetAwaiter().GetResult();
-			releasePeer(peer);
+
+			if (peer != IntPtr.Zero)
+			{
+				ShutdownPeer();
+				peer = IntPtr.Zero;
+			}
 		}
 	}
 }

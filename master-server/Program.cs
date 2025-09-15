@@ -1,10 +1,13 @@
-using System;
-using System.Runtime.InteropServices;
+using FOMServer.Master;
+using Microsoft.Extensions.DependencyInjection;
 
 class Program
 {
 	static void Main(string[] args)
 	{
-		Console.WriteLine("Hello World - Master Server");
+		IServiceProvider serviceProvider = CompositionRoot.BuildContainer();
+
+		Server server = serviceProvider.GetRequiredService<Server>();
+		server.Run();
 	}
 }

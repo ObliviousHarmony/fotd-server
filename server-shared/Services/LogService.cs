@@ -1,3 +1,4 @@
+using FOMServer.Shared.Enums;
 using FOMServer.Shared.Models;
 using System.Diagnostics.Metrics;
 using System.Threading.Channels;
@@ -50,6 +51,21 @@ namespace FOMServer.Shared.Services
 			LogEnqueuedCounter.Add(1, KeyValuePair.Create<string, object?>("level", entry.Level.ToString()));
 		}
 
+	/// <summary>
+	/// Write a log message with the specified level.
+	/// </summary>
+	/// <remarks>
+	/// Please keep in mind that this method allocates a new string. This matters
+	/// when doing things like string concatenation because the message might be
+	/// discarded based on the log level. In general, prefer using custom
+	/// LogEntry instances that defer message construction until needed.
+	/// </remarks>
+	/// <param name="level">The log level to use for the message.</param>
+	/// <param name="message">The message to write.</param>
+		public void WriteMessage(LogLevel level, string message)
+		{
+			Write(MessageLogEntry.Create(level, message));
+		}
 
 		/// <summary>
 		/// Starts the background logging task.
