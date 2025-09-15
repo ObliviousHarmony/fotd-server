@@ -68,7 +68,7 @@ int8_t FOMNetwork_ProcessPackets(RakPeerInterface* peer, const ReceivedPackets r
 		// Deserialize the bitstream into a packet structure that can be returned to the consumer.
 		FOMPacket& fp = packetBuffer[i]; // Don't allocate, just use the provided buffer.
 		bs.Read(fp.ID); // First byte is always the packet ID.
-		fp.data = FOMDataSerializer::Deserialize(bs, fp.ID);
+		fp.data = FOMDataSerializer::Read(bs, fp.ID);
 		fp.sender.binaryAddress = p->systemAddress.binaryAddress;
 		fp.sender.port = p->systemAddress.port;
 
@@ -103,7 +103,7 @@ void FOMNetwork_Send(RakPeerInterface* peer, const SendPacket* packets, int32_t 
 
 		RakNet::BitStream bs;
 		bs.Write(s.id);
-		if (!FOMDataSerializer::Serialize(bs, s.id, s.data)) {
+		if (!FOMDataSerializer::Write(bs, s.id, s.data)) {
 			continue;
 		}
 

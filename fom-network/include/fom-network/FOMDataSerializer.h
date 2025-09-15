@@ -12,43 +12,53 @@
  */
 class FOM_API FOMDataSerializer {
 public:
-	class DeserializationError : public std::runtime_error {
+	class ReadError : public std::runtime_error {
 	public:
 		FOMPacketError error;
-		
-		DeserializationError(FOMPacketError data)
-			: std::runtime_error("An error occurred during deserialization."),
+
+		ReadError(FOMPacketError data)
+			: std::runtime_error("An error occurred during reading."),
 			error(data)
 		{}
 	};
 
 	/**
-	* Serializes packet data into a bitstream buffer.
+	* Writes packet data into a bitstream buffer.
 	*
-	* @param data The packet data to serialize.
+	* @param bs The bitstream to write to.
+	* @param id The packet ID to write.
+	* @param data The packet data to write.
 	*/
-	static bool Serialize(RakNet::BitStream& bs, const PacketIdentifier id, const FOMData& data);
+	static bool Write(RakNet::BitStream& bs, const PacketIdentifier id, const FOMData& data);
 
 	/**
-	* Deserializes a bitstream buffer into packet data.
+	* Reads a bitstream buffer into packet data.
 	*
-	* @param bitstream The bitstream to deserialize.
+	* @param bs The bitstream to read from.
+	* @param id The packet ID to read.
 	*/
-	static FOMData Deserialize(RakNet::BitStream& bitstream, const PacketIdentifier id);
+	static FOMData Read(RakNet::BitStream& bs, const PacketIdentifier id);
 
 private:
 
 	/**
-	* Fetches the serializer for a given packet ID.
+	* Fetches the writer for a given packet ID.
 	*
-	* @param id The packet ID to fetch the serializer for.
+	* @param id The packet ID to fetch the writer for.
 	*/
-	static const IPacketSerializer* GetSerializer(PacketIdentifier id);
+	static const IWriter* GetWriter(PacketIdentifier id);
+
+	/**
+	* Fetches the reader for a given packet ID.
+	*
+	* @param id The packet ID to fetch the reader for.
+	*/
+	static const IReader* GetReader(PacketIdentifier id);
 
 	/**
 	* Checks to see if the given packet ID is one of the RakNet packets we
 	* want to forward the ID of to the consumer.
-	* 
+	*
 	* @param id The packet ID to check.
 	*/
 	static const bool ShouldForwardRakNetPacket(PacketIdentifier id) {
