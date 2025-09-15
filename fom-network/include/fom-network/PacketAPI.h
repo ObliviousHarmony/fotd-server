@@ -80,11 +80,11 @@ extern "C" {
 	* @param received A structure containing a buffer of received packets and the number of packets in
 	* @param packetBuffer A buffer to be filled with deserialized packet structures.
 	* @param packetBufferLen The number of packets in the packet buffer.
-	* @return int8_t The status code.
+	* @return int32_t The status code.
 	* @retval 0 Success.
 	* @retval -1 The packetBufferLen does not match the number of received packets to process.
 	*/
-	FOM_API int8_t FOMNetwork_ProcessPackets(RakPeerInterface* peer, const ReceivedPackets received, FOMPacket* packetBuffer, int32_t packetBufferLen);
+	FOM_API int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer, const ReceivedPackets received, FOMPacket* packetBuffer, int32_t packetBufferLen);
 
 	/**
 	* Sends a buffer of packet structures through the network interface.
@@ -92,8 +92,9 @@ extern "C" {
 	* @param peer A pointer to the network interface.
 	* @param packets A buffer of packet structures to serialize and send.
 	* @param count The number of packets in the buffer.
+	* @return The number of packets sent, -1 on error.
 	*/
-	FOM_API void FOMNetwork_Send(RakPeerInterface* peer, const SendPacket* packets, int32_t count);
+	FOM_API int32_t FOMNetwork_Send(RakPeerInterface* peer, const SendPacket* packets, int32_t count);
 
 #ifdef __cplusplus
 }
