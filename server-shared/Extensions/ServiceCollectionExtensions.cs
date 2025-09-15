@@ -18,8 +18,11 @@ namespace FOMServer.Shared.Extensions
 			// Shared Services
 			services.AddSingleton<LogService>();
 			services.AddSingleton<ILogService>(sp => sp.GetRequiredService<LogService>());
-			services.AddSingleton<RakNetPacketHandler>();
 			services.AddSingleton<PacketProcessor>();
+
+			// Packet Handlers
+			services.AddSingleton<RakNetPacketHandler>();
+			services.AddSingleton<IPacketHandler, FOMPacketErrorHandler>();
 		}
 	}
 }

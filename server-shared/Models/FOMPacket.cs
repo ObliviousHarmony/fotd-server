@@ -11,6 +11,13 @@ using System.Runtime.InteropServices;
  * - Match the C++ structure's data type sizes and layout EXACTLY.
  * - Use only blittable types (no bools, no strings, no arrays, no reference types)
  * - Be marked with `[StructLayout(LayoutKind.Sequential, Pack = 1)]` to ensure no padding is added.
+ * 
+ * For every new packet, you must also update:
+ * 
+ * - Packets/{PacketName}.cs: Requires a new struct definition.
+ * - Packet struct added to the FOMData union below.
+ * - Extensions/FOMPacketExtensions.cs: Requires a new FOMData type case.
+ * - Server-Specific Handlers/<PacketName>Handler.cs: Requires a new packet handler implementation. Bind to IPacketHandler in server-specific CompositionRoot.cs.
  */
 namespace FOMServer.Shared.Models
 {
@@ -25,6 +32,7 @@ namespace FOMServer.Shared.Models
 	public struct FOMData
 	{
 		[FieldOffset(0)] public FOMPacketError error;
+		[FieldOffset(0)] public LoginRequest loginRequest;
 	}
 
 	/// <summary>

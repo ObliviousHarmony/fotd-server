@@ -16,6 +16,8 @@ namespace FOMServer.Shared.Extensions
 			{
 				case PacketIdentifier.ID_FOM_PACKET_ERROR when typeof(TPacket) == typeof(FOMPacketError):
 					return (TPacket)(object)packet.Data.error;
+				case PacketIdentifier.ID_LOGIN_REQUEST when typeof(TPacket) == typeof(LoginRequest):
+					return (TPacket)(object)packet.Data.loginRequest;
 
 				default:
 					throw new InvalidOperationException(
