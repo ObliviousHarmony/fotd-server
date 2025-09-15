@@ -12,17 +12,17 @@ namespace FOMServer.Shared.Enums
 		ID_FOM_PACKET_ERROR = 0,
 
 		// These are the RakNet packet IDs that cross the interop boundary.
-		ID_CONNECTION_REQUEST_ACCEPTED = 14,
-		ID_CONNECTION_ATTEMPT_FAILED = 15,
-		ID_ALREADY_CONNECTED = 16,
-		ID_NEW_INCOMING_CONNECTION = 17,
-		ID_NO_FREE_INCOMING_CONNECTIONS = 18,
-		ID_DISCONNECTION_NOTIFICATION = 19,
-		ID_CONNECTION_LOST = 20,
-		ID_RSA_PUBLIC_KEY_MISMATCH = 21,
-		ID_CONNECTION_BANNED = 22,
-		ID_INVALID_PASSWORD = 23,
-		ID_MODIFIED_PACKET = 24,
+		ID_CONNECTION_REQUEST_ACCEPTED = 14, // Connection request to the server has been accepted.
+		ID_CONNECTION_ATTEMPT_FAILED = 15, // Could not connect to the server.
+		ID_ALREADY_CONNECTED = 16, // Attempted to connect to a server we're already connected to.
+		ID_NEW_INCOMING_CONNECTION = 17, // Connection has been made successfully.
+		ID_NO_FREE_INCOMING_CONNECTIONS = 18, // Server is not accepting new connections.
+		ID_DISCONNECTION_NOTIFICATION = 19, // The connected system has shut down.
+		ID_CONNECTION_LOST = 20, // The connection has been closed.
+		ID_RSA_PUBLIC_KEY_MISMATCH = 21, // Current RSA public key does not match what the destination expected.
+		ID_CONNECTION_BANNED = 22, // Client is banned by the server.
+		ID_INVALID_PASSWORD = 23, // Server has refused the client's password.
+		ID_MODIFIED_PACKET = 24, // Packet has been tampered with in transit.
 
 		ID_FOM_PACKET_START = 104,
 		// 104 ( = ID_FOM_PACKET_START)

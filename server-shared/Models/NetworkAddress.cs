@@ -9,6 +9,12 @@ namespace FOMServer.Shared.Models
 	public struct NetworkAddress
 	{
 		public uint Address;
-		public short Port;
+		public ushort Port;
+
+		public override readonly string ToString()
+		{
+			string ipString = string.Join(".", BitConverter.GetBytes(Address));
+			return $"{ipString}:{Port}";
+		}
 	}
 }

@@ -1,3 +1,4 @@
+using FOMServer.Shared.Handlers;
 using FOMServer.Shared.Services;
 using FOMServer.Shared.Services.FOMNetwork;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ namespace FOMServer.Shared.Extensions
 			// Shared Services
 			services.AddSingleton<LogService>();
 			services.AddSingleton<ILogService>(sp => sp.GetRequiredService<LogService>());
+			services.AddSingleton<RakNetPacketHandler>();
 			services.AddSingleton<PacketProcessor>();
 		}
 	}

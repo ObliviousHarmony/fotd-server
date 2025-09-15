@@ -2,6 +2,7 @@ using FOMServer.Shared.Enums;
 using FOMServer.Shared.Models;
 using FOMServer.Shared.Packets;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 
 namespace FOMServer.Shared.Services.FOMNetwork
 {
@@ -10,15 +11,26 @@ namespace FOMServer.Shared.Services.FOMNetwork
 		/// <inheritdoc />
 		public void ValidateFOMPacket()
 		{
+			// Ensure all of the API communication structs are blittable.
+			if (!IsBlittable<NetworkAddress>())
+				throw new Exception("The NetworkAddress struct is not blittable.");
+			if (!IsBlittable<PacketStructure>())
+				throw new Exception("The PacketStructure struct is not blittable.");
+			if (!IsBlittable<ReceivedPackets>())
+				throw new Exception("The ReceivedPackets struct is not blittable.");
+			if (!IsBlittable<SendPacket>())
+				throw new Exception("The SendPacket struct is not blittable.");
+
+			// Ensure all packet data structs are blittable.
 			PacketStructure[] structures;
-			try
+			structures = [
+				new PacketStructure { ID = PacketIdentifier.ID_FOM_PACKET_ERROR, Size = Marshal.SizeOf<FOMPacketError>() },
+
+			];
+			foreach (PacketStructure s in structures)
 			{
-				structures = [
-					new PacketStructure { ID = PacketIdentifier.ID_FOM_PACKET_ERROR, Size = Marshal.SizeOf<FOMPacketError>() },
-				];
-			} catch (Exception ex)
-			{
-				throw new Exception("Failed to calculate struct sizes for FOMPacket structures. Ensure all FOMPacket structs are blittable.", ex);
+				if (!IsBlittable<FOMPacketError>())
+					throw new Exception($"The data struct for packet ID {s.ID} is not blittable.");
 			}
 
 			var ret = FOMNetwork_ValidatePacketStructs(structures, structures.Length);
@@ -28,6 +40,21 @@ namespace FOMServer.Shared.Services.FOMNetwork
 				throw new Exception("The network library was asked to validate a struct that does not exist.");
 			else if (ret == -3)
 				throw new Exception("One or more of the provided structs does not match the expected size.");
+		}
+
+		private static bool IsBlittable<T>() where T : struct
+		{
+			try
+			{
+				// An exception will be thrown if the type is not blittable.
+				var handle = GCHandle.Alloc(default(T), GCHandleType.Pinned);
+				handle.Free();
+				return true;
+			}
+			catch (ArgumentException)
+			{
+				return false;
+			}
 		}
 
 		[LibraryImport("FOMNetwork")]

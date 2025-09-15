@@ -5,9 +5,9 @@ using FOMServer.Shared.Services;
 
 namespace FOMServer.Shared.Handlers
 {
-	public class ErrorPacketHandler : PacketHandler<FOMPacketError>
+	public class FOMPacketErrorHandler : PacketHandler<FOMPacketError>
 	{
-		public ErrorPacketHandler(ILogService logService) : base(logService) {}
+		public FOMPacketErrorHandler(ILogService logService) : base(logService) {}
 
 		public override PacketIdentifier PacketID => PacketIdentifier.ID_FOM_PACKET_ERROR;
 

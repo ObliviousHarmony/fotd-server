@@ -26,7 +26,7 @@ namespace FOMServer.Shared.Models
 		/// <summary>
 		/// Formats the log entry as a string for output.
 		/// </summary>
-		public override string ToString()
+		public override readonly string ToString()
 		{
 			return Type switch
 			{

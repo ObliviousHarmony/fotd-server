@@ -22,19 +22,19 @@ namespace FOMServer.Shared.Services.FOMNetwork
 		public Span<FOMPacket> Receive(IntPtr peer)
 		{
 			ReceivedPackets received = FOMNetwork_ReceivePackets(peer);
-            if (received.Count == 0)
-                return Span<FOMPacket>.Empty;
+			if (received.Count == 0)
+				return Span<FOMPacket>.Empty;
 
-            unsafe
-            {
-                fixed (FOMPacket* bufferPtr = ReceiveBuffer)
-                {
-                    if (FOMNetwork_ProcessPackets(peer, received, bufferPtr, received.Count) != 0)
-                        return Span<FOMPacket>.Empty;
-                }
-            }
+			unsafe
+			{
+				fixed (FOMPacket* bufferPtr = ReceiveBuffer)
+				{
+					if (FOMNetwork_ProcessPackets(peer, received, bufferPtr, received.Count) != 0)
+						return Span<FOMPacket>.Empty;
+				}
+			}
 
-            return ReceiveBuffer.AsSpan(0, received.Count);
+			return ReceiveBuffer.AsSpan(0, received.Count);
 		}
 
 		/// <inheritdoc />
@@ -43,13 +43,13 @@ namespace FOMServer.Shared.Services.FOMNetwork
 			if (packets.IsEmpty)
 				return;
 
-            unsafe
-            {
-                fixed (SendPacket* ptr = packets)
-                {
-                    FOMNetwork_Send(peer, ptr, packets.Length);
-                }
-            }
+			unsafe
+			{
+				fixed (SendPacket* ptr = packets)
+				{
+					FOMNetwork_Send(peer, ptr, packets.Length);
+				}
+			}
 		}
 
 		[LibraryImport("FOMNetwork")]
