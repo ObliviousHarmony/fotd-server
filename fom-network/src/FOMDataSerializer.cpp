@@ -8,7 +8,7 @@ static std::unordered_map<uint32_t, IWriter*> writerMap = {
 	//{ ID_FOM_PACKET_START, &ExamplePacketSerializer::GetInstance() }
 };
 static std::unordered_map<uint32_t, IReader*> readerMap = {
-	//{ ID_FOM_PACKET_START, &ExamplePacketSerializer::GetInstance() }
+	{ ID_LOGIN_REQUEST, &LoginRequestPacketSerializer::GetInstance() }
 };
 
 bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id, const FOMData& data) {

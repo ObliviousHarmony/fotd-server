@@ -1,5 +1,4 @@
 #include <vector>
-#include <iostream>
 #include <fom-network/PacketAPI.h>
 #include <fom-network/FOMDataSerializer.h>
 

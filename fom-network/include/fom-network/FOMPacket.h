@@ -55,12 +55,20 @@ struct FOMPacketError {
 };
 ASSERT_BLITTABLE(FOMPacketError);
 
+// ID_LOGIN_REQUEST
+struct LoginRequestPacket {
+	char username[19];
+	uint16_t clientVersion;
+};
+ASSERT_BLITTABLE(LoginRequestPacket);
+
 /**
  * A union representing all of FoM's packet data types.
  */
 struct FOMData {
 	union {
 		FOMPacketError error;
+		LoginRequestPacket loginRequest;
 	};
 };
 
