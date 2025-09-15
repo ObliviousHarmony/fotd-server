@@ -23,7 +23,7 @@ namespace FOMServer.Shared.Services
 		/// <summary>
 		/// Broadcast a packet to all connected clients.
 		/// </summary>
-        void Broadcast(
+		void Broadcast(
 			PacketIdentifier id,
 			FOMData data,
 			NetworkAddress excludedAddress,
@@ -31,5 +31,12 @@ namespace FOMServer.Shared.Services
 			PacketReliability reliability,
 			byte orderingChannel = 0
 		);
-    }
+	}
+
+	/// <summary>
+	/// An alias for ISendPackets that allows for injecting a client peer.
+	/// </summary>
+	public interface IClientSendPackets : ISendPackets
+	{
+	}
 }

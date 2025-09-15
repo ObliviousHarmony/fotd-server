@@ -8,7 +8,7 @@ namespace FOMServer.Shared.Services
     /// <summary>
 	/// Responsible for sending and receiving packets.
 	/// </summary>
-	public class NetworkManager : ISendPackets, IDisposable
+	public class NetworkManager : ISendPackets, IClientSendPackets, IDisposable
 	{
 		/// <summary>
 		/// A buffer for holding packets to send via the API.
@@ -20,14 +20,22 @@ namespace FOMServer.Shared.Services
 		/// </remarks>
 		private static readonly SendPacket[] SendBuffer = new SendPacket[IPacketService.MaxBufferedPackets];
 
+		private readonly IntPtr peer;
+		private readonly Action<IntPtr> releasePeer;
 		private readonly IPacketService packetService;
 		private readonly PacketProcessor packetProcessor;
 		private readonly Channel<SendPacket> sendQueue;
 		private Task? networkTask;
 		private CancellationTokenSource? cts;
 
-		public NetworkManager(IPacketService packetService, PacketProcessor packetProcessor)
-		{
+		public NetworkManager(
+			IntPtr peer,
+			Action<IntPtr> releasePeer,
+			IPacketService packetService,
+			PacketProcessor packetProcessor
+		) {
+			this.peer = peer;
+			this.releasePeer = releasePeer;
 			this.packetService = packetService;
 			this.packetProcessor = packetProcessor;
 
@@ -39,14 +47,15 @@ namespace FOMServer.Shared.Services
 			});
 		}
 
+		/// <inheritdoc />
 		public void Send(
 			PacketIdentifier id,
 			FOMData data,
 			NetworkAddress destination,
 			PacketPriority priority,
 			PacketReliability reliability,
-			byte orderingChannel = 0)
-		{
+			byte orderingChannel = 0
+		) {
 			SendPacket packet = new()
 			{
 				ID = id,
@@ -61,14 +70,15 @@ namespace FOMServer.Shared.Services
 			sendQueue.Writer.TryWrite(packet);
 		}
 
+		/// <inheritdoc />
 		public void Broadcast(
 			PacketIdentifier id,
 			FOMData data,
 			NetworkAddress excludedAddress,
 			PacketPriority priority,
 			PacketReliability reliability,
-			byte orderingChannel = 0)
-		{
+			byte orderingChannel = 0
+		) {
 			SendPacket packet = new()
 			{
 				ID = id,
@@ -127,9 +137,6 @@ namespace FOMServer.Shared.Services
 
 		private async Task NetworkLoopAsync(CancellationToken ct)
 		{
-			// Temporary variable to allow for building!
-			IntPtr peer = IntPtr.Zero;
-
 			while (!ct.IsCancellationRequested)
 			{
 				// Avoid starving packet receiving with sending by
@@ -152,6 +159,7 @@ namespace FOMServer.Shared.Services
 		public void Dispose()
 		{
 			StopAsync().GetAwaiter().GetResult();
+			releasePeer(peer);
 		}
 	}
 }
