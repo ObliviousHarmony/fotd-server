@@ -44,12 +44,11 @@ namespace FOMServer.Master
 			{
 				this.logService.WriteMessage(LogLevel.Info, "Stopping Server...");
 
-				e.Cancel = true; // don't kill process immediately
+				e.Cancel = true;
 				cts.Cancel();
 			};
 			AppDomain.CurrentDomain.ProcessExit += (sender, e) =>
 			{
-				this.logService.WriteMessage(LogLevel.Info, "Stopping Server...");
 				cts.Cancel();
 			};
 

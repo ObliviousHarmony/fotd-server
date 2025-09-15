@@ -15,7 +15,8 @@ namespace FOMServer.Shared.Extensions
 			services.AddSingleton<IPacketService, PacketService>();
 
 			// Shared Services
-			services.AddSingleton<ILogService, LogService>();
+			services.AddSingleton<LogService>();
+			services.AddSingleton<ILogService>(sp => sp.GetRequiredService<LogService>());
 			services.AddSingleton<PacketProcessor>();
 		}
 	}

@@ -29,7 +29,7 @@ namespace FOMServer.Master.Services
 			if (peer == IntPtr.Zero)
 				throw new InvalidOperationException("Failed to start server.");
 
-			logService.WriteMessage(LogLevel.Info, "Server started on port 61001");
+			logService.WriteMessage(LogLevel.Info, "Network Started: 61001");
 		}
 
 		/// <summary>
@@ -41,7 +41,7 @@ namespace FOMServer.Master.Services
 
 			serverService.Shutdown(peer);
 
-			logService.WriteMessage(LogLevel.Info, "Server stopped on port 61001");
+			logService.WriteMessage(LogLevel.Info, "Network Stopped: 61001");
 		}
 	}
 }
