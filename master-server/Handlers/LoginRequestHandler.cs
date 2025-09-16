@@ -3,16 +3,18 @@ using FOMServer.Shared.Enums;
 using FOMServer.Shared.Models;
 using FOMServer.Shared.Packets;
 using FOMServer.Shared.Services;
+using FOMServer.Shared.Services.Packets;
 
 namespace FOMServer.Master.Handlers
 {
 	public class LoginRequestHandler : PacketHandler<LoginRequest>
 	{
-		private readonly ISendPackets sendPacketService;
+		private readonly IPacketSender sendPacketService;
 
 		public LoginRequestHandler(
 			ILogService logService,
-			ISendPackets sendPacketService)
+			IPacketSender sendPacketService
+			)
 			: base(logService)
 		{
 			this.sendPacketService = sendPacketService;

@@ -4,7 +4,7 @@ using FOMServer.Shared.Models;
 using System.Reflection;
 using System.Threading.Channels;
 
-namespace FOMServer.Shared.Services
+namespace FOMServer.Shared.Services.Packets
 {
 	/// <summary>
 	/// Service for processing incoming packets.
@@ -15,23 +15,21 @@ namespace FOMServer.Shared.Services
 	public class PacketProcessor : IDisposable
 	{
 		private readonly ILogService logService;
-		private readonly RakNetPacketHandler rakNetPacketHandler;
 		private readonly Dictionary<PacketIdentifier, IPacketHandler> handlers;
 		private readonly Channel<FOMPacket> packetQueue;
-		private readonly List<Task> workers = new();
+		private readonly List<Task> workers = [];
 
 		private CancellationTokenSource? cts;
 
 		public PacketProcessor(
 			ILogService logService,
-			RakNetPacketHandler rakNetPacketHandler,
-			IEnumerable<IPacketHandler> handlersFromDI
-		) {
+			IEnumerable<IPacketHandler> handlers
+		)
+		{
 			this.logService = logService;
-			this.rakNetPacketHandler = rakNetPacketHandler;
-			this.handlers = handlersFromDI.ToDictionary(h => h.PacketID);
+			this.handlers = handlers.ToDictionary(h => h.PacketID);
 
-			this.packetQueue = Channel.CreateUnbounded<FOMPacket>(
+			packetQueue = Channel.CreateUnbounded<FOMPacket>(
 				new UnboundedChannelOptions
 				{
 					SingleReader = false,
@@ -115,50 +113,12 @@ namespace FOMServer.Shared.Services
 					break;
 				}
 
-				if (TryHandleRakNetPacket(packet))
-					continue;
-
-				if (packet.ID >= PacketIdentifier.ID_CONNECTION_REQUEST_ACCEPTED && packet.ID <= PacketIdentifier.ID_CONNECTION_BANNED)
-				{
-					// These are RakNet internal packets that we don't handle here.
-					continue;
-				}
-
 				if (handlers.TryGetValue(packet.ID, out var handler))
 					handler.Handle(packet);
+					
 				else
 					OnUnhandledPacket(packet);
 			}
-		}
-
-		/// <summary>
-		/// Checks the packet's ID and handles it if it is one of the RakNet packets we care about.
-		/// </summary>
-		/// <param name="packet">The packet to check.</param>
-		/// <returns>True if the packet is a RakNet packet to handle, otherwise false.</returns>
-		private bool TryHandleRakNetPacket(FOMPacket packet)
-		{
-			// Only handle the RakNet packets defined in PacketIdentifier.
-			switch (packet.ID)
-			{
-				case PacketIdentifier.ID_CONNECTION_REQUEST_ACCEPTED:
-				case PacketIdentifier.ID_CONNECTION_ATTEMPT_FAILED:
-				case PacketIdentifier.ID_ALREADY_CONNECTED:
-				case PacketIdentifier.ID_NEW_INCOMING_CONNECTION:
-				case PacketIdentifier.ID_NO_FREE_INCOMING_CONNECTIONS:
-				case PacketIdentifier.ID_DISCONNECTION_NOTIFICATION:
-				case PacketIdentifier.ID_CONNECTION_LOST:
-				case PacketIdentifier.ID_RSA_PUBLIC_KEY_MISMATCH:
-				case PacketIdentifier.ID_CONNECTION_BANNED:
-				case PacketIdentifier.ID_INVALID_PASSWORD:
-				case PacketIdentifier.ID_MODIFIED_PACKET:
-					break;
-				default:
-					return false;
-			}
-
-			rakNetPacketHandler.Handle(packet.ID, packet.Sender);
-			return true;
 		}
 
 		/// <summary>
@@ -167,12 +127,18 @@ namespace FOMServer.Shared.Services
 		/// <param name="packet">The packet to handle.</param>
 		private void OnUnhandledPacket(FOMPacket packet)
 		{
-			this.logService.WriteMessage(LogLevel.Error, $"No handler for packet {packet.ID} from {packet.Sender}");
+			// Any unhandled internal RakNet packets should be ignored.
+			if (packet.ID < PacketIdentifier.ID_FOM_PACKET_START)
+				return;
+
+			logService.WriteMessage(LogLevel.Error, $"No handler for packet {packet.ID} from {packet.Sender}");
 		}
 
 		public void Dispose()
 		{
 			StopAsync().GetAwaiter().GetResult();
+
+			GC.SuppressFinalize(this);
 		}
 	}
 }

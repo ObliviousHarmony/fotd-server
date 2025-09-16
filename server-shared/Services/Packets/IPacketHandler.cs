@@ -1,7 +1,7 @@
 using FOMServer.Shared.Enums;
 using FOMServer.Shared.Models;
 
-namespace FOMServer.Shared.Services
+namespace FOMServer.Shared.Services.Packets
 {
 	/// <summary>
 	/// An interface describing a handler for incoming packets.

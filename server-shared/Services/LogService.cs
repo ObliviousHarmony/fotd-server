@@ -13,7 +13,7 @@ namespace FOMServer.Shared.Services
 
 		private readonly Channel<LogEntry> logChannel;
 		private readonly bool writeConsole;
-		private StreamWriter? logFileWriter;
+		private readonly StreamWriter? logFileWriter;
 
 		private Task? loggingTask;
 		private CancellationTokenSource? cts;
@@ -135,8 +135,9 @@ namespace FOMServer.Shared.Services
 			if (loggingTask != null)
 				StopAsync().GetAwaiter().GetResult();
 
-			if (logFileWriter != null)
-				logFileWriter.Dispose();
+			logFileWriter?.Dispose();
+
+			GC.SuppressFinalize(this);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 using FOMServer.Shared.Enums;
 using FOMServer.Shared.Models;
 using FOMServer.Shared.Services.FOMNetwork;
+using FOMServer.Shared.Services.Packets;
 using System.Threading.Channels;
 
 namespace FOMServer.Shared.Services
@@ -8,7 +9,7 @@ namespace FOMServer.Shared.Services
     /// <summary>
 	/// Responsible for sending and receiving packets.
 	/// </summary>
-	public abstract class NetworkManager : ISendPackets, IClientSendPackets, IDisposable
+	public class NetworkManager : IDisposable
 	{
 		/// <summary>
 		/// A buffer for holding packets to send via the API.
@@ -21,6 +22,7 @@ namespace FOMServer.Shared.Services
 		private static readonly SendPacket[] SendBuffer = new SendPacket[IPacketService.MaxBufferedPackets];
 
 		protected IntPtr peer;
+		protected Action<IntPtr>? peerShutdown;
 		protected readonly ILogService logService;
 		private readonly IPacketService packetService;
 		private readonly PacketProcessor packetProcessor;
@@ -32,8 +34,10 @@ namespace FOMServer.Shared.Services
 			ILogService logService,
 			IPacketService packetService,
 			PacketProcessor packetProcessor
-		) {
+		)
+		{
 			this.peer = IntPtr.Zero;
+			this.peerShutdown = null;
 			this.logService = logService;
 			this.packetService = packetService;
 			this.packetProcessor = packetProcessor;
@@ -47,22 +51,22 @@ namespace FOMServer.Shared.Services
 		}
 
 		/// <summary>
-		/// Starts the peer used by the network manager.
+		/// Configures the network service to use the specified peer.
 		/// </summary>
-		public virtual void StartPeer()
-		{
-			if (peer != IntPtr.Zero)
-				throw new InvalidOperationException("Peer is already initialized.");
-		}
+		/// <remarks>
+		///	Once the peer has been given to the network manager it should not be used by the caller anymore.
+		///	The peerShutdown function will be used for cleanup when the manager is done with the peer.
+		/// </remarks>
+		/// <param name="peer">The peer to use with the service.</param>
+		/// <param name="peerShutdown">A function describing how to shut the peer down when the service is disposed.</param>
+        public void ConfigurePeer(IntPtr peer, Action<IntPtr> peerShutdown)
+        {
+            if (this.peer != IntPtr.Zero)
+                throw new InvalidOperationException("Peer is already configured.");
 
-		/// <summary>
-		/// Shuts down the peer used by the network manager.
-		/// </summary>
-		public virtual void ShutdownPeer()
-		{
-			if (peer == IntPtr.Zero)
-				throw new InvalidOperationException("Peer is not initialized.");
-		}
+            this.peer = peer;
+            this.peerShutdown = peerShutdown;
+        }
 
 		/// <summary>
 		/// Starts the network manager loop.
@@ -73,7 +77,7 @@ namespace FOMServer.Shared.Services
 				return;
 
 			if (peer == IntPtr.Zero)
-				throw new InvalidOperationException("Peer is not initialized.");
+				throw new InvalidOperationException("Peer is not configured.");
 
 			cts = CancellationTokenSource.CreateLinkedTokenSource(parentToken);
 
@@ -138,9 +142,10 @@ namespace FOMServer.Shared.Services
 			PacketPriority priority,
 			PacketReliability reliability,
 			byte orderingChannel = 0
-		) {
+		)
+		{
 			if (peer == IntPtr.Zero)
-				throw new InvalidOperationException("Peer is not initialized.");
+				throw new InvalidOperationException("Peer is not configured.");
 
 			SendPacket packet = new()
 			{
@@ -164,9 +169,10 @@ namespace FOMServer.Shared.Services
 			PacketPriority priority,
 			PacketReliability reliability,
 			byte orderingChannel = 0
-		) {
+		)
+		{
 			if (peer == IntPtr.Zero)
-				throw new InvalidOperationException("Peer is not initialized.");
+				throw new InvalidOperationException("Peer is not configured.");
 
 			SendPacket packet = new()
 			{
@@ -186,11 +192,18 @@ namespace FOMServer.Shared.Services
 		{
 			StopAsync().GetAwaiter().GetResult();
 
+			if (peerShutdown != null && peer != IntPtr.Zero)
+			{
+				peerShutdown(peer);
+				peerShutdown = null;
+			}
+
 			if (peer != IntPtr.Zero)
 			{
-				ShutdownPeer();
 				peer = IntPtr.Zero;
 			}
+
+			GC.SuppressFinalize(this);
 		}
 	}
 }

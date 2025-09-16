@@ -22,6 +22,12 @@ using System.Runtime.InteropServices;
 namespace FOMServer.Shared.Models
 {
 	/// <summary>
+	/// A placeholder struct for RakNet packet representation.
+	/// </summary>
+	[StructLayout(LayoutKind.Explicit, Pack = 1)]
+	public struct RakNetPacket { }
+
+	/// <summary>
 	/// Represents a union of possible packet data types.
 	/// </summary>
 	/// <remarks>
@@ -31,6 +37,7 @@ namespace FOMServer.Shared.Models
 	[StructLayout(LayoutKind.Explicit, Pack = 1)]
 	public struct FOMData
 	{
+		[FieldOffset(0)] public RakNetPacket rakNetPacket;
 		[FieldOffset(0)] public ReadPacketError readError;
 		[FieldOffset(0)] public LoginRequest loginRequest;
 		[FieldOffset(0)] public LoginRequestReturn loginRequestReturn;

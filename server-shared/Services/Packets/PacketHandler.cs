@@ -2,7 +2,7 @@ using FOMServer.Shared.Enums;
 using FOMServer.Shared.Extensions;
 using FOMServer.Shared.Models;
 
-namespace FOMServer.Shared.Services
+namespace FOMServer.Shared.Services.Packets
 {
 	/// <summary>
 	/// An abstract class for implementing packet handlers for specific packet IDs.
