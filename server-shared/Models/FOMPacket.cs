@@ -33,6 +33,7 @@ namespace FOMServer.Shared.Models
 	{
 		[FieldOffset(0)] public ReadPacketError readError;
 		[FieldOffset(0)] public LoginRequest loginRequest;
+		[FieldOffset(0)] public LoginRequestReturn loginRequestReturn;
 	}
 
 	/// <summary>

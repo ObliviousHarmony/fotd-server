@@ -6,6 +6,7 @@
 		<RootNamespace>FOMServer.World</RootNamespace>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<SelfContained>false</SelfContained>
 	</PropertyGroup>
 
