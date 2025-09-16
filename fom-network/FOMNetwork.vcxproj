@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <ItemGroup Label="ProjectConfigurations">
-        <ProjectConfiguration Include="Debug|x64">
-            <Configuration>Debug</Configuration>
-            <Platform>x64</Platform>
-        </ProjectConfiguration>
-        <ProjectConfiguration Include="Release|x64">
-            <Configuration>Release</Configuration>
-            <Platform>x64</Platform>
-        </ProjectConfiguration>
-    </ItemGroup>
-    
+	<ItemGroup Label="ProjectConfigurations">
+		<ProjectConfiguration Include="Debug|x64">
+			<Configuration>Debug</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Release|x64">
+			<Configuration>Release</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="$(SolutionDir)fom-network\src\**\*.cpp" />
+		<None Include="$(SolutionDir)fom-network\include\**\*.h" />
+		<None Include="$(SolutionDir)fom-network\tests\**\*.cpp" />
+	</ItemGroup>
+	
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>17.0</VCProjectVersion>
 		<ProjectGuid>{302F700C-184A-F712-82ED-F406D0FC1381}</ProjectGuid>
@@ -24,10 +30,10 @@
 		<ConfigurationType>Makefile</ConfigurationType>
 	</PropertyGroup>
 
-    <PropertyGroup>
-        <OutDir>$(SolutionDir)out\build\$(Configuration)\fom-network\</OutDir>
-        <IntDir>$(SolutionDir)out\build\$(Configuration)\fom-network\</IntDir>
-    </PropertyGroup>
+	<PropertyGroup>
+		<OutDir>$(SolutionDir)out\build\$(Configuration)\fom-network\</OutDir>
+		<IntDir>$(SolutionDir)out\build\$(Configuration)\fom-network\</IntDir>
+	</PropertyGroup>
 
 	<Target Name="Build" Condition="'$(OS)' != 'Windows_NT'" />
 	<Target Name="Clean" Condition="'$(OS)' != 'Windows_NT'" />
