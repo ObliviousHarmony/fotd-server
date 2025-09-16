@@ -12,16 +12,14 @@
  */
 #pragma pack(push, 1)
 
-using namespace FOMPacket;
-
 /**
  * A union representing all of FoM's packet data types.
  */
 struct FOMData {
 	union {
-		ReadPacketError readError;
-		LoginRequest loginRequest;
-		LoginRequestReturn loginRequestReturn;
+		FOMPacket::ReadPacketError readError;
+		FOMPacket::LoginRequest loginRequest;
+		FOMPacket::LoginRequestReturn loginRequestReturn;
 	};
 };
 
