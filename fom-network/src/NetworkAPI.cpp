@@ -3,6 +3,8 @@
 #include <fom-network/NetworkAPI.h>
 #include <fom-network/FOMPacket.h>
 
+using namespace FOMPacket;
+
 int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures, int32_t count) {
 #pragma warning(push)
 #pragma warning(disable: 4267)

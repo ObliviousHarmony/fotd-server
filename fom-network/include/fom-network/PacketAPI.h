@@ -35,7 +35,7 @@ struct SendPacket {
 	FOMData data;
 
 	/* The destination for the packet or the excluded address if it is a broadcast. */
-	NetworkAddress networkAddress;
+	FOMPacket::NetworkAddress networkAddress;
 
 	/* The priority of the packet to be sent to the networking library. */
 	uint8_t priority;
@@ -84,7 +84,7 @@ extern "C" {
 	* @retval 0 Success.
 	* @retval -1 The packetBufferLen does not match the number of received packets to process.
 	*/
-	FOM_API int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer, const ReceivedPackets received, FOMPacket* packetBuffer, int32_t packetBufferLen);
+	FOM_API int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer, const ReceivedPackets received, FOMPacket::FOMPacket* packetBuffer, int32_t packetBufferLen);
 
 	/**
 	* Sends a buffer of packet structures through the network interface.

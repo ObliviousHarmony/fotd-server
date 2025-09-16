@@ -12,14 +12,7 @@
  */
 #pragma pack(push, 1)
 
-/**
- * The network address for a system.
- */
-struct NetworkAddress {
-	uint32_t binaryAddress;
-	uint16_t port;
-};
-ASSERT_BLITTABLE(NetworkAddress);
+using namespace FOMPacket;
 
 /**
  * A union representing all of FoM's packet data types.
@@ -32,13 +25,24 @@ struct FOMData {
 	};
 };
 
-/**
- * A FoM network packet to be passed across the interop boundary.
- */
-struct FOMPacket {
-	PacketIdentifier ID;
-	NetworkAddress sender;
-	FOMData data;
-};
+namespace FOMPacket {
+	/**
+	 * The network address for a system.
+	 */
+	struct NetworkAddress {
+		uint32_t binaryAddress;
+		uint16_t port;
+	};
+	ASSERT_BLITTABLE(NetworkAddress);
+
+	/**
+	 * A FoM network packet to be passed across the interop boundary.
+	 */
+	struct FOMPacket {
+		PacketIdentifier ID;
+		NetworkAddress sender;
+		FOMData data;
+	};
+}
 
 #pragma pack(pop)

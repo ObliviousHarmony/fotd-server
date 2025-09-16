@@ -47,7 +47,7 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
 	return received;
 }
 
-int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer, const ReceivedPackets received, FOMPacket* packetBuffer, int32_t packetBufferLen) {
+int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer, const ReceivedPackets received, FOMPacket::FOMPacket* packetBuffer, int32_t packetBufferLen) {
 	if (!peer || !received.packets || received.count == 0) {
 		return 0;
 	}
@@ -65,7 +65,7 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer, const ReceivedPackets 
 		RakNet::BitStream bs(p->data, p->length, false);
 
 		// Deserialize the bitstream into a packet structure that can be returned to the consumer.
-		FOMPacket& fp = packetBuffer[i]; // Don't allocate, just use the provided buffer.
+		FOMPacket::FOMPacket& fp = packetBuffer[i]; // Don't allocate, just use the provided buffer.
 		bs.Read(fp.ID); // First byte is always the packet ID.
 
 		try {

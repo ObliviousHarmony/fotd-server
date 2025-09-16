@@ -14,9 +14,9 @@ class FOM_API FOMDataSerializer {
 public:
 	class ReadError : public std::runtime_error {
 	public:
-		ReadPacketError readError;
+		FOMPacket::ReadPacketError readError;
 
-		ReadError(ReadPacketError data)
+		ReadError(FOMPacket::ReadPacketError data)
 			: std::runtime_error("An error occurred during reading."),
 			readError(data)
 		{}

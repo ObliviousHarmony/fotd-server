@@ -7,10 +7,12 @@
  */
 #pragma pack(push, 1)
 
-struct LoginRequest {
-	char username[19];
-	uint16_t clientVersion;
-};
-ASSERT_BLITTABLE(LoginRequest);
+namespace FOMPacket {
+	struct LoginRequest {
+		char username[19];
+		uint16_t clientVersion;
+	};
+	ASSERT_BLITTABLE(LoginRequest);
+}
 
 #pragma pack(pop)

@@ -1,7 +1,7 @@
 #include <fom-network/PacketSerializers.h>
 
-LoginRequest LoginRequestSerializer::ReadData(RakNet::BitStream& bs) const {
-	LoginRequest data{};
+FOMPacket::LoginRequest LoginRequestSerializer::ReadData(RakNet::BitStream& bs) const {
+	FOMPacket::LoginRequest data{};
 	DecodeString(bs, data.username);
 	bs.ReadCompressed(data.clientVersion);
 	return data;

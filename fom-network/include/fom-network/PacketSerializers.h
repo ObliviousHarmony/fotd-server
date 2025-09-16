@@ -58,8 +58,8 @@ public:																						\
 		data.FIELD = ReadData(bs);															\
 		return data;																		\
 	}																						\
-	void WriteData(RakNet::BitStream& bs, const TYPE& v) const;								\
-	TYPE ReadData(RakNet::BitStream& bs) const;												\
+	void WriteData(RakNet::BitStream& bs, const FOMPacket::TYPE& v) const;					\
+	FOMPacket::TYPE ReadData(RakNet::BitStream& bs) const;									\
 };
 
 #define SERIALIZER_WRITE(TYPE, FIELD)												\
@@ -69,7 +69,7 @@ public:																				\
 	void Write(RakNet::BitStream& bs, const FOMData& d) const override {			\
 		WriteData(bs, d.FIELD);														\
 	}																				\
-	void WriteData(RakNet::BitStream& bs, const TYPE& v) const;						\
+	void WriteData(RakNet::BitStream& bs, const FOMPacket::TYPE& v) const;			\
 };
 
 #define SERIALIZER_READ(TYPE, FIELD)												\
@@ -81,7 +81,7 @@ public:																				\
 		data.FIELD = ReadData(bs);													\
 		return data;																\
 	}																				\
-	TYPE ReadData(RakNet::BitStream& bs) const;										\
+	FOMPacket::TYPE ReadData(RakNet::BitStream& bs) const;							\
 };
 
 /**
