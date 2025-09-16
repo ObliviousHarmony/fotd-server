@@ -17,10 +17,10 @@ enum LoginRequestStatus : uint8_t {
  */
 #pragma pack(push, 1)
 
-struct LoginRequestReturnPacket {
+struct LoginRequestReturn {
 	LoginRequestStatus status;
 	char username[19];
 };
-ASSERT_BLITTABLE(LoginRequestReturnPacket);
+ASSERT_BLITTABLE(LoginRequestReturn);
 
 #pragma pack(pop)

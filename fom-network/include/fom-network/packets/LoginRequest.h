@@ -7,10 +7,10 @@
  */
 #pragma pack(push, 1)
 
-struct LoginRequestPacket {
+struct LoginRequest {
 	char username[19];
 	uint16_t clientVersion;
 };
-ASSERT_BLITTABLE(LoginRequestPacket);
+ASSERT_BLITTABLE(LoginRequest);
 
 #pragma pack(pop)

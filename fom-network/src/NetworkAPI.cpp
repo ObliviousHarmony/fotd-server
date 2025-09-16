@@ -10,8 +10,8 @@ int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures, int3
 	// so that they can be compared to the consumer's structs.
 	std::unordered_map<uint8_t, uint32_t> libraryMap = {
 		{ ID_FOM_PACKET_READ_ERROR, sizeof(ReadPacketError) },
-		{ ID_LOGIN_REQUEST, sizeof(LoginRequestPacket) },
-		{ ID_LOGIN_REQUEST_RETURN, sizeof(LoginRequestReturnPacket) }
+		{ ID_LOGIN_REQUEST, sizeof(LoginRequest) },
+		{ ID_LOGIN_REQUEST_RETURN, sizeof(LoginRequestReturn) }
 	};
 #pragma warning(pop)
 

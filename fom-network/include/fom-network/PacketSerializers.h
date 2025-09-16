@@ -88,5 +88,5 @@ public:																				\
  * Declare all of the serializers. Keep in mind that they must be:
  * <PacketTypeName>Serializer
  */
-SERIALIZER_READ(LoginRequestPacket, loginRequest)
-SERIALIZER_WRITE(LoginRequestReturnPacket, loginRequestReturn)
+SERIALIZER_READ(LoginRequest, loginRequest)
+SERIALIZER_WRITE(LoginRequestReturn, loginRequestReturn)

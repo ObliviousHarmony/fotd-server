@@ -4,8 +4,8 @@
 
 // Include all packet types here.
 #include <fom-network/packets/ReadPacketError.h>
-#include <fom-network/packets/LoginRequestPacket.h>
-#include <fom-network/packets/LoginRequestReturnPacket.h>
+#include <fom-network/packets/LoginRequest.h>
+#include <fom-network/packets/LoginRequestReturn.h>
 
 /**
  * Make sure that we pack the structs the same way that C# does.
@@ -27,8 +27,8 @@ ASSERT_BLITTABLE(NetworkAddress);
 struct FOMData {
 	union {
 		ReadPacketError readError;
-		LoginRequestPacket loginRequest;
-		LoginRequestReturnPacket loginRequestReturn;
+		LoginRequest loginRequest;
+		LoginRequestReturn loginRequestReturn;
 	};
 };
 

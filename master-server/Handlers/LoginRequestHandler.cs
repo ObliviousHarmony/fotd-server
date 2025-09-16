@@ -5,9 +5,9 @@ using FOMServer.Shared.Services;
 
 namespace FOMServer.Master.Handlers
 {
-	public class LoginRequestPacketHandler : PacketHandler<LoginRequest>
+	public class LoginRequestHandler : PacketHandler<LoginRequest>
 	{
-		public LoginRequestPacketHandler(ILogService logService) : base(logService) { }
+		public LoginRequestHandler(ILogService logService) : base(logService) { }
 
 		public override PacketIdentifier PacketID => PacketIdentifier.ID_LOGIN_REQUEST;
 

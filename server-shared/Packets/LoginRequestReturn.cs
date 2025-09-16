@@ -11,7 +11,7 @@ namespace FOMServer.Shared.Packets
 	{
 		public enum Status : byte
 		{
-			// Must match the enum in `fom-network/include/fom-network/packets/LoginRequestReturnPacket.h`.
+			// Must match the enum in `fom-network/include/fom-network/packets/LoginRequestReturn.h`.
 			LOGIN_REQUEST_INVALID_INFORMATION,
 			LOGIN_REQUEST_SUCCESS,
 			LOGIN_REQUEST_OUTDATED_CLIENT,

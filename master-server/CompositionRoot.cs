@@ -25,7 +25,7 @@ namespace FOMServer.Master
 
 		private static ServiceCollection AddPacketHandlers(this ServiceCollection services)
 		{
-			services.AddSingleton<IPacketHandler, LoginRequestPacketHandler>();
+			services.AddSingleton<IPacketHandler, LoginRequestHandler>();
 			return services;
 		}
 	}

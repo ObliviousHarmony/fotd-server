@@ -5,10 +5,10 @@
  * We need to initialize the map with all of the serializers we want to be able to use.
  */
 static std::unordered_map<uint32_t, IWriter*> writerMap = {
-	{ ID_LOGIN_REQUEST_RETURN, &LoginRequestReturnPacketSerializer::GetInstance() }
+	{ ID_LOGIN_REQUEST_RETURN, &LoginRequestReturnSerializer::GetInstance() }
 };
 static std::unordered_map<uint32_t, IReader*> readerMap = {
-	{ ID_LOGIN_REQUEST, &LoginRequestPacketSerializer::GetInstance() }
+	{ ID_LOGIN_REQUEST, &LoginRequestSerializer::GetInstance() }
 };
 
 bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id, const FOMData& data) {
