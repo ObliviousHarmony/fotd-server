@@ -39,7 +39,7 @@ FOMData FOMDataSerializer::Read(RakNet::BitStream& bs, const PacketIdentifier id
 	const auto* reader = GetReader(id);
 	if (!reader) {
 		throw ReadError(
-			FOMPacketError{ id, FOMPacketErrorCode::ERROR_UNHANDLED_PACKET_ID }
+			ReadPacketError{ id, ReadPacketErrorCode::ERROR_UNHANDLED_PACKET_ID }
 		);
 	}
 
@@ -49,7 +49,7 @@ FOMData FOMDataSerializer::Read(RakNet::BitStream& bs, const PacketIdentifier id
 		return reader->Read(bs);
 	} catch (const std::exception& e) {
 		throw ReadError(
-			FOMPacketError{ id, FOMPacketErrorCode::ERROR_READ }
+			ReadPacketError{ id, ReadPacketErrorCode::ERROR_READ }
 		);
 	}
 }

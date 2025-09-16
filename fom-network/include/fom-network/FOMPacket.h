@@ -3,7 +3,7 @@
 #include <fom-network/PacketIdentifier.h>
 
 // Include all packet types here.
-#include <fom-network/packets/FOMPacketError.h>
+#include <fom-network/packets/ReadPacketError.h>
 #include <fom-network/packets/LoginRequestPacket.h>
 #include <fom-network/packets/LoginRequestReturnPacket.h>
 
@@ -26,7 +26,7 @@ ASSERT_BLITTABLE(NetworkAddress);
  */
 struct FOMData {
 	union {
-		FOMPacketError error;
+		ReadPacketError readError;
 		LoginRequestPacket loginRequest;
 		LoginRequestReturnPacket loginRequestReturn;
 	};

@@ -14,8 +14,8 @@ namespace FOMServer.Shared.Extensions
 		{
 			switch (packet.ID)
 			{
-				case PacketIdentifier.ID_FOM_PACKET_ERROR when typeof(TPacket) == typeof(FOMPacketError):
-					return (TPacket)(object)packet.Data.error;
+				case PacketIdentifier.ID_FOM_PACKET_READ_ERROR when typeof(TPacket) == typeof(ReadPacketError):
+					return (TPacket)(object)packet.Data.readError;
 				case PacketIdentifier.ID_LOGIN_REQUEST when typeof(TPacket) == typeof(LoginRequest):
 					return (TPacket)(object)packet.Data.loginRequest;
 

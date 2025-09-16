@@ -11,9 +11,9 @@ using System.Runtime.InteropServices;
  * - Match the C++ structure's data type sizes and layout EXACTLY.
  * - Use only blittable types (no bools, no strings, no arrays, no reference types)
  * - Be marked with `[StructLayout(LayoutKind.Sequential, Pack = 1)]` to ensure no padding is added.
- * 
+ *
  * For every new packet, you must also update:
- * 
+ *
  * - Packets/{PacketName}.cs: Requires a new struct definition.
  * - Packet struct added to the FOMData union below.
  * - Extensions/FOMPacketExtensions.cs: Requires a new FOMData type case.
@@ -31,7 +31,7 @@ namespace FOMServer.Shared.Models
 	[StructLayout(LayoutKind.Explicit, Pack = 1)]
 	public struct FOMData
 	{
-		[FieldOffset(0)] public FOMPacketError error;
+		[FieldOffset(0)] public ReadPacketError readError;
 		[FieldOffset(0)] public LoginRequest loginRequest;
 	}
 

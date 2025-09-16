@@ -72,8 +72,8 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer, const ReceivedPackets 
 			fp.data = FOMDataSerializer::Read(bs, fp.ID);
 		} catch (const FOMDataSerializer::ReadError& e) {
 			// Make sure that read errors are communicated to the consumer.
-			fp.ID = ID_FOM_PACKET_ERROR;
-			fp.data.error = e.error;
+			fp.ID = ID_FOM_PACKET_READ_ERROR;
+			fp.data.readError = e.readError;
 		}
 
 		fp.sender.binaryAddress = p->systemAddress.binaryAddress;

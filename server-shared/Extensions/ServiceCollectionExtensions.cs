@@ -22,7 +22,7 @@ namespace FOMServer.Shared.Extensions
 
 			// Packet Handlers
 			services.AddSingleton<RakNetPacketHandler>();
-			services.AddSingleton<IPacketHandler, FOMPacketErrorHandler>();
+			services.AddSingleton<IPacketHandler, ReadPacketErrorHandler>();
 		}
 	}
 }

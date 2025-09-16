@@ -24,13 +24,13 @@ namespace FOMServer.Shared.Services.FOMNetwork
 			// Ensure all packet data structs are blittable.
 			PacketStructure[] structures;
 			structures = [
-				new PacketStructure { ID = PacketIdentifier.ID_FOM_PACKET_ERROR, Size = Marshal.SizeOf<FOMPacketError>() },
+				new PacketStructure { ID = PacketIdentifier.ID_FOM_PACKET_READ_ERROR, Size = Marshal.SizeOf<ReadPacketError>() },
 				new PacketStructure { ID = PacketIdentifier.ID_LOGIN_REQUEST, Size = Marshal.SizeOf<LoginRequest>() },
 				new PacketStructure { ID = PacketIdentifier.ID_LOGIN_REQUEST_RETURN, Size = Marshal.SizeOf<LoginRequestReturn>() }
 			];
 			foreach (PacketStructure s in structures)
 			{
-				if (!IsBlittable<FOMPacketError>())
+				if (!IsBlittable<ReadPacketError>())
 					throw new Exception($"The data struct for packet ID {s.ID} is not blittable.");
 			}
 

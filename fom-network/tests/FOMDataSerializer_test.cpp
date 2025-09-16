@@ -9,8 +9,8 @@ TEST(FOMDataSerializer, ReadUnhandledPacketID) {
 		FOMDataSerializer::Read(bs, (PacketIdentifier)ID_INTERNAL_PING);
 		FAIL() << "Expected ReadError";
 	} catch (const FOMDataSerializer::ReadError& e) {
-		ASSERT_EQ(e.error.offendingID, ID_INTERNAL_PING);
-		ASSERT_EQ(e.error.errorCode, FOMPacketErrorCode::ERROR_UNHANDLED_PACKET_ID);
+		ASSERT_EQ(e.readError.offendingID, ID_INTERNAL_PING);
+		ASSERT_EQ(e.readError.errorCode, ReadPacketErrorCode::ERROR_UNHANDLED_PACKET_ID);
 	} catch (...) {
 		FAIL() << "Expected ReadError";
 	}

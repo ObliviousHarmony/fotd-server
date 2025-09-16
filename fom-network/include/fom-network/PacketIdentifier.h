@@ -23,7 +23,7 @@ enum PacketIdentifier : uint8_t {
     * Since the library does not allow sending/receiving
     * this packet, we don't need to worry about overlap.
 	*/
-	ID_FOM_PACKET_ERROR = 0,
+	ID_FOM_PACKET_READ_ERROR = 0,
 
     /**
      * ID_USER_PACKET_ENUM is used by RakNet to indicate the

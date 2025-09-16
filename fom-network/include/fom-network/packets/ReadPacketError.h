@@ -5,7 +5,7 @@
 /**
  * Error codes for sending/receiving packets.
  */
-enum FOMPacketErrorCode : uint8_t {
+enum ReadPacketErrorCode : uint8_t {
 	ERROR_MISSING_PACKET_ID,
 	ERROR_UNHANDLED_PACKET_ID,
 	ERROR_READ
@@ -19,10 +19,10 @@ enum FOMPacketErrorCode : uint8_t {
 /**
  * An error took place when processing/sending a packet.
  */
-struct FOMPacketError {
+struct ReadPacketError {
 	PacketIdentifier offendingID;
-	FOMPacketErrorCode errorCode;
+	ReadPacketErrorCode errorCode;
 };
-ASSERT_BLITTABLE(FOMPacketError);
+ASSERT_BLITTABLE(ReadPacketError);
 
 #pragma pack(pop)

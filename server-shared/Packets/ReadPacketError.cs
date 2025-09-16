@@ -7,12 +7,12 @@ namespace FOMServer.Shared.Packets
 	/// Represents an error encountered while processing a packet.
 	/// </summary>
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public struct FOMPacketError
+	public struct ReadPacketError
 	{
 		/// <summary>
 		/// Represents error codes that indicate issues encountered while processing FOM packets.
 		/// </summary>
-		public enum FOMPacketErrorCode : byte
+		public enum ReadPacketErrorCode : byte
 		{
 			// Must match the enum in `fom-network/include/fom-network/FOMPacket.h`.
 			ERROR_MISSING_PACKET_ID,
@@ -21,6 +21,6 @@ namespace FOMServer.Shared.Packets
 		}
 
 		public PacketIdentifier OffendingID;
-		public FOMPacketErrorCode ErrorCode;
+		public ReadPacketErrorCode ErrorCode;
 	}
 }
