@@ -9,16 +9,15 @@ namespace FOMServer.Shared.Packets
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public unsafe struct LoginRequestReturn
 	{
-		public enum Status : byte
+		public enum StatusCode : byte
 		{
-			// Must match the enum in `fom-network/include/fom-network/packets/LoginRequestReturn.h`.
 			LOGIN_REQUEST_INVALID_INFORMATION,
 			LOGIN_REQUEST_SUCCESS,
 			LOGIN_REQUEST_OUTDATED_CLIENT,
 			LOGIN_REQUEST_ALREADY_LOGGED_IN
 		}
 
-		public Status status;
-		public fixed byte username[19];
+		public StatusCode Status;
+		public fixed byte Username[19];
 	}
 }

@@ -11,7 +11,7 @@ namespace FOMPacket {
 	/**
 	 * Status codes for login requests.
 	 */
-	enum LoginRequestStatus : uint8_t {
+	enum LoginRequestReturnStatus : uint8_t {
 		LOGIN_REQUEST_INVALID_INFORMATION,
 		LOGIN_REQUEST_SUCCESS,
 		LOGIN_REQUEST_OUTDATED_CLIENT,
@@ -19,7 +19,7 @@ namespace FOMPacket {
 	};
 
 	struct LoginRequestReturn {
-		LoginRequestStatus status;
+		LoginRequestReturnStatus status;
 		char username[19];
 	};
 	ASSERT_BLITTABLE(LoginRequestReturn);

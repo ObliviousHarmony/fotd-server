@@ -10,7 +10,7 @@ namespace FOMServer.Shared.Packets
 	unsafe public struct LoginRequest
 	{
 		public fixed byte username[19];
-		public ushort clientVersion;
+		public ushort ClientVersion;
 
 		public string Username
 		{

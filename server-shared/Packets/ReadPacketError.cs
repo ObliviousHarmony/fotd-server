@@ -9,18 +9,14 @@ namespace FOMServer.Shared.Packets
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	public struct ReadPacketError
 	{
-		/// <summary>
-		/// Represents error codes that indicate issues encountered while processing FOM packets.
-		/// </summary>
-		public enum ReadPacketErrorCode : byte
+		public enum ReadErrorCode : byte
 		{
-			// Must match the enum in `fom-network/include/fom-network/FOMPacket.h`.
 			ERROR_MISSING_PACKET_ID,
 			ERROR_UNHANDLED_PACKET_ID,
 			ERROR_DESERIALIZATION
 		}
 
 		public PacketIdentifier OffendingID;
-		public ReadPacketErrorCode ErrorCode;
+		public ReadErrorCode ErrorCode;
 	}
 }
