@@ -10,7 +10,7 @@
  */
 struct IWriter {
 	virtual ~IWriter() = default;
-	virtual bool Write(RakNet::BitStream& bs, const FOMData& data) const = 0;
+	virtual void Write(RakNet::BitStream& bs, const FOMData& data) const = 0;
 };
 
 struct IReader {
@@ -50,15 +50,15 @@ private:
 class FOM_API TYPE##Serializer : public BaseSerializer, public IWriter, public IReader {	\
 public:																						\
 	static TYPE##Serializer& GetInstance() { static TYPE##Serializer s; return s; }			\
-	bool Write(RakNet::BitStream& bs, const FOMData& d) const override {					\
-		return WriteData(bs, d.FIELD);														\
+	void Write(RakNet::BitStream& bs, const FOMData& d) const override {					\
+		WriteData(bs, d.FIELD);																\
 	}																						\
 	FOMData Read(RakNet::BitStream& bs) const override {									\
 		FOMData data{};																		\
 		data.FIELD = ReadData(bs);															\
 		return data;																		\
 	}																						\
-	bool WriteData(RakNet::BitStream& bs, const TYPE& v) const;								\
+	void WriteData(RakNet::BitStream& bs, const TYPE& v) const;								\
 	TYPE ReadData(RakNet::BitStream& bs) const;												\
 };
 
@@ -66,10 +66,10 @@ public:																						\
 class FOM_API TYPE##Serializer : public BaseSerializer, public IWriter {			\
 public:																				\
 	static TYPE##Serializer& GetInstance() { static TYPE##Serializer s; return s; }	\
-	bool Write(RakNet::BitStream& bs, const FOMData& d) const override {			\
-		return WriteData(bs, d.FIELD);												\
+	void Write(RakNet::BitStream& bs, const FOMData& d) const override {			\
+		WriteData(bs, d.FIELD);														\
 	}																				\
-	bool WriteData(RakNet::BitStream& bs, const TYPE& v) const;						\
+	void WriteData(RakNet::BitStream& bs, const TYPE& v) const;						\
 };
 
 #define SERIALIZER_READ(TYPE, FIELD)												\
@@ -89,3 +89,4 @@ public:																				\
  * <PacketTypeName>Serializer
  */
 SERIALIZER_READ(LoginRequestPacket, loginRequest)
+SERIALIZER_WRITE(LoginRequestReturnPacket, loginRequestReturn)

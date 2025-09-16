@@ -11,6 +11,7 @@ add_library(FOMNetwork SHARED
 	src/NetworkAPI.cpp
 	src/FOMDataSerializer.cpp
 	src/serializers/LoginRequestPacketSerializer.cpp
+	src/serializers/LoginRequestReturnPacketSerializer.cpp
 )
 
 target_include_directories(FOMNetwork

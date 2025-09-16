@@ -26,6 +26,7 @@ namespace FOMServer.Shared.Services.FOMNetwork
 			structures = [
 				new PacketStructure { ID = PacketIdentifier.ID_FOM_PACKET_ERROR, Size = Marshal.SizeOf<FOMPacketError>() },
 				new PacketStructure { ID = PacketIdentifier.ID_LOGIN_REQUEST, Size = Marshal.SizeOf<LoginRequest>() },
+				new PacketStructure { ID = PacketIdentifier.ID_LOGIN_REQUEST_RETURN, Size = Marshal.SizeOf<LoginRequestReturn>() }
 			];
 			foreach (PacketStructure s in structures)
 			{

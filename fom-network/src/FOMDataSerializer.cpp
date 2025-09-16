@@ -5,7 +5,7 @@
  * We need to initialize the map with all of the serializers we want to be able to use.
  */
 static std::unordered_map<uint32_t, IWriter*> writerMap = {
-	//{ ID_FOM_PACKET_START, &ExamplePacketSerializer::GetInstance() }
+	{ ID_LOGIN_REQUEST_RETURN, &LoginRequestReturnPacketSerializer::GetInstance() }
 };
 static std::unordered_map<uint32_t, IReader*> readerMap = {
 	{ ID_LOGIN_REQUEST, &LoginRequestPacketSerializer::GetInstance() }
@@ -24,7 +24,8 @@ bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id, 
 	// Make sure to catch any serialization error so that the
 	// library does not crash the consuming application.
 	try {
-		return writer->Write(bs, data);
+		writer->Write(bs, data);
+		return true;
 	} catch (const std::exception& e) {
 		return false;
 	}
