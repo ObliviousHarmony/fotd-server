@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "ServerTests": {
+      "commandName": "Project",
+      "hotReloadEnabled": false,
+      "nativeDebugging": true
+    }
+  }
+}

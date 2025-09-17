@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "ServerShared": {
+      "commandName": "Project",
+      "nativeDebugging": true,
+      "hotReloadEnabled": false
+    }
+  }
+}

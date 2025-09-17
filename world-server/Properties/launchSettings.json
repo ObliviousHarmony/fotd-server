@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "WorldServer": {
+      "commandName": "Project",
+      "hotReloadEnabled": false,
+      "nativeDebugging": true
+    }
+  }
+}

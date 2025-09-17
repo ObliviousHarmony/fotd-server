@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "MasterServer": {
+      "commandName": "Project",
+      "nativeDebugging": true,
+      "hotReloadEnabled": false
+    }
+  }
+}
