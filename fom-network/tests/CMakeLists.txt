@@ -12,9 +12,7 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 # Create the test executable FIRST
-add_executable(FOMNetworkTests
-	FOMDataSerializer_test.cpp
-)
+add_executable(FOMNetworkTests ${PROJECT_SOURCE_DIR}/${FOMNETWORK_TEST})
 
 target_include_directories(FOMNetworkTests PRIVATE
 	${PROJECT_SOURCE_DIR}/include

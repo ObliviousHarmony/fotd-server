@@ -1,3 +1,6 @@
-# User Files
+# Generated Files
+FOMNetwork.props
 FOMNetwork.vcxproj.filters
+
+# User Files
 FOMNetwork.vcxproj.user

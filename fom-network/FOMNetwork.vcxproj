@@ -10,12 +10,6 @@
 			<Platform>x64</Platform>
 		</ProjectConfiguration>
 	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="$(SolutionDir)fom-network\src\**\*.cpp" />
-		<None Include="$(SolutionDir)fom-network\include\**\*.h" />
-		<None Include="$(SolutionDir)fom-network\tests\**\*.cpp" />
-	</ItemGroup>
 	
 	<PropertyGroup Label="Globals">
 		<VCProjectVersion>17.0</VCProjectVersion>
@@ -39,19 +33,17 @@
 	<Target Name="Clean" Condition="'$(OS)' != 'Windows_NT'" />
 	<Target Name="Rebuild" Condition="'$(OS)' != 'Windows_NT'" />
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-		<NMakeBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration)</NMakeBuildCommandLine>
-		<NMakeCleanCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration) --target clean</NMakeCleanCommandLine>
-		<NMakeReBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration) --clean-first</NMakeReBuildCommandLine>
-		<NMakePreprocessorDefinitions>_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-	</PropertyGroup>
+    <PropertyGroup>
+        <NMakeBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration)</NMakeBuildCommandLine>
+        <NMakeCleanCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration) --target clean</NMakeCleanCommandLine>
+        <NMakeReBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration) --clean-first</NMakeReBuildCommandLine>
+        <NMakePreprocessorDefinitions>NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+        <NMakeOutput>$(SolutionDir)out\build\$(Configuration)\fom-network\FOMNetwork.dll</NMakeOutput>
+    </PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-		<NMakeBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration)</NMakeBuildCommandLine>
-		<NMakeCleanCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration) --target clean</NMakeCleanCommandLine>
-		<NMakeReBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration) --clean-first</NMakeReBuildCommandLine>
-		<NMakePreprocessorDefinitions>NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-	</PropertyGroup>
+    <ImportGroup Label="PropertySheets">
+        <Import Project="FOMNetwork.props" />
+    </ImportGroup>
 
 	<!-- Import MSVC props/targets -->
 	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" Condition=" '$(OS)' == 'Windows_NT' " />
