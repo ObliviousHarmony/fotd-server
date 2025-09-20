@@ -1,6 +1,7 @@
 <Project>
-	<PropertyGroup Condition="'$(FOMServerBuildEnvironment)' == 'Docker'">
-		<!-- Make sure we're putting build outputs in the mounted volume. -->
-		<OutputPath>/out/dotnet/$(MSBuildProjectName)/$(Configuration)/</OutputPath>
-	</PropertyGroup>
+  <PropertyGroup>
+    <BaseIntermediateOutputPath>$(SolutionDir)out/$(MSBuildProjectName)/$(Configuration)/obj/</BaseIntermediateOutputPath>
+	<IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
+    <OutputPath>$(SolutionDir)out/$(MSBuildProjectName)/$(Configuration)/bin/</OutputPath>
+  </PropertyGroup>
 </Project>

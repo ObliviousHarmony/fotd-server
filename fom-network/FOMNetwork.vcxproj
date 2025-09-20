@@ -18,7 +18,7 @@
 		<RestoreProjectStyle>None</RestoreProjectStyle>
 	</PropertyGroup>
 
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" Condition=" '$(OS)' == 'Windows_NT' " />
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
 
 	<PropertyGroup Label="Configuration">
 		<ConfigurationType>Makefile</ConfigurationType>
@@ -28,10 +28,6 @@
 		<OutDir>$(SolutionDir)out\build\$(Configuration)\fom-network\</OutDir>
 		<IntDir>$(SolutionDir)out\build\$(Configuration)\fom-network\</IntDir>
 	</PropertyGroup>
-
-	<Target Name="Build" Condition="'$(OS)' != 'Windows_NT'" />
-	<Target Name="Clean" Condition="'$(OS)' != 'Windows_NT'" />
-	<Target Name="Rebuild" Condition="'$(OS)' != 'Windows_NT'" />
 
     <PropertyGroup>
         <NMakeBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration)</NMakeBuildCommandLine>
@@ -45,7 +41,6 @@
         <Import Project="FOMNetwork.props" />
     </ImportGroup>
 
-	<!-- Import MSVC props/targets -->
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" Condition=" '$(OS)' == 'Windows_NT' " />
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" Condition=" '$(OS)' == 'Windows_NT' " />
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

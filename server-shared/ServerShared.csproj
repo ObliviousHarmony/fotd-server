@@ -9,34 +9,32 @@
 	
 	<ItemGroup>
 		<ProjectReference Include="..\fom-network\FOMNetwork.vcxproj" Condition="'$(OS)' == 'Windows_NT'" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
 	</ItemGroup>
 
-	<!-- Windows host (default) -->
 	<PropertyGroup>
-		<FOMNetworkLibFile>$(MSBuildThisFileDirectory)../out/build/$(Configuration)/fom-network/FOMNetwork.dll</FOMNetworkLibFile>
+		<BaseIntermediateOutputPath>$(SolutionDir)out/$(MSBuildProjectName)/$(Configuration)/obj/</BaseIntermediateOutputPath>
+		<IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
+		<OutputPath>$(SolutionDir)out/$(MSBuildProjectName)/$(Configuration)/bin/</OutputPath>
+		<RestorePackagesPath>$(SolutionDir)out/nuget/packages</RestorePackagesPath>
+		<NuGetPackageRoot>$(SolutionDir)out/nuget/packages</NuGetPackageRoot>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<FOMNetworkDllFile>$(MSBuildThisFileDirectory)../out/build/$(Configuration)/fom-network/FOMNetwork.dll</FOMNetworkDllFile>
+		<FOMNetworkSOFile>$(MSBuildThisFileDirectory)../out/build/$(Configuration)/fom-network/FOMNetwork.so</FOMNetworkSOFile>
         <FOMNetworkPDBFile>$(MSBuildThisFileDirectory)../out/build/$(Configuration)/fom-network/FOMNetwork.pdb</FOMNetworkPDBFile>
 	</PropertyGroup>
 
-	<!-- Linux host -->
-	<PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
-		<FOMNetworkLibFile>$(MSBuildThisFileDirectory)../out/build/$(Configuration)/fom-network/libFOMNetwork.so</FOMNetworkLibFile>
-	</PropertyGroup>
-
-	<!-- Docker Linux -->
-	<PropertyGroup Condition="'$(FOMServerBuildEnvironment)' == 'Docker'">
-		<FOMNetworkLibFile>/out/cpp/build/$(Configuration)/fom-network/libFOMNetwork.so</FOMNetworkLibFile>
-	</PropertyGroup>
-
-	<!-- Include FOMNetwork -->
 	<ItemGroup>
-		<None Include="$(FOMNetworkLibFile)">
+		<None Include="$(FOMNetworkDllFile)" Condition="Exists('$(FOMNetworkDllFile)')">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Include="$(FOMNetworkSOFile)" Condition="Exists('$(FOMNetworkSOFile)')">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
         <None Include="$(FOMNetworkPDBFile)" Condition="Exists('$(FOMNetworkPDBFile)')">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
 	</ItemGroup>
 </Project>
