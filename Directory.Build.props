@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
-    <BaseIntermediateOutputPath>$(SolutionDir)out/$(MSBuildProjectName)/$(Configuration)/obj/</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath>../out/$(MSBuildProjectName)/$(Configuration)/obj/</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <OutputPath>$(SolutionDir)out/$(MSBuildProjectName)/$(Configuration)/bin/</OutputPath>
+    <OutputPath>../out/$(MSBuildProjectName)/$(Configuration)/bin/</OutputPath>
   </PropertyGroup>
 </Project>

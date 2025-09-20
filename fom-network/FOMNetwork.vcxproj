@@ -25,16 +25,16 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<OutDir>$(SolutionDir)out\build\$(Configuration)\fom-network\</OutDir>
-		<IntDir>$(SolutionDir)out\build\$(Configuration)\fom-network\</IntDir>
+		<OutDir>../out\build\$(Configuration)\fom-network\</OutDir>
+		<IntDir>../out\build\$(Configuration)\fom-network\</IntDir>
 	</PropertyGroup>
 
     <PropertyGroup>
-        <NMakeBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration)</NMakeBuildCommandLine>
-        <NMakeCleanCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration) --target clean</NMakeCleanCommandLine>
-        <NMakeReBuildCommandLine>cmake --build "$(SolutionDir)out/build/$(Configuration)" --config $(Configuration) --clean-first</NMakeReBuildCommandLine>
+        <NMakeBuildCommandLine>cmake --build "../out/build/$(Configuration)" --config $(Configuration)</NMakeBuildCommandLine>
+        <NMakeCleanCommandLine>cmake --build "../out/build/$(Configuration)" --config $(Configuration) --target clean</NMakeCleanCommandLine>
+        <NMakeReBuildCommandLine>cmake --build "../out/build/$(Configuration)" --config $(Configuration) --clean-first</NMakeReBuildCommandLine>
         <NMakePreprocessorDefinitions>NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-        <NMakeOutput>$(SolutionDir)out\build\$(Configuration)\fom-network\FOMNetwork.dll</NMakeOutput>
+        <NMakeOutput>../out/build/$(Configuration)\fom-network\FOMNetwork.dll</NMakeOutput>
     </PropertyGroup>
 
     <ImportGroup Label="PropertySheets">
