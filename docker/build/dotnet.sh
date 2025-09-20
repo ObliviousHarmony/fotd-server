@@ -12,8 +12,8 @@ BUILD_CONFIG=${FOMSERVER_BUILD_CONFIG:-Debug}
 
 NATIVE_LIB="/workspace/out/fom-network/libFOMNetwork.so"
 if [[ ! -f "$NATIVE_LIB" ]]; then
-    echo "❌ Error: Native code must be built first: $NATIVE_LIB"
-    exit 1
+	echo "❌ Error: Native code must be built first: $NATIVE_LIB"
+	exit 1
 fi
 
 dotnet build /workspace/ManagedOnly.slnf -c "$BUILD_CONFIG"

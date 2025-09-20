@@ -24,14 +24,14 @@ _docker-build-dotnet:
 build:
 	docker run --rm \
 		--platform=linux/amd64 \
-		-v .:/workspace:ro \
-		-v {{BUILD_VOLUME}}:/workspace/out \
+		--mount type=bind,src="{{justfile_directory()}}",dst="/workspace" \
+		--mount type=volume,src="{{BUILD_VOLUME}}",dst="/workspace/out",volume-nocopy \
 		{{CPP_CACHE_IMAGE}} build
 	docker run --rm \
 		--platform=linux/amd64 \
-		-v {{NUGET_CACHE_VOLUME}}:/root/.nuget/packages \
-		-v .:/workspace:ro \
-		-v {{BUILD_VOLUME}}:/workspace/out \
+		--mount type=volume,src="{{NUGET_CACHE_VOLUME}}",dst="/root/.nuget/packages" \
+		--mount type=bind,src="{{justfile_directory()}}",dst="/workspace" \
+		--mount type=volume,src="{{BUILD_VOLUME}}",dst="/workspace/out",volume-nocopy \
 		{{DOTNET_CACHE_IMAGE}} build
 
 test: test-cpp test-dotnet
@@ -39,14 +39,14 @@ test: test-cpp test-dotnet
 test-cpp:
 	docker run --rm \
 		--platform=linux/amd64 \
-		-v .:/workspace:ro \
-		-v {{BUILD_VOLUME}}:/workspace/out \
+		--mount type=bind,src="{{justfile_directory()}}",dst="/workspace" \
+		--mount type=volume,src="{{BUILD_VOLUME}}",dst="/workspace/out",volume-nocopy \
 		{{CPP_CACHE_IMAGE}} test
 
 test-dotnet:
 	docker run --rm \
 		--platform=linux/amd64 \
-		-v {{NUGET_CACHE_VOLUME}}:/root/.nuget/packages \
-		-v .:/workspace:ro \
-		-v {{BUILD_VOLUME}}:/workspace/out \
+		--mount type=volume,src="{{NUGET_CACHE_VOLUME}}",dst="/root/.nuget/packages" \
+		--mount type=bind,src="{{justfile_directory()}}",dst="/workspace" \
+		--mount type=volume,src="{{BUILD_VOLUME}}",dst="/workspace/out",volume-nocopy \
 		{{DOTNET_CACHE_IMAGE}} test

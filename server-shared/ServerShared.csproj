@@ -13,17 +13,9 @@
 	</ItemGroup>
 
 	<PropertyGroup>
-		<BaseIntermediateOutputPath>$(SolutionDir)out/$(MSBuildProjectName)/$(Configuration)/obj/</BaseIntermediateOutputPath>
-		<IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-		<OutputPath>$(SolutionDir)out/$(MSBuildProjectName)/$(Configuration)/bin/</OutputPath>
-		<RestorePackagesPath>$(SolutionDir)out/nuget/packages</RestorePackagesPath>
-		<NuGetPackageRoot>$(SolutionDir)out/nuget/packages</NuGetPackageRoot>
-	</PropertyGroup>
-
-	<PropertyGroup>
-		<FOMNetworkDllFile>$(MSBuildThisFileDirectory)../out/build/$(Configuration)/fom-network/FOMNetwork.dll</FOMNetworkDllFile>
-		<FOMNetworkSOFile>$(MSBuildThisFileDirectory)../out/build/$(Configuration)/fom-network/FOMNetwork.so</FOMNetworkSOFile>
-        <FOMNetworkPDBFile>$(MSBuildThisFileDirectory)../out/build/$(Configuration)/fom-network/FOMNetwork.pdb</FOMNetworkPDBFile>
+		<FOMNetworkDllFile>$(SolutionDir)out/build/$(Configuration)/fom-network/FOMNetwork.dll</FOMNetworkDllFile>
+		<FOMNetworkSOFile>$(SolutionDir)out/build/$(Configuration)/fom-network/FOMNetwork.so</FOMNetworkSOFile>
+		<FOMNetworkPDBFile>$(SolutionDir)out/build/$(Configuration)/fom-network/FOMNetwork.pdb</FOMNetworkPDBFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -33,8 +25,8 @@
 		<None Include="$(FOMNetworkSOFile)" Condition="Exists('$(FOMNetworkSOFile)')">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
-        <None Include="$(FOMNetworkPDBFile)" Condition="Exists('$(FOMNetworkPDBFile)')">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
+		<None Include="$(FOMNetworkPDBFile)" Condition="Exists('$(FOMNetworkPDBFile)')">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 </Project>
