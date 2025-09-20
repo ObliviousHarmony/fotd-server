@@ -11,7 +11,7 @@
 		<ProjectReference Include="..\fom-network\FOMNetwork.vcxproj" Condition="'$(OS)' == 'Windows_NT'" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
 	</ItemGroup>
-
+	
 	<PropertyGroup>
 		<FOMNetworkDllFile>$(SolutionDir)out/build/$(Configuration)/fom-network/FOMNetwork.dll</FOMNetworkDllFile>
 		<FOMNetworkSOFile>$(SolutionDir)out/build/$(Configuration)/fom-network/FOMNetwork.so</FOMNetworkSOFile>

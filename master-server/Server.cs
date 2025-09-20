@@ -2,11 +2,13 @@ using FOMServer.Shared.Enums;
 using FOMServer.Shared.Services;
 using FOMServer.Shared.Services.FOMNetwork;
 using FOMServer.Shared.Services.Packets;
+using MasterServer.Models;
 
 namespace FOMServer.Master
 {
 	internal class Server
 	{
+		private readonly ServerSettings serverSettings;
 		private readonly LogService logService;
 		private readonly IServerService serverService;
 		private readonly INetworkService networkService;
@@ -14,6 +16,7 @@ namespace FOMServer.Master
 		private readonly PacketProcessor packetProcessor;
 
 		public Server(
+			ServerSettings serverSettings,
 			LogService logService,
 			IServerService serverService,
 			INetworkService networkService,
@@ -21,6 +24,7 @@ namespace FOMServer.Master
 			PacketProcessor packetProcessor
 		)
 		{
+			this.serverSettings = serverSettings;
 			this.logService = logService;
 			this.serverService = serverService;
 			this.networkService = networkService;
@@ -44,12 +48,12 @@ namespace FOMServer.Master
 			networkService.ValidateFOMPacket();
 
 			// Start the network peer so we can accept connections.
-			IntPtr peer = serverService.Startup(61001);
+			IntPtr peer = serverService.Startup(serverSettings.Port);
 			if (peer == IntPtr.Zero)
 				throw new InvalidOperationException("Failed to start server.");
 			networkManager.ConfigurePeer(peer, serverService.Shutdown);
 
-			logService.WriteMessage(LogLevel.Info, "Network Started: 61001");
+			logService.WriteMessage(LogLevel.Info, $"Network Started: {serverSettings.Port}");
 
 			// Start all of our services so they will spin up their background tasks.
 			logService.Start(cts.Token);
