@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  db:
+    image: mariadb:latest
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: fom_server
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - fom-server-database:/var/lib/mysql
+
+volumes:
+  fom-server-database:
+    name: fom-server-database

@@ -4,6 +4,8 @@ DOTNET_CACHE_IMAGE := "fom/build-dotnet"
 BUILD_VOLUME := "fom-server-build"
 NUGET_CACHE_VOLUME := "fom-server-nuget-cache"
 
+[group("docker")]
+[doc('Creates the Docker images used for building the project.')]
 [parallel]
 docker-build: _docker-build-cpp _docker-build-dotnet
 
@@ -21,6 +23,7 @@ _docker-build-dotnet:
 		-t {{DOTNET_CACHE_IMAGE}} \
 		docker/build
 
+[group("build")]
 build:
 	docker run --rm \
 		--platform=linux/amd64 \
@@ -34,8 +37,10 @@ build:
 		--mount type=volume,src="{{BUILD_VOLUME}}",dst="/workspace/out",volume-nocopy \
 		{{DOTNET_CACHE_IMAGE}} build
 
+[group("test")]
 test: test-cpp test-dotnet
 
+[group("test")]
 test-cpp:
 	docker run --rm \
 		--platform=linux/amd64 \
@@ -43,6 +48,7 @@ test-cpp:
 		--mount type=volume,src="{{BUILD_VOLUME}}",dst="/workspace/out",volume-nocopy \
 		{{CPP_CACHE_IMAGE}} test
 
+[group("test")]
 test-dotnet:
 	docker run --rm \
 		--platform=linux/amd64 \
@@ -50,3 +56,11 @@ test-dotnet:
 		--mount type=bind,src="{{justfile_directory()}}",dst="/workspace" \
 		--mount type=volume,src="{{BUILD_VOLUME}}",dst="/workspace/out",volume-nocopy \
 		{{DOTNET_CACHE_IMAGE}} test
+
+[group("server")]
+db-up:
+	docker-compose -f docker/server/docker-compose.yml up -d db
+
+[group("server")]
+db-down:
+	docker-compose -f docker/server/docker-compose.yml down db
