@@ -1,4 +1,5 @@
 using FOMServer.Master;
+using FOMServer.Master.Application;
 using Microsoft.Extensions.DependencyInjection;
 
 class Program

@@ -1,13 +1,14 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using FluentMigrator.Runner;
+using FOMServer.Master.Application;
+using FOMServer.Master.Infrastructure.Factories;
+using FOMServer.Master.Application.PacketHandlers;
+using FOMServer.Master.Core.Migrations;
+using FOMServer.Master.Core.Models;
+using FOMServer.Shared.Infrastructure.Factories;
 using FOMServer.Shared.Extensions;
-using FOMServer.Master.Handlers;
-using FOMServer.Shared.Services.Packets;
-using FOMServer.Master.Models;
-using FOMServer.Master.Migrations;
-using FOMServer.Shared.Factories;
-using FOMServer.Master.Factories;
+using FOMServer.Shared.Application.PacketHandlers;
 
 namespace FOMServer.Master
 {

@@ -28,4 +28,9 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Application\Synchronization\" />
+	  <Folder Include="Application\Services\" />
+	</ItemGroup>
 </Project>

@@ -1,7 +1,9 @@
-using FOMServer.Shared.Handlers;
-using FOMServer.Shared.Services;
+using FOMServer.Shared.Application;
+using FOMServer.Shared.Application.PacketHandlers;
+using FOMServer.Shared.Application.Services;
+using FOMServer.Shared.Infrastructure.FOMNetwork;
+using FOMServer.Shared.Infrastructure.Services;
 using FOMServer.Shared.Services.FOMNetwork;
-using FOMServer.Shared.Services.Packets;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FOMServer.Shared.Extensions
