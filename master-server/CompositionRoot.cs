@@ -4,8 +4,10 @@ using FluentMigrator.Runner;
 using FOMServer.Shared.Extensions;
 using FOMServer.Master.Handlers;
 using FOMServer.Shared.Services.Packets;
-using MasterServer.Models;
+using FOMServer.Master.Models;
 using FOMServer.Master.Migrations;
+using FOMServer.Shared.Factories;
+using FOMServer.Master.Factories;
 
 namespace FOMServer.Master
 {
@@ -20,6 +22,8 @@ namespace FOMServer.Master
 
 			// Run before anything else so that the cached settings in this class are available.
 			services.AddConfiguration();
+
+			services.AddSingleton<IConnectionFactory, ConnectionFactory>();
 
 			services.AddServerShared();
 

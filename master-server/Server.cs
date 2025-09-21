@@ -3,7 +3,7 @@ using FOMServer.Shared.Enums;
 using FOMServer.Shared.Services;
 using FOMServer.Shared.Services.FOMNetwork;
 using FOMServer.Shared.Services.Packets;
-using MasterServer.Models;
+using FOMServer.Master.Models;
 
 namespace FOMServer.Master
 {

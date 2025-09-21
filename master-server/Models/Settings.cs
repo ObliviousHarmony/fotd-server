@@ -1,4 +1,4 @@
-namespace MasterServer.Models
+namespace FOMServer.Master.Models
 {
 	public class ServerSettings
 	{
