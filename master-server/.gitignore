@@ -1,4 +1,4 @@
 # Build Artifacts
 /bin
 /obj
-out/build
+**/out/build
