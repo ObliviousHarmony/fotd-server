@@ -1,4 +1,5 @@
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Models.FOMData;
 using System.Runtime.InteropServices;
 
 namespace FOMServer.Shared.Core.Models
@@ -43,7 +44,7 @@ namespace FOMServer.Shared.Core.Models
 	{
 		// Must match the struct in `fom-network/include/fom-network/PacketAPI.h`
 		public PacketIdentifier ID;
-		public FOMData Data;
+		public FOMDataUnion Data;
 		public NetworkAddress NetworkAddress;
 		public PacketPriority Priority;
 		public PacketReliability Reliability;

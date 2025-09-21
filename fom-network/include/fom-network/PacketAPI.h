@@ -32,7 +32,7 @@ struct SendPacket {
 	PacketIdentifier id;
 
 	/* The discriminated union for communicating packet data. */
-	FOMData data;
+	FOMDataUnion data;
 
 	/* The destination for the packet or the excluded address if it is a broadcast. */
 	FOMPacket::NetworkAddress networkAddress;

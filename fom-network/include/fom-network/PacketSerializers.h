@@ -10,12 +10,12 @@
  */
 struct IWriter {
 	virtual ~IWriter() = default;
-	virtual void Write(RakNet::BitStream& bs, const FOMData& data) const = 0;
+	virtual void Write(RakNet::BitStream& bs, const FOMDataUnion& data) const = 0;
 };
 
 struct IReader {
 	virtual ~IReader() = default;
-	virtual FOMData Read(RakNet::BitStream& bs) const = 0;
+	virtual FOMDataUnion Read(RakNet::BitStream& bs) const = 0;
 };
 
 class BaseSerializer {
@@ -50,11 +50,11 @@ private:
 class FOM_API TYPE##Serializer : public BaseSerializer, public IWriter, public IReader {	\
 public:																						\
 	static TYPE##Serializer& GetInstance() { static TYPE##Serializer s; return s; }			\
-	void Write(RakNet::BitStream& bs, const FOMData& d) const override {					\
+	void Write(RakNet::BitStream& bs, const FOMDataUnion& d) const override {				\
 		WriteData(bs, d.FIELD);																\
 	}																						\
-	FOMData Read(RakNet::BitStream& bs) const override {									\
-		FOMData data{};																		\
+	FOMDataUnion Read(RakNet::BitStream& bs) const override {								\
+		FOMDataUnion data{};																\
 		data.FIELD = ReadData(bs);															\
 		return data;																		\
 	}																						\
@@ -66,7 +66,7 @@ public:																						\
 class FOM_API TYPE##Serializer : public BaseSerializer, public IWriter {			\
 public:																				\
 	static TYPE##Serializer& GetInstance() { static TYPE##Serializer s; return s; }	\
-	void Write(RakNet::BitStream& bs, const FOMData& d) const override {			\
+	void Write(RakNet::BitStream& bs, const FOMDataUnion& d) const override {		\
 		WriteData(bs, d.FIELD);														\
 	}																				\
 	void WriteData(RakNet::BitStream& bs, const FOMPacket::TYPE& v) const;			\
@@ -76,8 +76,8 @@ public:																				\
 class FOM_API TYPE##Serializer : public BaseSerializer, public IReader {			\
 public:																				\
 	static TYPE##Serializer& GetInstance() { static TYPE##Serializer s; return s; }	\
-	FOMData Read(RakNet::BitStream& bs) const override {							\
-		FOMData data{};																\
+	FOMDataUnion Read(RakNet::BitStream& bs) const override {						\
+		FOMDataUnion data{};														\
 		data.FIELD = ReadData(bs);													\
 		return data;																\
 	}																				\

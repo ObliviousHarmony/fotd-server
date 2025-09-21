@@ -1,6 +1,6 @@
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
-using FOMServer.Shared.Core.PacketData;
+using FOMServer.Shared.Core.Models.FOMData;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;

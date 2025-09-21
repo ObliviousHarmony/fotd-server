@@ -2,7 +2,7 @@ using FOMServer.Shared.Application.PacketHandlers;
 using FOMServer.Shared.Application.Services;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
-using FOMServer.Shared.Core.PacketData;
+using FOMServer.Shared.Core.Models.FOMData;
 using FOMServer.Shared.Infrastructure.Services;
 
 namespace FOMServer.Master.Application.PacketHandlers
@@ -39,7 +39,7 @@ namespace FOMServer.Master.Application.PacketHandlers
 
 			sendPacketService.Send(
 				PacketIdentifier.ID_LOGIN_REQUEST_RETURN,
-				new FOMData{ loginRequestReturn = response },
+				new FOMDataUnion{ loginRequestReturn = response },
 				sender,
 				PacketPriority.HIGH_PRIORITY,
 				PacketReliability.RELIABLE_ORDERED

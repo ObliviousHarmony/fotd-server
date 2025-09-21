@@ -11,7 +11,7 @@ static std::unordered_map<uint32_t, IReader*> readerMap = {
 	{ ID_LOGIN_REQUEST, &LoginRequestSerializer::GetInstance() }
 };
 
-bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id, const FOMData& data) {
+bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id, const FOMDataUnion& data) {
 	if (ShouldForwardRakNetPacket(id)) {
 		return true;
 	}
@@ -31,9 +31,9 @@ bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id, 
 	}
 }
 
-FOMData FOMDataSerializer::Read(RakNet::BitStream& bs, const PacketIdentifier id) {
+FOMDataUnion FOMDataSerializer::Read(RakNet::BitStream& bs, const PacketIdentifier id) {
 	if (ShouldForwardRakNetPacket(id)) {
-		return FOMData{};
+		return FOMDataUnion{};
 	}
 
 	const auto* reader = GetReader(id);

@@ -1,6 +1,6 @@
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
-using FOMServer.Shared.Core.PacketData;
+using FOMServer.Shared.Core.Models.FOMData;
 using System;
 
 namespace FOMServer.Shared.Extensions

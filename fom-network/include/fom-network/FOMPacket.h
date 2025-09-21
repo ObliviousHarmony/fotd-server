@@ -15,7 +15,7 @@
 /**
  * A union representing all of FoM's packet data types.
  */
-struct FOMData {
+struct FOMDataUnion {
 	union {
 		FOMPacket::ReadPacketError readError;
 		FOMPacket::LoginRequest loginRequest;
@@ -39,7 +39,7 @@ namespace FOMPacket {
 	struct FOMPacket {
 		PacketIdentifier ID;
 		NetworkAddress sender;
-		FOMData data;
+		FOMDataUnion data;
 	};
 }
 

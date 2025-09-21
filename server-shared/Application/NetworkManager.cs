@@ -1,6 +1,7 @@
 using FOMServer.Shared.Application.Services;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
+using FOMServer.Shared.Core.Models.FOMData;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.Shared.Infrastructure.Services;
 using System.Threading.Channels;
@@ -138,7 +139,7 @@ namespace FOMServer.Shared.Application
 		/// <inheritdoc />
 		public void Send(
 			PacketIdentifier id,
-			FOMData data,
+			FOMDataUnion data,
 			NetworkAddress destination,
 			PacketPriority priority,
 			PacketReliability reliability,
@@ -165,7 +166,7 @@ namespace FOMServer.Shared.Application
 		/// <inheritdoc />
 		public void Broadcast(
 			PacketIdentifier id,
-			FOMData data,
+			FOMDataUnion data,
 			NetworkAddress excludedAddress,
 			PacketPriority priority,
 			PacketReliability reliability,

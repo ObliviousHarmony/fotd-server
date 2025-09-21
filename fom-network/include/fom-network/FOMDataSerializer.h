@@ -29,7 +29,7 @@ public:
 	* @param id The packet ID to write.
 	* @param data The packet data to write.
 	*/
-	static bool Write(RakNet::BitStream& bs, const PacketIdentifier id, const FOMData& data);
+	static bool Write(RakNet::BitStream& bs, const PacketIdentifier id, const FOMDataUnion& data);
 
 	/**
 	* Reads a bitstream buffer into packet data.
@@ -37,7 +37,7 @@ public:
 	* @param bs The bitstream to read from.
 	* @param id The packet ID to read.
 	*/
-	static FOMData Read(RakNet::BitStream& bs, const PacketIdentifier id);
+	static FOMDataUnion Read(RakNet::BitStream& bs, const PacketIdentifier id);
 
 private:
 

@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace FOMServer.Shared.Core.PacketData
+namespace FOMServer.Shared.Core.Models.FOMData
 {
 	/// <summary>
 	/// Represents an error encountered while processing a packet.
