@@ -16,7 +16,7 @@
 	
 	<PropertyGroup>
 		<FOMNetworkDllFile>../out/build/$(Configuration)/fom-network/FOMNetwork.dll</FOMNetworkDllFile>
-		<FOMNetworkSOFile>../out/build/$(Configuration)/fom-network/FOMNetwork.so</FOMNetworkSOFile>
+		<FOMNetworkSOFile>../out/build/$(Configuration)/fom-network/libFOMNetwork.so</FOMNetworkSOFile>
 		<FOMNetworkPDBFile>../out/build/$(Configuration)/fom-network/FOMNetwork.pdb</FOMNetworkPDBFile>
 	</PropertyGroup>
 

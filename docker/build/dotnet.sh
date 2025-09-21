@@ -10,7 +10,7 @@ fi
 
 BUILD_CONFIG=${FOMSERVER_BUILD_CONFIG:-Debug}
 
-NATIVE_LIB="/workspace/out/fom-network/libFOMNetwork.so"
+NATIVE_LIB="/workspace/out/build/$BUILD_CONFIG/fom-network/libFOMNetwork.so"
 if [[ ! -f "$NATIVE_LIB" ]]; then
 	echo "❌ Error: Native code must be built first: $NATIVE_LIB"
 	exit 1

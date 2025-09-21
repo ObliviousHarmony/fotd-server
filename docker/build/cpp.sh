@@ -10,9 +10,9 @@ fi
 
 BUILD_CONFIG=${FOMSERVER_BUILD_CONFIG:-Debug}
 
-cmake -S /workspace -B /workspace/out -DCMAKE_BUILD_TYPE="$BUILD_CONFIG"
-cmake --build /workspace/out --config "$BUILD_CONFIG" -j"$(nproc)"
+cmake -S /workspace -B /workspace/out/build/$BUILD_CONFIG -DCMAKE_BUILD_TYPE="$BUILD_CONFIG"
+cmake --build /workspace/out/build/$BUILD_CONFIG --config "$BUILD_CONFIG" -j"$(nproc)"
 
 if [[ "$ACTION" == "test" ]]; then
-	ctest --test-dir /workspace/out --output-on-failure -C "$BUILD_CONFIG"
+	ctest --test-dir /workspace/out/build/$BUILD_CONFIG --output-on-failure -C "$BUILD_CONFIG"
 fi
