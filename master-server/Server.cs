@@ -1,3 +1,4 @@
+using FluentMigrator.Runner;
 using FOMServer.Shared.Enums;
 using FOMServer.Shared.Services;
 using FOMServer.Shared.Services.FOMNetwork;
@@ -8,6 +9,7 @@ namespace FOMServer.Master
 {
 	internal class Server
 	{
+		private readonly IMigrationRunner migrationRunner;
 		private readonly ServerSettings serverSettings;
 		private readonly LogService logService;
 		private readonly IServerService serverService;
@@ -16,6 +18,7 @@ namespace FOMServer.Master
 		private readonly PacketProcessor packetProcessor;
 
 		public Server(
+			IMigrationRunner migrationRunner,
 			ServerSettings serverSettings,
 			LogService logService,
 			IServerService serverService,
@@ -24,6 +27,7 @@ namespace FOMServer.Master
 			PacketProcessor packetProcessor
 		)
 		{
+			this.migrationRunner = migrationRunner;
 			this.serverSettings = serverSettings;
 			this.logService = logService;
 			this.serverService = serverService;
@@ -38,6 +42,9 @@ namespace FOMServer.Master
 		public void Run()
 		{
 			CancellationTokenSource cts = new CancellationTokenSource();
+
+			// Apply any database migrations before starting the server.
+			migrationRunner.MigrateUp();
 
 			this.logService.WriteMessage(LogLevel.Info, "Starting Server...");
 			this.logService.WriteMessage(LogLevel.Info, "Press Ctrl+C for shutdown.");
