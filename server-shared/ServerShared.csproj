@@ -10,6 +10,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\fom-network\FOMNetwork.vcxproj" Condition="'$(OS)' == 'Windows_NT'" />
 		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
+		<PackageReference Include="MySqlConnector" Version="2.4.0" />
 		<PackageReference Include="Dapper" Version="2.1.66" />
 	</ItemGroup>
 	

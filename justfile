@@ -58,6 +58,22 @@ test-dotnet:
 		{{DOTNET_CACHE_IMAGE}} test
 
 [group("server")]
+ms-up:
+	docker-compose -f docker/server/docker-compose.yml up -d master-server
+
+[group("server")]
+ms-down:
+	docker-compose -f docker/server/docker-compose.yml down master-server
+
+[group("server")]
+ms-recreate:
+	docker-compose -f docker/server/docker-compose.yml up -d --force-recreate master-server
+
+[group("server")]
+ms-destroy:
+	docker-compose -f docker/server/docker-compose.yml down master-server
+
+[group("server")]
 db-up:
 	docker-compose -f docker/server/docker-compose.yml up -d db
 

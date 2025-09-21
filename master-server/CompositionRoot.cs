@@ -42,7 +42,7 @@ namespace FOMServer.Master
 			IConfigurationRoot config = new ConfigurationBuilder()
 				.SetBasePath(AppContext.BaseDirectory)
 				.AddJsonFile("appsettings.json", optional: false)
-				.AddJsonFile("appsettings.Development.json", optional: true)
+				.AddJsonFile("appsettings.development.json", optional: true)
 				.AddEnvironmentVariables()
 				.Build();
 
