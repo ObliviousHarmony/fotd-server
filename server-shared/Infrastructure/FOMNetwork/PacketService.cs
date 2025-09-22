@@ -18,7 +18,6 @@ namespace FOMServer.Shared.Services.FOMNetwork
 		/// </remarks>
 		private static readonly FOMPacket[] ReceiveBuffer = new FOMPacket[IPacketService.MaxBufferedPackets];
 
-		/// <inheritdoc />
 		public Span<FOMPacket> Receive(IntPtr peer)
 		{
 			ReceivedPackets received = FOMNetwork_ReceivePackets(peer);
@@ -37,7 +36,6 @@ namespace FOMServer.Shared.Services.FOMNetwork
 			return ReceiveBuffer.AsSpan(0, received.Count);
 		}
 
-		/// <inheritdoc />
 		public void Send(IntPtr peer, Span<SendPacket> packets)
 		{
 			if (packets.IsEmpty)

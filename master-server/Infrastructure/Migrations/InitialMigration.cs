@@ -1,6 +1,6 @@
 using FluentMigrator;
 
-namespace FOMServer.Master.Core.Migrations
+namespace FOMServer.Master.Infrastructure.Migrations
 {
 	[Migration(202509201809, "Initial migration creating account and player tables")]
 	public class InitialMigration : Migration

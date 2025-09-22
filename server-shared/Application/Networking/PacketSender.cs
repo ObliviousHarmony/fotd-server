@@ -2,7 +2,7 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
 using FOMServer.Shared.Core.Models.FOMData;
 
-namespace FOMServer.Shared.Application.Services
+namespace FOMServer.Shared.Application.Networking
 {
 	public class PacketSender : IPacketSender
 	{
@@ -14,7 +14,6 @@ namespace FOMServer.Shared.Application.Services
 			this.networkManagerFactory = networkManagerFactory;
 		}
 
-		/// <inheritdoc />
 		public void Send(PacketIdentifier id, FOMDataUnion data, NetworkAddress destination, PacketPriority priority, PacketReliability reliability, byte orderingChannel = 0)
 		{
 			if (networkManager == null)
@@ -23,7 +22,6 @@ namespace FOMServer.Shared.Application.Services
 			networkManager.Send(id, data, destination, priority, reliability, orderingChannel);
 		}
 
-		/// <inheritdoc />
 		public void Broadcast(PacketIdentifier id, FOMDataUnion data, NetworkAddress excludedAddress, PacketPriority priority, PacketReliability reliability, byte orderingChannel = 0)
 		{
 			if (networkManager == null)

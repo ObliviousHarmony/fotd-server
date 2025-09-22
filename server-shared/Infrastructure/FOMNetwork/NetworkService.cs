@@ -3,13 +3,11 @@ using FOMServer.Shared.Core.Models;
 using FOMServer.Shared.Core.Models.FOMData;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using System.Runtime.InteropServices;
-using System.Runtime.Serialization;
 
 namespace FOMServer.Shared.Services.FOMNetwork
 {
 	public partial class NetworkService : INetworkService
 	{
-		/// <inheritdoc />
 		public void ValidateFOMPacket()
 		{
 			// Ensure all of the API communication structs are blittable.

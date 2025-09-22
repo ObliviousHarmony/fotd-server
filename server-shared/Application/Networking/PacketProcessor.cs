@@ -4,7 +4,7 @@ using FOMServer.Shared.Core.Models;
 using FOMServer.Shared.Infrastructure.Services;
 using System.Threading.Channels;
 
-namespace FOMServer.Shared.Application.Services
+namespace FOMServer.Shared.Application.Networking
 {
 	/// <summary>
 	/// Service for processing incoming packets.
@@ -86,7 +86,7 @@ namespace FOMServer.Shared.Application.Services
 			{
 				await Task.WhenAll(workers);
 			}
-			catch (OperationCanceledException)
+			catch (Exception)
 			{
 			}
 

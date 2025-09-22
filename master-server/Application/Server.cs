@@ -3,8 +3,7 @@ using FOMServer.Master.Core.Models;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.Shared.Infrastructure.Services;
-using FOMServer.Shared.Application;
-using FOMServer.Shared.Application.Services;
+using FOMServer.Shared.Application.Networking;
 
 namespace FOMServer.Master.Application
 {
@@ -85,7 +84,9 @@ namespace FOMServer.Master.Application
 			{
 				WaitHandle.WaitAny(new[] { cts.Token.WaitHandle });
 			}
-			catch (OperationCanceledException) { }
+			catch (OperationCanceledException)
+			{
+			}
 		}
 	}
 }

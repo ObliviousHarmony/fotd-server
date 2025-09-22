@@ -5,10 +5,8 @@ namespace FOMServer.Shared.Services.FOMNetwork
 {
 	public partial class ServerService : IServerService
 	{
-		/// <inheritdoc />
 		public IntPtr Startup(ushort port) => FOMNetwork_Server_Startup(port);
 
-		/// <inheritdoc />
 		public void Shutdown(IntPtr server) => FOMNetwork_Server_Shutdown(server);
 
 		[LibraryImport("FOMNetwork")]

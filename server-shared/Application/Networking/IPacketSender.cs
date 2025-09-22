@@ -2,7 +2,7 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
 using FOMServer.Shared.Core.Models.FOMData;
 
-namespace FOMServer.Shared.Application.Services
+namespace FOMServer.Shared.Application.Networking
 {
 	/// <summary>
 	/// Describes a service that can send packets over the network.

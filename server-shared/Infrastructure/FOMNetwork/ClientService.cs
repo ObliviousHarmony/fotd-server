@@ -5,10 +5,8 @@ namespace FOMServer.Shared.Services.FOMNetwork
 {
 	public partial class ClientService : IClientService
 	{
-		/// <inheritdoc />
 		public IntPtr Connect(string hostAddress, ushort port) => FOMNetwork_Client_Connect(hostAddress, port);
 
-		/// <inheritdoc />
 		public void Disconnect(IntPtr client) => FOMNetwork_Client_Disconnect(client);
 
 		[LibraryImport("FOMNetwork", StringMarshalling = StringMarshalling.Utf8)]

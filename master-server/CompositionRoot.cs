@@ -4,11 +4,11 @@ using FluentMigrator.Runner;
 using FOMServer.Master.Application;
 using FOMServer.Master.Infrastructure.Factories;
 using FOMServer.Master.Application.PacketHandlers;
-using FOMServer.Master.Core.Migrations;
 using FOMServer.Master.Core.Models;
 using FOMServer.Shared.Infrastructure.Factories;
 using FOMServer.Shared.Extensions;
 using FOMServer.Shared.Application.PacketHandlers;
+using FOMServer.Master.Infrastructure.Migrations;
 
 namespace FOMServer.Master
 {

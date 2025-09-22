@@ -1,4 +1,3 @@
-using FOMServer.Shared.Application.Services;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
 using FOMServer.Shared.Core.Models.FOMData;
@@ -6,7 +5,7 @@ using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.Shared.Infrastructure.Services;
 using System.Threading.Channels;
 
-namespace FOMServer.Shared.Application
+namespace FOMServer.Shared.Application.Networking
 {
     /// <summary>
 	/// Responsible for sending and receiving packets.
@@ -136,7 +135,6 @@ namespace FOMServer.Shared.Application
 			}
 		}
 
-		/// <inheritdoc />
 		public void Send(
 			PacketIdentifier id,
 			FOMDataUnion data,
@@ -163,7 +161,6 @@ namespace FOMServer.Shared.Application
 			sendQueue.Writer.TryWrite(packet);
 		}
 
-		/// <inheritdoc />
 		public void Broadcast(
 			PacketIdentifier id,
 			FOMDataUnion data,
