@@ -1,4 +1,5 @@
 using FOMServer.Shared.Core.Interfaces;
+using FOMServer.Shared.Infrastructure.Services;
 using System.Runtime.CompilerServices;
 using System.Threading.Channels;
 
@@ -9,6 +10,8 @@ namespace FOMServer.Shared.Application.Persistence
 	/// </summary>
 	public class PersistenceService : IPersistenceService, IDisposable
 	{
+		private readonly ILogService logService;
+
 		private class DirtyFlag { public int IsDirty = 0; }
 
 		private readonly Dictionary<Type, IPersistenceHandler> handlers;
@@ -20,8 +23,9 @@ namespace FOMServer.Shared.Application.Persistence
 		private Task? persistenceTask;
 		private CancellationTokenSource? cts;
 
-		public PersistenceService(IEnumerable<IPersistenceHandler> handlers)
+		public PersistenceService(ILogService logService, IEnumerable<IPersistenceHandler> handlers)
 		{
+			this.logService = logService;
 			this.handlers = handlers.ToDictionary(h => h.EntityType);
 			this.dirtyQueue = Channel.CreateUnbounded<IPersistable>();
 			this.dirtyFlags = new ConditionalWeakTable<IPersistable, DirtyFlag>();
@@ -99,6 +103,13 @@ namespace FOMServer.Shared.Application.Persistence
 				catch (ChannelClosedException)
 				{
 					break;
+				}
+				catch (Exception ex)
+				{
+					// Letting unhandled exceptions prevent further persistence
+					// could lead to data loss, so log and continue.
+					logService.WriteException(ex);
+					continue;
 				}
 			}
 

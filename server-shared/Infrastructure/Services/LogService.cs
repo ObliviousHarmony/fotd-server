@@ -51,20 +51,39 @@ namespace FOMServer.Shared.Infrastructure.Services
 			LogEnqueuedCounter.Add(1, KeyValuePair.Create<string, object?>("level", entry.Level.ToString()));
 		}
 
-	/// <summary>
-	/// Write a log message with the specified level.
-	/// </summary>
-	/// <remarks>
-	/// Please keep in mind that this method allocates a new string. This matters
-	/// when doing things like string concatenation because the message might be
-	/// discarded based on the log level. In general, prefer using custom
-	/// LogEntry instances that defer message construction until needed.
-	/// </remarks>
-	/// <param name="level">The log level to use for the message.</param>
-	/// <param name="message">The message to write.</param>
+		/// <summary>
+		/// Write a log message with the specified level.
+		/// </summary>
+		/// <remarks>
+		/// Please keep in mind that this method allocates a new string. This matters
+		/// when doing things like string concatenation because the message might be
+		/// discarded based on the log level. In general, prefer using custom
+		/// LogEntry instances that defer message construction until needed.
+		/// </remarks>
+		/// <param name="level">The log level to use for the message.</param>
+		/// <param name="message">The message to write.</param>
 		public void WriteMessage(LogLevel level, string message)
 		{
 			Write(MessageLogEntry.Create(level, message));
+		}
+
+		/// <summary>
+		/// Write a log entry for an exception.
+		/// </summary>
+		/// <param name="ex">The exception to write.</param>
+		public void WriteException(Exception ex)
+		{
+			Write(ExceptionLogEntry.Create(ex));
+		}
+
+		/// <summary>
+		/// Write a log entry for a packet exception.
+		/// </summary>
+		/// <param name="packet">The packet that triggered the exception.</param>
+		/// <param name="ex">The exception to write.</param>
+		public void WritePacketException(FOMPacket packet, Exception ex)
+		{
+			Write(PacketExceptionLogEntry.Create(packet, ex));
 		}
 
 		/// <summary>

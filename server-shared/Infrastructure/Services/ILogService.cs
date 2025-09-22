@@ -10,5 +10,7 @@ namespace FOMServer.Shared.Infrastructure.Services
 	{
 		void Write(in LogEntry entry);
 		void WriteMessage(LogLevel level, string message);
+		void WriteException(Exception ex);
+		void WritePacketException(FOMPacket packet, Exception ex);
 	}
 }

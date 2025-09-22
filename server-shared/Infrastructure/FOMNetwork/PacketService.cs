@@ -6,9 +6,6 @@ namespace FOMServer.Shared.Services.FOMNetwork
 {
 	public partial class PacketService : IPacketService
 	{
-		// A buffer to avoid allocating memory for holding the packets that have been received.
-		// This is shared across calls to Receive, so it must be cleared before each use.
-
 		/// <summary>
 		/// A static buffer for receiving packets to avoid allocations.
 		/// </summary>

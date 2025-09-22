@@ -124,7 +124,10 @@ namespace FOMServer.Shared.Application.Networking
 				}
 				catch (Exception ex)
 				{
-					logService.WriteMessage(LogLevel.Error, $"Error handling packet {packet.ID} from {packet.Sender}: {ex}");
+					// Letting unhandled exceptions prevent further packet processing
+					// would silently break break the server, so log and continue.
+					logService.WritePacketException(packet, ex);
+					continue;
 				}
 			}
 		}
@@ -139,7 +142,7 @@ namespace FOMServer.Shared.Application.Networking
 			if (packet.ID < PacketIdentifier.ID_FOM_PACKET_START)
 				return;
 
-			logService.WriteMessage(LogLevel.Error, $"No handler for packet {packet.ID} from {packet.Sender}");
+			throw new NotSupportedException("Missing Packet Handler");
 		}
 
 		public void Dispose()

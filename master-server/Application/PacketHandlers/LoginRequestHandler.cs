@@ -44,7 +44,7 @@ namespace FOMServer.Master.Application.PacketHandlers
 					response.Username[i] = data.Username[i];
 			}
 
-			logService.WriteMessage(LogLevel.Info, $"Login Request: {username} from {sender}");
+			logService.WriteMessage(LogLevel.Debug, $"Login Request: {username} from {sender}");
 
 			var accountID = accountRepository.AccountExists(username);
 			if (accountID == null)
