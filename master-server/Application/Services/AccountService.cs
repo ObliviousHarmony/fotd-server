@@ -26,7 +26,7 @@ namespace FOMServer.Master.Application.Services
 
 		public Account? Login(string username, string password)
 		{
-			AccountDto? dto = accountRepository.TryLogin(username, password);
+			var dto = accountRepository.TryLogin(username, password);
 			if (dto == null)
 				return null;
 

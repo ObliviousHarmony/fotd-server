@@ -36,7 +36,7 @@ namespace FOMServer.Shared.Application.Persistence
 		private void Enqueue(IPersistable entity)
 		{
 			// Use an atomic flag so that dirty entities are thread-safely queued only once.
-			DirtyFlag flag = dirtyFlags.GetOrCreateValue(entity);
+			var flag = dirtyFlags.GetOrCreateValue(entity);
 			if (Interlocked.Exchange(ref flag.IsDirty, 1) == 0)
 				dirtyQueue.Writer.TryWrite(entity);
 		}
@@ -89,7 +89,7 @@ namespace FOMServer.Shared.Application.Persistence
 			{
 				try
 				{
-					IPersistable entity = await dirtyQueue.Reader.ReadAsync(ct);
+					var entity = await dirtyQueue.Reader.ReadAsync(ct);
 					await Handle(entity);
 				}
 				catch (OperationCanceledException)
@@ -103,7 +103,7 @@ namespace FOMServer.Shared.Application.Persistence
 			}
 
 			// Drain the queue and persist any remaining changed entities before shutting down.
-			while (dirtyQueue.Reader.TryRead(out IPersistable? entity))
+			while (dirtyQueue.Reader.TryRead(out var entity))
 				await Handle(entity);
 		}
 
@@ -113,11 +113,11 @@ namespace FOMServer.Shared.Application.Persistence
 		/// <param name="entity">The entity to persist.</param>
 		private async Task Handle(IPersistable entity)
 		{
-			if (!handlers.TryGetValue(entity.GetType(), out IPersistenceHandler? handler))
+			if (!handlers.TryGetValue(entity.GetType(), out var handler))
 				return;
 
 			// Clear the dirty flag so that the entity can be re-queued if it changes again.
-			if (!dirtyFlags.TryGetValue(entity, out DirtyFlag? entityFlag))
+			if (!dirtyFlags.TryGetValue(entity, out var entityFlag))
 				return;
 			if (Interlocked.Exchange(ref entityFlag.IsDirty, 0) == 0)
 				return;

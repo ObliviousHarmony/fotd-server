@@ -46,22 +46,13 @@ namespace FOMServer.Master.Application.PacketHandlers
 
 			logService.WriteMessage(LogLevel.Info, $"Login Request: {username} from {sender}");
 
-			uint? accountID = accountRepository.AccountExists(username);
+			var accountID = accountRepository.AccountExists(username);
 			if (accountID == null)
-			{
 				response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_INVALID_INFORMATION;
-				logService.WriteMessage(LogLevel.Info, $"Login failed: Account '{username}' does not exist.");
-			}
 			else if (accountService.Get(accountID.Value) != null)
-			{
 				response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_ALREADY_LOGGED_IN;
-				logService.WriteMessage(LogLevel.Info, $"Login failed: Account '{username}' is already logged in.");
-			}
 			else
-			{
 				response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_SUCCESS;
-				logService.WriteMessage(LogLevel.Info, $"Login success: Account '{username}' ID: '{accountID}");
-			}
 
 			sendPacketService.Send(
 				PacketIdentifier.ID_LOGIN_REQUEST_RETURN,

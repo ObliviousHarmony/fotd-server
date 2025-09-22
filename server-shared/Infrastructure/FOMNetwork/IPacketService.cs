@@ -23,13 +23,13 @@ namespace FOMServer.Shared.Infrastructure.FOMNetwork
 		/// </remarks>
 		/// <param name="peer">The peer to receive packets using.</param>
 		/// <returns>The buffer containing the received packets.</returns>
-		Span<FOMPacket> Receive(nint peer);
+		Span<FOMPacket> Receive(IntPtr peer);
 
 		/// <summary>
 		/// Sends packets to the specified destinations.
 		/// </summary>
 		/// <param name="peer">The peer to send packets using.</param>
 		/// <param name="packets">A buffer of packets to send.</param>
-		void Send(nint peer, Span<SendPacket> packets);
+		void Send(IntPtr peer, Span<SendPacket> packets);
 	}
 }

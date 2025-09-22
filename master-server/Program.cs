@@ -8,7 +8,7 @@ class Program
 	{
 		IServiceProvider serviceProvider = CompositionRoot.BuildContainer();
 
-		Server server = serviceProvider.GetRequiredService<Server>();
+		var server = serviceProvider.GetRequiredService<Server>();
 		server.Run();
 	}
 }

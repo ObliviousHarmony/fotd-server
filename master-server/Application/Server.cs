@@ -41,7 +41,7 @@ namespace FOMServer.Master.Application
 		/// </summary>
 		public void Run()
 		{
-			CancellationTokenSource cts = new CancellationTokenSource();
+			var cts = new CancellationTokenSource();
 
 			logService.WriteMessage(LogLevel.Info, "Starting Server...");
 			logService.WriteMessage(LogLevel.Info, "Press Ctrl+C for shutdown.");
@@ -55,8 +55,8 @@ namespace FOMServer.Master.Application
 			networkService.ValidateFOMPacket();
 
 			// Start the network peer so we can accept connections.
-			nint peer = serverService.Startup(serverSettings.Port);
-			if (peer == nint.Zero)
+			var peer = serverService.Startup(serverSettings.Port);
+			if (peer == IntPtr.Zero)
 				throw new InvalidOperationException("Failed to start server.");
 			networkManager.ConfigurePeer(peer, serverService.Shutdown);
 

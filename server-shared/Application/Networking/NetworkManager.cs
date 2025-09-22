@@ -22,8 +22,8 @@ namespace FOMServer.Shared.Application.Networking
 		/// </remarks>
 		private static readonly SendPacket[] SendBuffer = new SendPacket[IPacketService.MaxBufferedPackets];
 
-		protected nint peer;
-		protected Action<nint>? peerShutdown;
+		protected IntPtr peer;
+		protected Action<IntPtr>? peerShutdown;
 		protected readonly ILogService logService;
 		private readonly IPacketService packetService;
 		private readonly PacketProcessor packetProcessor;
@@ -37,7 +37,7 @@ namespace FOMServer.Shared.Application.Networking
 			PacketProcessor packetProcessor
 		)
 		{
-			peer = nint.Zero;
+			peer = IntPtr.Zero;
 			peerShutdown = null;
 			this.logService = logService;
 			this.packetService = packetService;
@@ -60,9 +60,9 @@ namespace FOMServer.Shared.Application.Networking
 		/// </remarks>
 		/// <param name="peer">The peer to use with the service.</param>
 		/// <param name="peerShutdown">A function describing how to shut the peer down when the service is disposed.</param>
-        public void ConfigurePeer(nint peer, Action<nint> peerShutdown)
+        public void ConfigurePeer(IntPtr peer, Action<IntPtr> peerShutdown)
         {
-            if (this.peer != nint.Zero)
+            if (this.peer != IntPtr.Zero)
                 throw new InvalidOperationException("Peer is already configured.");
 
             this.peer = peer;
@@ -77,7 +77,7 @@ namespace FOMServer.Shared.Application.Networking
 			if (networkTask != null)
 				return;
 
-			if (peer == nint.Zero)
+			if (peer == IntPtr.Zero)
 				throw new InvalidOperationException("Peer is not configured.");
 
 			cts = CancellationTokenSource.CreateLinkedTokenSource(parentToken);
@@ -123,13 +123,13 @@ namespace FOMServer.Shared.Application.Networking
 				// Avoid starving packet receiving with sending by
 				// limiting the number of packets sent per batch.
 				int numToSend = 0;
-				while (numToSend < IPacketService.MaxBufferedPackets && sendQueue.Reader.TryRead(out SendPacket packetToSend))
+				while (numToSend < IPacketService.MaxBufferedPackets && sendQueue.Reader.TryRead(out var packetToSend))
 					SendBuffer[numToSend++] = packetToSend;
 
 				if (numToSend > 0)
 					packetService.Send(peer, SendBuffer.AsSpan(0, numToSend));
 
-				Span<FOMPacket> received = packetService.Receive(peer);
+				var received = packetService.Receive(peer);
 				foreach (ref readonly var packet in received)
 					packetProcessor.Enqueue(packet);
 
@@ -146,10 +146,10 @@ namespace FOMServer.Shared.Application.Networking
 			byte orderingChannel = 0
 		)
 		{
-			if (peer == nint.Zero)
+			if (peer == IntPtr.Zero)
 				throw new InvalidOperationException("Peer is not configured.");
 
-			SendPacket packet = new()
+			var packet = new SendPacket
 			{
 				ID = id,
 				Data = data,
@@ -172,10 +172,10 @@ namespace FOMServer.Shared.Application.Networking
 			byte orderingChannel = 0
 		)
 		{
-			if (peer == nint.Zero)
+			if (peer == IntPtr.Zero)
 				throw new InvalidOperationException("Peer is not configured.");
 
-			SendPacket packet = new()
+			var packet = new SendPacket
 			{
 				ID = id,
 				Data = data,
@@ -193,15 +193,15 @@ namespace FOMServer.Shared.Application.Networking
 		{
 			StopAsync().GetAwaiter().GetResult();
 
-			if (peerShutdown != null && peer != nint.Zero)
+			if (peerShutdown != null && peer != IntPtr.Zero)
 			{
 				peerShutdown(peer);
 				peerShutdown = null;
 			}
 
-			if (peer != nint.Zero)
+			if (peer != IntPtr.Zero)
 			{
-				peer = nint.Zero;
+				peer = IntPtr.Zero;
 			}
 
 			GC.SuppressFinalize(this);

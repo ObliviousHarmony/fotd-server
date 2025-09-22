@@ -110,7 +110,7 @@ namespace FOMServer.Shared.Infrastructure.Services
 		/// </summary>
 		private async Task ProcessLoopAsync(CancellationToken ct)
 		{
-			await foreach (LogEntry entry in logChannel.Reader.ReadAllAsync(ct))
+			await foreach (var entry in logChannel.Reader.ReadAllAsync(ct))
 			{
 				var formatted = entry.ToString();
 

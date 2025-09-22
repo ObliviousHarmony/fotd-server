@@ -117,7 +117,7 @@ namespace FOMServer.Shared.Application.Networking
 
 				try
 				{
-					if (handlers.TryGetValue(packet.ID, out IPacketHandler? handler))
+					if (handlers.TryGetValue(packet.ID, out var handler))
 						handler.Handle(packet);
 					else
 						OnUnhandledPacket(packet);

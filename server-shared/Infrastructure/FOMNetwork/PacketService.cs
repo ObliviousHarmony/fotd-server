@@ -20,7 +20,7 @@ namespace FOMServer.Shared.Services.FOMNetwork
 
 		public Span<FOMPacket> Receive(IntPtr peer)
 		{
-			ReceivedPackets received = FOMNetwork_ReceivePackets(peer);
+			var received = FOMNetwork_ReceivePackets(peer);
 			if (received.Count == 0)
 				return Span<FOMPacket>.Empty;
 
