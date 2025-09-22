@@ -1,7 +1,6 @@
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
 using FOMServer.Shared.Extensions;
-using FOMServer.Shared.Infrastructure.Services;
 
 namespace FOMServer.Shared.Application.PacketHandlers
 {
@@ -11,13 +10,6 @@ namespace FOMServer.Shared.Application.PacketHandlers
 	/// <typeparam name="TPacketData">The data type of the packet.</typeparam>
 	public abstract class PacketHandler<TPacketData> : IPacketHandler where TPacketData : unmanaged
 	{
-		protected readonly ILogService logService;
-
-		public PacketHandler(ILogService logService)
-		{
-			this.logService = logService;
-		}
-
 		public abstract PacketIdentifier PacketID { get; }
 
 		/// <summary>

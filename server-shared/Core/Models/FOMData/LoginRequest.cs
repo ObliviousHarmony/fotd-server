@@ -9,21 +9,7 @@ namespace FOMServer.Shared.Core.Models.FOMData
 	[StructLayout(LayoutKind.Sequential, Pack = 1)]
 	unsafe public struct LoginRequest
 	{
-		public fixed byte username[19];
+		public fixed byte Username[19];
 		public ushort ClientVersion;
-
-		public string Username
-		{
-			get
-			{
-				unsafe
-				{
-					fixed (byte* ptr = username)
-					{
-						return CStringParser.ReadAscii(ref username[0], 19);
-					}
-				}
-			}
-		}
 	}
 }

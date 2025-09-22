@@ -115,11 +115,17 @@ namespace FOMServer.Shared.Application.Networking
 					break;
 				}
 
-				if (handlers.TryGetValue(packet.ID, out IPacketHandler? handler))
-					handler.Handle(packet);
-					
-				else
-					OnUnhandledPacket(packet);
+				try
+				{
+					if (handlers.TryGetValue(packet.ID, out IPacketHandler? handler))
+						handler.Handle(packet);
+					else
+						OnUnhandledPacket(packet);
+				}
+				catch (Exception ex)
+				{
+					logService.WriteMessage(LogLevel.Error, $"Error handling packet {packet.ID} from {packet.Sender}: {ex}");
+				}
 			}
 		}
 

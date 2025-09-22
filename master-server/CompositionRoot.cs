@@ -9,6 +9,9 @@ using FOMServer.Shared.Infrastructure.Factories;
 using FOMServer.Shared.Extensions;
 using FOMServer.Shared.Application.PacketHandlers;
 using FOMServer.Master.Infrastructure.Migrations;
+using FOMServer.Master.Core.Interfaces;
+using FOMServer.Master.Infrastructure.Repositories;
+using FOMServer.Master.Application.Services;
 
 namespace FOMServer.Master
 {
@@ -24,22 +27,15 @@ namespace FOMServer.Master
 			// Run before anything else so that the cached settings in this class are available.
 			services.AddConfiguration();
 
-			services.AddSingleton<IConnectionFactory, ConnectionFactory>();
-
 			services.AddServerShared();
-
+			services.AddSingleton<IConnectionFactory, ConnectionFactory>();
 			services.AddDatabaseMigrations();
+			services.AddRepositories();
+			services.AddMasterServices();
 			services.AddPacketHandlers();
 
 			services.AddSingleton<Server>();
 			return services.BuildServiceProvider();
-		}
-
-		private static ServiceCollection AddPacketHandlers(this ServiceCollection services)
-		{
-			services.AddSingleton<IPacketHandler, IncomingConectionHandler>();
-			services.AddSingleton<IPacketHandler, LoginRequestHandler>();
-			return services;
 		}
 
 		private static ServiceCollection AddConfiguration(this ServiceCollection services)
@@ -77,6 +73,25 @@ namespace FOMServer.Master
             })
             .AddLogging(lb => lb.AddFluentMigratorConsole());
 
+			return services;
+		}
+
+		private static ServiceCollection AddRepositories(this ServiceCollection services)
+		{
+			services.AddSingleton<IAccountRepository, DbAccountRepository>();
+			return services;
+		}
+
+		private static ServiceCollection AddMasterServices(this ServiceCollection services)
+		{
+			services.AddSingleton<IAccountService, AccountService>();
+			return services;
+		}
+
+		private static ServiceCollection AddPacketHandlers(this ServiceCollection services)
+		{
+			services.AddSingleton<IPacketHandler, IncomingConectionHandler>();
+			services.AddSingleton<IPacketHandler, LoginRequestHandler>();
 			return services;
 		}
 	}

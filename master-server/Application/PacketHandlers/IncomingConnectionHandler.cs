@@ -8,7 +8,12 @@ namespace FOMServer.Master.Application.PacketHandlers
 {
 	public class IncomingConectionHandler : PacketHandler<RakNetPacket>
 	{
-		public IncomingConectionHandler(ILogService logService) : base(logService) { }
+		private readonly ILogService logService;
+
+		public IncomingConectionHandler(ILogService logService)
+		{
+			this.logService = logService;
+		}
 
 		public override PacketIdentifier PacketID => PacketIdentifier.ID_NEW_INCOMING_CONNECTION;
 

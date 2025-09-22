@@ -43,11 +43,11 @@ namespace FOMServer.Master.Application
 		{
 			CancellationTokenSource cts = new CancellationTokenSource();
 
-			// Apply any database migrations before starting the server.
-			migrationRunner.MigrateUp();
-
 			logService.WriteMessage(LogLevel.Info, "Starting Server...");
 			logService.WriteMessage(LogLevel.Info, "Press Ctrl+C for shutdown.");
+
+			// Apply any database migrations before starting the server.
+			migrationRunner.MigrateUp();
 
 			// We need to make sure our packet structs are all blittable and match the C++ side.
 			// This is critical to ensure that we don't have memory corruption and don't
