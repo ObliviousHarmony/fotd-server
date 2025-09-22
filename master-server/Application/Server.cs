@@ -4,6 +4,7 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.Shared.Infrastructure.Services;
 using FOMServer.Shared.Application.Networking;
+using MySqlConnector;
 
 namespace FOMServer.Master.Application
 {
@@ -43,11 +44,28 @@ namespace FOMServer.Master.Application
 		{
 			var cts = new CancellationTokenSource();
 
+			// Start the logging service first so we can log everything else.
+			logService.Start(cts.Token);
+
 			logService.WriteMessage(LogLevel.Info, "Starting Server...");
 			logService.WriteMessage(LogLevel.Info, "Press Ctrl+C for shutdown.");
 
 			// Apply any database migrations before starting the server.
-			migrationRunner.MigrateUp();
+			try
+			{
+				migrationRunner.MigrateUp();
+			}
+			catch (MySqlException ex)
+			{
+				logService.WriteMessage(LogLevel.Critical, "Failed to connect to the database. Please check your connection settings.");
+				return;
+			}
+			catch (Exception ex)
+			{
+				logService.WriteMessage(LogLevel.Critical, "Failed to apply database migrations.");
+				logService.WriteException(ex);
+				return;
+			}
 
 			// We need to make sure our packet structs are all blittable and match the C++ side.
 			// This is critical to ensure that we don't have memory corruption and don't
@@ -63,7 +81,6 @@ namespace FOMServer.Master.Application
 			logService.WriteMessage(LogLevel.Info, $"Network Started: {serverSettings.Port}");
 
 			// Start all of our services so they will spin up their background tasks.
-			logService.Start(cts.Token);
 			networkManager.Start(cts.Token);
 			packetProcessor.Start(cts.Token);
 
