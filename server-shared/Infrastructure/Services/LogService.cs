@@ -78,12 +78,7 @@ namespace FOMServer.Shared.Infrastructure.Services
 
 			cts = CancellationTokenSource.CreateLinkedTokenSource(ctParent);
 
-			loggingTask = Task.Factory.StartNew(
-				async () => await ProcessLoopAsync(cts.Token),
-				cts.Token,
-				TaskCreationOptions.LongRunning,
-				TaskScheduler.Default
-			).Unwrap();
+			loggingTask = Task.Run(() => ProcessLoopAsync(cts.Token), cts.Token);
 		}
 
 		/// <summary>
@@ -115,7 +110,7 @@ namespace FOMServer.Shared.Infrastructure.Services
 		/// </summary>
 		private async Task ProcessLoopAsync(CancellationToken ct)
 		{
-			await foreach (var entry in logChannel.Reader.ReadAllAsync(ct))
+			await foreach (LogEntry entry in logChannel.Reader.ReadAllAsync(ct))
 			{
 				var formatted = entry.ToString();
 

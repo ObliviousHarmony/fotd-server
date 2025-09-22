@@ -8,26 +8,20 @@ namespace FOMServer.Shared.Application.Persistence
 	public abstract class PersistenceHandlerBase<T> : IPersistenceHandler
 		where T : IPersistable
 	{
-		public abstract Type EntityType { get; }
+		public Type EntityType => typeof(T);
 
-		private readonly object syncRoot = new();
-
-		public void PersistSafely(IPersistable entity)
+		public async Task PersistAsync(IPersistable entity)
 		{
-			if (entity is T tEntity)
-			{
-				lock (syncRoot)
-				{
-					Persist((dynamic)tEntity);
-				}
-			}
-			else
-			{
+			if (entity is not T typedEntity)
 				throw new InvalidOperationException(
-					$"{GetType().Name} cannot handle type {entity.GetType().Name}");
-			}
+					$"Handler {GetType().Name} cannot persist entity of type {entity.GetType().Name}");
+
+			await PersistAsync(typedEntity);
 		}
 
-		protected abstract void Persist(T entity);
+		/// <summary>
+		/// Implement this in your concrete handler to persist the entity.
+		/// </summary>
+		protected abstract Task PersistAsync(T entity);
 	}
 }

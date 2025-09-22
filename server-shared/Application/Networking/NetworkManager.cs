@@ -82,6 +82,8 @@ namespace FOMServer.Shared.Application.Networking
 
 			cts = CancellationTokenSource.CreateLinkedTokenSource(parentToken);
 
+			// Use a dedicated thread for this task because we need 
+			// to keep polling RakNet to maximize throughput.
 			networkTask = Task.Factory.StartNew(
 				async () => await NetworkLoopAsync(cts.Token),
 				cts.Token,
@@ -121,13 +123,13 @@ namespace FOMServer.Shared.Application.Networking
 				// Avoid starving packet receiving with sending by
 				// limiting the number of packets sent per batch.
 				int numToSend = 0;
-				while (numToSend < IPacketService.MaxBufferedPackets && sendQueue.Reader.TryRead(out var packetToSend))
+				while (numToSend < IPacketService.MaxBufferedPackets && sendQueue.Reader.TryRead(out SendPacket packetToSend))
 					SendBuffer[numToSend++] = packetToSend;
 
 				if (numToSend > 0)
 					packetService.Send(peer, SendBuffer.AsSpan(0, numToSend));
 
-				var received = packetService.Receive(peer);
+				Span<FOMPacket> received = packetService.Receive(peer);
 				foreach (ref readonly var packet in received)
 					packetProcessor.Enqueue(packet);
 

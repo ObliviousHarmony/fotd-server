@@ -33,7 +33,7 @@ namespace FOMServer.Shared.Services.FOMNetwork
 					throw new Exception($"The data struct for packet ID {s.ID} is not blittable.");
 			}
 
-			var ret = FOMNetwork_ValidatePacketStructs(structures, structures.Length);
+			int ret = FOMNetwork_ValidatePacketStructs(structures, structures.Length);
 			if (ret == -1)
 				throw new Exception("The number of structs provided does not match the number expected by the network library.");
 			else if (ret == -1)

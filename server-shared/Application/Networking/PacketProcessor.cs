@@ -60,6 +60,8 @@ namespace FOMServer.Shared.Application.Networking
 
 			for (int i = 0; i < workerCount; i++)
 			{
+				// Use a dedicated thread for each worker because RakNet packets
+				// will consistently be arriving and needing to be handled.
 				var task = Task.Factory.StartNew(
 					async () => await WorkerLoopAsync(cts.Token),
 					cts.Token,
@@ -113,7 +115,7 @@ namespace FOMServer.Shared.Application.Networking
 					break;
 				}
 
-				if (handlers.TryGetValue(packet.ID, out var handler))
+				if (handlers.TryGetValue(packet.ID, out IPacketHandler? handler))
 					handler.Handle(packet);
 					
 				else

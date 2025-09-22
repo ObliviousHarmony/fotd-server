@@ -15,6 +15,6 @@ namespace FOMServer.Shared.Application.Persistence
 		/// <summary>
 		/// Persists the given entity in a thread-safe manner.
 		/// </summary>
-		void PersistSafely(IPersistable entity);
+		Task PersistAsync(IPersistable entity);
 	}
 }

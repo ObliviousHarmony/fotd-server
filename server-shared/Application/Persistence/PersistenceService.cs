@@ -1,5 +1,4 @@
 using FOMServer.Shared.Core.Interfaces;
-using FOMServer.Shared.Core.Models;
 using System.Runtime.CompilerServices;
 using System.Threading.Channels;
 
@@ -13,8 +12,10 @@ namespace FOMServer.Shared.Application.Persistence
 		private class DirtyFlag { public int IsDirty = 0; }
 
 		private readonly Dictionary<Type, IPersistenceHandler> handlers;
-		private readonly Channel<IPersistable> queue;
+		private readonly Channel<IPersistable> dirtyQueue;
+
 		private readonly ConditionalWeakTable<IPersistable, DirtyFlag> dirtyFlags;
+		private readonly ConditionalWeakTable<IPersistable, SemaphoreSlim> entityLocks;
 
 		private Task? persistenceTask;
 		private CancellationTokenSource? cts;
@@ -22,8 +23,9 @@ namespace FOMServer.Shared.Application.Persistence
 		public PersistenceService(IEnumerable<IPersistenceHandler> handlers)
 		{
 			this.handlers = handlers.ToDictionary(h => h.EntityType);
-			this.queue = Channel.CreateUnbounded<IPersistable>();
+			this.dirtyQueue = Channel.CreateUnbounded<IPersistable>();
 			this.dirtyFlags = new ConditionalWeakTable<IPersistable, DirtyFlag>();
+			this.entityLocks = new ConditionalWeakTable<IPersistable, SemaphoreSlim>();
 		}
 
 		public void Register(IPersistable entity)
@@ -33,12 +35,10 @@ namespace FOMServer.Shared.Application.Persistence
 
 		private void Enqueue(IPersistable entity)
 		{
-			// Use an atomic operation to check and set the dirty flag.
-			// This is cleaned when the entity starts being persisted.
-			// It thus prevents multiple enqueues of the same entity.
+			// Use an atomic flag so that dirty entities are thread-safely queued only once.
 			DirtyFlag flag = dirtyFlags.GetOrCreateValue(entity);
 			if (Interlocked.Exchange(ref flag.IsDirty, 1) == 0)
-				queue.Writer.TryWrite(entity);
+				dirtyQueue.Writer.TryWrite(entity);
 		}
 
 		/// <summary>
@@ -52,12 +52,8 @@ namespace FOMServer.Shared.Application.Persistence
 
 			cts = CancellationTokenSource.CreateLinkedTokenSource(ctParent);
 
-			persistenceTask = Task.Factory.StartNew(
-				async () => await PersistenceLoopAsync(cts.Token),
-				cts.Token,
-				TaskCreationOptions.LongRunning,
-				TaskScheduler.Default
-			).Unwrap();
+			// Use the thread pool for this task as it does a ton of blocking IO.
+			persistenceTask = Task.Run(() => PersistenceLoopAsync(cts.Token), cts.Token);
 		}
 
 		/// <summary>
@@ -69,7 +65,7 @@ namespace FOMServer.Shared.Application.Persistence
 				return;
 
 			cts?.Cancel();
-			queue.Writer.Complete();
+			dirtyQueue.Writer.Complete();
 
 			try
 			{
@@ -91,7 +87,51 @@ namespace FOMServer.Shared.Application.Persistence
 		{
 			while (!ct.IsCancellationRequested)
 			{
+				try
+				{
+					IPersistable entity = await dirtyQueue.Reader.ReadAsync(ct);
+					await Handle(entity);
+				}
+				catch (OperationCanceledException)
+				{
+					break;
+				}
+				catch (ChannelClosedException)
+				{
+					break;
+				}
+			}
 
+			// Drain the queue and persist any remaining changed entities before shutting down.
+			while (dirtyQueue.Reader.TryRead(out IPersistable? entity))
+				await Handle(entity);
+		}
+
+		/// <summary>
+		/// Handles persisting a single entity.
+		/// </summary>
+		/// <param name="entity">The entity to persist.</param>
+		private async Task Handle(IPersistable entity)
+		{
+			if (!handlers.TryGetValue(entity.GetType(), out IPersistenceHandler? handler))
+				return;
+
+			// Clear the dirty flag so that the entity can be re-queued if it changes again.
+			if (!dirtyFlags.TryGetValue(entity, out DirtyFlag? entityFlag))
+				return;
+			if (Interlocked.Exchange(ref entityFlag.IsDirty, 0) == 0)
+				return;
+
+			// Only allow the entity to be persisted by one thread at a time.
+			var semaphore = entityLocks.GetValue(entity, _ => new SemaphoreSlim(1, 1));
+			await semaphore.WaitAsync();
+			try
+			{
+				await handler.PersistAsync(entity);
+			}
+			finally
+			{
+				semaphore.Release();
 			}
 		}
 
