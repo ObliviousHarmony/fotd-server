@@ -8,11 +8,13 @@ using their own private servers.
 
 ### Prerequisites
 
+- [**.NET 9.0**]
 - [**Docker**](https://docs.docker.com/engine/install/): In addition to a development server, Docker is necessary to build the project on Linux.
 This is because the included RakNet library requires GCC 4.8 to build, which is not available on
 modern operating systems.
 - [**just**](https://github.com/casey/just): A command runner that simplifies working with tools.
 - [**CMake 3.28 (or newer)**](https://cmake.org/download)
+- [**ClangFormat**](https://clang.llvm.org/docs/ClangFormat.html): A C++ code formatter.
 
 ### Building
 
@@ -58,4 +60,3 @@ just ms-up
 ```
 
 Using Visual Studio you can also debug the servers directly as long as a database server is running.
-
