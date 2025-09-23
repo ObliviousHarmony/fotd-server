@@ -4,6 +4,17 @@ DOTNET_CACHE_IMAGE := "fom/build-dotnet"
 BUILD_VOLUME := "fom-server-build"
 NUGET_CACHE_VOLUME := "fom-server-nuget-cache"
 
+setup:
+	pre-commit install --overwrite
+
+[group("format")]
+format-check-cpp:
+  clang-format --dry-run --Werror $(find ./fom-network -name '*.h' -o -name '*.cpp')
+
+[group("format")]
+format-check-dotnet:
+  dotnet format ManagedOnly.slnf --verify-no-changes
+
 [group("format")]
 [parallel]
 format: format-cpp format-dotnet
@@ -15,17 +26,6 @@ format-cpp:
 [group("format")]
 format-dotnet:
   dotnet format ManagedOnly.slnf
-
-[group("format")]
-format-check: format-check-cpp format-check-dotnet
-
-[group("format")]
-format-check-cpp:
-  clang-format --dry-run --Werror $(find ./fom-network -name '*.h' -o -name '*.cpp')
-
-[group("format")]
-format-check-dotnet:
-  dotnet format ManagedOnly.slnf --verify-no-changes
 
 [group("docker")]
 [doc('Creates the Docker images used for building the project.')]
