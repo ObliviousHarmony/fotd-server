@@ -1,38 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
-		<RootNamespace>FOMServer.Shared</RootNamespace>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-	</PropertyGroup>
-	
-	<ItemGroup>
-		<ProjectReference Include="..\fom-network\FOMNetwork.vcxproj" Condition="'$(OS)' == 'Windows_NT'" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
-		<PackageReference Include="MySqlConnector" Version="2.4.0" />
-		<PackageReference Include="Dapper" Version="2.1.66" />
-	</ItemGroup>
-	
-	<PropertyGroup>
-		<FOMNetworkDllFile>../out/build/$(Configuration)/fom-network/FOMNetwork.dll</FOMNetworkDllFile>
-		<FOMNetworkSOFile>../out/build/$(Configuration)/fom-network/libFOMNetwork.so</FOMNetworkSOFile>
-		<FOMNetworkPDBFile>../out/build/$(Configuration)/fom-network/FOMNetwork.pdb</FOMNetworkPDBFile>
-	</PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>FOMServer.Shared</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<None Include="$(FOMNetworkDllFile)" Condition="Exists('$(FOMNetworkDllFile)')">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Include="$(FOMNetworkSOFile)" Condition="Exists('$(FOMNetworkSOFile)')">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Include="$(FOMNetworkPDBFile)" Condition="Exists('$(FOMNetworkPDBFile)')">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\fom-network\FOMNetwork.vcxproj" Condition="'$(OS)' == 'Windows_NT'" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
+    <PackageReference Include="MySqlConnector" Version="2.4.0" />
+    <PackageReference Include="Dapper" Version="2.1.66" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Application\Services\" />
-	</ItemGroup>
+  <PropertyGroup>
+    <FOMNetworkDllFile>../out/build/$(Configuration)/fom-network/FOMNetwork.dll</FOMNetworkDllFile>
+    <FOMNetworkSOFile>../out/build/$(Configuration)/fom-network/libFOMNetwork.so</FOMNetworkSOFile>
+    <FOMNetworkPDBFile>../out/build/$(Configuration)/fom-network/FOMNetwork.pdb</FOMNetworkPDBFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(FOMNetworkDllFile)" Condition="Exists('$(FOMNetworkDllFile)')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(FOMNetworkSOFile)" Condition="Exists('$(FOMNetworkSOFile)')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(FOMNetworkPDBFile)" Condition="Exists('$(FOMNetworkPDBFile)')">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\Services\" />
+  </ItemGroup>
 </Project>

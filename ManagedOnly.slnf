@@ -1,11 +1,11 @@
 {
   "solution": {
-	"path": "FOMServer.sln",
-	"projects": [
-		"server-shared\\ServerShared.csproj",
-		"master-server\\MasterServer.csproj",
-		"world-server\\WorldServer.csproj",
-		"server-tests\\ServerTests.csproj"
-	]
+  "path": "FOMServer.sln",
+  "projects": [
+    "server-shared\\ServerShared.csproj",
+    "master-server\\MasterServer.csproj",
+    "world-server\\WorldServer.csproj",
+    "server-tests\\ServerTests.csproj"
+  ]
   }
 }

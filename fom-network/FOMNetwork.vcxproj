@@ -1,46 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<ItemGroup Label="ProjectConfigurations">
-		<ProjectConfiguration Include="Debug|x64">
-			<Configuration>Debug</Configuration>
-			<Platform>x64</Platform>
-		</ProjectConfiguration>
-		<ProjectConfiguration Include="Release|x64">
-			<Configuration>Release</Configuration>
-			<Platform>x64</Platform>
-		</ProjectConfiguration>
-	</ItemGroup>
-	
-	<PropertyGroup Label="Globals">
-		<VCProjectVersion>17.0</VCProjectVersion>
-		<ProjectGuid>{302F700C-184A-F712-82ED-F406D0FC1381}</ProjectGuid>
-		<Keyword>MakeFileProj</Keyword>
-		<RestoreProjectStyle>None</RestoreProjectStyle>
-	</PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
 
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{302F700C-184A-F712-82ED-F406D0FC1381}</ProjectGuid>
+    <Keyword>MakeFileProj</Keyword>
+    <RestoreProjectStyle>None</RestoreProjectStyle>
+  </PropertyGroup>
 
-	<PropertyGroup Label="Configuration">
-		<ConfigurationType>Makefile</ConfigurationType>
-	</PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
 
-	<PropertyGroup>
-		<OutDir>../out\build\$(Configuration)\fom-network\</OutDir>
-		<IntDir>../out\build\$(Configuration)\fom-network\</IntDir>
-	</PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>Makefile</ConfigurationType>
+  </PropertyGroup>
 
-    <PropertyGroup>
-        <NMakeBuildCommandLine>cmake --build "../out/build/$(Configuration)" --config $(Configuration)</NMakeBuildCommandLine>
-        <NMakeCleanCommandLine>cmake --build "../out/build/$(Configuration)" --config $(Configuration) --target clean</NMakeCleanCommandLine>
-        <NMakeReBuildCommandLine>cmake --build "../out/build/$(Configuration)" --config $(Configuration) --clean-first</NMakeReBuildCommandLine>
-        <NMakePreprocessorDefinitions>NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-        <NMakeOutput>../out/build/$(Configuration)\fom-network\FOMNetwork.dll</NMakeOutput>
-    </PropertyGroup>
+  <PropertyGroup>
+    <OutDir>../out\build\$(Configuration)\fom-network\</OutDir>
+    <IntDir>../out\build\$(Configuration)\fom-network\</IntDir>
+  </PropertyGroup>
 
-    <ImportGroup Label="PropertySheets">
-        <Import Project="FOMNetwork.props" />
-    </ImportGroup>
+  <PropertyGroup>
+    <NMakeBuildCommandLine>
+      cmake --build "../out/build/$(Configuration)" --config $(Configuration)
+    </NMakeBuildCommandLine>
+    <NMakeCleanCommandLine>
+      cmake --build "../out/build/$(Configuration)" --config $(Configuration) --target clean
+    </NMakeCleanCommandLine>
+    <NMakeReBuildCommandLine>
+      cmake --build "../out/build/$(Configuration)" --config $(Configuration) --clean-first
+    </NMakeReBuildCommandLine>
+    <NMakePreprocessorDefinitions>NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <NMakeOutput>../out/build/$(Configuration)\fom-network\FOMNetwork.dll</NMakeOutput>
+  </PropertyGroup>
 
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="FOMNetwork.props" />
+  </ImportGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

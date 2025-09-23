@@ -1,6 +1,6 @@
 root = true
 
-[*.{md,txt,json,xml,h,hpp,c,cpp,cs}]
+[*]
 charset = utf-8
 end_of_line = lf
 insert_final_newline = true
