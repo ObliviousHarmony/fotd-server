@@ -6,14 +6,14 @@ NUGET_CACHE_VOLUME := "fom-server-nuget-cache"
 
 [group("format")]
 [parallel]
-format: _format-cpp _format-dotnet
+format: format-cpp format-dotnet
 
 [group("format")]
-_format-cpp:
+format-cpp:
   clang-format -i $(find ./fom-network -name '*.h' -o -name '*.cpp')
 
 [group("format")]
-_format-dotnet:
+format-dotnet:
   dotnet format ManagedOnly.slnf
 
 [group("format")]

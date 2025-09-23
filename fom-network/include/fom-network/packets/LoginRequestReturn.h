@@ -8,21 +8,21 @@
 #pragma pack(push, 1)
 
 namespace FOMPacket {
-	/**
-	 * Status codes for login requests.
-	 */
-	enum LoginRequestReturnStatus : uint8_t {
-		LOGIN_REQUEST_INVALID_INFORMATION,
-		LOGIN_REQUEST_SUCCESS,
-		LOGIN_REQUEST_OUTDATED_CLIENT,
-		LOGIN_REQUEST_ALREADY_LOGGED_IN
-	};
+/**
+ * Status codes for login requests.
+ */
+enum LoginRequestReturnStatus : uint8_t {
+  LOGIN_REQUEST_INVALID_INFORMATION,
+  LOGIN_REQUEST_SUCCESS,
+  LOGIN_REQUEST_OUTDATED_CLIENT,
+  LOGIN_REQUEST_ALREADY_LOGGED_IN
+};
 
-	struct LoginRequestReturn {
-		LoginRequestReturnStatus status;
-		char username[19];
-	};
-	ASSERT_BLITTABLE(LoginRequestReturn);
-}
+struct LoginRequestReturn {
+  LoginRequestReturnStatus status;
+  char username[19];
+};
+ASSERT_BLITTABLE(LoginRequestReturn);
+}  // namespace FOMPacket
 
 #pragma pack(pop)
