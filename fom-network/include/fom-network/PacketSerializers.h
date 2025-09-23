@@ -28,13 +28,27 @@ class BaseSerializer {
   ~BaseSerializer() { StringCompressor::RemoveReference(); }
 
   template <size_t N>
-  void EncodeString(RakNet::BitStream& bs, const char (&input)[N]) const {
-    strCompressor->EncodeString(input, N, &bs);
+  void WriteRawString(RakNet::BitStream& bs, const uint8_t (&input)[N]) const {
+    bs.Write((uint8_t)N);
+    bs.WriteBits(input, N * 8);
   }
 
   template <size_t N>
-  bool DecodeString(RakNet::BitStream& bs, char (&output)[N]) const {
-    return strCompressor->DecodeString(output, N, &bs);
+  bool ReadRawString(RakNet::BitStream& bs, uint8_t (&output)[N]) const {
+    uint8_t len;
+    if (!bs.Read(len)) return false;
+    if (len > N) return false;
+    return bs.ReadBits(output, len * 8);
+  }
+
+  template <size_t N>
+  void EncodeString(RakNet::BitStream& bs, const uint8_t (&input)[N]) const {
+    strCompressor->EncodeString((const char*)input, N, &bs);
+  }
+
+  template <size_t N>
+  bool DecodeString(RakNet::BitStream& bs, uint8_t (&output)[N]) const {
+    return strCompressor->DecodeString((char*)output, N, &bs);
   }
 
  private:
@@ -99,3 +113,4 @@ class BaseSerializer {
  */
 SERIALIZER_READ(LoginRequest, loginRequest)
 SERIALIZER_WRITE(LoginRequestReturn, loginRequestReturn)
+SERIALIZER_READ(Login, login)

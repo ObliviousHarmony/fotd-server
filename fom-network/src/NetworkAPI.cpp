@@ -13,7 +13,8 @@ int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures,
   std::unordered_map<uint8_t, uint32_t> libraryMap = {
       {ID_FOM_PACKET_READ_ERROR, sizeof(FOMPacket::ReadPacketError)},
       {ID_LOGIN_REQUEST, sizeof(FOMPacket::LoginRequest)},
-      {ID_LOGIN_REQUEST_RETURN, sizeof(FOMPacket::LoginRequestReturn)}};
+      {ID_LOGIN_REQUEST_RETURN, sizeof(FOMPacket::LoginRequestReturn)},
+      {ID_LOGIN, sizeof(FOMPacket::Login)}};
 #pragma warning(pop)
 
   // Both should have the same number of packets defined.

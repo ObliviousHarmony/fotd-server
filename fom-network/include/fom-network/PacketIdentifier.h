@@ -6,11 +6,13 @@
 /**
  * For every packet identifier, you must also update:
  *
- * - include/fom-network/FOMPacket.h: Requires a packet struct.
- * - src/serializers/PacketSerializers.h: Requires a serializer declaration.
+ * - include/fom-network/packets/<PacketName>.h: Requires a packet struct.
+ * - include/fom-network/FOMPacket.h: Add packet struct to union.
+ * - include/fom-network/PacketSerializers.h: Requires a serializer declaration.
  * - src/serializers/<PacketName>Serializer.cpp: Requires a serializer
  * implementation.
  * - src/FOMDataSerializer.cpp: Requires adding to the serializer map.
+ * - src/NetworkAPI.cpp: Requires adding to the validation map.
  */
 
 /**

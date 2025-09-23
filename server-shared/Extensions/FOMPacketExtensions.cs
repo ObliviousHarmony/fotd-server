@@ -1,7 +1,6 @@
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
 using FOMServer.Shared.Core.Models.FOMData;
-using System;
 
 namespace FOMServer.Shared.Extensions
 {
@@ -33,6 +32,8 @@ namespace FOMServer.Shared.Extensions
                     return (TPacket)(object)packet.Data.loginRequest;
                 case PacketIdentifier.ID_LOGIN_REQUEST_RETURN when typeof(TPacket) == typeof(LoginRequestReturn):
                     return (TPacket)(object)packet.Data.loginRequestReturn;
+                case PacketIdentifier.ID_LOGIN when typeof(TPacket) == typeof(Login):
+                    return (TPacket)(object)packet.Data.login;
 
                 default:
                     throw new InvalidOperationException(

@@ -11,6 +11,8 @@ namespace FOMServer.Master.Application.PacketHandlers
 {
     public class LoginRequestHandler : PacketHandler<LoginRequest>
     {
+        public override PacketIdentifier PacketID => PacketIdentifier.ID_LOGIN_REQUEST;
+
         private readonly IAccountRepository accountRepository;
         private readonly IAccountService accountService;
         private readonly IPacketSender sendPacketService;
@@ -28,8 +30,6 @@ namespace FOMServer.Master.Application.PacketHandlers
             this.sendPacketService = sendPacketService;
             this.logService = logService;
         }
-
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_LOGIN_REQUEST;
 
         public override void Handle(NetworkAddress sender, in LoginRequest data)
         {

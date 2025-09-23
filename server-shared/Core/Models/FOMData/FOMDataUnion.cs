@@ -16,5 +16,6 @@ namespace FOMServer.Shared.Core.Models.FOMData
         [FieldOffset(0)] public ReadPacketError readError;
         [FieldOffset(0)] public LoginRequest loginRequest;
         [FieldOffset(0)] public LoginRequestReturn loginRequestReturn;
+        [FieldOffset(0)] public Login login;
     }
 }

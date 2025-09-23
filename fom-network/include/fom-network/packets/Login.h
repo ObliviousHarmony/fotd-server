@@ -8,11 +8,15 @@
 #pragma pack(push, 1)
 
 namespace FOMPacket {
-struct LoginRequest {
+struct Login {
   uint8_t username[19];
-  uint16_t clientVersion;
+  uint8_t passwordHash[32];
+  uint32_t clientCRC;
+  uint32_t cshellCRC;
+  uint32_t objectCRC;
+  uint8_t macAddress[18];
 };
-ASSERT_BLITTABLE(LoginRequest);
+ASSERT_BLITTABLE(Login);
 }  // namespace FOMPacket
 
 #pragma pack(pop)

@@ -2,9 +2,6 @@ using System.Runtime.InteropServices;
 
 namespace FOMServer.Shared.Core.Models.FOMData
 {
-    /// <summary>
-    /// Represents an error encountered while processing a packet.
-    /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct LoginRequestReturn
     {

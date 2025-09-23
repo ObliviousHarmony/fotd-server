@@ -20,7 +20,7 @@ enum LoginRequestReturnStatus : uint8_t {
 
 struct LoginRequestReturn {
   LoginRequestReturnStatus status;
-  char username[19];
+  uint8_t username[19];
 };
 ASSERT_BLITTABLE(LoginRequestReturn);
 }  // namespace FOMPacket

@@ -7,14 +7,14 @@ namespace FOMServer.Shared.Application.PacketHandlers
 {
     public class ReadPacketErrorHandler : PacketHandler<ReadPacketError>
     {
+        public override PacketIdentifier PacketID => PacketIdentifier.ID_FOM_PACKET_READ_ERROR;
+
         private readonly ILogService logService;
 
         public ReadPacketErrorHandler(ILogService logService)
         {
             this.logService = logService;
         }
-
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_FOM_PACKET_READ_ERROR;
 
         public override void Handle(NetworkAddress sender, in ReadPacketError data)
         {

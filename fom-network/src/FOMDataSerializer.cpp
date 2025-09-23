@@ -9,7 +9,9 @@
 static std::unordered_map<uint32_t, IWriter*> writerMap = {
     {ID_LOGIN_REQUEST_RETURN, &LoginRequestReturnSerializer::GetInstance()}};
 static std::unordered_map<uint32_t, IReader*> readerMap = {
-    {ID_LOGIN_REQUEST, &LoginRequestSerializer::GetInstance()}};
+    {ID_LOGIN_REQUEST, &LoginRequestSerializer::GetInstance()},
+    {ID_LOGIN, &LoginSerializer::GetInstance()},
+};
 
 bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id,
                               const FOMDataUnion& data) {
