@@ -15,56 +15,56 @@ using FOMServer.Master.Application.Services;
 
 namespace FOMServer.Master
 {
-	internal static class CompositionRoot
-	{
-		private static ServerSettings? serverSettings;
-		private static DatabaseSettings? dbSettings;
+    internal static class CompositionRoot
+    {
+        private static ServerSettings? serverSettings;
+        private static DatabaseSettings? dbSettings;
 
-		public static IServiceProvider BuildContainer()
-		{
-			ServiceCollection services = new ServiceCollection();
+        public static IServiceProvider BuildContainer()
+        {
+            ServiceCollection services = new ServiceCollection();
 
-			// Run before anything else so that the cached settings in this class are available.
-			services.AddConfiguration();
+            // Run before anything else so that the cached settings in this class are available.
+            services.AddConfiguration();
 
-			services.AddServerShared();
-			services.AddSingleton<IConnectionFactory, ConnectionFactory>();
-			services.AddDatabaseMigrations();
-			services.AddRepositories();
-			services.AddMasterServices();
-			services.AddPacketHandlers();
+            services.AddServerShared();
+            services.AddSingleton<IConnectionFactory, ConnectionFactory>();
+            services.AddDatabaseMigrations();
+            services.AddRepositories();
+            services.AddMasterServices();
+            services.AddPacketHandlers();
 
-			services.AddSingleton<Server>();
-			return services.BuildServiceProvider();
-		}
+            services.AddSingleton<Server>();
+            return services.BuildServiceProvider();
+        }
 
-		private static ServiceCollection AddConfiguration(this ServiceCollection services)
-		{
-			IConfigurationRoot config = new ConfigurationBuilder()
-				.SetBasePath(AppContext.BaseDirectory)
-				.AddJsonFile("appsettings.json", optional: false)
-				.AddJsonFile("appsettings.development.json", optional: true)
-				.AddEnvironmentVariables()
-				.Build();
+        private static ServiceCollection AddConfiguration(this ServiceCollection services)
+        {
+            IConfigurationRoot config = new ConfigurationBuilder()
+                .SetBasePath(AppContext.BaseDirectory)
+                .AddJsonFile("appsettings.json", optional: false)
+                .AddJsonFile("appsettings.development.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
 
-			serverSettings = config.GetSection("Server").Get<ServerSettings>()!;
-			dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
+            serverSettings = config.GetSection("Server").Get<ServerSettings>()!;
+            dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
 
-			if (serverSettings.Port <= 0)
-				throw new InvalidOperationException("Server port must be greater than 0.");
-			if (string.IsNullOrWhiteSpace(dbSettings.Name))
-				throw new InvalidOperationException("Database name must be configured.");
-			if (string.IsNullOrWhiteSpace(dbSettings.ConnectionString))
-				throw new InvalidOperationException("Database connection string must be configured.");
+            if (serverSettings.Port <= 0)
+                throw new InvalidOperationException("Server port must be greater than 0.");
+            if (string.IsNullOrWhiteSpace(dbSettings.Name))
+                throw new InvalidOperationException("Database name must be configured.");
+            if (string.IsNullOrWhiteSpace(dbSettings.ConnectionString))
+                throw new InvalidOperationException("Database connection string must be configured.");
 
-			services.AddSingleton(serverSettings);
-			services.AddSingleton(dbSettings);
-			return services;
-		}
+            services.AddSingleton(serverSettings);
+            services.AddSingleton(dbSettings);
+            return services;
+        }
 
-		private static ServiceCollection AddDatabaseMigrations(this ServiceCollection services)
-		{
-			services.AddFluentMigratorCore()
+        private static ServiceCollection AddDatabaseMigrations(this ServiceCollection services)
+        {
+            services.AddFluentMigratorCore()
             .ConfigureRunner(rb =>
             {
                 rb.AddMySql8()
@@ -73,26 +73,26 @@ namespace FOMServer.Master
             })
             .AddLogging(lb => lb.AddFluentMigratorConsole());
 
-			return services;
-		}
+            return services;
+        }
 
-		private static ServiceCollection AddRepositories(this ServiceCollection services)
-		{
-			services.AddSingleton<IAccountRepository, DbAccountRepository>();
-			return services;
-		}
+        private static ServiceCollection AddRepositories(this ServiceCollection services)
+        {
+            services.AddSingleton<IAccountRepository, DbAccountRepository>();
+            return services;
+        }
 
-		private static ServiceCollection AddMasterServices(this ServiceCollection services)
-		{
-			services.AddSingleton<IAccountService, AccountService>();
-			return services;
-		}
+        private static ServiceCollection AddMasterServices(this ServiceCollection services)
+        {
+            services.AddSingleton<IAccountService, AccountService>();
+            return services;
+        }
 
-		private static ServiceCollection AddPacketHandlers(this ServiceCollection services)
-		{
-			services.AddSingleton<IPacketHandler, IncomingConectionHandler>();
-			services.AddSingleton<IPacketHandler, LoginRequestHandler>();
-			return services;
-		}
-	}
+        private static ServiceCollection AddPacketHandlers(this ServiceCollection services)
+        {
+            services.AddSingleton<IPacketHandler, IncomingConectionHandler>();
+            services.AddSingleton<IPacketHandler, LoginRequestHandler>();
+            return services;
+        }
+    }
 }

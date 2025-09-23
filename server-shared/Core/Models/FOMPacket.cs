@@ -20,14 +20,14 @@ using System.Runtime.InteropServices;
  */
 namespace FOMServer.Shared.Core.Models
 {
-	/// <summary>
-	/// The main structure for all packets.
-	/// </summary>
-	[StructLayout(LayoutKind.Sequential, Pack = 1)]
-	public struct FOMPacket
-	{
-		public PacketIdentifier ID;
-		public NetworkAddress Sender;
-		public FOMDataUnion Data;
-	}
+    /// <summary>
+    /// The main structure for all packets.
+    /// </summary>
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    public struct FOMPacket
+    {
+        public PacketIdentifier ID;
+        public NetworkAddress Sender;
+        public FOMDataUnion Data;
+    }
 }

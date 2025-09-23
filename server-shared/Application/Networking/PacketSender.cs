@@ -4,30 +4,30 @@ using FOMServer.Shared.Core.Models.FOMData;
 
 namespace FOMServer.Shared.Application.Networking
 {
-	public class PacketSender : IPacketSender
-	{
-		private readonly Func<NetworkManager> networkManagerFactory;
-		private NetworkManager? networkManager;
+    public class PacketSender : IPacketSender
+    {
+        private readonly Func<NetworkManager> networkManagerFactory;
+        private NetworkManager? networkManager;
 
-		public PacketSender(Func<NetworkManager> networkManagerFactory)
-		{
-			this.networkManagerFactory = networkManagerFactory;
-		}
+        public PacketSender(Func<NetworkManager> networkManagerFactory)
+        {
+            this.networkManagerFactory = networkManagerFactory;
+        }
 
-		public void Send(PacketIdentifier id, FOMDataUnion data, NetworkAddress destination, PacketPriority priority, PacketReliability reliability, byte orderingChannel = 0)
-		{
-			if (networkManager == null)
-				networkManager = networkManagerFactory();
+        public void Send(PacketIdentifier id, FOMDataUnion data, NetworkAddress destination, PacketPriority priority, PacketReliability reliability, byte orderingChannel = 0)
+        {
+            if (networkManager == null)
+                networkManager = networkManagerFactory();
 
-			networkManager.Send(id, data, destination, priority, reliability, orderingChannel);
-		}
+            networkManager.Send(id, data, destination, priority, reliability, orderingChannel);
+        }
 
-		public void Broadcast(PacketIdentifier id, FOMDataUnion data, NetworkAddress excludedAddress, PacketPriority priority, PacketReliability reliability, byte orderingChannel = 0)
-		{
-			if (networkManager == null)
-				networkManager = networkManagerFactory();
+        public void Broadcast(PacketIdentifier id, FOMDataUnion data, NetworkAddress excludedAddress, PacketPriority priority, PacketReliability reliability, byte orderingChannel = 0)
+        {
+            if (networkManager == null)
+                networkManager = networkManagerFactory();
 
-			networkManager.Broadcast(id, data, excludedAddress, priority, reliability, orderingChannel);
-		}
-	}
+            networkManager.Broadcast(id, data, excludedAddress, priority, reliability, orderingChannel);
+        }
+    }
 }

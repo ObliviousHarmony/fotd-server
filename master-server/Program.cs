@@ -4,11 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 class Program
 {
-	static void Main(string[] args)
-	{
-		IServiceProvider serviceProvider = CompositionRoot.BuildContainer();
+    static void Main(string[] args)
+    {
+        IServiceProvider serviceProvider = CompositionRoot.BuildContainer();
 
-		var server = serviceProvider.GetRequiredService<Server>();
-		server.Run();
-	}
+        var server = serviceProvider.GetRequiredService<Server>();
+        server.Run();
+    }
 }

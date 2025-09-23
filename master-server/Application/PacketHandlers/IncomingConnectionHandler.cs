@@ -6,20 +6,20 @@ using FOMServer.Shared.Infrastructure.Services;
 
 namespace FOMServer.Master.Application.PacketHandlers
 {
-	public class IncomingConectionHandler : PacketHandler<RakNetPacket>
-	{
-		private readonly ILogService logService;
+    public class IncomingConectionHandler : PacketHandler<RakNetPacket>
+    {
+        private readonly ILogService logService;
 
-		public IncomingConectionHandler(ILogService logService)
-		{
-			this.logService = logService;
-		}
+        public IncomingConectionHandler(ILogService logService)
+        {
+            this.logService = logService;
+        }
 
-		public override PacketIdentifier PacketID => PacketIdentifier.ID_NEW_INCOMING_CONNECTION;
+        public override PacketIdentifier PacketID => PacketIdentifier.ID_NEW_INCOMING_CONNECTION;
 
-		public override void Handle(NetworkAddress sender, in RakNetPacket data)
-		{
-			logService.WriteMessage(LogLevel.Debug, $"New incoming connection from {sender}");
-		}
-	}
+        public override void Handle(NetworkAddress sender, in RakNetPacket data)
+        {
+            logService.WriteMessage(LogLevel.Debug, $"New incoming connection from {sender}");
+        }
+    }
 }
