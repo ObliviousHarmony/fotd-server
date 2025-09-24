@@ -32,6 +32,9 @@ jobs:
     name: Check Test Suites
     runs-on: ubuntu-latest
     needs: format-check
+    env:
+      BUILD_VOLUME_BIND: ${{ github.workspace }}/.cache/build
+      NUGET_CACHE_BIND: ${{ github.workspace }}/.cache/nuget
     steps:
       - name: Checkout Code
         uses: actions/checkout@v5
@@ -42,8 +45,8 @@ jobs:
       - name: Setup Build Environment
         uses: ./.github/actions/setup-build
         with:
-          build-cache-dir: ${{ github.workspace }}/.cache/build
-          nuget-cache-dir: ${{ github.workspace }}/.cache/nuget
+          build-cache-dir: ${{ env.BUILD_VOLUME_BIND }}
+          nuget-cache-dir: ${{ env.NUGET_CACHE_BIND }}
 
       - name: Run C++ Tests
         run: just test-cpp
