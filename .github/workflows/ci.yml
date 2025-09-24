@@ -11,27 +11,22 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v5
 
+      - name: Setup Command Runner
+        uses: extractions/setup-just@v3
+
+      - name: Setup C++ Formatter
+        run: sudo apt-get update && sudo apt-get install -y clang-format
+
       - name: Setup .NET Formatter
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: '9.0.x'
 
-      - name: Setup C++ Formatter
-        run: sudo apt-get update && sudo apt-get install -y clang-format-20
-
-      - name: Formatter Version
-        run: |
-          clang-format --version
-          clang-format-20 --version
-
-      - name: Setup Command Runner
-        uses: extractions/setup-just@v3
+      - name: Check C++ Formatting
+        run: just format-check-cpp
 
       - name: Check .NET Formatting
         run: just format-check-dotnet
-
-      - name: Check C++ Formatting
-        run: just format-check-cpp
 
   test:
     name: Check Test Suites
@@ -41,14 +36,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v5
 
+      - name: Setup Command Runner
+        uses: extractions/setup-just@v3
+
       - name: Setup Build Environment
         uses: ./.github/actions/setup-build
         with:
           build-cache-dir: ${{ github.workspace }}/.cache/build
           nuget-cache-dir: ${{ github.workspace }}/.cache/nuget
-
-      - name: Setup Command Runner
-        uses: extractions/setup-just@v3
 
       - name: Run C++ Tests
         run: just test-cpp
