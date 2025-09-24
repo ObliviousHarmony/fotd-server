@@ -1,0 +1,54 @@
+name: Setup Build Environment
+description: Sets up the Docker containers that are required to build the project.
+
+inputs:
+  build-cache-dir:
+    description: Directory for the C++ build cache
+    required: true
+  nuget-cache-dir:
+    description: Directory for the NuGet cache
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Prepare Docker
+      uses: docker/setup-buildx-action@v3
+
+    - name: Cache Build Artifacts
+      uses: actions/cache@v3
+      with:
+        path: ${{ inputs.build-cache-dir }}
+        key: ${{ runner.os }}-build-${{ hashFiles(
+          'fom-network/**/*.{cpp,h}',
+          'extern/**/*.{cpp,h}',
+          '**/CMakeLists.txt'
+          ) }}
+        restore-keys: |
+          ${{ runner.os }}-build-
+
+    - name: Cache NuGet Packages
+      uses: actions/cache@v3
+      with:
+        path: ${{ inputs.nuget-cache-dir }}
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+
+    - name: Build C++ Docker Image
+      uses: docker/build-push-action@v6
+      with:
+        context: docker/build
+        file: docker/build/cpp.Dockerfile
+        tags: fom/build-cpp:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+
+    - name: Build .NET Docker Image
+      uses: docker/build-push-action@v6
+      with:
+        context: docker/build
+        file: docker/build/dotnet.Dockerfile
+        tags: fom/build-dotnet:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max

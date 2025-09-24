@@ -4,8 +4,19 @@ DOTNET_CACHE_IMAGE := "fom/build-dotnet"
 BUILD_VOLUME := "fom-server-build"
 NUGET_CACHE_VOLUME := "fom-server-nuget-cache"
 
-setup:
-	pre-commit install --overwrite
+# Conditionally mount either a named volume or a host directory for build outputs and NuGet cache.
+BUILD_VOLUME_BIND := env("BUILD_VOLUME_BIND", "")
+BUILD_VOLUME_MOUNT := if BUILD_VOLUME_BIND == "" {
+  '--mount type=volume,src="' + BUILD_VOLUME + '",dst="/workspace/out",volume-nocopy'
+} else {
+  '--mount type=bind,src="' + BUILD_VOLUME_BIND + '",dst="/workspace/out"'
+}
+NUGET_CACHE_BIND := env("NUGET_CACHE_BIND", "")
+NUGET_CACHE_MOUNT := if NUGET_CACHE_BIND == "" {
+  '--mount type=volume,src="' + NUGET_CACHE_VOLUME + '",dst="/root/.nuget/packages",volume-nocopy'
+} else {
+  '--mount type=bind,src="' + NUGET_CACHE_BIND + '",dst="/root/.nuget/packages"'
+}
 
 [group("format")]
 format-check-cpp:
@@ -29,7 +40,6 @@ format-dotnet:
 
 [group("docker")]
 [doc('Creates the Docker images used for building the project.')]
-[parallel]
 docker-build: _docker-build-cpp _docker-build-dotnet
 
 [group("docker")]
@@ -53,13 +63,13 @@ build:
   docker run --rm \
     --platform=linux/amd64 \
     --mount type=bind,src="{{justfile_directory()}}",dst="/workspace" \
-    --mount type=volume,src="{{BUILD_VOLUME}}",dst="/workspace/out",volume-nocopy \
+    {{BUILD_VOLUME_MOUNT}} \
     {{CPP_CACHE_IMAGE}} build
   docker run --rm \
     --platform=linux/amd64 \
-    --mount type=volume,src="{{NUGET_CACHE_VOLUME}}",dst="/root/.nuget/packages" \
+    {{NUGET_CACHE_MOUNT}} \
     --mount type=bind,src="{{justfile_directory()}}",dst="/workspace" \
-    --mount type=volume,src="{{BUILD_VOLUME}}",dst="/workspace/out",volume-nocopy \
+    {{BUILD_VOLUME_MOUNT}} \
     {{DOTNET_CACHE_IMAGE}} build
 
 [group("test")]
@@ -70,16 +80,16 @@ test-cpp:
   docker run --rm \
     --platform=linux/amd64 \
     --mount type=bind,src="{{justfile_directory()}}",dst="/workspace" \
-    --mount type=volume,src="{{BUILD_VOLUME}}",dst="/workspace/out",volume-nocopy \
+    {{BUILD_VOLUME_MOUNT}} \
     {{CPP_CACHE_IMAGE}} test
 
 [group("test")]
 test-dotnet:
   docker run --rm \
     --platform=linux/amd64 \
-    --mount type=volume,src="{{NUGET_CACHE_VOLUME}}",dst="/root/.nuget/packages" \
+    {{NUGET_CACHE_MOUNT}} \
     --mount type=bind,src="{{justfile_directory()}}",dst="/workspace" \
-    --mount type=volume,src="{{BUILD_VOLUME}}",dst="/workspace/out",volume-nocopy \
+    {{BUILD_VOLUME_MOUNT}} \
     {{DOTNET_CACHE_IMAGE}} test
 
 [group("server")]

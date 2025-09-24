@@ -8,7 +8,7 @@ using their own private servers.
 
 ### Prerequisites
 
-- [**.NET 9.0**]
+- [**.NET 9.0**](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
 - [**Docker**](https://docs.docker.com/engine/install/): In addition to a development server, Docker is necessary to build the project on Linux.
   This is because the included RakNet library requires GCC 4.8 to build, which is not available on
   modern operating systems.
