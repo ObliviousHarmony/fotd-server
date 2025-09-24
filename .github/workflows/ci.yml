@@ -19,6 +19,9 @@ jobs:
       - name: Setup C++ Formatter
         run: sudo apt-get update && sudo apt-get install -y clang-format
 
+      - name: Formatter Version
+        run: clang-format --version
+
       - name: Setup Command Runner
         uses: extractions/setup-just@v3
 
