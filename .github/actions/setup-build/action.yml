@@ -40,7 +40,7 @@ runs:
       with:
         context: docker/build
         file: docker/build/cpp.Dockerfile
-        tags: fom/build-cpp:latest
+        tags: fom/build-cpp
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
@@ -49,6 +49,6 @@ runs:
       with:
         context: docker/build
         file: docker/build/dotnet.Dockerfile
-        tags: fom/build-dotnet:latest
+        tags: fom/build-dotnet
         cache-from: type=gha
         cache-to: type=gha,mode=max
