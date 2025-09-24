@@ -16,6 +16,7 @@ runs:
       uses: docker/setup-buildx-action@v3
 
     - name: Prepare Cache Directories
+      shell: bash
       run: |
         mkdir -p ${{ inputs.build-cache-dir }}
         mkdir -p ${{ inputs.nuget-cache-dir }}
