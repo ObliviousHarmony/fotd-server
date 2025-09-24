@@ -17,7 +17,7 @@ jobs:
           dotnet-version: '9.0.x'
 
       - name: Setup C++ Formatter
-        run: sudo apt-get update && sudo apt-get install -y clang-format
+        run: sudo apt-get update && sudo apt-get install -y clang-format-20
 
       - name: Formatter Version
         run: clang-format --version
