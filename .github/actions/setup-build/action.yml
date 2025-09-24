@@ -15,6 +15,11 @@ runs:
     - name: Prepare Docker
       uses: docker/setup-buildx-action@v3
 
+    - name: Prepare Cache Directories
+      run: |
+        mkdir -p ${{ inputs.build-cache-dir }}
+        mkdir -p ${{ inputs.nuget-cache-dir }}
+
     - name: Cache Build Artifacts
       uses: actions/cache@v3
       with:
