@@ -20,7 +20,9 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y clang-format-20
 
       - name: Formatter Version
-        run: clang-format --version
+        run: |
+          clang-format --version
+          clang-format-20 --version
 
       - name: Setup Command Runner
         uses: extractions/setup-just@v3
