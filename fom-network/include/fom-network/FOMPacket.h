@@ -3,6 +3,7 @@
 #include <fom-network/PacketIdentifier.h>
 
 // Include all packet types here.
+#include <fom-network/packets/ReadPacketError.h>
 #include <fom-network/packets/Login.h>
 #include <fom-network/packets/LoginRequest.h>
 #include <fom-network/packets/LoginRequestReturn.h>
