@@ -1,6 +1,9 @@
 # Architecture
 
-## Project Directory Structure
+## Project Directory Structure 
+
+Each of the three .NET projects follow [Clean Architecture](https://learn.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures#clean-architecture)
+and have their project directories organized as such.
 
 ## [FOMNetwork](../fom-network)
 
