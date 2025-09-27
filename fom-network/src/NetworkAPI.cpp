@@ -14,7 +14,8 @@ int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures,
       {ID_FOM_PACKET_READ_ERROR, sizeof(FOMPacket::ReadPacketError)},
       {ID_LOGIN_REQUEST, sizeof(FOMPacket::LoginRequest)},
       {ID_LOGIN_REQUEST_RETURN, sizeof(FOMPacket::LoginRequestReturn)},
-      {ID_LOGIN, sizeof(FOMPacket::Login)}};
+      {ID_LOGIN, sizeof(FOMPacket::Login)},
+      {ID_LOGIN_RETURN, sizeof(FOMPacket::LoginReturn)}};
 #pragma warning(pop)
 
   // Both should have the same number of packets defined.

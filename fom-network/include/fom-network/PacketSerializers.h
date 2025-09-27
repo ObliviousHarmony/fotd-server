@@ -114,3 +114,4 @@ class BaseSerializer {
 SERIALIZER_READ(LoginRequest, loginRequest)
 SERIALIZER_WRITE(LoginRequestReturn, loginRequestReturn)
 SERIALIZER_READ(Login, login)
+SERIALIZER_WRITE(LoginReturn, loginReturn)
