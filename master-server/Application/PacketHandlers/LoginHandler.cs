@@ -26,26 +26,11 @@ namespace FOMServer.Master.Application.PacketHandlers
 
         public override void Handle(NetworkAddress sender, in Login data)
         {
-            string username;
-            string password;
-            string macAddress;
-            unsafe
-            {
-                fixed (byte* ptr = data.Username)
-                    username = CStringParser.ToString(ptr, 19);
-
-                fixed (byte* ptr = data.PasswordHash)
-                    password = CStringParser.ToString(ptr, 32);
-
-                fixed (byte* ptr = data.MACAddress)
-                    macAddress = CStringParser.ToString(ptr, 18);
-            }
-
-            var account = accountService.Login(username, password, sender);
+            var account = accountService.Login(data.Username, data.PasswordHash, sender);
             if (account == null)
                 return;
 
-            logService.WriteMessage(LogLevel.Info, $"Received login for {username} ({account.ID}) - {macAddress} from {sender}");
+            logService.WriteMessage(LogLevel.Info, $"Received login for {account.Username} ({account.ID}) - {data.MACAddress} from {sender}");
 
             var response = new LoginReturn()
             {

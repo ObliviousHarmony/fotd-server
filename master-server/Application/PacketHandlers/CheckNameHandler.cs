@@ -24,14 +24,7 @@ namespace FOMServer.Master.Application.PacketHandlers
 
         public override void Handle(NetworkAddress sender, in CheckName data)
         {
-            string name;
-            unsafe
-            {
-                fixed (byte* ptr = data.Name)
-                    name = CStringParser.ToString(ptr, 20);
-            }
-
-            logService.WriteMessage(LogLevel.Info, $"Received name check for '{name}' from {sender}");
+            logService.WriteMessage(LogLevel.Info, $"Received name check for '{data.Name}' from {sender}");
         }
     }
 }

@@ -14,6 +14,6 @@ namespace FOMServer.Shared.Core.Models.FOMData
         }
 
         public StatusCode Status;
-        public fixed byte Username[19];
+        public fixed byte RawUsername[19];
     }
 }
