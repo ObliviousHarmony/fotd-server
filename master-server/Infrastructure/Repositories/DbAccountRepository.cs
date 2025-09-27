@@ -45,7 +45,7 @@ namespace FOMServer.Master.Infrastructure.Repositories
                 if (account == null)
                     return null;
 
-                connection.Execute("UPDATE `account` SET `logged_in` = 1 WHERE `id` = @ID", new { ID = account.id } );
+                connection.Execute("UPDATE `account` SET `logged_in` = 1 WHERE `id` = @ID", new { ID = account.id });
 
                 return account;
             }
