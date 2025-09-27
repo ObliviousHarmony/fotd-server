@@ -8,6 +8,7 @@ int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures,
                                          int32_t count) {
 #pragma warning(push)
 #pragma warning(disable : 4267)
+
   // List all of the structs that we have defined in the library
   // so that they can be compared to the consumer's structs.
   std::unordered_map<uint8_t, uint32_t> libraryMap = {
@@ -16,7 +17,10 @@ int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures,
       {ID_LOGIN_REQUEST_RETURN, sizeof(FOMPacket::LoginRequestReturn)},
       {ID_LOGIN, sizeof(FOMPacket::Login)},
       {ID_LOGIN_RETURN, sizeof(FOMPacket::LoginReturn)},
-      {ID_CHECK_NAME, sizeof(FOMPacket::CheckName)}};
+      {ID_CHECK_NAME, sizeof(FOMPacket::CheckName)},
+      {ID_CHECK_NAME_RETURN, sizeof(FOMPacket::CheckNameReturn)},
+  };
+
 #pragma warning(pop)
 
   // Both should have the same number of packets defined.

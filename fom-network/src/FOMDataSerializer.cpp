@@ -8,7 +8,10 @@
  */
 static std::unordered_map<uint32_t, IWriter*> writerMap = {
     {ID_LOGIN_REQUEST_RETURN, &LoginRequestReturnSerializer::GetInstance()},
-    {ID_LOGIN_RETURN, &LoginReturnSerializer::GetInstance()}};
+    {ID_LOGIN_RETURN, &LoginReturnSerializer::GetInstance()},
+    {ID_CHECK_NAME_RETURN, &CheckNameReturnSerializer::GetInstance()},
+};
+
 static std::unordered_map<uint32_t, IReader*> readerMap = {
     {ID_LOGIN_REQUEST, &LoginRequestSerializer::GetInstance()},
     {ID_LOGIN, &LoginSerializer::GetInstance()},

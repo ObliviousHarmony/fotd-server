@@ -28,7 +28,8 @@ namespace FOMServer.Shared.Services.FOMNetwork
                 new PacketStructure { ID = PacketIdentifier.ID_LOGIN_REQUEST_RETURN, Size = Marshal.SizeOf<LoginRequestReturn>() },
                 new PacketStructure { ID = PacketIdentifier.ID_LOGIN, Size = Marshal.SizeOf<Login>() },
                 new PacketStructure { ID = PacketIdentifier.ID_LOGIN_RETURN, Size = Marshal.SizeOf<LoginReturn>() },
-                new PacketStructure { ID = PacketIdentifier.ID_CHECK_NAME, Size = Marshal.SizeOf<CheckName>() }
+                new PacketStructure { ID = PacketIdentifier.ID_CHECK_NAME, Size = Marshal.SizeOf<CheckName>() },
+                new PacketStructure { ID = PacketIdentifier.ID_CHECK_NAME_RETURN, Size = Marshal.SizeOf<CheckNameReturn>() },
             };
             foreach (PacketStructure s in structures)
             {

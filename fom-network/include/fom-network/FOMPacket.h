@@ -4,6 +4,7 @@
 
 // Include all packet types here.
 #include <fom-network/packets/CheckName.h>
+#include <fom-network/packets/CheckNameReturn.h>
 #include <fom-network/packets/Login.h>
 #include <fom-network/packets/LoginRequest.h>
 #include <fom-network/packets/LoginRequestReturn.h>
@@ -26,6 +27,7 @@ struct FOMDataUnion {
     FOMPacket::Login login;
     FOMPacket::LoginReturn loginReturn;
     FOMPacket::CheckName checkName;
+    FOMPacket::CheckNameReturn checkNameReturn;
   };
 };
 
