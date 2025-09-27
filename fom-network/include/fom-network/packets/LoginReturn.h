@@ -29,11 +29,6 @@ enum LoginReturnStatus : uint8_t {
 
 struct LoginReturn {
   LoginReturnStatus status;
-  uint32_t playerID;
-  uint8_t accountType;
-  uint8_t isVolunteer;
-  uint16_t ClientVersion;
-  uint8_t isBanned;
 };
 ASSERT_BLITTABLE(LoginReturn);
 }  // namespace FOMPacket

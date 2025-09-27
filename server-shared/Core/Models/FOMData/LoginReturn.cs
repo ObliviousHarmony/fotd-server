@@ -23,13 +23,5 @@ namespace FOMServer.Shared.Core.Models.FOMData
         }
 
         public StatusCode Status;
-        uint PlayerID;
-        byte AccountType;
-        private byte isVolunteer;
-        ushort ClientVersion;
-        private byte isBanned;
-
-        public bool IsVolunteer { get { return isVolunteer != 0; } }
-        public bool IsBanned { get { return isBanned != 0; } }
     }
 }

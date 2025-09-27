@@ -1,5 +1,7 @@
 using FOMServer.Master.Application.Services;
+using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Application.PacketHandlers;
+using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
 using FOMServer.Shared.Core.Models.FOMData;
@@ -13,11 +15,13 @@ namespace FOMServer.Master.Application.PacketHandlers
 
         private readonly ILogService logService;
         private readonly IAccountService accountService;
+        private readonly IPacketSender packetSender;
 
-        public LoginHandler(ILogService logService, IAccountService accountService)
+        public LoginHandler(ILogService logService, IAccountService accountService, IPacketSender packetSender)
         {
             this.logService = logService;
             this.accountService = accountService;
+            this.packetSender = packetSender;
         }
 
         public override void Handle(NetworkAddress sender, in Login data)
@@ -42,6 +46,19 @@ namespace FOMServer.Master.Application.PacketHandlers
                 return;
 
             logService.WriteMessage(LogLevel.Info, $"Received login for {username} ({account.ID}) - {macAddress} from {sender}");
+
+            var response = new LoginReturn()
+            {
+                Status = LoginReturn.StatusCode.LOGIN_RETURN_CREATE_CHARACTER,
+            };
+
+            packetSender.Send(
+                PacketIdentifier.ID_LOGIN_RETURN,
+                new FOMDataUnion { loginReturn = response },
+                sender,
+                PacketPriority.HIGH_PRIORITY,
+                PacketReliability.RELIABLE_ORDERED
+            );
         }
     }
 }
