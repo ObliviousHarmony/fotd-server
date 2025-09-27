@@ -10,10 +10,5 @@ namespace FOMServer.Master.Infrastructure.Migrations
             Alter.Table("account")
                 .AddColumn("logged_in").AsBoolean().NotNullable().WithDefaultValue(false);
         }
-
-        public override void Down()
-        {
-            Delete.Column("logged_in").FromTable("account");
-        }
     }
 }

@@ -30,11 +30,5 @@ namespace FOMServer.Master.Infrastructure.Migrations
                 .ToTable("account").PrimaryColumn("id")
                 .OnDeleteOrUpdate(System.Data.Rule.Cascade);
         }
-
-        public override void Down()
-        {
-            Delete.Table("player");
-            Delete.Table("account");
-        }
     }
 }
