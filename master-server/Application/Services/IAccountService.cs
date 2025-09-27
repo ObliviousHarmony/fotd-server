@@ -1,4 +1,5 @@
 using FOMServer.Master.Core.Models;
+using FOMServer.Shared.Core.Models;
 
 namespace FOMServer.Master.Application.Services
 {
@@ -11,11 +12,17 @@ namespace FOMServer.Master.Application.Services
         Account? Get(uint id);
 
         /// <summary>
+        /// Gets a logged in account by their network address.
+        /// </summary>
+        /// <param name="networkAddress">The network address of the logged in account.</param>
+        Account? Get(NetworkAddress clientAddress);
+
+        /// <summary>
         /// Attempts to log a player into the server and returns their account if successful.
         /// </summary>
         /// <param name="username">The username for the account.</param>
         /// <param name="password">The password to the account.</param>
-        Account? Login(string username, string password);
+        Account? Login(string username, string password, NetworkAddress clientAddress);
 
         /// <summary>
         /// Logs the given account out of the server.

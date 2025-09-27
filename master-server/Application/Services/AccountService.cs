@@ -1,5 +1,6 @@
 using FOMServer.Master.Core.Interfaces;
 using FOMServer.Master.Core.Models;
+using FOMServer.Shared.Core.Models;
 using System.Collections.Concurrent;
 
 namespace FOMServer.Master.Application.Services
@@ -9,11 +10,13 @@ namespace FOMServer.Master.Application.Services
         private readonly IAccountRepository accountRepository;
 
         private readonly ConcurrentDictionary<uint, Account> loggedInAccounts;
+        private readonly ConcurrentDictionary<NetworkAddress, Account> loggedInAccountsByAddress;
 
         public AccountService(IAccountRepository accountRepository)
         {
             this.accountRepository = accountRepository;
             this.loggedInAccounts = new ConcurrentDictionary<uint, Account>();
+            this.loggedInAccountsByAddress = new ConcurrentDictionary<NetworkAddress, Account>();
         }
 
         public Account? Get(uint id)
@@ -23,7 +26,14 @@ namespace FOMServer.Master.Application.Services
             return account;
         }
 
-        public Account? Login(string username, string password)
+        public Account? Get(NetworkAddress clientAddress)
+        {
+            if (!loggedInAccountsByAddress.TryGetValue(clientAddress, out var account))
+                return null;
+            return account;
+        }
+
+        public Account? Login(string username, string password, NetworkAddress clientAddress)
         {
             var dto = accountRepository.TryLogin(username, password);
             if (dto == null)
@@ -32,9 +42,24 @@ namespace FOMServer.Master.Application.Services
             if (loggedInAccounts.ContainsKey(dto.id))
                 return null;
 
-            var account = new Account { ID = dto.id, Username = dto.username };
+            if (loggedInAccountsByAddress.ContainsKey(clientAddress))
+                return null;
+
+            var account = new Account
+            {
+                ClientAddress = clientAddress,
+                ID = dto.id,
+                Username = dto.username
+            };
+
             if (!loggedInAccounts.TryAdd(dto.id, account))
                 return null;
+
+            if (!loggedInAccountsByAddress.TryAdd(clientAddress, account))
+            {
+                loggedInAccounts.TryRemove(dto.id, out _);
+                return null;
+            }
 
             return account;
         }
@@ -46,6 +71,8 @@ namespace FOMServer.Master.Application.Services
 
             if (!loggedInAccounts.TryRemove(account.ID, out _))
                 return false;
+
+            loggedInAccountsByAddress.TryRemove(account.ClientAddress, out _);
 
             return true;
         }

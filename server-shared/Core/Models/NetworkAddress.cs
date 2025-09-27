@@ -11,6 +11,18 @@ namespace FOMServer.Shared.Core.Models
         public uint Address;
         public ushort Port;
 
+        public override readonly bool Equals(object? obj)
+        {
+            if (obj is not NetworkAddress other)
+                return false;
+            return Address == other.Address && Port == other.Port;
+        }
+
+        public override readonly int GetHashCode()
+        {
+            return HashCode.Combine(Address, Port);
+        }
+
         public override readonly string ToString()
         {
             string ipString = string.Join(".", BitConverter.GetBytes(Address));

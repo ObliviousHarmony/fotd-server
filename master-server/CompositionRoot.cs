@@ -90,7 +90,7 @@ namespace FOMServer.Master
 
         private static ServiceCollection AddPacketHandlers(this ServiceCollection services)
         {
-            services.AddSingleton<IPacketHandler, IncomingConectionHandler>();
+            services.AddSingleton<IPacketHandler, DisconnectionHandler>();
             services.AddSingleton<IPacketHandler, LoginRequestHandler>();
             services.AddSingleton<IPacketHandler, LoginHandler>();
             return services;
