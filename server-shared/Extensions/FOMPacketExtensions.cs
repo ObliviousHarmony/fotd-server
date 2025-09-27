@@ -34,6 +34,8 @@ namespace FOMServer.Shared.Extensions
                     return (TPacket)(object)packet.Data.loginRequestReturn;
                 case PacketIdentifier.ID_LOGIN when typeof(TPacket) == typeof(Login):
                     return (TPacket)(object)packet.Data.login;
+                case PacketIdentifier.ID_LOGIN_RETURN when typeof(TPacket) == typeof(LoginReturn):
+                    return (TPacket)(object)packet.Data.loginReturn;
 
                 default:
                     throw new InvalidOperationException(

@@ -20,7 +20,7 @@ NUGET_CACHE_MOUNT := if NUGET_CACHE_BIND == "" {
 
 [group("format")]
 format-check-cpp:
-  clang-format --dry-run --Werror $(find ./fom-network -name '*.h' -o -name '*.cpp')
+  clang-format --dry-run --Werror $(git ls-files ./fom-network/**/*.cpp ./fom-network/**/*.h)
 
 [group("format")]
 format-check-dotnet:
@@ -32,7 +32,7 @@ format: format-cpp format-dotnet
 
 [group("format")]
 format-cpp:
-  clang-format -i $(find ./fom-network -name '*.h' -o -name '*.cpp')
+  clang-format -i $(git ls-files ./fom-network/**/*.cpp ./fom-network/**/*.h)
 
 [group("format")]
 format-dotnet:

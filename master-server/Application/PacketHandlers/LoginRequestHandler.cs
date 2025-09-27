@@ -2,6 +2,7 @@ using FOMServer.Master.Application.Services;
 using FOMServer.Master.Core.Interfaces;
 using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Application.PacketHandlers;
+using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
 using FOMServer.Shared.Core.Models.FOMData;
@@ -15,19 +16,19 @@ namespace FOMServer.Master.Application.PacketHandlers
 
         private readonly IAccountRepository accountRepository;
         private readonly IAccountService accountService;
-        private readonly IPacketSender sendPacketService;
+        private readonly IPacketSender packetSender;
         private readonly ILogService logService;
 
         public LoginRequestHandler(
             IAccountRepository accountRepository,
             IAccountService accountService,
-            IPacketSender sendPacketService,
+            IPacketSender packetSender,
             ILogService logService
         )
         {
             this.accountService = accountService;
             this.accountRepository = accountRepository;
-            this.sendPacketService = sendPacketService;
+            this.packetSender = packetSender;
             this.logService = logService;
         }
 
@@ -51,10 +52,12 @@ namespace FOMServer.Master.Application.PacketHandlers
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_INVALID_INFORMATION;
             else if (accountService.Get(accountID.Value) != null)
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_ALREADY_LOGGED_IN;
+            else if (data.ClientVersion != GlobalConstants.CLIENT_VERSION)
+                response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_OUTDATED_CLIENT;
             else
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_SUCCESS;
 
-            sendPacketService.Send(
+            packetSender.Send(
                 PacketIdentifier.ID_LOGIN_REQUEST_RETURN,
                 new FOMDataUnion { loginRequestReturn = response },
                 sender,

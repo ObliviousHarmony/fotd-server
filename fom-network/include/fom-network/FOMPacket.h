@@ -6,6 +6,7 @@
 #include <fom-network/packets/Login.h>
 #include <fom-network/packets/LoginRequest.h>
 #include <fom-network/packets/LoginRequestReturn.h>
+#include <fom-network/packets/LoginReturn.h>
 #include <fom-network/packets/ReadPacketError.h>
 
 /**
@@ -22,6 +23,7 @@ struct FOMDataUnion {
     FOMPacket::LoginRequest loginRequest;
     FOMPacket::LoginRequestReturn loginRequestReturn;
     FOMPacket::Login login;
+    FOMPacket::LoginReturn loginReturn;
   };
 };
 
