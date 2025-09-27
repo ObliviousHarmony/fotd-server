@@ -19,6 +19,14 @@ namespace FOMServer.Master.Application.Services
             this.loggedInAccountsByAddress = new ConcurrentDictionary<NetworkAddress, Account>();
         }
 
+        public void Initialize()
+        {
+            // Mark all accounts as logged out in case the server crashed and left some accounts logged in.
+            // When the server crashes they can't be logged in anyway so this just cleans everything up.
+            accountRepository.MarkAllAccountsLoggedOut();
+        }
+
+
         public Account? Get(uint id)
         {
             if (!loggedInAccounts.TryGetValue(id, out var account))
@@ -73,6 +81,8 @@ namespace FOMServer.Master.Application.Services
                 return false;
 
             loggedInAccountsByAddress.TryRemove(account.ClientAddress, out _);
+
+            accountRepository.Logout(account.ID);
 
             return true;
         }

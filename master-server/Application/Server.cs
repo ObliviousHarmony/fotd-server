@@ -5,6 +5,7 @@ using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.Shared.Infrastructure.Services;
 using FOMServer.Shared.Application.Networking;
 using MySqlConnector;
+using FOMServer.Master.Application.Services;
 
 namespace FOMServer.Master.Application
 {
@@ -17,6 +18,7 @@ namespace FOMServer.Master.Application
         private readonly INetworkService networkService;
         private readonly NetworkManager networkManager;
         private readonly PacketProcessor packetProcessor;
+        private readonly IAccountService accountService;
 
         public Server(
             IMigrationRunner migrationRunner,
@@ -25,7 +27,8 @@ namespace FOMServer.Master.Application
             IServerService serverService,
             INetworkService networkService,
             NetworkManager networkManager,
-            PacketProcessor packetProcessor
+            PacketProcessor packetProcessor,
+            IAccountService accountService
         )
         {
             this.migrationRunner = migrationRunner;
@@ -35,6 +38,7 @@ namespace FOMServer.Master.Application
             this.networkService = networkService;
             this.networkManager = networkManager;
             this.packetProcessor = packetProcessor;
+            this.accountService = accountService;
         }
 
         /// <summary>
@@ -79,6 +83,9 @@ namespace FOMServer.Master.Application
             networkManager.ConfigurePeer(peer, serverService.Shutdown);
 
             logService.WriteMessage(LogLevel.Info, $"Network Started: {serverSettings.Port}");
+
+            // Initialize any services that need to do work before we start processing packets.
+            accountService.Initialize();
 
             // Start all of our services so they will spin up their background tasks.
             networkManager.Start(cts.Token);

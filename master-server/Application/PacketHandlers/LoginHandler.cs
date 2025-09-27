@@ -37,7 +37,7 @@ namespace FOMServer.Master.Application.PacketHandlers
                     macAddress = CStringParser.ToString(ptr, 18);
             }
 
-            var account = accountService.Login(username, password);
+            var account = accountService.Login(username, password, sender);
             if (account == null)
                 return;
 

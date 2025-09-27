@@ -5,6 +5,11 @@ namespace FOMServer.Master.Core.Interfaces
     public interface IAccountRepository
     {
         /// <summary>
+        /// Marks all of the accounts in the database as logged out.
+        /// </summary>
+        public void MarkAllAccountsLoggedOut();
+
+        /// <summary>
         /// Checks to see whether or not the specified account exists.
         /// </summary>
         /// <param name="username">The username to check.</param>
@@ -16,5 +21,11 @@ namespace FOMServer.Master.Core.Interfaces
         /// <param name="username">The username to check.</param>
         /// <param name="password">The password to check.</param>
         public AccountDto? TryLogin(string username, string password);
+
+        /// <summary>
+        /// Logs an account out.
+        /// </summary>
+        /// <param name="id">The ID of the account.</param>
+        public bool Logout(uint id);
     }
 }

@@ -6,6 +6,11 @@ namespace FOMServer.Master.Application.Services
     public interface IAccountService
     {
         /// <summary>
+        /// Initializes the account service.
+        /// </summary>
+        void Initialize();
+
+        /// <summary>
         /// Gets a logged in account by their ID.
         /// </summary>
         /// <param name="id">The ID of the account.</param>
