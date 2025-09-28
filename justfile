@@ -1,3 +1,5 @@
+set windows-shell := ["powershell.exe", "-NoLogo", "-Command"]
+
 BUILD_CONFIG := "debug"
 CPP_CACHE_IMAGE := "fom/build-cpp"
 DOTNET_CACHE_IMAGE := "fom/build-dotnet"
@@ -26,7 +28,7 @@ format-check-cpp:
 [group("format")]
 [windows]
 format-check-cpp:
-    powershell -Command "Get-ChildItem -Recurse -Include *.cpp,*.h | ForEach-Object { clang-format --dry-run --Werror $_.FullName }"
+    Get-ChildItem -Path "fom-network" -Recurse -Include *.cpp,*.h -File | ForEach-Object { clang-format --dry-run --Werror $_.FullName }
 
 [group("format")]
 format-check-dotnet:
@@ -44,7 +46,7 @@ format-cpp:
 [group("format")]
 [windows]
 format-cpp:
-    powershell -Command "Get-ChildItem -Recurse -Include *.cpp,*.h | ForEach-Object { clang-format -i $_.FullName }"
+    Get-ChildItem -Path "fom-network" -Recurse -Include *.cpp,*.h -File | ForEach-Object { clang-format -i $_.FullName }
 
 [group("format")]
 format-dotnet:
