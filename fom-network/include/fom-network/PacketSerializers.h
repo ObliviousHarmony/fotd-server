@@ -29,6 +29,18 @@ class BaseSerializer {
 
   ~BaseSerializer() { StringCompressor::RemoveReference(); }
 
+  template <typename T>
+  void WriteBits(RakNet::BitStream& bs, const T& input,
+                 int numberOfBitsToWrite) const {
+    bs.WriteBits((uint8_t*)&input, numberOfBitsToWrite);
+  }
+
+  template <typename T>
+  bool ReadBits(RakNet::BitStream& bs, const T& input,
+                int numberOfBitsToWrite) const {
+    return bs.ReadBits((uint8_t*)&input, numberOfBitsToWrite);
+  }
+
   template <size_t N>
   void WriteRawString(RakNet::BitStream& bs, const uint8_t (&input)[N]) const {
     bs.Write((uint8_t)N);

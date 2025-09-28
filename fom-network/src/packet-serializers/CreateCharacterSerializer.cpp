@@ -9,7 +9,7 @@ Packet::CreateCharacter CreateCharacterSerializer::ReadData(
   AvatarSerializer& avatarSerializer = AvatarSerializer::GetInstance();
 
   Packet::CreateCharacter data{};
-  bs.ReadCompressed(data.playerID);
+  bs.ReadCompressed(data.accountID);
   bs.IgnoreBits(1);
   avatarSerializer.Read(bs, data.avatar);
 

@@ -12,9 +12,10 @@ class NetworkAddressSerializer
     bs.Write(model.binaryAddress);
     bs.Write(model.port);
   }
-  void Read(RakNet::BitStream& bs, NetworkAddress& model) const override {
+  bool Read(RakNet::BitStream& bs, NetworkAddress& model) const override {
     bs.Read(model.binaryAddress);
     bs.Read(model.port);
+    return true;
   }
 };
 

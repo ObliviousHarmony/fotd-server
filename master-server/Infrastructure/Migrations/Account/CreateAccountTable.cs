@@ -1,4 +1,5 @@
 using FluentMigrator;
+using FOMServer.Master.Extensions;
 
 namespace FOMServer.Master.Infrastructure.Migrations
 {
@@ -8,7 +9,7 @@ namespace FOMServer.Master.Infrastructure.Migrations
         public override void Up()
         {
             Create.Table("account")
-                .WithColumn("id").AsCustom("INT UNSIGNED").NotNullable().PrimaryKey().Identity()
+                .WithColumn("id").AsUnsignedInt().NotNullable().PrimaryKey().Identity()
                 .WithColumn("username").AsString(18).NotNullable().Unique()
                 .WithColumn("password").AsString(32).NotNullable()
                 .WithColumn("logged_in").AsBoolean().NotNullable().WithDefaultValue(false)

@@ -11,22 +11,22 @@ namespace FOMServer.Master.Application.PacketHandlers
     {
         public override PacketIdentifier PacketID => PacketIdentifier.ID_CHECK_NAME;
 
-        private readonly IPlayerRepository playerRepository;
+        private readonly ICharacterRepository characterRepository;
         private readonly IPacketSender packetSender;
 
-        public CheckNameHandler(IPlayerRepository playerRepository, IPacketSender packetSender)
+        public CheckNameHandler(ICharacterRepository characterRepository, IPacketSender packetSender)
         {
-            this.playerRepository = playerRepository;
+            this.characterRepository = characterRepository;
             this.packetSender = packetSender;
         }
 
         public override void Handle(NetworkAddress sender, in CheckName data)
         {
-            var existingID = playerRepository.FindIDByName(data.Name);
+            var existingID = characterRepository.IsNameTaken(data.Name);
 
             var response = new CheckNameReturn
             {
-                ExistingPlayerID = existingID ?? 0
+                ExistingAccountID = existingID ?? 0
             };
             packetSender.Send(
                 PacketIdentifier.ID_CHECK_NAME_RETURN,

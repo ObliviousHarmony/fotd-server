@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 namespace FOMServer.Shared.Core.Models
 {
     /// <summary>
-    /// Represents a player avatar.
+    /// Represents a character avatar.
     /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct Avatar

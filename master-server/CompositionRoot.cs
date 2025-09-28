@@ -80,7 +80,7 @@ namespace FOMServer.Master
         private static ServiceCollection AddRepositories(this ServiceCollection services)
         {
             services.AddSingleton<IAccountRepository, DbAccountRepository>();
-            services.AddSingleton<IPlayerRepository, DbPlayerRepository>();
+            services.AddSingleton<ICharacterRepository, DbCharacterRepository>();
             return services;
         }
 
