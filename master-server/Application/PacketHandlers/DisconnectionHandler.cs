@@ -27,10 +27,8 @@ namespace FOMServer.Master.Application.PacketHandlers
             if (account == null)
                 return;
 
-            if (accountService.Logout(account))
-                logService.WriteMessage(LogLevel.Info, $"Account '{account.Username}' disconnected from {sender}");
-            else
-                logService.WriteMessage(LogLevel.Warning, $"Account '{account.Username}' could not be logged out on disconnection from {sender}");
+            if (!accountService.Logout(account))
+                logService.WriteMessage(LogLevel.Critical, $"Account '{account.Username}' could not be logged out on disconnection from {sender}");
         }
     }
 }

@@ -8,7 +8,7 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: password
     ports:
-      - "3306:3306"
+      - "127.0.0.1:3306:3306"
     volumes:
       - fom-server-database:/var/lib/mysql
 
@@ -20,6 +20,8 @@ services:
       - db
     environment:
       Database__ConnectionString: "Host=db;Port=3306;Database=fom_server;Username=admin;Password=password;"
+    ports:
+      - "61001:61001/udp"
     volumes:
       - fom-server-build:/app
     working_dir: /app/publish/master

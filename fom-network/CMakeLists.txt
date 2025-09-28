@@ -14,6 +14,8 @@ set(FOMNETWORK_SRC
   "src/serializers/LoginRequestReturnSerializer.cpp"
   "src/serializers/LoginSerializer.cpp"
   "src/serializers/LoginReturnSerializer.cpp"
+  "src/serializers/CheckNameSerializer.cpp"
+  "src/serializers/CheckNameReturnSerializer.cpp"
 )
 set(FOMNETWORK_INC
   "include/fom-network/ClientAPI.h"
@@ -31,6 +33,8 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/LoginRequestReturn.h"
   "include/fom-network/packets/Login.h"
   "include/fom-network/packets/LoginReturn.h"
+  "include/fom-network/packets/CheckName.h"
+  "include/fom-network/packets/CheckNameReturn.h"
 )
 set(FOMNETWORK_TEST
   "tests/FOMDataSerializer_test.cpp"

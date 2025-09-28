@@ -17,37 +17,29 @@ namespace FOMServer.Master.Application.PacketHandlers
         private readonly IAccountRepository accountRepository;
         private readonly IAccountService accountService;
         private readonly IPacketSender packetSender;
-        private readonly ILogService logService;
 
         public LoginRequestHandler(
             IAccountRepository accountRepository,
             IAccountService accountService,
-            IPacketSender packetSender,
-            ILogService logService
+            IPacketSender packetSender
         )
         {
             this.accountService = accountService;
             this.accountRepository = accountRepository;
             this.packetSender = packetSender;
-            this.logService = logService;
         }
 
         public override void Handle(NetworkAddress sender, in LoginRequest data)
         {
-            string username;
             var response = new LoginRequestReturn();
             unsafe
             {
-                fixed (byte* ptr = data.Username)
-                    username = CStringParser.ToString(ptr, 19);
                 // We send back the username regardless of the outcome.
                 for (int i = 0; i < 19; i++)
-                    response.Username[i] = data.Username[i];
+                    response.RawUsername[i] = data.RawUsername[i];
             }
 
-            logService.WriteMessage(LogLevel.Debug, $"Login Request: {username} from {sender}");
-
-            var accountID = accountRepository.AccountExists(username);
+            var accountID = accountRepository.AccountExists(data.Username);
             if (accountID == null)
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_INVALID_INFORMATION;
             else if (accountService.Get(accountID.Value) != null)

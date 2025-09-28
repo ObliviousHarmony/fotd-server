@@ -13,39 +13,20 @@ namespace FOMServer.Master.Application.PacketHandlers
     {
         public override PacketIdentifier PacketID => PacketIdentifier.ID_LOGIN;
 
-        private readonly ILogService logService;
         private readonly IAccountService accountService;
         private readonly IPacketSender packetSender;
 
-        public LoginHandler(ILogService logService, IAccountService accountService, IPacketSender packetSender)
+        public LoginHandler(IAccountService accountService, IPacketSender packetSender)
         {
-            this.logService = logService;
             this.accountService = accountService;
             this.packetSender = packetSender;
         }
 
         public override void Handle(NetworkAddress sender, in Login data)
         {
-            string username;
-            string password;
-            string macAddress;
-            unsafe
-            {
-                fixed (byte* ptr = data.Username)
-                    username = CStringParser.ToString(ptr, 19);
-
-                fixed (byte* ptr = data.PasswordHash)
-                    password = CStringParser.ToString(ptr, 32);
-
-                fixed (byte* ptr = data.MACAddress)
-                    macAddress = CStringParser.ToString(ptr, 18);
-            }
-
-            var account = accountService.Login(username, password, sender);
+            var account = accountService.Login(data.Username, data.PasswordHash, sender);
             if (account == null)
                 return;
-
-            logService.WriteMessage(LogLevel.Info, $"Received login for {username} ({account.ID}) - {macAddress} from {sender}");
 
             var response = new LoginReturn()
             {

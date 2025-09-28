@@ -18,7 +18,7 @@ namespace FOMServer.Master.Application
         private readonly INetworkService networkService;
         private readonly NetworkManager networkManager;
         private readonly PacketProcessor packetProcessor;
-        private readonly IAccountService accountService;
+        private readonly AccountService accountService;
 
         public Server(
             IMigrationRunner migrationRunner,
@@ -28,7 +28,7 @@ namespace FOMServer.Master.Application
             INetworkService networkService,
             NetworkManager networkManager,
             PacketProcessor packetProcessor,
-            IAccountService accountService
+            AccountService accountService
         )
         {
             this.migrationRunner = migrationRunner;
