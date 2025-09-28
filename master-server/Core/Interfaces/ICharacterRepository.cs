@@ -1,10 +1,23 @@
+using FOMServer.Master.Core.DTOs;
+using FOMServer.Shared.Core.Enums;
+
 namespace FOMServer.Master.Core.Interfaces
 {
     public interface ICharacterRepository
     {
         /// <summary>
-        /// Checks to see if a name is taken and returns the ID of the account that has it if so.
+        /// Checks to see if a character already exists with the given name.
         /// </summary>
-        uint? IsNameTaken(string name);
+        uint? Exists(string name);
+
+        /// <summary>
+        /// Loads the character for the given account ID.
+        /// </summary>
+        CharacterDto? Get(uint accountID);
+
+        /// <summary>
+        /// Creates a new character for the given account.
+        /// </summary>
+        CharacterDto? Create(uint accountID, byte faction, string name, AvatarSex sex, AvatarSkin skinColor, byte face, byte hair);
     }
 }

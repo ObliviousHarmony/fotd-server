@@ -14,13 +14,7 @@ namespace FOMServer.Master.Infrastructure.Repositories
             this.connectionFactory = connectionFactory;
         }
 
-        public void MarkAllAccountsLoggedOut()
-        {
-            using var connection = connectionFactory.Create();
-            connection.Execute("UPDATE `account` SET `logged_in` = 0");
-        }
-
-        public uint? AccountExists(string username)
+        public uint? Exists(string username)
         {
             using var connection = connectionFactory.Create();
             var dto = connection.QuerySingleOrDefault<AccountDto>(
@@ -50,7 +44,12 @@ namespace FOMServer.Master.Infrastructure.Repositories
             using var connection = connectionFactory.Create();
             var affected = connection.Execute("UPDATE `account` SET `logged_in` = 0 WHERE `id` = @ID", new { ID = id });
             return affected > 0;
+        }
 
+        public void MarkAllAccountsLoggedOut()
+        {
+            using var connection = connectionFactory.Create();
+            connection.Execute("UPDATE `account` SET `logged_in` = 0");
         }
     }
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <fom-network/Common.h>
+#include <fom-network/FOMNetworkEnums.h>
 
 namespace FOMNetwork {
 
@@ -13,7 +14,7 @@ struct Avatar {
   AvatarSkin skinColor;
   uint8_t face;
   uint8_t hair;
-  uint8_t faction;
+  Faction faction;
   uint16_t shirt;
   uint16_t bottoms;
   uint16_t shoes;

@@ -5,14 +5,9 @@ namespace FOMServer.Master.Core.Interfaces
     public interface IAccountRepository
     {
         /// <summary>
-        /// Marks all of the accounts in the database as logged out.
-        /// </summary>
-        void MarkAllAccountsLoggedOut();
-
-        /// <summary>
         /// Checks to see whether or not the specified account exists.
         /// </summary>
-        uint? AccountExists(string username);
+        uint? Exists(string username);
 
         /// <summary>
         /// Attempts to match the login credentials to an account and returns one if successful.
@@ -23,5 +18,10 @@ namespace FOMServer.Master.Core.Interfaces
         /// Logs an account out.
         /// </summary>
         bool Logout(uint id);
+
+        /// <summary>
+        /// Marks all of the accounts in the database as logged out.
+        /// </summary>
+        void MarkAllAccountsLoggedOut();
     }
 }

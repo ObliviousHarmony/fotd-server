@@ -22,7 +22,7 @@ namespace FOMServer.Master.Application.PacketHandlers
 
         public override void Handle(NetworkAddress sender, in CheckName data)
         {
-            var existingID = characterRepository.IsNameTaken(data.Name);
+            var existingID = characterRepository.Exists(data.Name);
 
             var response = new CheckNameReturn
             {

@@ -13,7 +13,7 @@ namespace FOMServer.Shared.Core.Models
         public AvatarSkin SkinColor;
         public byte Face;
         public byte Hair;
-        public byte Faction;
+        public Faction Faction;
         public ushort Shirt;
         public ushort Bottoms;
         public ushort Shoes;

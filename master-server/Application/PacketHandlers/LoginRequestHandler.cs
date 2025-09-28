@@ -38,7 +38,7 @@ namespace FOMServer.Master.Application.PacketHandlers
                     response.RawUsername[i] = data.RawUsername[i];
             }
 
-            var accountID = accountRepository.AccountExists(data.Username);
+            var accountID = accountRepository.Exists(data.Username);
             if (accountID == null)
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_INVALID_INFORMATION;
             else if (accountService.Get(accountID.Value) != null)
