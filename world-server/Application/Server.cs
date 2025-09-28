@@ -4,6 +4,7 @@ using FOMServer.Shared.Infrastructure.Services;
 using FOMServer.Shared.Application.Networking;
 using MySqlConnector;
 using FOMServer.World.Core.Models;
+using FOMServer.World.Application.Networking;
 
 namespace FOMServer.World.Application
 {
@@ -14,6 +15,7 @@ namespace FOMServer.World.Application
         private readonly IServerService serverService;
         private readonly INetworkService networkService;
         private readonly NetworkManager networkManager;
+        private readonly MasterConnectionManager masterConnectionManager;
         private readonly PacketProcessor packetProcessor;
 
         public Server(
@@ -22,6 +24,7 @@ namespace FOMServer.World.Application
             IServerService serverService,
             INetworkService networkService,
             NetworkManager networkManager,
+            MasterConnectionManager masterConnectionManager,
             PacketProcessor packetProcessor
         )
         {
@@ -30,6 +33,7 @@ namespace FOMServer.World.Application
             this.serverService = serverService;
             this.networkService = networkService;
             this.networkManager = networkManager;
+            this.masterConnectionManager = masterConnectionManager;
             this.packetProcessor = packetProcessor;
         }
 
@@ -51,7 +55,7 @@ namespace FOMServer.World.Application
             // require expensive marshalling of data between managed and unmanaged code.
             networkService.ValidateFOMPacket();
 
-            // Start the network peer so we can accept connections.
+            // Start the server peer so we can accept connections.
             var peer = serverService.Startup(serverSettings.Port);
             if (peer == IntPtr.Zero)
                 throw new InvalidOperationException("Failed to start server.");

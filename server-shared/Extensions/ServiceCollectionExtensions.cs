@@ -11,18 +11,25 @@ namespace FOMServer.Shared.Extensions
     {
         public static void AddServerShared(this IServiceCollection services)
         {
-            // FOMNetwork API Services
+            services.AddInteropServices();
+            services.AddSharedServices();
+            services.AddPacketHandlers();
+        }
+
+        private static void AddInteropServices(this IServiceCollection services)
+        {
             services.AddSingleton<INetworkService, NetworkService>();
             services.AddSingleton<IServerService, ServerService>();
             services.AddSingleton<IClientService, ClientService>();
             services.AddSingleton<IPacketService, PacketService>();
+        }
 
-            // Shared Services
+        private static void AddSharedServices(this IServiceCollection services)
+        {
             services.AddSingleton<LogService>();
             services.AddSingleton<ILogService>(sp => sp.GetRequiredService<LogService>());
             services.AddSingleton<PacketProcessor>();
 
-            // Packet Sender
             services.AddSingleton<NetworkManager>();
             services.AddSingleton<IPacketSender, PacketSender>(sp =>
             {
@@ -30,8 +37,10 @@ namespace FOMServer.Shared.Extensions
                     () => sp.GetRequiredService<NetworkManager>()
                 );
             });
+        }
 
-            // Packet Handlers
+        private static void AddPacketHandlers(this IServiceCollection services)
+        {
             services.AddSingleton<IPacketHandler, ReadPacketErrorHandler>();
         }
     }

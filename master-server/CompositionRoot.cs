@@ -5,12 +5,10 @@ using FOMServer.Master.Application.Services;
 using FOMServer.Master.Core.Interfaces;
 using FOMServer.Master.Core.Models;
 using FOMServer.Master.Infrastructure.Factories;
-using FOMServer.Master.Infrastructure.Migrations;
 using FOMServer.Master.Infrastructure.Repositories;
 using FOMServer.Shared.Application.PacketHandlers;
 using FOMServer.Shared.Extensions;
 using FOMServer.Shared.Infrastructure.Factories;
-using FOMServer.Shared.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -29,10 +27,9 @@ namespace FOMServer.Master
             services.AddConfiguration();
 
             services.AddServerShared();
-            services.AddSingleton<IConnectionFactory, ConnectionFactory>();
+            services.AddMasterServices();
             services.AddDatabaseMigrations();
             services.AddRepositories();
-            services.AddMasterServices();
             services.AddPacketHandlers();
 
             services.AddSingleton<Server>();
@@ -63,6 +60,15 @@ namespace FOMServer.Master
             return services;
         }
 
+        private static ServiceCollection AddMasterServices(this ServiceCollection services)
+        {
+            services.AddSingleton<IConnectionFactory, ConnectionFactory>();
+
+            services.AddSingleton<AccountService>();
+            services.AddSingleton<IAccountService>(sp => sp.GetRequiredService<AccountService>());
+            return services;
+        }
+
         private static ServiceCollection AddDatabaseMigrations(this ServiceCollection services)
         {
             services.AddFluentMigratorCore()
@@ -81,13 +87,6 @@ namespace FOMServer.Master
         {
             services.AddSingleton<IAccountRepository, DbAccountRepository>();
             services.AddSingleton<ICharacterRepository, DbCharacterRepository>();
-            return services;
-        }
-
-        private static ServiceCollection AddMasterServices(this ServiceCollection services)
-        {
-            services.AddSingleton<AccountService>();
-            services.AddSingleton<IAccountService>(sp => sp.GetRequiredService<AccountService>());
             return services;
         }
 

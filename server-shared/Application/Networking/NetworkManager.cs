@@ -20,11 +20,11 @@ namespace FOMServer.Shared.Application.Networking
         /// We can pin the memory of the pre-allocated buffer and then
         /// pass that without having to do anything special.
         /// </remarks>
-        private static readonly SendPacket[] SendBuffer = new SendPacket[IPacketService.MaxBufferedPackets];
+        private readonly SendPacket[] SendBuffer = new SendPacket[IPacketService.MaxBufferedPackets];
 
-        protected IntPtr peer;
-        protected Action<IntPtr>? peerShutdown;
-        protected readonly ILogService logService;
+        private IntPtr peer;
+        private Action<IntPtr>? peerShutdown;
+        private readonly ILogService logService;
         private readonly IPacketService packetService;
         private readonly PacketProcessor packetProcessor;
         private readonly Channel<SendPacket> sendQueue;

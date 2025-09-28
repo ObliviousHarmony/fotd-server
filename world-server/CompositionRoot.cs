@@ -1,10 +1,10 @@
-using FOMServer.World.Application;
-using FOMServer.World.Core.Models;
-using FOMServer.World.Infrastructure.Factories;
-using FOMServer.Shared.Application.PacketHandlers;
+using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Extensions;
 using FOMServer.Shared.Infrastructure.Factories;
-using FOMServer.Shared.Infrastructure.Services;
+using FOMServer.World.Application;
+using FOMServer.World.Application.Networking;
+using FOMServer.World.Core.Models;
+using FOMServer.World.Infrastructure.Factories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,9 +23,8 @@ namespace FOMServer.World
             services.AddConfiguration();
 
             services.AddServerShared();
-            services.AddSingleton<IConnectionFactory, ConnectionFactory>();
+            services.AddWorldServices();
             services.AddRepositories();
-            services.AddMasterServices();
             services.AddPacketHandlers();
 
             services.AddSingleton<Server>();
@@ -46,6 +45,8 @@ namespace FOMServer.World
 
             if (serverSettings.Port <= 0)
                 throw new InvalidOperationException("Server port must be greater than 0.");
+            if (string.IsNullOrWhiteSpace(serverSettings.MasterServer))
+                throw new InvalidOperationException("Master server address must be configured.");
             if (string.IsNullOrWhiteSpace(dbSettings.Name))
                 throw new InvalidOperationException("Database name must be configured.");
             if (string.IsNullOrWhiteSpace(dbSettings.ConnectionString))
@@ -56,12 +57,22 @@ namespace FOMServer.World
             return services;
         }
 
-        private static ServiceCollection AddRepositories(this ServiceCollection services)
+        private static ServiceCollection AddWorldServices(this ServiceCollection services)
         {
+            services.AddSingleton<IConnectionFactory, ConnectionFactory>();
+
+            services.AddSingleton<MasterConnectionManager>();
+            services.AddSingleton<IMasterPacketSender, MasterPacketSender>(sp =>
+            {
+                return new MasterPacketSender(
+                    () => sp.GetRequiredService<MasterConnectionManager>()
+                );
+            });
+
             return services;
         }
 
-        private static ServiceCollection AddMasterServices(this ServiceCollection services)
+        private static ServiceCollection AddRepositories(this ServiceCollection services)
         {
             return services;
         }

@@ -4,6 +4,7 @@ namespace FOMServer.World.Core.Models
     {
         public byte WorldID { get; init; }
         public ushort Port { get; init; }
+        public string MasterServer { get; init; } = null!;
     }
 
     public class DatabaseSettings
