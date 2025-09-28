@@ -11,6 +11,7 @@ namespace FOMServer.Master.Infrastructure.Migrations
             Create.Table("character")
                 .WithColumn("id").AsUnsignedInt().NotNullable().PrimaryKey().ForeignKey("fk_character_account", "account", "id")
                 .WithColumn("name").AsString(19).NotNullable().Unique()
+                .WithColumn("biography").AsString(510).NotNullable()
                 .WithColumn("faction").AsUnsignedByte().NotNullable()
                 .WithColumn("sex").AsUnsignedByte().NotNullable()
                 .WithColumn("skin_color").AsUnsignedByte().NotNullable()

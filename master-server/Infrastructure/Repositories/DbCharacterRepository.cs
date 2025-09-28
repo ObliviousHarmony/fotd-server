@@ -3,6 +3,7 @@ using FOMServer.Master.Core.DTOs;
 using FOMServer.Master.Core.Interfaces;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Infrastructure.Factories;
+using MySqlConnector;
 
 namespace FOMServer.Master.Infrastructure.Repositories
 {
@@ -33,30 +34,46 @@ namespace FOMServer.Master.Infrastructure.Repositories
             );
         }
 
-        public CharacterDto? Create(uint accountID, Faction faction, string name, AvatarSex sex, AvatarSkin skinColor, byte face, byte hair)
+        public CharacterDto? Create(
+            uint accountID,
+            Faction faction,
+            string name,
+            string biography,
+            AvatarSex sex,
+            AvatarSkin skinColor,
+            byte face,
+            byte hair
+        )
         {
             using var connection = connectionFactory.Create();
 
-            var sql = @"INSERT INTO `character`
-(`id`, `faction`, `name`, `sex`, `skin_color`, `face`, `hair`) VALUE
-(@id, @faction, @name, @sex, @skinColor, @face, @hair);
+            try
+            {
+                var sql = @"INSERT INTO `character`
+(`id`, `faction`, `name`, `biography`, `sex`, `skin_color`, `face`, `hair`) VALUE
+(@id, @faction, @name, @biography, @sex, @skinColor, @face, @hair);
 SELECT LAST_INSERT_ID();";
 
-            var id = connection.ExecuteScalar<uint>(
-                sql,
-                new { id = accountID, faction, name, sex, skinColor, face, hair }
-            );
+                var id = connection.ExecuteScalar<uint>(
+                    sql,
+                    new { id = accountID, faction, name, biography, sex, skinColor, face, hair }
+                );
 
-            return new CharacterDto
+                return new CharacterDto
+                {
+                    id = id,
+                    name = name,
+                    faction = faction,
+                    sex = sex,
+                    skin_color = skinColor,
+                    face = face,
+                    hair = hair,
+                };
+            }
+            catch (MySqlException)
             {
-                id = id,
-                name = name,
-                faction = faction,
-                sex = sex,
-                skin_color = skinColor,
-                face = face,
-                hair = hair,
-            };
+                return null;
+            }
         }
     }
 }

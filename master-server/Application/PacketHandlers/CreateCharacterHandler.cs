@@ -1,3 +1,4 @@
+using FOMServer.Master.Application.Services;
 using FOMServer.Master.Core.Interfaces;
 using FOMServer.Shared.Application.PacketHandlers;
 using FOMServer.Shared.Core.Enums;
@@ -9,10 +10,12 @@ namespace FOMServer.Master.Application.PacketHandlers
 {
     public class CreateCharacterHandler : PacketHandler<CreateCharacter>
     {
+        private readonly IAccountService accountService;
         private readonly ICharacterRepository characterRepository;
 
-        public CreateCharacterHandler(ICharacterRepository characterRepository)
+        public CreateCharacterHandler(IAccountService accountService, ICharacterRepository characterRepository)
         {
+            this.accountService = accountService;
             this.characterRepository = characterRepository;
         }
 
@@ -20,15 +23,22 @@ namespace FOMServer.Master.Application.PacketHandlers
 
         public override void Handle(NetworkAddress sender, in CreateCharacter data)
         {
-            characterRepository.Create(
-                data.AccountID,
+            var account = accountService.Get(sender);
+            if (account == null)
+                return;
+
+            var created = characterRepository.Create(
+                account.ID,
                 data.Avatar.Faction,
                 data.Name,
+                data.Biography,
                 data.Avatar.Sex,
                 data.Avatar.SkinColor,
                 data.Avatar.Face,
                 data.Avatar.Hair
             );
+            if (created == null)
+                throw new InvalidOperationException("Failed to create character.");
         }
     }
 }
