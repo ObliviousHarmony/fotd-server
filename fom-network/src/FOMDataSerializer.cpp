@@ -59,8 +59,8 @@ FOMDataUnion FOMDataSerializer::Read(RakNet::BitStream& bs,
   try {
     return reader->Read(bs);
   } catch (const std::exception& e) {
-    throw ReadError(Packet::ReadPacketError{
-        id, Packet::ReadPacketErrorCode::ERROR_READ});
+    throw ReadError(
+        Packet::ReadPacketError{id, Packet::ReadPacketErrorCode::ERROR_READ});
   }
 }
 

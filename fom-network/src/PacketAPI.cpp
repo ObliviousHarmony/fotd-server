@@ -3,8 +3,8 @@
 
 #include <vector>
 
-using FOMNetwork::FOMPacket;
 using FOMNetwork::FOMDataSerializer;
+using FOMNetwork::FOMPacket;
 
 /**
  * The maximum number of packets that can be received each tick.
