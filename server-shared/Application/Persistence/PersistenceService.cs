@@ -48,7 +48,6 @@ namespace FOMServer.Shared.Application.Persistence
         /// <summary>
         /// Starts the background persistence task.
         /// </summary>
-        /// <param name="ctParent">The parent's cancellation token.</param>
         public void Start(CancellationToken ctParent)
         {
             if (persistenceTask != null)
@@ -121,7 +120,6 @@ namespace FOMServer.Shared.Application.Persistence
         /// <summary>
         /// Handles persisting a single entity.
         /// </summary>
-        /// <param name="entity">The entity to persist.</param>
         private async Task Handle(IPersistable entity)
         {
             if (!handlers.TryGetValue(entity.GetType(), out var handler))

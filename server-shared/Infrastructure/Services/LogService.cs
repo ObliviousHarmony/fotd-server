@@ -60,8 +60,6 @@ namespace FOMServer.Shared.Infrastructure.Services
         /// discarded based on the log level. In general, prefer using custom
         /// LogEntry instances that defer message construction until needed.
         /// </remarks>
-        /// <param name="level">The log level to use for the message.</param>
-        /// <param name="message">The message to write.</param>
         public void WriteMessage(LogLevel level, string message)
         {
             Write(MessageLogEntry.Create(level, message));
@@ -70,7 +68,6 @@ namespace FOMServer.Shared.Infrastructure.Services
         /// <summary>
         /// Write a log entry for an exception.
         /// </summary>
-        /// <param name="ex">The exception to write.</param>
         public void WriteException(Exception ex)
         {
             Write(ExceptionLogEntry.Create(ex));
@@ -79,8 +76,6 @@ namespace FOMServer.Shared.Infrastructure.Services
         /// <summary>
         /// Write a log entry for a packet exception.
         /// </summary>
-        /// <param name="packet">The packet that triggered the exception.</param>
-        /// <param name="ex">The exception to write.</param>
         public void WritePacketException(FOMPacket packet, Exception ex)
         {
             Write(PacketExceptionLogEntry.Create(packet, ex));
@@ -89,7 +84,6 @@ namespace FOMServer.Shared.Infrastructure.Services
         /// <summary>
         /// Starts the background logging task.
         /// </summary>
-        /// <param name="ctParent">The parent's cancellation token.</param>
         public void Start(CancellationToken ctParent)
         {
             if (loggingTask != null)

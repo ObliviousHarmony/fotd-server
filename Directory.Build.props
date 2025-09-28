@@ -1,5 +1,9 @@
 <Project>
   <PropertyGroup>
+    <BuildNativeLib>false</BuildNativeLib>
+    <BuildNativeLib Condition="'$(OS)' == 'Windows_NT'">true</BuildNativeLib>
+  </PropertyGroup>
+  <PropertyGroup>
     <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)/../out/build/$(Configuration)/$(MSBuildProjectName)/obj/</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
     <OutputPath>$(MSBuildProjectDirectory)/../out/build/$(Configuration)/$(MSBuildProjectName)/bin/</OutputPath>

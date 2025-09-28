@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <RootNamespace>FOMServer.Shared</RootNamespace>
@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\fom-network\FOMNetwork.vcxproj" Condition="'$(OS)' == 'Windows_NT'" />
+    <ProjectReference Include="..\fom-network\FOMNetwork.vcxproj" Condition="'$(BuildNativeLib)' == 'true'" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
     <PackageReference Include="MySqlConnector" Version="2.4.0" />
     <PackageReference Include="Dapper" Version="2.1.66" />
@@ -30,9 +30,5 @@
     <None Include="$(FOMNetworkPDBFile)" Condition="Exists('$(FOMNetworkPDBFile)')">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Application\Services\" />
   </ItemGroup>
 </Project>

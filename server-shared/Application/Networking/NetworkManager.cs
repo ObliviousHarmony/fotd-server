@@ -58,7 +58,6 @@ namespace FOMServer.Shared.Application.Networking
         ///	Once the peer has been given to the network manager it should not be used by the caller anymore.
         ///	The peerShutdown function will be used for cleanup when the manager is done with the peer.
         /// </remarks>
-        /// <param name="peer">The peer to use with the service.</param>
         /// <param name="peerShutdown">A function describing how to shut the peer down when the service is disposed.</param>
         public void ConfigurePeer(IntPtr peer, Action<IntPtr> peerShutdown)
         {

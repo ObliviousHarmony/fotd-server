@@ -49,8 +49,6 @@ namespace FOMServer.Shared.Application.Networking
         /// <summary>
         /// Start worker threads to process packets.
         /// </summary>
-        /// <param name="parentToken">Parent cancellation token.</param>
-        /// <param name="workerCount">Number of worker tasks to run.</param>
         public void Start(CancellationToken parentToken, int workerCount = 1)
         {
             if (cts != null)
@@ -135,7 +133,6 @@ namespace FOMServer.Shared.Application.Networking
         /// <summary>
         /// When a packet has no handler defined, this function will be called so it can be dealt with.
         /// </summary>
-        /// <param name="packet">The packet to handle.</param>
         private void OnUnhandledPacket(FOMPacket packet)
         {
             // Any unhandled internal RakNet packets should be ignored.

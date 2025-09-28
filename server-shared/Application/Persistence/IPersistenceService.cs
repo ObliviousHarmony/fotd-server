@@ -10,7 +10,6 @@ namespace FOMServer.Shared.Application.Persistence
         /// <summary>
         /// Registers an entity to be persisted when it changes.
         /// </summary>
-        /// <param name="entity">The persistable entity to register.</param>
         void Register(IPersistable entity);
     }
 }

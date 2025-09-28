@@ -15,7 +15,6 @@ namespace FOMServer.Shared.Application.PacketHandlers
         /// <summary>
         /// Handles an incoming packet by extracting its data and passing it to the type-specific handler.
         /// </summary>
-        /// <param name="packet">The packet to handle.</param>
         public void Handle(in FOMPacket packet)
         {
             Handle(
@@ -27,8 +26,6 @@ namespace FOMServer.Shared.Application.PacketHandlers
         /// <summary>
         /// Handles the data from an incoming packet.
         /// </summary>
-        /// <param name="sender">The sender of the packet.</param>
-        /// <param name="data">The data property from the packet.</param>
         public abstract void Handle(NetworkAddress sender, in TPacketData data);
     }
 }
