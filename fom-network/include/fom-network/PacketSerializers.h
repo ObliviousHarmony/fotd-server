@@ -77,8 +77,9 @@ class BaseSerializer {
       data.FIELD = ReadData(bs);                                              \
       return data;                                                            \
     }                                                                         \
-    void WriteData(RakNet::BitStream& bs, const FOMNetwork::Packet::TYPE& v) const;       \
-    FOMNetwork::Packet::TYPE ReadData(RakNet::BitStream& bs) const;                       \
+    void WriteData(RakNet::BitStream& bs,                                     \
+                   const FOMNetwork::Packet::TYPE& v) const;                  \
+    FOMNetwork::Packet::TYPE ReadData(RakNet::BitStream& bs) const;           \
   };
 
 #define SERIALIZER_WRITE(TYPE, FIELD)                                         \
@@ -91,7 +92,8 @@ class BaseSerializer {
     void Write(RakNet::BitStream& bs, const FOMDataUnion& d) const override { \
       WriteData(bs, d.FIELD);                                                 \
     }                                                                         \
-    void WriteData(RakNet::BitStream& bs, const FOMNetwork::Packet::TYPE& v) const;       \
+    void WriteData(RakNet::BitStream& bs,                                     \
+                   const FOMNetwork::Packet::TYPE& v) const;                  \
   };
 
 #define SERIALIZER_READ(TYPE, FIELD)                                       \
@@ -106,7 +108,7 @@ class BaseSerializer {
       data.FIELD = ReadData(bs);                                           \
       return data;                                                         \
     }                                                                      \
-    FOMNetwork::Packet::TYPE ReadData(RakNet::BitStream& bs) const;                    \
+    FOMNetwork::Packet::TYPE ReadData(RakNet::BitStream& bs) const;        \
   };
 
 /**

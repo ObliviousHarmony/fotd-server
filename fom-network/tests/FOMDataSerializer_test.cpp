@@ -12,8 +12,9 @@ TEST(FOMDataSerializer, ReadUnhandledPacketID) {
     FAIL() << "Expected ReadError";
   } catch (const FOMDataSerializer::ReadError& e) {
     ASSERT_EQ(e.readError.offendingID, ID_INTERNAL_PING);
-    ASSERT_EQ(e.readError.errorCode,
-              FOMNetwork::Packet::ReadPacketErrorCode::ERROR_UNHANDLED_PACKET_ID);
+    ASSERT_EQ(
+        e.readError.errorCode,
+        FOMNetwork::Packet::ReadPacketErrorCode::ERROR_UNHANDLED_PACKET_ID);
   } catch (...) {
     FAIL() << "Expected ReadError";
   }
