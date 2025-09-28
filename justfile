@@ -19,8 +19,14 @@ NUGET_CACHE_MOUNT := if NUGET_CACHE_BIND == "" {
 }
 
 [group("format")]
+[unix]
 format-check-cpp:
-  clang-format --dry-run --Werror $(git ls-files ./fom-network/**/*.cpp ./fom-network/**/*.h)
+  clang-format --dry-run --Werror $(find fom-network -name "*.cpp" -o -name "*.h")
+
+[group("format")]
+[windows]
+format-check-cpp:
+    powershell -Command "Get-ChildItem -Recurse -Include *.cpp,*.h | ForEach-Object { clang-format --dry-run --Werror $_.FullName }"
 
 [group("format")]
 format-check-dotnet:
@@ -31,8 +37,14 @@ format-check-dotnet:
 format: format-cpp format-dotnet
 
 [group("format")]
+[unix]
 format-cpp:
-  clang-format -i $(git ls-files ./fom-network/**/*.cpp ./fom-network/**/*.h)
+  clang-format -i $(find fom-network -name "*.cpp" -o -name "*.h")
+
+[group("format")]
+[windows]
+format-cpp:
+    powershell -Command "Get-ChildItem -Recurse -Include *.cpp,*.h | ForEach-Object { clang-format -i $_.FullName }"
 
 [group("format")]
 format-dotnet:
