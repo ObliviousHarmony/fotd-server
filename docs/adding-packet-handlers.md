@@ -69,7 +69,7 @@ SERIALIZER_BOTH(ExamplePacket, examplePacket)
 
 - [ ] **Serializer Definition**: Based on the macro used, each packet is required to have
   a write and/or a read method defined for the serializer. This is done by creating a new file
-  in [`src/serializers/`](../fom-network/src/serializers/) named `<PacketStruct>Serializer`.
+  in [`src/packet-serializers/`](../fom-network/src/packet-serializers/) named `<PacketStruct>Serializer`.
 
 ```cpp
 #include <fom-network/PacketSerializers.h>
