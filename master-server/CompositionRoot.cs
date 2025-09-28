@@ -1,17 +1,18 @@
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
 using FluentMigrator.Runner;
 using FOMServer.Master.Application;
-using FOMServer.Master.Infrastructure.Factories;
 using FOMServer.Master.Application.PacketHandlers;
-using FOMServer.Master.Core.Models;
-using FOMServer.Shared.Infrastructure.Factories;
-using FOMServer.Shared.Extensions;
-using FOMServer.Shared.Application.PacketHandlers;
-using FOMServer.Master.Infrastructure.Migrations;
-using FOMServer.Master.Core.Interfaces;
-using FOMServer.Master.Infrastructure.Repositories;
 using FOMServer.Master.Application.Services;
+using FOMServer.Master.Core.Interfaces;
+using FOMServer.Master.Core.Models;
+using FOMServer.Master.Infrastructure.Factories;
+using FOMServer.Master.Infrastructure.Migrations;
+using FOMServer.Master.Infrastructure.Repositories;
+using FOMServer.Shared.Application.PacketHandlers;
+using FOMServer.Shared.Extensions;
+using FOMServer.Shared.Infrastructure.Factories;
+using FOMServer.Shared.Infrastructure.Services;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FOMServer.Master
 {
@@ -85,7 +86,8 @@ namespace FOMServer.Master
 
         private static ServiceCollection AddMasterServices(this ServiceCollection services)
         {
-            services.AddSingleton<IAccountService, AccountService>();
+            services.AddSingleton<AccountService>();
+            services.AddSingleton<IAccountService>(sp => sp.GetRequiredService<AccountService>());
             return services;
         }
 

@@ -13,13 +13,11 @@ namespace FOMServer.Master.Application.PacketHandlers
     {
         public override PacketIdentifier PacketID => PacketIdentifier.ID_LOGIN;
 
-        private readonly ILogService logService;
         private readonly IAccountService accountService;
         private readonly IPacketSender packetSender;
 
-        public LoginHandler(ILogService logService, IAccountService accountService, IPacketSender packetSender)
+        public LoginHandler(IAccountService accountService, IPacketSender packetSender)
         {
-            this.logService = logService;
             this.accountService = accountService;
             this.packetSender = packetSender;
         }
@@ -29,8 +27,6 @@ namespace FOMServer.Master.Application.PacketHandlers
             var account = accountService.Login(data.Username, data.PasswordHash, sender);
             if (account == null)
                 return;
-
-            logService.WriteMessage(LogLevel.Info, $"Received login for {account.Username} ({account.ID}) - {data.MACAddress} from {sender}");
 
             var response = new LoginReturn()
             {
