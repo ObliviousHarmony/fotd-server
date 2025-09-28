@@ -7,25 +7,25 @@ namespace FOMServer.Master.Core.Interfaces
         /// <summary>
         /// Marks all of the accounts in the database as logged out.
         /// </summary>
-        public void MarkAllAccountsLoggedOut();
+        void MarkAllAccountsLoggedOut();
 
         /// <summary>
         /// Checks to see whether or not the specified account exists.
         /// </summary>
         /// <param name="username">The username to check.</param>
-        public uint? AccountExists(string username);
+        uint? AccountExists(string username);
 
         /// <summary>
         /// Attempts to match the login credentials to an account and returns one if successful.
         /// </summary>
         /// <param name="username">The username to check.</param>
         /// <param name="password">The password to check.</param>
-        public AccountDto? TryLogin(string username, string password);
+        AccountDto? TryLogin(string username, string password);
 
         /// <summary>
         /// Logs an account out.
         /// </summary>
         /// <param name="id">The ID of the account.</param>
-        public bool Logout(uint id);
+        bool Logout(uint id);
     }
 }

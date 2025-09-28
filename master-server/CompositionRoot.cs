@@ -69,7 +69,7 @@ namespace FOMServer.Master
             {
                 rb.AddMySql8()
                   .WithGlobalConnectionString(dbSettings!.ConnectionString)
-                  .ScanIn(typeof(InitialMigration).Assembly).For.Migrations();
+                  .ScanIn(typeof(Server).Assembly).For.Migrations();
             })
             .AddLogging(lb => lb.AddFluentMigratorConsole());
 
@@ -79,6 +79,7 @@ namespace FOMServer.Master
         private static ServiceCollection AddRepositories(this ServiceCollection services)
         {
             services.AddSingleton<IAccountRepository, DbAccountRepository>();
+            services.AddSingleton<IPlayerRepository, DbPlayerRepository>();
             return services;
         }
 
