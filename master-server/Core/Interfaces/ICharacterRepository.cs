@@ -18,6 +18,6 @@ namespace FOMServer.Master.Core.Interfaces
         /// <summary>
         /// Creates a new character for the given account.
         /// </summary>
-        CharacterDto? Create(uint accountID, byte faction, string name, AvatarSex sex, AvatarSkin skinColor, byte face, byte hair);
+        CharacterDto? Create(uint accountID, Faction faction, string name, AvatarSex sex, AvatarSkin skinColor, byte face, byte hair);
     }
 }

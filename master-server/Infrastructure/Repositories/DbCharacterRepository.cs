@@ -18,25 +18,34 @@ namespace FOMServer.Master.Infrastructure.Repositories
         public uint? Exists(string name)
         {
             using var connection = connectionFactory.Create();
-            return connection.QueryFirstOrDefault<uint?>("SELECT `id` FROM `character` WHERE `name` = @name", new { name });
+            return connection.QueryFirstOrDefault<uint?>(
+                "SELECT `id` FROM `character` WHERE `name` = @name",
+                new { name }
+            );
         }
 
         public CharacterDto? Get(uint accountID)
         {
             using var connection = connectionFactory.Create();
-            return connection.QueryFirstOrDefault<CharacterDto?>("SELECT `id`, `name`, `faction`, `sex`, `skin_color`, `face`, `hair`  FROM `character` WHERE `id` = @id", new { id = accountID });
+            return connection.QueryFirstOrDefault<CharacterDto?>(
+                "SELECT `id`, `name`, `faction`, `sex`, `skin_color`, `face`, `hair`  FROM `character` WHERE `id` = @id",
+                new { id = accountID }
+            );
         }
 
-        public CharacterDto? Create(uint accountID, byte faction, string name, AvatarSex sex, AvatarSkin skinColor, byte face, byte hair)
+        public CharacterDto? Create(uint accountID, Faction faction, string name, AvatarSex sex, AvatarSkin skinColor, byte face, byte hair)
         {
             using var connection = connectionFactory.Create();
 
-            var sql = @"INSERT INTO `character` (`id`, `faction`, `name`, `sex`, `skin_color`, `face`, `hair`)
-VALUE
+            var sql = @"INSERT INTO `character`
+(`id`, `faction`, `name`, `sex`, `skin_color`, `face`, `hair`) VALUE
 (@id, @faction, @name, @sex, @skinColor, @face, @hair);
 SELECT LAST_INSERT_ID();";
 
-            var id = connection.ExecuteScalar<uint>(sql, new { id = accountID, faction, name, sex, skinColor, face, hair });
+            var id = connection.ExecuteScalar<uint>(
+                sql,
+                new { id = accountID, faction, name, sex, skinColor, face, hair }
+            );
 
             return new CharacterDto
             {

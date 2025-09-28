@@ -42,7 +42,10 @@ namespace FOMServer.Master.Infrastructure.Repositories
         public bool Logout(uint id)
         {
             using var connection = connectionFactory.Create();
-            var affected = connection.Execute("UPDATE `account` SET `logged_in` = 0 WHERE `id` = @ID", new { ID = id });
+            var affected = connection.Execute(
+                "UPDATE `account` SET `logged_in` = 0 WHERE `id` = @ID",
+                new { ID = id }
+            );
             return affected > 0;
         }
 
