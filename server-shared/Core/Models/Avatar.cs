@@ -9,14 +9,14 @@ namespace FOMServer.Shared.Core.Models
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct Avatar
     {
-        AvatarSex sex;
-        AvatarSkin skinColor;
-        byte face;
-        byte hair;
-        byte faction;
-        ushort shirt;
-        ushort bottoms;
-        ushort shoes;
-        ushort gloves;
+        public AvatarSex Sex;
+        public AvatarSkin SkinColor;
+        public byte Face;
+        public byte Hair;
+        public byte Faction;
+        public ushort Shirt;
+        public ushort Bottoms;
+        public ushort Shoes;
+        public ushort Gloves;
     }
 }

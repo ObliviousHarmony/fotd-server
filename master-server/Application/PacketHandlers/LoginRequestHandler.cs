@@ -6,7 +6,6 @@ using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
 using FOMServer.Shared.Core.Models.FOMData;
-using FOMServer.Shared.Infrastructure.Services;
 
 namespace FOMServer.Master.Application.PacketHandlers
 {

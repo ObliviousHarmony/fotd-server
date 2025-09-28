@@ -97,6 +97,7 @@ namespace FOMServer.Master
             services.AddSingleton<IPacketHandler, LoginRequestHandler>();
             services.AddSingleton<IPacketHandler, LoginHandler>();
             services.AddSingleton<IPacketHandler, CheckNameHandler>();
+            services.AddSingleton<IPacketHandler, CreateCharacterHandler>();
             return services;
         }
     }
