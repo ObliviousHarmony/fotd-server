@@ -3,15 +3,14 @@
 #include <fom-network/Common.h>
 
 namespace FOMNetwork {
-namespace Packet {
 
 #pragma pack(push, 1)
-struct CheckNameReturn {
-  uint32_t existingPlayerID;
+struct NetworkAddress {
+  uint32_t binaryAddress;
+  uint16_t port;
 };
 #pragma pack(pop)
 
-ASSERT_BLITTABLE(CheckNameReturn);
+ASSERT_BLITTABLE(NetworkAddress);
 
-}  // namespace Packet
 }  // namespace FOMNetwork

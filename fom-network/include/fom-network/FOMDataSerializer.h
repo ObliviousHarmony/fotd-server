@@ -8,6 +8,8 @@
 #include <stdexcept>
 #include <unordered_map>
 
+namespace FOMNetwork {
+
 /**
  * Handles packet data serialization and deserialization based on packet ID.
  */
@@ -15,9 +17,9 @@ class FOM_API FOMDataSerializer {
  public:
   class ReadError : public std::runtime_error {
    public:
-    FOMPacket::ReadPacketError readError;
+    Packet::ReadPacketError readError;
 
-    ReadError(FOMPacket::ReadPacketError data)
+    ReadError(Packet::ReadPacketError data)
         : std::runtime_error("An error occurred during reading."),
           readError(data) {}
   };
@@ -94,3 +96,5 @@ class FOM_API FOMDataSerializer {
     }
   }
 };
+
+}  // namespace FOMNetwork

@@ -2,6 +2,8 @@
 #include <gtest/gtest.h>
 #include <raknet/BitStream.h>
 
+using namespace FOMNetwork;
+
 TEST(FOMDataSerializer, ReadUnhandledPacketID) {
   RakNet::BitStream bs;
 
@@ -11,7 +13,7 @@ TEST(FOMDataSerializer, ReadUnhandledPacketID) {
   } catch (const FOMDataSerializer::ReadError& e) {
     ASSERT_EQ(e.readError.offendingID, ID_INTERNAL_PING);
     ASSERT_EQ(e.readError.errorCode,
-              FOMPacket::ReadPacketErrorCode::ERROR_UNHANDLED_PACKET_ID);
+              Packet::ReadPacketErrorCode::ERROR_UNHANDLED_PACKET_ID);
   } catch (...) {
     FAIL() << "Expected ReadError";
   }

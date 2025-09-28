@@ -1,18 +1,19 @@
 #pragma once
 
-#include <fom-network/PacketIdentifier.h>
+#include <fom-network/Common.h>
 
-/**
- * Make sure that we pack the structs the same way that C# does.
- */
+namespace FOMNetwork {
+namespace Packet {
+
 #pragma pack(push, 1)
-
-namespace FOMPacket {
 struct CreateCharacter {
   uint8_t name[20];
   uint8_t biography[511];
+  Avatar avatar;
 };
-ASSERT_BLITTABLE(CreateCharacter);
-}  // namespace FOMPacket
-
 #pragma pack(pop)
+
+ASSERT_BLITTABLE(CreateCharacter);
+
+}  // namespace Packet
+}  // namespace FOMNetwork

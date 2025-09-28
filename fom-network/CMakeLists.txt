@@ -29,6 +29,11 @@ set(FOMNETWORK_INC
   "include/fom-network/PacketIdentifier.h"
   "include/fom-network/PacketSerializers.h"
   "include/fom-network/ServerAPI.h"
+
+  "src/model-serializers/ModelSerializer.h"
+  "src/model-serializers/NetworkAddressSerializer.h"
+  "src/model-serializers/AvatarSerializer.h"
+
   "include/fom-network/packets/ReadPacketError.h"
   "include/fom-network/packets/LoginRequest.h"
   "include/fom-network/packets/LoginRequestReturn.h"

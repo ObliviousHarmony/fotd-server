@@ -5,6 +5,8 @@
 #include <raknet/BitStream.h>
 #include <raknet/StringCompressor.h>
 
+namespace FOMNetwork {
+
 /**
  * Base interfaces for packet serializers.
  */
@@ -75,8 +77,8 @@ class BaseSerializer {
       data.FIELD = ReadData(bs);                                              \
       return data;                                                            \
     }                                                                         \
-    void WriteData(RakNet::BitStream& bs, const FOMPacket::TYPE& v) const;    \
-    FOMPacket::TYPE ReadData(RakNet::BitStream& bs) const;                    \
+    void WriteData(RakNet::BitStream& bs, const Packet::TYPE& v) const;       \
+    Packet::TYPE ReadData(RakNet::BitStream& bs) const;                       \
   };
 
 #define SERIALIZER_WRITE(TYPE, FIELD)                                         \
@@ -89,7 +91,7 @@ class BaseSerializer {
     void Write(RakNet::BitStream& bs, const FOMDataUnion& d) const override { \
       WriteData(bs, d.FIELD);                                                 \
     }                                                                         \
-    void WriteData(RakNet::BitStream& bs, const FOMPacket::TYPE& v) const;    \
+    void WriteData(RakNet::BitStream& bs, const Packet::TYPE& v) const;       \
   };
 
 #define SERIALIZER_READ(TYPE, FIELD)                                       \
@@ -104,7 +106,7 @@ class BaseSerializer {
       data.FIELD = ReadData(bs);                                           \
       return data;                                                         \
     }                                                                      \
-    FOMPacket::TYPE ReadData(RakNet::BitStream& bs) const;                 \
+    Packet::TYPE ReadData(RakNet::BitStream& bs) const;                    \
   };
 
 /**
@@ -118,3 +120,5 @@ SERIALIZER_WRITE(LoginReturn, loginReturn)
 SERIALIZER_READ(CheckName, checkName)
 SERIALIZER_WRITE(CheckNameReturn, checkNameReturn)
 SERIALIZER_READ(CreateCharacter, createCharacter)
+
+}  // namespace FOMNetwork

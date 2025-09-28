@@ -7,13 +7,12 @@
 #include <raknet/RakNetTypes.h>
 #include <raknet/RakPeerInterface.h>
 
-#pragma pack(push, 1)
-
 /**
  * Container for passing a buffer of received packets around.
  *
  * @note This structure MUST only contain C# blittable types.
  */
+#pragma pack(push, 1)
 struct ReceivedPackets {
   /* A buffer of packets that have been received and need to be deserialized and
    * released. */
@@ -22,22 +21,26 @@ struct ReceivedPackets {
   /* The number of packets in the buffer. */
   int32_t count;
 };
+#pragma pack(pop)
+
+ASSERT_BLITTABLE(ReceivedPackets)
 
 /**
  * Container for passing packets to be sent around.
  *
  * @note This structure MUST only contain C# blittable types.
  */
+#pragma pack(push, 1)
 struct SendPacket {
   /* The identifier for the packet being sent. */
-  PacketIdentifier id;
+  FOMNetwork::PacketIdentifier id;
 
   /* The discriminated union for communicating packet data. */
-  FOMDataUnion data;
+  FOMNetwork::FOMDataUnion data;
 
   /* The destination for the packet or the excluded address if it is a
    * broadcast. */
-  FOMPacket::NetworkAddress networkAddress;
+  FOMNetwork::NetworkAddress networkAddress;
 
   /* The priority of the packet to be sent to the networking library. */
   uint8_t priority;
@@ -52,8 +55,9 @@ struct SendPacket {
   /* A boolean indicating whether or not the packet should be a broadcast. */
   int8_t broadcast;
 };
-
 #pragma pack(pop)
+
+ASSERT_BLITTABLE(SendPacket)
 
 #ifdef __cplusplus
 extern "C" {
@@ -95,7 +99,7 @@ FOM_API ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer);
  */
 FOM_API int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
                                           const ReceivedPackets received,
-                                          FOMPacket::FOMPacket* packetBuffer,
+                                          FOMNetwork::FOMPacket* packetBuffer,
                                           int32_t packetBufferLen);
 
 /**

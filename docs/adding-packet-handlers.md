@@ -20,22 +20,20 @@ must be done in order to achieve that.
 ```cpp
 #pragma once
 
-#include <fom-network/PacketIdentifier.h>
+#include <fom-network/Common.h>
 
-/**
- * Make sure that we pack the structs the same way that C# does.
- */
-#pragma pack(push, 1)
+namespace FOMNetwork {
 
-namespace FOMPacket {
+#pragma pack(push, 1) // MUST PACK BY 1 FOR CONSISTENCY WITH C#
 struct ExamplePacket {
   uint8_t exampleString[19];
   uint16_t exampleShort;
 };
-ASSERT_BLITTABLE(ExamplePacket);
-}  // namespace FOMPacket
-
 #pragma pack(pop)
+
+ASSERT_BLITTABLE(ExamplePacket);
+
+}  // namespace FOMNetwork
 ```
 
 - [ ] **Data Union**: Each packet needs to be included in [the `FOMDataUnion`
@@ -48,7 +46,7 @@ ASSERT_BLITTABLE(ExamplePacket);
 struct FOMDataUnion {
   union {
     ...
-    FOMPacket::ExamplePacket examplePacket;
+    Packet::ExamplePacket examplePacket;
   };
 };
 ```
@@ -74,18 +72,22 @@ SERIALIZER_BOTH(ExamplePacket, examplePacket)
 ```cpp
 #include <fom-network/PacketSerializers.h>
 
+namespace FOMNetwork {
+
 void ExamplePacketSerializer::WriteData(
-  RakNet::BitStream& bs, const FOMPacket::ExamplePacket& data) const {
+  RakNet::BitStream& bs, const Packet::ExamplePacket& data) const {
   EncodeString(bs, data.exampleString);
   bs.WriteCompressed(data.exampleShort);
 }
 
-FOMPacket::ExamplePacket ExamplePacketSerializer::ReadData(RakNet::BitStream& bs) const {
-  FOMPacket::ExamplePacket data{};
+Packet::ExamplePacket ExamplePacketSerializer::ReadData(RakNet::BitStream& bs) const {
+  Packet::ExamplePacket data{};
   DecodeString(bs, data.exampleString);
   bs.ReadCompressed(data.exampleShort);
   return data;
 }
+
+}  // namespace FOMNetwork
 ```
 
 - [ ] **Enable Serializer**: Each serializer needs to be
@@ -112,7 +114,7 @@ static std::unordered_map<uint32_t, IReader*> readerMap = {
 // so that they can be compared to the consumer's structs.
 std::unordered_map<uint8_t, uint32_t> libraryMap = {
   ...
-  {ID_EXAMPLE, sizeof(FOMPacket::ExamplePacket)}
+  {ID_EXAMPLE, sizeof(Packet::ExamplePacket)}
 };
 ```
 

@@ -5,8 +5,6 @@
 #include <fom-network/PacketIdentifier.h>
 #include <raknet/RakPeer.h>
 
-#pragma pack(push, 1)
-
 /**
  * Contains information about packet structures to be used to
  * validate that unmanaged and managed code agree on their
@@ -16,12 +14,14 @@
  *
  * @note This structure MUST only contain C# blittable types.
  */
+#pragma pack(push, 1)
 struct PacketStructure {
-  PacketIdentifier id;
+  FOMNetwork::PacketIdentifier id;
   int32_t size;
 };
-
 #pragma pack(pop)
+
+ASSERT_BLITTABLE(PacketStructure)
 
 #ifdef __cplusplus
 extern "C" {

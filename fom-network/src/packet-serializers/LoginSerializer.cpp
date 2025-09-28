@@ -1,7 +1,9 @@
 #include <fom-network/PacketSerializers.h>
 
-FOMPacket::Login LoginSerializer::ReadData(RakNet::BitStream& bs) const {
-  FOMPacket::Login data{};
+namespace FOMNetwork {
+
+Packet::Login LoginSerializer::ReadData(RakNet::BitStream& bs) const {
+  Packet::Login data{};
   DecodeString(bs, data.username);
   ReadRawString(bs, data.passwordHash);
   bs.Read(data.clientCRC);
@@ -10,3 +12,5 @@ FOMPacket::Login LoginSerializer::ReadData(RakNet::BitStream& bs) const {
   DecodeString(bs, data.macAddress);
   return data;
 }
+
+}  // namespace FOMNetwork

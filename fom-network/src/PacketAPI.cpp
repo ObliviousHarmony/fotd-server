@@ -3,6 +3,9 @@
 
 #include <vector>
 
+using FOMNetwork::FOMPacket;
+using FOMNetwork::FOMDataSerializer;
+
 /**
  * The maximum number of packets that can be received each tick.
  * Since we buffer the packets to return to the consumer, we
@@ -50,7 +53,7 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
 
 int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
                                   const ReceivedPackets received,
-                                  FOMPacket::FOMPacket* packetBuffer,
+                                  FOMPacket* packetBuffer,
                                   int32_t packetBufferLen) {
   if (!peer || !received.packets || received.count == 0) {
     return 0;
@@ -70,7 +73,7 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
 
     // Deserialize the bitstream into a packet structure that can be returned to
     // the consumer.
-    FOMPacket::FOMPacket& fp =
+    FOMPacket& fp =
         packetBuffer[i];  // Don't allocate, just use the provided buffer.
     bs.Read(fp.ID);       // First byte is always the packet ID.
 
@@ -78,7 +81,7 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
       fp.data = FOMDataSerializer::Read(bs, fp.ID);
     } catch (const FOMDataSerializer::ReadError& e) {
       // Make sure that read errors are communicated to the consumer.
-      fp.ID = ID_FOM_PACKET_READ_ERROR;
+      fp.ID = FOMNetwork::ID_FOM_PACKET_READ_ERROR;
       fp.data.readError = e.readError;
     }
 

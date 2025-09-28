@@ -1,8 +1,12 @@
 #include <fom-network/PacketSerializers.h>
 
-FOMPacket::CheckName CheckNameSerializer::ReadData(
+namespace FOMNetwork {
+
+Packet::CheckName CheckNameSerializer::ReadData(
     RakNet::BitStream& bs) const {
-  FOMPacket::CheckName data{};
+  Packet::CheckName data{};
   DecodeString(bs, data.name);
   return data;
 }
+
+}  // namespace FOMNetwork

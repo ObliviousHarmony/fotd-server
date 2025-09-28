@@ -2,6 +2,8 @@
 
 #include <unordered_map>
 
+namespace FOMNetwork {
+
 /**
  * We need to initialize the map with all of the serializers we want to be able
  * to use.
@@ -48,8 +50,8 @@ FOMDataUnion FOMDataSerializer::Read(RakNet::BitStream& bs,
 
   const auto* reader = GetReader(id);
   if (!reader) {
-    throw ReadError(FOMPacket::ReadPacketError{
-        id, FOMPacket::ReadPacketErrorCode::ERROR_UNHANDLED_PACKET_ID});
+    throw ReadError(Packet::ReadPacketError{
+        id, Packet::ReadPacketErrorCode::ERROR_UNHANDLED_PACKET_ID});
   }
 
   // Make sure to catch any deserialization errors so that
@@ -57,8 +59,8 @@ FOMDataUnion FOMDataSerializer::Read(RakNet::BitStream& bs,
   try {
     return reader->Read(bs);
   } catch (const std::exception& e) {
-    throw ReadError(FOMPacket::ReadPacketError{
-        id, FOMPacket::ReadPacketErrorCode::ERROR_READ});
+    throw ReadError(Packet::ReadPacketError{
+        id, Packet::ReadPacketErrorCode::ERROR_READ});
   }
 }
 
@@ -77,3 +79,5 @@ const IReader* FOMDataSerializer::GetReader(PacketIdentifier id) {
   }
   return it->second;
 }
+
+}  // namespace FOMNetwork

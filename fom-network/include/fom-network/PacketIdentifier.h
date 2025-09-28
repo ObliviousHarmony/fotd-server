@@ -3,6 +3,8 @@
 #include <fom-network/Common.h>
 #include <raknet/MessageIdentifiers.h>
 
+namespace FOMNetwork {
+
 /**
  * For every packet identifier, you must also update:
  *
@@ -174,3 +176,5 @@ enum PacketIdentifier : uint8_t {
   ID_FRAME_SET_PACKET_END = 240,
   ID_DISCONNECT_FROM_WORLD = 241
 };
+
+}  // namespace FOMNetwork

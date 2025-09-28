@@ -1,16 +1,10 @@
 #pragma once
 
-#include <fom-network/PacketIdentifier.h>
+#include <fom-network/Common.h>
 
-/**
- * Make sure that we pack the structs the same way that C# does.
- */
-#pragma pack(push, 1)
+namespace FOMNetwork {
+namespace Packet {
 
-namespace FOMPacket {
-/**
- * Status codes for login requests.
- */
 enum LoginRequestReturnStatus : uint8_t {
   LOGIN_REQUEST_INVALID_INFORMATION,
   LOGIN_REQUEST_SUCCESS,
@@ -18,11 +12,14 @@ enum LoginRequestReturnStatus : uint8_t {
   LOGIN_REQUEST_ALREADY_LOGGED_IN
 };
 
+#pragma pack(push, 1)
 struct LoginRequestReturn {
   LoginRequestReturnStatus status;
   uint8_t username[19];
 };
-ASSERT_BLITTABLE(LoginRequestReturn);
-}  // namespace FOMPacket
-
 #pragma pack(pop)
+
+ASSERT_BLITTABLE(LoginRequestReturn);
+
+}  // namespace Packet
+}  // namespace FOMNetwork

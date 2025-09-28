@@ -2,7 +2,10 @@
 
 #include <fom-network/PacketIdentifier.h>
 
-// Include all packet types here.
+// Models
+#include <fom-network/models/NetworkAddress.h>
+
+// Packet Types
 #include <fom-network/packets/CheckName.h>
 #include <fom-network/packets/CheckNameReturn.h>
 #include <fom-network/packets/CreateCharacter.h>
@@ -12,45 +15,29 @@
 #include <fom-network/packets/LoginReturn.h>
 #include <fom-network/packets/ReadPacketError.h>
 
-/**
- * Make sure that we pack the structs the same way that C# does.
- */
-#pragma pack(push, 1)
+namespace FOMNetwork {
 
-/**
- * A union representing all of FoM's packet data types.
- */
+#pragma pack(push, 1)
 struct FOMDataUnion {
   union {
-    FOMPacket::ReadPacketError readError;
-    FOMPacket::LoginRequest loginRequest;
-    FOMPacket::LoginRequestReturn loginRequestReturn;
-    FOMPacket::Login login;
-    FOMPacket::LoginReturn loginReturn;
-    FOMPacket::CheckName checkName;
-    FOMPacket::CheckNameReturn checkNameReturn;
-    FOMPacket::CreateCharacter createCharacter;
+    Packet::ReadPacketError readError;
+    Packet::LoginRequest loginRequest;
+    Packet::LoginRequestReturn loginRequestReturn;
+    Packet::Login login;
+    Packet::LoginReturn loginReturn;
+    Packet::CheckName checkName;
+    Packet::CheckNameReturn checkNameReturn;
+    Packet::CreateCharacter createCharacter;
   };
 };
+#pragma pack(pop)
 
-namespace FOMPacket {
-/**
- * The network address for a system.
- */
-struct NetworkAddress {
-  uint32_t binaryAddress;
-  uint16_t port;
-};
-ASSERT_BLITTABLE(NetworkAddress);
-
-/**
- * A FoM network packet to be passed across the interop boundary.
- */
+#pragma pack(push, 1)
 struct FOMPacket {
   PacketIdentifier ID;
   NetworkAddress sender;
   FOMDataUnion data;
 };
-}  // namespace FOMPacket
-
 #pragma pack(pop)
+
+}  // namespace FOMNetwork

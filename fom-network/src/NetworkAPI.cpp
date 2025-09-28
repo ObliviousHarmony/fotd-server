@@ -4,6 +4,8 @@
 #include <unordered_map>
 #include <unordered_set>
 
+using namespace FOMNetwork;
+
 int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures,
                                          int32_t count) {
 #pragma warning(push)
@@ -12,14 +14,14 @@ int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures,
   // List all of the structs that we have defined in the library
   // so that they can be compared to the consumer's structs.
   std::unordered_map<uint8_t, uint32_t> libraryMap = {
-      {ID_FOM_PACKET_READ_ERROR, sizeof(FOMPacket::ReadPacketError)},
-      {ID_LOGIN_REQUEST, sizeof(FOMPacket::LoginRequest)},
-      {ID_LOGIN_REQUEST_RETURN, sizeof(FOMPacket::LoginRequestReturn)},
-      {ID_LOGIN, sizeof(FOMPacket::Login)},
-      {ID_LOGIN_RETURN, sizeof(FOMPacket::LoginReturn)},
-      {ID_CHECK_NAME, sizeof(FOMPacket::CheckName)},
-      {ID_CHECK_NAME_RETURN, sizeof(FOMPacket::CheckNameReturn)},
-      {ID_CREATE_CHARACTER, sizeof(FOMPacket::CreateCharacter)},
+      {ID_FOM_PACKET_READ_ERROR, sizeof(Packet::ReadPacketError)},
+      {ID_LOGIN_REQUEST, sizeof(Packet::LoginRequest)},
+      {ID_LOGIN_REQUEST_RETURN, sizeof(Packet::LoginRequestReturn)},
+      {ID_LOGIN, sizeof(Packet::Login)},
+      {ID_LOGIN_RETURN, sizeof(Packet::LoginReturn)},
+      {ID_CHECK_NAME, sizeof(Packet::CheckName)},
+      {ID_CHECK_NAME_RETURN, sizeof(Packet::CheckNameReturn)},
+      {ID_CREATE_CHARACTER, sizeof(Packet::CreateCharacter)},
   };
 
 #pragma warning(pop)

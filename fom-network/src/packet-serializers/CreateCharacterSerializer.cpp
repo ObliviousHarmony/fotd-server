@@ -1,7 +1,11 @@
 #include <fom-network/PacketSerializers.h>
 
-FOMPacket::CreateCharacter CreateCharacterSerializer::ReadData(
+namespace FOMNetwork {
+
+Packet::CreateCharacter CreateCharacterSerializer::ReadData(
     RakNet::BitStream& bs) const {
-  FOMPacket::CreateCharacter data{};
+  Packet::CreateCharacter data{};
   return data;
 }
+
+}  // namespace FOMNetwork
