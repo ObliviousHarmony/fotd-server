@@ -34,6 +34,9 @@ set(FOMNETWORK_INC
   "src/model-serializers/NetworkAddressSerializer.h"
   "src/model-serializers/AvatarSerializer.h"
 
+  "include/fom-network/models/NetworkAddress.h"
+  "include/fom-network/models/Avatar.h"
+
   "include/fom-network/packets/ReadPacketError.h"
   "include/fom-network/packets/LoginRequest.h"
   "include/fom-network/packets/LoginRequestReturn.h"

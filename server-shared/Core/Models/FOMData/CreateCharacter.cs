@@ -5,6 +5,8 @@ namespace FOMServer.Shared.Core.Models.FOMData
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct CreateCharacter
     {
+        uint playerID;
+        Avatar avatar;
         public fixed byte RawName[20];
         public fixed byte RawBiography[511];
 
