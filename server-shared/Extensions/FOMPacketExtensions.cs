@@ -40,6 +40,8 @@ namespace FOMServer.Shared.Extensions
                     return (TPacket)(object)packet.Data.checkName;
                 case PacketIdentifier.ID_CHECK_NAME_RETURN when typeof(TPacket) == typeof(CheckNameReturn):
                     return (TPacket)(object)packet.Data.checkNameReturn;
+                case PacketIdentifier.ID_CREATE_CHARACTER when typeof(TPacket) == typeof(CreateCharacter):
+                    return (TPacket)(object)packet.Data.createCharacter;
 
                 default:
                     throw new InvalidOperationException(

@@ -20,5 +20,6 @@ namespace FOMServer.Shared.Core.Models.FOMData
         [FieldOffset(0)] public LoginReturn loginReturn;
         [FieldOffset(0)] public CheckName checkName;
         [FieldOffset(0)] public CheckNameReturn checkNameReturn;
+        [FieldOffset(0)] public CreateCharacter createCharacter;
     }
 }

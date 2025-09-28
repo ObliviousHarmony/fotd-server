@@ -19,6 +19,7 @@ int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures,
       {ID_LOGIN_RETURN, sizeof(FOMPacket::LoginReturn)},
       {ID_CHECK_NAME, sizeof(FOMPacket::CheckName)},
       {ID_CHECK_NAME_RETURN, sizeof(FOMPacket::CheckNameReturn)},
+      {ID_CREATE_CHARACTER, sizeof(FOMPacket::CreateCharacter)},
   };
 
 #pragma warning(pop)

@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 namespace FOMServer.Shared.Core.Models.FOMData
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    unsafe public struct Login
+    public unsafe struct Login
     {
         public fixed byte RawUsername[19];
         public fixed byte RawPasswordHash[32];
