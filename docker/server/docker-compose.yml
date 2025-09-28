@@ -28,6 +28,23 @@ services:
     command: ["dotnet", "MasterServer.dll"]
     restart: unless-stopped
 
+  world-server:
+    image: mcr.microsoft.com/dotnet/runtime:9.0
+    platform: linux/amd64
+    container_name: world-server
+    depends_on:
+      - db
+      - master-server
+    environment:
+      Database__ConnectionString: "Host=db;Port=3306;Database=fom_server;Username=admin;Password=password;"
+    ports:
+      - "61002:61002/udp"
+    volumes:
+      - fom-server-build:/app
+    working_dir: /app/publish/world
+    command: ["dotnet", "WorldServer.dll"]
+    restart: unless-stopped
+
 volumes:
   fom-server-database:
     name: fom-server-database

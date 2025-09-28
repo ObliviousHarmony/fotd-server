@@ -1,44 +1,36 @@
-using FluentMigrator.Runner;
-using FOMServer.Master.Core.Models;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.Shared.Infrastructure.Services;
 using FOMServer.Shared.Application.Networking;
 using MySqlConnector;
-using FOMServer.Master.Application.Services;
+using FOMServer.World.Core.Models;
 
-namespace FOMServer.Master.Application
+namespace FOMServer.World.Application
 {
     internal class Server
     {
-        private readonly IMigrationRunner migrationRunner;
         private readonly ServerSettings serverSettings;
         private readonly LogService logService;
         private readonly IServerService serverService;
         private readonly INetworkService networkService;
         private readonly NetworkManager networkManager;
         private readonly PacketProcessor packetProcessor;
-        private readonly AccountService accountService;
 
         public Server(
-            IMigrationRunner migrationRunner,
             ServerSettings serverSettings,
             LogService logService,
             IServerService serverService,
             INetworkService networkService,
             NetworkManager networkManager,
-            PacketProcessor packetProcessor,
-            AccountService accountService
+            PacketProcessor packetProcessor
         )
         {
-            this.migrationRunner = migrationRunner;
             this.serverSettings = serverSettings;
             this.logService = logService;
             this.serverService = serverService;
             this.networkService = networkService;
             this.networkManager = networkManager;
             this.packetProcessor = packetProcessor;
-            this.accountService = accountService;
         }
 
         /// <summary>
@@ -51,25 +43,8 @@ namespace FOMServer.Master.Application
             // Start the logging service first so we can log everything else.
             logService.Start(cts.Token);
 
-            logService.WriteMessage(LogLevel.Info, "Starting Master Server...");
+            logService.WriteMessage(LogLevel.Info, $"Starting World ({serverSettings.WorldID}) Server...");
             logService.WriteMessage(LogLevel.Info, "Press Ctrl+C for shutdown.");
-
-            // Apply any database migrations before starting the server.
-            try
-            {
-                migrationRunner.MigrateUp();
-            }
-            catch (MySqlException)
-            {
-                logService.WriteMessage(LogLevel.Critical, "Failed to connect to the database. Please check your connection settings.");
-                return;
-            }
-            catch (Exception ex)
-            {
-                logService.WriteMessage(LogLevel.Critical, "Failed to apply database migrations.");
-                logService.WriteException(ex);
-                return;
-            }
 
             // We need to make sure our packet structs are all blittable and match the C++ side.
             // This is critical to ensure that we don't have memory corruption and don't
@@ -83,9 +58,6 @@ namespace FOMServer.Master.Application
             networkManager.ConfigurePeer(peer, serverService.Shutdown);
 
             logService.WriteMessage(LogLevel.Info, $"Network Started: {serverSettings.Port}");
-
-            // Initialize any services that need to do work before we start processing packets.
-            accountService.Initialize();
 
             // Start all of our services so they will spin up their background tasks.
             networkManager.Start(cts.Token);
