@@ -13,7 +13,7 @@ class ModelSerializer : protected BaseSerializer {
   }
 
   virtual void Write(RakNet::BitStream& bs, const Model& model) const;
-  virtual void Read(RakNet::BitStream& bs, Model& model) const;
+  virtual bool Read(RakNet::BitStream& bs, Model& model) const;
 };
 
 }  // namespace FOMNetwork

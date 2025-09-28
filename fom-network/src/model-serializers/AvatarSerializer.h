@@ -17,33 +17,34 @@ class AvatarSerializer : public ModelSerializer<AvatarSerializer, Avatar> {
     else
       bs.Write0();
 
-    bs.WriteBits(&model.face, 5);
-    bs.WriteBits(&model.hair, 5);
-    bs.WriteBits(&model.faction, 4);
-    bs.WriteBits(&model.shirt, 12);
-    bs.WriteBits(&model.bottoms, 12);
-    bs.WriteBits(&model.shoes, 12);
-    bs.WriteBits(&model.gloves, 12);
+    bs.WriteBits((uint8_t*)&model.face, 5);
+    bs.WriteBits((uint8_t*)&model.hair, 5);
+    bs.WriteBits((uint8_t*)&model.faction, 4);
+    bs.WriteBits((uint8_t*)&model.shirt, 12);
+    bs.WriteBits((uint8_t*)&model.bottoms, 12);
+    bs.WriteBits((uint8_t*)&model.shoes, 12);
+    bs.WriteBits((uint8_t*)&model.gloves, 12);
   }
 
-  void Read(RakNet::BitStream& bs, Avatar& model) const override {
+  bool Read(RakNet::BitStream& bs, Avatar& model) const override {
     if (bs.ReadBit())
-      model.sex = AvatarGender::Male;
+      model.sex = AvatarSex::Male;
     else
-      model.sex = AvatarGender::Female;
+      model.sex = AvatarSex::Female;
 
     if (bs.ReadBit())
       model.skinColor = AvatarSkin::Light;
     else
       model.skinColor = AvatarSkin::Dark;
 
-    bs.ReadBits(&model.face, 5);
-    bs.ReadBits(&model.hair, 5);
-    bs.ReadBits(&model.faction, 4);
-    bs.ReadBits(&model.shirt, 12);
-    bs.ReadBits(&model.bottoms, 12);
-    bs.ReadBits(&model.shoes, 12);
-    bs.ReadBits(&model.gloves, 12);
+    bs.ReadBits((uint8_t*)&model.face, 5);
+    bs.ReadBits((uint8_t*)&model.hair, 5);
+    bs.ReadBits((uint8_t*)&model.faction, 4);
+    bs.ReadBits((uint8_t*)&model.shirt, 12);
+    bs.ReadBits((uint8_t*)&model.bottoms, 12);
+    bs.ReadBits((uint8_t*)&model.shoes, 12);
+    bs.ReadBits((uint8_t*)&model.gloves, 12);
+    return true;
   }
 };
 
