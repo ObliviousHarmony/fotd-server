@@ -11,7 +11,7 @@ namespace FOMServer.Master.Application.PacketHandlers
     {
         private readonly ICharacterRepository characterRepository;
 
-        public CreateCharacterHandler(ICharacterRepository characterRepository, ILogService logService) : base(logService)
+        public CreateCharacterHandler(ICharacterRepository characterRepository)
         {
             this.characterRepository = characterRepository;
         }
