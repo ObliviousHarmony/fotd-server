@@ -19,6 +19,7 @@ namespace FOMServer.Master.Application
         private readonly INetworkService networkService;
         private readonly IServerService serverService;
         private readonly ClientPacketSender clientPacketSender;
+        private readonly WorldPacketSender worldPacketSender;
         private readonly IServiceProvider serviceProvider;
 
         public Server(
@@ -28,6 +29,7 @@ namespace FOMServer.Master.Application
             INetworkService networkService,
             IServerService serverService,
             ClientPacketSender clientPacketSender,
+            WorldPacketSender worldPacketSender,
             IServiceProvider serviceProvider
         )
         {
@@ -37,12 +39,10 @@ namespace FOMServer.Master.Application
             this.networkService = networkService;
             this.serverService = serverService;
             this.clientPacketSender = clientPacketSender;
+            this.worldPacketSender = worldPacketSender;
             this.serviceProvider = serviceProvider;
         }
 
-        /// <summary>
-        /// Run the server until cancelled.
-        /// </summary>
         public void Run()
         {
             var cts = new CancellationTokenSource();
@@ -65,9 +65,25 @@ namespace FOMServer.Master.Application
             if (!InitializeDatabase())
                 return;
 
-            if (!StartNetwork(cts.Token))
+            // We need to make sure our packet structs are all blittable and match the C++ side.
+            // This is critical to ensure that we don't have memory corruption and don't
+            // require expensive marshalling of data between managed and unmanaged code.
+            networkService.ValidateFOMPacket();
+
+            var packetProcessor = new PacketProcessor(
+                logService,
+                serviceProvider.GetRequiredService<IEnumerable<IPacketHandler>>()
+            );
+
+            if (!StartWorldServerNetwork(cts.Token, packetProcessor))
             {
-                logService.WriteMessage(LogLevel.Critical, "Failed to start the network.");
+                logService.WriteMessage(LogLevel.Critical, "Failed to start the world server network.");
+                return;
+            }
+
+            if (!StartClientNetwork(cts.Token, packetProcessor))
+            {
+                logService.WriteMessage(LogLevel.Critical, "Failed to start the client network.");
                 return;
             }
 
@@ -80,9 +96,6 @@ namespace FOMServer.Master.Application
             }
         }
 
-        /// <summary>
-        /// Tests the database connection and runs migrations to make sure that the database is ready for use.
-        /// </summary>
         private bool InitializeDatabase()
         {
             try
@@ -104,24 +117,31 @@ namespace FOMServer.Master.Application
             return true;
         }
 
-        /// <summary>
-        /// Starts the networking library and begins listening for incoming connections.
-        /// </summary>
-        private bool StartNetwork(CancellationToken ctParent)
+        private bool StartWorldServerNetwork(CancellationToken ctParent, PacketProcessor packetProcessor)
         {
-            // We need to make sure our packet structs are all blittable and match the C++ side.
-            // This is critical to ensure that we don't have memory corruption and don't
-            // require expensive marshalling of data between managed and unmanaged code.
-            networkService.ValidateFOMPacket();
-
-            var peer = serverService.Startup(serverSettings.Port);
+            var peer = serverService.Startup(serverSettings.WorldPort);
             if (peer == IntPtr.Zero)
                 return false;
 
-            var packetProcessor = new PacketProcessor(
-                logService,
-                serviceProvider.GetRequiredService<IEnumerable<IPacketHandler>>()
+            var networkManager = new NetworkManager(
+                serviceProvider.GetRequiredService<IPacketService>(),
+                packetProcessor
             );
+
+            worldPacketSender.Initialize(networkManager);
+            packetProcessor.Start(ctParent);
+            networkManager.Start(ctParent, peer, serverService.Shutdown);
+
+            logService.WriteMessage(LogLevel.Info, $"World Port: {serverSettings.WorldPort}");
+
+            return true;
+        }
+
+        private bool StartClientNetwork(CancellationToken ctParent, PacketProcessor packetProcessor)
+        {
+            var peer = serverService.Startup(serverSettings.ClientPort);
+            if (peer == IntPtr.Zero)
+                return false;
 
             var networkManager = new NetworkManager(
                 serviceProvider.GetRequiredService<IPacketService>(),
@@ -132,7 +152,7 @@ namespace FOMServer.Master.Application
             packetProcessor.Start(ctParent);
             networkManager.Start(ctParent, peer, serverService.Shutdown);
 
-            logService.WriteMessage(LogLevel.Info, $"Port: {serverSettings.Port}");
+            logService.WriteMessage(LogLevel.Info, $"Client Port: {serverSettings.ClientPort}");
 
             return true;
         }

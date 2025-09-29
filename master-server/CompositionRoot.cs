@@ -52,8 +52,12 @@ namespace FOMServer.Master
             serverSettings = config.GetSection("Server").Get<ServerSettings>()!;
             dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
 
-            if (serverSettings.Port <= 0)
-                throw new InvalidOperationException("Server port must be greater than 0.");
+            if (serverSettings.WorldPort <= 0)
+                throw new InvalidOperationException("World server port must be greater than 0.");
+            if (serverSettings.ClientPort <= 0)
+                throw new InvalidOperationException("Client port must be greater than 0.");
+            if (serverSettings.WorldPort == serverSettings.ClientPort)
+                throw new InvalidOperationException("World and client ports must be different.");
             if (string.IsNullOrWhiteSpace(dbSettings.Name))
                 throw new InvalidOperationException("Database name must be configured.");
             if (string.IsNullOrWhiteSpace(dbSettings.ConnectionString))
@@ -68,6 +72,8 @@ namespace FOMServer.Master
         {
             services.AddSingleton<ClientPacketSender>();
             services.AddSingleton<IClientPacketSender>(sp => sp.GetRequiredService<ClientPacketSender>());
+            services.AddSingleton<WorldPacketSender>();
+            services.AddSingleton<IWorldPacketSender>(sp => sp.GetRequiredService<WorldPacketSender>());
 
             services.AddSingleton<IConnectionFactory, ConnectionFactory>();
             services.AddSingleton<IAccountService, AccountService>();

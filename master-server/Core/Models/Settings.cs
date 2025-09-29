@@ -2,7 +2,8 @@ namespace FOMServer.Master.Core.Models
 {
     public class ServerSettings
     {
-        public ushort Port { get; init; }
+        public ushort WorldPort { get; init; }
+        public ushort ClientPort { get; init; }
     }
 
     public class DatabaseSettings

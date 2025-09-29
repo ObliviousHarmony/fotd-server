@@ -21,10 +21,7 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
     return {NULL, 0};
   }
 
-  // Make sure to re-use the same buffer since we are just using
-  // it to aggregate the pointers before copying them to return.
-  static std::vector<Packet*> receiveBuffer;
-  receiveBuffer.clear();
+  std::vector<Packet*> receiveBuffer;
   receiveBuffer.reserve(FOM::MaxBufferedPackets);
 
   // Limit the number of packets

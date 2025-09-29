@@ -21,6 +21,7 @@ services:
     environment:
       Database__ConnectionString: "Host=db;Port=3306;Database=fom_server;Username=admin;Password=password;"
     ports:
+      - "61000:61000/udp"
       - "61001:61001/udp"
     volumes:
       - fom-server-build:/app

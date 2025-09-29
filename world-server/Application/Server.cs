@@ -41,9 +41,6 @@ namespace FOMServer.World.Application
             this.serviceProvider = serviceProvider;
         }
 
-        /// <summary>
-        /// Run the server until cancelled.
-        /// </summary>
         public void Run()
         {
             var cts = new CancellationTokenSource();
@@ -71,7 +68,7 @@ namespace FOMServer.World.Application
             var packetProcessor = new PacketProcessor(
                logService,
                serviceProvider.GetRequiredService<IEnumerable<IPacketHandler>>()
-           );
+            );
 
             if (!ConnectToMaster(cts.Token, packetProcessor))
             {
@@ -79,9 +76,9 @@ namespace FOMServer.World.Application
                 return;
             }
 
-            if (!StartNetwork(cts.Token, packetProcessor))
+            if (!StartClientNetwork(cts.Token, packetProcessor))
             {
-                logService.WriteMessage(LogLevel.Critical, "Failed to start the network.");
+                logService.WriteMessage(LogLevel.Critical, "Failed to start the client network.");
                 return;
             }
 
@@ -96,9 +93,6 @@ namespace FOMServer.World.Application
             }
         }
 
-        /// <summary>
-        /// Connects to the master server and registers this world server.
-        /// </summary>
         private bool ConnectToMaster(CancellationToken ctParent, PacketProcessor packetProcessor)
         {
             var peer = clientService.Connect(serverSettings.MasterServer, serverSettings.MasterServerPort);
@@ -118,10 +112,7 @@ namespace FOMServer.World.Application
             return true;
         }
 
-        /// <summary>
-        /// Starts the networking library and begins listening for incoming connections.
-        /// </summary>
-        private bool StartNetwork(CancellationToken ctParent, PacketProcessor packetProcessor)
+        private bool StartClientNetwork(CancellationToken ctParent, PacketProcessor packetProcessor)
         {
             var peer = serverService.Startup(serverSettings.Port);
             if (peer == IntPtr.Zero)
