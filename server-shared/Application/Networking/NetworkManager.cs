@@ -2,7 +2,6 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
 using FOMServer.Shared.Core.Models.FOMData;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
-using FOMServer.Shared.Infrastructure.Services;
 using System.Threading.Channels;
 
 namespace FOMServer.Shared.Application.Networking
@@ -24,27 +23,23 @@ namespace FOMServer.Shared.Application.Networking
 
         private IntPtr peer;
         private Action<IntPtr>? peerShutdown;
-        private readonly ILogService logService;
+        private int sleepBetweenPolling;
         private readonly IPacketService packetService;
         private readonly PacketProcessor packetProcessor;
         private readonly Channel<SendPacket> sendQueue;
         private Task? networkTask;
         private CancellationTokenSource? cts;
 
-        public NetworkManager(
-            ILogService logService,
-            IPacketService packetService,
-            PacketProcessor packetProcessor
-        )
+        public NetworkManager(IPacketService packetService, PacketProcessor packetProcessor)
         {
-            peer = IntPtr.Zero;
-            peerShutdown = null;
-            this.logService = logService;
+            this.peer = IntPtr.Zero;
+            this.peerShutdown = null;
+            this.sleepBetweenPolling = 0;
             this.packetService = packetService;
             this.packetProcessor = packetProcessor;
 
             // Single writer, single reader channel is fine here
-            sendQueue = Channel.CreateUnbounded<SendPacket>(new UnboundedChannelOptions
+            this.sendQueue = Channel.CreateUnbounded<SendPacket>(new UnboundedChannelOptions
             {
                 SingleReader = true,
                 SingleWriter = false
@@ -59,13 +54,15 @@ namespace FOMServer.Shared.Application.Networking
         ///	The peerShutdown function will be used for cleanup when the manager is done with the peer.
         /// </remarks>
         /// <param name="peerShutdown">A function describing how to shut the peer down when the service is disposed.</param>
-        public void ConfigurePeer(IntPtr peer, Action<IntPtr> peerShutdown)
+        /// <param name="sleepBetweenPolling">The number of milliseconds to sleep between polling the network library.</param>
+        public void ConfigurePeer(IntPtr peer, Action<IntPtr> peerShutdown, int sleepBetweenPolling = 0)
         {
             if (this.peer != IntPtr.Zero)
                 throw new InvalidOperationException("Peer is already configured.");
 
             this.peer = peer;
             this.peerShutdown = peerShutdown;
+            this.sleepBetweenPolling = sleepBetweenPolling;
         }
 
         /// <summary>
@@ -132,7 +129,10 @@ namespace FOMServer.Shared.Application.Networking
                 foreach (ref readonly var packet in received)
                     packetProcessor.Enqueue(packet);
 
-                await Task.Yield();
+                if (sleepBetweenPolling > 0)
+                    await Task.Delay(sleepBetweenPolling, ct);
+                else
+                    await Task.Yield();
             }
         }
 
