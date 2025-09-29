@@ -21,17 +21,16 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
     return {NULL, 0};
   }
 
-  std::vector<Packet*> receiveBuffer;
-  receiveBuffer.reserve(FOM::MaxBufferedPackets);
-
-  // Limit the number of packets
-  while (receiveBuffer.size() < FOM::MaxBufferedPackets) {
+  // Only buffer up to MaxBufferedPackets packets at a time.
+  int count = 0;
+  Packet* receiveBuffer[FOM::MaxBufferedPackets];
+  while (count < FOM::MaxBufferedPackets) {
     Packet* packet = peer->Receive();
     if (!packet) {
       break;
     }
 
-    receiveBuffer.push_back(packet);
+    receiveBuffer[count++] = packet;
   }
 
   ReceivedPackets received{};
@@ -39,10 +38,10 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
   // We're going to pass an array of packets back to the consumer.
   // The array and the packets contained must all be deallocated
   // in FOMNetwork_ProcessPackets so that we don't leak memory!
-  received.count = receiveBuffer.size();
+  received.count = count;
   if (received.count > 0) {
-    received.packets = new Packet*[receiveBuffer.size()];
-    std::copy(receiveBuffer.begin(), receiveBuffer.end(), received.packets);
+    received.packets = new Packet*[count];
+    std::copy(receiveBuffer, receiveBuffer + count, received.packets);
   }
 
   return received;
