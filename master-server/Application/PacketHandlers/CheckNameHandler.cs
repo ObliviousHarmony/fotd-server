@@ -1,5 +1,5 @@
+using FOMServer.Master.Application.Networking;
 using FOMServer.Master.Core.Interfaces;
-using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Application.PacketHandlers;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
@@ -12,9 +12,9 @@ namespace FOMServer.Master.Application.PacketHandlers
         public override PacketIdentifier PacketID => PacketIdentifier.ID_CHECK_NAME;
 
         private readonly ICharacterRepository characterRepository;
-        private readonly IPacketSender packetSender;
+        private readonly IClientPacketSender packetSender;
 
-        public CheckNameHandler(ICharacterRepository characterRepository, IPacketSender packetSender)
+        public CheckNameHandler(ICharacterRepository characterRepository, IClientPacketSender packetSender)
         {
             this.characterRepository = characterRepository;
             this.packetSender = packetSender;

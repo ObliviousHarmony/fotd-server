@@ -5,7 +5,7 @@ using System.Collections.Concurrent;
 
 namespace FOMServer.Master.Application.Services
 {
-    internal class AccountService : IAccountService
+    public class AccountService : IAccountService
     {
         private readonly IAccountRepository accountRepository;
 
@@ -18,14 +18,6 @@ namespace FOMServer.Master.Application.Services
             this.loggedInAccounts = new ConcurrentDictionary<uint, Account>();
             this.loggedInAccountsByAddress = new ConcurrentDictionary<NetworkAddress, Account>();
         }
-
-        public void Initialize()
-        {
-            // Mark all accounts as logged out in case the server crashed and left some accounts logged in.
-            // When the server crashes they can't be logged in anyway so this just cleans everything up.
-            accountRepository.MarkAllAccountsLoggedOut();
-        }
-
 
         public Account? Get(uint id)
         {

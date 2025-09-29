@@ -1,4 +1,3 @@
-using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Extensions;
 using FOMServer.Shared.Infrastructure.Factories;
 using FOMServer.World.Application;
@@ -21,6 +20,9 @@ namespace FOMServer.World
 
             // Run before anything else so that the cached settings in this class are available.
             services.AddConfiguration();
+
+            // Start the log service as early as possible so that everything is logged.
+            services.StartLogService();
 
             services.AddServerShared();
             services.AddWorldServices();
@@ -61,16 +63,12 @@ namespace FOMServer.World
 
         private static ServiceCollection AddWorldServices(this ServiceCollection services)
         {
+            services.AddSingleton<ClientPacketSender>();
+            services.AddSingleton<IClientPacketSender>(sp => sp.GetRequiredService<ClientPacketSender>());
+            services.AddSingleton<MasterPacketSender>();
+            services.AddSingleton<IMasterPacketSender>(sp => sp.GetRequiredService<MasterPacketSender>());
+
             services.AddSingleton<IConnectionFactory, ConnectionFactory>();
-
-            services.AddSingleton<MasterConnectionManager>();
-            services.AddSingleton<IMasterPacketSender, MasterPacketSender>(sp =>
-            {
-                return new MasterPacketSender(
-                    () => sp.GetRequiredService<MasterConnectionManager>()
-                );
-            });
-
             return services;
         }
 

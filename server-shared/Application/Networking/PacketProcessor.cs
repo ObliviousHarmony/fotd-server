@@ -21,10 +21,7 @@ namespace FOMServer.Shared.Application.Networking
 
         private CancellationTokenSource? cts;
 
-        public PacketProcessor(
-            ILogService logService,
-            IEnumerable<IPacketHandler> handlers
-        )
+        public PacketProcessor(ILogService logService, IEnumerable<IPacketHandler> handlers)
         {
             this.logService = logService;
             this.handlers = handlers.ToDictionary(h => h.PacketID);

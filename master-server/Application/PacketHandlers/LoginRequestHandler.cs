@@ -1,6 +1,6 @@
+using FOMServer.Master.Application.Networking;
 using FOMServer.Master.Application.Services;
 using FOMServer.Master.Core.Interfaces;
-using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Application.PacketHandlers;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
@@ -15,12 +15,12 @@ namespace FOMServer.Master.Application.PacketHandlers
 
         private readonly IAccountRepository accountRepository;
         private readonly IAccountService accountService;
-        private readonly IPacketSender packetSender;
+        private readonly IClientPacketSender packetSender;
 
         public LoginRequestHandler(
             IAccountRepository accountRepository,
             IAccountService accountService,
-            IPacketSender packetSender
+            IClientPacketSender packetSender
         )
         {
             this.accountService = accountService;

@@ -1,5 +1,5 @@
+using FOMServer.Master.Application.Networking;
 using FOMServer.Master.Application.Services;
-using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Application.PacketHandlers;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
@@ -12,9 +12,9 @@ namespace FOMServer.Master.Application.PacketHandlers
         public override PacketIdentifier PacketID => PacketIdentifier.ID_LOGIN;
 
         private readonly IAccountService accountService;
-        private readonly IPacketSender packetSender;
+        private readonly IClientPacketSender packetSender;
 
-        public LoginHandler(IAccountService accountService, IPacketSender packetSender)
+        public LoginHandler(IAccountService accountService, IClientPacketSender packetSender)
         {
             this.accountService = accountService;
             this.packetSender = packetSender;

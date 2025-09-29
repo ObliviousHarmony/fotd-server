@@ -1,47 +1,43 @@
 using FluentMigrator.Runner;
+using FOMServer.Master.Application.Networking;
 using FOMServer.Master.Core.Models;
+using FOMServer.Shared.Application.Networking;
+using FOMServer.Shared.Application.PacketHandlers;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.Shared.Infrastructure.Services;
-using FOMServer.Shared.Application.Networking;
+using Microsoft.Extensions.DependencyInjection;
 using MySqlConnector;
-using FOMServer.Master.Application.Services;
 
 namespace FOMServer.Master.Application
 {
-    internal class Server
+    public class Server
     {
+        private readonly ILogService logService;
         private readonly IMigrationRunner migrationRunner;
         private readonly ServerSettings serverSettings;
-        private readonly IManageLogService manageLogService;
-        private readonly ILogService logService;
-        private readonly IServerService serverService;
         private readonly INetworkService networkService;
-        private readonly NetworkManager networkManager;
-        private readonly PacketProcessor packetProcessor;
-        private readonly AccountService accountService;
+        private readonly IServerService serverService;
+        private readonly ClientPacketSender clientPacketSender;
+        private readonly IServiceProvider serviceProvider;
 
         public Server(
+            ILogService logService,
             IMigrationRunner migrationRunner,
             ServerSettings serverSettings,
-            IManageLogService manageLogService,
-            ILogService logService,
-            IServerService serverService,
             INetworkService networkService,
-            NetworkManager networkManager,
-            PacketProcessor packetProcessor,
-            AccountService accountService
+            IServerService serverService,
+            ClientPacketSender clientPacketSender,
+            IServiceProvider serviceProvider
         )
         {
+            this.logService = logService;
             this.migrationRunner = migrationRunner;
             this.serverSettings = serverSettings;
-            this.manageLogService = manageLogService;
-            this.logService = logService;
-            this.serverService = serverService;
             this.networkService = networkService;
-            this.networkManager = networkManager;
-            this.packetProcessor = packetProcessor;
-            this.accountService = accountService;
+            this.serverService = serverService;
+            this.clientPacketSender = clientPacketSender;
+            this.serviceProvider = serviceProvider;
         }
 
         /// <summary>
@@ -51,50 +47,9 @@ namespace FOMServer.Master.Application
         {
             var cts = new CancellationTokenSource();
 
-            // Start the logging service first so we can log everything else.
-            manageLogService.Start(cts.Token);
-
             logService.WriteMessage(LogLevel.Info, "Starting Master Server...");
             logService.WriteMessage(LogLevel.Info, "Press Ctrl+C for shutdown.");
 
-            // Apply any database migrations before starting the server.
-            try
-            {
-                migrationRunner.MigrateUp();
-            }
-            catch (MySqlException)
-            {
-                logService.WriteMessage(LogLevel.Critical, "Failed to connect to the database. Please check your connection settings.");
-                return;
-            }
-            catch (Exception ex)
-            {
-                logService.WriteMessage(LogLevel.Critical, "Failed to apply database migrations.");
-                logService.WriteException(ex);
-                return;
-            }
-
-            // We need to make sure our packet structs are all blittable and match the C++ side.
-            // This is critical to ensure that we don't have memory corruption and don't
-            // require expensive marshalling of data between managed and unmanaged code.
-            networkService.ValidateFOMPacket();
-
-            // Start the network peer so we can accept connections.
-            var peer = serverService.Startup(serverSettings.Port);
-            if (peer == IntPtr.Zero)
-                throw new InvalidOperationException("Failed to start server.");
-            networkManager.ConfigurePeer(peer, serverService.Shutdown);
-
-            logService.WriteMessage(LogLevel.Info, $"Network Started: {serverSettings.Port}");
-
-            // Initialize any services that need to do work before we start processing packets.
-            accountService.Initialize();
-
-            // Start all of our services so they will spin up their background tasks.
-            networkManager.Start(cts.Token);
-            packetProcessor.Start(cts.Token);
-
-            // Make sure that we can gracefully handle shutdown.
             Console.CancelKeyPress += (sender, e) =>
             {
                 logService.WriteMessage(LogLevel.Info, "Stopping Server...");
@@ -107,6 +62,15 @@ namespace FOMServer.Master.Application
                 cts.Cancel();
             };
 
+            if (!InitializeDatabase())
+                return;
+
+            if (!StartNetwork(cts.Token))
+            {
+                logService.WriteMessage(LogLevel.Critical, "Failed to start the network.");
+                return;
+            }
+
             try
             {
                 WaitHandle.WaitAny(new[] { cts.Token.WaitHandle });
@@ -114,6 +78,63 @@ namespace FOMServer.Master.Application
             catch (OperationCanceledException)
             {
             }
+        }
+
+        /// <summary>
+        /// Tests the database connection and runs migrations to make sure that the database is ready for use.
+        /// </summary>
+        private bool InitializeDatabase()
+        {
+            try
+            {
+                migrationRunner.MigrateUp();
+            }
+            catch (MySqlException)
+            {
+                logService.WriteMessage(LogLevel.Critical, "Failed to connect to the database. Please check your connection settings.");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                logService.WriteMessage(LogLevel.Critical, "Failed to apply database migrations.");
+                logService.WriteException(ex);
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Starts the networking library and begins listening for incoming connections.
+        /// </summary>
+        private bool StartNetwork(CancellationToken ctParent)
+        {
+            // We need to make sure our packet structs are all blittable and match the C++ side.
+            // This is critical to ensure that we don't have memory corruption and don't
+            // require expensive marshalling of data between managed and unmanaged code.
+            networkService.ValidateFOMPacket();
+
+            var peer = serverService.Startup(serverSettings.Port);
+            if (peer == IntPtr.Zero)
+                return false;
+
+            var packetProcessor = new PacketProcessor(
+                logService,
+                serviceProvider.GetRequiredService<IEnumerable<IPacketHandler>>()
+            );
+
+            var networkManager = new NetworkManager(
+                serviceProvider.GetRequiredService<IPacketService>(),
+                packetProcessor
+            );
+
+            clientPacketSender.Initialize(networkManager);
+            packetProcessor.Start(ctParent);
+            networkManager.Start(ctParent, peer, serverService.Shutdown);
+
+            logService.WriteMessage(LogLevel.Info, $"Port: {serverSettings.Port}");
+
+            return true;
         }
     }
 }

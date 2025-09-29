@@ -1,5 +1,6 @@
 using FluentMigrator.Runner;
 using FOMServer.Master.Application;
+using FOMServer.Master.Application.Networking;
 using FOMServer.Master.Application.PacketHandlers;
 using FOMServer.Master.Application.Services;
 using FOMServer.Master.Core.Interfaces;
@@ -25,6 +26,9 @@ namespace FOMServer.Master
 
             // Run before anything else so that the cached settings in this class are available.
             services.AddConfiguration();
+
+            // Start the log service as early as possible so that everything is logged.
+            services.StartLogService();
 
             services.AddServerShared();
             services.AddMasterServices();
@@ -62,10 +66,11 @@ namespace FOMServer.Master
 
         private static ServiceCollection AddMasterServices(this ServiceCollection services)
         {
-            services.AddSingleton<IConnectionFactory, ConnectionFactory>();
+            services.AddSingleton<ClientPacketSender>();
+            services.AddSingleton<IClientPacketSender>(sp => sp.GetRequiredService<ClientPacketSender>());
 
-            services.AddSingleton<AccountService>();
-            services.AddSingleton<IAccountService>(sp => sp.GetRequiredService<AccountService>());
+            services.AddSingleton<IConnectionFactory, ConnectionFactory>();
+            services.AddSingleton<IAccountService, AccountService>();
             return services;
         }
 

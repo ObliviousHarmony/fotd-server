@@ -1,43 +1,44 @@
+using FOMServer.World.Application.Networking;
+using FOMServer.World.Core.Models;
+using FOMServer.Shared.Application.Networking;
+using FOMServer.Shared.Application.PacketHandlers;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.Shared.Infrastructure.Services;
-using FOMServer.Shared.Application.Networking;
-using MySqlConnector;
-using FOMServer.World.Core.Models;
-using FOMServer.World.Application.Networking;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FOMServer.World.Application
 {
-    internal class Server
+    public class Server
     {
-        private readonly ServerSettings serverSettings;
-        private readonly IManageLogService manageLogService;
         private readonly ILogService logService;
-        private readonly IServerService serverService;
+        private readonly ServerSettings serverSettings;
         private readonly INetworkService networkService;
-        private readonly NetworkManager networkManager;
-        private readonly MasterConnectionManager masterConnectionManager;
-        private readonly PacketProcessor packetProcessor;
+        private readonly IServerService serverService;
+        private readonly IClientService clientService;
+        private readonly MasterPacketSender masterPacketSender;
+        private readonly ClientPacketSender clientPacketSender;
+        private readonly IServiceProvider serviceProvider;
 
         public Server(
-            ServerSettings serverSettings,
-            IManageLogService manageLogService,
             ILogService logService,
-            IServerService serverService,
+            ServerSettings serverSettings,
             INetworkService networkService,
-            NetworkManager networkManager,
-            MasterConnectionManager masterConnectionManager,
-            PacketProcessor packetProcessor
+            IServerService serverService,
+            IClientService clientService,
+            ClientPacketSender clientPacketSender,
+            MasterPacketSender masterPacketSender,
+            IServiceProvider serviceProvider
         )
         {
-            this.serverSettings = serverSettings;
-            this.manageLogService = manageLogService;
             this.logService = logService;
-            this.serverService = serverService;
+            this.serverSettings = serverSettings;
             this.networkService = networkService;
-            this.networkManager = networkManager;
-            this.masterConnectionManager = masterConnectionManager;
-            this.packetProcessor = packetProcessor;
+            this.serverService = serverService;
+            this.clientService = clientService;
+            this.clientPacketSender = clientPacketSender;
+            this.masterPacketSender = masterPacketSender;
+            this.serviceProvider = serviceProvider;
         }
 
         /// <summary>
@@ -47,30 +48,9 @@ namespace FOMServer.World.Application
         {
             var cts = new CancellationTokenSource();
 
-            // Start the logging service first so we can log everything else.
-            manageLogService.Start(cts.Token);
-
-            logService.WriteMessage(LogLevel.Info, $"Starting World ({serverSettings.WorldID}) Server...");
+            logService.WriteMessage(LogLevel.Info, "Starting World Server...");
             logService.WriteMessage(LogLevel.Info, "Press Ctrl+C for shutdown.");
 
-            // We need to make sure our packet structs are all blittable and match the C++ side.
-            // This is critical to ensure that we don't have memory corruption and don't
-            // require expensive marshalling of data between managed and unmanaged code.
-            networkService.ValidateFOMPacket();
-
-            // Start the server peer so we can accept connections.
-            var peer = serverService.Startup(serverSettings.Port);
-            if (peer == IntPtr.Zero)
-                throw new InvalidOperationException("Failed to start server.");
-            networkManager.ConfigurePeer(peer, serverService.Shutdown);
-
-            logService.WriteMessage(LogLevel.Info, $"Network Started: {serverSettings.Port}");
-
-            // Start all of our services so they will spin up their background tasks.
-            networkManager.Start(cts.Token);
-            packetProcessor.Start(cts.Token);
-
-            // Make sure that we can gracefully handle shutdown.
             Console.CancelKeyPress += (sender, e) =>
             {
                 logService.WriteMessage(LogLevel.Info, "Stopping Server...");
@@ -83,6 +63,30 @@ namespace FOMServer.World.Application
                 cts.Cancel();
             };
 
+            // We need to make sure our packet structs are all blittable and match the C++ side.
+            // This is critical to ensure that we don't have memory corruption and don't
+            // require expensive marshalling of data between managed and unmanaged code.
+            networkService.ValidateFOMPacket();
+
+            var packetProcessor = new PacketProcessor(
+               logService,
+               serviceProvider.GetRequiredService<IEnumerable<IPacketHandler>>()
+           );
+
+            if (!ConnectToMaster(cts.Token, packetProcessor))
+            {
+                logService.WriteMessage(LogLevel.Critical, "Failed to connect to the master server.");
+                return;
+            }
+
+            if (!StartNetwork(cts.Token, packetProcessor))
+            {
+                logService.WriteMessage(LogLevel.Critical, "Failed to start the network.");
+                return;
+            }
+
+            packetProcessor.Start(cts.Token);
+
             try
             {
                 WaitHandle.WaitAny(new[] { cts.Token.WaitHandle });
@@ -90,6 +94,50 @@ namespace FOMServer.World.Application
             catch (OperationCanceledException)
             {
             }
+        }
+
+        /// <summary>
+        /// Connects to the master server and registers this world server.
+        /// </summary>
+        private bool ConnectToMaster(CancellationToken ctParent, PacketProcessor packetProcessor)
+        {
+            var peer = clientService.Connect(serverSettings.MasterServer, serverSettings.MasterServerPort);
+            if (peer == IntPtr.Zero)
+                return false;
+
+            var networkManager = new NetworkManager(
+                serviceProvider.GetRequiredService<IPacketService>(),
+                packetProcessor
+            );
+
+            masterPacketSender.Initialize(networkManager);
+            networkManager.Start(ctParent, peer, serverService.Shutdown);
+
+            logService.WriteMessage(LogLevel.Info, $"Master Server: {serverSettings.MasterServer}:{serverSettings.MasterServerPort}");
+
+            return true;
+        }
+
+        /// <summary>
+        /// Starts the networking library and begins listening for incoming connections.
+        /// </summary>
+        private bool StartNetwork(CancellationToken ctParent, PacketProcessor packetProcessor)
+        {
+            var peer = serverService.Startup(serverSettings.Port);
+            if (peer == IntPtr.Zero)
+                return false;
+
+            var networkManager = new NetworkManager(
+                serviceProvider.GetRequiredService<IPacketService>(),
+                packetProcessor
+            );
+
+            clientPacketSender.Initialize(networkManager);
+            networkManager.Start(ctParent, peer, serverService.Shutdown);
+
+            logService.WriteMessage(LogLevel.Info, $"Port: {serverSettings.Port}");
+
+            return true;
         }
     }
 }

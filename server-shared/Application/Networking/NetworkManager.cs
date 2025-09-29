@@ -47,36 +47,18 @@ namespace FOMServer.Shared.Application.Networking
         }
 
         /// <summary>
-        /// Configures the network service to use the specified peer.
-        /// </summary>
-        /// <remarks>
-        ///	Once the peer has been given to the network manager it should not be used by the caller anymore.
-        ///	The peerShutdown function will be used for cleanup when the manager is done with the peer.
-        /// </remarks>
-        /// <param name="peerShutdown">A function describing how to shut the peer down when the service is disposed.</param>
-        /// <param name="sleepBetweenPolling">The number of milliseconds to sleep between polling the network library.</param>
-        public void ConfigurePeer(IntPtr peer, Action<IntPtr> peerShutdown, int sleepBetweenPolling = 0)
-        {
-            if (this.peer != IntPtr.Zero)
-                throw new InvalidOperationException("Peer is already configured.");
-
-            this.peer = peer;
-            this.peerShutdown = peerShutdown;
-            this.sleepBetweenPolling = sleepBetweenPolling;
-        }
-
-        /// <summary>
         /// Starts the network manager loop.
         /// </summary>
-        public void Start(CancellationToken parentToken)
+        public void Start(CancellationToken parentToken, IntPtr peer, Action<IntPtr> peerShutdown, int sleepBetweenPolling = 0)
         {
             if (networkTask != null)
                 return;
 
-            if (peer == IntPtr.Zero)
-                throw new InvalidOperationException("Peer is not configured.");
-
             cts = CancellationTokenSource.CreateLinkedTokenSource(parentToken);
+
+            this.peer = peer;
+            this.peerShutdown = peerShutdown;
+            this.sleepBetweenPolling = sleepBetweenPolling;
 
             // Use a dedicated thread for this task because we need to
             // keep polling the network library to maximize throughput.

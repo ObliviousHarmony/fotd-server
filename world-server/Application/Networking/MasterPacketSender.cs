@@ -1,3 +1,4 @@
+using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models.FOMData;
 
@@ -5,21 +6,19 @@ namespace FOMServer.World.Application.Networking
 {
     public class MasterPacketSender : IMasterPacketSender
     {
-        private readonly Func<MasterConnectionManager> networkManagerFactory;
-        private MasterConnectionManager? networkManager;
+        private IPacketSender? packetSender;
 
-        public MasterPacketSender(Func<MasterConnectionManager> networkManagerFactory)
+        public void Initialize(IPacketSender packetSender)
         {
-            this.networkManagerFactory = networkManagerFactory;
+            this.packetSender = packetSender;
         }
 
         public void Send(PacketIdentifier id, FOMDataUnion data, PacketPriority priority, PacketReliability reliability, byte orderingChannel = 0)
         {
-            if (networkManager == null)
-                networkManager = networkManagerFactory();
+            if (packetSender == null)
+                throw new InvalidOperationException("Packet sender not initialized.");
 
-            // Need to send via the master conncetion, store the address here for sending
-            //networkManager.Send(id, data, 0, priority, reliability, orderingChannel);
+            //packetSender.Send(id, data, destination, priority, reliability, orderingChannel);
         }
     }
 }

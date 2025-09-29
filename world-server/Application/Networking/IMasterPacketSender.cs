@@ -3,9 +3,6 @@ using FOMServer.Shared.Core.Models.FOMData;
 
 namespace FOMServer.World.Application.Networking
 {
-    /// <summary>
-    /// Describes a service that sends packets to the master server.
-    /// </summary>
     public interface IMasterPacketSender
     {
         /// <summary>

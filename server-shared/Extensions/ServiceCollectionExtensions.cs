@@ -1,4 +1,3 @@
-using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Application.PacketHandlers;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.Shared.Infrastructure.Services;
@@ -9,6 +8,14 @@ namespace FOMServer.Shared.Extensions
 {
     public static class ServiceCollectionExtensions
     {
+        public static void StartLogService(this IServiceCollection services, bool writeToConsole = true, string? logFilePath = null )
+        {
+            var logService = new LogService(writeToConsole, logFilePath);
+            services.AddSingleton<ILogService>(logService);
+
+            logService.Start();
+        }
+
         public static void AddServerShared(this IServiceCollection services)
         {
             services.AddInteropServices();
@@ -26,19 +33,6 @@ namespace FOMServer.Shared.Extensions
 
         private static void AddSharedServices(this IServiceCollection services)
         {
-            var logService = new LogService();
-            services.AddSingleton<IManageLogService>(logService);
-            services.AddSingleton<ILogService>(logService);
-
-            services.AddSingleton<PacketProcessor>();
-
-            services.AddSingleton<NetworkManager>();
-            services.AddSingleton<IPacketSender, PacketSender>(sp =>
-            {
-                return new PacketSender(
-                    () => sp.GetRequiredService<NetworkManager>()
-                );
-            });
         }
 
         private static void AddPacketHandlers(this IServiceCollection services)

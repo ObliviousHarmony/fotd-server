@@ -30,7 +30,7 @@ RakPeerInterface* FOMNetwork_Client_Connect(const char* hostAddress,
   // communicating with the given host. Since RakNet is asynchronous,
   // we need to wait until we get confirmation of whether or not a
   // connection could be established.
-  bool connected;
+  bool connected = false;
   while (true) {
     // Block until RakNet provides the connection result packet.
     Packet* packet = client->Receive();
