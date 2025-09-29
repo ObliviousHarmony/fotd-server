@@ -9,7 +9,7 @@ namespace FOMServer.Shared.Application.Networking
     /// <summary>
 	/// Responsible for sending and receiving packets.
 	/// </summary>
-	public class NetworkManager : IDisposable
+	public class NetworkManager : IPacketSender, IDisposable
     {
         /// <summary>
         /// A buffer for holding packets to send via the API.
