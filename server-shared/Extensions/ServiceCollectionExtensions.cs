@@ -26,8 +26,10 @@ namespace FOMServer.Shared.Extensions
 
         private static void AddSharedServices(this IServiceCollection services)
         {
-            services.AddSingleton<LogService>();
-            services.AddSingleton<ILogService>(sp => sp.GetRequiredService<LogService>());
+            var logService = new LogService();
+            services.AddSingleton<IManageLogService>(logService);
+            services.AddSingleton<ILogService>(logService);
+
             services.AddSingleton<PacketProcessor>();
 
             services.AddSingleton<NetworkManager>();

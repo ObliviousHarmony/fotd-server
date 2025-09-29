@@ -5,7 +5,7 @@ using System.Threading.Channels;
 
 namespace FOMServer.Shared.Infrastructure.Services
 {
-    public class LogService : ILogService, IDisposable
+    public class LogService : IManageLogService, ILogService, IDisposable
     {
         private static readonly Meter Meter = new("FOMServer.Logging");
         private static readonly Counter<long> LogEnqueuedCounter =

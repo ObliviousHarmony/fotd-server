@@ -11,7 +11,8 @@ namespace FOMServer.World.Application
     internal class Server
     {
         private readonly ServerSettings serverSettings;
-        private readonly LogService logService;
+        private readonly IManageLogService manageLogService;
+        private readonly ILogService logService;
         private readonly IServerService serverService;
         private readonly INetworkService networkService;
         private readonly NetworkManager networkManager;
@@ -20,7 +21,8 @@ namespace FOMServer.World.Application
 
         public Server(
             ServerSettings serverSettings,
-            LogService logService,
+            IManageLogService manageLogService,
+            ILogService logService,
             IServerService serverService,
             INetworkService networkService,
             NetworkManager networkManager,
@@ -29,6 +31,7 @@ namespace FOMServer.World.Application
         )
         {
             this.serverSettings = serverSettings;
+            this.manageLogService = manageLogService;
             this.logService = logService;
             this.serverService = serverService;
             this.networkService = networkService;
@@ -45,7 +48,7 @@ namespace FOMServer.World.Application
             var cts = new CancellationTokenSource();
 
             // Start the logging service first so we can log everything else.
-            logService.Start(cts.Token);
+            manageLogService.Start(cts.Token);
 
             logService.WriteMessage(LogLevel.Info, $"Starting World ({serverSettings.WorldID}) Server...");
             logService.WriteMessage(LogLevel.Info, "Press Ctrl+C for shutdown.");
