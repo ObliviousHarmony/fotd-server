@@ -81,8 +81,8 @@ namespace FOMServer.Shared.Application.Networking
 
             cts = CancellationTokenSource.CreateLinkedTokenSource(parentToken);
 
-            // Use a dedicated thread for this task because we need 
-            // to keep polling RakNet to maximize throughput.
+            // Use a dedicated thread for this task because we need to
+            // keep polling the network library to maximize throughput.
             networkTask = Task.Factory.StartNew(
                 async () => await NetworkLoopAsync(cts.Token),
                 cts.Token,

@@ -46,7 +46,9 @@ namespace FOMServer.World
             if (serverSettings.Port <= 0)
                 throw new InvalidOperationException("Server port must be greater than 0.");
             if (string.IsNullOrWhiteSpace(serverSettings.MasterServer))
-                throw new InvalidOperationException("Master server address must be configured.");
+                throw new InvalidOperationException("Master server must be configured.");
+                if (serverSettings.MasterServerPort <= 0)
+                throw new InvalidOperationException("Master server port must be greater than 0.");
             if (string.IsNullOrWhiteSpace(dbSettings.Name))
                 throw new InvalidOperationException("Database name must be configured.");
             if (string.IsNullOrWhiteSpace(dbSettings.ConnectionString))
