@@ -2,6 +2,7 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
 using FOMServer.Shared.Core.Models.FOMData;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
+using FOMServer.Shared.Infrastructure.Services;
 using System.Threading.Channels;
 
 namespace FOMServer.Shared.Application.Networking
@@ -38,6 +39,7 @@ namespace FOMServer.Shared.Application.Networking
 
         private IntPtr peer;
         private Action<IntPtr>? peerShutdown;
+        private readonly ILogService logService;
         private readonly IPacketService packetService;
         private readonly PacketProcessor packetProcessor;
         private readonly Channel<SendPacket> sendQueue;
@@ -45,10 +47,15 @@ namespace FOMServer.Shared.Application.Networking
         private Task? networkTask;
         private CancellationTokenSource? cts;
 
-        public NetworkManager(IPacketService packetService, PacketProcessor packetProcessor)
+        public NetworkManager(
+            ILogService logService,
+            IPacketService packetService,
+            PacketProcessor packetProcessor
+        )
         {
             this.peer = IntPtr.Zero;
             this.peerShutdown = null;
+            this.logService = logService;
             this.packetService = packetService;
             this.packetProcessor = packetProcessor;
             this.claimedPacketIDs = new HashSet<PacketIdentifier>();
@@ -157,7 +164,10 @@ namespace FOMServer.Shared.Application.Networking
                 {
                     // Packet IDs that have been claimed by another network manager should be ignored.
                     if (globalClaimedPacketIDs.Contains(packet.ID) && !claimedPacketIDs.Contains(packet.ID))
+                    {
+                        logService.WriteMessage(LogLevel.Error, $"Client {packet.Sender} sent packet with claimed ID {packet.ID}, ignoring.");
                         continue;
+                    }
 
                     packetProcessor.Enqueue(packet);
                 }

@@ -1,10 +1,13 @@
+using FOMServer.Shared.Core.Enums;
+
 namespace FOMServer.World.Core.Models
 {
     public class ServerSettings
     {
-        public byte WorldID { get; init; }
+        public WorldID WorldID { get; init; }
+        public string ClientAddress { get; init; } = null!;
         public ushort ClientPort { get; init; }
-        public string MasterServer { get; init; } = null!;
+        public string MasterServerAddress { get; init; } = null!;
         public ushort MasterServerPort { get; init; }
     }
 

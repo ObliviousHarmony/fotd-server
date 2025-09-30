@@ -6,6 +6,7 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.Shared.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
+using FOMServer.Shared.Core.Models.FOMData;
 
 namespace FOMServer.World.Application
 {
@@ -83,7 +84,7 @@ namespace FOMServer.World.Application
             masterNetwork.Start(cts.Token);
             clientNetwork.Start(cts.Token);
 
-            logService.WriteMessage(LogLevel.Info, $"Master Server: {serverSettings.MasterServer}:{serverSettings.MasterServerPort}");
+            logService.WriteMessage(LogLevel.Info, $"Master Server: {serverSettings.MasterServerAddress}:{serverSettings.MasterServerPort}");
             logService.WriteMessage(LogLevel.Info, $"Client Port: {serverSettings.ClientPort}");
             logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
 
@@ -98,11 +99,12 @@ namespace FOMServer.World.Application
 
         private NetworkManager? ConnectToMasterNetwork(PacketProcessor packetProcessor)
         {
-            var peer = clientService.Connect(serverSettings.MasterServer, serverSettings.MasterServerPort);
+            var peer = clientService.Connect(serverSettings.MasterServerAddress, serverSettings.MasterServerPort);
             if (peer == IntPtr.Zero)
                 return null;
 
             var networkManager = new NetworkManager(
+                serviceProvider.GetRequiredService<ILogService>(),
                 serviceProvider.GetRequiredService<IPacketService>(),
                 packetProcessor
             );
@@ -112,6 +114,23 @@ namespace FOMServer.World.Application
             packetSender.Initialize(networkManager);
 
             networkManager.Configure(peer, clientService.Disconnect);
+
+            // Register this world server with the master server.
+            packetSender.Send(
+                PacketIdentifier.ID_REGISTER_WORLD,
+                new FOMDataUnion
+                {
+                    registerWorld = new RegisterWorld
+                    {
+                        WorldID = serverSettings.WorldID,
+                        Port = serverSettings.ClientPort,
+                        Address = "127.0.0.1"
+                    }
+                },
+                PacketPriority.HIGH_PRIORITY,
+                PacketReliability.RELIABLE
+            );
+
             return networkManager;
         }
 
@@ -122,6 +141,7 @@ namespace FOMServer.World.Application
                 return null;
 
             var networkManager = new NetworkManager(
+                serviceProvider.GetRequiredService<ILogService>(),
                 serviceProvider.GetRequiredService<IPacketService>(),
                 packetProcessor
             );

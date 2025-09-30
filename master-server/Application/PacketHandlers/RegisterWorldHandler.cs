@@ -17,6 +17,7 @@ namespace FOMServer.Master.Application.PacketHandlers
 
         public override void Handle(NetworkAddress sender, in RegisterWorld data)
         {
+            Console.WriteLine($"[World] Registered World {data.WorldID} at {data.Address}:{data.Port}");
         }
     }
 }

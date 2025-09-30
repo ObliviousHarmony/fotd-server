@@ -129,16 +129,17 @@ namespace FOMServer.Master.Application
                 return null;
 
             var networkManager = new NetworkManager(
+                serviceProvider.GetRequiredService<ILogService>(),
                 serviceProvider.GetRequiredService<IPacketService>(),
                 packetProcessor
             );
 
+            // Make sure clients can't send packets meant for master<->world communication.
+            networkManager.ClaimPacketID(PacketIdentifier.ID_REGISTER_WORLD);
+
             // Initialize the packet sender for communication with world servers.
             var packetSender = serviceProvider.GetRequiredService<WorldPacketSender>();
             packetSender.Initialize(networkManager);
-
-            // Make sure clients can't send packets meant for master<->world communication.
-            networkManager.ClaimPacketID(PacketIdentifier.ID_REGISTER_WORLD);
 
             networkManager.Configure(peer, serverService.Shutdown);
             return networkManager;
@@ -151,6 +152,7 @@ namespace FOMServer.Master.Application
                 return null;
 
             var networkManager = new NetworkManager(
+                serviceProvider.GetRequiredService<ILogService>(),
                 serviceProvider.GetRequiredService<IPacketService>(),
                 packetProcessor
             );

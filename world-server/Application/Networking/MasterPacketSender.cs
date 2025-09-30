@@ -19,7 +19,9 @@ namespace FOMServer.World.Application.Networking
             if (packetSender == null)
                 throw new InvalidOperationException("Packet sender not initialized.");
 
-            packetSender.Send(id, data, NetworkAddress.Unassigned, priority, reliability, orderingChannel);
+            // Since the server is the only "connected" peer, broadcasting sends to it
+            // without us needing to keep track of its address.
+            packetSender.Broadcast(id, data, NetworkAddress.Unassigned, priority, reliability, orderingChannel);
         }
     }
 }

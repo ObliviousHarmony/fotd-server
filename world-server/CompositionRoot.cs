@@ -1,3 +1,4 @@
+using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Extensions;
 using FOMServer.Shared.Infrastructure.Factories;
 using FOMServer.World.Application;
@@ -45,10 +46,14 @@ namespace FOMServer.World
             serverSettings = config.GetSection("Server").Get<ServerSettings>()!;
             dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
 
+            if (Enum.IsDefined<WorldID>(serverSettings!.WorldID) == false || serverSettings.WorldID == WorldID.MASTER_SERVER)
+                throw new InvalidOperationException("Server WorldID must be set to a valid world.");
+            if (string.IsNullOrWhiteSpace(serverSettings.ClientAddress))
+                throw new InvalidOperationException("Server client address must be configured.");
             if (serverSettings.ClientPort <= 0)
-                throw new InvalidOperationException("Server port must be greater than 0.");
-            if (string.IsNullOrWhiteSpace(serverSettings.MasterServer))
-                throw new InvalidOperationException("Master server must be configured.");
+                throw new InvalidOperationException("Server client port must be greater than 0.");
+            if (string.IsNullOrWhiteSpace(serverSettings.MasterServerAddress))
+                throw new InvalidOperationException("Master server address must be configured.");
             if (serverSettings.MasterServerPort <= 0)
                 throw new InvalidOperationException("Master server port must be greater than 0.");
             if (string.IsNullOrWhiteSpace(dbSettings.Name))
