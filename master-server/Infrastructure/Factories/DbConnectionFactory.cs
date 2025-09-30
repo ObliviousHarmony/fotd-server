@@ -5,11 +5,11 @@ using FOMServer.Shared.Infrastructure.Factories;
 
 namespace FOMServer.Master.Infrastructure.Factories
 {
-    public class ConnectionFactory : IConnectionFactory
+    public class DbConnectionFactory : IDbConnectionFactory
     {
         private readonly DatabaseSettings dbSettings;
 
-        public ConnectionFactory(DatabaseSettings dbSettings)
+        public DbConnectionFactory(DatabaseSettings dbSettings)
         {
             this.dbSettings = dbSettings;
         }

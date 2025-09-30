@@ -75,7 +75,7 @@ namespace FOMServer.Master
             services.AddSingleton<WorldPacketSender>();
             services.AddSingleton<IWorldPacketSender>(sp => sp.GetRequiredService<WorldPacketSender>());
 
-            services.AddSingleton<IConnectionFactory, ConnectionFactory>();
+            services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
             services.AddSingleton<IAccountService, AccountService>();
             return services;
         }

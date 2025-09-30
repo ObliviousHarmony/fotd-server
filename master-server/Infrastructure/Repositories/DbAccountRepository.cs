@@ -7,16 +7,16 @@ namespace FOMServer.Master.Infrastructure.Repositories
 {
     public class DbAccountRepository : IAccountRepository
     {
-        private IConnectionFactory connectionFactory;
+        private IDbConnectionFactory dbConnectionFactory;
 
-        public DbAccountRepository(IConnectionFactory connectionFactory)
+        public DbAccountRepository(IDbConnectionFactory dbConnectionFactory)
         {
-            this.connectionFactory = connectionFactory;
+            this.dbConnectionFactory = dbConnectionFactory;
         }
 
         public uint? Exists(string username)
         {
-            using var connection = connectionFactory.Create();
+            using var connection = dbConnectionFactory.Create();
             var dto = connection.QuerySingleOrDefault<AccountDto>(
                 "SELECT `id`, `username` FROM `account` WHERE `username` = @Username",
                 new { Username = username }
@@ -26,7 +26,7 @@ namespace FOMServer.Master.Infrastructure.Repositories
 
         public AccountDto? TryLogin(string username, string password)
         {
-            using var connection = connectionFactory.Create();
+            using var connection = dbConnectionFactory.Create();
             var account = connection.QuerySingleOrDefault<AccountDto>(
                 "SELECT `id`, `username` FROM `account` WHERE `username` = @Username",
                 new { Username = username }
@@ -41,7 +41,7 @@ namespace FOMServer.Master.Infrastructure.Repositories
 
         public bool Logout(uint id)
         {
-            using var connection = connectionFactory.Create();
+            using var connection = dbConnectionFactory.Create();
             var affected = connection.Execute(
                 "UPDATE `account` SET `logged_in` = 0 WHERE `id` = @ID",
                 new { ID = id }
@@ -51,7 +51,7 @@ namespace FOMServer.Master.Infrastructure.Repositories
 
         public void MarkAllAccountsLoggedOut()
         {
-            using var connection = connectionFactory.Create();
+            using var connection = dbConnectionFactory.Create();
             connection.Execute("UPDATE `account` SET `logged_in` = 0");
         }
     }
