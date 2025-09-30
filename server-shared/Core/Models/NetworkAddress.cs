@@ -8,6 +8,12 @@ namespace FOMServer.Shared.Core.Models
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct NetworkAddress
     {
+        public static readonly NetworkAddress Unassigned = new NetworkAddress
+        {
+            Address = 0xFFFFFFFF,
+            Port = 0xFFFF
+        };
+
         public uint Address;
         public ushort Port;
 

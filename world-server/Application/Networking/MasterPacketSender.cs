@@ -1,5 +1,6 @@
 using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Models;
 using FOMServer.Shared.Core.Models.FOMData;
 
 namespace FOMServer.World.Application.Networking
@@ -18,7 +19,7 @@ namespace FOMServer.World.Application.Networking
             if (packetSender == null)
                 throw new InvalidOperationException("Packet sender not initialized.");
 
-            //packetSender.Send(id, data, destination, priority, reliability, orderingChannel);
+            packetSender.Send(id, data, NetworkAddress.Unassigned, priority, reliability, orderingChannel);
         }
     }
 }
