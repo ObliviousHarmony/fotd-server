@@ -140,10 +140,7 @@ namespace FOMServer.Master.Application
             // Make sure clients can't send packets meant for master<->world communication.
             networkManager.ClaimPacketID(PacketIdentifier.ID_REGISTER_WORLD);
 
-            // Master<->World packets are less time-sensitive and so
-            // we should have the thread poll less frequently to
-            // reduce the time the thread spends spinning.
-            networkManager.Configure(peer, serverService.Shutdown, 100);
+            networkManager.Configure(peer, serverService.Shutdown);
             return networkManager;
         }
 
@@ -162,7 +159,7 @@ namespace FOMServer.Master.Application
             var packetSender = serviceProvider.GetRequiredService<ClientPacketSender>();
             packetSender.Initialize(networkManager);
 
-            networkManager.Configure(peer, serverService.Shutdown, 1);
+            networkManager.Configure(peer, serverService.Shutdown);
             return networkManager;
         }
     }

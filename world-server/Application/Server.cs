@@ -111,10 +111,7 @@ namespace FOMServer.World.Application
             var packetSender = serviceProvider.GetRequiredService<MasterPacketSender>();
             packetSender.Initialize(networkManager);
 
-            // Master<->World packets are less time-sensitive and so
-            // we should have the thread poll less frequently to
-            // reduce the time the thread spends spinning.
-            networkManager.Configure(peer, clientService.Disconnect, 100);
+            networkManager.Configure(peer, clientService.Disconnect);
             return networkManager;
         }
 
@@ -133,7 +130,7 @@ namespace FOMServer.World.Application
             var packetSender = serviceProvider.GetRequiredService<ClientPacketSender>();
             packetSender.Initialize(networkManager);
 
-            networkManager.Configure(peer, serverService.Shutdown, 1);
+            networkManager.Configure(peer, serverService.Shutdown);
             return networkManager;
         }
     }
