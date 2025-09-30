@@ -12,6 +12,21 @@ namespace FOMServer.Shared.Application.Networking
 	public class NetworkManager : IPacketSender, IDisposable
     {
         /// <summary>
+        /// Individual network managers can "claim" packet IDs so that they
+        /// exclusively handle them. When another network manager receives
+        /// a packet with a claimed ID, it will ignore it.
+        /// </summary>
+        private static readonly HashSet<PacketIdentifier> globalClaimedPacketIDs = new HashSet<PacketIdentifier>();
+
+        /// <summary>
+        /// Packet ID claims are not using a thread-safe collection for
+        /// performance reasons. Claims should be done during
+        /// initialization and be prevented once the first
+        /// network manager has started.
+        /// </summary>
+        private static bool canClaimPacketIDs = true;
+
+        /// <summary>
         /// A buffer for holding packets to send via the API.
         /// </summary>
         /// <remarks>
@@ -19,14 +34,15 @@ namespace FOMServer.Shared.Application.Networking
         /// We can pin the memory of the pre-allocated buffer and then
         /// pass that without having to do anything special.
         /// </remarks>
-        private readonly SendPacket[] SendBuffer = new SendPacket[IPacketService.MaxBufferedPackets];
+        private readonly SendPacket[] sendBuffer = new SendPacket[IPacketService.MaxBufferedPackets];
 
         private IntPtr peer;
         private Action<IntPtr>? peerShutdown;
-        private int sleepBetweenPolling;
+        private int pollingDelayMs;
         private readonly IPacketService packetService;
         private readonly PacketProcessor packetProcessor;
         private readonly Channel<SendPacket> sendQueue;
+        private readonly HashSet<PacketIdentifier> claimedPacketIDs;
         private Task? networkTask;
         private CancellationTokenSource? cts;
 
@@ -34,9 +50,10 @@ namespace FOMServer.Shared.Application.Networking
         {
             this.peer = IntPtr.Zero;
             this.peerShutdown = null;
-            this.sleepBetweenPolling = 0;
+            this.pollingDelayMs = 0;
             this.packetService = packetService;
             this.packetProcessor = packetProcessor;
+            this.claimedPacketIDs = new HashSet<PacketIdentifier>();
 
             // Single writer, single reader channel is fine here
             this.sendQueue = Channel.CreateUnbounded<SendPacket>(new UnboundedChannelOptions
@@ -47,18 +64,48 @@ namespace FOMServer.Shared.Application.Networking
         }
 
         /// <summary>
-        /// Starts the network manager loop.
+        /// Claims a packet ID for this exclusive handling by this network manager.
         /// </summary>
-        public void Start(CancellationToken parentToken, IntPtr peer, Action<IntPtr> peerShutdown, int sleepBetweenPolling = 0)
+        public void ClaimPacketID(PacketIdentifier id)
         {
-            if (networkTask != null)
-                return;
+            if (!canClaimPacketIDs)
+                throw new InvalidOperationException("Cannot claim packet IDs after a network manager has started.");
 
-            cts = CancellationTokenSource.CreateLinkedTokenSource(parentToken);
+            if (globalClaimedPacketIDs.Contains(id))
+                throw new InvalidOperationException($"Packet ID {id} is already claimed by another network manager.");
+
+            globalClaimedPacketIDs.Add(id);
+            claimedPacketIDs.Add(id);
+        }
+
+        /// <summary>
+        /// Configures the network manager with the necessary parameters.
+        /// </summary>
+        public void Configure(IntPtr peer, Action<IntPtr> peerShutdown, int pollingDelayMs)
+        {
+            if (this.peer != IntPtr.Zero)
+                throw new InvalidOperationException("Peer is already configured.");
 
             this.peer = peer;
             this.peerShutdown = peerShutdown;
-            this.sleepBetweenPolling = sleepBetweenPolling;
+            this.pollingDelayMs = pollingDelayMs;
+        }
+
+        /// <summary>
+        /// Starts the network manager loop.
+        /// </summary>
+        public void Start(CancellationToken parentToken)
+        {
+            if (peer == IntPtr.Zero)
+                throw new InvalidOperationException("Peer must be configured.");
+
+            if (networkTask != null)
+                return;
+
+            // Once a network manager has started, no more claims can be made.
+            canClaimPacketIDs = false;
+
+            cts = CancellationTokenSource.CreateLinkedTokenSource(parentToken);
 
             // Use a dedicated thread for this task because we need to
             // keep polling the network library to maximize throughput.
@@ -102,17 +149,23 @@ namespace FOMServer.Shared.Application.Networking
                 // limiting the number of packets sent per batch.
                 int numToSend = 0;
                 while (numToSend < IPacketService.MaxBufferedPackets && sendQueue.Reader.TryRead(out var packetToSend))
-                    SendBuffer[numToSend++] = packetToSend;
+                    sendBuffer[numToSend++] = packetToSend;
 
                 if (numToSend > 0)
-                    packetService.Send(peer, SendBuffer.AsSpan(0, numToSend));
+                    packetService.Send(peer, sendBuffer.AsSpan(0, numToSend));
 
                 var received = packetService.Receive(peer);
                 foreach (ref readonly var packet in received)
-                    packetProcessor.Enqueue(packet);
+                {
+                    // Packet IDs that have been claimed by another network manager should be ignored.
+                    if (globalClaimedPacketIDs.Contains(packet.ID) && !claimedPacketIDs.Contains(packet.ID))
+                        continue;
 
-                if (sleepBetweenPolling > 0)
-                    await Task.Delay(sleepBetweenPolling, ct);
+                    packetProcessor.Enqueue(packet);
+                }
+
+                if (pollingDelayMs > 0)
+                    await Task.Delay(pollingDelayMs, ct);
                 else
                     await Task.Yield();
             }

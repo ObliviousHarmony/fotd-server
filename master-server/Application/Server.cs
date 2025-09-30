@@ -69,20 +69,24 @@ namespace FOMServer.Master.Application
                 serviceProvider.GetRequiredService<IEnumerable<IPacketHandler>>()
             );
 
-            if (!StartWorldServerNetwork(cts.Token, packetProcessor))
+            var worldNetwork = CreateWorldServerNetwork(packetProcessor);
+            if (worldNetwork == null)
             {
-                logService.WriteMessage(LogLevel.Critical, "Failed to start the world server network.");
+                logService.WriteMessage(LogLevel.Critical, "Failed to create the world server network.");
                 return;
             }
 
-            if (!StartClientNetwork(cts.Token, packetProcessor))
+            var clientNetwork = CreateClientNetwork(packetProcessor);
+            if (clientNetwork == null)
             {
-                logService.WriteMessage(LogLevel.Critical, "Failed to start the client network.");
+                logService.WriteMessage(LogLevel.Critical, "Failed to create the client network.");
                 return;
             }
 
             // The server is now ready to start processing packets.
             packetProcessor.Start(cts.Token);
+            worldNetwork.Start(cts.Token);
+            clientNetwork.Start(cts.Token);
 
             logService.WriteMessage(LogLevel.Info, $"World Port: {serverSettings.WorldPort}");
             logService.WriteMessage(LogLevel.Info, $"Client Port: {serverSettings.ClientPort}");
@@ -118,11 +122,11 @@ namespace FOMServer.Master.Application
             return true;
         }
 
-        private bool StartWorldServerNetwork(CancellationToken ctParent, PacketProcessor packetProcessor)
+        private NetworkManager? CreateWorldServerNetwork(PacketProcessor packetProcessor)
         {
             var peer = serverService.Startup(serverSettings.WorldPort);
             if (peer == IntPtr.Zero)
-                return false;
+                return null;
 
             var networkManager = new NetworkManager(
                 serviceProvider.GetRequiredService<IPacketService>(),
@@ -133,19 +137,21 @@ namespace FOMServer.Master.Application
             var packetSender = serviceProvider.GetRequiredService<WorldPacketSender>();
             packetSender.Initialize(networkManager);
 
-            // Master<->Server packets are less time-sensitive and so
+            // Make sure clients can't send packets meant for master<->world communication.
+            networkManager.ClaimPacketID(PacketIdentifier.ID_REGISTER_WORLD);
+
+            // Master<->World packets are less time-sensitive and so
             // we should have the thread poll less frequently to
             // reduce the time the thread spends spinning.
-            networkManager.Start(ctParent, peer, serverService.Shutdown);
-
-            return true;
+            networkManager.Configure(peer, serverService.Shutdown, 100);
+            return networkManager;
         }
 
-        private bool StartClientNetwork(CancellationToken ctParent, PacketProcessor packetProcessor)
+        private NetworkManager? CreateClientNetwork(PacketProcessor packetProcessor)
         {
             var peer = serverService.Startup(serverSettings.ClientPort);
             if (peer == IntPtr.Zero)
-                return false;
+                return null;
 
             var networkManager = new NetworkManager(
                 serviceProvider.GetRequiredService<IPacketService>(),
@@ -156,10 +162,8 @@ namespace FOMServer.Master.Application
             var packetSender = serviceProvider.GetRequiredService<ClientPacketSender>();
             packetSender.Initialize(networkManager);
 
-            // Start the network manager so packets can be sent and received.
-            networkManager.Start(ctParent, peer, serverService.Shutdown);
-
-            return true;
+            networkManager.Configure(peer, serverService.Shutdown, 1);
+            return networkManager;
         }
     }
 }
