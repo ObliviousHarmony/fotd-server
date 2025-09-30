@@ -18,8 +18,6 @@ namespace FOMServer.Master.Application
         private readonly ServerSettings serverSettings;
         private readonly INetworkService networkService;
         private readonly IServerService serverService;
-        private readonly ClientPacketSender clientPacketSender;
-        private readonly WorldPacketSender worldPacketSender;
         private readonly IServiceProvider serviceProvider;
 
         public Server(
@@ -28,8 +26,6 @@ namespace FOMServer.Master.Application
             ServerSettings serverSettings,
             INetworkService networkService,
             IServerService serverService,
-            ClientPacketSender clientPacketSender,
-            WorldPacketSender worldPacketSender,
             IServiceProvider serviceProvider
         )
         {
@@ -38,17 +34,20 @@ namespace FOMServer.Master.Application
             this.serverSettings = serverSettings;
             this.networkService = networkService;
             this.serverService = serverService;
-            this.clientPacketSender = clientPacketSender;
-            this.worldPacketSender = worldPacketSender;
             this.serviceProvider = serviceProvider;
         }
 
         public void Run()
         {
+            // We need to make sure our packet structs are all blittable and match the C++ side.
+            // This is critical to ensure that we don't have memory corruption and don't
+            // require expensive marshalling of data between managed and unmanaged code.
+            networkService.ValidateFOMPacket();
+
             var cts = new CancellationTokenSource();
 
-            logService.WriteMessage(LogLevel.Info, "Starting Master Server...");
-            logService.WriteMessage(LogLevel.Info, "Press Ctrl+C for shutdown.");
+            logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
+            logService.WriteMessage(LogLevel.Info, "Initializing Master Server");
 
             Console.CancelKeyPress += (sender, e) =>
             {
@@ -64,11 +63,6 @@ namespace FOMServer.Master.Application
 
             if (!InitializeDatabase())
                 return;
-
-            // We need to make sure our packet structs are all blittable and match the C++ side.
-            // This is critical to ensure that we don't have memory corruption and don't
-            // require expensive marshalling of data between managed and unmanaged code.
-            networkService.ValidateFOMPacket();
 
             var packetProcessor = new PacketProcessor(
                 logService,
@@ -86,6 +80,13 @@ namespace FOMServer.Master.Application
                 logService.WriteMessage(LogLevel.Critical, "Failed to start the client network.");
                 return;
             }
+
+            // The server is now ready to start processing packets.
+            packetProcessor.Start(cts.Token);
+
+            logService.WriteMessage(LogLevel.Info, $"World Port: {serverSettings.WorldPort}");
+            logService.WriteMessage(LogLevel.Info, $"Client Port: {serverSettings.ClientPort}");
+            logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
 
             try
             {
@@ -128,11 +129,14 @@ namespace FOMServer.Master.Application
                 packetProcessor
             );
 
-            worldPacketSender.Initialize(networkManager);
-            packetProcessor.Start(ctParent);
-            networkManager.Start(ctParent, peer, serverService.Shutdown);
+            // Initialize the packet sender for communication with world servers.
+            var packetSender = serviceProvider.GetRequiredService<WorldPacketSender>();
+            packetSender.Initialize(networkManager);
 
-            logService.WriteMessage(LogLevel.Info, $"World Port: {serverSettings.WorldPort}");
+            // Master<->Server packets are less time-sensitive and so
+            // we should have the thread poll less frequently to
+            // reduce the time the thread spends spinning.
+            networkManager.Start(ctParent, peer, serverService.Shutdown);
 
             return true;
         }
@@ -148,11 +152,12 @@ namespace FOMServer.Master.Application
                 packetProcessor
             );
 
-            clientPacketSender.Initialize(networkManager);
-            packetProcessor.Start(ctParent);
-            networkManager.Start(ctParent, peer, serverService.Shutdown);
+            // Initialize the packet sender for communication with clients.
+            var packetSender = serviceProvider.GetRequiredService<ClientPacketSender>();
+            packetSender.Initialize(networkManager);
 
-            logService.WriteMessage(LogLevel.Info, $"Client Port: {serverSettings.ClientPort}");
+            // Start the network manager so packets can be sent and received.
+            networkManager.Start(ctParent, peer, serverService.Shutdown);
 
             return true;
         }

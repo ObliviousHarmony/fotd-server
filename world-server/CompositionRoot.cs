@@ -45,7 +45,7 @@ namespace FOMServer.World
             serverSettings = config.GetSection("Server").Get<ServerSettings>()!;
             dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
 
-            if (serverSettings.Port <= 0)
+            if (serverSettings.ClientPort <= 0)
                 throw new InvalidOperationException("Server port must be greater than 0.");
             if (string.IsNullOrWhiteSpace(serverSettings.MasterServer))
                 throw new InvalidOperationException("Master server must be configured.");

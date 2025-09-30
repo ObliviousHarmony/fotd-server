@@ -3,7 +3,7 @@ namespace FOMServer.World.Core.Models
     public class ServerSettings
     {
         public byte WorldID { get; init; }
-        public ushort Port { get; init; }
+        public ushort ClientPort { get; init; }
         public string MasterServer { get; init; } = null!;
         public ushort MasterServerPort { get; init; }
     }
