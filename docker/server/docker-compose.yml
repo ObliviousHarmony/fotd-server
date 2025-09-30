@@ -1,3 +1,5 @@
+name: fom-server
+
 services:
   db:
     image: mariadb:latest
@@ -37,6 +39,7 @@ services:
       - db
       - master-server
     environment:
+      Server__MasterServer: "master-server"
       Database__ConnectionString: "Host=db;Port=3306;Database=fom_server;Username=admin;Password=password;"
     ports:
       - "61002:61002/udp"
