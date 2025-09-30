@@ -14,9 +14,9 @@
 | ID_WORLD_LOGIN              | 113 |
 | ID_WORLD_LOGIN_RETURN       | 114 |
 | ID_WORLD_LOGOUT             | 115 |
-|                             | 116 |
-|                             | 117 |
-|                             | 118 |
+| ID_REGISTER_WORLD           | 116 |
+| ID_REGISTER_WORLD_RETURN    | 117 |
+| ID_REGISTER_CLIENT_WORLD    | 118 |
 | ID_REGISTER_CLIENT          | 119 |
 | ID_REGISTER_CLIENT_RETURN   | 120 |
 | ID_CREATE_CHARACTER         | 121 |
@@ -137,6 +137,20 @@
 |                             | 236 |
 |                             | 237 |
 |                             | 238 |
-| ID_FORWARD_TO_MASTER        | 239 |
-| ID_FRAME_SET_PACKET_END     | 240 |
-| ID_DISCONNECT_FROM_WORLD    | 241 |
+|                             | 239 |
+|                             | 240 |
+|                             | 241 |
+|                             | 242 |
+|                             | 243 |
+|                             | 244 |
+|                             | 245 |
+|                             | 246 |
+|                             | 247 |
+|                             | 248 |
+|                             | 249 |
+|                             | 250 |
+|                             | 251 |
+|                             | 252 |
+|                             | 253 |
+|                             | 254 |
+|                             | 255 |

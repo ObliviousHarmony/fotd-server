@@ -31,6 +31,7 @@ namespace FOMServer.Shared.Services.FOMNetwork
                 new PacketStructure { ID = PacketIdentifier.ID_CHECK_NAME, Size = Marshal.SizeOf<CheckName>() },
                 new PacketStructure { ID = PacketIdentifier.ID_CHECK_NAME_RETURN, Size = Marshal.SizeOf<CheckNameReturn>() },
                 new PacketStructure { ID = PacketIdentifier.ID_CREATE_CHARACTER, Size = Marshal.SizeOf<CreateCharacter>() },
+                new PacketStructure { ID = PacketIdentifier.ID_REGISTER_WORLD, Size = Marshal.SizeOf<RegisterWorld>() },
             };
             foreach (PacketStructure s in structures)
             {

@@ -14,6 +14,7 @@
 #include <fom-network/packets/LoginRequestReturn.h>
 #include <fom-network/packets/LoginReturn.h>
 #include <fom-network/packets/ReadPacketError.h>
+#include <fom-network/packets/RegisterWorld.h>
 
 namespace FOMNetwork {
 
@@ -28,6 +29,7 @@ struct FOMDataUnion {
     Packet::CheckName checkName;
     Packet::CheckNameReturn checkNameReturn;
     Packet::CreateCharacter createCharacter;
+    Packet::RegisterWorld registerWorld;
   };
 };
 #pragma pack(pop)

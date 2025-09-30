@@ -17,6 +17,7 @@ set(FOMNETWORK_SRC
   "src/packet-serializers/CheckNameSerializer.cpp"
   "src/packet-serializers/CheckNameReturnSerializer.cpp"
   "src/packet-serializers/CreateCharacterSerializer.cpp"
+  "src/packet-serializers/RegisterWorldSerializer.cpp"
 )
 set(FOMNETWORK_INC
   "include/fom-network/ClientAPI.h"
@@ -27,6 +28,7 @@ set(FOMNETWORK_INC
   "include/fom-network/NetworkAPI.h"
   "include/fom-network/PacketAPI.h"
   "include/fom-network/PacketIdentifier.h"
+  "include/fom-network/WorldID.h"
   "include/fom-network/PacketSerializers.h"
   "include/fom-network/ServerAPI.h"
 
@@ -45,6 +47,7 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/CheckName.h"
   "include/fom-network/packets/CheckNameReturn.h"
   "include/fom-network/packets/CreateCharacter.h"
+  "include/fom-network/packets/RegisterWorld.h"
 )
 set(FOMNETWORK_TEST
   "tests/FOMDataSerializer_test.cpp"

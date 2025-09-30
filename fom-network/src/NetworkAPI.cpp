@@ -23,6 +23,7 @@ int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures,
       {ID_CHECK_NAME, sizeof(CheckName)},
       {ID_CHECK_NAME_RETURN, sizeof(CheckNameReturn)},
       {ID_CREATE_CHARACTER, sizeof(CreateCharacter)},
+      {ID_REGISTER_WORLD, sizeof(RegisterWorld)},
   };
 
 #pragma warning(pop)
