@@ -38,7 +38,6 @@ namespace FOMServer.Shared.Application.Networking
 
         private IntPtr peer;
         private Action<IntPtr>? peerShutdown;
-        private int pollingDelayMs;
         private readonly IPacketService packetService;
         private readonly PacketProcessor packetProcessor;
         private readonly Channel<SendPacket> sendQueue;
@@ -50,7 +49,6 @@ namespace FOMServer.Shared.Application.Networking
         {
             this.peer = IntPtr.Zero;
             this.peerShutdown = null;
-            this.pollingDelayMs = 0;
             this.packetService = packetService;
             this.packetProcessor = packetProcessor;
             this.claimedPacketIDs = new HashSet<PacketIdentifier>();
@@ -81,14 +79,13 @@ namespace FOMServer.Shared.Application.Networking
         /// <summary>
         /// Configures the network manager with the necessary parameters.
         /// </summary>
-        public void Configure(IntPtr peer, Action<IntPtr> peerShutdown, int pollingDelayMs)
+        public void Configure(IntPtr peer, Action<IntPtr> peerShutdown)
         {
             if (this.peer != IntPtr.Zero)
                 throw new InvalidOperationException("Peer is already configured.");
 
             this.peer = peer;
             this.peerShutdown = peerShutdown;
-            this.pollingDelayMs = pollingDelayMs;
         }
 
         /// <summary>
@@ -143,6 +140,7 @@ namespace FOMServer.Shared.Application.Networking
 
         private async Task NetworkLoopAsync(CancellationToken ct)
         {
+            int pollingDelayMs = 1;
             while (!ct.IsCancellationRequested)
             {
                 // Avoid starving packet receiving with sending by
@@ -164,10 +162,15 @@ namespace FOMServer.Shared.Application.Networking
                     packetProcessor.Enqueue(packet);
                 }
 
-                if (pollingDelayMs > 0)
-                    await Task.Delay(pollingDelayMs, ct);
+                // Use an exponential back-off strategy when polling to avoid
+                // wasting CPU when idle while still being responsive to
+                // periodic bursts of activity.
+                if (numToSend > 0 || received.Length > 0)
+                    pollingDelayMs = 1;
                 else
-                    await Task.Yield();
+                    pollingDelayMs = Math.Min(pollingDelayMs * 2, 100);
+
+                await Task.Delay(pollingDelayMs, ct);
             }
         }
 
