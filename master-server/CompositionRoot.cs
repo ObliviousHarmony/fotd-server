@@ -108,6 +108,7 @@ namespace FOMServer.Master
             services.AddSingleton<IPacketHandler, LoginHandler>();
             services.AddSingleton<IPacketHandler, CheckNameHandler>();
             services.AddSingleton<IPacketHandler, CreateCharacterHandler>();
+            services.AddSingleton<IPacketHandler, RegisterWorldPacketHandler>();
             return services;
         }
     }
