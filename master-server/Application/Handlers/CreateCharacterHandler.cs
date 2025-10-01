@@ -1,4 +1,4 @@
-using FOMServer.Master.Core.Accounts;
+using FOMServer.Master.Core.Players;
 using FOMServer.Master.Core.Repositories;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket.Data;
@@ -9,12 +9,12 @@ namespace FOMServer.Master.Application.Handlers
 {
     public class CreateCharacterHandler : PacketHandler<CreateCharacter>
     {
-        private readonly IAccountService accountService;
+        private readonly IPlayerService playerService;
         private readonly ICharacterRepository characterRepository;
 
-        public CreateCharacterHandler(IAccountService accountService, ICharacterRepository characterRepository)
+        public CreateCharacterHandler(IPlayerService playerService, ICharacterRepository characterRepository)
         {
-            this.accountService = accountService;
+            this.playerService = playerService;
             this.characterRepository = characterRepository;
         }
 
@@ -22,12 +22,12 @@ namespace FOMServer.Master.Application.Handlers
 
         public override void Handle(NetworkAddress sender, in CreateCharacter data)
         {
-            var account = accountService.Get(sender);
-            if (account == null)
+            var player = playerService.Get(sender);
+            if (player == null)
                 return;
 
             var created = characterRepository.Create(
-                account.ID,
+                player.ID,
                 data.Avatar.Faction,
                 data.Name,
                 data.Biography,

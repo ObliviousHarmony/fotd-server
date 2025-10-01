@@ -1,11 +1,11 @@
 using FluentMigrator.Runner;
 using FOMServer.Master.Application;
-using FOMServer.Master.Application.Accounts;
 using FOMServer.Master.Application.Handlers;
 using FOMServer.Master.Application.Networking;
+using FOMServer.Master.Application.Players;
 using FOMServer.Master.Core;
-using FOMServer.Master.Core.Accounts;
 using FOMServer.Master.Core.Networking;
+using FOMServer.Master.Core.Players;
 using FOMServer.Master.Core.Repositories;
 using FOMServer.Master.Infrastructure.Factories;
 using FOMServer.Master.Infrastructure.Repositories;
@@ -79,7 +79,7 @@ namespace FOMServer.Master
 
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
             services.AddSingleton<IWorldServerService, WorldServerService>();
-            services.AddSingleton<IAccountService, AccountService>();
+            services.AddSingleton<IPlayerService, PlayerService>();
             return services;
         }
 
@@ -99,7 +99,7 @@ namespace FOMServer.Master
 
         private static ServiceCollection AddRepositories(this ServiceCollection services)
         {
-            services.AddSingleton<IAccountRepository, DbAccountRepository>();
+            services.AddSingleton<IPlayerRepository, DbPlayerRepository>();
             services.AddSingleton<ICharacterRepository, DbCharacterRepository>();
             return services;
         }

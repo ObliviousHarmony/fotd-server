@@ -1,5 +1,5 @@
-using FOMServer.Master.Core.Accounts;
 using FOMServer.Master.Core.Networking;
+using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.FOMPacket.Models;
@@ -11,19 +11,19 @@ namespace FOMServer.Master.Application.Handlers
     {
         public override PacketIdentifier PacketID => PacketIdentifier.ID_LOGIN;
 
-        private readonly IAccountService accountService;
+        private readonly IPlayerService playerService;
         private readonly IClientPacketSender packetSender;
 
-        public LoginHandler(IAccountService accountService, IClientPacketSender packetSender)
+        public LoginHandler(IPlayerService playerService, IClientPacketSender packetSender)
         {
-            this.accountService = accountService;
+            this.playerService = playerService;
             this.packetSender = packetSender;
         }
 
         public override void Handle(NetworkAddress sender, in Login data)
         {
-            var account = accountService.Login(data.Username, data.PasswordHash, sender);
-            if (account == null)
+            var player = playerService.Login(data.Username, data.PasswordHash, sender);
+            if (player == null)
                 return;
 
             var response = new LoginReturn()

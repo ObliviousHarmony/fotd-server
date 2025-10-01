@@ -1,14 +1,14 @@
 using FluentMigrator;
 using FOMServer.Master.Extensions;
 
-namespace FOMServer.Master.Infrastructure.Database.Migrations.Account
+namespace FOMServer.Master.Infrastructure.Database.Migrations.Player
 {
-    [Migration(202509271644, "Creates the `account` table.")]
-    public class CreateAccountTable : Migration
+    [Migration(202509271644, "Creates the `player` table.")]
+    public class CreatePlayerTable : Migration
     {
         public override void Up()
         {
-            Create.Table("account")
+            Create.Table("player")
                 .WithColumn("id").AsUnsignedInt().NotNullable().PrimaryKey().Identity()
                 .WithColumn("username").AsString(18).NotNullable().Unique()
                 .WithColumn("password").AsString(32).NotNullable()
@@ -19,7 +19,7 @@ namespace FOMServer.Master.Infrastructure.Database.Migrations.Account
 
         public override void Down()
         {
-            Delete.Table("account");
+            Delete.Table("player");
         }
     }
 }

@@ -1,8 +1,8 @@
 using FOMServer.Shared.Core.FOMPacket.Models;
 
-namespace FOMServer.Master.Core.Accounts
+namespace FOMServer.Master.Core.Players
 {
-    public class Account
+    public class Player
     {
         public NetworkAddress ClientAddress { get; init; }
         public uint ID { get; init; }

@@ -26,7 +26,7 @@ namespace FOMServer.Master.Application.Handlers
 
             var response = new CheckNameReturn
             {
-                ExistingAccountID = existingID ?? 0
+                ExistingPlayerID = existingID ?? 0
             };
             packetSender.Send(
                 PacketIdentifier.ID_CHECK_NAME_RETURN,

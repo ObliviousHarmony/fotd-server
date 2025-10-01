@@ -1,5 +1,5 @@
-using FOMServer.Master.Core.Accounts;
 using FOMServer.Master.Core.Networking;
+using FOMServer.Master.Core.Players;
 using FOMServer.Master.Core.Repositories;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
@@ -13,18 +13,18 @@ namespace FOMServer.Master.Application.Handlers
     {
         public override PacketIdentifier PacketID => PacketIdentifier.ID_LOGIN_REQUEST;
 
-        private readonly IAccountRepository accountRepository;
-        private readonly IAccountService accountService;
+        private readonly IPlayerRepository playerRepository;
+        private readonly IPlayerService playerService;
         private readonly IClientPacketSender packetSender;
 
         public LoginRequestHandler(
-            IAccountRepository accountRepository,
-            IAccountService accountService,
+            IPlayerRepository playerRepository,
+            IPlayerService playerService,
             IClientPacketSender packetSender
         )
         {
-            this.accountService = accountService;
-            this.accountRepository = accountRepository;
+            this.playerService = playerService;
+            this.playerRepository = playerRepository;
             this.packetSender = packetSender;
         }
 
@@ -38,10 +38,10 @@ namespace FOMServer.Master.Application.Handlers
                     response.RawUsername[i] = data.RawUsername[i];
             }
 
-            var accountID = accountRepository.Exists(data.Username);
-            if (accountID == null)
+            var playerID = playerRepository.Exists(data.Username);
+            if (playerID == null)
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_INVALID_INFORMATION;
-            else if (accountService.Get(accountID.Value) != null)
+            else if (playerService.Get(playerID.Value) != null)
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_ALREADY_LOGGED_IN;
             else if (data.ClientVersion != GlobalConstants.CLIENT_VERSION)
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_OUTDATED_CLIENT;

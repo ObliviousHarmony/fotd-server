@@ -9,7 +9,7 @@ namespace FOMServer.Master.Infrastructure.Database.Migrations.Character
         public override void Up()
         {
             Create.Table("character")
-                .WithColumn("id").AsUnsignedInt().NotNullable().PrimaryKey().ForeignKey("fk_character_account", "account", "id")
+                .WithColumn("id").AsUnsignedInt().NotNullable().PrimaryKey().ForeignKey("fk_character_player", "player", "id")
                 .WithColumn("name").AsString(19).NotNullable().Unique()
                 .WithColumn("biography").AsString(510).NotNullable()
                 .WithColumn("faction").AsUnsignedByte().NotNullable()

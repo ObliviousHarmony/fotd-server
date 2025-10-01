@@ -1,4 +1,4 @@
-using FOMServer.Master.Core.Accounts;
+using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.FOMPacket.Models;
@@ -9,12 +9,12 @@ namespace FOMServer.Master.Application.Handlers
 {
     public class DisconnectionHandler : PacketHandler<RakNetPacket>
     {
-        private readonly IAccountService accountService;
+        private readonly IPlayerService playerService;
         private readonly ILogService logService;
 
-        public DisconnectionHandler(IAccountService accountService, ILogService logService)
+        public DisconnectionHandler(IPlayerService playerService, ILogService logService)
         {
-            this.accountService = accountService;
+            this.playerService = playerService;
             this.logService = logService;
         }
 
@@ -22,12 +22,12 @@ namespace FOMServer.Master.Application.Handlers
 
         public override void Handle(NetworkAddress sender, in RakNetPacket data)
         {
-            Account? account = accountService.Get(sender);
-            if (account == null)
+            Player? player = playerService.Get(sender);
+            if (player == null)
                 return;
 
-            if (!accountService.Logout(account))
-                logService.WriteMessage(LogLevel.Critical, $"Account '{account.Username}' could not be logged out on disconnection from {sender}");
+            if (!playerService.Logout(player))
+                logService.WriteMessage(LogLevel.Critical, $"Player '{player.Username}' could not be logged out on disconnection from {sender}");
         }
     }
 }

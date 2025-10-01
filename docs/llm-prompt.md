@@ -164,7 +164,7 @@ classDiagram
 
     +HasAccount(username: string) bool
     +Login(username: string, passwordHash: string) Account?
-    +Logout(accountId: uint) bool
+    +Logout(playerID: uint) bool
     +Get(id: uint) Account?
   }
   class PlayerService {
@@ -196,20 +196,20 @@ classDiagram
     +connectionFactory: ConnectionFactory
 
     +HasAccount(username: string) bool
-    +HasPlayer(accountID: uint) bool
+    +HasPlayer(playerID: uint) bool
     +TryLogin(username: string, passwordHash: string) Account?
-    +Logout(accountId: uint) bool
+    +Logout(playerID: uint) bool
   }
   class PlayerRepository {
     +connectionFactory: ConnectionFactory
 
-    +Load(accountId: uint) Player?
-    +Save(accountId: uint, player: Player) bool
+    +Load(playerID: uint) Player?
+    +Save(playerID: uint, player: Player) bool
   }
   class InventoryRepository {
     +connectionFactory: ConnectionFactory
 
-    +Load(playerId: uint) List<Item>
-    +Save(playerId: uint, items: List<Item>) bool
+    +Load(playerID: uint) List<Item>
+    +Save(playerID: uint, items: List<Item>) bool
   }
 ```

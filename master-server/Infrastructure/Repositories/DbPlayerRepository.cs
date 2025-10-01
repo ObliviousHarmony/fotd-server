@@ -5,11 +5,11 @@ using FOMServer.Shared.Infrastructure.Database;
 
 namespace FOMServer.Master.Infrastructure.Repositories
 {
-    public class DbAccountRepository : IAccountRepository
+    public class DbPlayerRepository : IPlayerRepository
     {
         private IDbConnectionFactory dbConnectionFactory;
 
-        public DbAccountRepository(IDbConnectionFactory dbConnectionFactory)
+        public DbPlayerRepository(IDbConnectionFactory dbConnectionFactory)
         {
             this.dbConnectionFactory = dbConnectionFactory;
         }
@@ -17,42 +17,42 @@ namespace FOMServer.Master.Infrastructure.Repositories
         public uint? Exists(string username)
         {
             using var connection = dbConnectionFactory.Create();
-            var dto = connection.QuerySingleOrDefault<AccountDto>(
-                "SELECT `id`, `username` FROM `account` WHERE `username` = @Username",
+            var dto = connection.QuerySingleOrDefault<PlayerDto>(
+                "SELECT `id`, `username` FROM `player` WHERE `username` = @Username",
                 new { Username = username }
             );
             return dto?.id;
         }
 
-        public AccountDto? TryLogin(string username, string password)
+        public PlayerDto? TryLogin(string username, string password)
         {
             using var connection = dbConnectionFactory.Create();
-            var account = connection.QuerySingleOrDefault<AccountDto>(
-                "SELECT `id`, `username` FROM `account` WHERE `username` = @Username",
+            var player = connection.QuerySingleOrDefault<PlayerDto>(
+                "SELECT `id`, `username` FROM `player` WHERE `username` = @Username",
                 new { Username = username }
             );
-            if (account == null)
+            if (player == null)
                 return null;
 
-            connection.Execute("UPDATE `account` SET `logged_in` = 1 WHERE `id` = @ID", new { ID = account.id });
+            connection.Execute("UPDATE `player` SET `logged_in` = 1 WHERE `id` = @ID", new { ID = player.id });
 
-            return account;
+            return player;
         }
 
         public bool Logout(uint id)
         {
             using var connection = dbConnectionFactory.Create();
             var affected = connection.Execute(
-                "UPDATE `account` SET `logged_in` = 0 WHERE `id` = @ID",
+                "UPDATE `player` SET `logged_in` = 0 WHERE `id` = @ID",
                 new { ID = id }
             );
             return affected > 0;
         }
 
-        public void MarkAllAccountsLoggedOut()
+        public void LogoutAllPlayers()
         {
             using var connection = dbConnectionFactory.Create();
-            connection.Execute("UPDATE `account` SET `logged_in` = 0");
+            connection.Execute("UPDATE `player` SET `logged_in` = 0");
         }
     }
 }

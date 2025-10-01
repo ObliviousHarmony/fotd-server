@@ -11,15 +11,15 @@ namespace FOMServer.Master.Core.Repositories
         uint? Exists(string name);
 
         /// <summary>
-        /// Loads the character for the given account ID.
+        /// Loads the character for the given player ID.
         /// </summary>
-        CharacterDto? Get(uint accountID);
+        CharacterDto? Get(uint playerID);
 
         /// <summary>
-        /// Creates a new character for the given account.
+        /// Creates a new character for the given player.
         /// </summary>
         CharacterDto? Create(
-            uint accountID,
+            uint playerID,
             Faction faction,
             string name,
             string biography,
