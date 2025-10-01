@@ -1,7 +1,7 @@
 using FOMServer.Shared.Core.Enums;
 using System.Runtime.InteropServices;
 
-namespace FOMServer.Shared.Core.Models
+namespace FOMServer.Shared.Core.FOMPacket.Models
 {
     /// <summary>
     /// Represents a world on the world overview map.

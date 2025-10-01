@@ -1,12 +1,13 @@
 #include <fom-network/PacketSerializers.h>
-#include <fom-network/model-serializers/OverviewWorldSerializer.h>
+#include "../model-serializers/OverviewWorldSerializer.h"
 
 namespace FOMNetwork {
 
 void LoginReturnSerializer::WriteData(RakNet::BitStream& bs,
                                       const Packet::LoginReturn& data) const {
   bs.WriteCompressed(data.status);
-  if (data.status != LOGIN_RETURN_SUCCESS) return;
+  if (data.status != FOMNetwork::Packet::LOGIN_RETURN_SUCCESS)
+    return;
 
   auto worldSerializer = OverviewWorldSerializer::GetInstance();
 

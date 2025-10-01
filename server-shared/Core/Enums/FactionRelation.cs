@@ -5,7 +5,7 @@ namespace FOMServer.Shared.Core.Enums
     /// </summary>
     public enum FactionRelation : byte
     {
-        INVALID = 0,
+        INVALID_RELATION = 0,
         ALLY = 1,
         ECONOMIC_ALLY = 2,
         NEUTRAL = 3,

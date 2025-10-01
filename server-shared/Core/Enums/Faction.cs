@@ -5,7 +5,7 @@ namespace FOMServer.Shared.Core.Enums
     /// </summary>
     public enum Faction : byte
     {
-        INVALID = 0,
+        INVALID_FACTION = 0,
         LED = 1,
         FDC = 2,
         GOM = 3,

@@ -18,7 +18,7 @@ enum WorldID : uint8_t {
   PARIS = 7,
   TESTING = 8,
   BERLIN = 9,
-  INVALID = 10,
+  UNUSED_WORLD = 10,
   ANDROMEDA_CITY = 11,
   // NEW_HAVEN = 12,
   // GANYMEDE = 13,
@@ -51,7 +51,7 @@ enum WorldID : uint8_t {
  * The identifiers used for the different factions in the game.
  */
 enum Faction : uint8_t {
-  INVALID = 0,
+  INVALID_FACTION = 0,
   LED = 1,
   FDC = 2,
   GOM = 3,
@@ -69,7 +69,7 @@ enum Faction : uint8_t {
  * The identifiers used for the different faction relations in the game.
  */
 enum FactionRelation : uint8_t {
-  INVALID = 0,
+  INVALID_RELATION = 0,
   ALLY = 1,
   ECONOMIC_ALLY = 2,
   NEUTRAL = 3,
