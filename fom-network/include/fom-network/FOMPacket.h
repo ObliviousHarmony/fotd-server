@@ -1,11 +1,7 @@
 #pragma once
 
 #include <fom-network/PacketIdentifier.h>
-
-// Models
 #include <fom-network/models/NetworkAddress.h>
-
-// Packet Types
 #include <fom-network/packets/CheckName.h>
 #include <fom-network/packets/CheckNameReturn.h>
 #include <fom-network/packets/CreateCharacter.h>

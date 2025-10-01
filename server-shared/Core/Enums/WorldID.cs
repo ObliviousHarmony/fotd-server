@@ -35,5 +35,6 @@ namespace FOMServer.Shared.Core.Enums
         CLONING_FACILITY = 30,
         NYC_GROUND_ZERO = 31,
         TRAINING_CENTER = 32,
+        NUM_WORLDS = 33,
     }
 }

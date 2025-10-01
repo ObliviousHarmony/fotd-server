@@ -1,6 +1,7 @@
 #pragma once
 
 #include <fom-network/Common.h>
+#include <fom-network/models/OverviewWorld.h>
 
 namespace FOMNetwork {
 namespace Packet {
@@ -24,6 +25,13 @@ enum LoginReturnStatus : uint8_t {
 #pragma pack(push, 1)
 struct LoginReturn {
   LoginReturnStatus status;
+  uint32_t accountID;
+  uint8_t accountType;
+  uint16_t clientVersion;
+  uint8_t worldCount;
+  OverviewWorld worldBuffer[NUM_WORLDS];
+  uint32_t onlinePlayers;
+  uint8_t isPrisoner;
 };
 #pragma pack(pop)
 

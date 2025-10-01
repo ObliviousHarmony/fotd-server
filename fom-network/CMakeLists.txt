@@ -28,16 +28,17 @@ set(FOMNETWORK_INC
   "include/fom-network/NetworkAPI.h"
   "include/fom-network/PacketAPI.h"
   "include/fom-network/PacketIdentifier.h"
-  "include/fom-network/WorldID.h"
   "include/fom-network/PacketSerializers.h"
   "include/fom-network/ServerAPI.h"
 
   "src/model-serializers/ModelSerializer.h"
   "src/model-serializers/NetworkAddressSerializer.h"
   "src/model-serializers/AvatarSerializer.h"
+  "src/model-serializers/OverviewWorldSerializer.h"
 
   "include/fom-network/models/NetworkAddress.h"
   "include/fom-network/models/Avatar.h"
+  "include/fom-network/models/OverviewWorld.h"
 
   "include/fom-network/packets/ReadPacketError.h"
   "include/fom-network/packets/LoginRequest.h"

@@ -23,5 +23,12 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
         }
 
         public StatusCode Status;
+        uint accountID;
+        byte accountType;
+        ushort clientVersion;
+        byte worldCount;
+        fixed OverviewWorld worldBuffer[NUM_WORLDS];
+        uint onlinePlayers;
+        byte isPrisoner;
     }
 }

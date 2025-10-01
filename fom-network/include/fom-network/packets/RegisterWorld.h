@@ -1,7 +1,7 @@
 #pragma once
 
 #include <fom-network/Common.h>
-#include <fom-network/WorldID.h>
+#include <fom-network/FOMNetworkEnums.h>
 
 namespace FOMNetwork {
 namespace Packet {

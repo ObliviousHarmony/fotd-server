@@ -1,5 +1,7 @@
 #pragma once
 
+#include <fom-network/models/Avatar.h>
+
 #include "ModelSerializer.h"
 
 namespace FOMNetwork {
