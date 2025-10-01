@@ -13,6 +13,11 @@ namespace FOMServer.Master.Application.Networking
             worldServers = new ConcurrentDictionary<WorldID, WorldServer>();
         }
 
+        public WorldServer[] GetAll()
+        {
+            return worldServers.Values.ToArray();
+        }
+
         public WorldServer? Register(WorldID id, string clientAddress, ushort clientPort)
         {
             if (worldServers.ContainsKey(id))

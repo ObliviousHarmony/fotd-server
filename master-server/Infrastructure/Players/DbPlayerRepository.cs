@@ -1,6 +1,6 @@
 using Dapper;
-using FOMServer.Master.Core.Repositories;
-using FOMServer.Master.Core.Repositories.DTOs;
+using FOMServer.Master.Core.DTOs;
+using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Infrastructure.Database;
 
 namespace FOMServer.Master.Infrastructure.Repositories

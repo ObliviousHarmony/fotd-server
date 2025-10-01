@@ -1,6 +1,6 @@
-using FOMServer.Master.Core.Repositories.DTOs;
+using FOMServer.Master.Core.DTOs;
 
-namespace FOMServer.Master.Core.Repositories
+namespace FOMServer.Master.Core.Players
 {
     public interface IPlayerRepository
     {

@@ -1,7 +1,7 @@
-using FOMServer.Master.Core.Repositories.DTOs;
+using FOMServer.Master.Core.DTOs;
 using FOMServer.Shared.Core.Enums;
 
-namespace FOMServer.Master.Core.Repositories
+namespace FOMServer.Master.Core.Players
 {
     public interface ICharacterRepository
     {

@@ -1,6 +1,6 @@
 using Dapper;
-using FOMServer.Master.Core.Repositories;
-using FOMServer.Master.Core.Repositories.DTOs;
+using FOMServer.Master.Core.DTOs;
+using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Infrastructure.Database;
 using MySqlConnector;

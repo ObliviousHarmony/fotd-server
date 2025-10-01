@@ -1,6 +1,6 @@
 using FOMServer.Shared.Core.Enums;
 
-namespace FOMServer.Master.Core.Repositories.DTOs
+namespace FOMServer.Master.Core.DTOs
 {
     public class CharacterDto
     {
