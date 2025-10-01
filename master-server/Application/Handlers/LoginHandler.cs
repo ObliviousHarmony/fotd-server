@@ -1,3 +1,4 @@
+using FOMServer.Master.Application.FOMPacket;
 using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Core.Enums;
@@ -12,11 +13,13 @@ namespace FOMServer.Master.Application.Handlers
         public override PacketIdentifier PacketID => PacketIdentifier.ID_LOGIN;
 
         private readonly IPlayerService playerService;
+        private readonly ILoginReturnFactory loginReturnFactory;
         private readonly IClientPacketSender packetSender;
 
-        public LoginHandler(IPlayerService playerService, IClientPacketSender packetSender)
+        public LoginHandler(IPlayerService playerService, ILoginReturnFactory loginReturnFactory, IClientPacketSender packetSender)
         {
             this.playerService = playerService;
+            this.loginReturnFactory = loginReturnFactory;
             this.packetSender = packetSender;
         }
 
@@ -26,10 +29,7 @@ namespace FOMServer.Master.Application.Handlers
             if (player == null)
                 return;
 
-            var response = new LoginReturn()
-            {
-                Status = LoginReturn.StatusCode.LOGIN_RETURN_CREATE_CHARACTER,
-            };
+            var response = loginReturnFactory.Create();
 
             packetSender.Send(
                 PacketIdentifier.ID_LOGIN_RETURN,

@@ -1,4 +1,5 @@
 #include <fom-network/PacketSerializers.h>
+
 #include "../model-serializers/OverviewWorldSerializer.h"
 
 namespace FOMNetwork {
@@ -6,8 +7,7 @@ namespace FOMNetwork {
 void LoginReturnSerializer::WriteData(RakNet::BitStream& bs,
                                       const Packet::LoginReturn& data) const {
   bs.WriteCompressed(data.status);
-  if (data.status != FOMNetwork::Packet::LOGIN_RETURN_SUCCESS)
-    return;
+  if (data.status != FOMNetwork::Packet::LOGIN_RETURN_SUCCESS) return;
 
   auto worldSerializer = OverviewWorldSerializer::GetInstance();
 

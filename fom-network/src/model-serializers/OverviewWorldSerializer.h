@@ -1,9 +1,9 @@
 #pragma once
 
 #include <fom-network/models/OverviewWorld.h>
-#include "NetworkAddressSerializer.h"
 
 #include "ModelSerializer.h"
+#include "NetworkAddressSerializer.h"
 
 namespace FOMNetwork {
 
@@ -30,6 +30,5 @@ class OverviewWorldSerializer
     return true;
   }
 };
-
 
 }  // namespace FOMNetwork
