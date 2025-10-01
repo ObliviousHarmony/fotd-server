@@ -8,11 +8,11 @@ namespace FOMServer.Shared.Core.Enums
     ///
     /// For each new packet added:
     ///
-    /// - Core/Models/FOMData/<PacketType>.cs: Add a new struct representing the packet data.
-    /// - Core/Models/FOMData/FOMDataUnion.cs: Add a new field to the union.
+    /// - Core/FOMPacket/Data/<PacketType>.cs: Add a new struct representing the packet data.
+    /// - Core/FOMPacket/FOMDataUnion.cs: Add a new field to the union.
     /// - Extensions/FOMPacketExtensions.cs: Add a new case to the GetData method.
-    /// - Infrastructure/FOMNetwork/NetworkService.cs: Add to validation map.
-    /// - Server-Specific or Shared: Application/PacketHandlers/<PacketType>Handler.cs: Create a packet handler.
+    /// - Infrastructure/Networking/NetworkService.cs: Add to validation map.
+    /// - Server-Specific or Shared: Application/Handlers/<PacketType>Handler.cs: Create a packet handler.
     /// - Server-Specific: CompositionRoot.cs: Register the packet handler with DI.
     ///
     /// </remarks>

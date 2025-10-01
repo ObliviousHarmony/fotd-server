@@ -1,12 +1,12 @@
-using FOMServer.World.Application.Networking;
-using FOMServer.World.Core.Models;
-using FOMServer.Shared.Application.Networking;
-using FOMServer.Shared.Application.PacketHandlers;
-using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Infrastructure.FOMNetwork;
-using FOMServer.Shared.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
-using FOMServer.Shared.Core.Models.FOMData;
+using FOMServer.Shared.Core.Logging;
+using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Application.Networking;
+using FOMServer.Shared.Core.Networking;
+using FOMServer.World.Application.Networking;
+using FOMServer.World.Core;
+using FOMServer.Shared.Core.FOMPacket.Data;
 
 namespace FOMServer.World.Application
 {
@@ -100,7 +100,7 @@ namespace FOMServer.World.Application
         private NetworkManager? ConnectToMasterNetwork(PacketProcessor packetProcessor)
         {
             var peer = clientService.Connect(serverSettings.MasterServerAddress, serverSettings.MasterServerPort);
-            if (peer == IntPtr.Zero)
+            if (peer == nint.Zero)
                 return null;
 
             var networkManager = new NetworkManager(
@@ -137,7 +137,7 @@ namespace FOMServer.World.Application
         private NetworkManager? CreateClientNetwork(PacketProcessor packetProcessor)
         {
             var peer = serverService.Startup(serverSettings.ClientPort);
-            if (peer == IntPtr.Zero)
+            if (peer == nint.Zero)
                 return null;
 
             var networkManager = new NetworkManager(

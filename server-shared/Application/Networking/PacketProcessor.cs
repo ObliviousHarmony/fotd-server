@@ -1,7 +1,7 @@
-using FOMServer.Shared.Application.PacketHandlers;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Models;
-using FOMServer.Shared.Infrastructure.Services;
+using FOMServer.Shared.Core.FOMPacket;
+using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Core.Logging;
 using System.Threading.Channels;
 
 namespace FOMServer.Shared.Application.Networking
@@ -16,7 +16,7 @@ namespace FOMServer.Shared.Application.Networking
     {
         private readonly ILogService logService;
         private readonly Dictionary<PacketIdentifier, IPacketHandler> handlers;
-        private readonly Channel<FOMPacket> packetQueue;
+        private readonly Channel<Packet> packetQueue;
         private readonly List<Task> workers = [];
 
         private CancellationTokenSource? cts;
@@ -26,7 +26,7 @@ namespace FOMServer.Shared.Application.Networking
             this.logService = logService;
             this.handlers = handlers.ToDictionary(h => h.PacketID);
 
-            packetQueue = Channel.CreateUnbounded<FOMPacket>(
+            packetQueue = Channel.CreateUnbounded<Packet>(
                 new UnboundedChannelOptions
                 {
                     SingleReader = false,
@@ -38,7 +38,7 @@ namespace FOMServer.Shared.Application.Networking
         /// <summary>
         /// Enqueue a packet for processing.
         /// </summary>
-        public void Enqueue(in FOMPacket packet)
+        public void Enqueue(in Packet packet)
         {
             packetQueue.Writer.TryWrite(packet);
         }
@@ -99,7 +99,7 @@ namespace FOMServer.Shared.Application.Networking
         {
             while (!ct.IsCancellationRequested)
             {
-                FOMPacket packet;
+                Packet packet;
 
                 try
                 {
@@ -130,7 +130,7 @@ namespace FOMServer.Shared.Application.Networking
         /// <summary>
         /// When a packet has no handler defined, this function will be called so it can be dealt with.
         /// </summary>
-        private void OnUnhandledPacket(FOMPacket packet)
+        private void OnUnhandledPacket(Packet packet)
         {
             // Any unhandled internal packets should be ignored.
             if (packet.ID < PacketIdentifier.ID_FOM_PACKET_START)

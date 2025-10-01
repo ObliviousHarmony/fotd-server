@@ -64,11 +64,11 @@ Shared
 
 - Networking Thread
   - RakNet _requires_ that its functions be called on the same thread. As a result, packet sending and receiving need to take
-    place on the same thread. Received packets are dropped into a bounded `Channel<FOMPacket>`. Packets to be sent are placed in an
-    unbounded `Channel<FOMPacket>` by other threads and sent out. Both of these `Channel` instances belong to the networking
+    place on the same thread. Received packets are dropped into a bounded `Channel<Packet>`. Packets to be sent are placed in an
+    unbounded `Channel<Packet>` by other threads and sent out. Both of these `Channel` instances belong to the networking
     thread and are read/written to by other threads.
 - Packet Handler Threads
-  - Deserialized packets are read from the networking thread's `Channel<FOMPacket>` and handled. This lets us maximize
+  - Deserialized packets are read from the networking thread's `Channel<Packet>` and handled. This lets us maximize
     the number of concurrent player packets we are processing to maximize throughput. One limitation of this approach is that
     packets may be processed out of order, however, the only non-atomic action is the player movement update packet. This can be addressed
     with a timestamp that ignores packets with older updates. I considered per-player channels and the like but the affected

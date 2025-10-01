@@ -1,15 +1,17 @@
 using FluentMigrator.Runner;
 using FOMServer.Master.Application;
+using FOMServer.Master.Application.Accounts;
+using FOMServer.Master.Application.Handlers;
 using FOMServer.Master.Application.Networking;
-using FOMServer.Master.Application.PacketHandlers;
-using FOMServer.Master.Application.Services;
-using FOMServer.Master.Core.Interfaces;
-using FOMServer.Master.Core.Models;
+using FOMServer.Master.Core;
+using FOMServer.Master.Core.Accounts;
+using FOMServer.Master.Core.Networking;
+using FOMServer.Master.Core.Repositories;
 using FOMServer.Master.Infrastructure.Factories;
 using FOMServer.Master.Infrastructure.Repositories;
-using FOMServer.Shared.Application.PacketHandlers;
+using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Extensions;
-using FOMServer.Shared.Infrastructure.Factories;
+using FOMServer.Shared.Infrastructure.Database;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

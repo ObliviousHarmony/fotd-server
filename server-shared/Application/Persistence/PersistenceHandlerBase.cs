@@ -1,4 +1,4 @@
-using FOMServer.Shared.Core.Interfaces;
+using FOMServer.Shared.Core.Persistence;
 
 namespace FOMServer.Shared.Application.Persistence
 {

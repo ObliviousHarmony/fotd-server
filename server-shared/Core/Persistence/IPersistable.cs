@@ -1,0 +1,13 @@
+namespace FOMServer.Shared.Core.Persistence
+{
+    /// <summary>
+    /// Marks a domain entity as persistable.
+    /// </summary>
+    public interface IPersistable
+    {
+        /// <summary>
+        /// Raised when the object’s state changes and requires persistence.
+        /// </summary>
+        event Action<IPersistable> OnChanged;
+    }
+}

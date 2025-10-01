@@ -1,5 +1,5 @@
-using FOMServer.Shared.Core.Interfaces;
-using FOMServer.Shared.Infrastructure.Services;
+using FOMServer.Shared.Core.Logging;
+using FOMServer.Shared.Core.Persistence;
 using System.Runtime.CompilerServices;
 using System.Threading.Channels;
 
@@ -27,9 +27,9 @@ namespace FOMServer.Shared.Application.Persistence
         {
             this.logService = logService;
             this.handlers = handlers.ToDictionary(h => h.EntityType);
-            this.dirtyQueue = Channel.CreateUnbounded<IPersistable>();
-            this.dirtyFlags = new ConditionalWeakTable<IPersistable, DirtyFlag>();
-            this.entityLocks = new ConditionalWeakTable<IPersistable, SemaphoreSlim>();
+            dirtyQueue = Channel.CreateUnbounded<IPersistable>();
+            dirtyFlags = new ConditionalWeakTable<IPersistable, DirtyFlag>();
+            entityLocks = new ConditionalWeakTable<IPersistable, SemaphoreSlim>();
         }
 
         public void Register(IPersistable entity)

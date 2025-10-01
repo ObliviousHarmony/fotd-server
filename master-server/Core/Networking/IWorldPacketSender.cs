@@ -1,0 +1,19 @@
+using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.FOMPacket.Data;
+using FOMServer.Shared.Core.FOMPacket.Models;
+
+namespace FOMServer.Master.Core.Networking
+{
+    public interface IWorldPacketSender
+    {
+        /// <summary>
+        /// Sends a packet over the network.
+        /// </summary>
+        void Send(PacketIdentifier id, FOMDataUnion data, NetworkAddress destination, PacketPriority priority, PacketReliability reliability, byte orderingChannel = 0);
+
+        /// <summary>
+        /// Broadcast a packet to all connected clients.
+        /// </summary>
+        void Broadcast(PacketIdentifier id, FOMDataUnion data, NetworkAddress excludedAddress, PacketPriority priority, PacketReliability reliability, byte orderingChannel = 0);
+    }
+}

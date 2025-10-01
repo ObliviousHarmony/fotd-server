@@ -1,8 +1,8 @@
 using Dapper;
-using FOMServer.Master.Core.DTOs;
-using FOMServer.Master.Core.Interfaces;
+using FOMServer.Master.Core.Repositories;
+using FOMServer.Master.Core.Repositories.DTOs;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Infrastructure.Factories;
+using FOMServer.Shared.Infrastructure.Database;
 using MySqlConnector;
 
 namespace FOMServer.Master.Infrastructure.Repositories

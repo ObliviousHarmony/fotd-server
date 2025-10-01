@@ -1,6 +1,6 @@
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Models;
-using FOMServer.Shared.Core.Models.FOMData;
+using FOMServer.Shared.Core.FOMPacket;
+using FOMServer.Shared.Core.FOMPacket.Data;
 
 namespace FOMServer.Shared.Extensions
 {
@@ -9,7 +9,7 @@ namespace FOMServer.Shared.Extensions
         /// <summary>
         /// Extracts strongly typed data from the packet and validates the ID.
         /// </summary>
-        public static TPacket GetData<TPacket>(this FOMPacket packet)
+        public static TPacket GetData<TPacket>(this Packet packet)
         {
             switch (packet.ID)
             {

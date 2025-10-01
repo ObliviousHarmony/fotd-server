@@ -1,8 +1,8 @@
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Models;
-using FOMServer.Shared.Core.Models.FOMData;
-using FOMServer.Shared.Infrastructure.FOMNetwork;
-using FOMServer.Shared.Infrastructure.Services;
+using FOMServer.Shared.Core.FOMPacket.Data;
+using FOMServer.Shared.Core.FOMPacket.Models;
+using FOMServer.Shared.Core.Logging;
+using FOMServer.Shared.Core.Networking;
 using System.Threading.Channels;
 
 namespace FOMServer.Shared.Application.Networking
@@ -37,8 +37,8 @@ namespace FOMServer.Shared.Application.Networking
         /// </remarks>
         private readonly SendPacket[] sendBuffer = new SendPacket[IPacketService.MaxBufferedPackets];
 
-        private IntPtr peer;
-        private Action<IntPtr>? peerShutdown;
+        private nint peer;
+        private Action<nint>? peerShutdown;
         private readonly ILogService logService;
         private readonly IPacketService packetService;
         private readonly PacketProcessor packetProcessor;
@@ -53,15 +53,15 @@ namespace FOMServer.Shared.Application.Networking
             PacketProcessor packetProcessor
         )
         {
-            this.peer = IntPtr.Zero;
-            this.peerShutdown = null;
+            peer = nint.Zero;
+            peerShutdown = null;
             this.logService = logService;
             this.packetService = packetService;
             this.packetProcessor = packetProcessor;
-            this.claimedPacketIDs = new HashSet<PacketIdentifier>();
+            claimedPacketIDs = new HashSet<PacketIdentifier>();
 
             // Single writer, single reader channel is fine here
-            this.sendQueue = Channel.CreateUnbounded<SendPacket>(new UnboundedChannelOptions
+            sendQueue = Channel.CreateUnbounded<SendPacket>(new UnboundedChannelOptions
             {
                 SingleReader = true,
                 SingleWriter = false
@@ -86,9 +86,9 @@ namespace FOMServer.Shared.Application.Networking
         /// <summary>
         /// Configures the network manager with the necessary parameters.
         /// </summary>
-        public void Configure(IntPtr peer, Action<IntPtr> peerShutdown)
+        public void Configure(nint peer, Action<nint> peerShutdown)
         {
-            if (this.peer != IntPtr.Zero)
+            if (this.peer != nint.Zero)
                 throw new InvalidOperationException("Peer is already configured.");
 
             this.peer = peer;
@@ -100,7 +100,7 @@ namespace FOMServer.Shared.Application.Networking
         /// </summary>
         public void Start(CancellationToken parentToken)
         {
-            if (peer == IntPtr.Zero)
+            if (peer == nint.Zero)
                 throw new InvalidOperationException("Peer must be configured.");
 
             if (networkTask != null)
@@ -193,7 +193,7 @@ namespace FOMServer.Shared.Application.Networking
             byte orderingChannel = 0
         )
         {
-            if (peer == IntPtr.Zero)
+            if (peer == nint.Zero)
                 throw new InvalidOperationException("Peer is not configured.");
 
             var packet = new SendPacket
@@ -219,7 +219,7 @@ namespace FOMServer.Shared.Application.Networking
             byte orderingChannel = 0
         )
         {
-            if (peer == IntPtr.Zero)
+            if (peer == nint.Zero)
                 throw new InvalidOperationException("Peer is not configured.");
 
             var packet = new SendPacket
@@ -240,15 +240,15 @@ namespace FOMServer.Shared.Application.Networking
         {
             StopAsync().GetAwaiter().GetResult();
 
-            if (peerShutdown != null && peer != IntPtr.Zero)
+            if (peerShutdown != null && peer != nint.Zero)
             {
                 peerShutdown(peer);
                 peerShutdown = null;
             }
 
-            if (peer != IntPtr.Zero)
+            if (peer != nint.Zero)
             {
-                peer = IntPtr.Zero;
+                peer = nint.Zero;
             }
 
             GC.SuppressFinalize(this);

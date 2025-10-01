@@ -121,7 +121,7 @@ std::unordered_map<uint8_t, uint32_t> libraryMap = {
 ## [ServerShared](../server-shared/Core/Enums/PacketIdentifier.cs)
 
 - [ ] **Packet Data**: Each native packet data struct requires a mirror copy [in the
-  shared server class library](../server-shared/Core/Models/FOMData).
+  shared server class library](../server-shared/Core/FOMPacket/Data).
 
 > [!CAUTION]
 > Both the data types and field order must be identical!
@@ -129,7 +129,7 @@ std::unordered_map<uint8_t, uint32_t> libraryMap = {
 ```csharp
 using System.Runtime.InteropServices;
 
-namespace FOMServer.Shared.Core.Models.FOMData
+namespace FOMServer.Shared.Core.FOMPacket.Data
 {
     // This attribute ensures that the field layout is not changed.
     // Note that the "Pack = 1" option mirrors the
@@ -145,7 +145,7 @@ namespace FOMServer.Shared.Core.Models.FOMData
 ```
 
 - [ ] **Data Union**: Each packet type must be added to
-  [the managed struct data union](../server-shared/Core/Models/FOMData/FOMDataUnion.cs).
+  [the managed struct data union](../server-shared/Core/FOMPacket/FOMDataUnion.cs).
 
 ```csharp
 // .NET does not really support unions but we can replicate the behavior by
@@ -172,7 +172,7 @@ switch (packet.ID)
 ```
 
 - [ ] **Interop Struct Validation**: Before the server will be able to start, the new packet data struct must
-  be added to [the managed validation map](../server-shared/Infrastructure/FOMNetwork/NetworkService.cs).
+  be added to [the managed validation map](../server-shared/Infrastructure/Networking/NetworkService.cs).
 
 ```csharp
 {
@@ -187,14 +187,14 @@ Although all of the packets are defined in the shared class library, each type w
 bye one of the server types. Each packet handler is defined in their respective server projects.
 
 - [ ] **Packet Handler**: Each handler should be created in their own
-  `Application/PacketHandlers/<PacketType>Handler.cs` file.
+  `Application/Handlers/<PacketType>Handler.cs` file.
 
 ```csharp
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
 using FOMServer.Shared.Core.Models.FOMData;
 
-namespace FOMServer.Shared.Application.PacketHandlers
+namespace FOMServer.Shared.Application.Handlers
 {
     public class ExamplePacketHandler : PacketHandler<ReadPacketError>
     {

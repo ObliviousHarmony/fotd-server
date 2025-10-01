@@ -1,7 +1,7 @@
 using Dapper;
-using FOMServer.Master.Core.DTOs;
-using FOMServer.Master.Core.Interfaces;
-using FOMServer.Shared.Infrastructure.Factories;
+using FOMServer.Master.Core.Repositories;
+using FOMServer.Master.Core.Repositories.DTOs;
+using FOMServer.Shared.Infrastructure.Database;
 
 namespace FOMServer.Master.Infrastructure.Repositories
 {

@@ -1,0 +1,31 @@
+using FOMServer.Shared.Core.FOMPacket;
+
+namespace FOMServer.Shared.Core.Networking
+{
+    public interface IPacketService
+    {
+        /// <summary>
+        /// The maximum number of packets that can be buffered at once.
+        /// </summary>
+        /// <remarks>
+        /// Must match `fom-network/src/PacketAPI.cpp` MaxBufferedPackets.
+        /// </remarks>
+        public const int MaxBufferedPackets = 256;
+
+        /// <summary>
+        /// Polls the network interface for packets, parses them, and returns them in a memory buffer.
+        /// </summary>
+        /// <remarks>
+        /// By returning a buffer we can avoid allocating new memory for the packets to be stored
+        /// in after parsing. The returned buffer must NEVER be used after the next call to
+        /// Receive, as it will be overwritten.
+        /// </remarks>
+        /// <returns>The buffer containing the received packets.</returns>
+        Span<Packet> Receive(nint peer);
+
+        /// <summary>
+        /// Sends packets to the specified destinations.
+        /// </summary>
+        void Send(nint peer, Span<SendPacket> packets);
+    }
+}
