@@ -9,10 +9,10 @@ namespace FOMServer.Shared.Core.Models
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct OverviewWorld
     {
-        WorldID ID;
-        NetworkAddress Address;
-        ushort PlayerCount;
-        Faction ControllingFaction;
-        FactionRelation ControllingFactionRelation;
+        public WorldID ID;
+        public NetworkAddress Address;
+        public ushort PlayerCount;
+        public Faction ControllingFaction;
+        public FactionRelation ControllingFactionRelation;
     }
 }

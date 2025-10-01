@@ -28,7 +28,7 @@ struct LoginReturn {
   uint32_t accountID;
   uint8_t accountType;
   uint16_t clientVersion;
-  uint8_t worldCount;
+  uint8_t numWorlds;
   OverviewWorld worldBuffer[NUM_WORLDS];
   uint32_t onlinePlayers;
   uint8_t isPrisoner;

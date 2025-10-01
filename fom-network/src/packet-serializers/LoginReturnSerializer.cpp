@@ -17,8 +17,8 @@ void LoginReturnSerializer::WriteData(RakNet::BitStream& bs,
   bs.Write0();                     // Temp Banned Flag
   bs.Write0();                     // Unknown Flag
   bs.WriteCompressed((uint8_t)0);  // Unknown Byte
-  bs.WriteCompressed(data.worldCount);
-  for (size_t i = 0; i < data.worldCount && i < NUM_WORLDS; i++)
+  bs.WriteCompressed(data.numWorlds);
+  for (size_t i = 0; i < data.numWorlds && i < NUM_WORLDS; i++)
     worldSerializer.Write(bs, data.worldBuffer[i]);
   bs.WriteCompressed(data.onlinePlayers);
   bs.Write0();                     // Show Training Grounds
