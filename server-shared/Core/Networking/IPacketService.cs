@@ -21,11 +21,11 @@ namespace FOMServer.Shared.Core.Networking
         /// Receive, as it will be overwritten.
         /// </remarks>
         /// <returns>The buffer containing the received packets.</returns>
-        Span<Packet> Receive(nint peer);
+        Span<Packet> Receive(IntPtr peer);
 
         /// <summary>
         /// Sends packets to the specified destinations.
         /// </summary>
-        void Send(nint peer, Span<SendPacket> packets);
+        void Send(IntPtr peer, Span<SendPacket> packets);
     }
 }

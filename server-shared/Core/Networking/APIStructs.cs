@@ -28,7 +28,7 @@ namespace FOMServer.Shared.Core.Networking
     public struct ReceivedPackets
     {
         // Must match the struct in `fom-network/include/fom-network/PacketAPI.h`
-        public nint Packets;
+        public IntPtr Packets;
         public int Count;
     }
 

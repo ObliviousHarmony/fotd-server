@@ -125,7 +125,7 @@ namespace FOMServer.Master.Application
         private NetworkManager? CreateWorldServerNetwork(PacketProcessor packetProcessor)
         {
             var peer = serverService.Startup(serverSettings.WorldPort);
-            if (peer == nint.Zero)
+            if (peer == IntPtr.Zero)
                 return null;
 
             var networkManager = new NetworkManager(
@@ -148,7 +148,7 @@ namespace FOMServer.Master.Application
         private NetworkManager? CreateClientNetwork(PacketProcessor packetProcessor)
         {
             var peer = serverService.Startup(serverSettings.ClientPort);
-            if (peer == nint.Zero)
+            if (peer == IntPtr.Zero)
                 return null;
 
             var networkManager = new NetworkManager(

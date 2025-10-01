@@ -37,8 +37,8 @@ namespace FOMServer.Shared.Application.Networking
         /// </remarks>
         private readonly SendPacket[] sendBuffer = new SendPacket[IPacketService.MaxBufferedPackets];
 
-        private nint peer;
-        private Action<nint>? peerShutdown;
+        private IntPtr peer;
+        private Action<IntPtr>? peerShutdown;
         private readonly ILogService logService;
         private readonly IPacketService packetService;
         private readonly PacketProcessor packetProcessor;
@@ -53,7 +53,7 @@ namespace FOMServer.Shared.Application.Networking
             PacketProcessor packetProcessor
         )
         {
-            peer = nint.Zero;
+            peer = IntPtr.Zero;
             peerShutdown = null;
             this.logService = logService;
             this.packetService = packetService;
@@ -86,9 +86,9 @@ namespace FOMServer.Shared.Application.Networking
         /// <summary>
         /// Configures the network manager with the necessary parameters.
         /// </summary>
-        public void Configure(nint peer, Action<nint> peerShutdown)
+        public void Configure(IntPtr peer, Action<IntPtr> peerShutdown)
         {
-            if (this.peer != nint.Zero)
+            if (this.peer != IntPtr.Zero)
                 throw new InvalidOperationException("Peer is already configured.");
 
             this.peer = peer;
@@ -100,7 +100,7 @@ namespace FOMServer.Shared.Application.Networking
         /// </summary>
         public void Start(CancellationToken parentToken)
         {
-            if (peer == nint.Zero)
+            if (peer == IntPtr.Zero)
                 throw new InvalidOperationException("Peer must be configured.");
 
             if (networkTask != null)
@@ -193,7 +193,7 @@ namespace FOMServer.Shared.Application.Networking
             byte orderingChannel = 0
         )
         {
-            if (peer == nint.Zero)
+            if (peer == IntPtr.Zero)
                 throw new InvalidOperationException("Peer is not configured.");
 
             var packet = new SendPacket
@@ -219,7 +219,7 @@ namespace FOMServer.Shared.Application.Networking
             byte orderingChannel = 0
         )
         {
-            if (peer == nint.Zero)
+            if (peer == IntPtr.Zero)
                 throw new InvalidOperationException("Peer is not configured.");
 
             var packet = new SendPacket
@@ -240,15 +240,15 @@ namespace FOMServer.Shared.Application.Networking
         {
             StopAsync().GetAwaiter().GetResult();
 
-            if (peerShutdown != null && peer != nint.Zero)
+            if (peerShutdown != null && peer != IntPtr.Zero)
             {
                 peerShutdown(peer);
                 peerShutdown = null;
             }
 
-            if (peer != nint.Zero)
+            if (peer != IntPtr.Zero)
             {
-                peer = nint.Zero;
+                peer = IntPtr.Zero;
             }
 
             GC.SuppressFinalize(this);
