@@ -1,6 +1,7 @@
 #pragma once
 
 #include <fom-network/Common.h>
+#include <fom-network/models/Apartment.h>
 #include <fom-network/models/OverviewWorld.h>
 
 namespace FOMNetwork {
@@ -27,11 +28,14 @@ struct LoginReturn {
   LoginReturnStatus status;
   uint32_t playerID;
   uint8_t accountType;
+  uint8_t isVolunteer;
   uint16_t clientVersion;
   uint8_t numWorlds;
   OverviewWorld worldBuffer[NUM_WORLDS];
   uint32_t onlinePlayers;
+  uint32_t onlineNewPlayers;
   uint8_t isPrisoner;
+  Apartment defaultApartment;
 };
 #pragma pack(pop)
 

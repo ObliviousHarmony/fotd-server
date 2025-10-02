@@ -1,6 +1,4 @@
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket.Models;
 
 namespace FOMServer.Shared.Core.FOMPacket.Data
@@ -8,12 +6,6 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct LoginReturn
     {
-        [InlineArray((int)WorldID.NUM_WORLDS)]
-        public struct OverviewWorldArray
-        {
-            public OverviewWorld OverviewWorld;
-        }
-
         public enum StatusCode : byte
         {
             LOGIN_RETURN_INVALID_LOGIN,
@@ -34,11 +26,20 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
         public StatusCode Status;
         public uint PlayerID;
         public byte AccountType;
+        public byte RawIsVolunteer;
         public ushort ClientVersion;
         public byte NumWorlds;
-        public OverviewWorldArray WorldBuffer;
+        public OverviewWorld.Buffer WorldBuffer;
         public uint OnlinePlayers;
+        public uint OnlineNewPlayers;
         public byte RawIsPrisoner;
+        public Apartment DefaultApartment;
+
+        public bool IsVolunteer
+        {
+            get => RawIsVolunteer != 0;
+            set => RawIsVolunteer = (byte)(value ? 1 : 0);
+        }
 
         public bool IsPrisoner
         {

@@ -33,8 +33,10 @@ namespace FOMServer.Master.Application.FOMPacket
                 Status = StatusCode.LOGIN_RETURN_SUCCESS,
                 PlayerID = player.ID,
                 AccountType = 3,
+                IsVolunteer = false,
                 ClientVersion = GlobalConstants.ClientVersion,
                 OnlinePlayers = 0,
+                OnlineNewPlayers = 0,
                 IsPrisoner = false,
             };
 
