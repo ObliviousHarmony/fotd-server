@@ -4,14 +4,9 @@
 
 namespace FOMNetwork {
 
-template <typename Derived, typename Model>
+template <typename Model>
 class ModelSerializer : protected BaseSerializer {
  public:
-  static Derived& GetInstance() {
-    static Derived s;
-    return s;
-  }
-
   virtual void Write(RakNet::BitStream& bs, const Model& model) const = 0;
   virtual bool Read(RakNet::BitStream& bs, Model& model) const = 0;
 };

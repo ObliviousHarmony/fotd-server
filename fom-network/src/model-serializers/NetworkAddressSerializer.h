@@ -7,7 +7,7 @@
 namespace FOMNetwork {
 
 class NetworkAddressSerializer
-    : public ModelSerializer<NetworkAddressSerializer, NetworkAddress> {
+    : public ModelSerializer<NetworkAddress> {
  public:
   void Write(RakNet::BitStream& bs,
              const NetworkAddress& model) const override {

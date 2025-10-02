@@ -6,7 +6,7 @@ namespace FOMNetwork {
 
 Packet::CreateCharacter CreateCharacterSerializer::ReadData(
     RakNet::BitStream& bs) const {
-  auto avatarSerializer = AvatarSerializer::GetInstance();
+  AvatarSerializer avatarSerializer;
 
   Packet::CreateCharacter data{};
   bs.ReadCompressed(data.playerID);

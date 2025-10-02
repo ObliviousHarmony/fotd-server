@@ -9,11 +9,11 @@
 namespace FOMNetwork {
 
 class WorldOverviewSerializer
-    : public ModelSerializer<WorldOverviewSerializer, WorldOverview> {
+    : public ModelSerializer<WorldOverview> {
  public:
   void Write(RakNet::BitStream& bs, const WorldOverview& model) const override {
-    auto addressSerializer = NetworkAddressSerializer::GetInstance();
-    auto apartmentSerializer = ApartmentSerializer::GetInstance();
+    NetworkAddressSerializer addressSerializer;
+    ApartmentSerializer apartmentSerializer;
 
     bs.WriteCompressed(model.numWorlds);
     for (size_t i = 0; i < model.numWorlds && i < NUM_WORLDS; i++) {
@@ -35,8 +35,8 @@ class WorldOverviewSerializer
     apartmentSerializer.Write(bs, model.defaultApartment);
   }
   bool Read(RakNet::BitStream& bs, WorldOverview& model) const override {
-    auto addressSerializer = NetworkAddressSerializer::GetInstance();
-    auto apartmentSerializer = ApartmentSerializer::GetInstance();
+    NetworkAddressSerializer addressSerializer;
+    ApartmentSerializer apartmentSerializer;
 
     bs.ReadCompressed(model.numWorlds);
     for (size_t i = 0; i < model.numWorlds && i < NUM_WORLDS; i++) {

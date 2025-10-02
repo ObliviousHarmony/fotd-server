@@ -6,7 +6,7 @@
 
 namespace FOMNetwork {
 
-class AvatarSerializer : public ModelSerializer<AvatarSerializer, Avatar> {
+class AvatarSerializer : public ModelSerializer<Avatar> {
  public:
   void Write(RakNet::BitStream& bs, const Avatar& model) const override {
     WriteBits(bs, model.sex, 1);

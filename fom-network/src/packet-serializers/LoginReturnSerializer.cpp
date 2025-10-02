@@ -9,7 +9,7 @@ namespace FOMNetwork {
 
 void LoginReturnSerializer::WriteData(RakNet::BitStream& bs,
                                       const Packet::LoginReturn& data) const {
-  auto overviewSerializer = WorldOverviewSerializer::GetInstance();
+  WorldOverviewSerializer overviewSerializer;
 
   bs.WriteCompressed(data.status);
   if (data.status != FOMNetwork::Packet::LOGIN_RETURN_SUCCESS &&

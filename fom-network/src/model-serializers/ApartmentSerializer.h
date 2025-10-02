@@ -7,7 +7,7 @@
 namespace FOMNetwork {
 
 class ApartmentSerializer
-    : public ModelSerializer<ApartmentSerializer, Apartment> {
+    : public ModelSerializer<Apartment> {
  public:
   void Write(RakNet::BitStream& bs, const Apartment& model) const override {
     bs.WriteCompressed(model.id);
