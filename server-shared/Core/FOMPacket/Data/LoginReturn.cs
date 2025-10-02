@@ -28,23 +28,12 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
         public byte AccountType;
         public byte RawIsVolunteer;
         public ushort ClientVersion;
-        public byte NumWorlds;
-        public OverviewWorld.Buffer WorldBuffer;
-        public uint OnlinePlayers;
-        public uint OnlineNewPlayers;
-        public byte RawIsPrisoner;
-        public Apartment DefaultApartment;
+        public WorldOverview WorldOverview;
 
         public bool IsVolunteer
         {
             get => RawIsVolunteer != 0;
             set => RawIsVolunteer = (byte)(value ? 1 : 0);
-        }
-
-        public bool IsPrisoner
-        {
-            get => RawIsPrisoner != 0;
-            set => RawIsPrisoner = (byte)(value ? 1 : 0);
         }
     }
 }

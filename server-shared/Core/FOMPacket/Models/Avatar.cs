@@ -3,9 +3,6 @@ using System.Runtime.InteropServices;
 
 namespace FOMServer.Shared.Core.FOMPacket.Models
 {
-    /// <summary>
-    /// Represents a character avatar.
-    /// </summary>
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct Avatar
     {

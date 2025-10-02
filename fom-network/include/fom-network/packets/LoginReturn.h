@@ -2,7 +2,7 @@
 
 #include <fom-network/Common.h>
 #include <fom-network/models/Apartment.h>
-#include <fom-network/models/OverviewWorld.h>
+#include <fom-network/models/WorldOverview.h>
 
 namespace FOMNetwork {
 namespace Packet {
@@ -30,12 +30,7 @@ struct LoginReturn {
   uint8_t accountType;
   uint8_t isVolunteer;
   uint16_t clientVersion;
-  uint8_t numWorlds;
-  OverviewWorld worldBuffer[NUM_WORLDS];
-  uint32_t onlinePlayers;
-  uint32_t onlineNewPlayers;
-  uint8_t isPrisoner;
-  Apartment defaultApartment;
+  WorldOverview worldOverview;
 };
 #pragma pack(pop)
 

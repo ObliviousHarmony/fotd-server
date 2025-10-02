@@ -34,13 +34,13 @@ set(FOMNETWORK_INC
   "src/model-serializers/ModelSerializer.h"
   "src/model-serializers/NetworkAddressSerializer.h"
   "src/model-serializers/AvatarSerializer.h"
-  "src/model-serializers/OverviewWorldSerializer.h"
   "src/model-serializers/ApartmentSerializer.h"
+  "src/model-serializers/WorldOverviewSerializer.h"
 
   "include/fom-network/models/NetworkAddress.h"
   "include/fom-network/models/Avatar.h"
-  "include/fom-network/models/OverviewWorld.h"
   "include/fom-network/models/Apartment.h"
+  "include/fom-network/models/WorldOverview.h"
 
   "include/fom-network/packets/ReadPacketError.h"
   "include/fom-network/packets/LoginRequest.h"

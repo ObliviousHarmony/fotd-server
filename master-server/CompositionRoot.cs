@@ -91,7 +91,7 @@ namespace FOMServer.Master
         private static ServiceCollection AddFactories(this ServiceCollection services)
         {
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
-            services.AddSingleton<ILoginReturnFactory, LoginReturnFactory>();
+            services.AddSingleton<IWorldOverviewFactory, WorldOverviewFactory>();
             return services;
         }
 
