@@ -29,7 +29,7 @@ namespace FOMServer.Master.Application.Handlers
             if (player == null)
                 return;
 
-            var response = loginReturnFactory.Create();
+            var response = loginReturnFactory.Create(player);
 
             packetSender.Send(
                 PacketIdentifier.ID_LOGIN_RETURN,

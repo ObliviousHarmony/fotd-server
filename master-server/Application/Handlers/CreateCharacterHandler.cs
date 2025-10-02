@@ -1,20 +1,27 @@
+using FOMServer.Master.Application.FOMPacket;
+using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.FOMPacket.Models;
 using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Core.Networking;
 
 namespace FOMServer.Master.Application.Handlers
 {
     public class CreateCharacterHandler : PacketHandler<CreateCharacter>
     {
+        private readonly IClientPacketSender packetSender;
         private readonly IPlayerService playerService;
         private readonly ICharacterRepository characterRepository;
+        private readonly ILoginReturnFactory loginReturnFactory;
 
-        public CreateCharacterHandler(IPlayerService playerService, ICharacterRepository characterRepository)
+        public CreateCharacterHandler(IClientPacketSender packetSender, IPlayerService playerService, ICharacterRepository characterRepository, ILoginReturnFactory loginReturnFactory)
         {
+            this.packetSender = packetSender;
             this.playerService = playerService;
             this.characterRepository = characterRepository;
+            this.loginReturnFactory = loginReturnFactory;
         }
 
         public override PacketIdentifier PacketID => PacketIdentifier.ID_CREATE_CHARACTER;
@@ -37,6 +44,18 @@ namespace FOMServer.Master.Application.Handlers
             );
             if (created == null)
                 throw new InvalidOperationException("Failed to create character.");
+
+            player.HasCharacter = true;
+
+            var response = loginReturnFactory.Create(player);
+
+            packetSender.Send(
+                PacketIdentifier.ID_LOGIN_RETURN,
+                new FOMDataUnion { loginReturn = response },
+                sender,
+                PacketPriority.HIGH_PRIORITY,
+                PacketReliability.RELIABLE_ORDERED
+            );
         }
     }
 }

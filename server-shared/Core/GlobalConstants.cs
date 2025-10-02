@@ -5,6 +5,6 @@ namespace FOMServer.Shared.Core
         /// <summary>
         /// The version of the Face of Mankind client that this server supports.
         /// </summary>
-        public const int CLIENT_VERSION = 1599;
+        public const int ClientVersion = 1599;
     }
 }

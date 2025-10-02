@@ -1,3 +1,4 @@
+using System.Net;
 using System.Runtime.InteropServices;
 
 namespace FOMServer.Shared.Core.FOMPacket.Models
@@ -10,29 +11,47 @@ namespace FOMServer.Shared.Core.FOMPacket.Models
     {
         public static readonly NetworkAddress Unassigned = new NetworkAddress
         {
-            Address = 0xFFFFFFFF,
+            BinaryAddress = 0xFFFFFFFF,
             Port = 0xFFFF
         };
 
-        public uint Address;
+        public uint BinaryAddress;
         public ushort Port;
+
+        public string Address
+        {
+            readonly get
+            {
+                return string.Join(".", BitConverter.GetBytes(BinaryAddress));
+            }
+            set
+            {
+                if (!IPAddress.TryParse(value, out var ip))
+                    throw new ArgumentException("Invalid IP address format", nameof(value));
+
+                var bytes = ip.GetAddressBytes();
+                if (bytes.Length != 4)
+                    throw new ArgumentException("Only IPv4 addresses are supported", nameof(value));
+
+                BinaryAddress = BitConverter.ToUInt32(bytes, 0);
+            }
+        }
 
         public override readonly bool Equals(object? obj)
         {
             if (obj is not NetworkAddress other)
                 return false;
-            return Address == other.Address && Port == other.Port;
+            return BinaryAddress == other.BinaryAddress && Port == other.Port;
         }
 
         public override readonly int GetHashCode()
         {
-            return HashCode.Combine(Address, Port);
+            return HashCode.Combine(BinaryAddress, Port);
         }
 
         public override readonly string ToString()
         {
-            string ipString = string.Join(".", BitConverter.GetBytes(Address));
-            return $"{ipString}:{Port}";
+            return $"{Address}:{Port}";
         }
     }
 }

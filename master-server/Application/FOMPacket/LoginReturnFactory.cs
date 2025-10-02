@@ -1,6 +1,9 @@
 using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Core.Players;
+using FOMServer.Shared.Core;
+using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket.Data;
+using static FOMServer.Shared.Core.FOMPacket.Data.LoginReturn;
 
 namespace FOMServer.Master.Application.FOMPacket
 {
@@ -15,12 +18,40 @@ namespace FOMServer.Master.Application.FOMPacket
             this.worldServerService = worldServerService;
         }
 
-        public LoginReturn Create()
+        public LoginReturn Create(Player player)
         {
-            return new LoginReturn()
+            if (!player.HasCharacter)
             {
-                Status = LoginReturn.StatusCode.LOGIN_RETURN_CREATE_CHARACTER,
+                return new LoginReturn()
+                {
+                    Status = StatusCode.LOGIN_RETURN_CREATE_CHARACTER,
+                };
+            }
+
+            var response = new LoginReturn()
+            {
+                Status = StatusCode.LOGIN_RETURN_SUCCESS,
+                PlayerID = player.ID,
+                AccountType = 3,
+                ClientVersion = GlobalConstants.ClientVersion,
+                OnlinePlayers = 0,
+                IsPrisoner = false,
             };
+
+            var worldServers = worldServerService.GetAll();
+            response.NumWorlds = (byte)worldServers.Length;
+            for (int i = 0; i < worldServers.Length; ++i)
+            {
+                var server = worldServers[i];
+
+                response.WorldBuffer[i].ID = server.ID;
+                response.WorldBuffer[i].Address = server.ClientAddress;
+                response.WorldBuffer[i].PlayerCount = 0;
+                response.WorldBuffer[i].ControllingFaction = Faction.LED;
+                response.WorldBuffer[i].ControllingFactionRelation = FactionRelation.NEUTRAL;
+            }
+
+            return response;
         }
     }
 }

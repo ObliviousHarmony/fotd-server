@@ -32,12 +32,18 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
         }
 
         public StatusCode Status;
-        public uint AccountID;
+        public uint PlayerID;
         public byte AccountType;
         public ushort ClientVersion;
         public byte NumWorlds;
         public OverviewWorldArray WorldBuffer;
         public uint OnlinePlayers;
-        public byte IsPrisoner;
+        public byte RawIsPrisoner;
+
+        public bool IsPrisoner
+        {
+            get => RawIsPrisoner != 0;
+            set => RawIsPrisoner = (byte)(value ? 1 : 0);
+        }
     }
 }

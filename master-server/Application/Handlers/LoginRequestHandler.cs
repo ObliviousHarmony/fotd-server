@@ -42,7 +42,7 @@ namespace FOMServer.Master.Application.Handlers
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_INVALID_INFORMATION;
             else if (playerService.Get(playerID.Value) != null)
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_ALREADY_LOGGED_IN;
-            else if (data.ClientVersion != GlobalConstants.CLIENT_VERSION)
+            else if (data.ClientVersion != GlobalConstants.ClientVersion)
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_OUTDATED_CLIENT;
             else
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_SUCCESS;

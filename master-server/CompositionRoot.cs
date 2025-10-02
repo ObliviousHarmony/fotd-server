@@ -1,5 +1,6 @@
 using FluentMigrator.Runner;
 using FOMServer.Master.Application;
+using FOMServer.Master.Application.FOMPacket;
 using FOMServer.Master.Application.Handlers;
 using FOMServer.Master.Application.Networking;
 using FOMServer.Master.Application.Players;
@@ -33,6 +34,7 @@ namespace FOMServer.Master
 
             services.AddServerShared();
             services.AddMasterServices();
+            services.AddFactories();
             services.AddDatabaseMigrations();
             services.AddRepositories();
             services.AddPacketHandlers();
@@ -76,9 +78,15 @@ namespace FOMServer.Master
             services.AddSingleton<WorldPacketSender>();
             services.AddSingleton<IWorldPacketSender>(sp => sp.GetRequiredService<WorldPacketSender>());
 
-            services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
             services.AddSingleton<IWorldServerService, WorldServerService>();
             services.AddSingleton<IPlayerService, PlayerService>();
+            return services;
+        }
+
+        private static ServiceCollection AddFactories(this ServiceCollection services)
+        {
+            services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
+            services.AddSingleton<ILoginReturnFactory, LoginReturnFactory>();
             return services;
         }
 

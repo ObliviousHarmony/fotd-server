@@ -1,5 +1,6 @@
 using FOMServer.Master.Core.Networking;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.FOMPacket.Models;
 using System.Collections.Concurrent;
 
 namespace FOMServer.Master.Application.Networking
@@ -26,8 +27,11 @@ namespace FOMServer.Master.Application.Networking
             var worldServer = new WorldServer
             {
                 ID = id,
-                ClientAddress = clientAddress,
-                ClientPort = clientPort
+                ClientAddress = new NetworkAddress
+                {
+                    Address = clientAddress,
+                    Port = clientPort,
+                }
             };
 
             if (!worldServers.TryAdd(id, worldServer))

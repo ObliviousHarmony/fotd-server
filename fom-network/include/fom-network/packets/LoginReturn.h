@@ -25,7 +25,7 @@ enum LoginReturnStatus : uint8_t {
 #pragma pack(push, 1)
 struct LoginReturn {
   LoginReturnStatus status;
-  uint32_t accountID;
+  uint32_t playerID;
   uint8_t accountType;
   uint16_t clientVersion;
   uint8_t numWorlds;

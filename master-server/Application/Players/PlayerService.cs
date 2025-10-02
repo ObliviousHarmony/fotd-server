@@ -7,15 +7,17 @@ namespace FOMServer.Master.Application.Players
     public class PlayerService : IPlayerService
     {
         private readonly IPlayerRepository playerRepository;
+        private readonly ICharacterRepository characterRepository;
 
         private readonly ConcurrentDictionary<uint, Player> loggedIn;
         private readonly ConcurrentDictionary<NetworkAddress, Player> addressMap;
 
-        public PlayerService(IPlayerRepository playerRepository)
+        public PlayerService(IPlayerRepository playerRepository, ICharacterRepository characterRepository)
         {
             this.playerRepository = playerRepository;
             loggedIn = new ConcurrentDictionary<uint, Player>();
             addressMap = new ConcurrentDictionary<NetworkAddress, Player>();
+            this.characterRepository = characterRepository;
         }
 
         public Player? Get(uint id)
@@ -59,6 +61,9 @@ namespace FOMServer.Master.Application.Players
                 loggedIn.TryRemove(dto.id, out _);
                 return null;
             }
+
+            var character = characterRepository.Get(player.ID);
+            player.HasCharacter = character != null;
 
             return player;
         }
