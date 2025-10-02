@@ -1,4 +1,5 @@
 using FluentMigrator.Runner;
+using FOMServer.Application.Core;
 using FOMServer.Master.Application;
 using FOMServer.Master.Application.FOMPacket;
 using FOMServer.Master.Application.Handlers;
@@ -9,6 +10,7 @@ using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Core.Players;
 using FOMServer.Master.Infrastructure.Factories;
 using FOMServer.Master.Infrastructure.Repositories;
+using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Extensions;
 using FOMServer.Shared.Infrastructure.Database;
@@ -26,11 +28,14 @@ namespace FOMServer.Master
         {
             ServiceCollection services = new ServiceCollection();
 
+            var shutdownManager = new ShutdownManager();
+            services.AddSingleton<IShutdownManager>(sp => shutdownManager);
+
             // Run before anything else so that the cached settings in this class are available.
             services.AddConfiguration();
 
             // Start the log service as early as possible so that everything is logged.
-            services.StartLogService();
+            services.StartLogService(shutdownManager);
 
             services.AddServerShared();
             services.AddMasterServices();

@@ -1,3 +1,4 @@
+using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.Logging;
@@ -12,6 +13,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
         private static readonly Counter<long> LogEnqueuedCounter =
             Meter.CreateCounter<long>("log.entries.enqueued", unit: "entries", description: "Number of log entries enqueued");
 
+        private readonly IShutdownManager shutdownManager;
         private readonly Channel<LogEntry> logChannel;
         private readonly bool writeConsole;
         private readonly StreamWriter? logFileWriter;
@@ -19,8 +21,10 @@ namespace FOMServer.Shared.Infrastructure.Logging
         private Task? loggingTask;
         private CancellationTokenSource? cts;
 
-        public LogService(bool writeConsole = true, string? logFilePath = null)
+        public LogService(IShutdownManager shutdownManager, bool writeConsole = true, string? logFilePath = null)
         {
+            this.shutdownManager = shutdownManager;
+
             logChannel = Channel.CreateUnbounded<LogEntry>(
                 new UnboundedChannelOptions
                 {
@@ -90,9 +94,12 @@ namespace FOMServer.Shared.Infrastructure.Logging
             if (loggingTask != null)
                 return;
 
-            cts = new CancellationTokenSource();
+            cts = CancellationTokenSource.CreateLinkedTokenSource(shutdownManager.Token);
 
             loggingTask = Task.Run(() => ProcessLoopAsync(cts.Token), cts.Token);
+
+            // Make sure that the shutdown manager waits for this task to complete.
+            shutdownManager.TrackTask(loggingTask);
         }
 
         /// <summary>

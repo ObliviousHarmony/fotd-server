@@ -72,6 +72,6 @@ void FOMNetwork_Client_Disconnect(RakPeerInterface* client) {
     return;
   }
 
-  client->Shutdown(0, 0);
+  client->Shutdown(1000, 0);
   RakNetworkFactory::DestroyRakPeerInterface(client);
 }

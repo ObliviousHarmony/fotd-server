@@ -1,3 +1,4 @@
+using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.FOMPacket.Models;
@@ -39,6 +40,7 @@ namespace FOMServer.Shared.Application.Networking
 
         private IntPtr peer;
         private Action<IntPtr>? peerShutdown;
+        private readonly IShutdownManager shutdownManager;
         private readonly ILogService logService;
         private readonly IPacketService packetService;
         private readonly PacketProcessor packetProcessor;
@@ -48,19 +50,21 @@ namespace FOMServer.Shared.Application.Networking
         private CancellationTokenSource? cts;
 
         public NetworkManager(
+            IShutdownManager shutdownManager,
             ILogService logService,
             IPacketService packetService,
             PacketProcessor packetProcessor
         )
         {
-            peer = IntPtr.Zero;
+            this.peer = IntPtr.Zero;
+            this.shutdownManager = shutdownManager;
             this.logService = logService;
             this.packetService = packetService;
             this.packetProcessor = packetProcessor;
-            claimedPacketIDs = new HashSet<PacketIdentifier>();
+            this.claimedPacketIDs = new HashSet<PacketIdentifier>();
 
             // Single writer, single reader channel is fine here
-            sendQueue = Channel.CreateUnbounded<SendPacket>(new UnboundedChannelOptions
+            this.sendQueue = Channel.CreateUnbounded<SendPacket>(new UnboundedChannelOptions
             {
                 SingleReader = true,
                 SingleWriter = false
@@ -97,7 +101,7 @@ namespace FOMServer.Shared.Application.Networking
         /// <summary>
         /// Starts the network manager loop.
         /// </summary>
-        public void Start(CancellationToken parentToken)
+        public void Start()
         {
             if (peer == IntPtr.Zero)
                 throw new InvalidOperationException("Peer must be configured.");
@@ -108,7 +112,7 @@ namespace FOMServer.Shared.Application.Networking
             // Once a network manager has started, no more claims can be made.
             canClaimPacketIDs = false;
 
-            cts = CancellationTokenSource.CreateLinkedTokenSource(parentToken);
+            cts = CancellationTokenSource.CreateLinkedTokenSource(shutdownManager.Token);
 
             // Use a dedicated thread for this task because we need to
             // keep polling the network library to maximize throughput.
@@ -118,6 +122,9 @@ namespace FOMServer.Shared.Application.Networking
                 TaskCreationOptions.LongRunning,
                 TaskScheduler.Default
             ).Unwrap();
+
+            // Make sure that the shutdown manager waits for this task to complete.
+            shutdownManager.TrackTask(networkTask);
         }
 
         private async Task NetworkLoopAsync(CancellationToken ct)

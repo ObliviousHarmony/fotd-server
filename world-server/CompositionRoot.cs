@@ -1,3 +1,5 @@
+using FOMServer.Application.Core;
+using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Extensions;
 using FOMServer.Shared.Infrastructure.Database;
@@ -20,11 +22,14 @@ namespace FOMServer.World
         {
             ServiceCollection services = new ServiceCollection();
 
+            var shutdownManager = new ShutdownManager();
+            services.AddSingleton<IShutdownManager>(sp => shutdownManager);
+
             // Run before anything else so that the cached settings in this class are available.
             services.AddConfiguration();
 
             // Start the log service as early as possible so that everything is logged.
-            services.StartLogService();
+            services.StartLogService(shutdownManager);
 
             services.AddServerShared();
             services.AddWorldServices();
