@@ -114,6 +114,7 @@ namespace FOMServer.Master
         private static ServiceCollection AddPacketHandlers(this ServiceCollection services)
         {
             services.AddSingleton<IPacketHandler, DisconnectionHandler>();
+            services.AddSingleton<IPacketHandler, ConnectionLostHandler>();
             services.AddSingleton<IPacketHandler, LoginRequestHandler>();
             services.AddSingleton<IPacketHandler, LoginHandler>();
             services.AddSingleton<IPacketHandler, CheckNameHandler>();

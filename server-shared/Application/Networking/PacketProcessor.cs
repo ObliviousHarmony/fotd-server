@@ -12,7 +12,7 @@ namespace FOMServer.Shared.Application.Networking
     /// For performance, this maintains a number of worker tasks that process the packets
     /// concurrently.
     /// </summary>
-    public class PacketProcessor : IDisposable
+    public class PacketProcessor
     {
         private readonly ILogService logService;
         private readonly Dictionary<PacketIdentifier, IPacketHandler> handlers;
@@ -69,30 +69,6 @@ namespace FOMServer.Shared.Application.Networking
         }
 
         /// <summary>
-        /// Stop processing gracefully.
-        /// </summary>
-        public async Task StopAsync()
-        {
-            if (cts == null)
-                return;
-
-            cts.Cancel();
-            packetQueue.Writer.Complete();
-
-            try
-            {
-                await Task.WhenAll(workers);
-            }
-            catch (Exception)
-            {
-            }
-
-            cts.Dispose();
-            cts = null;
-            workers.Clear();
-        }
-
-        /// <summary>
         /// The looping function for each worker task.
         /// </summary>
         private async Task WorkerLoopAsync(CancellationToken ct)
@@ -137,13 +113,6 @@ namespace FOMServer.Shared.Application.Networking
                 return;
 
             throw new NotSupportedException("Missing Packet Handler");
-        }
-
-        public void Dispose()
-        {
-            StopAsync().GetAwaiter().GetResult();
-
-            GC.SuppressFinalize(this);
         }
     }
 }

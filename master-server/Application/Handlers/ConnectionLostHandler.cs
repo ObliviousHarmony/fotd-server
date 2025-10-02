@@ -8,20 +8,20 @@ using FOMServer.Shared.Core.Logging;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    public class DisconnectionHandler : PacketHandler<RakNetPacket>
+    public class ConnectionLostHandler : PacketHandler<RakNetPacket>
     {
         private readonly IPlayerService playerService;
         private readonly IWorldServerService worldServerService;
         private readonly ILogService logService;
 
-        public DisconnectionHandler(IPlayerService playerService, IWorldServerService worldServerService, ILogService logService)
+        public ConnectionLostHandler(IPlayerService playerService, IWorldServerService worldServerService, ILogService logService)
         {
             this.playerService = playerService;
             this.worldServerService = worldServerService;
             this.logService = logService;
         }
 
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_DISCONNECTION_NOTIFICATION;
+        public override PacketIdentifier PacketID => PacketIdentifier.ID_CONNECTION_LOST;
 
         public override void Handle(NetworkAddress sender, in RakNetPacket data)
         {
@@ -40,7 +40,7 @@ namespace FOMServer.Master.Application.Handlers
                 if (!server.ServerAddress.Equals(sender))
                     continue;
 
-                logService.WriteMessage(LogLevel.Info, $"World '{server.ID}' Disconnected");
+                logService.WriteMessage(LogLevel.Info, $"World '{server.ID}' Lost Connection");
                 worldServerService.Unregister(server.ID);
                 return true;
             }

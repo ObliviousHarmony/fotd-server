@@ -8,7 +8,7 @@ namespace FOMServer.Shared.Application.Persistence
     /// <summary>
     /// Coordinates persistence requests across entities.
     /// </summary>
-    public class PersistenceService : IPersistenceService, IDisposable
+    public class PersistenceService : IPersistenceService
     {
         private readonly ILogService logService;
 
@@ -57,30 +57,6 @@ namespace FOMServer.Shared.Application.Persistence
 
             // Use the thread pool for this task as it does a ton of blocking IO.
             persistenceTask = Task.Run(() => PersistenceLoopAsync(cts.Token), cts.Token);
-        }
-
-        /// <summary>
-        /// Stops the persistence service gracefully.
-        /// </summary>
-        public async Task StopAsync()
-        {
-            if (persistenceTask == null)
-                return;
-
-            cts?.Cancel();
-            dirtyQueue.Writer.Complete();
-
-            try
-            {
-                await persistenceTask;
-            }
-            catch (OperationCanceledException)
-            {
-            }
-
-            persistenceTask = null;
-            cts?.Dispose();
-            cts = null;
         }
 
         /// <summary>
@@ -142,17 +118,6 @@ namespace FOMServer.Shared.Application.Persistence
             {
                 semaphore.Release();
             }
-        }
-
-        /// <summary>
-        /// Dispose of resources and stop the service if needed.
-        /// </summary>
-        public void Dispose()
-        {
-            if (persistenceTask != null)
-                StopAsync().GetAwaiter().GetResult();
-
-            GC.SuppressFinalize(this);
         }
     }
 }

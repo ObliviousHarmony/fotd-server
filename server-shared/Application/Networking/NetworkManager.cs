@@ -10,7 +10,7 @@ namespace FOMServer.Shared.Application.Networking
     /// <summary>
 	/// Responsible for sending and receiving packets.
 	/// </summary>
-	public class NetworkManager : IPacketSender, IDisposable
+	public class NetworkManager : IPacketSender
     {
         /// <summary>
         /// Individual network managers can "claim" packet IDs so that they
@@ -54,7 +54,6 @@ namespace FOMServer.Shared.Application.Networking
         )
         {
             peer = IntPtr.Zero;
-            peerShutdown = null;
             this.logService = logService;
             this.packetService = packetService;
             this.packetProcessor = packetProcessor;
@@ -121,66 +120,53 @@ namespace FOMServer.Shared.Application.Networking
             ).Unwrap();
         }
 
-        /// <summary>
-        /// Stops the network manager gracefully.
-        /// </summary>
-        public async Task StopAsync()
+        private async Task NetworkLoopAsync(CancellationToken ct)
         {
-            if (networkTask == null)
-                return;
-
-            cts?.Cancel();
-            sendQueue.Writer.Complete();
-
             try
             {
-                await networkTask;
+                int pollingDelayMs = 1;
+                while (!ct.IsCancellationRequested)
+                {
+                    // Avoid starving packet receiving with sending by
+                    // limiting the number of packets sent per batch.
+                    int numToSend = 0;
+                    while (numToSend < IPacketService.MaxBufferedPackets && sendQueue.Reader.TryRead(out var packetToSend))
+                        sendBuffer[numToSend++] = packetToSend;
+
+                    if (numToSend > 0)
+                        packetService.Send(peer, sendBuffer.AsSpan(0, numToSend));
+
+                    var received = packetService.Receive(peer);
+                    foreach (ref readonly var packet in received)
+                    {
+                        // Packet IDs that have been claimed by another network manager should be ignored.
+                        if (globalClaimedPacketIDs.Contains(packet.ID) && !claimedPacketIDs.Contains(packet.ID))
+                        {
+                            logService.WriteMessage(LogLevel.Error, $"Client {packet.Sender} sent packet with claimed ID {packet.ID}, ignoring.");
+                            continue;
+                        }
+
+                        packetProcessor.Enqueue(packet);
+                    }
+
+                    // Use an exponential back-off strategy when polling to avoid
+                    // wasting CPU when idle while still being responsive to
+                    // periodic bursts of activity.
+                    if (numToSend > 0 || received.Length > 0)
+                        pollingDelayMs = 1;
+                    else
+                        pollingDelayMs = Math.Min(pollingDelayMs * 2, 100);
+
+                    await Task.Delay(pollingDelayMs, ct);
+                }
             }
             catch (OperationCanceledException)
             {
             }
-
-            networkTask = null;
-            cts?.Dispose();
-            cts = null;
-        }
-
-        private async Task NetworkLoopAsync(CancellationToken ct)
-        {
-            int pollingDelayMs = 1;
-            while (!ct.IsCancellationRequested)
+            finally
             {
-                // Avoid starving packet receiving with sending by
-                // limiting the number of packets sent per batch.
-                int numToSend = 0;
-                while (numToSend < IPacketService.MaxBufferedPackets && sendQueue.Reader.TryRead(out var packetToSend))
-                    sendBuffer[numToSend++] = packetToSend;
-
-                if (numToSend > 0)
-                    packetService.Send(peer, sendBuffer.AsSpan(0, numToSend));
-
-                var received = packetService.Receive(peer);
-                foreach (ref readonly var packet in received)
-                {
-                    // Packet IDs that have been claimed by another network manager should be ignored.
-                    if (globalClaimedPacketIDs.Contains(packet.ID) && !claimedPacketIDs.Contains(packet.ID))
-                    {
-                        logService.WriteMessage(LogLevel.Error, $"Client {packet.Sender} sent packet with claimed ID {packet.ID}, ignoring.");
-                        continue;
-                    }
-
-                    packetProcessor.Enqueue(packet);
-                }
-
-                // Use an exponential back-off strategy when polling to avoid
-                // wasting CPU when idle while still being responsive to
-                // periodic bursts of activity.
-                if (numToSend > 0 || received.Length > 0)
-                    pollingDelayMs = 1;
-                else
-                    pollingDelayMs = Math.Min(pollingDelayMs * 2, 100);
-
-                await Task.Delay(pollingDelayMs, ct);
+                peerShutdown!(peer);
+                peer = IntPtr.Zero;
             }
         }
 
@@ -234,24 +220,6 @@ namespace FOMServer.Shared.Application.Networking
             };
 
             sendQueue.Writer.TryWrite(packet);
-        }
-
-        public void Dispose()
-        {
-            StopAsync().GetAwaiter().GetResult();
-
-            if (peerShutdown != null && peer != IntPtr.Zero)
-            {
-                peerShutdown(peer);
-                peerShutdown = null;
-            }
-
-            if (peer != IntPtr.Zero)
-            {
-                peer = IntPtr.Zero;
-            }
-
-            GC.SuppressFinalize(this);
         }
     }
 }

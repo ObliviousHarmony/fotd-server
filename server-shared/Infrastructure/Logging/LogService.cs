@@ -6,7 +6,7 @@ using System.Threading.Channels;
 
 namespace FOMServer.Shared.Infrastructure.Logging
 {
-    public class LogService : ILogService, IDisposable
+    public class LogService : ILogService
     {
         private static readonly Meter Meter = new("FOMServer.Logging");
         private static readonly Counter<long> LogEnqueuedCounter =
@@ -96,57 +96,30 @@ namespace FOMServer.Shared.Infrastructure.Logging
         }
 
         /// <summary>
-        /// Stops the logging service gracefully.
-        /// </summary>
-        public async Task StopAsync()
-        {
-            if (loggingTask == null)
-                return;
-
-            cts?.Cancel();
-            logChannel.Writer.Complete();
-
-            try
-            {
-                await loggingTask;
-            }
-            catch (OperationCanceledException)
-            {
-            }
-
-            loggingTask = null;
-            cts?.Dispose();
-            cts = null;
-        }
-
-        /// <summary>
         /// Main loop that consumes log entries from the channel.
         /// </summary>
         private async Task ProcessLoopAsync(CancellationToken ct)
         {
-            await foreach (var entry in logChannel.Reader.ReadAllAsync(ct))
+            try
             {
-                var formatted = entry.ToString();
+                await foreach (var entry in logChannel.Reader.ReadAllAsync(ct))
+                {
+                    var formatted = entry.ToString();
 
-                if (writeConsole)
-                    Console.WriteLine(formatted);
+                    if (writeConsole)
+                        Console.WriteLine(formatted);
 
-                if (logFileWriter != null)
-                    await logFileWriter.WriteLineAsync(formatted);
+                    if (logFileWriter != null)
+                        await logFileWriter.WriteLineAsync(formatted);
+                }
             }
-        }
-
-        /// <summary>
-        /// Dispose of resources and stop the service if needed.
-        /// </summary>
-        public void Dispose()
-        {
-            if (loggingTask != null)
-                StopAsync().GetAwaiter().GetResult();
-
-            logFileWriter?.Dispose();
-
-            GC.SuppressFinalize(this);
+            catch (Exception)
+            {
+            }
+            finally
+            {
+                logFileWriter?.Dispose();
+            }
         }
     }
 }

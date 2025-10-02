@@ -19,7 +19,7 @@ namespace FOMServer.Master.Application.Networking
             return worldServers.Values.ToArray();
         }
 
-        public WorldServer? Register(WorldID id, string clientAddress, ushort clientPort)
+        public WorldServer? Register(WorldID id, NetworkAddress serverAddress, string clientAddress, ushort clientPort)
         {
             if (worldServers.ContainsKey(id))
                 return null;
@@ -27,6 +27,7 @@ namespace FOMServer.Master.Application.Networking
             var worldServer = new WorldServer
             {
                 ID = id,
+                ServerAddress = serverAddress,
                 ClientAddress = new NetworkAddress
                 {
                     Address = clientAddress,

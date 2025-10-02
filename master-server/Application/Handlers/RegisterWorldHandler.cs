@@ -22,11 +22,11 @@ namespace FOMServer.Master.Application.Handlers
 
         public override void Handle(NetworkAddress sender, in RegisterWorld data)
         {
-            var worldServer = worldServerService.Register(data.WorldID, data.Address, data.Port);
-            if (worldServer == null)
-                throw new InvalidOperationException($"World server with ID {data.WorldID} is already registered.");
+            var server = worldServerService.Register(data.WorldID, sender, data.Address, data.Port);
+            if (server == null)
+                throw new InvalidOperationException($"World '{data.WorldID}' Already Registered");
 
-            logService.WriteMessage(LogLevel.Info, $"Registered {data.WorldID}: {data.Address}:{data.Port}");
+            logService.WriteMessage(LogLevel.Info, $"World '{server.ID}' Connected: {server.ClientAddress}");
         }
     }
 }
