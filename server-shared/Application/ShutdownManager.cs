@@ -18,7 +18,7 @@ namespace FOMServer.Application.Core
         public void TrackTask(Task task)
         {
             if (_rootCts.IsCancellationRequested)
-                throw new InvalidOperationException("Cannot track tasks after shutdown has been initiated.");
+                throw new InvalidOperationException("Cannot track tasks after shutdown has been initiated");
 
             lock (_syncRoot)
                 _trackedTasks.Add(task);

@@ -12,13 +12,13 @@ namespace FOMServer.Shared.Services.FOMNetwork
         {
             // Ensure all of the API communication structs are blittable.
             if (!IsBlittable<NetworkAddress>())
-                throw new InvalidOperationException("The NetworkAddress struct is not blittable.");
+                throw new InvalidOperationException("The NetworkAddress struct is not blittable");
             if (!IsBlittable<PacketStructure>())
-                throw new InvalidOperationException("The PacketStructure struct is not blittable.");
+                throw new InvalidOperationException("The PacketStructure struct is not blittable");
             if (!IsBlittable<ReceivedPackets>())
-                throw new InvalidOperationException("The ReceivedPackets struct is not blittable.");
+                throw new InvalidOperationException("The ReceivedPackets struct is not blittable");
             if (!IsBlittable<SendPacket>())
-                throw new InvalidOperationException("The SendPacket struct is not blittable.");
+                throw new InvalidOperationException("The SendPacket struct is not blittable");
 
             // Ensure all packet data structs are blittable.
             var structures = new PacketStructure[]
@@ -34,20 +34,22 @@ namespace FOMServer.Shared.Services.FOMNetwork
                 new() { ID = PacketIdentifier.ID_REGISTER_WORLD, Size = Marshal.SizeOf<RegisterWorld>() },
                 new() { ID = PacketIdentifier.ID_WORLD_OVERVIEW, Size = Marshal.SizeOf<WorldOverview>() },
                 new() { ID = PacketIdentifier.ID_WORLD_OVERVIEW_RETURN, Size = Marshal.SizeOf<WorldOverviewReturn>() },
+                new() { ID = PacketIdentifier.ID_WORLD_LOGIN, Size = Marshal.SizeOf<WorldLogin>() },
+                new() { ID = PacketIdentifier.ID_WORLD_LOGIN_RETURN, Size = Marshal.SizeOf<WorldLoginReturn>() },
             };
             foreach (PacketStructure s in structures)
             {
                 if (!IsBlittable<ReadPacketError>())
-                    throw new InvalidOperationException($"The data struct for packet ID {s.ID} is not blittable.");
+                    throw new InvalidOperationException($"The data struct for packet ID {s.ID} is not blittable");
             }
 
             int ret = FOMNetwork_ValidatePacketStructs(structures, structures.Length);
             if (ret == -1)
-                throw new InvalidOperationException("The number of structs provided does not match the number expected by the network library.");
+                throw new InvalidOperationException("The number of structs provided does not match the number expected by the network library");
             else if (ret == -1)
-                throw new InvalidOperationException("The network library was asked to validate a struct that does not exist.");
+                throw new InvalidOperationException("The network library was asked to validate a struct that does not exist");
             else if (ret == -3)
-                throw new InvalidOperationException("One or more of the provided structs does not match the expected size.");
+                throw new InvalidOperationException("One or more of the provided structs does not match the expected size");
         }
 
         private static bool IsBlittable<T>() where T : struct

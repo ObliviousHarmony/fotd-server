@@ -6,9 +6,9 @@ namespace FOMNetwork {
 namespace Packet {
 
 enum ReadPacketErrorCode : uint8_t {
-  ERROR_MISSING_PACKET_ID,
-  ERROR_UNHANDLED_PACKET_ID,
-  ERROR_READ
+  ERROR_MISSING_PACKET_ID = 0,
+  ERROR_UNHANDLED_PACKET_ID = 1,
+  ERROR_READ = 2
 };
 
 #pragma pack(push, 1)

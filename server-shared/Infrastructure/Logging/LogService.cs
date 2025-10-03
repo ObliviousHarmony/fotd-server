@@ -51,7 +51,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
         public void Write(in LogEntry entry)
         {
             if (!_logChannel.Writer.TryWrite(entry))
-                throw new InvalidOperationException("Logging channel is closed.");
+                throw new InvalidOperationException("Logging channel is closed");
 
             s_logEnqueuedCounter.Add(1, KeyValuePair.Create<string, object?>("level", entry.Level.ToString()));
         }

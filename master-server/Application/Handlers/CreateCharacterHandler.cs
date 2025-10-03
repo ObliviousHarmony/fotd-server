@@ -11,12 +11,19 @@ namespace FOMServer.Master.Application.Handlers
 {
     public class CreateCharacterHandler : PacketHandler<CreateCharacter>
     {
+        public override PacketIdentifier PacketID => PacketIdentifier.ID_CREATE_CHARACTER;
+
         private readonly IClientPacketSender _packetSender;
         private readonly IPlayerService _playerService;
         private readonly ICharacterRepository _characterRepository;
         private readonly IWorldOverviewFactory _worldOverviewFactory;
 
-        public CreateCharacterHandler(IClientPacketSender packetSender, IPlayerService playerService, ICharacterRepository characterRepository, IWorldOverviewFactory worldOverviewFactory)
+        public CreateCharacterHandler(
+            IClientPacketSender packetSender,
+            IPlayerService playerService,
+            ICharacterRepository characterRepository,
+            IWorldOverviewFactory worldOverviewFactory
+        )
         {
             _packetSender = packetSender;
             _playerService = playerService;
@@ -24,13 +31,11 @@ namespace FOMServer.Master.Application.Handlers
             _worldOverviewFactory = worldOverviewFactory;
         }
 
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_CREATE_CHARACTER;
-
         public override void Handle(NetworkAddress sender, in CreateCharacter data)
         {
             var player = _playerService.Get(sender);
             if (player == null)
-                return;
+                throw new InvalidOperationException($"Player not found for address {sender}");
 
             var created = _characterRepository.Create(
                 player.ID,
@@ -43,7 +48,7 @@ namespace FOMServer.Master.Application.Handlers
                 data.Avatar.Hair
             );
             if (created == null)
-                throw new InvalidOperationException("Failed to create character.");
+                throw new InvalidOperationException("Failed to create character");
 
             player.HasCharacter = true;
 

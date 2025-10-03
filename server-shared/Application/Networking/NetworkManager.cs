@@ -77,10 +77,10 @@ namespace FOMServer.Shared.Application.Networking
         public void ClaimPacketID(PacketIdentifier id)
         {
             if (!s_canClaimPacketIDs)
-                throw new InvalidOperationException("Cannot claim packet IDs after a network manager has started.");
+                throw new InvalidOperationException("Cannot claim packet IDs after a network manager has started");
 
             if (s_globalClaimedPacketIDs.Contains(id))
-                throw new InvalidOperationException($"Packet ID {id} is already claimed by another network manager.");
+                throw new InvalidOperationException($"Packet ID {id} is already claimed by another network manager");
 
             s_globalClaimedPacketIDs.Add(id);
             _claimedPacketIDs.Add(id);
@@ -92,7 +92,7 @@ namespace FOMServer.Shared.Application.Networking
         public void Configure(IntPtr peer, Action<IntPtr> peerShutdown)
         {
             if (_peer != IntPtr.Zero)
-                throw new InvalidOperationException("Peer is already configured.");
+                throw new InvalidOperationException("Peer is already configured");
 
             _peer = peer;
             _peerShutdown = peerShutdown;
@@ -104,7 +104,7 @@ namespace FOMServer.Shared.Application.Networking
         public void Start()
         {
             if (_peer == IntPtr.Zero)
-                throw new InvalidOperationException("Peer must be configured.");
+                throw new InvalidOperationException("Peer must be configured");
 
             if (_networkTask != null)
                 return;
@@ -187,7 +187,7 @@ namespace FOMServer.Shared.Application.Networking
         )
         {
             if (_peer == IntPtr.Zero)
-                throw new InvalidOperationException("Peer is not configured.");
+                throw new InvalidOperationException("Peer is not configured");
 
             var packet = new SendPacket
             {
@@ -213,7 +213,7 @@ namespace FOMServer.Shared.Application.Networking
         )
         {
             if (_peer == IntPtr.Zero)
-                throw new InvalidOperationException("Peer is not configured.");
+                throw new InvalidOperationException("Peer is not configured");
 
             var packet = new SendPacket
             {

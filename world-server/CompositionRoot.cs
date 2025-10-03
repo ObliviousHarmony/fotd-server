@@ -53,19 +53,19 @@ namespace FOMServer.World
             s_dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
 
             if (Enum.IsDefined<WorldID>(s_serverSettings!.WorldID) == false || s_serverSettings.WorldID == WorldID.MASTER_SERVER)
-                throw new InvalidOperationException("Server WorldID must be set to a valid world.");
+                throw new InvalidOperationException("Server WorldID must be set to a valid world");
             if (string.IsNullOrWhiteSpace(s_serverSettings.ClientAddress))
-                throw new InvalidOperationException("Server client address must be configured.");
+                throw new InvalidOperationException("Server client address must be configured");
             if (s_serverSettings.ClientPort <= 0)
-                throw new InvalidOperationException("Server client port must be greater than 0.");
+                throw new InvalidOperationException("Server client port must be greater than 0");
             if (string.IsNullOrWhiteSpace(s_serverSettings.MasterServerAddress))
-                throw new InvalidOperationException("Master server address must be configured.");
+                throw new InvalidOperationException("Master server address must be configured");
             if (s_serverSettings.MasterServerPort <= 0)
-                throw new InvalidOperationException("Master server port must be greater than 0.");
+                throw new InvalidOperationException("Master server port must be greater than 0");
             if (string.IsNullOrWhiteSpace(s_dbSettings.Name))
-                throw new InvalidOperationException("Database name must be configured.");
+                throw new InvalidOperationException("Database name must be configured");
             if (string.IsNullOrWhiteSpace(s_dbSettings.ConnectionString))
-                throw new InvalidOperationException("Database connection string must be configured.");
+                throw new InvalidOperationException("Database connection string must be configured");
 
             services.AddSingleton(s_serverSettings);
             services.AddSingleton(s_dbSettings);

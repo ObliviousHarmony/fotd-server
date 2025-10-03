@@ -9,10 +9,10 @@ namespace FOMServer.Master.Application.Handlers
 {
     public class RegisterWorldPacketHandler : PacketHandler<RegisterWorld>
     {
+        public override PacketIdentifier PacketID => PacketIdentifier.ID_REGISTER_WORLD;
+
         private readonly ILogService _logService;
         private readonly IWorldServerService _worldServerService;
-
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_REGISTER_WORLD;
 
         public RegisterWorldPacketHandler(ILogService logService, IWorldServerService worldServerService)
         {
@@ -24,7 +24,7 @@ namespace FOMServer.Master.Application.Handlers
         {
             var server = _worldServerService.Register(data.WorldID, sender, data.Address, data.Port);
             if (server == null)
-                throw new InvalidOperationException($"World '{data.WorldID}' Already Registered");
+                throw new InvalidOperationException($"World '{data.WorldID}' already registered");
 
             _logService.WriteMessage(LogLevel.Info, $"World '{server.ID}' Connected: {server.ClientAddress}");
         }

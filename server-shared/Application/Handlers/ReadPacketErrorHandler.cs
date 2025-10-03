@@ -19,7 +19,10 @@ namespace FOMServer.Shared.Core.Handlers
         public override void Handle(NetworkAddress sender, in ReadPacketError data)
         {
             _logService.Write(
-                MessageLogEntry.Create(LogLevel.Error, $"Received read error from {sender}: Packet={data.OffendingID} Code={data.ErrorCode}")
+                MessageLogEntry.Create(
+                    LogLevel.Error,
+                    $"Received read error from {sender}: Packet={data.OffendingID} Code={data.ErrorCode}"
+                )
             );
         }
     }

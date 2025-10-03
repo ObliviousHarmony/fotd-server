@@ -10,6 +10,8 @@ namespace FOMServer.Master.Application.Handlers
 {
     public class DisconnectionHandler : PacketHandler<RakNetPacket>
     {
+        public override PacketIdentifier PacketID => PacketIdentifier.ID_DISCONNECTION_NOTIFICATION;
+
         private readonly IPlayerService _playerService;
         private readonly IWorldServerService _worldServerService;
         private readonly ILogService _logService;
@@ -20,8 +22,6 @@ namespace FOMServer.Master.Application.Handlers
             _worldServerService = worldServerService;
             _logService = logService;
         }
-
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_DISCONNECTION_NOTIFICATION;
 
         public override void Handle(NetworkAddress sender, in RakNetPacket data)
         {

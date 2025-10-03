@@ -7,10 +7,10 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
     {
         public enum StatusCode : byte
         {
-            LOGIN_REQUEST_INVALID_INFORMATION,
-            LOGIN_REQUEST_SUCCESS,
-            LOGIN_REQUEST_OUTDATED_CLIENT,
-            LOGIN_REQUEST_ALREADY_LOGGED_IN
+            LOGIN_REQUEST_INVALID_INFORMATION = 0,
+            LOGIN_REQUEST_SUCCESS = 1,
+            LOGIN_REQUEST_OUTDATED_CLIENT = 2,
+            LOGIN_REQUEST_ALREADY_LOGGED_IN = 3
         }
 
         public StatusCode Status;

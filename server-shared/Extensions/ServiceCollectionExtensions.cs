@@ -11,7 +11,12 @@ namespace FOMServer.Shared.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static void StartLogService(this IServiceCollection services, IShutdownManager shutdownManager, bool writeToConsole = true, string? logFilePath = null)
+        public static void StartLogService(
+            this IServiceCollection services,
+            IShutdownManager shutdownManager,
+            bool writeToConsole = true,
+            string? logFilePath = null
+        )
         {
             var logService = new LogService(shutdownManager, writeToConsole, logFilePath);
             services.AddSingleton<ILogService>(logService);

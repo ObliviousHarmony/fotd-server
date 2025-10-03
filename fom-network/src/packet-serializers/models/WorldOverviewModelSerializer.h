@@ -35,6 +35,7 @@ class WorldOverviewModelSerializer
     bs.WriteCompressed(model.onlineNewPlayers);
     apartmentSerializer.Write(bs, model.defaultApartment);
   }
+
   bool Read(RakNet::BitStream& bs,
             Packet::WorldOverviewModel& model) const override {
     NetworkAddressSerializer addressSerializer;

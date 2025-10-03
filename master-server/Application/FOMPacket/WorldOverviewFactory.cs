@@ -7,9 +7,9 @@ namespace FOMServer.Master.Application.FOMPacket
 {
     public class WorldOverviewFactory : IWorldOverviewFactory
     {
-        private IWorldServerService _worldServerService;
+        private readonly IWorldServerService _worldServerService;
 
-        public WorldOverviewFactory(IPlayerService playerService, IWorldServerService worldServerService)
+        public WorldOverviewFactory(IWorldServerService worldServerService)
         {
             _worldServerService = worldServerService;
         }

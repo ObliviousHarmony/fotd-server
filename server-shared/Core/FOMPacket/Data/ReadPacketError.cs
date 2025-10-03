@@ -8,9 +8,9 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
     {
         public enum ReadErrorCode : byte
         {
-            ERROR_MISSING_PACKET_ID,
-            ERROR_UNHANDLED_PACKET_ID,
-            ERROR_DESERIALIZATION
+            ERROR_MISSING_PACKET_ID = 0,
+            ERROR_UNHANDLED_PACKET_ID = 1,
+            ERROR_DESERIALIZATION = 2
         }
 
         public PacketIdentifier OffendingID;

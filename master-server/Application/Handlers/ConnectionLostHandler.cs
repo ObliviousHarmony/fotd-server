@@ -10,6 +10,8 @@ namespace FOMServer.Master.Application.Handlers
 {
     public class ConnectionLostHandler : PacketHandler<RakNetPacket>
     {
+        public override PacketIdentifier PacketID => PacketIdentifier.ID_CONNECTION_LOST;
+
         private readonly IPlayerService _playerService;
         private readonly IWorldServerService _worldServerService;
         private readonly ILogService _logService;
@@ -20,8 +22,6 @@ namespace FOMServer.Master.Application.Handlers
             _worldServerService = worldServerService;
             _logService = logService;
         }
-
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_CONNECTION_LOST;
 
         public override void Handle(NetworkAddress sender, in RakNetPacket data)
         {

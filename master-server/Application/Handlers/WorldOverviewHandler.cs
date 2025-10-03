@@ -16,7 +16,11 @@ namespace FOMServer.Master.Application.Handlers
         private readonly IWorldOverviewFactory _worldOverviewFactory;
         private readonly IClientPacketSender _packetSender;
 
-        public WorldOverviewHandler(IPlayerService playerService, IWorldOverviewFactory worldOverviewFactory, IClientPacketSender packetSender)
+        public WorldOverviewHandler(
+            IPlayerService playerService,
+            IWorldOverviewFactory worldOverviewFactory,
+            IClientPacketSender packetSender
+        )
         {
             _playerService = playerService;
             _worldOverviewFactory = worldOverviewFactory;
@@ -27,7 +31,7 @@ namespace FOMServer.Master.Application.Handlers
         {
             var player = _playerService.Get(sender);
             if (player == null)
-                return;
+                throw new InvalidOperationException($"Player not found for address {sender}");
             if (player.ID != data.PlayerID)
                 throw new InvalidOperationException($"Player {player.ID} Provided Wrong ID: {data.PlayerID}");
 
