@@ -1,3 +1,4 @@
+using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.Handlers;
@@ -12,8 +13,9 @@ namespace FOMServer.Shared.Application.Networking
     /// For performance, this maintains a number of worker tasks that process the packets
     /// concurrently.
     /// </summary>
-    public class PacketProcessor : IDisposable
+    public class PacketProcessor
     {
+        private readonly IShutdownManager shutdownManager;
         private readonly ILogService logService;
         private readonly Dictionary<PacketIdentifier, IPacketHandler> handlers;
         private readonly Channel<Packet> packetQueue;
@@ -21,8 +23,9 @@ namespace FOMServer.Shared.Application.Networking
 
         private CancellationTokenSource? cts;
 
-        public PacketProcessor(ILogService logService, IEnumerable<IPacketHandler> handlers)
+        public PacketProcessor(IShutdownManager shutdownManager, ILogService logService, IEnumerable<IPacketHandler> handlers)
         {
+            this.shutdownManager = shutdownManager;
             this.logService = logService;
             this.handlers = handlers.ToDictionary(h => h.PacketID);
 
@@ -46,12 +49,12 @@ namespace FOMServer.Shared.Application.Networking
         /// <summary>
         /// Start worker threads to process packets.
         /// </summary>
-        public void Start(CancellationToken parentToken, int workerCount = 1)
+        public void Start(int workerCount = 1)
         {
             if (cts != null)
                 return;
 
-            cts = CancellationTokenSource.CreateLinkedTokenSource(parentToken);
+            cts = CancellationTokenSource.CreateLinkedTokenSource(shutdownManager.Token);
 
             for (int i = 0; i < workerCount; i++)
             {
@@ -66,30 +69,9 @@ namespace FOMServer.Shared.Application.Networking
 
                 workers.Add(task);
             }
-        }
 
-        /// <summary>
-        /// Stop processing gracefully.
-        /// </summary>
-        public async Task StopAsync()
-        {
-            if (cts == null)
-                return;
-
-            cts.Cancel();
-            packetQueue.Writer.Complete();
-
-            try
-            {
-                await Task.WhenAll(workers);
-            }
-            catch (Exception)
-            {
-            }
-
-            cts.Dispose();
-            cts = null;
-            workers.Clear();
+            // Make sure the shutdown manager waits for all of the packet workers to complete.
+            shutdownManager.TrackTask(Task.WhenAll(workers));
         }
 
         /// <summary>
@@ -104,6 +86,10 @@ namespace FOMServer.Shared.Application.Networking
                 try
                 {
                     packet = await packetQueue.Reader.ReadAsync(ct);
+                }
+                catch (OperationCanceledException)
+                {
+                    break;
                 }
                 catch (ChannelClosedException)
                 {
@@ -125,6 +111,10 @@ namespace FOMServer.Shared.Application.Networking
                     continue;
                 }
             }
+
+            // We intentionally do not drain the queue here because it
+            // might cause race conditions with other threads that
+            // are shutting down by mutating shared state.
         }
 
         /// <summary>
@@ -137,13 +127,6 @@ namespace FOMServer.Shared.Application.Networking
                 return;
 
             throw new NotSupportedException("Missing Packet Handler");
-        }
-
-        public void Dispose()
-        {
-            StopAsync().GetAwaiter().GetResult();
-
-            GC.SuppressFinalize(this);
         }
     }
 }

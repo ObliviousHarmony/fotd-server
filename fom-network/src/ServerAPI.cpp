@@ -28,6 +28,6 @@ void FOMNetwork_Server_Shutdown(RakPeerInterface* server) {
     return;
   }
 
-  server->Shutdown(0, 0);
+  server->Shutdown(1000, 0);
   RakNetworkFactory::DestroyRakPeerInterface(server);
 }

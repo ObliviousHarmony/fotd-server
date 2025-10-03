@@ -7,12 +7,14 @@ using FOMServer.Shared.Core.Networking;
 using FOMServer.World.Application.Networking;
 using FOMServer.World.Core;
 using FOMServer.Shared.Core.FOMPacket.Data;
+using FOMServer.Shared.Core;
 
 namespace FOMServer.World.Application
 {
     public class Server
     {
         private readonly ILogService logService;
+        private readonly IShutdownManager shutdownManager;
         private readonly ServerSettings serverSettings;
         private readonly INetworkService networkService;
         private readonly IServerService serverService;
@@ -21,6 +23,7 @@ namespace FOMServer.World.Application
 
         public Server(
             ILogService logService,
+            IShutdownManager shutdownManager,
             ServerSettings serverSettings,
             INetworkService networkService,
             IServerService serverService,
@@ -29,6 +32,7 @@ namespace FOMServer.World.Application
         )
         {
             this.logService = logService;
+            this.shutdownManager = shutdownManager;
             this.serverSettings = serverSettings;
             this.networkService = networkService;
             this.serverService = serverService;
@@ -36,14 +40,12 @@ namespace FOMServer.World.Application
             this.serviceProvider = serviceProvider;
         }
 
-        public void Run()
+        public async Task Run()
         {
             // We need to make sure our packet structs are all blittable and match the C++ side.
             // This is critical to ensure that we don't have memory corruption and don't
             // require expensive marshalling of data between managed and unmanaged code.
             networkService.ValidateFOMPacket();
-
-            var cts = new CancellationTokenSource();
 
             logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
             logService.WriteMessage(LogLevel.Info, "Initializing World Server");
@@ -53,16 +55,17 @@ namespace FOMServer.World.Application
                 logService.WriteMessage(LogLevel.Info, "Stopping Server...");
 
                 e.Cancel = true;
-                cts.Cancel();
+                shutdownManager.Shutdown();
             };
             AppDomain.CurrentDomain.ProcessExit += (sender, e) =>
             {
-                cts.Cancel();
+                shutdownManager.Shutdown();
             };
 
             var packetProcessor = new PacketProcessor(
-               logService,
-               serviceProvider.GetRequiredService<IEnumerable<IPacketHandler>>()
+                serviceProvider.GetRequiredService<IShutdownManager>(),
+                logService,
+                serviceProvider.GetRequiredService<IEnumerable<IPacketHandler>>()
             );
 
             var masterNetwork = ConnectToMasterNetwork(packetProcessor);
@@ -80,21 +83,16 @@ namespace FOMServer.World.Application
             }
 
             // The server is now ready to start processing packets.
-            packetProcessor.Start(cts.Token);
-            masterNetwork.Start(cts.Token);
-            clientNetwork.Start(cts.Token);
+            packetProcessor.Start();
+            masterNetwork.Start();
+            clientNetwork.Start();
 
             logService.WriteMessage(LogLevel.Info, $"Master Server: {serverSettings.MasterServerAddress}:{serverSettings.MasterServerPort}");
             logService.WriteMessage(LogLevel.Info, $"Client Port: {serverSettings.ClientPort}");
             logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
 
-            try
-            {
-                WaitHandle.WaitAny(new[] { cts.Token.WaitHandle });
-            }
-            catch (OperationCanceledException)
-            {
-            }
+            await shutdownManager.Stopped;
+            logService.WriteMessage(LogLevel.Info, "Shutdown Complete");
         }
 
         private NetworkManager? ConnectToMasterNetwork(PacketProcessor packetProcessor)
@@ -104,6 +102,7 @@ namespace FOMServer.World.Application
                 return null;
 
             var networkManager = new NetworkManager(
+                serviceProvider.GetRequiredService<IShutdownManager>(),
                 serviceProvider.GetRequiredService<ILogService>(),
                 serviceProvider.GetRequiredService<IPacketService>(),
                 packetProcessor
@@ -141,6 +140,7 @@ namespace FOMServer.World.Application
                 return null;
 
             var networkManager = new NetworkManager(
+                serviceProvider.GetRequiredService<IShutdownManager>(),
                 serviceProvider.GetRequiredService<ILogService>(),
                 serviceProvider.GetRequiredService<IPacketService>(),
                 packetProcessor

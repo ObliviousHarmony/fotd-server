@@ -1,6 +1,7 @@
+using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
-using FOMServer.Shared.Core.FOMPacket.Models;
 using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Networking;
 using System.Threading.Channels;
@@ -10,7 +11,7 @@ namespace FOMServer.Shared.Application.Networking
     /// <summary>
 	/// Responsible for sending and receiving packets.
 	/// </summary>
-	public class NetworkManager : IPacketSender, IDisposable
+	public class NetworkManager : IPacketSender
     {
         /// <summary>
         /// Individual network managers can "claim" packet IDs so that they
@@ -39,6 +40,7 @@ namespace FOMServer.Shared.Application.Networking
 
         private IntPtr peer;
         private Action<IntPtr>? peerShutdown;
+        private readonly IShutdownManager shutdownManager;
         private readonly ILogService logService;
         private readonly IPacketService packetService;
         private readonly PacketProcessor packetProcessor;
@@ -48,20 +50,21 @@ namespace FOMServer.Shared.Application.Networking
         private CancellationTokenSource? cts;
 
         public NetworkManager(
+            IShutdownManager shutdownManager,
             ILogService logService,
             IPacketService packetService,
             PacketProcessor packetProcessor
         )
         {
-            peer = IntPtr.Zero;
-            peerShutdown = null;
+            this.peer = IntPtr.Zero;
+            this.shutdownManager = shutdownManager;
             this.logService = logService;
             this.packetService = packetService;
             this.packetProcessor = packetProcessor;
-            claimedPacketIDs = new HashSet<PacketIdentifier>();
+            this.claimedPacketIDs = new HashSet<PacketIdentifier>();
 
             // Single writer, single reader channel is fine here
-            sendQueue = Channel.CreateUnbounded<SendPacket>(new UnboundedChannelOptions
+            this.sendQueue = Channel.CreateUnbounded<SendPacket>(new UnboundedChannelOptions
             {
                 SingleReader = true,
                 SingleWriter = false
@@ -98,7 +101,7 @@ namespace FOMServer.Shared.Application.Networking
         /// <summary>
         /// Starts the network manager loop.
         /// </summary>
-        public void Start(CancellationToken parentToken)
+        public void Start()
         {
             if (peer == IntPtr.Zero)
                 throw new InvalidOperationException("Peer must be configured.");
@@ -109,7 +112,7 @@ namespace FOMServer.Shared.Application.Networking
             // Once a network manager has started, no more claims can be made.
             canClaimPacketIDs = false;
 
-            cts = CancellationTokenSource.CreateLinkedTokenSource(parentToken);
+            cts = CancellationTokenSource.CreateLinkedTokenSource(shutdownManager.Token);
 
             // Use a dedicated thread for this task because we need to
             // keep polling the network library to maximize throughput.
@@ -119,68 +122,58 @@ namespace FOMServer.Shared.Application.Networking
                 TaskCreationOptions.LongRunning,
                 TaskScheduler.Default
             ).Unwrap();
-        }
 
-        /// <summary>
-        /// Stops the network manager gracefully.
-        /// </summary>
-        public async Task StopAsync()
-        {
-            if (networkTask == null)
-                return;
-
-            cts?.Cancel();
-            sendQueue.Writer.Complete();
-
-            try
-            {
-                await networkTask;
-            }
-            catch (OperationCanceledException)
-            {
-            }
-
-            networkTask = null;
-            cts?.Dispose();
-            cts = null;
+            // Make sure that the shutdown manager waits for this task to complete.
+            shutdownManager.TrackTask(networkTask);
         }
 
         private async Task NetworkLoopAsync(CancellationToken ct)
         {
-            int pollingDelayMs = 1;
-            while (!ct.IsCancellationRequested)
+            try
             {
-                // Avoid starving packet receiving with sending by
-                // limiting the number of packets sent per batch.
-                int numToSend = 0;
-                while (numToSend < IPacketService.MaxBufferedPackets && sendQueue.Reader.TryRead(out var packetToSend))
-                    sendBuffer[numToSend++] = packetToSend;
-
-                if (numToSend > 0)
-                    packetService.Send(peer, sendBuffer.AsSpan(0, numToSend));
-
-                var received = packetService.Receive(peer);
-                foreach (ref readonly var packet in received)
+                int pollingDelayMs = 1;
+                while (!ct.IsCancellationRequested)
                 {
-                    // Packet IDs that have been claimed by another network manager should be ignored.
-                    if (globalClaimedPacketIDs.Contains(packet.ID) && !claimedPacketIDs.Contains(packet.ID))
+                    // Avoid starving packet receiving with sending by
+                    // limiting the number of packets sent per batch.
+                    int numToSend = 0;
+                    while (numToSend < IPacketService.MaxBufferedPackets && sendQueue.Reader.TryRead(out var packetToSend))
+                        sendBuffer[numToSend++] = packetToSend;
+
+                    if (numToSend > 0)
+                        packetService.Send(peer, sendBuffer.AsSpan(0, numToSend));
+
+                    var received = packetService.Receive(peer);
+                    foreach (ref readonly var packet in received)
                     {
-                        logService.WriteMessage(LogLevel.Error, $"Client {packet.Sender} sent packet with claimed ID {packet.ID}, ignoring.");
-                        continue;
+                        // Packet IDs that have been claimed by another network manager should be ignored.
+                        if (globalClaimedPacketIDs.Contains(packet.ID) && !claimedPacketIDs.Contains(packet.ID))
+                        {
+                            logService.WriteMessage(LogLevel.Error, $"Client {packet.Sender} sent packet with claimed ID {packet.ID}, ignoring.");
+                            continue;
+                        }
+
+                        packetProcessor.Enqueue(packet);
                     }
 
-                    packetProcessor.Enqueue(packet);
+                    // Use an exponential back-off strategy when polling to avoid
+                    // wasting CPU when idle while still being responsive to
+                    // periodic bursts of activity.
+                    if (numToSend > 0 || received.Length > 0)
+                        pollingDelayMs = 1;
+                    else
+                        pollingDelayMs = Math.Min(pollingDelayMs * 2, 100);
+
+                    await Task.Delay(pollingDelayMs, ct);
                 }
-
-                // Use an exponential back-off strategy when polling to avoid
-                // wasting CPU when idle while still being responsive to
-                // periodic bursts of activity.
-                if (numToSend > 0 || received.Length > 0)
-                    pollingDelayMs = 1;
-                else
-                    pollingDelayMs = Math.Min(pollingDelayMs * 2, 100);
-
-                await Task.Delay(pollingDelayMs, ct);
+            }
+            catch (OperationCanceledException)
+            {
+            }
+            finally
+            {
+                peerShutdown!(peer);
+                peer = IntPtr.Zero;
             }
         }
 
@@ -234,24 +227,6 @@ namespace FOMServer.Shared.Application.Networking
             };
 
             sendQueue.Writer.TryWrite(packet);
-        }
-
-        public void Dispose()
-        {
-            StopAsync().GetAwaiter().GetResult();
-
-            if (peerShutdown != null && peer != IntPtr.Zero)
-            {
-                peerShutdown(peer);
-                peerShutdown = null;
-            }
-
-            if (peer != IntPtr.Zero)
-            {
-                peer = IntPtr.Zero;
-            }
-
-            GC.SuppressFinalize(this);
         }
     }
 }

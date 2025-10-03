@@ -1,10 +1,9 @@
 using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Core.Players;
-using FOMServer.Master.Core.Repositories;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
-using FOMServer.Shared.Core.FOMPacket.Models;
 using FOMServer.Shared.Core.Handlers;
 
 namespace FOMServer.Master.Application.Handlers
@@ -43,7 +42,7 @@ namespace FOMServer.Master.Application.Handlers
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_INVALID_INFORMATION;
             else if (playerService.Get(playerID.Value) != null)
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_ALREADY_LOGGED_IN;
-            else if (data.ClientVersion != GlobalConstants.CLIENT_VERSION)
+            else if (data.ClientVersion != GlobalConstants.ClientVersion)
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_OUTDATED_CLIENT;
             else
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_SUCCESS;

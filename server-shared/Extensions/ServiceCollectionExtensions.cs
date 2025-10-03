@@ -1,3 +1,5 @@
+using FOMServer.Application.Core;
+using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Networking;
@@ -9,9 +11,9 @@ namespace FOMServer.Shared.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static void StartLogService(this IServiceCollection services, bool writeToConsole = true, string? logFilePath = null)
+        public static void StartLogService(this IServiceCollection services, IShutdownManager shutdownManager, bool writeToConsole = true, string? logFilePath = null)
         {
-            var logService = new LogService(writeToConsole, logFilePath);
+            var logService = new LogService(shutdownManager, writeToConsole, logFilePath);
             services.AddSingleton<ILogService>(logService);
 
             logService.Start();
@@ -34,6 +36,7 @@ namespace FOMServer.Shared.Extensions
 
         private static void AddSharedServices(this IServiceCollection services)
         {
+            services.AddSingleton<IShutdownManager, ShutdownManager>();
         }
 
         private static void AddPacketHandlers(this IServiceCollection services)

@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.FOMPacket.Models;
 
 namespace FOMServer.Shared.Core.FOMPacket.Data
 {
@@ -23,5 +24,16 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
         }
 
         public StatusCode Status;
+        public uint PlayerID;
+        public byte AccountType;
+        public byte RawIsVolunteer;
+        public ushort ClientVersion;
+        public WorldOverviewModel WorldOverview;
+
+        public bool IsVolunteer
+        {
+            get => RawIsVolunteer != 0;
+            set => RawIsVolunteer = (byte)(value ? 1 : 0);
+        }
     }
 }

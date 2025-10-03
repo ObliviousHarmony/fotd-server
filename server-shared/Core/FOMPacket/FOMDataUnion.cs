@@ -22,5 +22,7 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
         [FieldOffset(0)] public CheckNameReturn checkNameReturn;
         [FieldOffset(0)] public CreateCharacter createCharacter;
         [FieldOffset(0)] public RegisterWorld registerWorld;
+        [FieldOffset(0)] public WorldOverview worldOverview;
+        [FieldOffset(0)] public WorldOverviewReturn worldOverviewReturn;
     }
 }

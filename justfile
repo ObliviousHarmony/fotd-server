@@ -123,20 +123,12 @@ ms-down:
   docker-compose -f docker/server/docker-compose.yml down master-server
 
 [group("server")]
-ms-recreate:
-  docker-compose -f docker/server/docker-compose.yml up -d --force-recreate master-server
-
-[group("server")]
 ws-up:
   docker-compose -f docker/server/docker-compose.yml up -d world-server
 
 [group("server")]
 ws-down:
   docker-compose -f docker/server/docker-compose.yml down world-server
-
-[group("server")]
-ws-recreate:
-  docker-compose -f docker/server/docker-compose.yml up -d --force-recreate world-server
 
 [group("server")]
 server-up: db-up ms-up ws-up

@@ -44,6 +44,10 @@ namespace FOMServer.Shared.Extensions
                     return (TPacket)(object)packet.Data.createCharacter;
                 case PacketIdentifier.ID_REGISTER_WORLD when typeof(TPacket) == typeof(RegisterWorld):
                     return (TPacket)(object)packet.Data.registerWorld;
+                case PacketIdentifier.ID_WORLD_OVERVIEW when typeof(TPacket) == typeof(WorldOverview):
+                    return (TPacket)(object)packet.Data.worldOverview;
+                case PacketIdentifier.ID_WORLD_OVERVIEW_RETURN when typeof(TPacket) == typeof(WorldOverviewReturn):
+                    return (TPacket)(object)packet.Data.worldOverviewReturn;
 
                 default:
                     throw new InvalidOperationException(

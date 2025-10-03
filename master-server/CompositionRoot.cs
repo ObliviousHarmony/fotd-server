@@ -1,14 +1,16 @@
 using FluentMigrator.Runner;
+using FOMServer.Application.Core;
 using FOMServer.Master.Application;
+using FOMServer.Master.Application.FOMPacket;
 using FOMServer.Master.Application.Handlers;
 using FOMServer.Master.Application.Networking;
 using FOMServer.Master.Application.Players;
 using FOMServer.Master.Core;
 using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Core.Players;
-using FOMServer.Master.Core.Repositories;
 using FOMServer.Master.Infrastructure.Factories;
 using FOMServer.Master.Infrastructure.Repositories;
+using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Extensions;
 using FOMServer.Shared.Infrastructure.Database;
@@ -26,14 +28,18 @@ namespace FOMServer.Master
         {
             ServiceCollection services = new ServiceCollection();
 
+            var shutdownManager = new ShutdownManager();
+            services.AddSingleton<IShutdownManager>(sp => shutdownManager);
+
             // Run before anything else so that the cached settings in this class are available.
             services.AddConfiguration();
 
             // Start the log service as early as possible so that everything is logged.
-            services.StartLogService();
+            services.StartLogService(shutdownManager);
 
             services.AddServerShared();
             services.AddMasterServices();
+            services.AddFactories();
             services.AddDatabaseMigrations();
             services.AddRepositories();
             services.AddPacketHandlers();
@@ -77,9 +83,15 @@ namespace FOMServer.Master
             services.AddSingleton<WorldPacketSender>();
             services.AddSingleton<IWorldPacketSender>(sp => sp.GetRequiredService<WorldPacketSender>());
 
-            services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
             services.AddSingleton<IWorldServerService, WorldServerService>();
             services.AddSingleton<IPlayerService, PlayerService>();
+            return services;
+        }
+
+        private static ServiceCollection AddFactories(this ServiceCollection services)
+        {
+            services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
+            services.AddSingleton<IWorldOverviewFactory, WorldOverviewFactory>();
             return services;
         }
 
@@ -107,11 +119,13 @@ namespace FOMServer.Master
         private static ServiceCollection AddPacketHandlers(this ServiceCollection services)
         {
             services.AddSingleton<IPacketHandler, DisconnectionHandler>();
+            services.AddSingleton<IPacketHandler, ConnectionLostHandler>();
             services.AddSingleton<IPacketHandler, LoginRequestHandler>();
             services.AddSingleton<IPacketHandler, LoginHandler>();
             services.AddSingleton<IPacketHandler, CheckNameHandler>();
             services.AddSingleton<IPacketHandler, CreateCharacterHandler>();
             services.AddSingleton<IPacketHandler, RegisterWorldPacketHandler>();
+            services.AddSingleton<IPacketHandler, WorldOverviewHandler>();
             return services;
         }
     }

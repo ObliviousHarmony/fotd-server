@@ -1,5 +1,5 @@
-#include <fom-network/FOMPacket.h>
 #include <fom-network/NetworkAPI.h>
+#include <fom-network/packets/FOMPacket.h>
 
 #include <unordered_map>
 #include <unordered_set>
@@ -24,6 +24,8 @@ int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures,
       {ID_CHECK_NAME_RETURN, sizeof(CheckNameReturn)},
       {ID_CREATE_CHARACTER, sizeof(CreateCharacter)},
       {ID_REGISTER_WORLD, sizeof(RegisterWorld)},
+      {ID_WORLD_OVERVIEW, sizeof(WorldOverview)},
+      {ID_WORLD_OVERVIEW_RETURN, sizeof(WorldOverviewReturn)},
   };
 
 #pragma warning(pop)

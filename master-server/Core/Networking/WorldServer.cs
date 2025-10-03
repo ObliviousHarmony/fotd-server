@@ -1,11 +1,12 @@
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.FOMPacket;
 
 namespace FOMServer.Master.Core.Networking
 {
     public class WorldServer
     {
         public WorldID ID { get; init; }
-        public string ClientAddress { get; init; } = null!;
-        public ushort ClientPort { get; init; }
+        public NetworkAddress ServerAddress { get; init; }
+        public NetworkAddress ClientAddress { get; init; }
     }
 }

@@ -1,6 +1,6 @@
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
-using FOMServer.Shared.Core.FOMPacket.Models;
 using FOMServer.Shared.Core.Logging;
 
 namespace FOMServer.Shared.Core.Handlers

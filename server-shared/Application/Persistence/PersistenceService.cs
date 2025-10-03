@@ -1,3 +1,4 @@
+using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Persistence;
 using System.Runtime.CompilerServices;
@@ -8,8 +9,9 @@ namespace FOMServer.Shared.Application.Persistence
     /// <summary>
     /// Coordinates persistence requests across entities.
     /// </summary>
-    public class PersistenceService : IPersistenceService, IDisposable
+    public class PersistenceService : IPersistenceService
     {
+        private readonly IShutdownManager shutdownManager;
         private readonly ILogService logService;
 
         private class DirtyFlag { public int IsDirty = 0; }
@@ -23,8 +25,9 @@ namespace FOMServer.Shared.Application.Persistence
         private Task? persistenceTask;
         private CancellationTokenSource? cts;
 
-        public PersistenceService(ILogService logService, IEnumerable<IPersistenceHandler> handlers)
+        public PersistenceService(IShutdownManager shutdownManager, ILogService logService, IEnumerable<IPersistenceHandler> handlers)
         {
+            this.shutdownManager = shutdownManager;
             this.logService = logService;
             this.handlers = handlers.ToDictionary(h => h.EntityType);
             dirtyQueue = Channel.CreateUnbounded<IPersistable>();
@@ -48,39 +51,18 @@ namespace FOMServer.Shared.Application.Persistence
         /// <summary>
         /// Starts the background persistence task.
         /// </summary>
-        public void Start(CancellationToken ctParent)
+        public void Start()
         {
             if (persistenceTask != null)
                 return;
 
-            cts = CancellationTokenSource.CreateLinkedTokenSource(ctParent);
+            cts = CancellationTokenSource.CreateLinkedTokenSource(shutdownManager.Token);
 
             // Use the thread pool for this task as it does a ton of blocking IO.
             persistenceTask = Task.Run(() => PersistenceLoopAsync(cts.Token), cts.Token);
-        }
 
-        /// <summary>
-        /// Stops the persistence service gracefully.
-        /// </summary>
-        public async Task StopAsync()
-        {
-            if (persistenceTask == null)
-                return;
-
-            cts?.Cancel();
-            dirtyQueue.Writer.Complete();
-
-            try
-            {
-                await persistenceTask;
-            }
-            catch (OperationCanceledException)
-            {
-            }
-
-            persistenceTask = null;
-            cts?.Dispose();
-            cts = null;
+            // Make sure that the shutdown manager waits for this task to complete.
+            shutdownManager.TrackTask(persistenceTask);
         }
 
         /// <summary>
@@ -142,17 +124,6 @@ namespace FOMServer.Shared.Application.Persistence
             {
                 semaphore.Release();
             }
-        }
-
-        /// <summary>
-        /// Dispose of resources and stop the service if needed.
-        /// </summary>
-        public void Dispose()
-        {
-            if (persistenceTask != null)
-                StopAsync().GetAwaiter().GetResult();
-
-            GC.SuppressFinalize(this);
         }
     }
 }

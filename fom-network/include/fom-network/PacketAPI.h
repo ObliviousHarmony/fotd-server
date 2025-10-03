@@ -2,7 +2,7 @@
 
 #include <fom-network/Common.h>
 #include <fom-network/FOMNetworkExport.h>
-#include <fom-network/FOMPacket.h>
+#include <fom-network/packets/FOMPacket.h>
 #include <raknet/PacketPriority.h>
 #include <raknet/RakNetTypes.h>
 #include <raknet/RakPeerInterface.h>

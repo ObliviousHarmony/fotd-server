@@ -1,5 +1,6 @@
 using FOMServer.Master.Core.Networking;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.FOMPacket;
 using System.Collections.Concurrent;
 
 namespace FOMServer.Master.Application.Networking
@@ -13,7 +14,12 @@ namespace FOMServer.Master.Application.Networking
             worldServers = new ConcurrentDictionary<WorldID, WorldServer>();
         }
 
-        public WorldServer? Register(WorldID id, string clientAddress, ushort clientPort)
+        public WorldServer[] GetAll()
+        {
+            return worldServers.Values.ToArray();
+        }
+
+        public WorldServer? Register(WorldID id, NetworkAddress serverAddress, string clientAddress, ushort clientPort)
         {
             if (worldServers.ContainsKey(id))
                 return null;
@@ -21,8 +27,12 @@ namespace FOMServer.Master.Application.Networking
             var worldServer = new WorldServer
             {
                 ID = id,
-                ClientAddress = clientAddress,
-                ClientPort = clientPort
+                ServerAddress = serverAddress,
+                ClientAddress = new NetworkAddress
+                {
+                    Address = clientAddress,
+                    Port = clientPort,
+                }
             };
 
             if (!worldServers.TryAdd(id, worldServer))

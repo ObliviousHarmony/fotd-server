@@ -12,7 +12,7 @@ namespace FOMServer.Shared.Core.Enums
         PARIS = 7,
         TESTING = 8,
         BERLIN = 9,
-        INVALID = 10,
+        UNUSED_WORLD = 10,
         ANDROMEDA_CITY = 11,
         //NEW_HAVEN = 12,
         //GANYMEDE = 13,
@@ -35,5 +35,6 @@ namespace FOMServer.Shared.Core.Enums
         CLONING_FACILITY = 30,
         NYC_GROUND_ZERO = 31,
         TRAINING_CENTER = 32,
+        NUM_WORLDS = 33,
     }
 }
