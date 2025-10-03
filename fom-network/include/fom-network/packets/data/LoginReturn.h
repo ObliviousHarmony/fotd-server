@@ -1,7 +1,6 @@
 #pragma once
 
 #include <fom-network/Common.h>
-#include <fom-network/packets/models/ApartmentModel.h>
 #include <fom-network/packets/models/WorldOverviewModel.h>
 
 namespace FOMNetwork {

@@ -32,6 +32,8 @@ namespace FOMServer.Shared.Services.FOMNetwork
                 new PacketStructure { ID = PacketIdentifier.ID_CHECK_NAME_RETURN, Size = Marshal.SizeOf<CheckNameReturn>() },
                 new PacketStructure { ID = PacketIdentifier.ID_CREATE_CHARACTER, Size = Marshal.SizeOf<CreateCharacter>() },
                 new PacketStructure { ID = PacketIdentifier.ID_REGISTER_WORLD, Size = Marshal.SizeOf<RegisterWorld>() },
+                new PacketStructure { ID = PacketIdentifier.ID_WORLD_OVERVIEW, Size = Marshal.SizeOf<WorldOverview>() },
+                new PacketStructure { ID = PacketIdentifier.ID_WORLD_OVERVIEW_RETURN, Size = Marshal.SizeOf<WorldOverviewReturn>() },
             };
             foreach (PacketStructure s in structures)
             {

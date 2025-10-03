@@ -10,25 +10,28 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-
+  <ItemGroup>
+    <ClCompile Include="WorldOverviewReturn.h" />
+    <ClCompile Include="WorldOverviewReturnSerializer.cpp" />
+    <ClCompile Include="WorldOverviewSerializer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="WorldOverview.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <ProjectGuid>{302F700C-184A-F712-82ED-F406D0FC1381}</ProjectGuid>
     <Keyword>MakeFileProj</Keyword>
     <RestoreProjectStyle>None</RestoreProjectStyle>
   </PropertyGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Makefile</ConfigurationType>
   </PropertyGroup>
-
   <PropertyGroup>
     <OutDir>../out\build\$(Configuration)\fom-network\</OutDir>
     <IntDir>../out\build\$(Configuration)\fom-network\</IntDir>
   </PropertyGroup>
-
   <PropertyGroup>
     <NMakeBuildCommandLine>
       cmake --build "../out/build/$(Configuration)" --config $(Configuration)
@@ -42,11 +45,9 @@
     <NMakePreprocessorDefinitions>NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakeOutput>../out/build/$(Configuration)\fom-network\FOMNetwork.dll</NMakeOutput>
   </PropertyGroup>
-
   <ImportGroup Label="PropertySheets">
     <Import Project="FOMNetwork.props" />
   </ImportGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
 </Project>

@@ -2,7 +2,6 @@
 
 #include <vector>
 
-#include "../models/ApartmentModelSerializer.h"
 #include "../models/WorldOverviewModelSerializer.h"
 
 namespace FOMNetwork {
