@@ -1,15 +1,15 @@
-#include <fom-network/PacketSerializers.h>
+#include <fom-network/packets/PacketSerializers.h>
 
 #include <vector>
 
-#include "../model-serializers/ApartmentSerializer.h"
-#include "../model-serializers/WorldOverviewSerializer.h"
+#include "../models/ApartmentModelSerializer.h"
+#include "../models/WorldOverviewModelSerializer.h"
 
 namespace FOMNetwork {
 
 void LoginReturnSerializer::WriteData(RakNet::BitStream& bs,
                                       const Packet::LoginReturn& data) const {
-  WorldOverviewSerializer overviewSerializer;
+  WorldOverviewModelSerializer overviewSerializer;
 
   bs.WriteCompressed(data.status);
   if (data.status != FOMNetwork::Packet::LOGIN_RETURN_SUCCESS &&

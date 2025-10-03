@@ -1,19 +1,20 @@
 #pragma once
 
-#include <fom-network/models/WorldOverview.h>
+#include <fom-network/packets/models/WorldOverviewModel.h>
 
-#include "ApartmentSerializer.h"
+#include "../NetworkAddressSerializer.h"
+#include "ApartmentModelSerializer.h"
 #include "ModelSerializer.h"
-#include "NetworkAddressSerializer.h"
 
 namespace FOMNetwork {
 
-class WorldOverviewSerializer
-    : public ModelSerializer<WorldOverview> {
+class WorldOverviewModelSerializer
+    : public ModelSerializer<Packet::WorldOverviewModel> {
  public:
-  void Write(RakNet::BitStream& bs, const WorldOverview& model) const override {
+  void Write(RakNet::BitStream& bs,
+             const Packet::WorldOverviewModel& model) const override {
     NetworkAddressSerializer addressSerializer;
-    ApartmentSerializer apartmentSerializer;
+    ApartmentModelSerializer apartmentSerializer;
 
     bs.WriteCompressed(model.numWorlds);
     for (size_t i = 0; i < model.numWorlds && i < NUM_WORLDS; i++) {
@@ -34,9 +35,10 @@ class WorldOverviewSerializer
     bs.WriteCompressed(model.onlineNewPlayers);
     apartmentSerializer.Write(bs, model.defaultApartment);
   }
-  bool Read(RakNet::BitStream& bs, WorldOverview& model) const override {
+  bool Read(RakNet::BitStream& bs,
+            Packet::WorldOverviewModel& model) const override {
     NetworkAddressSerializer addressSerializer;
-    ApartmentSerializer apartmentSerializer;
+    ApartmentModelSerializer apartmentSerializer;
 
     bs.ReadCompressed(model.numWorlds);
     for (size_t i = 0; i < model.numWorlds && i < NUM_WORLDS; i++) {

@@ -1,16 +1,16 @@
 #pragma once
 
-#include <fom-network/PacketIdentifier.h>
-#include <fom-network/models/NetworkAddress.h>
-#include <fom-network/packets/CheckName.h>
-#include <fom-network/packets/CheckNameReturn.h>
-#include <fom-network/packets/CreateCharacter.h>
-#include <fom-network/packets/Login.h>
-#include <fom-network/packets/LoginRequest.h>
-#include <fom-network/packets/LoginRequestReturn.h>
-#include <fom-network/packets/LoginReturn.h>
-#include <fom-network/packets/ReadPacketError.h>
-#include <fom-network/packets/RegisterWorld.h>
+#include <fom-network/packets/NetworkAddress.h>
+#include <fom-network/packets/PacketIdentifier.h>
+#include <fom-network/packets/data/CheckName.h>
+#include <fom-network/packets/data/CheckNameReturn.h>
+#include <fom-network/packets/data/CreateCharacter.h>
+#include <fom-network/packets/data/Login.h>
+#include <fom-network/packets/data/LoginRequest.h>
+#include <fom-network/packets/data/LoginRequestReturn.h>
+#include <fom-network/packets/data/LoginReturn.h>
+#include <fom-network/packets/data/ReadPacketError.h>
+#include <fom-network/packets/data/RegisterWorld.h>
 
 namespace FOMNetwork {
 

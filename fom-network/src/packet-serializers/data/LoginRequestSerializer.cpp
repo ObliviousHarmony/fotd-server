@@ -1,4 +1,4 @@
-#include <fom-network/PacketSerializers.h>
+#include <fom-network/packets/PacketSerializers.h>
 
 namespace FOMNetwork {
 

@@ -1,13 +1,12 @@
 #pragma once
 
-#include <fom-network/models/NetworkAddress.h>
+#include <fom-network/packets/NetworkAddress.h>
 
-#include "ModelSerializer.h"
+#include "./models/ModelSerializer.h"
 
 namespace FOMNetwork {
 
-class NetworkAddressSerializer
-    : public ModelSerializer<NetworkAddress> {
+class NetworkAddressSerializer : public ModelSerializer<NetworkAddress> {
  public:
   void Write(RakNet::BitStream& bs,
              const NetworkAddress& model) const override {

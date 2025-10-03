@@ -1,14 +1,15 @@
 #pragma once
 
-#include <fom-network/models/Avatar.h>
+#include <fom-network/packets/models/AvatarModel.h>
 
 #include "ModelSerializer.h"
 
 namespace FOMNetwork {
 
-class AvatarSerializer : public ModelSerializer<Avatar> {
+class AvatarModelSerializer : public ModelSerializer<Packet::AvatarModel> {
  public:
-  void Write(RakNet::BitStream& bs, const Avatar& model) const override {
+  void Write(RakNet::BitStream& bs,
+             const Packet::AvatarModel& model) const override {
     WriteBits(bs, model.sex, 1);
     WriteBits(bs, model.skinColor, 1);
     WriteBits(bs, model.face, 5);
@@ -20,7 +21,7 @@ class AvatarSerializer : public ModelSerializer<Avatar> {
     WriteBits(bs, model.gloves, 12);
   }
 
-  bool Read(RakNet::BitStream& bs, Avatar& model) const override {
+  bool Read(RakNet::BitStream& bs, Packet::AvatarModel& model) const override {
     ReadBits(bs, model.sex, 1);
     ReadBits(bs, model.skinColor, 1);
     ReadBits(bs, model.face, 5);

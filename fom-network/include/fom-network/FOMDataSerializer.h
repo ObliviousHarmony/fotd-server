@@ -1,8 +1,8 @@
 #pragma once
 
 #include <fom-network/FOMNetworkExport.h>
-#include <fom-network/FOMPacket.h>
-#include <fom-network/PacketSerializers.h>
+#include <fom-network/packets/FOMPacket.h>
+#include <fom-network/packets/PacketSerializers.h>
 
 #include <memory>
 #include <stdexcept>

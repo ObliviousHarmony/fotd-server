@@ -3,13 +3,14 @@
 
 #include <fom-network/Common.h>
 #include <fom-network/FOMNetworkEnums.h>
-#include <fom-network/models/Apartment.h>
-#include <fom-network/models/NetworkAddress.h>
+#include <fom-network/packets/NetworkAddress.h>
+#include <fom-network/packets/models/ApartmentModel.h>
 
 namespace FOMNetwork {
+namespace Packet {
 
 #pragma pack(push, 1)
-struct WorldOverviewEntry {
+struct WorldOverviewModelEntry {
   WorldID id;
   NetworkAddress address;
   uint16_t playerCount;
@@ -18,19 +19,20 @@ struct WorldOverviewEntry {
 };
 #pragma pack(pop)
 
-ASSERT_BLITTABLE(WorldOverviewEntry);
+ASSERT_BLITTABLE(WorldOverviewModelEntry);
 
 #pragma pack(push, 1)
-struct WorldOverview {
+struct WorldOverviewModel {
   uint8_t numWorlds;
-  WorldOverviewEntry worldBuffer[NUM_WORLDS];
+  WorldOverviewModelEntry worldBuffer[NUM_WORLDS];
   uint32_t onlinePlayers;
   uint32_t onlineNewPlayers;
   uint8_t isPrisoner;
-  Apartment defaultApartment;
+  ApartmentModel defaultApartment;
 };
 #pragma pack(pop)
 
-ASSERT_BLITTABLE(WorldOverview);
+ASSERT_BLITTABLE(WorldOverviewModel);
 
+}  // namespace Packet
 }  // namespace FOMNetwork

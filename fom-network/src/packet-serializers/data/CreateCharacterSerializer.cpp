@@ -1,12 +1,12 @@
-#include <fom-network/PacketSerializers.h>
+#include <fom-network/packets/PacketSerializers.h>
 
-#include "../model-serializers/AvatarSerializer.h"
+#include "../models/AvatarModelSerializer.h"
 
 namespace FOMNetwork {
 
 Packet::CreateCharacter CreateCharacterSerializer::ReadData(
     RakNet::BitStream& bs) const {
-  AvatarSerializer avatarSerializer;
+  AvatarModelSerializer avatarSerializer;
 
   Packet::CreateCharacter data{};
   bs.ReadCompressed(data.playerID);

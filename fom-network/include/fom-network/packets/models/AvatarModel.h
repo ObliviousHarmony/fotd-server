@@ -4,12 +4,13 @@
 #include <fom-network/FOMNetworkEnums.h>
 
 namespace FOMNetwork {
+namespace Packet {
 
 enum AvatarSex : uint8_t { Male, Female };
 enum AvatarSkin : uint8_t { Light, Dark };
 
 #pragma pack(push, 1)
-struct Avatar {
+struct AvatarModel {
   AvatarSex sex;
   AvatarSkin skinColor;
   uint8_t face;
@@ -22,6 +23,7 @@ struct Avatar {
 };
 #pragma pack(pop)
 
-ASSERT_BLITTABLE(Avatar);
+ASSERT_BLITTABLE(AvatarModel);
 
+}  // namespace Packet
 }  // namespace FOMNetwork

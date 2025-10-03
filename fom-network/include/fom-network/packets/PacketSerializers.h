@@ -1,7 +1,7 @@
 #pragma once
 
 #include <fom-network/FOMNetworkExport.h>
-#include <fom-network/FOMPacket.h>
+#include <fom-network/packets/FOMPacket.h>
 #include <raknet/BitStream.h>
 #include <raknet/StringCompressor.h>
 

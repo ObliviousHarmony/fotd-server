@@ -1,8 +1,8 @@
 #pragma once
 
 #include <fom-network/Common.h>
-#include <fom-network/models/Apartment.h>
-#include <fom-network/models/WorldOverview.h>
+#include <fom-network/packets/models/ApartmentModel.h>
+#include <fom-network/packets/models/WorldOverviewModel.h>
 
 namespace FOMNetwork {
 namespace Packet {
@@ -30,7 +30,7 @@ struct LoginReturn {
   uint8_t accountType;
   uint8_t isVolunteer;
   uint16_t clientVersion;
-  WorldOverview worldOverview;
+  WorldOverviewModel worldOverview;
 };
 #pragma pack(pop)
 

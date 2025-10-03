@@ -1,5 +1,5 @@
-#include <fom-network/FOMPacket.h>
 #include <fom-network/NetworkAPI.h>
+#include <fom-network/packets/FOMPacket.h>
 
 #include <unordered_map>
 #include <unordered_set>

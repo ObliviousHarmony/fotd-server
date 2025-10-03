@@ -1,7 +1,7 @@
 #pragma once
 
 #include <fom-network/Common.h>
-#include <fom-network/models/Avatar.h>
+#include <fom-network/packets/models/AvatarModel.h>
 
 namespace FOMNetwork {
 namespace Packet {
@@ -9,7 +9,7 @@ namespace Packet {
 #pragma pack(push, 1)
 struct CreateCharacter {
   uint32_t playerID;
-  Avatar avatar;
+  AvatarModel avatar;
   uint8_t name[20];
   uint8_t biography[511];
 };
