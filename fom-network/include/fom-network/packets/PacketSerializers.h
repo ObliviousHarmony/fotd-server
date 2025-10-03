@@ -11,7 +11,6 @@
 
 #pragma warning(pop)
 
-
 namespace FOMNetwork {
 
 /**
