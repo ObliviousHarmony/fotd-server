@@ -13,7 +13,7 @@ must be done in order to achieve that.
 > correctly will result in compiler errors.
 
 - [ ] **Packet Data**: Each packet requires a struct defining what it
-  contains. Create a file in [`include/fom-network/packets/`](../fom-network/include/fom-network/packets/)
+  contains. Create a file in [`include/fom-network/packets/data/`](../fom-network/include/fom-network/packets/data/)
   named after the packet to be added. Limit data types used to RakNet's provided ones with
   `_t` suffixes to ensure compatibility with the managed structs.
 
@@ -37,7 +37,7 @@ ASSERT_BLITTABLE(ExamplePacket);
 ```
 
 - [ ] **Data Union**: Each packet needs to be included in [the `FOMDataUnion`
-  union](../fom-network/include/fom-network/FOMPacket.h) in order to be seen by the server.
+  union](../fom-network/include/fom-network/packets/FOMPacket.h) in order to be seen by the server.
 
 ```cpp
 /**
@@ -52,7 +52,7 @@ struct FOMDataUnion {
 ```
 
 - [ ] **Serializer Declaration**: Each packet to be sent or received
-  [requires a reader and/or writer](../fom-network/include/fom-network/PacketSerializers.h)
+  [requires a reader and/or writer](../fom-network/include/fom-network/packets/PacketSerializers.h)
   that is able to deal with the packet's `BitStream`. Macros are provided to eliminate
   the boilerplate associated with adding a new packet serializer.
 
@@ -61,13 +61,15 @@ struct FOMDataUnion {
 // the second is the name of the union variable used to
 // access the data contained within the data struct.
 SERIALIZER_WRITE(ExamplePacket, examplePacket)
+// or
 SERIALIZER_READ(ExamplePacket, examplePacket)
+// or
 SERIALIZER_BOTH(ExamplePacket, examplePacket)
 ```
 
 - [ ] **Serializer Definition**: Based on the macro used, each packet is required to have
   a write and/or a read method defined for the serializer. This is done by creating a new file
-  in [`src/packet-serializers/`](../fom-network/src/packet-serializers/) named `<PacketStruct>Serializer`.
+  in [`src/packet-serializers/`](../fom-network/src/packet-serializers/data/) named `<PacketStruct>Serializer`.
 
 ```cpp
 #include <fom-network/PacketSerializers.h>

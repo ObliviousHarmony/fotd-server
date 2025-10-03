@@ -143,5 +143,7 @@ SERIALIZER_READ(CreateCharacter, createCharacter)
 SERIALIZER_BOTH(RegisterWorld, registerWorld)
 SERIALIZER_READ(WorldOverview, worldOverview)
 SERIALIZER_WRITE(WorldOverviewReturn, worldOverviewReturn)
+SERIALIZER_READ(WorldLogin, worldLogin)
+SERIALIZER_WRITE(WorldLoginReturn, worldLoginReturn)
 
 }  // namespace FOMNetwork

@@ -97,9 +97,16 @@ namespace FOMServer.World.Application
 
         private NetworkManager? ConnectToMasterNetwork(PacketProcessor packetProcessor)
         {
-            var peer = _clientService.Connect(_serverSettings.MasterServerAddress, _serverSettings.MasterServerPort);
-            if (peer == IntPtr.Zero)
-                return null;
+            IntPtr peer = IntPtr.Zero;
+            while (peer == IntPtr.Zero)
+            {
+                peer = _clientService.Connect(_serverSettings.MasterServerAddress, _serverSettings.MasterServerPort);
+                if (peer == IntPtr.Zero)
+                {
+                    _logService.WriteMessage(LogLevel.Critical, "Failed to connect to master server, retrying in 5 seconds...");
+                    Thread.Sleep(5000);
+                }
+            }
 
             var networkManager = new NetworkManager(
                 _serviceProvider.GetRequiredService<IShutdownManager>(),

@@ -8,11 +8,12 @@ namespace FOMNetwork {
 /**
  * For every packet identifier, you must also update:
  *
- * - include/fom-network/packets/<PacketName>.h: Requires a packet struct.
- * - include/fom-network/FOMPacket.h: Add packet struct to union.
- * - include/fom-network/PacketSerializers.h: Requires a serializer declaration.
- * - src/packet-serializers/<PacketName>Serializer.cpp: Requires a serializer
- * implementation.
+ * - include/fom-network/packets/data/<PacketName>.h: Requires a packet struct.
+ * - include/fom-network/packets/FOMPacket.h: Add packet struct to union.
+ * - include/fom-network/packets/PacketSerializers.h: Requires a serializer
+ * declaration.
+ * - src/packet-serializers/data/<PacketName>Serializer.cpp: Requires a
+ * serializer implementation.
  * - src/FOMDataSerializer.cpp: Requires adding to the serializer map.
  * - src/NetworkAPI.cpp: Requires adding to the validation map.
  */
@@ -46,8 +47,8 @@ enum PacketIdentifier : uint8_t {
   ID_LOGIN = 110,
   ID_LOGIN_RETURN = 111,
   // ID_LOGOUT = 112,
-  // ID_WORLD_LOGIN = 113,
-  // ID_WORLD_LOGIN_RETURN = 114,
+  ID_WORLD_LOGIN = 113,
+  ID_WORLD_LOGIN_RETURN = 114,
   // ID_WORLD_LOGOUT = 115,
   ID_REGISTER_WORLD = 116,
   // 117,

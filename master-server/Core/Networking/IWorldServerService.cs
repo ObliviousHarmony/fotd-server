@@ -11,6 +11,11 @@ namespace FOMServer.Master.Core.Networking
         WorldServer[] GetAll();
 
         /// <summary>
+        /// Gets a world server by its ID.
+        /// </summary>
+        WorldServer? Get(WorldID id);
+
+        /// <summary>
         /// Registers a world server with the master server.
         /// </summary>
         WorldServer? Register(WorldID id, NetworkAddress serverAddress, string clientAddress, ushort clientPort);

@@ -20,6 +20,8 @@ set(FOMNETWORK_SRC
   "src/packet-serializers/data/RegisterWorldSerializer.cpp"
   "src/packet-serializers/data/WorldOverviewSerializer.cpp"
   "src/packet-serializers/data/WorldOverviewReturnSerializer.cpp"
+  "src/packet-serializers/data/WorldLoginSerializer.cpp"
+  "src/packet-serializers/data/WorldLoginReturnSerializer.cpp"
 )
 set(FOMNETWORK_INC
   "include/fom-network/FOMNetworkExport.h"
@@ -55,6 +57,8 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/data/RegisterWorld.h"
   "include/fom-network/packets/data/WorldOverview.h"
   "include/fom-network/packets/data/WorldOverviewReturn.h"
+  "include/fom-network/packets/data/WorldLogin.h"
+  "include/fom-network/packets/data/WorldLoginReturn.h"
 )
 set(FOMNETWORK_TEST
   "tests/FOMDataSerializer_test.cpp"

@@ -48,6 +48,10 @@ namespace FOMServer.Shared.Extensions
                     return (TPacket)(object)packet.Data.WorldOverview;
                 case PacketIdentifier.ID_WORLD_OVERVIEW_RETURN when typeof(TPacket) == typeof(WorldOverviewReturn):
                     return (TPacket)(object)packet.Data.WorldOverviewReturn;
+                case PacketIdentifier.ID_WORLD_LOGIN when typeof(TPacket) == typeof(WorldLogin):
+                    return (TPacket)(object)packet.Data.WorldLogin;
+                case PacketIdentifier.ID_WORLD_LOGIN_RETURN when typeof(TPacket) == typeof(WorldLoginReturn):
+                    return (TPacket)(object)packet.Data.WorldLoginReturn;
 
                 default:
                     throw new InvalidOperationException(

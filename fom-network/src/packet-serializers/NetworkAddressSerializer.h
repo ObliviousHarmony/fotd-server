@@ -10,11 +10,24 @@ class NetworkAddressSerializer : public ModelSerializer<NetworkAddress> {
  public:
   void Write(RakNet::BitStream& bs,
              const NetworkAddress& model) const override {
-    bs.Write(model.binaryAddress);
+    // The client expects the binary address to be bitwise NOTed and
+    // endian-swapped.
+    uint32_t bitStreamAddress = model.binaryAddress;
+    bitStreamAddress = ~bitStreamAddress;
+    bs.ReverseBytesInPlace((uint8_t*)&bitStreamAddress, 4);
+
+    bs.Write(bitStreamAddress);
     bs.Write(model.port);
   }
+
   bool Read(RakNet::BitStream& bs, NetworkAddress& model) const override {
-    bs.Read(model.binaryAddress);
+    // Reverse the bitwise NOT and endian-swap.
+    uint32_t bitStreamAddress;
+    bs.Read(bitStreamAddress);
+    bs.ReverseBytesInPlace((uint8_t*)&bitStreamAddress, 4);
+    bitStreamAddress = ~bitStreamAddress;
+
+    model.binaryAddress = bitStreamAddress;
     bs.Read(model.port);
     return true;
   }

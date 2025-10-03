@@ -19,6 +19,13 @@ namespace FOMServer.Master.Application.Networking
             return _worldServers.Values.ToArray();
         }
 
+        public WorldServer? Get(WorldID id)
+        {
+            if (!_worldServers.TryGetValue(id, out var worldServer))
+                return null;
+            return worldServer;
+        }
+
         public WorldServer? Register(WorldID id, NetworkAddress serverAddress, string clientAddress, ushort clientPort)
         {
             if (_worldServers.ContainsKey(id))

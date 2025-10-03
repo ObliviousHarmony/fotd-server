@@ -24,5 +24,7 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
         [FieldOffset(0)] public RegisterWorld RegisterWorld;
         [FieldOffset(0)] public WorldOverview WorldOverview;
         [FieldOffset(0)] public WorldOverviewReturn WorldOverviewReturn;
+        [FieldOffset(0)] public WorldLogin WorldLogin;
+        [FieldOffset(0)] public WorldLoginReturn WorldLoginReturn;
     }
 }

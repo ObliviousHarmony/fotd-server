@@ -16,7 +16,8 @@ using FOMServer.Shared.Core.FOMPacket.Data;
  * - Core/Models/FOMData/{PacketName}.cs: Requires a new struct definition.
  * - Packet struct added to the FOMDataUnion union below.
  * - Extensions/FOMPacketExtensions.cs: Requires a new FOMDataUnion type case.
- * - Server-Specific PacketHandlers/<PacketName>Handler.cs: Requires a new packet handler implementation. Bind to IPacketHandler in server-specific CompositionRoot.cs.
+ * - Server-Specific PacketHandlers/<PacketName>Handler.cs: Requires a new packet handler implementation.
+ *   Bind to IPacketHandler in server-specific CompositionRoot.cs.
  */
 namespace FOMServer.Shared.Core.FOMPacket
 {

@@ -11,6 +11,8 @@
 #include <fom-network/packets/data/LoginReturn.h>
 #include <fom-network/packets/data/ReadPacketError.h>
 #include <fom-network/packets/data/RegisterWorld.h>
+#include <fom-network/packets/data/WorldLogin.h>
+#include <fom-network/packets/data/WorldLoginReturn.h>
 #include <fom-network/packets/data/WorldOverview.h>
 #include <fom-network/packets/data/WorldOverviewReturn.h>
 
@@ -30,6 +32,8 @@ struct FOMDataUnion {
     Packet::RegisterWorld registerWorld;
     Packet::WorldOverview worldOverview;
     Packet::WorldOverviewReturn worldOverviewReturn;
+    Packet::WorldLogin worldLogin;
+    Packet::WorldLoginReturn worldLoginReturn;
   };
 };
 #pragma pack(pop)

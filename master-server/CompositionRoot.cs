@@ -61,15 +61,15 @@ namespace FOMServer.Master
             s_dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
 
             if (s_serverSettings.WorldPort <= 0)
-                throw new InvalidOperationException("World server port must be greater than 0.");
+                throw new InvalidOperationException("World server port must be greater than 0");
             if (s_serverSettings.ClientPort <= 0)
-                throw new InvalidOperationException("Client port must be greater than 0.");
+                throw new InvalidOperationException("Client port must be greater than 0");
             if (s_serverSettings.WorldPort == s_serverSettings.ClientPort)
-                throw new InvalidOperationException("World and client ports must be different.");
+                throw new InvalidOperationException("World and client ports must be different");
             if (string.IsNullOrWhiteSpace(s_dbSettings.Name))
-                throw new InvalidOperationException("Database name must be configured.");
+                throw new InvalidOperationException("Database name must be configured");
             if (string.IsNullOrWhiteSpace(s_dbSettings.ConnectionString))
-                throw new InvalidOperationException("Database connection string must be configured.");
+                throw new InvalidOperationException("Database connection string must be configured");
 
             services.AddSingleton(s_serverSettings);
             services.AddSingleton(s_dbSettings);
@@ -126,6 +126,7 @@ namespace FOMServer.Master
             services.AddSingleton<IPacketHandler, CreateCharacterHandler>();
             services.AddSingleton<IPacketHandler, RegisterWorldPacketHandler>();
             services.AddSingleton<IPacketHandler, WorldOverviewHandler>();
+            services.AddSingleton<IPacketHandler, WorldLoginHandler>();
             return services;
         }
     }

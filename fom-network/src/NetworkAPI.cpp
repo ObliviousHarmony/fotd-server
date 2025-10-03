@@ -26,6 +26,8 @@ int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures,
       {ID_REGISTER_WORLD, sizeof(RegisterWorld)},
       {ID_WORLD_OVERVIEW, sizeof(WorldOverview)},
       {ID_WORLD_OVERVIEW_RETURN, sizeof(WorldOverviewReturn)},
+      {ID_WORLD_LOGIN, sizeof(WorldLogin)},
+      {ID_WORLD_LOGIN_RETURN, sizeof(WorldLoginReturn)},
   };
 
 #pragma warning(pop)
