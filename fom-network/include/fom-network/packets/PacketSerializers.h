@@ -2,8 +2,14 @@
 
 #include <fom-network/FOMNetworkExport.h>
 #include <fom-network/packets/FOMPacket.h>
+
+#pragma warning(push)
+#pragma warning(disable : 26495)
+
 #include <raknet/BitStream.h>
 #include <raknet/StringCompressor.h>
+
+#pragma warning(pop)
 
 namespace FOMNetwork {
 

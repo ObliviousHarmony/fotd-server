@@ -1,22 +1,22 @@
 using System.Data;
-using MySqlConnector;
 using FOMServer.Shared.Infrastructure.Database;
 using FOMServer.World.Core;
+using MySqlConnector;
 
 namespace FOMServer.World.Infrastructure.Database
 {
     public class DbConnectionFactory : IDbConnectionFactory
     {
-        private readonly DatabaseSettings dbSettings;
+        private readonly DatabaseSettings _dbSettings;
 
         public DbConnectionFactory(DatabaseSettings dbSettings)
         {
-            this.dbSettings = dbSettings;
+            _dbSettings = dbSettings;
         }
 
         public IDbConnection Create()
         {
-            return new MySqlConnection(dbSettings.ConnectionString);
+            return new MySqlConnection(_dbSettings.ConnectionString);
         }
     }
 }

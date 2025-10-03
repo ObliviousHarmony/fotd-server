@@ -1,6 +1,12 @@
 #include <fom-network/FOMDataSerializer.h>
+
+#pragma warning(push)
+#pragma warning(disable : 26495)
+
 #include <gtest/gtest.h>
 #include <raknet/BitStream.h>
+
+#pragma warning(pop)
 
 using namespace FOMNetwork;
 

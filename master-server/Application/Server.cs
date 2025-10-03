@@ -14,13 +14,13 @@ namespace FOMServer.Master.Application
 {
     public class Server
     {
-        private readonly ILogService logService;
-        private readonly IShutdownManager shutdownManager;
-        private readonly IMigrationRunner migrationRunner;
-        private readonly ServerSettings serverSettings;
-        private readonly INetworkService networkService;
-        private readonly IServerService serverService;
-        private readonly IServiceProvider serviceProvider;
+        private readonly ILogService _logService;
+        private readonly IShutdownManager _shutdownManager;
+        private readonly IMigrationRunner _migrationRunner;
+        private readonly ServerSettings _serverSettings;
+        private readonly INetworkService _networkService;
+        private readonly IServerService _serverService;
+        private readonly IServiceProvider _serviceProvider;
 
         public Server(
             ILogService logService,
@@ -32,13 +32,13 @@ namespace FOMServer.Master.Application
             IServiceProvider serviceProvider
         )
         {
-            this.logService = logService;
-            this.shutdownManager = shutdownManager;
-            this.migrationRunner = migrationRunner;
-            this.serverSettings = serverSettings;
-            this.networkService = networkService;
-            this.serverService = serverService;
-            this.serviceProvider = serviceProvider;
+            _logService = logService;
+            _shutdownManager = shutdownManager;
+            _migrationRunner = migrationRunner;
+            _serverSettings = serverSettings;
+            _networkService = networkService;
+            _serverService = serverService;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task Run()
@@ -46,43 +46,43 @@ namespace FOMServer.Master.Application
             // We need to make sure our packet structs are all blittable and match the C++ side.
             // This is critical to ensure that we don't have memory corruption and don't
             // require expensive marshalling of data between managed and unmanaged code.
-            networkService.ValidateFOMPacket();
+            _networkService.ValidateFOMPacket();
 
-            logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
-            logService.WriteMessage(LogLevel.Info, "Initializing Master Server");
+            _logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
+            _logService.WriteMessage(LogLevel.Info, "Initializing Master Server");
 
             Console.CancelKeyPress += (sender, e) =>
             {
-                logService.WriteMessage(LogLevel.Info, "Stopping Server...");
+                _logService.WriteMessage(LogLevel.Info, "Stopping Server...");
 
                 e.Cancel = true;
-                shutdownManager.Shutdown();
+                _shutdownManager.Shutdown();
             };
             AppDomain.CurrentDomain.ProcessExit += (sender, e) =>
             {
-                shutdownManager.Shutdown();
+                _shutdownManager.Shutdown();
             };
 
             if (!InitializeDatabase())
                 return;
 
             var packetProcessor = new PacketProcessor(
-                serviceProvider.GetRequiredService<IShutdownManager>(),
-                logService,
-                serviceProvider.GetRequiredService<IEnumerable<IPacketHandler>>()
+                _serviceProvider.GetRequiredService<IShutdownManager>(),
+                _logService,
+                _serviceProvider.GetRequiredService<IEnumerable<IPacketHandler>>()
             );
 
             var worldNetwork = CreateWorldServerNetwork(packetProcessor);
             if (worldNetwork == null)
             {
-                logService.WriteMessage(LogLevel.Critical, "Failed to create the world server network.");
+                _logService.WriteMessage(LogLevel.Critical, "Failed to create the world server network.");
                 return;
             }
 
             var clientNetwork = CreateClientNetwork(packetProcessor);
             if (clientNetwork == null)
             {
-                logService.WriteMessage(LogLevel.Critical, "Failed to create the client network.");
+                _logService.WriteMessage(LogLevel.Critical, "Failed to create the client network.");
                 return;
             }
 
@@ -91,29 +91,29 @@ namespace FOMServer.Master.Application
             worldNetwork.Start();
             clientNetwork.Start();
 
-            logService.WriteMessage(LogLevel.Info, $"World Port: {serverSettings.WorldPort}");
-            logService.WriteMessage(LogLevel.Info, $"Client Port: {serverSettings.ClientPort}");
-            logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
+            _logService.WriteMessage(LogLevel.Info, $"World Port: {_serverSettings.WorldPort}");
+            _logService.WriteMessage(LogLevel.Info, $"Client Port: {_serverSettings.ClientPort}");
+            _logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
 
-            await shutdownManager.Stopped;
-            logService.WriteMessage(LogLevel.Info, "Shutdown Complete");
+            await _shutdownManager.Stopped;
+            _logService.WriteMessage(LogLevel.Info, "Shutdown Complete");
         }
 
         private bool InitializeDatabase()
         {
             try
             {
-                migrationRunner.MigrateUp();
+                _migrationRunner.MigrateUp();
             }
             catch (MySqlException)
             {
-                logService.WriteMessage(LogLevel.Critical, "Failed to connect to the database. Please check your connection settings.");
+                _logService.WriteMessage(LogLevel.Critical, "Failed to connect to the database. Please check your connection settings.");
                 return false;
             }
             catch (Exception ex)
             {
-                logService.WriteMessage(LogLevel.Critical, "Failed to apply database migrations.");
-                logService.WriteException(ex);
+                _logService.WriteMessage(LogLevel.Critical, "Failed to apply database migrations.");
+                _logService.WriteException(ex);
                 return false;
             }
 
@@ -122,14 +122,14 @@ namespace FOMServer.Master.Application
 
         private NetworkManager? CreateWorldServerNetwork(PacketProcessor packetProcessor)
         {
-            var peer = serverService.Startup(serverSettings.WorldPort);
+            var peer = _serverService.Startup(_serverSettings.WorldPort);
             if (peer == IntPtr.Zero)
                 return null;
 
             var networkManager = new NetworkManager(
-                serviceProvider.GetRequiredService<IShutdownManager>(),
-                serviceProvider.GetRequiredService<ILogService>(),
-                serviceProvider.GetRequiredService<IPacketService>(),
+                _serviceProvider.GetRequiredService<IShutdownManager>(),
+                _serviceProvider.GetRequiredService<ILogService>(),
+                _serviceProvider.GetRequiredService<IPacketService>(),
                 packetProcessor
             );
 
@@ -137,31 +137,31 @@ namespace FOMServer.Master.Application
             networkManager.ClaimPacketID(PacketIdentifier.ID_REGISTER_WORLD);
 
             // Initialize the packet sender for communication with world servers.
-            var packetSender = serviceProvider.GetRequiredService<WorldPacketSender>();
+            var packetSender = _serviceProvider.GetRequiredService<WorldPacketSender>();
             packetSender.Initialize(networkManager);
 
-            networkManager.Configure(peer, serverService.Shutdown);
+            networkManager.Configure(peer, _serverService.Shutdown);
             return networkManager;
         }
 
         private NetworkManager? CreateClientNetwork(PacketProcessor packetProcessor)
         {
-            var peer = serverService.Startup(serverSettings.ClientPort);
+            var peer = _serverService.Startup(_serverSettings.ClientPort);
             if (peer == IntPtr.Zero)
                 return null;
 
             var networkManager = new NetworkManager(
-                serviceProvider.GetRequiredService<IShutdownManager>(),
-                serviceProvider.GetRequiredService<ILogService>(),
-                serviceProvider.GetRequiredService<IPacketService>(),
+                _serviceProvider.GetRequiredService<IShutdownManager>(),
+                _serviceProvider.GetRequiredService<ILogService>(),
+                _serviceProvider.GetRequiredService<IPacketService>(),
                 packetProcessor
             );
 
             // Initialize the packet sender for communication with clients.
-            var packetSender = serviceProvider.GetRequiredService<ClientPacketSender>();
+            var packetSender = _serviceProvider.GetRequiredService<ClientPacketSender>();
             packetSender.Initialize(networkManager);
 
-            networkManager.Configure(peer, serverService.Shutdown);
+            networkManager.Configure(peer, _serverService.Shutdown);
             return networkManager;
         }
     }

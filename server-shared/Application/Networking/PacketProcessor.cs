@@ -1,9 +1,9 @@
+using System.Threading.Channels;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
-using System.Threading.Channels;
 
 namespace FOMServer.Shared.Application.Networking
 {
@@ -15,21 +15,21 @@ namespace FOMServer.Shared.Application.Networking
     /// </summary>
     public class PacketProcessor
     {
-        private readonly IShutdownManager shutdownManager;
-        private readonly ILogService logService;
-        private readonly Dictionary<PacketIdentifier, IPacketHandler> handlers;
-        private readonly Channel<Packet> packetQueue;
-        private readonly List<Task> workers = [];
+        private readonly IShutdownManager _shutdownManager;
+        private readonly ILogService _logService;
+        private readonly Dictionary<PacketIdentifier, IPacketHandler> _handlers;
+        private readonly Channel<Packet> _packetQueue;
+        private readonly List<Task> _workers = [];
 
-        private CancellationTokenSource? cts;
+        private CancellationTokenSource? _cts;
 
         public PacketProcessor(IShutdownManager shutdownManager, ILogService logService, IEnumerable<IPacketHandler> handlers)
         {
-            this.shutdownManager = shutdownManager;
-            this.logService = logService;
-            this.handlers = handlers.ToDictionary(h => h.PacketID);
+            _shutdownManager = shutdownManager;
+            _logService = logService;
+            _handlers = handlers.ToDictionary(h => h.PacketID);
 
-            packetQueue = Channel.CreateUnbounded<Packet>(
+            _packetQueue = Channel.CreateUnbounded<Packet>(
                 new UnboundedChannelOptions
                 {
                     SingleReader = false,
@@ -43,7 +43,7 @@ namespace FOMServer.Shared.Application.Networking
         /// </summary>
         public void Enqueue(in Packet packet)
         {
-            packetQueue.Writer.TryWrite(packet);
+            _packetQueue.Writer.TryWrite(packet);
         }
 
         /// <summary>
@@ -51,27 +51,27 @@ namespace FOMServer.Shared.Application.Networking
         /// </summary>
         public void Start(int workerCount = 1)
         {
-            if (cts != null)
+            if (_cts != null)
                 return;
 
-            cts = CancellationTokenSource.CreateLinkedTokenSource(shutdownManager.Token);
+            _cts = CancellationTokenSource.CreateLinkedTokenSource(_shutdownManager.Token);
 
             for (int i = 0; i < workerCount; i++)
             {
                 // Use a dedicated thread for each worker because new packets
                 // will consistently be arriving and needing to be handled.
                 var task = Task.Factory.StartNew(
-                    async () => await WorkerLoopAsync(cts.Token),
-                    cts.Token,
+                    async () => await WorkerLoopAsync(_cts.Token),
+                    _cts.Token,
                     TaskCreationOptions.LongRunning,
                     TaskScheduler.Default
                 ).Unwrap();
 
-                workers.Add(task);
+                _workers.Add(task);
             }
 
             // Make sure the shutdown manager waits for all of the packet workers to complete.
-            shutdownManager.TrackTask(Task.WhenAll(workers));
+            _shutdownManager.TrackTask(Task.WhenAll(_workers));
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace FOMServer.Shared.Application.Networking
 
                 try
                 {
-                    packet = await packetQueue.Reader.ReadAsync(ct);
+                    packet = await _packetQueue.Reader.ReadAsync(ct);
                 }
                 catch (OperationCanceledException)
                 {
@@ -98,7 +98,7 @@ namespace FOMServer.Shared.Application.Networking
 
                 try
                 {
-                    if (handlers.TryGetValue(packet.ID, out var handler))
+                    if (_handlers.TryGetValue(packet.ID, out var handler))
                         handler.Handle(packet);
                     else
                         OnUnhandledPacket(packet);
@@ -107,7 +107,7 @@ namespace FOMServer.Shared.Application.Networking
                 {
                     // Letting unhandled exceptions prevent further packet processing
                     // would silently break break the server, so log and continue.
-                    logService.WritePacketException(packet, ex);
+                    _logService.WritePacketException(packet, ex);
                     continue;
                 }
             }

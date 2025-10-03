@@ -1,8 +1,8 @@
+using System.Runtime.CompilerServices;
+using System.Threading.Channels;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Persistence;
-using System.Runtime.CompilerServices;
-using System.Threading.Channels;
 
 namespace FOMServer.Shared.Application.Persistence
 {
@@ -11,28 +11,28 @@ namespace FOMServer.Shared.Application.Persistence
     /// </summary>
     public class PersistenceService : IPersistenceService
     {
-        private readonly IShutdownManager shutdownManager;
-        private readonly ILogService logService;
+        private readonly IShutdownManager _shutdownManager;
+        private readonly ILogService _logService;
 
         private class DirtyFlag { public int IsDirty = 0; }
 
-        private readonly Dictionary<Type, IPersistenceHandler> handlers;
-        private readonly Channel<IPersistable> dirtyQueue;
+        private readonly Dictionary<Type, IPersistenceHandler> _handlers;
+        private readonly Channel<IPersistable> _dirtyQueue;
 
-        private readonly ConditionalWeakTable<IPersistable, DirtyFlag> dirtyFlags;
-        private readonly ConditionalWeakTable<IPersistable, SemaphoreSlim> entityLocks;
+        private readonly ConditionalWeakTable<IPersistable, DirtyFlag> _dirtyFlags;
+        private readonly ConditionalWeakTable<IPersistable, SemaphoreSlim> _entityLocks;
 
-        private Task? persistenceTask;
-        private CancellationTokenSource? cts;
+        private Task? _persistenceTask;
+        private CancellationTokenSource? _cts;
 
         public PersistenceService(IShutdownManager shutdownManager, ILogService logService, IEnumerable<IPersistenceHandler> handlers)
         {
-            this.shutdownManager = shutdownManager;
-            this.logService = logService;
-            this.handlers = handlers.ToDictionary(h => h.EntityType);
-            dirtyQueue = Channel.CreateUnbounded<IPersistable>();
-            dirtyFlags = new ConditionalWeakTable<IPersistable, DirtyFlag>();
-            entityLocks = new ConditionalWeakTable<IPersistable, SemaphoreSlim>();
+            _shutdownManager = shutdownManager;
+            _logService = logService;
+            _handlers = handlers.ToDictionary(h => h.EntityType);
+            _dirtyQueue = Channel.CreateUnbounded<IPersistable>();
+            _dirtyFlags = new ConditionalWeakTable<IPersistable, DirtyFlag>();
+            _entityLocks = new ConditionalWeakTable<IPersistable, SemaphoreSlim>();
         }
 
         public void Register(IPersistable entity)
@@ -43,9 +43,9 @@ namespace FOMServer.Shared.Application.Persistence
         private void Enqueue(IPersistable entity)
         {
             // Use an atomic flag so that dirty entities are thread-safely queued only once.
-            var flag = dirtyFlags.GetOrCreateValue(entity);
+            var flag = _dirtyFlags.GetOrCreateValue(entity);
             if (Interlocked.Exchange(ref flag.IsDirty, 1) == 0)
-                dirtyQueue.Writer.TryWrite(entity);
+                _dirtyQueue.Writer.TryWrite(entity);
         }
 
         /// <summary>
@@ -53,16 +53,16 @@ namespace FOMServer.Shared.Application.Persistence
         /// </summary>
         public void Start()
         {
-            if (persistenceTask != null)
+            if (_persistenceTask != null)
                 return;
 
-            cts = CancellationTokenSource.CreateLinkedTokenSource(shutdownManager.Token);
+            _cts = CancellationTokenSource.CreateLinkedTokenSource(_shutdownManager.Token);
 
             // Use the thread pool for this task as it does a ton of blocking IO.
-            persistenceTask = Task.Run(() => PersistenceLoopAsync(cts.Token), cts.Token);
+            _persistenceTask = Task.Run(() => PersistenceLoopAsync(_cts.Token), _cts.Token);
 
             // Make sure that the shutdown manager waits for this task to complete.
-            shutdownManager.TrackTask(persistenceTask);
+            _shutdownManager.TrackTask(_persistenceTask);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace FOMServer.Shared.Application.Persistence
             {
                 try
                 {
-                    var entity = await dirtyQueue.Reader.ReadAsync(ct);
+                    var entity = await _dirtyQueue.Reader.ReadAsync(ct);
                     await Handle(entity);
                 }
                 catch (OperationCanceledException)
@@ -89,13 +89,13 @@ namespace FOMServer.Shared.Application.Persistence
                 {
                     // Letting unhandled exceptions prevent further persistence
                     // could lead to data loss, so log and continue.
-                    logService.WriteException(ex);
+                    _logService.WriteException(ex);
                     continue;
                 }
             }
 
             // Drain the queue and persist any remaining changed entities before shutting down.
-            while (dirtyQueue.Reader.TryRead(out var entity))
+            while (_dirtyQueue.Reader.TryRead(out var entity))
                 await Handle(entity);
         }
 
@@ -104,17 +104,17 @@ namespace FOMServer.Shared.Application.Persistence
         /// </summary>
         private async Task Handle(IPersistable entity)
         {
-            if (!handlers.TryGetValue(entity.GetType(), out var handler))
+            if (!_handlers.TryGetValue(entity.GetType(), out var handler))
                 return;
 
             // Clear the dirty flag so that the entity can be re-queued if it changes again.
-            if (!dirtyFlags.TryGetValue(entity, out var entityFlag))
+            if (!_dirtyFlags.TryGetValue(entity, out var entityFlag))
                 return;
             if (Interlocked.Exchange(ref entityFlag.IsDirty, 0) == 0)
                 return;
 
             // Only allow the entity to be persisted by one thread at a time.
-            var semaphore = entityLocks.GetValue(entity, _ => new SemaphoreSlim(1, 1));
+            var semaphore = _entityLocks.GetValue(entity, _ => new SemaphoreSlim(1, 1));
             await semaphore.WaitAsync();
             try
             {

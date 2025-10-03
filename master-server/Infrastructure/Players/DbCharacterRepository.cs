@@ -9,16 +9,16 @@ namespace FOMServer.Master.Infrastructure.Repositories
 {
     public class DbCharacterRepository : ICharacterRepository
     {
-        private IDbConnectionFactory dbConnectionFactory;
+        private IDbConnectionFactory _dbConnectionFactory;
 
         public DbCharacterRepository(IDbConnectionFactory dbConnectionFactory)
         {
-            this.dbConnectionFactory = dbConnectionFactory;
+            _dbConnectionFactory = dbConnectionFactory;
         }
 
         public uint? Exists(string name)
         {
-            using var connection = dbConnectionFactory.Create();
+            using var connection = _dbConnectionFactory.Create();
             return connection.QueryFirstOrDefault<uint?>(
                 "SELECT `id` FROM `character` WHERE `name` = @name",
                 new { name }
@@ -27,7 +27,7 @@ namespace FOMServer.Master.Infrastructure.Repositories
 
         public CharacterDto? Get(uint playerID)
         {
-            using var connection = dbConnectionFactory.Create();
+            using var connection = _dbConnectionFactory.Create();
             return connection.QueryFirstOrDefault<CharacterDto?>(
                 "SELECT `id`, `name`, `faction`, `sex`, `skin_color`, `face`, `hair`  FROM `character` WHERE `id` = @id",
                 new { id = playerID }
@@ -45,7 +45,7 @@ namespace FOMServer.Master.Infrastructure.Repositories
             byte hair
         )
         {
-            using var connection = dbConnectionFactory.Create();
+            using var connection = _dbConnectionFactory.Create();
 
             try
             {

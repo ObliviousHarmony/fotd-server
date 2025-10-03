@@ -13,20 +13,20 @@ namespace FOMServer.Master.Application.Handlers
     {
         public override PacketIdentifier PacketID => PacketIdentifier.ID_LOGIN;
 
-        private readonly IPlayerService playerService;
-        private readonly IWorldOverviewFactory worldOverviewFactory;
-        private readonly IClientPacketSender packetSender;
+        private readonly IPlayerService _playerService;
+        private readonly IWorldOverviewFactory _worldOverviewFactory;
+        private readonly IClientPacketSender _packetSender;
 
         public LoginHandler(IPlayerService playerService, IWorldOverviewFactory worldOverviewFactory, IClientPacketSender packetSender)
         {
-            this.playerService = playerService;
-            this.worldOverviewFactory = worldOverviewFactory;
-            this.packetSender = packetSender;
+            _playerService = playerService;
+            _worldOverviewFactory = worldOverviewFactory;
+            _packetSender = packetSender;
         }
 
         public override void Handle(NetworkAddress sender, in Login data)
         {
-            var player = playerService.Login(data.Username, data.PasswordHash, sender);
+            var player = _playerService.Login(data.Username, data.PasswordHash, sender);
             if (player == null)
                 return;
 
@@ -40,7 +40,7 @@ namespace FOMServer.Master.Application.Handlers
                     AccountType = 3,
                     IsVolunteer = false,
                     ClientVersion = GlobalConstants.ClientVersion,
-                    WorldOverview = this.worldOverviewFactory.Create(player),
+                    WorldOverview = _worldOverviewFactory.Create(player),
                 };
             }
             else
@@ -51,9 +51,9 @@ namespace FOMServer.Master.Application.Handlers
                 };
             }
 
-            packetSender.Send(
+            _packetSender.Send(
                 PacketIdentifier.ID_LOGIN_RETURN,
-                new FOMDataUnion { loginReturn = response },
+                new FOMDataUnion { LoginReturn = response },
                 sender,
                 PacketPriority.HIGH_PRIORITY,
                 PacketReliability.RELIABLE_ORDERED

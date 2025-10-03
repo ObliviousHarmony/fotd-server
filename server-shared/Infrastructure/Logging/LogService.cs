@@ -1,31 +1,31 @@
+using System.Diagnostics.Metrics;
+using System.Threading.Channels;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.Logging;
-using System.Diagnostics.Metrics;
-using System.Threading.Channels;
 
 namespace FOMServer.Shared.Infrastructure.Logging
 {
     public class LogService : ILogService
     {
-        private static readonly Meter Meter = new("FOMServer.Logging");
-        private static readonly Counter<long> LogEnqueuedCounter =
-            Meter.CreateCounter<long>("log.entries.enqueued", unit: "entries", description: "Number of log entries enqueued");
+        private static readonly Meter s_meter = new("FOMServer.Logging");
+        private static readonly Counter<long> s_logEnqueuedCounter =
+            s_meter.CreateCounter<long>("log.entries.enqueued", unit: "entries", description: "Number of log entries enqueued");
 
-        private readonly IShutdownManager shutdownManager;
-        private readonly Channel<LogEntry> logChannel;
-        private readonly bool writeConsole;
-        private readonly StreamWriter? logFileWriter;
+        private readonly IShutdownManager _shutdownManager;
+        private readonly Channel<LogEntry> _logChannel;
+        private readonly bool _writeConsole;
+        private readonly StreamWriter? _logFileWriter;
 
-        private Task? loggingTask;
-        private CancellationTokenSource? cts;
+        private Task? _loggingTask;
+        private CancellationTokenSource? _cts;
 
         public LogService(IShutdownManager shutdownManager, bool writeConsole = true, string? logFilePath = null)
         {
-            this.shutdownManager = shutdownManager;
+            _shutdownManager = shutdownManager;
 
-            logChannel = Channel.CreateUnbounded<LogEntry>(
+            _logChannel = Channel.CreateUnbounded<LogEntry>(
                 new UnboundedChannelOptions
                 {
                     SingleReader = true,
@@ -33,11 +33,11 @@ namespace FOMServer.Shared.Infrastructure.Logging
                 }
             );
 
-            this.writeConsole = writeConsole;
+            _writeConsole = writeConsole;
 
             if (logFilePath != null)
             {
-                logFileWriter = new StreamWriter(File.Open(
+                _logFileWriter = new StreamWriter(File.Open(
                    logFilePath, FileMode.Append, FileAccess.Write, FileShare.Read))
                 {
                     AutoFlush = true
@@ -50,10 +50,10 @@ namespace FOMServer.Shared.Infrastructure.Logging
         /// </summary>
         public void Write(in LogEntry entry)
         {
-            if (!logChannel.Writer.TryWrite(entry))
+            if (!_logChannel.Writer.TryWrite(entry))
                 throw new InvalidOperationException("Logging channel is closed.");
 
-            LogEnqueuedCounter.Add(1, KeyValuePair.Create<string, object?>("level", entry.Level.ToString()));
+            s_logEnqueuedCounter.Add(1, KeyValuePair.Create<string, object?>("level", entry.Level.ToString()));
         }
 
         /// <summary>
@@ -91,15 +91,15 @@ namespace FOMServer.Shared.Infrastructure.Logging
         /// </summary>
         public void Start()
         {
-            if (loggingTask != null)
+            if (_loggingTask != null)
                 return;
 
-            cts = CancellationTokenSource.CreateLinkedTokenSource(shutdownManager.Token);
+            _cts = CancellationTokenSource.CreateLinkedTokenSource(_shutdownManager.Token);
 
-            loggingTask = Task.Run(() => ProcessLoopAsync(cts.Token), cts.Token);
+            _loggingTask = Task.Run(() => ProcessLoopAsync(_cts.Token), _cts.Token);
 
             // Make sure that the shutdown manager waits for this task to complete.
-            shutdownManager.TrackTask(loggingTask);
+            _shutdownManager.TrackTask(_loggingTask);
         }
 
         /// <summary>
@@ -109,15 +109,15 @@ namespace FOMServer.Shared.Infrastructure.Logging
         {
             try
             {
-                await foreach (var entry in logChannel.Reader.ReadAllAsync(ct))
+                await foreach (var entry in _logChannel.Reader.ReadAllAsync(ct))
                 {
                     var formatted = entry.ToString();
 
-                    if (writeConsole)
+                    if (_writeConsole)
                         Console.WriteLine(formatted);
 
-                    if (logFileWriter != null)
-                        await logFileWriter.WriteLineAsync(formatted);
+                    if (_logFileWriter != null)
+                        await _logFileWriter.WriteLineAsync(formatted);
                 }
             }
             catch (Exception)
@@ -125,7 +125,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
             }
             finally
             {
-                logFileWriter?.Dispose();
+                _logFileWriter?.Dispose();
             }
         }
     }

@@ -1,5 +1,5 @@
-using FOMServer.Shared.Core.FOMPacket.Models;
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.FOMPacket.Models;
 
 namespace FOMServer.Shared.Core.FOMPacket.Data
 {

@@ -12,17 +12,17 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
     [StructLayout(LayoutKind.Explicit, Pack = 1)]
     public struct FOMDataUnion
     {
-        [FieldOffset(0)] public RakNetPacket rakNetPacket;
-        [FieldOffset(0)] public ReadPacketError readError;
-        [FieldOffset(0)] public LoginRequest loginRequest;
-        [FieldOffset(0)] public LoginRequestReturn loginRequestReturn;
-        [FieldOffset(0)] public Login login;
-        [FieldOffset(0)] public LoginReturn loginReturn;
-        [FieldOffset(0)] public CheckName checkName;
-        [FieldOffset(0)] public CheckNameReturn checkNameReturn;
-        [FieldOffset(0)] public CreateCharacter createCharacter;
-        [FieldOffset(0)] public RegisterWorld registerWorld;
-        [FieldOffset(0)] public WorldOverview worldOverview;
-        [FieldOffset(0)] public WorldOverviewReturn worldOverviewReturn;
+        [FieldOffset(0)] public RakNetPacket RakNetPacket;
+        [FieldOffset(0)] public ReadPacketError ReadError;
+        [FieldOffset(0)] public LoginRequest LoginRequest;
+        [FieldOffset(0)] public LoginRequestReturn LoginRequestReturn;
+        [FieldOffset(0)] public Login Login;
+        [FieldOffset(0)] public LoginReturn LoginReturn;
+        [FieldOffset(0)] public CheckName CheckName;
+        [FieldOffset(0)] public CheckNameReturn CheckNameReturn;
+        [FieldOffset(0)] public CreateCharacter CreateCharacter;
+        [FieldOffset(0)] public RegisterWorld RegisterWorld;
+        [FieldOffset(0)] public WorldOverview WorldOverview;
+        [FieldOffset(0)] public WorldOverviewReturn WorldOverviewReturn;
     }
 }

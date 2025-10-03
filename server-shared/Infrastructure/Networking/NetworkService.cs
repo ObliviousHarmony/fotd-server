@@ -1,8 +1,8 @@
+using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.Networking;
-using System.Runtime.InteropServices;
 
 namespace FOMServer.Shared.Services.FOMNetwork
 {
@@ -23,17 +23,17 @@ namespace FOMServer.Shared.Services.FOMNetwork
             // Ensure all packet data structs are blittable.
             var structures = new PacketStructure[]
             {
-                new PacketStructure { ID = PacketIdentifier.ID_FOM_PACKET_READ_ERROR, Size = Marshal.SizeOf<ReadPacketError>() },
-                new PacketStructure { ID = PacketIdentifier.ID_LOGIN_REQUEST, Size = Marshal.SizeOf<LoginRequest>() },
-                new PacketStructure { ID = PacketIdentifier.ID_LOGIN_REQUEST_RETURN, Size = Marshal.SizeOf<LoginRequestReturn>() },
-                new PacketStructure { ID = PacketIdentifier.ID_LOGIN, Size = Marshal.SizeOf<Login>() },
-                new PacketStructure { ID = PacketIdentifier.ID_LOGIN_RETURN, Size = Marshal.SizeOf<LoginReturn>() },
-                new PacketStructure { ID = PacketIdentifier.ID_CHECK_NAME, Size = Marshal.SizeOf<CheckName>() },
-                new PacketStructure { ID = PacketIdentifier.ID_CHECK_NAME_RETURN, Size = Marshal.SizeOf<CheckNameReturn>() },
-                new PacketStructure { ID = PacketIdentifier.ID_CREATE_CHARACTER, Size = Marshal.SizeOf<CreateCharacter>() },
-                new PacketStructure { ID = PacketIdentifier.ID_REGISTER_WORLD, Size = Marshal.SizeOf<RegisterWorld>() },
-                new PacketStructure { ID = PacketIdentifier.ID_WORLD_OVERVIEW, Size = Marshal.SizeOf<WorldOverview>() },
-                new PacketStructure { ID = PacketIdentifier.ID_WORLD_OVERVIEW_RETURN, Size = Marshal.SizeOf<WorldOverviewReturn>() },
+                new() { ID = PacketIdentifier.ID_FOM_PACKET_READ_ERROR, Size = Marshal.SizeOf<ReadPacketError>() },
+                new() { ID = PacketIdentifier.ID_LOGIN_REQUEST, Size = Marshal.SizeOf<LoginRequest>() },
+                new() { ID = PacketIdentifier.ID_LOGIN_REQUEST_RETURN, Size = Marshal.SizeOf<LoginRequestReturn>() },
+                new() { ID = PacketIdentifier.ID_LOGIN, Size = Marshal.SizeOf<Login>() },
+                new() { ID = PacketIdentifier.ID_LOGIN_RETURN, Size = Marshal.SizeOf<LoginReturn>() },
+                new() { ID = PacketIdentifier.ID_CHECK_NAME, Size = Marshal.SizeOf<CheckName>() },
+                new() { ID = PacketIdentifier.ID_CHECK_NAME_RETURN, Size = Marshal.SizeOf<CheckNameReturn>() },
+                new() { ID = PacketIdentifier.ID_CREATE_CHARACTER, Size = Marshal.SizeOf<CreateCharacter>() },
+                new() { ID = PacketIdentifier.ID_REGISTER_WORLD, Size = Marshal.SizeOf<RegisterWorld>() },
+                new() { ID = PacketIdentifier.ID_WORLD_OVERVIEW, Size = Marshal.SizeOf<WorldOverview>() },
+                new() { ID = PacketIdentifier.ID_WORLD_OVERVIEW_RETURN, Size = Marshal.SizeOf<WorldOverviewReturn>() },
             };
             foreach (PacketStructure s in structures)
             {

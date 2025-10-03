@@ -28,4 +28,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\Obliv\Code\Face of Mankind\fom-server\master-server\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\Obliv\Code\Face of Mankind\fom-server\master-server\.editorconfig" />
+  </ItemGroup>
 </Project>

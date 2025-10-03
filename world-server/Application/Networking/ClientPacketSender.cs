@@ -8,27 +8,27 @@ namespace FOMServer.World.Application.Networking
 {
     public class ClientPacketSender : IClientPacketSender
     {
-        private IPacketSender? packetSender;
+        private IPacketSender? _packetSender;
 
         public void Initialize(IPacketSender packetSender)
         {
-            this.packetSender = packetSender;
+            _packetSender = packetSender;
         }
 
         public void Send(PacketIdentifier id, FOMDataUnion data, NetworkAddress destination, PacketPriority priority, PacketReliability reliability, byte orderingChannel = 0)
         {
-            if (packetSender == null)
+            if (_packetSender == null)
                 throw new InvalidOperationException("Packet sender not initialized.");
 
-            packetSender.Send(id, data, destination, priority, reliability, orderingChannel);
+            _packetSender.Send(id, data, destination, priority, reliability, orderingChannel);
         }
 
         public void Broadcast(PacketIdentifier id, FOMDataUnion data, NetworkAddress excludedAddress, PacketPriority priority, PacketReliability reliability, byte orderingChannel = 0)
         {
-            if (packetSender == null)
+            if (_packetSender == null)
                 throw new InvalidOperationException("Packet sender not initialized.");
 
-            packetSender.Broadcast(id, data, excludedAddress, priority, reliability, orderingChannel);
+            _packetSender.Broadcast(id, data, excludedAddress, priority, reliability, orderingChannel);
         }
     }
 }

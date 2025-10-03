@@ -24,30 +24,30 @@ namespace FOMServer.Shared.Extensions
                 case PacketIdentifier.ID_CONNECTION_BANNED when typeof(TPacket) == typeof(RakNetPacket):
                 case PacketIdentifier.ID_INVALID_PASSWORD when typeof(TPacket) == typeof(RakNetPacket):
                 case PacketIdentifier.ID_MODIFIED_PACKET when typeof(TPacket) == typeof(RakNetPacket):
-                    return (TPacket)(object)packet.Data.rakNetPacket;
+                    return (TPacket)(object)packet.Data.RakNetPacket;
 
                 case PacketIdentifier.ID_FOM_PACKET_READ_ERROR when typeof(TPacket) == typeof(ReadPacketError):
-                    return (TPacket)(object)packet.Data.readError;
+                    return (TPacket)(object)packet.Data.ReadError;
                 case PacketIdentifier.ID_LOGIN_REQUEST when typeof(TPacket) == typeof(LoginRequest):
-                    return (TPacket)(object)packet.Data.loginRequest;
+                    return (TPacket)(object)packet.Data.LoginRequest;
                 case PacketIdentifier.ID_LOGIN_REQUEST_RETURN when typeof(TPacket) == typeof(LoginRequestReturn):
-                    return (TPacket)(object)packet.Data.loginRequestReturn;
+                    return (TPacket)(object)packet.Data.LoginRequestReturn;
                 case PacketIdentifier.ID_LOGIN when typeof(TPacket) == typeof(Login):
-                    return (TPacket)(object)packet.Data.login;
+                    return (TPacket)(object)packet.Data.Login;
                 case PacketIdentifier.ID_LOGIN_RETURN when typeof(TPacket) == typeof(LoginReturn):
-                    return (TPacket)(object)packet.Data.loginReturn;
+                    return (TPacket)(object)packet.Data.LoginReturn;
                 case PacketIdentifier.ID_CHECK_NAME when typeof(TPacket) == typeof(CheckName):
-                    return (TPacket)(object)packet.Data.checkName;
+                    return (TPacket)(object)packet.Data.CheckName;
                 case PacketIdentifier.ID_CHECK_NAME_RETURN when typeof(TPacket) == typeof(CheckNameReturn):
-                    return (TPacket)(object)packet.Data.checkNameReturn;
+                    return (TPacket)(object)packet.Data.CheckNameReturn;
                 case PacketIdentifier.ID_CREATE_CHARACTER when typeof(TPacket) == typeof(CreateCharacter):
-                    return (TPacket)(object)packet.Data.createCharacter;
+                    return (TPacket)(object)packet.Data.CreateCharacter;
                 case PacketIdentifier.ID_REGISTER_WORLD when typeof(TPacket) == typeof(RegisterWorld):
-                    return (TPacket)(object)packet.Data.registerWorld;
+                    return (TPacket)(object)packet.Data.RegisterWorld;
                 case PacketIdentifier.ID_WORLD_OVERVIEW when typeof(TPacket) == typeof(WorldOverview):
-                    return (TPacket)(object)packet.Data.worldOverview;
+                    return (TPacket)(object)packet.Data.WorldOverview;
                 case PacketIdentifier.ID_WORLD_OVERVIEW_RETURN when typeof(TPacket) == typeof(WorldOverviewReturn):
-                    return (TPacket)(object)packet.Data.worldOverviewReturn;
+                    return (TPacket)(object)packet.Data.WorldOverviewReturn;
 
                 default:
                     throw new InvalidOperationException(

@@ -1,10 +1,10 @@
+using System.Threading.Channels;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Networking;
-using System.Threading.Channels;
 
 namespace FOMServer.Shared.Application.Networking
 {
@@ -18,7 +18,7 @@ namespace FOMServer.Shared.Application.Networking
         /// exclusively handle them. When another network manager receives
         /// a packet with a claimed ID, it will ignore it.
         /// </summary>
-        private static readonly HashSet<PacketIdentifier> globalClaimedPacketIDs = new HashSet<PacketIdentifier>();
+        private static readonly HashSet<PacketIdentifier> s_globalClaimedPacketIDs = new HashSet<PacketIdentifier>();
 
         /// <summary>
         /// Packet ID claims are not using a thread-safe collection for
@@ -26,7 +26,7 @@ namespace FOMServer.Shared.Application.Networking
         /// initialization and be prevented once the first
         /// network manager has started.
         /// </summary>
-        private static bool canClaimPacketIDs = true;
+        private static bool s_canClaimPacketIDs = true;
 
         /// <summary>
         /// A buffer for holding packets to send via the API.
@@ -36,18 +36,18 @@ namespace FOMServer.Shared.Application.Networking
         /// We can pin the memory of the pre-allocated buffer and then
         /// pass that without having to do anything special.
         /// </remarks>
-        private readonly SendPacket[] sendBuffer = new SendPacket[IPacketService.MaxBufferedPackets];
+        private readonly SendPacket[] _sendBuffer = new SendPacket[IPacketService.MaxBufferedPackets];
 
-        private IntPtr peer;
-        private Action<IntPtr>? peerShutdown;
-        private readonly IShutdownManager shutdownManager;
-        private readonly ILogService logService;
-        private readonly IPacketService packetService;
-        private readonly PacketProcessor packetProcessor;
-        private readonly Channel<SendPacket> sendQueue;
-        private readonly HashSet<PacketIdentifier> claimedPacketIDs;
-        private Task? networkTask;
-        private CancellationTokenSource? cts;
+        private IntPtr _peer;
+        private Action<IntPtr>? _peerShutdown;
+        private readonly IShutdownManager _shutdownManager;
+        private readonly ILogService _logService;
+        private readonly IPacketService _packetService;
+        private readonly PacketProcessor _packetProcessor;
+        private readonly Channel<SendPacket> _sendQueue;
+        private readonly HashSet<PacketIdentifier> _claimedPacketIDs;
+        private Task? _networkTask;
+        private CancellationTokenSource? _cts;
 
         public NetworkManager(
             IShutdownManager shutdownManager,
@@ -56,15 +56,15 @@ namespace FOMServer.Shared.Application.Networking
             PacketProcessor packetProcessor
         )
         {
-            this.peer = IntPtr.Zero;
-            this.shutdownManager = shutdownManager;
-            this.logService = logService;
-            this.packetService = packetService;
-            this.packetProcessor = packetProcessor;
-            this.claimedPacketIDs = new HashSet<PacketIdentifier>();
+            _peer = IntPtr.Zero;
+            _shutdownManager = shutdownManager;
+            _logService = logService;
+            _packetService = packetService;
+            _packetProcessor = packetProcessor;
+            _claimedPacketIDs = new HashSet<PacketIdentifier>();
 
             // Single writer, single reader channel is fine here
-            this.sendQueue = Channel.CreateUnbounded<SendPacket>(new UnboundedChannelOptions
+            _sendQueue = Channel.CreateUnbounded<SendPacket>(new UnboundedChannelOptions
             {
                 SingleReader = true,
                 SingleWriter = false
@@ -76,14 +76,14 @@ namespace FOMServer.Shared.Application.Networking
         /// </summary>
         public void ClaimPacketID(PacketIdentifier id)
         {
-            if (!canClaimPacketIDs)
+            if (!s_canClaimPacketIDs)
                 throw new InvalidOperationException("Cannot claim packet IDs after a network manager has started.");
 
-            if (globalClaimedPacketIDs.Contains(id))
+            if (s_globalClaimedPacketIDs.Contains(id))
                 throw new InvalidOperationException($"Packet ID {id} is already claimed by another network manager.");
 
-            globalClaimedPacketIDs.Add(id);
-            claimedPacketIDs.Add(id);
+            s_globalClaimedPacketIDs.Add(id);
+            _claimedPacketIDs.Add(id);
         }
 
         /// <summary>
@@ -91,11 +91,11 @@ namespace FOMServer.Shared.Application.Networking
         /// </summary>
         public void Configure(IntPtr peer, Action<IntPtr> peerShutdown)
         {
-            if (this.peer != IntPtr.Zero)
+            if (_peer != IntPtr.Zero)
                 throw new InvalidOperationException("Peer is already configured.");
 
-            this.peer = peer;
-            this.peerShutdown = peerShutdown;
+            _peer = peer;
+            _peerShutdown = peerShutdown;
         }
 
         /// <summary>
@@ -103,28 +103,28 @@ namespace FOMServer.Shared.Application.Networking
         /// </summary>
         public void Start()
         {
-            if (peer == IntPtr.Zero)
+            if (_peer == IntPtr.Zero)
                 throw new InvalidOperationException("Peer must be configured.");
 
-            if (networkTask != null)
+            if (_networkTask != null)
                 return;
 
             // Once a network manager has started, no more claims can be made.
-            canClaimPacketIDs = false;
+            s_canClaimPacketIDs = false;
 
-            cts = CancellationTokenSource.CreateLinkedTokenSource(shutdownManager.Token);
+            _cts = CancellationTokenSource.CreateLinkedTokenSource(_shutdownManager.Token);
 
             // Use a dedicated thread for this task because we need to
             // keep polling the network library to maximize throughput.
-            networkTask = Task.Factory.StartNew(
-                async () => await NetworkLoopAsync(cts.Token),
-                cts.Token,
+            _networkTask = Task.Factory.StartNew(
+                async () => await NetworkLoopAsync(_cts.Token),
+                _cts.Token,
                 TaskCreationOptions.LongRunning,
                 TaskScheduler.Default
             ).Unwrap();
 
             // Make sure that the shutdown manager waits for this task to complete.
-            shutdownManager.TrackTask(networkTask);
+            _shutdownManager.TrackTask(_networkTask);
         }
 
         private async Task NetworkLoopAsync(CancellationToken ct)
@@ -137,23 +137,23 @@ namespace FOMServer.Shared.Application.Networking
                     // Avoid starving packet receiving with sending by
                     // limiting the number of packets sent per batch.
                     int numToSend = 0;
-                    while (numToSend < IPacketService.MaxBufferedPackets && sendQueue.Reader.TryRead(out var packetToSend))
-                        sendBuffer[numToSend++] = packetToSend;
+                    while (numToSend < IPacketService.MaxBufferedPackets && _sendQueue.Reader.TryRead(out var packetToSend))
+                        _sendBuffer[numToSend++] = packetToSend;
 
                     if (numToSend > 0)
-                        packetService.Send(peer, sendBuffer.AsSpan(0, numToSend));
+                        _packetService.Send(_peer, _sendBuffer.AsSpan(0, numToSend));
 
-                    var received = packetService.Receive(peer);
+                    var received = _packetService.Receive(_peer);
                     foreach (ref readonly var packet in received)
                     {
                         // Packet IDs that have been claimed by another network manager should be ignored.
-                        if (globalClaimedPacketIDs.Contains(packet.ID) && !claimedPacketIDs.Contains(packet.ID))
+                        if (s_globalClaimedPacketIDs.Contains(packet.ID) && !_claimedPacketIDs.Contains(packet.ID))
                         {
-                            logService.WriteMessage(LogLevel.Error, $"Client {packet.Sender} sent packet with claimed ID {packet.ID}, ignoring.");
+                            _logService.WriteMessage(LogLevel.Error, $"Client {packet.Sender} sent packet with claimed ID {packet.ID}, ignoring.");
                             continue;
                         }
 
-                        packetProcessor.Enqueue(packet);
+                        _packetProcessor.Enqueue(packet);
                     }
 
                     // Use an exponential back-off strategy when polling to avoid
@@ -172,8 +172,8 @@ namespace FOMServer.Shared.Application.Networking
             }
             finally
             {
-                peerShutdown!(peer);
-                peer = IntPtr.Zero;
+                _peerShutdown!(_peer);
+                _peer = IntPtr.Zero;
             }
         }
 
@@ -186,7 +186,7 @@ namespace FOMServer.Shared.Application.Networking
             byte orderingChannel = 0
         )
         {
-            if (peer == IntPtr.Zero)
+            if (_peer == IntPtr.Zero)
                 throw new InvalidOperationException("Peer is not configured.");
 
             var packet = new SendPacket
@@ -200,7 +200,7 @@ namespace FOMServer.Shared.Application.Networking
                 Broadcast = 0
             };
 
-            sendQueue.Writer.TryWrite(packet);
+            _sendQueue.Writer.TryWrite(packet);
         }
 
         public void Broadcast(
@@ -212,7 +212,7 @@ namespace FOMServer.Shared.Application.Networking
             byte orderingChannel = 0
         )
         {
-            if (peer == IntPtr.Zero)
+            if (_peer == IntPtr.Zero)
                 throw new InvalidOperationException("Peer is not configured.");
 
             var packet = new SendPacket
@@ -226,7 +226,7 @@ namespace FOMServer.Shared.Application.Networking
                 Broadcast = 1
             };
 
-            sendQueue.Writer.TryWrite(packet);
+            _sendQueue.Writer.TryWrite(packet);
         }
     }
 }

@@ -7,16 +7,16 @@ namespace FOMServer.Master.Infrastructure.Repositories
 {
     public class DbPlayerRepository : IPlayerRepository
     {
-        private IDbConnectionFactory dbConnectionFactory;
+        private IDbConnectionFactory _dbConnectionFactory;
 
         public DbPlayerRepository(IDbConnectionFactory dbConnectionFactory)
         {
-            this.dbConnectionFactory = dbConnectionFactory;
+            _dbConnectionFactory = dbConnectionFactory;
         }
 
         public uint? Exists(string username)
         {
-            using var connection = dbConnectionFactory.Create();
+            using var connection = _dbConnectionFactory.Create();
             var dto = connection.QuerySingleOrDefault<PlayerDto>(
                 "SELECT `id`, `username` FROM `player` WHERE `username` = @Username",
                 new { Username = username }
@@ -26,7 +26,7 @@ namespace FOMServer.Master.Infrastructure.Repositories
 
         public PlayerDto? TryLogin(string username, string password)
         {
-            using var connection = dbConnectionFactory.Create();
+            using var connection = _dbConnectionFactory.Create();
             var player = connection.QuerySingleOrDefault<PlayerDto>(
                 "SELECT `id`, `username` FROM `player` WHERE `username` = @Username",
                 new { Username = username }
@@ -41,7 +41,7 @@ namespace FOMServer.Master.Infrastructure.Repositories
 
         public bool Logout(uint id)
         {
-            using var connection = dbConnectionFactory.Create();
+            using var connection = _dbConnectionFactory.Create();
             var affected = connection.Execute(
                 "UPDATE `player` SET `logged_in` = 0 WHERE `id` = @ID",
                 new { ID = id }
@@ -51,7 +51,7 @@ namespace FOMServer.Master.Infrastructure.Repositories
 
         public void LogoutAllPlayers()
         {
-            using var connection = dbConnectionFactory.Create();
+            using var connection = _dbConnectionFactory.Create();
             connection.Execute("UPDATE `player` SET `logged_in` = 0");
         }
     }

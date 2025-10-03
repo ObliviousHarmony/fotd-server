@@ -1,49 +1,49 @@
+using System.Collections.Concurrent;
 using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Core.FOMPacket;
-using System.Collections.Concurrent;
 
 namespace FOMServer.Master.Application.Players
 {
     public class PlayerService : IPlayerService
     {
-        private readonly IPlayerRepository playerRepository;
-        private readonly ICharacterRepository characterRepository;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly ICharacterRepository _characterRepository;
 
-        private readonly ConcurrentDictionary<uint, Player> loggedIn;
-        private readonly ConcurrentDictionary<NetworkAddress, Player> addressMap;
+        private readonly ConcurrentDictionary<uint, Player> _loggedIn;
+        private readonly ConcurrentDictionary<NetworkAddress, Player> _addressMap;
 
         public PlayerService(IPlayerRepository playerRepository, ICharacterRepository characterRepository)
         {
-            this.playerRepository = playerRepository;
-            loggedIn = new ConcurrentDictionary<uint, Player>();
-            addressMap = new ConcurrentDictionary<NetworkAddress, Player>();
-            this.characterRepository = characterRepository;
+            _playerRepository = playerRepository;
+            _loggedIn = new ConcurrentDictionary<uint, Player>();
+            _addressMap = new ConcurrentDictionary<NetworkAddress, Player>();
+            _characterRepository = characterRepository;
         }
 
         public Player? Get(uint id)
         {
-            if (!loggedIn.TryGetValue(id, out var player))
+            if (!_loggedIn.TryGetValue(id, out var player))
                 return null;
             return player;
         }
 
         public Player? Get(NetworkAddress clientAddress)
         {
-            if (!addressMap.TryGetValue(clientAddress, out var player))
+            if (!_addressMap.TryGetValue(clientAddress, out var player))
                 return null;
             return player;
         }
 
         public Player? Login(string username, string password, NetworkAddress clientAddress)
         {
-            var dto = playerRepository.TryLogin(username, password);
+            var dto = _playerRepository.TryLogin(username, password);
             if (dto == null)
                 return null;
 
-            if (loggedIn.ContainsKey(dto.id))
+            if (_loggedIn.ContainsKey(dto.id))
                 return null;
 
-            if (addressMap.ContainsKey(clientAddress))
+            if (_addressMap.ContainsKey(clientAddress))
                 return null;
 
             var player = new Player
@@ -53,16 +53,16 @@ namespace FOMServer.Master.Application.Players
                 Username = dto.username
             };
 
-            if (!loggedIn.TryAdd(dto.id, player))
+            if (!_loggedIn.TryAdd(dto.id, player))
                 return null;
 
-            if (!addressMap.TryAdd(clientAddress, player))
+            if (!_addressMap.TryAdd(clientAddress, player))
             {
-                loggedIn.TryRemove(dto.id, out _);
+                _loggedIn.TryRemove(dto.id, out _);
                 return null;
             }
 
-            var character = characterRepository.Get(player.ID);
+            var character = _characterRepository.Get(player.ID);
             player.HasCharacter = character != null;
 
             return player;
@@ -70,15 +70,15 @@ namespace FOMServer.Master.Application.Players
 
         public bool Logout(Player player)
         {
-            if (!loggedIn.ContainsKey(player.ID))
+            if (!_loggedIn.ContainsKey(player.ID))
                 return false;
 
-            if (!loggedIn.TryRemove(player.ID, out _))
+            if (!_loggedIn.TryRemove(player.ID, out _))
                 return false;
 
-            addressMap.TryRemove(player.ClientAddress, out _);
+            _addressMap.TryRemove(player.ClientAddress, out _);
 
-            playerRepository.Logout(player.ID);
+            _playerRepository.Logout(player.ID);
 
             return true;
         }
