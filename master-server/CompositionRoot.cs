@@ -21,8 +21,8 @@ namespace FOMServer.Master
 {
     internal static class CompositionRoot
     {
-        private static ServerSettings? serverSettings;
-        private static DatabaseSettings? dbSettings;
+        private static ServerSettings? s_serverSettings;
+        private static DatabaseSettings? s_dbSettings;
 
         public static IServiceProvider BuildContainer()
         {
@@ -57,22 +57,22 @@ namespace FOMServer.Master
                 .AddEnvironmentVariables()
                 .Build();
 
-            serverSettings = config.GetSection("Server").Get<ServerSettings>()!;
-            dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
+            s_serverSettings = config.GetSection("Server").Get<ServerSettings>()!;
+            s_dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
 
-            if (serverSettings.WorldPort <= 0)
+            if (s_serverSettings.WorldPort <= 0)
                 throw new InvalidOperationException("World server port must be greater than 0.");
-            if (serverSettings.ClientPort <= 0)
+            if (s_serverSettings.ClientPort <= 0)
                 throw new InvalidOperationException("Client port must be greater than 0.");
-            if (serverSettings.WorldPort == serverSettings.ClientPort)
+            if (s_serverSettings.WorldPort == s_serverSettings.ClientPort)
                 throw new InvalidOperationException("World and client ports must be different.");
-            if (string.IsNullOrWhiteSpace(dbSettings.Name))
+            if (string.IsNullOrWhiteSpace(s_dbSettings.Name))
                 throw new InvalidOperationException("Database name must be configured.");
-            if (string.IsNullOrWhiteSpace(dbSettings.ConnectionString))
+            if (string.IsNullOrWhiteSpace(s_dbSettings.ConnectionString))
                 throw new InvalidOperationException("Database connection string must be configured.");
 
-            services.AddSingleton(serverSettings);
-            services.AddSingleton(dbSettings);
+            services.AddSingleton(s_serverSettings);
+            services.AddSingleton(s_dbSettings);
             return services;
         }
 
@@ -101,7 +101,7 @@ namespace FOMServer.Master
             .ConfigureRunner(rb =>
             {
                 rb.AddMySql8()
-                  .WithGlobalConnectionString(dbSettings!.ConnectionString)
+                  .WithGlobalConnectionString(s_dbSettings!.ConnectionString)
                   .ScanIn(typeof(Server).Assembly).For.Migrations();
             })
             .AddLogging(lb => lb.AddFluentMigratorConsole());

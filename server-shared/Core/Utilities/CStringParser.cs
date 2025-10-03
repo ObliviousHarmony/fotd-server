@@ -13,7 +13,7 @@ public static class CStringParser
         if (strLength < 0)
             strLength = len;
 
-        return Encoding.ASCII.GetString(span.Slice(0, strLength));
+        return Encoding.ASCII.GetString(span[..strLength]);
     }
 
     /// <summary>

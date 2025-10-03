@@ -15,8 +15,8 @@ namespace FOMServer.World
 {
     internal static class CompositionRoot
     {
-        private static ServerSettings? serverSettings;
-        private static DatabaseSettings? dbSettings;
+        private static ServerSettings? s_serverSettings;
+        private static DatabaseSettings? s_dbSettings;
 
         public static IServiceProvider BuildContainer()
         {
@@ -49,26 +49,26 @@ namespace FOMServer.World
                 .AddEnvironmentVariables()
                 .Build();
 
-            serverSettings = config.GetSection("Server").Get<ServerSettings>()!;
-            dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
+            s_serverSettings = config.GetSection("Server").Get<ServerSettings>()!;
+            s_dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
 
-            if (Enum.IsDefined<WorldID>(serverSettings!.WorldID) == false || serverSettings.WorldID == WorldID.MASTER_SERVER)
+            if (Enum.IsDefined<WorldID>(s_serverSettings!.WorldID) == false || s_serverSettings.WorldID == WorldID.MASTER_SERVER)
                 throw new InvalidOperationException("Server WorldID must be set to a valid world.");
-            if (string.IsNullOrWhiteSpace(serverSettings.ClientAddress))
+            if (string.IsNullOrWhiteSpace(s_serverSettings.ClientAddress))
                 throw new InvalidOperationException("Server client address must be configured.");
-            if (serverSettings.ClientPort <= 0)
+            if (s_serverSettings.ClientPort <= 0)
                 throw new InvalidOperationException("Server client port must be greater than 0.");
-            if (string.IsNullOrWhiteSpace(serverSettings.MasterServerAddress))
+            if (string.IsNullOrWhiteSpace(s_serverSettings.MasterServerAddress))
                 throw new InvalidOperationException("Master server address must be configured.");
-            if (serverSettings.MasterServerPort <= 0)
+            if (s_serverSettings.MasterServerPort <= 0)
                 throw new InvalidOperationException("Master server port must be greater than 0.");
-            if (string.IsNullOrWhiteSpace(dbSettings.Name))
+            if (string.IsNullOrWhiteSpace(s_dbSettings.Name))
                 throw new InvalidOperationException("Database name must be configured.");
-            if (string.IsNullOrWhiteSpace(dbSettings.ConnectionString))
+            if (string.IsNullOrWhiteSpace(s_dbSettings.ConnectionString))
                 throw new InvalidOperationException("Database connection string must be configured.");
 
-            services.AddSingleton(serverSettings);
-            services.AddSingleton(dbSettings);
+            services.AddSingleton(s_serverSettings);
+            services.AddSingleton(s_dbSettings);
             return services;
         }
 

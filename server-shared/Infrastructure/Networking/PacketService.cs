@@ -1,6 +1,6 @@
+using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.Networking;
-using System.Runtime.InteropServices;
 
 namespace FOMServer.Shared.Services.FOMNetwork
 {
@@ -13,7 +13,7 @@ namespace FOMServer.Shared.Services.FOMNetwork
         /// In order for this buffer to be safe to use, the returned span MUST not be used after
         /// the next call to Receive, as it will be overwritten.
         /// </remarks>
-        private static readonly Packet[] ReceiveBuffer = new Packet[IPacketService.MaxBufferedPackets];
+        private static readonly Packet[] s_receiveBuffer = new Packet[IPacketService.MaxBufferedPackets];
 
         public Span<Packet> Receive(IntPtr peer)
         {
@@ -23,14 +23,14 @@ namespace FOMServer.Shared.Services.FOMNetwork
 
             unsafe
             {
-                fixed (Packet* bufferPtr = ReceiveBuffer)
+                fixed (Packet* bufferPtr = s_receiveBuffer)
                 {
                     if (FOMNetwork_ProcessPackets(peer, received, bufferPtr, received.Count) != 0)
                         return Span<Packet>.Empty;
                 }
             }
 
-            return ReceiveBuffer.AsSpan(0, received.Count);
+            return s_receiveBuffer.AsSpan(0, received.Count);
         }
 
         public void Send(IntPtr peer, Span<SendPacket> packets)

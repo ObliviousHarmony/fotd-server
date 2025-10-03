@@ -11,26 +11,26 @@ namespace FOMServer.Master.Application.Handlers
     {
         public override PacketIdentifier PacketID => PacketIdentifier.ID_CHECK_NAME;
 
-        private readonly ICharacterRepository characterRepository;
-        private readonly IClientPacketSender packetSender;
+        private readonly ICharacterRepository _characterRepository;
+        private readonly IClientPacketSender _packetSender;
 
         public CheckNameHandler(ICharacterRepository characterRepository, IClientPacketSender packetSender)
         {
-            this.characterRepository = characterRepository;
-            this.packetSender = packetSender;
+            this._characterRepository = characterRepository;
+            this._packetSender = packetSender;
         }
 
         public override void Handle(NetworkAddress sender, in CheckName data)
         {
-            var existingID = characterRepository.Exists(data.Name);
+            var existingID = _characterRepository.Exists(data.Name);
 
             var response = new CheckNameReturn
             {
                 ExistingPlayerID = existingID ?? 0
             };
-            packetSender.Send(
+            _packetSender.Send(
                 PacketIdentifier.ID_CHECK_NAME_RETURN,
-                new FOMDataUnion { checkNameReturn = response },
+                new FOMDataUnion { CheckNameReturn = response },
                 sender,
                 PacketPriority.MEDIUM_PRIORITY,
                 PacketReliability.RELIABLE_ORDERED

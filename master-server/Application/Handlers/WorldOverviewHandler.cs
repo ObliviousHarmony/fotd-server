@@ -1,7 +1,6 @@
 using FOMServer.Master.Application.FOMPacket;
 using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Core.Players;
-using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
@@ -13,20 +12,20 @@ namespace FOMServer.Master.Application.Handlers
     {
         public override PacketIdentifier PacketID => PacketIdentifier.ID_WORLD_OVERVIEW;
 
-        private readonly IPlayerService playerService;
-        private readonly IWorldOverviewFactory worldOverviewFactory;
-        private readonly IClientPacketSender packetSender;
+        private readonly IPlayerService _playerService;
+        private readonly IWorldOverviewFactory _worldOverviewFactory;
+        private readonly IClientPacketSender _packetSender;
 
         public WorldOverviewHandler(IPlayerService playerService, IWorldOverviewFactory worldOverviewFactory, IClientPacketSender packetSender)
         {
-            this.playerService = playerService;
-            this.worldOverviewFactory = worldOverviewFactory;
-            this.packetSender = packetSender;
+            this._playerService = playerService;
+            this._worldOverviewFactory = worldOverviewFactory;
+            this._packetSender = packetSender;
         }
 
         public override void Handle(NetworkAddress sender, in WorldOverview data)
         {
-            var player = playerService.Get(sender);
+            var player = _playerService.Get(sender);
             if (player == null)
                 return;
             if (player.ID != data.PlayerID)
@@ -35,12 +34,12 @@ namespace FOMServer.Master.Application.Handlers
             var response = new WorldOverviewReturn()
             {
                 PlayerID = player.ID,
-                WorldOverview = this.worldOverviewFactory.Create(player),
+                WorldOverview = this._worldOverviewFactory.Create(player),
             };
 
-            packetSender.Send(
+            _packetSender.Send(
                 PacketIdentifier.ID_WORLD_OVERVIEW_RETURN,
-                new FOMDataUnion { worldOverviewReturn = response },
+                new FOMDataUnion { WorldOverviewReturn = response },
                 sender,
                 PacketPriority.HIGH_PRIORITY,
                 PacketReliability.RELIABLE_ORDERED

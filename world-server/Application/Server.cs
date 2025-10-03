@@ -1,25 +1,25 @@
-using Microsoft.Extensions.DependencyInjection;
-using FOMServer.Shared.Core.Logging;
-using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Application.Networking;
+using FOMServer.Shared.Core;
+using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.FOMPacket.Data;
+using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.World.Application.Networking;
 using FOMServer.World.Core;
-using FOMServer.Shared.Core.FOMPacket.Data;
-using FOMServer.Shared.Core;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FOMServer.World.Application
 {
     public class Server
     {
-        private readonly ILogService logService;
-        private readonly IShutdownManager shutdownManager;
-        private readonly ServerSettings serverSettings;
-        private readonly INetworkService networkService;
-        private readonly IServerService serverService;
-        private readonly IClientService clientService;
-        private readonly IServiceProvider serviceProvider;
+        private readonly ILogService _logService;
+        private readonly IShutdownManager _shutdownManager;
+        private readonly ServerSettings _serverSettings;
+        private readonly INetworkService _networkService;
+        private readonly IServerService _serverService;
+        private readonly IClientService _clientService;
+        private readonly IServiceProvider _serviceProvider;
 
         public Server(
             ILogService logService,
@@ -31,13 +31,13 @@ namespace FOMServer.World.Application
             IServiceProvider serviceProvider
         )
         {
-            this.logService = logService;
-            this.shutdownManager = shutdownManager;
-            this.serverSettings = serverSettings;
-            this.networkService = networkService;
-            this.serverService = serverService;
-            this.clientService = clientService;
-            this.serviceProvider = serviceProvider;
+            this._logService = logService;
+            this._shutdownManager = shutdownManager;
+            this._serverSettings = serverSettings;
+            this._networkService = networkService;
+            this._serverService = serverService;
+            this._clientService = clientService;
+            this._serviceProvider = serviceProvider;
         }
 
         public async Task Run()
@@ -45,40 +45,40 @@ namespace FOMServer.World.Application
             // We need to make sure our packet structs are all blittable and match the C++ side.
             // This is critical to ensure that we don't have memory corruption and don't
             // require expensive marshalling of data between managed and unmanaged code.
-            networkService.ValidateFOMPacket();
+            _networkService.ValidateFOMPacket();
 
-            logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
-            logService.WriteMessage(LogLevel.Info, "Initializing World Server");
+            _logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
+            _logService.WriteMessage(LogLevel.Info, "Initializing World Server");
 
             Console.CancelKeyPress += (sender, e) =>
             {
-                logService.WriteMessage(LogLevel.Info, "Stopping Server...");
+                _logService.WriteMessage(LogLevel.Info, "Stopping Server...");
 
                 e.Cancel = true;
-                shutdownManager.Shutdown();
+                _shutdownManager.Shutdown();
             };
             AppDomain.CurrentDomain.ProcessExit += (sender, e) =>
             {
-                shutdownManager.Shutdown();
+                _shutdownManager.Shutdown();
             };
 
             var packetProcessor = new PacketProcessor(
-                serviceProvider.GetRequiredService<IShutdownManager>(),
-                logService,
-                serviceProvider.GetRequiredService<IEnumerable<IPacketHandler>>()
+                _serviceProvider.GetRequiredService<IShutdownManager>(),
+                _logService,
+                _serviceProvider.GetRequiredService<IEnumerable<IPacketHandler>>()
             );
 
             var masterNetwork = ConnectToMasterNetwork(packetProcessor);
             if (masterNetwork == null)
             {
-                logService.WriteMessage(LogLevel.Critical, "Failed to connect to the master server.");
+                _logService.WriteMessage(LogLevel.Critical, "Failed to connect to the master server.");
                 return;
             }
 
             var clientNetwork = CreateClientNetwork(packetProcessor);
             if (clientNetwork == null)
             {
-                logService.WriteMessage(LogLevel.Critical, "Failed to create the client network.");
+                _logService.WriteMessage(LogLevel.Critical, "Failed to create the client network.");
                 return;
             }
 
@@ -87,42 +87,42 @@ namespace FOMServer.World.Application
             masterNetwork.Start();
             clientNetwork.Start();
 
-            logService.WriteMessage(LogLevel.Info, $"Master Server: {serverSettings.MasterServerAddress}:{serverSettings.MasterServerPort}");
-            logService.WriteMessage(LogLevel.Info, $"Client Port: {serverSettings.ClientPort}");
-            logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
+            _logService.WriteMessage(LogLevel.Info, $"Master Server: {_serverSettings.MasterServerAddress}:{_serverSettings.MasterServerPort}");
+            _logService.WriteMessage(LogLevel.Info, $"Client Port: {_serverSettings.ClientPort}");
+            _logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
 
-            await shutdownManager.Stopped;
-            logService.WriteMessage(LogLevel.Info, "Shutdown Complete");
+            await _shutdownManager.Stopped;
+            _logService.WriteMessage(LogLevel.Info, "Shutdown Complete");
         }
 
         private NetworkManager? ConnectToMasterNetwork(PacketProcessor packetProcessor)
         {
-            var peer = clientService.Connect(serverSettings.MasterServerAddress, serverSettings.MasterServerPort);
+            var peer = _clientService.Connect(_serverSettings.MasterServerAddress, _serverSettings.MasterServerPort);
             if (peer == IntPtr.Zero)
                 return null;
 
             var networkManager = new NetworkManager(
-                serviceProvider.GetRequiredService<IShutdownManager>(),
-                serviceProvider.GetRequiredService<ILogService>(),
-                serviceProvider.GetRequiredService<IPacketService>(),
+                _serviceProvider.GetRequiredService<IShutdownManager>(),
+                _serviceProvider.GetRequiredService<ILogService>(),
+                _serviceProvider.GetRequiredService<IPacketService>(),
                 packetProcessor
             );
 
             // Initialize the packet sender for communication with the master server.
-            var packetSender = serviceProvider.GetRequiredService<MasterPacketSender>();
+            var packetSender = _serviceProvider.GetRequiredService<MasterPacketSender>();
             packetSender.Initialize(networkManager);
 
-            networkManager.Configure(peer, clientService.Disconnect);
+            networkManager.Configure(peer, _clientService.Disconnect);
 
             // Register this world server with the master server.
             packetSender.Send(
                 PacketIdentifier.ID_REGISTER_WORLD,
                 new FOMDataUnion
                 {
-                    registerWorld = new RegisterWorld
+                    RegisterWorld = new RegisterWorld
                     {
-                        WorldID = serverSettings.WorldID,
-                        Port = serverSettings.ClientPort,
+                        WorldID = _serverSettings.WorldID,
+                        Port = _serverSettings.ClientPort,
                         Address = "127.0.0.1"
                     }
                 },
@@ -135,22 +135,22 @@ namespace FOMServer.World.Application
 
         private NetworkManager? CreateClientNetwork(PacketProcessor packetProcessor)
         {
-            var peer = serverService.Startup(serverSettings.ClientPort);
+            var peer = _serverService.Startup(_serverSettings.ClientPort);
             if (peer == IntPtr.Zero)
                 return null;
 
             var networkManager = new NetworkManager(
-                serviceProvider.GetRequiredService<IShutdownManager>(),
-                serviceProvider.GetRequiredService<ILogService>(),
-                serviceProvider.GetRequiredService<IPacketService>(),
+                _serviceProvider.GetRequiredService<IShutdownManager>(),
+                _serviceProvider.GetRequiredService<ILogService>(),
+                _serviceProvider.GetRequiredService<IPacketService>(),
                 packetProcessor
             );
 
             // Initialize the packet sender for communication with clients.
-            var packetSender = serviceProvider.GetRequiredService<ClientPacketSender>();
+            var packetSender = _serviceProvider.GetRequiredService<ClientPacketSender>();
             packetSender.Initialize(networkManager);
 
-            networkManager.Configure(peer, serverService.Shutdown);
+            networkManager.Configure(peer, _serverService.Shutdown);
             return networkManager;
         }
     }

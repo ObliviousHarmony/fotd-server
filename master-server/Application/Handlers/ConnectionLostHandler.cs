@@ -10,15 +10,15 @@ namespace FOMServer.Master.Application.Handlers
 {
     public class ConnectionLostHandler : PacketHandler<RakNetPacket>
     {
-        private readonly IPlayerService playerService;
-        private readonly IWorldServerService worldServerService;
-        private readonly ILogService logService;
+        private readonly IPlayerService _playerService;
+        private readonly IWorldServerService _worldServerService;
+        private readonly ILogService _logService;
 
         public ConnectionLostHandler(IPlayerService playerService, IWorldServerService worldServerService, ILogService logService)
         {
-            this.playerService = playerService;
-            this.worldServerService = worldServerService;
-            this.logService = logService;
+            this._playerService = playerService;
+            this._worldServerService = worldServerService;
+            this._logService = logService;
         }
 
         public override PacketIdentifier PacketID => PacketIdentifier.ID_CONNECTION_LOST;
@@ -34,14 +34,14 @@ namespace FOMServer.Master.Application.Handlers
 
         private bool TryWorldServerUnregister(NetworkAddress sender)
         {
-            var worldServers = worldServerService.GetAll();
+            var worldServers = _worldServerService.GetAll();
             foreach (var server in worldServers)
             {
                 if (!server.ServerAddress.Equals(sender))
                     continue;
 
-                logService.WriteMessage(LogLevel.Info, $"World '{server.ID}' Lost Connection");
-                worldServerService.Unregister(server.ID);
+                _logService.WriteMessage(LogLevel.Info, $"World '{server.ID}' Lost Connection");
+                _worldServerService.Unregister(server.ID);
                 return true;
             }
 
@@ -50,11 +50,11 @@ namespace FOMServer.Master.Application.Handlers
 
         private bool TryPlayerLogout(NetworkAddress sender)
         {
-            Player? player = playerService.Get(sender);
+            Player? player = _playerService.Get(sender);
             if (player == null)
                 return false;
 
-            playerService.Logout(player);
+            _playerService.Logout(player);
             return true;
         }
     }

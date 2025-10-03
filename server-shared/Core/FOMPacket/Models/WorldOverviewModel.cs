@@ -1,6 +1,6 @@
-using FOMServer.Shared.Core.Enums;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.Enums;
 
 namespace FOMServer.Shared.Core.FOMPacket.Models
 {

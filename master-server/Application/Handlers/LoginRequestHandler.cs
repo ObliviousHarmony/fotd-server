@@ -12,9 +12,9 @@ namespace FOMServer.Master.Application.Handlers
     {
         public override PacketIdentifier PacketID => PacketIdentifier.ID_LOGIN_REQUEST;
 
-        private readonly IPlayerRepository playerRepository;
-        private readonly IPlayerService playerService;
-        private readonly IClientPacketSender packetSender;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly IPlayerService _playerService;
+        private readonly IClientPacketSender _packetSender;
 
         public LoginRequestHandler(
             IPlayerRepository playerRepository,
@@ -22,9 +22,9 @@ namespace FOMServer.Master.Application.Handlers
             IClientPacketSender packetSender
         )
         {
-            this.playerService = playerService;
-            this.playerRepository = playerRepository;
-            this.packetSender = packetSender;
+            this._playerService = playerService;
+            this._playerRepository = playerRepository;
+            this._packetSender = packetSender;
         }
 
         public override void Handle(NetworkAddress sender, in LoginRequest data)
@@ -37,19 +37,19 @@ namespace FOMServer.Master.Application.Handlers
                     response.RawUsername[i] = data.RawUsername[i];
             }
 
-            var playerID = playerRepository.Exists(data.Username);
+            var playerID = _playerRepository.Exists(data.Username);
             if (playerID == null)
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_INVALID_INFORMATION;
-            else if (playerService.Get(playerID.Value) != null)
+            else if (_playerService.Get(playerID.Value) != null)
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_ALREADY_LOGGED_IN;
             else if (data.ClientVersion != GlobalConstants.ClientVersion)
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_OUTDATED_CLIENT;
             else
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_SUCCESS;
 
-            packetSender.Send(
+            _packetSender.Send(
                 PacketIdentifier.ID_LOGIN_REQUEST_RETURN,
-                new FOMDataUnion { loginRequestReturn = response },
+                new FOMDataUnion { LoginRequestReturn = response },
                 sender,
                 PacketPriority.HIGH_PRIORITY,
                 PacketReliability.RELIABLE_ORDERED

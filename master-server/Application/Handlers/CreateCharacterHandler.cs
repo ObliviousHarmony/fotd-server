@@ -11,28 +11,28 @@ namespace FOMServer.Master.Application.Handlers
 {
     public class CreateCharacterHandler : PacketHandler<CreateCharacter>
     {
-        private readonly IClientPacketSender packetSender;
-        private readonly IPlayerService playerService;
-        private readonly ICharacterRepository characterRepository;
-        private readonly IWorldOverviewFactory worldOverviewFactory;
+        private readonly IClientPacketSender _packetSender;
+        private readonly IPlayerService _playerService;
+        private readonly ICharacterRepository _characterRepository;
+        private readonly IWorldOverviewFactory _worldOverviewFactory;
 
         public CreateCharacterHandler(IClientPacketSender packetSender, IPlayerService playerService, ICharacterRepository characterRepository, IWorldOverviewFactory worldOverviewFactory)
         {
-            this.packetSender = packetSender;
-            this.playerService = playerService;
-            this.characterRepository = characterRepository;
-            this.worldOverviewFactory = worldOverviewFactory;
+            this._packetSender = packetSender;
+            this._playerService = playerService;
+            this._characterRepository = characterRepository;
+            this._worldOverviewFactory = worldOverviewFactory;
         }
 
         public override PacketIdentifier PacketID => PacketIdentifier.ID_CREATE_CHARACTER;
 
         public override void Handle(NetworkAddress sender, in CreateCharacter data)
         {
-            var player = playerService.Get(sender);
+            var player = _playerService.Get(sender);
             if (player == null)
                 return;
 
-            var created = characterRepository.Create(
+            var created = _characterRepository.Create(
                 player.ID,
                 data.Avatar.Faction,
                 data.Name,
@@ -54,12 +54,12 @@ namespace FOMServer.Master.Application.Handlers
                 AccountType = 3,
                 IsVolunteer = false,
                 ClientVersion = GlobalConstants.ClientVersion,
-                WorldOverview = this.worldOverviewFactory.Create(player),
+                WorldOverview = this._worldOverviewFactory.Create(player),
             };
 
-            packetSender.Send(
+            _packetSender.Send(
                 PacketIdentifier.ID_LOGIN_RETURN,
-                new FOMDataUnion { loginReturn = response },
+                new FOMDataUnion { LoginReturn = response },
                 sender,
                 PacketPriority.HIGH_PRIORITY,
                 PacketReliability.RELIABLE_ORDERED

@@ -1,27 +1,27 @@
+using System.Collections.Concurrent;
 using FOMServer.Master.Core.Networking;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
-using System.Collections.Concurrent;
 
 namespace FOMServer.Master.Application.Networking
 {
     public class WorldServerService : IWorldServerService
     {
-        private readonly ConcurrentDictionary<WorldID, WorldServer> worldServers;
+        private readonly ConcurrentDictionary<WorldID, WorldServer> _worldServers;
 
         public WorldServerService()
         {
-            worldServers = new ConcurrentDictionary<WorldID, WorldServer>();
+            _worldServers = new ConcurrentDictionary<WorldID, WorldServer>();
         }
 
         public WorldServer[] GetAll()
         {
-            return worldServers.Values.ToArray();
+            return _worldServers.Values.ToArray();
         }
 
         public WorldServer? Register(WorldID id, NetworkAddress serverAddress, string clientAddress, ushort clientPort)
         {
-            if (worldServers.ContainsKey(id))
+            if (_worldServers.ContainsKey(id))
                 return null;
 
             var worldServer = new WorldServer
@@ -35,7 +35,7 @@ namespace FOMServer.Master.Application.Networking
                 }
             };
 
-            if (!worldServers.TryAdd(id, worldServer))
+            if (!_worldServers.TryAdd(id, worldServer))
                 return null;
 
             return worldServer;
@@ -43,7 +43,7 @@ namespace FOMServer.Master.Application.Networking
 
         public bool Unregister(WorldID id)
         {
-            return worldServers.TryRemove(id, out _);
+            return _worldServers.TryRemove(id, out _);
         }
     }
 }

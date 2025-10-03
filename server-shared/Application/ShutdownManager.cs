@@ -4,39 +4,39 @@ namespace FOMServer.Application.Core
 {
     public class ShutdownManager : IShutdownManager
     {
-        private readonly object syncRoot = new();
-        private readonly CancellationTokenSource rootCts = new();
-        private readonly List<Task> trackedTasks = new();
-        private readonly TaskCompletionSource stoppingTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
-        private readonly TaskCompletionSource stoppedTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        private readonly object _syncRoot = new();
+        private readonly CancellationTokenSource _rootCts = new();
+        private readonly List<Task> _trackedTasks = new();
+        private readonly TaskCompletionSource _stoppingTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        private readonly TaskCompletionSource _stoppedTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
 
-        public Task Stopping => stoppingTcs.Task;
-        public Task Stopped => stoppedTcs.Task;
+        public Task Stopping => _stoppingTcs.Task;
+        public Task Stopped => _stoppedTcs.Task;
 
-        public CancellationToken Token => rootCts.Token;
+        public CancellationToken Token => _rootCts.Token;
 
         public void TrackTask(Task task)
         {
-            if (rootCts.IsCancellationRequested)
+            if (_rootCts.IsCancellationRequested)
                 throw new InvalidOperationException("Cannot track tasks after shutdown has been initiated.");
 
-            lock (syncRoot)
-                trackedTasks.Add(task);
+            lock (_syncRoot)
+                _trackedTasks.Add(task);
         }
 
         public async Task Shutdown()
         {
-            if (rootCts.IsCancellationRequested)
+            if (_rootCts.IsCancellationRequested)
                 return;
 
-            rootCts.Cancel();
-            stoppingTcs.TrySetResult();
+            _rootCts.Cancel();
+            _stoppingTcs.TrySetResult();
 
             Task[] tasksToWait;
-            lock (syncRoot)
-                tasksToWait = trackedTasks.ToArray();
+            lock (_syncRoot)
+                tasksToWait = _trackedTasks.ToArray();
             await Task.WhenAll(tasksToWait);
-            stoppedTcs.TrySetResult();
+            _stoppedTcs.TrySetResult();
         }
     }
 
