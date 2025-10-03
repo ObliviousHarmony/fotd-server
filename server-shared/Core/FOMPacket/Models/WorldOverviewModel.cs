@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace FOMServer.Shared.Core.FOMPacket.Models
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct WorldOverview
+    public struct WorldOverviewModel
     {
         [StructLayout(LayoutKind.Sequential, Pack = 1)]
         public struct Entry
@@ -28,7 +28,7 @@ namespace FOMServer.Shared.Core.FOMPacket.Models
         public uint OnlinePlayers;
         public uint OnlineNewPlayers;
         public byte RawIsPrisoner;
-        public Apartment DefaultApartment;
+        public ApartmentModel DefaultApartment;
 
         public bool IsPrisoner
         {

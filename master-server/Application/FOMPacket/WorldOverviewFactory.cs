@@ -14,9 +14,9 @@ namespace FOMServer.Master.Application.FOMPacket
             this.worldServerService = worldServerService;
         }
 
-        public WorldOverview Create(Player player)
+        public WorldOverviewModel Create(Player player)
         {
-            var worldOverview = new WorldOverview()
+            var worldOverview = new WorldOverviewModel()
             {
                 OnlinePlayers = 0,
                 OnlineNewPlayers = 0,

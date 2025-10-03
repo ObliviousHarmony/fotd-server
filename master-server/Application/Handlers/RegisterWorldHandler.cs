@@ -1,7 +1,7 @@
 using FOMServer.Master.Core.Networking;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
-using FOMServer.Shared.Core.FOMPacket.Models;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
 

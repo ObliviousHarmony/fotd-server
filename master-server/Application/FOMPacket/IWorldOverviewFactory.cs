@@ -5,6 +5,6 @@ namespace FOMServer.Master.Application.FOMPacket
 {
     public interface IWorldOverviewFactory
     {
-        WorldOverview Create(Player player);
+        WorldOverviewModel Create(Player player);
     }
 }

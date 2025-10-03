@@ -1,6 +1,6 @@
 using FOMServer.Master.Core.Networking;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.FOMPacket.Models;
+using FOMServer.Shared.Core.FOMPacket;
 using System.Collections.Concurrent;
 
 namespace FOMServer.Master.Application.Networking

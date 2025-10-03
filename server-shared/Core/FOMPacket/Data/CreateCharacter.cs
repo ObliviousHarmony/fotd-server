@@ -7,7 +7,7 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
     public unsafe struct CreateCharacter
     {
         public uint PlayerID;
-        public Avatar Avatar;
+        public AvatarModel Avatar;
         public fixed byte RawName[20];
         public fixed byte RawBiography[511];
 

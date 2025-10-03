@@ -28,7 +28,7 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
         public byte AccountType;
         public byte RawIsVolunteer;
         public ushort ClientVersion;
-        public WorldOverview WorldOverview;
+        public WorldOverviewModel WorldOverview;
 
         public bool IsVolunteer
         {

@@ -1,4 +1,4 @@
-using FOMServer.Shared.Core.FOMPacket.Models;
+using FOMServer.Shared.Core.FOMPacket;
 
 namespace FOMServer.Master.Core.Players
 {

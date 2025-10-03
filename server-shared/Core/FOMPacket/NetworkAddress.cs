@@ -1,7 +1,7 @@
 using System.Net;
 using System.Runtime.InteropServices;
 
-namespace FOMServer.Shared.Core.FOMPacket.Models
+namespace FOMServer.Shared.Core.FOMPacket
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct NetworkAddress

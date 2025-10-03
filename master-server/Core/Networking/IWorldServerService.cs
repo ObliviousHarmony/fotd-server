@@ -1,5 +1,5 @@
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.FOMPacket.Models;
+using FOMServer.Shared.Core.FOMPacket;
 
 namespace FOMServer.Master.Core.Networking
 {
