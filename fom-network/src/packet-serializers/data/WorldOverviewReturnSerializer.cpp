@@ -6,8 +6,8 @@
 
 namespace FOMNetwork {
 
-void WorldOverviewReturnSerializer::WriteData(RakNet::BitStream& bs,
-                                      const Packet::WorldOverviewReturn& data) const {
+void WorldOverviewReturnSerializer::WriteData(
+    RakNet::BitStream& bs, const Packet::WorldOverviewReturn& data) const {
   WorldOverviewModelSerializer overviewSerializer;
 
   bs.WriteCompressed(data.playerID);
