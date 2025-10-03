@@ -16,8 +16,8 @@ namespace FOMServer.Master.Application.Handlers
 
         public CheckNameHandler(ICharacterRepository characterRepository, IClientPacketSender packetSender)
         {
-            this._characterRepository = characterRepository;
-            this._packetSender = packetSender;
+            _characterRepository = characterRepository;
+            _packetSender = packetSender;
         }
 
         public override void Handle(NetworkAddress sender, in CheckName data)

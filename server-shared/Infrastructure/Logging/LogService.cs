@@ -23,7 +23,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
 
         public LogService(IShutdownManager shutdownManager, bool writeConsole = true, string? logFilePath = null)
         {
-            this._shutdownManager = shutdownManager;
+            _shutdownManager = shutdownManager;
 
             _logChannel = Channel.CreateUnbounded<LogEntry>(
                 new UnboundedChannelOptions
@@ -33,7 +33,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
                 }
             );
 
-            this._writeConsole = writeConsole;
+            _writeConsole = writeConsole;
 
             if (logFilePath != null)
             {

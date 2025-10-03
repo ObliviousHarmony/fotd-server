@@ -11,7 +11,7 @@ namespace FOMServer.Master.Application.FOMPacket
 
         public WorldOverviewFactory(IPlayerService playerService, IWorldServerService worldServerService)
         {
-            this._worldServerService = worldServerService;
+            _worldServerService = worldServerService;
         }
 
         public WorldOverviewModel Create(Player player)

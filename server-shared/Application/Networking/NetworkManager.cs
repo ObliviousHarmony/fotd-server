@@ -56,15 +56,15 @@ namespace FOMServer.Shared.Application.Networking
             PacketProcessor packetProcessor
         )
         {
-            this._peer = IntPtr.Zero;
-            this._shutdownManager = shutdownManager;
-            this._logService = logService;
-            this._packetService = packetService;
-            this._packetProcessor = packetProcessor;
-            this._claimedPacketIDs = new HashSet<PacketIdentifier>();
+            _peer = IntPtr.Zero;
+            _shutdownManager = shutdownManager;
+            _logService = logService;
+            _packetService = packetService;
+            _packetProcessor = packetProcessor;
+            _claimedPacketIDs = new HashSet<PacketIdentifier>();
 
             // Single writer, single reader channel is fine here
-            this._sendQueue = Channel.CreateUnbounded<SendPacket>(new UnboundedChannelOptions
+            _sendQueue = Channel.CreateUnbounded<SendPacket>(new UnboundedChannelOptions
             {
                 SingleReader = true,
                 SingleWriter = false
@@ -91,11 +91,11 @@ namespace FOMServer.Shared.Application.Networking
         /// </summary>
         public void Configure(IntPtr peer, Action<IntPtr> peerShutdown)
         {
-            if (this._peer != IntPtr.Zero)
+            if (_peer != IntPtr.Zero)
                 throw new InvalidOperationException("Peer is already configured.");
 
-            this._peer = peer;
-            this._peerShutdown = peerShutdown;
+            _peer = peer;
+            _peerShutdown = peerShutdown;
         }
 
         /// <summary>

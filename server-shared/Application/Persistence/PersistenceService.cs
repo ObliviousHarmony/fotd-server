@@ -27,9 +27,9 @@ namespace FOMServer.Shared.Application.Persistence
 
         public PersistenceService(IShutdownManager shutdownManager, ILogService logService, IEnumerable<IPersistenceHandler> handlers)
         {
-            this._shutdownManager = shutdownManager;
-            this._logService = logService;
-            this._handlers = handlers.ToDictionary(h => h.EntityType);
+            _shutdownManager = shutdownManager;
+            _logService = logService;
+            _handlers = handlers.ToDictionary(h => h.EntityType);
             _dirtyQueue = Channel.CreateUnbounded<IPersistable>();
             _dirtyFlags = new ConditionalWeakTable<IPersistable, DirtyFlag>();
             _entityLocks = new ConditionalWeakTable<IPersistable, SemaphoreSlim>();

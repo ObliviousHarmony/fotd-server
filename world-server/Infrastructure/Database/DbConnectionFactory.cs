@@ -11,7 +11,7 @@ namespace FOMServer.World.Infrastructure.Database
 
         public DbConnectionFactory(DatabaseSettings dbSettings)
         {
-            this._dbSettings = dbSettings;
+            _dbSettings = dbSettings;
         }
 
         public IDbConnection Create()

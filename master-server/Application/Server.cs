@@ -32,13 +32,13 @@ namespace FOMServer.Master.Application
             IServiceProvider serviceProvider
         )
         {
-            this._logService = logService;
-            this._shutdownManager = shutdownManager;
-            this._migrationRunner = migrationRunner;
-            this._serverSettings = serverSettings;
-            this._networkService = networkService;
-            this._serverService = serverService;
-            this._serviceProvider = serviceProvider;
+            _logService = logService;
+            _shutdownManager = shutdownManager;
+            _migrationRunner = migrationRunner;
+            _serverSettings = serverSettings;
+            _networkService = networkService;
+            _serverService = serverService;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task Run()

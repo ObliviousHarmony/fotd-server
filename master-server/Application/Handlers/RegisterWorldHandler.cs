@@ -16,8 +16,8 @@ namespace FOMServer.Master.Application.Handlers
 
         public RegisterWorldPacketHandler(ILogService logService, IWorldServerService worldServerService)
         {
-            this._logService = logService;
-            this._worldServerService = worldServerService;
+            _logService = logService;
+            _worldServerService = worldServerService;
         }
 
         public override void Handle(NetworkAddress sender, in RegisterWorld data)

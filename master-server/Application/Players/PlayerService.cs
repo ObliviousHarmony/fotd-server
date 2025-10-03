@@ -14,10 +14,10 @@ namespace FOMServer.Master.Application.Players
 
         public PlayerService(IPlayerRepository playerRepository, ICharacterRepository characterRepository)
         {
-            this._playerRepository = playerRepository;
+            _playerRepository = playerRepository;
             _loggedIn = new ConcurrentDictionary<uint, Player>();
             _addressMap = new ConcurrentDictionary<NetworkAddress, Player>();
-            this._characterRepository = characterRepository;
+            _characterRepository = characterRepository;
         }
 
         public Player? Get(uint id)

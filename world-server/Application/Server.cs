@@ -31,13 +31,13 @@ namespace FOMServer.World.Application
             IServiceProvider serviceProvider
         )
         {
-            this._logService = logService;
-            this._shutdownManager = shutdownManager;
-            this._serverSettings = serverSettings;
-            this._networkService = networkService;
-            this._serverService = serverService;
-            this._clientService = clientService;
-            this._serviceProvider = serviceProvider;
+            _logService = logService;
+            _shutdownManager = shutdownManager;
+            _serverSettings = serverSettings;
+            _networkService = networkService;
+            _serverService = serverService;
+            _clientService = clientService;
+            _serviceProvider = serviceProvider;
         }
 
         public async Task Run()

@@ -13,7 +13,7 @@ namespace FOMServer.Shared.Core.Handlers
 
         public ReadPacketErrorHandler(ILogService logService)
         {
-            this._logService = logService;
+            _logService = logService;
         }
 
         public override void Handle(NetworkAddress sender, in ReadPacketError data)

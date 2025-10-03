@@ -12,7 +12,7 @@ namespace FOMServer.World.Application.Networking
 
         public void Initialize(IPacketSender packetSender)
         {
-            this._packetSender = packetSender;
+            _packetSender = packetSender;
         }
 
         public void Send(PacketIdentifier id, FOMDataUnion data, NetworkAddress destination, PacketPriority priority, PacketReliability reliability, byte orderingChannel = 0)

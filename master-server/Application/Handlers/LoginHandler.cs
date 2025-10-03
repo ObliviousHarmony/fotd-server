@@ -19,9 +19,9 @@ namespace FOMServer.Master.Application.Handlers
 
         public LoginHandler(IPlayerService playerService, IWorldOverviewFactory worldOverviewFactory, IClientPacketSender packetSender)
         {
-            this._playerService = playerService;
-            this._worldOverviewFactory = worldOverviewFactory;
-            this._packetSender = packetSender;
+            _playerService = playerService;
+            _worldOverviewFactory = worldOverviewFactory;
+            _packetSender = packetSender;
         }
 
         public override void Handle(NetworkAddress sender, in Login data)
@@ -40,7 +40,7 @@ namespace FOMServer.Master.Application.Handlers
                     AccountType = 3,
                     IsVolunteer = false,
                     ClientVersion = GlobalConstants.ClientVersion,
-                    WorldOverview = this._worldOverviewFactory.Create(player),
+                    WorldOverview = _worldOverviewFactory.Create(player),
                 };
             }
             else

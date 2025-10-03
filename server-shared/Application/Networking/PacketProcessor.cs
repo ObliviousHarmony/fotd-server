@@ -25,9 +25,9 @@ namespace FOMServer.Shared.Application.Networking
 
         public PacketProcessor(IShutdownManager shutdownManager, ILogService logService, IEnumerable<IPacketHandler> handlers)
         {
-            this._shutdownManager = shutdownManager;
-            this._logService = logService;
-            this._handlers = handlers.ToDictionary(h => h.PacketID);
+            _shutdownManager = shutdownManager;
+            _logService = logService;
+            _handlers = handlers.ToDictionary(h => h.PacketID);
 
             _packetQueue = Channel.CreateUnbounded<Packet>(
                 new UnboundedChannelOptions

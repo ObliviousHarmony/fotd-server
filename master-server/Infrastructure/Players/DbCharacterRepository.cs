@@ -13,7 +13,7 @@ namespace FOMServer.Master.Infrastructure.Repositories
 
         public DbCharacterRepository(IDbConnectionFactory dbConnectionFactory)
         {
-            this._dbConnectionFactory = dbConnectionFactory;
+            _dbConnectionFactory = dbConnectionFactory;
         }
 
         public uint? Exists(string name)

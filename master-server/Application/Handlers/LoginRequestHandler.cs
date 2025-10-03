@@ -22,9 +22,9 @@ namespace FOMServer.Master.Application.Handlers
             IClientPacketSender packetSender
         )
         {
-            this._playerService = playerService;
-            this._playerRepository = playerRepository;
-            this._packetSender = packetSender;
+            _playerService = playerService;
+            _playerRepository = playerRepository;
+            _packetSender = packetSender;
         }
 
         public override void Handle(NetworkAddress sender, in LoginRequest data)

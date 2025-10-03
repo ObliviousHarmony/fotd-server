@@ -16,9 +16,9 @@ namespace FOMServer.Master.Application.Handlers
 
         public ConnectionLostHandler(IPlayerService playerService, IWorldServerService worldServerService, ILogService logService)
         {
-            this._playerService = playerService;
-            this._worldServerService = worldServerService;
-            this._logService = logService;
+            _playerService = playerService;
+            _worldServerService = worldServerService;
+            _logService = logService;
         }
 
         public override PacketIdentifier PacketID => PacketIdentifier.ID_CONNECTION_LOST;

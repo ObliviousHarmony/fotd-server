@@ -18,9 +18,9 @@ namespace FOMServer.Master.Application.Handlers
 
         public WorldOverviewHandler(IPlayerService playerService, IWorldOverviewFactory worldOverviewFactory, IClientPacketSender packetSender)
         {
-            this._playerService = playerService;
-            this._worldOverviewFactory = worldOverviewFactory;
-            this._packetSender = packetSender;
+            _playerService = playerService;
+            _worldOverviewFactory = worldOverviewFactory;
+            _packetSender = packetSender;
         }
 
         public override void Handle(NetworkAddress sender, in WorldOverview data)
@@ -34,7 +34,7 @@ namespace FOMServer.Master.Application.Handlers
             var response = new WorldOverviewReturn()
             {
                 PlayerID = player.ID,
-                WorldOverview = this._worldOverviewFactory.Create(player),
+                WorldOverview = _worldOverviewFactory.Create(player),
             };
 
             _packetSender.Send(

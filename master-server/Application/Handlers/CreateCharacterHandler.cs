@@ -18,10 +18,10 @@ namespace FOMServer.Master.Application.Handlers
 
         public CreateCharacterHandler(IClientPacketSender packetSender, IPlayerService playerService, ICharacterRepository characterRepository, IWorldOverviewFactory worldOverviewFactory)
         {
-            this._packetSender = packetSender;
-            this._playerService = playerService;
-            this._characterRepository = characterRepository;
-            this._worldOverviewFactory = worldOverviewFactory;
+            _packetSender = packetSender;
+            _playerService = playerService;
+            _characterRepository = characterRepository;
+            _worldOverviewFactory = worldOverviewFactory;
         }
 
         public override PacketIdentifier PacketID => PacketIdentifier.ID_CREATE_CHARACTER;
@@ -54,7 +54,7 @@ namespace FOMServer.Master.Application.Handlers
                 AccountType = 3,
                 IsVolunteer = false,
                 ClientVersion = GlobalConstants.ClientVersion,
-                WorldOverview = this._worldOverviewFactory.Create(player),
+                WorldOverview = _worldOverviewFactory.Create(player),
             };
 
             _packetSender.Send(
