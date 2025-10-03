@@ -7,7 +7,7 @@ Packet::RegisterWorld RegisterWorldSerializer::ReadData(
   Packet::RegisterWorld data{};
   bs.ReadCompressed(data.worldID);
   ReadRawString(bs, data.address);
-  bs.Read(data.port);
+  bs.ReadCompressed(data.port);
   return data;
 }
 
@@ -15,7 +15,7 @@ void RegisterWorldSerializer::WriteData(
     RakNet::BitStream& bs, const Packet::RegisterWorld& data) const {
   bs.WriteCompressed(data.worldID);
   WriteRawString(bs, data.address);
-  bs.Write(data.port);
+  bs.WriteCompressed(data.port);
 }
 
 }  // namespace FOMNetwork
