@@ -191,3 +191,10 @@ namespace FOMServer.Shared.Application.Handlers
 }
 ```
 
+- [ ] **Claim Server<->Server Packets**: If the packet is intended to be sent from one server to another,
+      it must be claimed by the correct network manager to prevent it from being sent by a game client.
+      This is done in the server's `Server.cs` file after the network manager is created.
+
+```csharp
+networkManager.ClaimPacketID(PacketIdentifier.ID_EXAMPLE);
+```
