@@ -133,6 +133,11 @@ using System.Runtime.InteropServices;
 
 namespace FOMServer.Shared.Core.FOMPacket.Data
 {
+    // Each packet must be given a PacketID attribute.
+    // This hooks the struct up and ensures that it
+    // is handled correctly and validated in the
+    // places where it needs to be.
+    [PacketID(PacketIdentifier.ID_EXAMPLE)]]
     // This attribute ensures that the field layout is not changed.
     // Note that the "Pack = 1" option mirrors the
     // `#pragma pack(push, 1)` in the native struct.
@@ -156,31 +161,8 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
     public struct FOMDataUnion
     {
         ...
-        [FieldOffset(0)] public ExamplePacket examplePacket;
+        [FieldOffset(0)] public ExamplePacket ExamplePacket;
     }
-```
-
-- [ ] **Packet Data Extraction**: As a convenience, packet data
-  [can be unwrapped based on the identifier](../server-shared/Extensions/FOMPacketExtensions.cs).
-  Each packet needs an entry so that it can be delegated to its handler without any complicated type casting.
-
-```csharp
-switch (packet.ID)
-{
-    ...
-    case PacketIdentifier.ID_EXAMPLE when typeof(TPacket) == typeof(ExamplePacket):
-        return (TPacket)(object)packet.Data.examplePacket;
-}
-```
-
-- [ ] **Interop Struct Validation**: Before the server will be able to start, the new packet data struct must
-  be added to [the managed validation map](../server-shared/Infrastructure/Networking/NetworkService.cs).
-
-```csharp
-{
-    ...
-    new PacketStructure { ID = PacketIdentifier.ID_EXAMPLE, Size = Marshal.SizeOf<ExamplePacket>() }
-};
 ```
 
 ## Master/World Server
