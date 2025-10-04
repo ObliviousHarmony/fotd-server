@@ -29,12 +29,24 @@ namespace FOMServer.Shared.Application.Networking
         {
             _shutdownManager = shutdownManager;
             _logService = logService;
+
+            // Build the map by extracting the PacketIdentifier from each handler's generic packet struct argument.
             _handlers = handlers.ToDictionary(h => {
                 var handlerType = h.GetType();
-                var idAttr = handlerType.GetCustomAttribute<PacketHandlerAttribute>();
-                if (idAttr == null)
-                    throw new InvalidOperationException($"Handler type {handlerType.Name} is missing PacketHandlerAttribute");
-                return idAttr.ID;
+
+                if (!Attribute.IsDefined(handlerType, typeof(PacketHandlerAttribute)))
+                    throw new InvalidOperationException($"Handler type {handlerType.Name} is missing [PacketHandler]");
+
+                var baseType = handlerType.BaseType;
+                if (baseType == null || !baseType.IsGenericType)
+                    throw new InvalidOperationException($"Handler {handlerType.Name} does not derive from BasePacketHandler<T>.");
+
+                var packetType = baseType.GetGenericArguments()[0];
+                var packetIDAttr = packetType.GetCustomAttribute<PacketIDAttribute>();
+                if (packetIDAttr == null)
+                    throw new InvalidOperationException($"Packet type {packetType.Name} is missing [PacketID].");
+
+                return packetIDAttr.ID;
             });
 
             _packetQueue = Channel.CreateUnbounded<Packet>(

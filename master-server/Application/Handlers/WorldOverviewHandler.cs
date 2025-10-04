@@ -9,7 +9,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    [PacketHandler(PacketIdentifier.ID_WORLD_OVERVIEW)]
+    [PacketHandler]
     public class WorldOverviewHandler : BasePacketHandler<WorldOverview>
     {
         private readonly IPlayerService _playerService;

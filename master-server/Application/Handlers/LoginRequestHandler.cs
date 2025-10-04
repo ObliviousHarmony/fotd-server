@@ -9,7 +9,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    [PacketHandler(PacketIdentifier.ID_LOGIN_REQUEST)]
+    [PacketHandler]
     public class LoginRequestHandler : BasePacketHandler<LoginRequest>
     {
         public PacketIdentifier PacketID => PacketIdentifier.ID_LOGIN_REQUEST;

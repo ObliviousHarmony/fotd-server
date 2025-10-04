@@ -6,7 +6,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Handlers
 {
-    [PacketHandler(PacketIdentifier.ID_FOM_PACKET_READ_ERROR)]
+    [PacketHandler]
     public class ReadPacketErrorHandler : BasePacketHandler<ReadPacketError>
     {
         private readonly ILogService _logService;

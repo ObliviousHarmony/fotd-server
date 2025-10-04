@@ -8,7 +8,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    [PacketHandler(PacketIdentifier.ID_REGISTER_WORLD)]
+    [PacketHandler]
     public class RegisterWorldPacketHandler : BasePacketHandler<RegisterWorld>
     {
         public PacketIdentifier PacketID => PacketIdentifier.ID_REGISTER_WORLD;

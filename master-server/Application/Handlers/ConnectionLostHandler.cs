@@ -9,7 +9,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    [PacketHandler(PacketIdentifier.ID_CONNECTION_LOST)]
+    [PacketHandler]
     public class ConnectionLostHandler : BasePacketHandler<ConnectionLost>
     {
         private readonly IPlayerService _playerService;

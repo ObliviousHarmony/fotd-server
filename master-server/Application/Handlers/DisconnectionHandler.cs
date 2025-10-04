@@ -9,7 +9,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    [PacketHandler(PacketIdentifier.ID_DISCONNECTION_NOTIFICATION)]
+    [PacketHandler]
     public class DisconnectionHandler : BasePacketHandler<DisconnectionNotification>
     {
         private readonly IPlayerService _playerService;

@@ -10,7 +10,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    [PacketHandler(PacketIdentifier.ID_CREATE_CHARACTER)]
+    [PacketHandler]
     public class CreateCharacterHandler : BasePacketHandler<CreateCharacter>
     {
         private readonly IClientPacketSender _packetSender;

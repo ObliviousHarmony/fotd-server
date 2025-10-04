@@ -10,7 +10,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    [PacketHandler(PacketIdentifier.ID_LOGIN)]
+    [PacketHandler]
     public class LoginHandler : BasePacketHandler<Login>
     {
         private readonly IPlayerService _playerService;

@@ -8,7 +8,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    [PacketHandler(PacketIdentifier.ID_CHECK_NAME)]
+    [PacketHandler]
     public class CheckNameHandler : BasePacketHandler<CheckName>
     {
         private readonly ICharacterRepository _characterRepository;
