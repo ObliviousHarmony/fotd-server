@@ -25,12 +25,18 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
   int count = 0;
   Packet* receiveBuffer[FOM::MaxBufferedPackets];
   while (count < FOM::MaxBufferedPackets) {
-    Packet* packet = peer->Receive();
-    if (!packet) {
+    Packet* p = peer->Receive();
+    if (!p) {
       break;
     }
 
-    receiveBuffer[count++] = packet;
+    // Don't waste space in our buffer on packets we don't care about.
+    if (FOMDataSerializer::ShouldIgnorePacket(p->data[0])) {
+      peer->DeallocatePacket(const_cast<Packet*>(p));
+      continue;
+    }
+
+    receiveBuffer[count++] = p;
   }
 
   ReceivedPackets received{};

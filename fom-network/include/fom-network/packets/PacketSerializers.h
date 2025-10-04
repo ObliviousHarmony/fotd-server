@@ -75,8 +75,27 @@ class BaseSerializer {
   StringCompressor* strCompressor;
 };
 
+class FOM_API EmptyPacketSerializer : public IWriter, public IReader {
+ public:
+  static EmptyPacketSerializer& GetInstance() {
+    static EmptyPacketSerializer s;
+    return s;
+  }
+  void Write(RakNet::BitStream& bs, const FOMDataUnion& d) const override {}
+  FOMDataUnion Read(RakNet::BitStream& bs) const override {
+    return FOMDataUnion{};
+  }
+};
+
 /**
- * Macros to reduce serializer boilerplate.
+ * --------------------------------------------------
+ * Packet Serializer Macros
+ *
+ * In order to eliminate the boilerplate class
+ * declarations for serializers, these macros
+ * will do the work of declaring the class
+ * for you.
+ * --------------------------------------------------
  */
 #define SERIALIZER_BOTH(TYPE, FIELD)                                          \
   class FOM_API TYPE##Serializer : public BaseSerializer,                     \

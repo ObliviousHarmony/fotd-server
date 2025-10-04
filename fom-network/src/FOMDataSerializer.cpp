@@ -18,6 +18,20 @@ static std::unordered_map<uint32_t, IWriter*> writerMap = {
 };
 
 static std::unordered_map<uint32_t, IReader*> readerMap = {
+    // Some RakNet packets will be forwarded to the consumer.
+    {ID_ALREADY_CONNECTED, &EmptyPacketSerializer::GetInstance()},
+    {ID_CONNECTION_ATTEMPT_FAILED, &EmptyPacketSerializer::GetInstance()},
+    {ID_CONNECTION_BANNED, &EmptyPacketSerializer::GetInstance()},
+    {ID_CONNECTION_LOST, &EmptyPacketSerializer::GetInstance()},
+    {ID_CONNECTION_REQUEST_ACCEPTED, &EmptyPacketSerializer::GetInstance()},
+    {ID_DISCONNECTION_NOTIFICATION, &EmptyPacketSerializer::GetInstance()},
+    {ID_INVALID_PASSWORD, &EmptyPacketSerializer::GetInstance()},
+    {ID_MODIFIED_PACKET, &EmptyPacketSerializer::GetInstance()},
+    {ID_NEW_INCOMING_CONNECTION, &EmptyPacketSerializer::GetInstance()},
+    {ID_NO_FREE_INCOMING_CONNECTIONS, &EmptyPacketSerializer::GetInstance()},
+    {ID_RSA_PUBLIC_KEY_MISMATCH, &EmptyPacketSerializer::GetInstance()},
+
+    // Game Packets
     {ID_LOGIN_REQUEST, &LoginRequestSerializer::GetInstance()},
     {ID_LOGIN, &LoginSerializer::GetInstance()},
     {ID_CHECK_NAME, &CheckNameSerializer::GetInstance()},
@@ -29,10 +43,6 @@ static std::unordered_map<uint32_t, IReader*> readerMap = {
 
 bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id,
                               const FOMDataUnion& data) {
-  if (ShouldForwardRakNetPacket(id)) {
-    return true;
-  }
-
   const auto* writer = GetWriter(id);
   if (!writer) {
     return false;
@@ -50,10 +60,6 @@ bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id,
 
 FOMDataUnion FOMDataSerializer::Read(RakNet::BitStream& bs,
                                      const PacketIdentifier id) {
-  if (ShouldForwardRakNetPacket(id)) {
-    return FOMDataUnion{};
-  }
-
   const auto* reader = GetReader(id);
   if (!reader) {
     throw ReadError(Packet::ReadPacketError{
