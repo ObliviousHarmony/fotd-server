@@ -31,7 +31,8 @@ namespace FOMServer.Shared.Application.Networking
             _logService = logService;
 
             // Build the map by extracting the PacketIdentifier from each handler's generic packet struct argument.
-            _handlers = handlers.ToDictionary(h => {
+            _handlers = handlers.ToDictionary(h =>
+            {
                 var handlerType = h.GetType();
 
                 if (!Attribute.IsDefined(handlerType, typeof(PacketHandlerAttribute)))
