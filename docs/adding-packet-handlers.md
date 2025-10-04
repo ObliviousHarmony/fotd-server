@@ -177,9 +177,13 @@ bye one of the server types. Each packet handler is defined in their respective 
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
 using FOMServer.Shared.Core.Models.FOMData;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Application.Handlers
 {
+    // Each handler must be given the PacketHandler attribute 
+    // to register it with the packet handling system.
+    [PacketHandler]
     public class ExamplePacketHandler : PacketHandler<ReadPacketError>
     {
         public override PacketIdentifier PacketID => PacketIdentifier.ID_EXAMPLE;
@@ -188,10 +192,3 @@ namespace FOMServer.Shared.Application.Handlers
 }
 ```
 
-- [ ] **Dependency Injection**: Packet handlers are registered with the dependency injection container in
-  each project's `CompositionRoot.cs` file. The act of binding it to the container adds it to the packet
-  handling pipeline and ensures that packets of the appropriate type are given to it.
-
-```csharp
-services.AddSingleton<IPacketHandler, ExamplePacketHandler>();
-```
