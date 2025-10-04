@@ -2,13 +2,13 @@ using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
-using FOMServer.Shared.Core.FOMPacket.Data;
+using FOMServer.Shared.Core.FOMPacket.Data.RakNetPackets;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    public class DisconnectionHandler : PacketHandler<RakNetPacket>
+    public class DisconnectionHandler : PacketHandler<DisconnectionNotification>
     {
         public override PacketIdentifier PacketID => PacketIdentifier.ID_DISCONNECTION_NOTIFICATION;
 
@@ -23,7 +23,7 @@ namespace FOMServer.Master.Application.Handlers
             _logService = logService;
         }
 
-        public override void Handle(NetworkAddress sender, in RakNetPacket data)
+        public override void Handle(NetworkAddress sender, in DisconnectionNotification data)
         {
             if (TryWorldServerUnregister(sender))
                 return;

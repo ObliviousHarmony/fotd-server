@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.FOMPacket.Data;
+using FOMServer.Shared.Core.FOMPacket.Data.RakNetPackets;
 
 namespace FOMServer.Shared.Core.FOMPacket
 {
@@ -13,7 +14,17 @@ namespace FOMServer.Shared.Core.FOMPacket
     [StructLayout(LayoutKind.Explicit, Pack = 1)]
     public struct FOMDataUnion
     {
-        [FieldOffset(0)] public RakNetPacket RakNetPacket;
+        [FieldOffset(0)] public AlreadyConnected AlreadyConnected;
+        [FieldOffset(0)] public ConnectionAttemptFailed ConnectionAttemptFailed;
+        [FieldOffset(0)] public ConnectionBanned ConnectionBanned;
+        [FieldOffset(0)] public ConnectionLost ConnectionLost;
+        [FieldOffset(0)] public ConnectionRequestAccepted ConnectionRequestAccepted;
+        [FieldOffset(0)] public DisconnectionNotification DisconnectionNotification;
+        [FieldOffset(0)] public InvalidPassword InvalidPassword;
+        [FieldOffset(0)] public ModifiedPacket ModifiedPacket;
+        [FieldOffset(0)] public NewIncomingConnection NewIncomingConnection;
+        [FieldOffset(0)] public NoFreeIncomingConnections NoFreeIncomingConnections;
+        [FieldOffset(0)] public RSAPublicKeyMismatch RSAPublicKeyMismatch;
         [FieldOffset(0)] public ReadPacketError ReadError;
         [FieldOffset(0)] public LoginRequest LoginRequest;
         [FieldOffset(0)] public LoginRequestReturn LoginRequestReturn;

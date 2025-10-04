@@ -16,8 +16,8 @@ namespace FOMServer.Tests
             var unionFields = typeof(FOMDataUnion).GetFields(BindingFlags.Public | BindingFlags.Instance);
             foreach (var field in unionFields)
             {
-                var idAttr = field.FieldType.GetCustomAttributes<PacketIDAttribute>();
-                if (!idAttr.Any())
+                var idAttr = field.FieldType.GetCustomAttribute<PacketIDAttribute>();
+                if (idAttr == null)
                     Assert.Fail($"Field '{field.Name}' type is missing [PacketID]");
 
                 var offsetAttr = field.GetCustomAttribute<FieldOffsetAttribute>();
@@ -31,7 +31,7 @@ namespace FOMServer.Tests
         {
             // Ensures that all of the packet structs with [PacketID] are represented inside of the FOMDataUnion struct.
             var packetTypes = typeof(FOMDataUnion).Assembly.GetTypes()
-                .Where(t => t.GetCustomAttributes<PacketIDAttribute>().Any())
+                .Where(t => t.GetCustomAttribute<PacketIDAttribute>() != null)
                 .ToList();
 
             var unionFields = typeof(FOMDataUnion).GetFields(BindingFlags.Public | BindingFlags.Instance);
@@ -49,18 +49,14 @@ namespace FOMServer.Tests
             // Every packet struct must explicitly define the memory layout to
             // ensure that it matches the C++ layout exactly.
             var packetTypes = typeof(FOMDataUnion).Assembly.GetTypes()
-                .Where(t => t.GetCustomAttributes<PacketIDAttribute>().Any())
+                .Where(t => t.GetCustomAttribute<PacketIDAttribute>() != null)
                 .ToList();
 
             foreach (var type in packetTypes)
             {
                 var layout = type.StructLayoutAttribute;
-                if (layout == null ||
-                    layout.Value != LayoutKind.Sequential ||
-                    layout.Pack != 1)
-                {
+                if (layout == null || layout.Value != LayoutKind.Sequential || layout.Pack != 1)
                     Assert.Fail($"{type.Name} must be declared with [StructLayout(LayoutKind.Sequential, Pack = 1)]");
-                }
             }
         }
     }
