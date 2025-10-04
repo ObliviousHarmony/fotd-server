@@ -5,13 +5,13 @@ using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data.RakNetPackets;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    public class ConnectionLostHandler : PacketHandler<ConnectionLost>
+    [PacketHandler(PacketIdentifier.ID_CONNECTION_LOST)]
+    public class ConnectionLostHandler : BasePacketHandler<ConnectionLost>
     {
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_CONNECTION_LOST;
-
         private readonly IPlayerService _playerService;
         private readonly IWorldServerService _worldServerService;
         private readonly ILogService _logService;

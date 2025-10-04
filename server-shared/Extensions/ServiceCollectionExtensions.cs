@@ -1,9 +1,11 @@
+using System.Reflection;
 using FOMServer.Application.Core;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Infrastructure.Logging;
+using FOMServer.Shared.Metadata;
 using FOMServer.Shared.Services.FOMNetwork;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,29 +26,48 @@ namespace FOMServer.Shared.Extensions
             logService.Start();
         }
 
-        public static void AddServerShared(this IServiceCollection services)
+        public static IServiceCollection AddServerShared(this IServiceCollection services)
         {
             services.AddInteropServices();
             services.AddSharedServices();
             services.AddPacketHandlers();
+            return services;
         }
 
-        private static void AddInteropServices(this IServiceCollection services)
+        private static IServiceCollection AddPacketHandlers(this IServiceCollection services)
+        {
+            // Dynamically register all packet handlers found in
+            // the ServerShared and Application assemblies.
+            var handlerInterface = typeof(IPacketHandler);
+            var assemblies = new[] {
+                Assembly.GetEntryAssembly(),
+                handlerInterface.Assembly,
+            };
+
+            var handlerTypes = assemblies
+                .SelectMany(a => a.GetTypes())
+                .Where(t => handlerInterface.IsAssignableFrom(t) && !t.IsAbstract)
+                .ToArray();
+
+            foreach (var type in handlerTypes)
+                services.AddSingleton(handlerInterface, type);
+
+            return services;
+        }
+
+        private static IServiceCollection AddInteropServices(this IServiceCollection services)
         {
             services.AddSingleton<INetworkService, NetworkService>();
             services.AddSingleton<IServerService, ServerService>();
             services.AddSingleton<IClientService, ClientService>();
             services.AddSingleton<IPacketService, PacketService>();
+            return services;
         }
 
-        private static void AddSharedServices(this IServiceCollection services)
+        private static IServiceCollection AddSharedServices(this IServiceCollection services)
         {
             services.AddSingleton<IShutdownManager, ShutdownManager>();
-        }
-
-        private static void AddPacketHandlers(this IServiceCollection services)
-        {
-            services.AddSingleton<IPacketHandler, ReadPacketErrorHandler>();
+            return services;
         }
     }
 }

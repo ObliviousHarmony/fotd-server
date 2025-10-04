@@ -1,8 +1,8 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.FOMPacket.Metadata;
 using FOMServer.Shared.Core.Networking;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.FOMPacket
 {
@@ -60,10 +60,10 @@ namespace FOMServer.Shared.Core.FOMPacket
             var type = typeof(TData);
 
             if (!s_idByUnionType.TryGetValue(type, out id))
-                throw new ArgumentException($"Type {type.Name} is not mapped to any PacketID.");
+                throw new ArgumentException($"Type {type.Name} is not mapped to any PacketID");
 
             if (!s_unionFieldsByID.TryGetValue(id, out var field))
-                throw new ArgumentException($"No union field found for packet ID {id}.");
+                throw new ArgumentException($"No union field found for packet ID {id}");
 
             var union = new FOMDataUnion();
             field.SetValueDirect(__makeref(union), data);
@@ -74,19 +74,20 @@ namespace FOMServer.Shared.Core.FOMPacket
         /// Unwraps a packet's data union to return the strongly-typed data struct.
         /// Validates that the packet ID matches the expected type.
         /// </summary>
-        public static TData Unwrap<TData>(Packet packet) where TData : struct
+        public static TData Unwrap<TData>(Packet packet, out PacketIdentifier id) where TData : struct
         {
             var type = typeof(TData);
 
             if (!s_idByUnionType.TryGetValue(type, out var expectedID))
-                throw new ArgumentException($"Type {type.Name} is not mapped to any PacketID.");
+                throw new ArgumentException($"Type {type.Name} is not mapped to any PacketID");
 
             if (packet.ID != expectedID)
-                throw new ArgumentException($"Packet ID {packet.ID} does not match expected type {type.Name} (ID {expectedID}).");
+                throw new ArgumentException($"Packet ID {packet.ID} does not match expected type {type.Name} (ID {expectedID})");
 
             if (!s_unionFieldsByID.TryGetValue(packet.ID, out var field))
-                throw new ArgumentException($"No union field found for packet ID {packet.ID}.");
+                throw new ArgumentException($"No union field found for packet ID {packet.ID}");
 
+            id = expectedID;
             var value = field.GetValueDirect(__makeref(packet.Data));
             return (TData)value!;
         }

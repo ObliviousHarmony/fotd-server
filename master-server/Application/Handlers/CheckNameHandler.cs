@@ -4,13 +4,13 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    public class CheckNameHandler : PacketHandler<CheckName>
+    [PacketHandler(PacketIdentifier.ID_CHECK_NAME)]
+    public class CheckNameHandler : BasePacketHandler<CheckName>
     {
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_CHECK_NAME;
-
         private readonly ICharacterRepository _characterRepository;
         private readonly IClientPacketSender _packetSender;
 

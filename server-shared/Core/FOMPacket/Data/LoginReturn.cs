@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.FOMPacket.Metadata;
+using FOMServer.Shared.Metadata;
 using FOMServer.Shared.Core.FOMPacket.Models;
 
 namespace FOMServer.Shared.Core.FOMPacket.Data

@@ -5,13 +5,13 @@ using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data.RakNetPackets;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    public class DisconnectionHandler : PacketHandler<DisconnectionNotification>
+    [PacketHandler(PacketIdentifier.ID_DISCONNECTION_NOTIFICATION)]
+    public class DisconnectionHandler : BasePacketHandler<DisconnectionNotification>
     {
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_DISCONNECTION_NOTIFICATION;
-
         private readonly IPlayerService _playerService;
         private readonly IWorldServerService _worldServerService;
         private readonly ILogService _logService;

@@ -1,7 +1,8 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.FOMPacket;
-using FOMServer.Shared.Core.FOMPacket.Metadata;
+using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Tests
 {
@@ -57,6 +58,34 @@ namespace FOMServer.Tests
                 var layout = type.StructLayoutAttribute;
                 if (layout == null || layout.Value != LayoutKind.Sequential || layout.Pack != 1)
                     Assert.Fail($"{type.Name} must be declared with [StructLayout(LayoutKind.Sequential, Pack = 1)]");
+            }
+        }
+
+        [Fact]
+        public void FOMPacket_PacketHandler_ShouldBeDefinedCorrectly()
+        {
+            var assemblies = new[] {
+                typeof(FOMServer.Master.Application.Server).Assembly,
+                typeof(FOMServer.World.Application.Server).Assembly,
+            };
+
+            var handlerInterface = typeof(IPacketHandler);
+
+            var handlerTypes = assemblies
+            .SelectMany(a => a.GetTypes())
+            .Where(t => handlerInterface.IsAssignableFrom(t) && !t.IsAbstract)
+            .ToArray();
+
+            Assert.NotEmpty(handlerTypes);
+
+            foreach (var type in handlerTypes)
+            {
+                var attr = type.GetCustomAttribute<PacketHandlerAttribute>(inherit: false);
+
+                Assert.True(
+                    attr != null,
+                    $"Packet handler '{type.FullName}' is missing [PacketHandler] attribute"
+                );
             }
         }
     }

@@ -5,12 +5,14 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    public class LoginRequestHandler : PacketHandler<LoginRequest>
+    [PacketHandler(PacketIdentifier.ID_LOGIN_REQUEST)]
+    public class LoginRequestHandler : BasePacketHandler<LoginRequest>
     {
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_LOGIN_REQUEST;
+        public PacketIdentifier PacketID => PacketIdentifier.ID_LOGIN_REQUEST;
 
         private readonly IPlayerRepository _playerRepository;
         private readonly IPlayerService _playerService;

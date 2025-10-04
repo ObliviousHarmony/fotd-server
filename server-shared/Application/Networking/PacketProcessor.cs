@@ -1,9 +1,11 @@
+using System.Reflection;
 using System.Threading.Channels;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Application.Networking
 {
@@ -27,7 +29,13 @@ namespace FOMServer.Shared.Application.Networking
         {
             _shutdownManager = shutdownManager;
             _logService = logService;
-            _handlers = handlers.ToDictionary(h => h.PacketID);
+            _handlers = handlers.ToDictionary(h => {
+                var handlerType = h.GetType();
+                var idAttr = handlerType.GetCustomAttribute<PacketHandlerAttribute>();
+                if (idAttr == null)
+                    throw new InvalidOperationException($"Handler type {handlerType.Name} is missing PacketHandlerAttribute");
+                return idAttr.ID;
+            });
 
             _packetQueue = Channel.CreateUnbounded<Packet>(
                 new UnboundedChannelOptions

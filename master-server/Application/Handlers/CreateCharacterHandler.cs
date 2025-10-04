@@ -6,13 +6,13 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    public class CreateCharacterHandler : PacketHandler<CreateCharacter>
+    [PacketHandler(PacketIdentifier.ID_CREATE_CHARACTER)]
+    public class CreateCharacterHandler : BasePacketHandler<CreateCharacter>
     {
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_CREATE_CHARACTER;
-
         private readonly IClientPacketSender _packetSender;
         private readonly IPlayerService _playerService;
         private readonly ICharacterRepository _characterRepository;
