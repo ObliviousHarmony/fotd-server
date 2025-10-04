@@ -19,7 +19,7 @@ namespace FOMServer.Shared.Core.Handlers
         {
             Handle(
                 packet.Sender,
-                packet.GetData<TPacketData>()
+                PacketHelpers.Unwrap<TPacketData>(packet)
             );
         }
 
