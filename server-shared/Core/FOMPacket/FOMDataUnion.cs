@@ -1,6 +1,7 @@
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.FOMPacket.Data;
 
-namespace FOMServer.Shared.Core.FOMPacket.Data
+namespace FOMServer.Shared.Core.FOMPacket
 {
     /// <summary>
     /// Represents a union of possible packet data types.

@@ -1,6 +1,5 @@
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.FOMPacket.Data;
 
 /**
  * This file contains all of the packet structures defined in `fom-network/include/fom-network/FOMPacket.h`.

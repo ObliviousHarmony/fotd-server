@@ -1,6 +1,5 @@
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
-using FOMServer.Shared.Core.FOMPacket.Data;
 
 namespace FOMServer.World.Core.Networking
 {

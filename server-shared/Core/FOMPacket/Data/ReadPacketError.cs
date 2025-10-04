@@ -1,8 +1,10 @@
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.FOMPacket.Metadata;
 
 namespace FOMServer.Shared.Core.FOMPacket.Data
 {
+    [PacketID(PacketIdentifier.ID_FOM_PACKET_READ_ERROR)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct ReadPacketError
     {
