@@ -15,12 +15,34 @@
 #include <fom-network/packets/data/WorldLoginReturn.h>
 #include <fom-network/packets/data/WorldOverview.h>
 #include <fom-network/packets/data/WorldOverviewReturn.h>
+#include <fom-network/packets/data/raknet/AlreadyConnected.h>
+#include <fom-network/packets/data/raknet/ConnectionAttemptFailed.h>
+#include <fom-network/packets/data/raknet/ConnectionBanned.h>
+#include <fom-network/packets/data/raknet/ConnectionLost.h>
+#include <fom-network/packets/data/raknet/ConnectionRequestAccepted.h>
+#include <fom-network/packets/data/raknet/DisconnectionNotification.h>
+#include <fom-network/packets/data/raknet/InvalidPassword.h>
+#include <fom-network/packets/data/raknet/ModifiedPacket.h>
+#include <fom-network/packets/data/raknet/NewIncomingConnection.h>
+#include <fom-network/packets/data/raknet/NoFreeIncomingConnections.h>
+#include <fom-network/packets/data/raknet/RSAPublicKeyMismatch.h>
 
 namespace FOMNetwork {
 
 #pragma pack(push, 1)
 struct FOMDataUnion {
   union {
+    Packet::AlreadyConnected alreadyConnected;
+    Packet::ConnectionAttemptFailed connectionAttemptFailed;
+    Packet::ConnectionBanned connectionBanned;
+    Packet::ConnectionLost connectionLost;
+    Packet::ConnectionRequestAccepted connectionRequestAccepted;
+    Packet::DisconnectionNotification disconnectionNotification;
+    Packet::InvalidPassword invalidPassword;
+    Packet::ModifiedPacket modifiedPacket;
+    Packet::NewIncomingConnection newIncomingConnection;
+    Packet::NoFreeIncomingConnections noFreeIncomingConnections;
+    Packet::RSAPublicKeyMismatch rsaPublicKeyMismatch;
     Packet::ReadPacketError readError;
     Packet::LoginRequest loginRequest;
     Packet::LoginRequestReturn loginRequestReturn;

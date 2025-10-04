@@ -46,6 +46,18 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/models/WorldOverviewModel.h"
   "src/packet-serializers/models/WorldOverviewModelSerializer.h"
 
+  "include/fom-network/packets/data/raknet/AlreadyConnected.h"
+  "include/fom-network/packets/data/raknet/ConnectionAttemptFailed.h"
+  "include/fom-network/packets/data/raknet/ConnectionBanned.h"
+  "include/fom-network/packets/data/raknet/ConnectionLost.h"
+  "include/fom-network/packets/data/raknet/ConnectionRequestAccepted.h"
+  "include/fom-network/packets/data/raknet/DisconnectionNotification.h"
+  "include/fom-network/packets/data/raknet/InvalidPassword.h"
+  "include/fom-network/packets/data/raknet/ModifiedPacket.h"
+  "include/fom-network/packets/data/raknet/NewIncomingConnection.h"
+  "include/fom-network/packets/data/raknet/NoFreeIncomingConnections.h"
+  "include/fom-network/packets/data/raknet/RSAPublicKeyMismatch.h"
+
   "include/fom-network/packets/data/ReadPacketError.h"
   "include/fom-network/packets/data/LoginRequest.h"
   "include/fom-network/packets/data/LoginRequestReturn.h"

@@ -16,6 +16,22 @@ int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures,
   // so that they can be compared to the consumer's structs.
   std::unordered_map<uint8_t, uint32_t> libraryMap = {
       {ID_FOM_PACKET_READ_ERROR, sizeof(ReadPacketError)},
+
+      // RakNet Packets
+      {ID_ALREADY_CONNECTED, sizeof(AlreadyConnected)},
+      {ID_CONNECTION_ATTEMPT_FAILED, sizeof(ConnectionAttemptFailed)},
+      {ID_CONNECTION_BANNED, sizeof(ConnectionBanned)},
+      {ID_CONNECTION_LOST, sizeof(ConnectionLost)},
+      {ID_CONNECTION_REQUEST_ACCEPTED, sizeof(ConnectionRequestAccepted)},
+      {ID_DISCONNECTION_NOTIFICATION, sizeof(DisconnectionNotification)},
+      {ID_INVALID_PASSWORD, sizeof(InvalidPassword)},
+      {ID_MODIFIED_PACKET, sizeof(ModifiedPacket)},
+      {ID_NEW_INCOMING_CONNECTION, sizeof(NewIncomingConnection)},
+      {ID_NO_FREE_INCOMING_CONNECTIONS, sizeof(NoFreeIncomingConnections)},
+      {ID_RSA_PUBLIC_KEY_MISMATCH, sizeof(RSAPublicKeyMismatch)},
+
+      // Game Packets
+      {ID_FOM_PACKET_READ_ERROR, sizeof(ReadPacketError)},
       {ID_LOGIN_REQUEST, sizeof(LoginRequest)},
       {ID_LOGIN_REQUEST_RETURN, sizeof(LoginRequestReturn)},
       {ID_LOGIN, sizeof(Login)},

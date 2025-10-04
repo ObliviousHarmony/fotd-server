@@ -1,6 +1,8 @@
 using System.Reflection;
+using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket.Metadata;
+using FOMServer.Shared.Core.Networking;
 
 namespace FOMServer.Shared.Core.FOMPacket
 {
@@ -36,6 +38,18 @@ namespace FOMServer.Shared.Core.FOMPacket
                 s_unionFieldsByID[idAttr.ID] = field;
                 s_idByUnionType[type] = idAttr.ID;
             }
+        }
+
+        /// <summary>
+        /// Returns all of the structures used in the packet union along with their sizes.
+        /// </summary>
+        public static PacketStructure[] GetPacketStructures()
+        {
+            return s_idByUnionType.Select(kv => new PacketStructure
+            {
+                ID = kv.Value,
+                Size = Marshal.SizeOf(kv.Key)
+            }).ToArray();
         }
 
         /// <summary>
