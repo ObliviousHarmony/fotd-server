@@ -1,17 +1,16 @@
-using FOMServer.Master.Application.Networking;
 using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.World.Application.Handlers
 {
-    public class PlayerEnteringWorldReturnHandler : PacketHandler<PlayerEnteringWorldReturn>
+    [PacketHandler]
+    public class PlayerEnteringWorldReturnHandler : BasePacketHandler<PlayerEnteringWorldReturn>
     {
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_PLAYER_ENTERING_WORLD_RETURN;
-
         private readonly IPlayerService _playerService;
         private readonly IWorldServerService _worldServerService;
         private readonly IClientPacketSender _packetSender;

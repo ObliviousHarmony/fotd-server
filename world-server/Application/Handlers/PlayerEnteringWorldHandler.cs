@@ -2,15 +2,15 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Metadata;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
 
 namespace FOMServer.World.Application.Handlers
 {
-    public class PlayerEnteringWorldHandler : PacketHandler<PlayerEnteringWorld>
+    [PacketHandler]
+    public class PlayerEnteringWorldHandler : BasePacketHandler<PlayerEnteringWorld>
     {
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_PLAYER_ENTERING_WORLD;
-
         private readonly IPlayerService _playerService;
         private readonly IMasterPacketSender _packetSender;
 

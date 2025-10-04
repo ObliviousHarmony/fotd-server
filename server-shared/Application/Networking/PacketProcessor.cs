@@ -1,9 +1,11 @@
+using System.Reflection;
 using System.Threading.Channels;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Application.Networking
 {
@@ -27,7 +29,26 @@ namespace FOMServer.Shared.Application.Networking
         {
             _shutdownManager = shutdownManager;
             _logService = logService;
-            _handlers = handlers.ToDictionary(h => h.PacketID);
+
+            // Build the map by extracting the PacketIdentifier from each handler's generic packet struct argument.
+            _handlers = handlers.ToDictionary(h =>
+            {
+                var handlerType = h.GetType();
+
+                if (!Attribute.IsDefined(handlerType, typeof(PacketHandlerAttribute)))
+                    throw new InvalidOperationException($"Handler type {handlerType.Name} is missing [PacketHandler]");
+
+                var baseType = handlerType.BaseType;
+                if (baseType == null || !baseType.IsGenericType)
+                    throw new InvalidOperationException($"Handler {handlerType.Name} does not derive from BasePacketHandler<T>.");
+
+                var packetType = baseType.GetGenericArguments()[0];
+                var packetIDAttr = packetType.GetCustomAttribute<PacketIDAttribute>();
+                if (packetIDAttr == null)
+                    throw new InvalidOperationException($"Packet type {packetType.Name} is missing [PacketID].");
+
+                return packetIDAttr.ID;
+            });
 
             _packetQueue = Channel.CreateUnbounded<Packet>(
                 new UnboundedChannelOptions

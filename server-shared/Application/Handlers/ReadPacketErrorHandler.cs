@@ -2,13 +2,13 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.Logging;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Handlers
 {
-    public class ReadPacketErrorHandler : PacketHandler<ReadPacketError>
+    [PacketHandler]
+    public class ReadPacketErrorHandler : BasePacketHandler<ReadPacketError>
     {
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_FOM_PACKET_READ_ERROR;
-
         private readonly ILogService _logService;
 
         public ReadPacketErrorHandler(ILogService logService)

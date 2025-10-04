@@ -6,13 +6,13 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    public class LoginHandler : PacketHandler<Login>
+    [PacketHandler]
+    public class LoginHandler : BasePacketHandler<Login>
     {
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_LOGIN;
-
         private readonly IPlayerService _playerService;
         private readonly IWorldOverviewFactory _worldOverviewFactory;
         private readonly IClientPacketSender _packetSender;

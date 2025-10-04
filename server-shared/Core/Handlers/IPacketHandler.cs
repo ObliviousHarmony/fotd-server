@@ -8,8 +8,6 @@ namespace FOMServer.Shared.Core.Handlers
     /// </summary>
     public interface IPacketHandler
     {
-        PacketIdentifier PacketID { get; }
-
         void Handle(in Packet packet);
     }
 }

@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.FOMPacket.Metadata;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.FOMPacket.Data.RakNetPackets
 {

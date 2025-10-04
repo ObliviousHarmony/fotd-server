@@ -1,7 +1,10 @@
+using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security.AccessControl;
 using FOMServer.Shared.Core.FOMPacket;
-using FOMServer.Shared.Core.FOMPacket.Metadata;
+using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Tests
 {
@@ -59,6 +62,81 @@ namespace FOMServer.Tests
                     Assert.Fail($"{type.Name} must be declared with [StructLayout(LayoutKind.Sequential, Pack = 1)]");
             }
         }
-    }
 
+        [Fact]
+        public void FOMPacket_PacketHandler_ShouldBeDefinedCorrectly()
+        {
+            var assemblies = new[] {
+                typeof(IPacketHandler).Assembly,
+                typeof(FOMServer.Master.Application.Server).Assembly,
+                typeof(FOMServer.World.Application.Server).Assembly,
+            };
+
+            var handlerInterface = typeof(IPacketHandler);
+
+            var handlerTypes = assemblies
+            .SelectMany(a => a.GetTypes())
+            .Where(t => handlerInterface.IsAssignableFrom(t) && !t.IsAbstract)
+            .ToArray();
+
+            Assert.NotEmpty(handlerTypes);
+
+            foreach (var type in handlerTypes)
+            {
+                var attr = type.GetCustomAttribute<PacketHandlerAttribute>(inherit: false);
+
+                Assert.True(
+                    attr != null,
+                    $"Packet handler '{type.FullName}' is missing [PacketHandler] attribute"
+                );
+            }
+        }
+
+        [Fact]
+        public void FOMPacket_PacketHandlerAttribute_ShouldOnlyBeOnHandlers()
+        {
+            var assemblies = new[] {
+                typeof(IPacketHandler).Assembly,
+                typeof(FOMServer.Master.Application.Server).Assembly,
+                typeof(FOMServer.World.Application.Server).Assembly,
+            };
+
+            var attributedTypes = assemblies
+                .SelectMany(a => a.GetTypes())
+                .Where(t => t.GetCustomAttribute<PacketHandlerAttribute>() != null)
+                .ToArray();
+
+            Assert.NotEmpty(attributedTypes); // sanity check: make sure we found some
+
+            var invalidType = attributedTypes
+                .Where(t => !IsAssignableToGenericType(t, typeof(BasePacketHandler<>)))
+                .FirstOrDefault();
+
+            Assert.True(
+                invalidType == null,
+                $"Type '{invalidType?.FullName}' has [PacketHandler] but does not inherit from BasePacketHandler<T>"
+            );
+        }
+
+        /// <summary>
+        /// Walks up the inheritance chain to determine if 'toCheck' is a subclass of the generic type 'genericBase'.
+        /// </summary>
+        private static bool IsAssignableToGenericType(Type givenType, Type genericType)
+        {
+            if (givenType == null || genericType == null)
+                return false;
+
+            if (givenType.IsGenericType && givenType.GetGenericTypeDefinition() == genericType)
+                return true;
+
+            foreach (var it in givenType.GetInterfaces())
+            {
+                if (it.IsGenericType && it.GetGenericTypeDefinition() == genericType)
+                    return true;
+            }
+
+            var baseType = givenType.BaseType;
+            return baseType != null && IsAssignableToGenericType(baseType, genericType);
+        }
+    }
 }

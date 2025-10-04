@@ -32,7 +32,8 @@ class FOM_API FOMDataSerializer {
    */
   static const bool ShouldIgnorePacket(PacketIdentifier id) {
     // Never ignore game packets.
-    if (id >= ID_USER_PACKET_ENUM) return false;
+    if (static_cast<uint8_t>(id) >= static_cast<uint8_t>(ID_USER_PACKET_ENUM))
+      return false;
 
     // RakNet client packets are "serialized" but we don't actually need to do
     // anything with the data since we're only forwarding the ID to the

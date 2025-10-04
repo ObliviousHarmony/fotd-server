@@ -5,13 +5,13 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers
 {
-    public class WorldOverviewHandler : PacketHandler<WorldOverview>
+    [PacketHandler]
+    public class WorldOverviewHandler : BasePacketHandler<WorldOverview>
     {
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_WORLD_OVERVIEW;
-
         private readonly IPlayerService _playerService;
         private readonly IWorldOverviewFactory _worldOverviewFactory;
         private readonly IClientPacketSender _packetSender;

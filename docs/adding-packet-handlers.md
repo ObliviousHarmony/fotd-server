@@ -177,21 +177,24 @@ bye one of the server types. Each packet handler is defined in their respective 
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Models;
 using FOMServer.Shared.Core.Models.FOMData;
+using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Application.Handlers
 {
-    public class ExamplePacketHandler : PacketHandler<ReadPacketError>
+    // Each handler must be given the PacketHandler attribute 
+    // to register it with the packet handling system.
+    [PacketHandler]
+    public class ExamplePacketHandler : BasePacketHandler<ReadPacketError>
     {
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_EXAMPLE;
         public override void Handle(NetworkAddress sender, in ExamplePacket data) { }
     }
 }
 ```
 
-- [ ] **Dependency Injection**: Packet handlers are registered with the dependency injection container in
-  each project's `CompositionRoot.cs` file. The act of binding it to the container adds it to the packet
-  handling pipeline and ensures that packets of the appropriate type are given to it.
+- [ ] **Claim Server<->Server Packets**: If the packet is intended to be sent from one server to another,
+      it must be claimed by the correct network manager to prevent it from being sent by a game client.
+      This is done in the server's `Server.cs` file after the network manager is created.
 
 ```csharp
-services.AddSingleton<IPacketHandler, ExamplePacketHandler>();
+networkManager.ClaimPacketID(PacketIdentifier.ID_EXAMPLE);
 ```

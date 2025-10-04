@@ -15,8 +15,8 @@
 | ID_WORLD_LOGIN_RETURN       | 114 |
 | ID_WORLD_LOGOUT             | 115 |
 | ID_REGISTER_WORLD           | 116 |
-| ID_REGISTER_WORLD_RETURN    | 117 |
-| ID_REGISTER_CLIENT_WORLD    | 118 |
+|                             | 117 |
+|                             | 118 |
 | ID_REGISTER_CLIENT          | 119 |
 | ID_REGISTER_CLIENT_RETURN   | 120 |
 | ID_CREATE_CHARACTER         | 121 |

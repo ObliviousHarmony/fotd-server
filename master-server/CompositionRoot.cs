@@ -43,7 +43,6 @@ namespace FOMServer.Master
             services.AddFactories();
             services.AddDatabaseMigrations();
             services.AddRepositories();
-            services.AddPacketHandlers();
 
             services.AddSingleton<Server>();
             return services.BuildServiceProvider();
@@ -114,21 +113,6 @@ namespace FOMServer.Master
         {
             services.AddSingleton<IPlayerRepository, DbPlayerRepository>();
             services.AddSingleton<ICharacterRepository, DbCharacterRepository>();
-            return services;
-        }
-
-        private static ServiceCollection AddPacketHandlers(this ServiceCollection services)
-        {
-            services.AddSingleton<IPacketHandler, DisconnectionHandler>();
-            services.AddSingleton<IPacketHandler, ConnectionLostHandler>();
-            services.AddSingleton<IPacketHandler, LoginRequestHandler>();
-            services.AddSingleton<IPacketHandler, LoginHandler>();
-            services.AddSingleton<IPacketHandler, CheckNameHandler>();
-            services.AddSingleton<IPacketHandler, CreateCharacterHandler>();
-            services.AddSingleton<IPacketHandler, RegisterWorldPacketHandler>();
-            services.AddSingleton<IPacketHandler, WorldOverviewHandler>();
-            services.AddSingleton<IPacketHandler, WorldLoginHandler>();
-            services.AddSingleton<IPacketHandler, PlayerEnteringWorldReturnHandler>();
             return services;
         }
     }

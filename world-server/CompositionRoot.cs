@@ -38,7 +38,6 @@ namespace FOMServer.World
             services.AddServerShared();
             services.AddWorldServices();
             services.AddRepositories();
-            services.AddPacketHandlers();
 
             services.AddSingleton<Server>();
             return services.BuildServiceProvider();
@@ -90,12 +89,6 @@ namespace FOMServer.World
 
         private static ServiceCollection AddRepositories(this ServiceCollection services)
         {
-            return services;
-        }
-
-        private static ServiceCollection AddPacketHandlers(this ServiceCollection services)
-        {
-            services.AddSingleton<IPacketHandler, PlayerEnteringWorldHandler>();
             return services;
         }
     }
