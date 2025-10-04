@@ -8,10 +8,12 @@ namespace FOMServer.Master.Application.Networking
     public class WorldServerService : IWorldServerService
     {
         private readonly ConcurrentDictionary<WorldID, WorldServer> _worldServers;
+        private readonly ConcurrentDictionary<NetworkAddress, WorldID> _addressMap;
 
         public WorldServerService()
         {
             _worldServers = new ConcurrentDictionary<WorldID, WorldServer>();
+            _addressMap = new ConcurrentDictionary<NetworkAddress, WorldID>();
         }
 
         public WorldServer[] GetAll()
@@ -21,6 +23,15 @@ namespace FOMServer.Master.Application.Networking
 
         public WorldServer? Get(WorldID id)
         {
+            if (!_worldServers.TryGetValue(id, out var worldServer))
+                return null;
+            return worldServer;
+        }
+
+        public WorldServer? Get(NetworkAddress networkAddress)
+        {
+            if (!_addressMap.TryGetValue(networkAddress, out var id))
+                return null;
             if (!_worldServers.TryGetValue(id, out var worldServer))
                 return null;
             return worldServer;
@@ -44,6 +55,12 @@ namespace FOMServer.Master.Application.Networking
 
             if (!_worldServers.TryAdd(id, worldServer))
                 return null;
+
+            if (!_addressMap.TryAdd(serverAddress, id))
+            {
+                _worldServers.TryRemove(id, out _);
+                return null;
+            }
 
             return worldServer;
         }

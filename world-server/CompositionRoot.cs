@@ -1,12 +1,16 @@
 using FOMServer.Application.Core;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Extensions;
 using FOMServer.Shared.Infrastructure.Database;
 using FOMServer.World.Application;
+using FOMServer.World.Application.Handlers;
 using FOMServer.World.Application.Networking;
+using FOMServer.World.Application.Players;
 using FOMServer.World.Core;
 using FOMServer.World.Core.Networking;
+using FOMServer.World.Core.Players;
 using FOMServer.World.Infrastructure.Database;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -80,6 +84,7 @@ namespace FOMServer.World
             services.AddSingleton<IMasterPacketSender>(sp => sp.GetRequiredService<MasterPacketSender>());
 
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
+            services.AddSingleton<IPlayerService, PlayerService>();
             return services;
         }
 
@@ -90,6 +95,7 @@ namespace FOMServer.World
 
         private static ServiceCollection AddPacketHandlers(this ServiceCollection services)
         {
+            services.AddSingleton<IPacketHandler, PlayerEnteringWorldHandler>();
             return services;
         }
     }

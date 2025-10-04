@@ -9,6 +9,6 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
     public struct PlayerEnteringWorld
     {
         public uint PlayerID;
-        public byte NodeID;
+        public byte SelectedNodeID;
     }
 }

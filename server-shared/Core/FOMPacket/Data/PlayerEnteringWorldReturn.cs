@@ -11,8 +11,9 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
         public enum StatusCode : byte
         {
             PLAYER_ENTERING_WORLD_RETURN_ERROR = 0,
-            PLAYER_ENTERING_WORLD_RETURN_READY = 1,
-            PLAYER_ENTERING_WORLD_RETURN_SERVER_FULL = 2,
+            PLAYER_ENTERING_WORLD_RETURN_ALREADY_IN_WORLD = 1,
+            PLAYER_ENTERING_WORLD_RETURN_READY = 2,
+            PLAYER_ENTERING_WORLD_RETURN_SERVER_FULL = 3,
         }
 
         public StatusCode Status;

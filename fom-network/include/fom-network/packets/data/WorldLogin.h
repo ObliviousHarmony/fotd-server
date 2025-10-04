@@ -9,7 +9,7 @@ namespace Packet {
 #pragma pack(push, 1)
 struct WorldLogin {
   WorldID worldID;
-  uint8_t nodeID;
+  uint8_t selectedNodeID;
   uint32_t playerID;
   uint32_t apartmentID;
 };

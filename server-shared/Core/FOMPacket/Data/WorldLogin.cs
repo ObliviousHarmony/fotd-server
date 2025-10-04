@@ -9,7 +9,7 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
     public struct WorldLogin
     {
         public WorldID WorldID;
-        public byte NodeID;
+        public byte SelectedNodeID;
         public uint PlayerID;
         public uint ApartmentID;
     }

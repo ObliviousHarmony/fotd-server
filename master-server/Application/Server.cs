@@ -135,6 +135,7 @@ namespace FOMServer.Master.Application
 
             // Make sure clients can't send packets meant for master<->world communication.
             networkManager.ClaimPacketID(PacketIdentifier.ID_REGISTER_WORLD);
+            networkManager.ClaimPacketID(PacketIdentifier.ID_PLAYER_ENTERING_WORLD_RETURN);
 
             // Initialize the packet sender for communication with world servers.
             var packetSender = _serviceProvider.GetRequiredService<WorldPacketSender>();
