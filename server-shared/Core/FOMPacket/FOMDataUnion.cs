@@ -38,5 +38,7 @@ namespace FOMServer.Shared.Core.FOMPacket
         [FieldOffset(0)] public WorldOverviewReturn WorldOverviewReturn;
         [FieldOffset(0)] public WorldLogin WorldLogin;
         [FieldOffset(0)] public WorldLoginReturn WorldLoginReturn;
+        [FieldOffset(0)] public PlayerEnteringWorld PlayerEnteringWorld;
+        [FieldOffset(0)] public PlayerEnteringWorldReturn PlayerEnteringWorldReturn;
     }
 }

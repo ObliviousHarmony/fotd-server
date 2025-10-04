@@ -4,13 +4,11 @@ using FOMServer.Shared.Core.FOMPacket.Metadata;
 
 namespace FOMServer.Shared.Core.FOMPacket.Data
 {
-    [PacketID(PacketIdentifier.ID_WORLD_LOGIN)]
+    [PacketID(PacketIdentifier.ID_PLAYER_ENTERING_WORLD)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct WorldLogin
+    public struct PlayerEnteringWorld
     {
-        public WorldID WorldID;
-        public byte SelectedNodeID;
         public uint PlayerID;
-        public uint ApartmentID;
+        public byte SelectedNodeID;
     }
 }

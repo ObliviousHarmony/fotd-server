@@ -14,6 +14,7 @@ using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Extensions;
 using FOMServer.Shared.Infrastructure.Database;
+using FOMServer.World.Application.Handlers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -127,6 +128,7 @@ namespace FOMServer.Master
             services.AddSingleton<IPacketHandler, RegisterWorldPacketHandler>();
             services.AddSingleton<IPacketHandler, WorldOverviewHandler>();
             services.AddSingleton<IPacketHandler, WorldLoginHandler>();
+            services.AddSingleton<IPacketHandler, PlayerEnteringWorldReturnHandler>();
             return services;
         }
     }

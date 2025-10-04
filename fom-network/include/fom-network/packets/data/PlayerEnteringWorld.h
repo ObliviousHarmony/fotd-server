@@ -1,21 +1,18 @@
 #pragma once
 
 #include <fom-network/Common.h>
-#include <fom-network/FOMNetworkEnums.h>
 
 namespace FOMNetwork {
 namespace Packet {
 
 #pragma pack(push, 1)
-struct WorldLogin {
-  WorldID worldID;
-  uint8_t selectedNodeID;
+struct PlayerEnteringWorld {
   uint32_t playerID;
-  uint32_t apartmentID;
+  uint8_t selectedNodeID;
 };
 #pragma pack(pop)
 
-ASSERT_BLITTABLE(WorldLogin);
+ASSERT_BLITTABLE(PlayerEnteringWorld);
 
 }  // namespace Packet
 }  // namespace FOMNetwork

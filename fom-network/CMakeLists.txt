@@ -22,6 +22,8 @@ set(FOMNETWORK_SRC
   "src/packet-serializers/data/WorldOverviewReturnSerializer.cpp"
   "src/packet-serializers/data/WorldLoginSerializer.cpp"
   "src/packet-serializers/data/WorldLoginReturnSerializer.cpp"
+  "src/packet-serializers/data/PlayerEnteringWorldSerializer.cpp"
+  "src/packet-serializers/data/PlayerEnteringWorldReturnSerializer.cpp"
 )
 set(FOMNETWORK_INC
   "include/fom-network/FOMNetworkExport.h"
@@ -71,6 +73,8 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/data/WorldOverviewReturn.h"
   "include/fom-network/packets/data/WorldLogin.h"
   "include/fom-network/packets/data/WorldLoginReturn.h"
+  "include/fom-network/packets/data/PlayerEnteringWorld.h"
+  "include/fom-network/packets/data/PlayerEnteringWorldReturn.h"
 )
 set(FOMNETWORK_TEST
   "tests/FOMDataSerializer_test.cpp"
