@@ -184,9 +184,8 @@ namespace FOMServer.Shared.Application.Handlers
     // Each handler must be given the PacketHandler attribute 
     // to register it with the packet handling system.
     [PacketHandler]
-    public class ExamplePacketHandler : PacketHandler<ReadPacketError>
+    public class ExamplePacketHandler : BasePacketHandler<ReadPacketError>
     {
-        public override PacketIdentifier PacketID => PacketIdentifier.ID_EXAMPLE;
         public override void Handle(NetworkAddress sender, in ExamplePacket data) { }
     }
 }
