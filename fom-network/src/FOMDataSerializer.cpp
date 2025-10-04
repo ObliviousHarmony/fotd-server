@@ -15,6 +15,9 @@ static std::unordered_map<uint32_t, IWriter*> writerMap = {
     {ID_REGISTER_WORLD, &RegisterWorldSerializer::GetInstance()},
     {ID_WORLD_OVERVIEW_RETURN, &WorldOverviewReturnSerializer::GetInstance()},
     {ID_WORLD_LOGIN_RETURN, &WorldLoginReturnSerializer::GetInstance()},
+    {ID_PLAYER_ENTERING_WORLD, &PlayerEnteringWorldSerializer::GetInstance()},
+    {ID_PLAYER_ENTERING_WORLD_RETURN,
+     &PlayerEnteringWorldReturnSerializer::GetInstance()},
 };
 
 static std::unordered_map<uint32_t, IReader*> readerMap = {
@@ -39,6 +42,9 @@ static std::unordered_map<uint32_t, IReader*> readerMap = {
     {ID_REGISTER_WORLD, &RegisterWorldSerializer::GetInstance()},
     {ID_WORLD_OVERVIEW, &WorldOverviewSerializer::GetInstance()},
     {ID_WORLD_LOGIN, &WorldLoginSerializer::GetInstance()},
+    {ID_PLAYER_ENTERING_WORLD, &PlayerEnteringWorldSerializer::GetInstance()},
+    {ID_PLAYER_ENTERING_WORLD_RETURN,
+     &PlayerEnteringWorldReturnSerializer::GetInstance()},
 };
 
 bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id,

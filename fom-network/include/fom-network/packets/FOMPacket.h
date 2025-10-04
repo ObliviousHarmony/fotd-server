@@ -9,6 +9,8 @@
 #include <fom-network/packets/data/LoginRequest.h>
 #include <fom-network/packets/data/LoginRequestReturn.h>
 #include <fom-network/packets/data/LoginReturn.h>
+#include <fom-network/packets/data/PlayerEnteringWorld.h>
+#include <fom-network/packets/data/PlayerEnteringWorldReturn.h>
 #include <fom-network/packets/data/ReadPacketError.h>
 #include <fom-network/packets/data/RegisterWorld.h>
 #include <fom-network/packets/data/WorldLogin.h>
@@ -56,6 +58,8 @@ struct FOMDataUnion {
     Packet::WorldOverviewReturn worldOverviewReturn;
     Packet::WorldLogin worldLogin;
     Packet::WorldLoginReturn worldLoginReturn;
+    Packet::PlayerEnteringWorld playerEnteringWorld;
+    Packet::PlayerEnteringWorldReturn playerEnteringWorldReturn;
   };
 };
 #pragma pack(pop)

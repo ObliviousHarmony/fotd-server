@@ -44,6 +44,8 @@ int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures,
       {ID_WORLD_OVERVIEW_RETURN, sizeof(WorldOverviewReturn)},
       {ID_WORLD_LOGIN, sizeof(WorldLogin)},
       {ID_WORLD_LOGIN_RETURN, sizeof(WorldLoginReturn)},
+      {ID_PLAYER_ENTERING_WORLD, sizeof(PlayerEnteringWorld)},
+      {ID_PLAYER_ENTERING_WORLD_RETURN, sizeof(PlayerEnteringWorldReturn)},
   };
 
 #pragma warning(pop)

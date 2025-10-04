@@ -164,5 +164,7 @@ SERIALIZER_READ(WorldOverview, worldOverview)
 SERIALIZER_WRITE(WorldOverviewReturn, worldOverviewReturn)
 SERIALIZER_READ(WorldLogin, worldLogin)
 SERIALIZER_WRITE(WorldLoginReturn, worldLoginReturn)
+SERIALIZER_BOTH(PlayerEnteringWorld, playerEnteringWorld)
+SERIALIZER_BOTH(PlayerEnteringWorldReturn, playerEnteringWorldReturn)
 
 }  // namespace FOMNetwork
