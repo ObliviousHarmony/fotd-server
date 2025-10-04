@@ -1,0 +1,17 @@
+[
+  {
+    "Name": "Master/World",
+    "Projects": [
+      {
+        "Path": "master-server\\MasterServer.csproj",
+        "Action": "Start",
+        "DebugTarget": "MasterServer"
+      },
+      {
+        "Path": "world-server\\WorldServer.csproj",
+        "Action": "Start",
+        "DebugTarget": "WorldServer"
+      }
+    ]
+  }
+]
