@@ -123,17 +123,13 @@ namespace FOMServer.World.Application
 
             // Register this world server with the master server.
             packetSender.Send(
-                PacketIdentifier.ID_REGISTER_WORLD,
-                new FOMDataUnion
+                new RegisterWorld
                 {
-                    RegisterWorld = new RegisterWorld
-                    {
-                        WorldID = _serverSettings.WorldID,
-                        Port = _serverSettings.ClientPort,
-                        Address = "127.0.0.1"
-                    }
+                    WorldID = _serverSettings.WorldID,
+                    Port = _serverSettings.ClientPort,
+                    Address = _serverSettings.ClientAddress
                 },
-                PacketPriority.HIGH_PRIORITY,
+                PacketPriority.MEDIUM_PRIORITY,
                 PacketReliability.RELIABLE
             );
 

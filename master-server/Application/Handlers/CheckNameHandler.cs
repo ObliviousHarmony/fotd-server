@@ -28,13 +28,7 @@ namespace FOMServer.Master.Application.Handlers
             {
                 ExistingPlayerID = existingID ?? 0
             };
-            _packetSender.Send(
-                PacketIdentifier.ID_CHECK_NAME_RETURN,
-                new FOMDataUnion { CheckNameReturn = response },
-                sender,
-                PacketPriority.MEDIUM_PRIORITY,
-                PacketReliability.RELIABLE_ORDERED
-            );
+            _packetSender.Send(response, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
         }
     }
 }

@@ -40,13 +40,7 @@ namespace FOMServer.Master.Application.Handlers
             else
                 response.Status = WorldLoginReturn.StatusCode.WORLD_LOGIN_RETURN_SUCCESS;
 
-            _packetSender.Send(
-                PacketIdentifier.ID_WORLD_LOGIN_RETURN,
-                new FOMDataUnion { WorldLoginReturn = response },
-                sender,
-                PacketPriority.MEDIUM_PRIORITY,
-                PacketReliability.RELIABLE_ORDERED
-            );
+            _packetSender.Send(response, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
         }
     }
 }

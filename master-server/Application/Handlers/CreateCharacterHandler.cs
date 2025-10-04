@@ -62,13 +62,7 @@ namespace FOMServer.Master.Application.Handlers
                 WorldOverview = _worldOverviewFactory.Create(player),
             };
 
-            _packetSender.Send(
-                PacketIdentifier.ID_LOGIN_RETURN,
-                new FOMDataUnion { LoginReturn = response },
-                sender,
-                PacketPriority.HIGH_PRIORITY,
-                PacketReliability.RELIABLE_ORDERED
-            );
+            _packetSender.Send(response, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
         }
     }
 }

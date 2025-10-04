@@ -14,34 +14,32 @@ namespace FOMServer.World.Application.Networking
             _packetSender = packetSender;
         }
 
-        public void Send(
-            PacketIdentifier id,
-            FOMDataUnion data,
+        public void Send<TData>(
+            TData data,
             NetworkAddress destination,
             PacketPriority priority,
             PacketReliability reliability,
             byte orderingChannel = 0
-        )
+        ) where TData : unmanaged
         {
             if (_packetSender == null)
                 throw new InvalidOperationException("Packet sender not initialized");
 
-            _packetSender.Send(id, data, destination, priority, reliability, orderingChannel);
+            _packetSender.Send(data, destination, priority, reliability, orderingChannel);
         }
 
-        public void Broadcast(
-            PacketIdentifier id,
-            FOMDataUnion data,
+        public void Broadcast<TData>(
+            TData data,
             NetworkAddress excludedAddress,
             PacketPriority priority,
             PacketReliability reliability,
             byte orderingChannel = 0
-        )
+        ) where TData : unmanaged
         {
             if (_packetSender == null)
                 throw new InvalidOperationException("Packet sender not initialized");
 
-            _packetSender.Broadcast(id, data, excludedAddress, priority, reliability, orderingChannel);
+            _packetSender.Broadcast(data, excludedAddress, priority, reliability, orderingChannel);
         }
     }
 }

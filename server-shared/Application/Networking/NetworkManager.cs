@@ -176,22 +176,22 @@ namespace FOMServer.Shared.Application.Networking
             }
         }
 
-        public void Send(
-            PacketIdentifier id,
-            FOMDataUnion data,
+        public void Send<TData>(
+            TData data,
             NetworkAddress destination,
             PacketPriority priority,
             PacketReliability reliability,
             byte orderingChannel = 0
-        )
+        ) where TData : unmanaged
         {
             if (_peer == IntPtr.Zero)
                 throw new InvalidOperationException("Peer is not configured");
 
+            var packetData = PacketHelpers.Wrap(data, out var id);
             var packet = new SendPacket
             {
                 ID = id,
-                Data = data,
+                Data = packetData,
                 NetworkAddress = destination,
                 Priority = priority,
                 Reliability = reliability,
@@ -202,22 +202,22 @@ namespace FOMServer.Shared.Application.Networking
             _sendQueue.Writer.TryWrite(packet);
         }
 
-        public void Broadcast(
-            PacketIdentifier id,
-            FOMDataUnion data,
+        public void Broadcast<TData>(
+            TData data,
             NetworkAddress excludedAddress,
             PacketPriority priority,
             PacketReliability reliability,
             byte orderingChannel = 0
-        )
+        ) where TData : unmanaged
         {
             if (_peer == IntPtr.Zero)
                 throw new InvalidOperationException("Peer is not configured");
 
+            var packetData = PacketHelpers.Wrap(data, out var id);
             var packet = new SendPacket
             {
                 ID = id,
-                Data = data,
+                Data = packetData,
                 NetworkAddress = excludedAddress,
                 Priority = priority,
                 Reliability = reliability,

@@ -11,25 +11,23 @@ namespace FOMServer.Shared.Core.Networking
         /// <summary>
         /// Sends a packet over the network.
         /// </summary>
-        void Send(
-            PacketIdentifier id,
-            FOMDataUnion data,
+        void Send<TData>(
+            TData data,
             NetworkAddress destination,
             PacketPriority priority,
             PacketReliability reliability,
             byte orderingChannel = 0
-        );
+        ) where TData : unmanaged;
 
         /// <summary>
         /// Broadcast a packet to all connected clients.
         /// </summary>
-        void Broadcast(
-            PacketIdentifier id,
-            FOMDataUnion data,
+        void Broadcast<TData>(
+            TData data,
             NetworkAddress excludedAddress,
             PacketPriority priority,
             PacketReliability reliability,
             byte orderingChannel = 0
-        );
+        ) where TData : unmanaged;
     }
 }

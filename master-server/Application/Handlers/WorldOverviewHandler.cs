@@ -41,13 +41,7 @@ namespace FOMServer.Master.Application.Handlers
                 WorldOverview = _worldOverviewFactory.Create(player),
             };
 
-            _packetSender.Send(
-                PacketIdentifier.ID_WORLD_OVERVIEW_RETURN,
-                new FOMDataUnion { WorldOverviewReturn = response },
-                sender,
-                PacketPriority.HIGH_PRIORITY,
-                PacketReliability.RELIABLE_ORDERED
-            );
+            _packetSender.Send(response, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
         }
     }
 }

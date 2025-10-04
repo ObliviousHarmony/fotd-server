@@ -47,13 +47,7 @@ namespace FOMServer.Master.Application.Handlers
             else
                 response.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_SUCCESS;
 
-            _packetSender.Send(
-                PacketIdentifier.ID_LOGIN_REQUEST_RETURN,
-                new FOMDataUnion { LoginRequestReturn = response },
-                sender,
-                PacketPriority.HIGH_PRIORITY,
-                PacketReliability.RELIABLE_ORDERED
-            );
+            _packetSender.Send(response, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
         }
     }
 }
