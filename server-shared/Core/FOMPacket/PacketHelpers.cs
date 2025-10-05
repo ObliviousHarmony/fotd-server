@@ -62,6 +62,14 @@ namespace FOMServer.Shared.Core.FOMPacket
             return size;
         }
 
+        public static bool IsPacketOfType<TPacket>(PacketIdentifier id) where TPacket : unmanaged
+        {
+            var type = typeof(TPacket);
+            if (!s_idByUnionType.TryGetValue(type, out var expectedID))
+                throw new ArgumentException($"Type {type.Name} is not mapped to any PacketID");
+            return id == expectedID;
+        }
+
 
 
 

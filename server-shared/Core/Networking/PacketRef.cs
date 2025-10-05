@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.FOMPacket;
 
 namespace FOMServer.Shared.Core.Networking
 {
@@ -43,6 +44,9 @@ namespace FOMServer.Shared.Core.Networking
         {
             if (Volatile.Read(ref _disposed) == 1)
                 throw new ObjectDisposedException("PacketRef");
+
+            if (!PacketHelpers.IsPacketOfType<TPacket>(ID))
+                throw new InvalidOperationException($"PacketRef does not contain data of type {typeof(TPacket)}");
 
             return ref MemoryMarshal.AsRef<TPacket>(_data.Span);
         }
