@@ -22,13 +22,15 @@ namespace FOMServer.Shared.Core.Networking
     /// This structure is used to hold a pointer to an array of received packets and the count of packets
     /// in the array. The memory layout of this structure is sequential and tightly packed to ensure compatibility with
     /// unmanaged code.
+    ///
+    /// Must match the struct in `fom-network/include/fom-network/PacketAPI.h`
     /// </remarks>
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct ReceivedPackets
+    public unsafe struct ReceivedPackets
     {
-        // Must match the struct in `fom-network/include/fom-network/PacketAPI.h`
+        public byte Count;
         public IntPtr Packets;
-        public int Count;
+        public PacketIdentifier* PacketIdentifiers;
     }
 
     /// <summary>
@@ -38,11 +40,12 @@ namespace FOMServer.Shared.Core.Networking
     /// This structure encapsulates all the necessary information for sending a packet over the network. It
     /// includes the destination address, the packet data, and various transmission options such as priority, reliability,
     /// and ordering channel.
+    ///
+    /// Must match the struct in `fom-network/include/fom-network/PacketAPI.h`
     /// </remarks>
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct SendPacket
     {
-        // Must match the struct in `fom-network/include/fom-network/PacketAPI.h`
         public PacketIdentifier ID;
         public FOMDataUnion Data;
         public NetworkAddress NetworkAddress;

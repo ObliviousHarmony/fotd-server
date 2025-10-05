@@ -14,12 +14,21 @@
  */
 #pragma pack(push, 1)
 struct ReceivedPackets {
-  /* A buffer of packets that have been received and need to be deserialized and
-   * released. */
+  /**
+  * The number of packets in the buffer.
+  */
+  uint8_t count;
+
+  /**
+   * A buffer of packets that have been received and need to be deserialized and
+   * released.
+   */
   Packet** packets;
 
-  /* The number of packets in the buffer. */
-  int32_t count;
+  /**
+   * The packet identifiers for each of the received packets.
+   */
+  FOMNetwork::PacketIdentifier* packetIdentifiers;
 };
 #pragma pack(pop)
 

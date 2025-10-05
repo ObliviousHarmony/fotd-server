@@ -13,7 +13,7 @@ using FOMNetwork::FOMPacket;
  * more packets being received than pulled off the queue.
  */
 namespace FOM {
-constexpr int32_t MaxBufferedPackets = 256;
+constexpr int32_t MaxBufferedPackets = 128;
 }
 
 ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
@@ -47,7 +47,11 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
   received.count = count;
   if (received.count > 0) {
     received.packets = new Packet*[count];
-    std::copy(receiveBuffer, receiveBuffer + count, received.packets);
+    received.packetIdentifiers = new FOMNetwork::PacketIdentifier[count];
+    for (int i = 0; i < count; i++) {
+      received.packets[i] = receiveBuffer[i];
+      received.packetIdentifiers[i] = (FOMNetwork::PacketIdentifier)received.packets[i]->data[0];
+    }
   }
 
   return received;
@@ -96,6 +100,7 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
 
   // Now that we're done we don't need the receive packet buffer anymore.
   delete[] received.packets;
+  delete[] received.packetIdentifiers;
 
   return 0;
 }

@@ -9,14 +9,14 @@ namespace FOMServer.Shared.Core.FOMPacket
     public static class PacketHelpers
     {
         /// <summary>
-        /// A map for unwrapping data structs from the union by packet ID.
-        /// </summary>
-        private static readonly Dictionary<PacketIdentifier, FieldInfo> s_unionFieldsByID;
-
-        /// <summary>
         /// A map for getting the packet ID associated with a data struct by type.
         /// </summary>
         private static readonly Dictionary<Type, PacketIdentifier> s_idByUnionType;
+
+        /// <summary>
+        /// A map for the sizes of each packet type by its identifier.
+        /// </summary>
+        private static readonly Dictionary<PacketIdentifier, int> s_packetSizes;
 
         /// <summary>
         /// Populates the reflection caches so that packet processing
@@ -24,19 +24,19 @@ namespace FOMServer.Shared.Core.FOMPacket
         /// </summary>
         static PacketHelpers()
         {
-            s_unionFieldsByID = [];
             s_idByUnionType = [];
+            s_packetSizes = [];
 
-            var unionFields = typeof(FOMDataUnion).GetFields(BindingFlags.Public | BindingFlags.Instance);
-            foreach (var field in unionFields)
+            var allTypes = typeof(PacketHelpers).Assembly.GetTypes();
+            foreach (var type in allTypes)
             {
-                var type = field.FieldType;
+                // Check for your PacketIDAttribute
                 var idAttr = type.GetCustomAttribute<PacketIDAttribute>();
                 if (idAttr == null)
                     continue;
 
-                s_unionFieldsByID[idAttr.ID] = field;
                 s_idByUnionType[type] = idAttr.ID;
+                s_packetSizes[idAttr.ID] = Marshal.SizeOf(type);
             }
         }
 
@@ -45,12 +45,38 @@ namespace FOMServer.Shared.Core.FOMPacket
         /// </summary>
         public static PacketStructure[] GetPacketStructures()
         {
-            return s_idByUnionType.Select(kv => new PacketStructure
+            return [.. s_packetSizes.Select(kv => new PacketStructure
             {
-                ID = kv.Value,
-                Size = Marshal.SizeOf(kv.Key)
-            }).ToArray();
+                ID = kv.Key,
+                Size = kv.Value
+            })];
         }
+
+        /// <summary>
+        /// Returns the size of the struct associated with the given packet ID.
+        /// </summary>
+        public static int GetPacketSize(PacketIdentifier id)
+        {
+            if (!s_packetSizes.TryGetValue(id, out var size))
+                throw new ArgumentException($"No size found for ID {id}");
+            return size;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         /// <summary>
         /// Wraps a data struct into a union and returns its associated packet ID.

@@ -10,7 +10,7 @@ namespace FOMServer.Shared.Core.Networking
         /// <remarks>
         /// Must match `fom-network/src/PacketAPI.cpp` MaxBufferedPackets.
         /// </remarks>
-        public const int MaxBufferedPackets = 256;
+        public const int MaxBufferedPackets = 128;
 
         /// <summary>
         /// Polls the network interface for packets, parses them, and returns them in a memory buffer.
