@@ -18,7 +18,7 @@ class FOM_API FOMDataSerializer {
   /**
    * The sizes of all of the packet structures that the serializer can handle.
    */
-  static const std::unordered_map<uint8_t, uint32_t> PacketSizes;
+  static const std::unordered_map<uint8_t, size_t> PacketSizes;
 
   /**
    * Checks to see if the given packet ID is one of the packets we do not

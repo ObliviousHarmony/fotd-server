@@ -11,7 +11,7 @@ namespace FOMServer.Shared.Core.FOMPacket
         /// <summary>
         /// A map for getting the packet ID associated with a data struct by type.
         /// </summary>
-        private static readonly Dictionary<Type, PacketIdentifier> s_idByUnionType;
+        private static readonly Dictionary<Type, PacketIdentifier> s_idByPacketType;
 
         /// <summary>
         /// A map for the sizes of each packet type by its identifier.
@@ -24,7 +24,7 @@ namespace FOMServer.Shared.Core.FOMPacket
         /// </summary>
         static PacketHelpers()
         {
-            s_idByUnionType = [];
+            s_idByPacketType = [];
             s_packetSizes = [];
 
             var allTypes = typeof(PacketHelpers).Assembly.GetTypes();
@@ -35,8 +35,29 @@ namespace FOMServer.Shared.Core.FOMPacket
                 if (idAttr == null)
                     continue;
 
-                s_idByUnionType[type] = idAttr.ID;
+                s_idByPacketType[type] = idAttr.ID;
                 s_packetSizes[idAttr.ID] = Marshal.SizeOf(type);
+            }
+
+
+
+
+
+
+
+
+
+
+            s_unionFieldsByID = [];
+            var unionFields = typeof(FOMDataUnion).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            foreach (var field in unionFields)
+            {
+                var type = field.FieldType;
+                var idAttr = type.GetCustomAttribute<PacketIDAttribute>();
+                if (idAttr == null)
+                    continue;
+
+                s_unionFieldsByID[idAttr.ID] = field;
             }
         }
 
@@ -65,7 +86,7 @@ namespace FOMServer.Shared.Core.FOMPacket
         public static bool IsPacketOfType<TPacket>(PacketIdentifier id) where TPacket : unmanaged
         {
             var type = typeof(TPacket);
-            if (!s_idByUnionType.TryGetValue(type, out var expectedID))
+            if (!s_idByPacketType.TryGetValue(type, out var expectedID))
                 throw new ArgumentException($"Type {type.Name} is not mapped to any PacketID");
             return id == expectedID;
         }
@@ -81,7 +102,10 @@ namespace FOMServer.Shared.Core.FOMPacket
 
 
 
-
+        /// <summary>
+        /// A map for unwrapping data structs from the union by packet ID.
+        /// </summary>
+        private static readonly Dictionary<PacketIdentifier, FieldInfo> s_unionFieldsByID;
 
 
 
@@ -93,7 +117,7 @@ namespace FOMServer.Shared.Core.FOMPacket
         {
             var type = typeof(TData);
 
-            if (!s_idByUnionType.TryGetValue(type, out id))
+            if (!s_idByPacketType.TryGetValue(type, out id))
                 throw new ArgumentException($"Type {type.Name} is not mapped to any PacketID");
 
             if (!s_unionFieldsByID.TryGetValue(id, out var field))
@@ -112,7 +136,7 @@ namespace FOMServer.Shared.Core.FOMPacket
         {
             var type = typeof(TData);
 
-            if (!s_idByUnionType.TryGetValue(type, out var expectedID))
+            if (!s_idByPacketType.TryGetValue(type, out var expectedID))
                 throw new ArgumentException($"Type {type.Name} is not mapped to any PacketID");
 
             if (packet.ID != expectedID)

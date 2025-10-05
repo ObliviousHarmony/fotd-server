@@ -46,6 +46,7 @@ namespace FOMServer.Shared.Core.Networking
         )
         {
             ID = id;
+            Sender = sender;
             _data = data;
             _parentBuffer = parentBuffer;
         }

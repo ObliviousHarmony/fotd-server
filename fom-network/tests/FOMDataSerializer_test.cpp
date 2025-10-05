@@ -13,22 +13,21 @@ using namespace FOMNetwork;
 TEST(FOMDataSerializer, ReadUnhandledPacketID) {
   RakNet::BitStream bs;
 
-  try {
-    FOMDataSerializer::Read(bs, (PacketIdentifier)ID_INTERNAL_PING);
-    FAIL() << "Expected ReadError";
-  } catch (const FOMDataSerializer::ReadError& e) {
-    ASSERT_EQ(e.readError.offendingID, ID_INTERNAL_PING);
-    ASSERT_EQ(
-        e.readError.errorCode,
-        FOMNetwork::Packet::ReadPacketErrorCode::ERROR_UNHANDLED_PACKET_ID);
-  } catch (...) {
-    FAIL() << "Expected ReadError";
-  }
+  // Create a buffer big enough to hold the packet.
+  uint8_t* buffer = new uint8_t[1024];
+  FOMDataSerializer::Read(bs, (PacketIdentifier)ID_INTERNAL_PING, buffer);
+
+  FOMNetwork::Packet::ReadPacketError* e =
+      reinterpret_cast<FOMNetwork::Packet::ReadPacketError*>(buffer);
+  ASSERT_EQ(e->offendingID, ID_INTERNAL_PING);
+  ASSERT_EQ(e->errorCode, FOMNetwork::Packet::ReadPacketErrorCode::ERROR_UNHANDLED_PACKET_ID);
 }
 
 TEST(FOMDataSerializer, ForwardCertainRakNetID) {
   RakNet::BitStream bs;
 
-  // Will not throw since this is a handled RakNet ID.
-  FOMDataSerializer::Read(bs, (PacketIdentifier)ID_NEW_INCOMING_CONNECTION);
+  uint8_t* buffer = new uint8_t[1024];
+  FOMDataSerializer::Read(bs, (PacketIdentifier)ID_NEW_INCOMING_CONNECTION, buffer);
+  FOMNetwork::Packet::NewIncomingConnection* e =
+      reinterpret_cast<FOMNetwork::Packet::NewIncomingConnection*>(buffer);
 }

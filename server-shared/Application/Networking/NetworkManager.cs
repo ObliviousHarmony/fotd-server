@@ -2,6 +2,8 @@ using System.Threading.Channels;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
+using FOMServer.Shared.Core.FOMPacket.Data;
+using FOMServer.Shared.Core.FOMPacket.Data.RakNetPackets;
 using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Networking;
 
@@ -152,7 +154,98 @@ namespace FOMServer.Shared.Application.Networking
                             continue;
                         }
 
-                        _packetProcessor.Enqueue(packet);
+                        var unionPacket = new Packet();
+                        unionPacket.ID = packet.ID;
+                        unionPacket.Sender = packet.Sender;
+
+                        FOMDataUnion data = new FOMDataUnion();
+                        switch (packet.ID)
+                        {
+                            case PacketIdentifier.ID_CONNECTION_REQUEST_ACCEPTED:
+                                data.ConnectionRequestAccepted = packet.Data<ConnectionRequestAccepted>();
+                                break;
+                            case PacketIdentifier.ID_CONNECTION_ATTEMPT_FAILED:
+                                data.ConnectionAttemptFailed = packet.Data<ConnectionAttemptFailed>();
+                                break;
+                            case PacketIdentifier.ID_ALREADY_CONNECTED:
+                                data.AlreadyConnected = packet.Data<AlreadyConnected>();
+                                break;
+                            case PacketIdentifier.ID_NEW_INCOMING_CONNECTION:
+                                data.NewIncomingConnection = packet.Data<NewIncomingConnection>();
+                                break;
+                            case PacketIdentifier.ID_NO_FREE_INCOMING_CONNECTIONS:
+                                data.NoFreeIncomingConnections = packet.Data<NoFreeIncomingConnections>();
+                                break;
+                            case PacketIdentifier.ID_DISCONNECTION_NOTIFICATION:
+                                data.DisconnectionNotification = packet.Data<DisconnectionNotification>();
+                                break;
+                            case PacketIdentifier.ID_CONNECTION_LOST:
+                                data.ConnectionLost = packet.Data<ConnectionLost>();
+                                break;
+                            case PacketIdentifier.ID_RSA_PUBLIC_KEY_MISMATCH:
+                                data.RSAPublicKeyMismatch = packet.Data<RSAPublicKeyMismatch>();
+                                break;
+                            case PacketIdentifier.ID_CONNECTION_BANNED:
+                                data.ConnectionBanned = packet.Data<ConnectionBanned>();
+                                break;
+                            case PacketIdentifier.ID_INVALID_PASSWORD:
+                                data.InvalidPassword = packet.Data<InvalidPassword>();
+                                break;
+                            case PacketIdentifier.ID_MODIFIED_PACKET:
+                                data.ModifiedPacket = packet.Data<ModifiedPacket>();
+                                break;
+                            case PacketIdentifier.ID_LOGIN_REQUEST:
+                                data.LoginRequest = packet.Data<LoginRequest>();
+                                break;
+                            case PacketIdentifier.ID_LOGIN_REQUEST_RETURN:
+                                data.LoginRequestReturn = packet.Data<LoginRequestReturn>();
+                                break;
+                            case PacketIdentifier.ID_LOGIN:
+                                data.Login = packet.Data<Login>();
+                                break;
+                            case PacketIdentifier.ID_LOGIN_RETURN:
+                                data.LoginReturn = packet.Data<LoginReturn>();
+                                break;
+                            case PacketIdentifier.ID_WORLD_LOGIN:
+                                data.WorldLogin = packet.Data<WorldLogin>();
+                                break;
+                            case PacketIdentifier.ID_WORLD_LOGIN_RETURN:
+                                data.WorldLoginReturn = packet.Data<WorldLoginReturn>();
+                                break;
+                            case PacketIdentifier.ID_REGISTER_WORLD:
+                                data.RegisterWorld = packet.Data<RegisterWorld>();
+                                break;
+                            case PacketIdentifier.ID_PLAYER_ENTERING_WORLD:
+                                data.PlayerEnteringWorld = packet.Data<PlayerEnteringWorld>();
+                                break;
+                            case PacketIdentifier.ID_PLAYER_ENTERING_WORLD_RETURN:
+                                data.PlayerEnteringWorldReturn = packet.Data<PlayerEnteringWorldReturn>();
+                                break;
+                            case PacketIdentifier.ID_CREATE_CHARACTER:
+                                data.CreateCharacter = packet.Data<CreateCharacter>();
+                                break;
+                            case PacketIdentifier.ID_CHECK_NAME:
+                                data.CheckName = packet.Data<CheckName>();
+                                break;
+                            case PacketIdentifier.ID_CHECK_NAME_RETURN:
+                                data.CheckNameReturn = packet.Data<CheckNameReturn>();
+                                break;
+                            case PacketIdentifier.ID_WORLD_OVERVIEW:
+                                data.WorldOverview = packet.Data<WorldOverview>();
+                                break;
+                            case PacketIdentifier.ID_WORLD_OVERVIEW_RETURN:
+                                data.WorldOverviewReturn = packet.Data<WorldOverviewReturn>();
+                                break;
+                            default:
+                                continue;
+                        }
+
+                        unionPacket.Data = data;
+
+                        // Don't hold onto the packet and leak memory.
+                        packet.Dispose();
+
+                        _packetProcessor.Enqueue(unionPacket);
                     }
 
                     // Use an exponential back-off strategy when polling to avoid

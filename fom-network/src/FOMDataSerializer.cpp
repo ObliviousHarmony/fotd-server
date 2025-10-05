@@ -8,7 +8,7 @@ namespace FOMNetwork {
  * A map of all of the packets that the serializer can handle and their
  * associated sizes.
  */
-const std::unordered_map<uint8_t, uint32_t> FOMDataSerializer::PacketSizes = {
+const std::unordered_map<uint8_t, size_t> FOMDataSerializer::PacketSizes = {
     {ID_FOM_PACKET_READ_ERROR, sizeof(Packet::ReadPacketError)},
 
     // RakNet Packets
@@ -153,12 +153,12 @@ const IReader* FOMDataSerializer::GetReader(PacketIdentifier id) {
   return it->second;
 }
 
-int GetPacketSize(FOMNetwork::PacketIdentifier id) {
-  auto it = FOMDataSerializer::PacketSizes.find(id);
-  if (it == FOMDataSerializer::PacketSizes.end()) {
+int FOMDataSerializer::GetPacketSize(FOMNetwork::PacketIdentifier id) {
+  auto it = PacketSizes.find(id);
+  if (it == PacketSizes.end()) {
     return -1;
   }
-  return it->second;
+  return (int)it->second;
 }
 
 }  // namespace FOMNetwork
