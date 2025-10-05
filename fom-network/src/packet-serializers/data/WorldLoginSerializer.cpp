@@ -2,8 +2,8 @@
 
 namespace FOMNetwork {
 
-Packet::WorldLogin WorldLoginSerializer::ReadData(RakNet::BitStream& bs) const {
-  Packet::WorldLogin data{};
+bool WorldLoginSerializer::ReadData(RakNet::BitStream& bs,
+                                    Packet::WorldLogin& data) const {
   bs.ReadCompressed(data.worldID);
   bs.ReadCompressed(data.selectedNodeID);
   bs.ReadCompressed(data.playerID);
@@ -11,7 +11,8 @@ Packet::WorldLogin WorldLoginSerializer::ReadData(RakNet::BitStream& bs) const {
   if (data.worldID == 4) {
     bs.ReadCompressed(data.apartmentID);
   }
-  return data;
+
+  return true;
 }
 
 }  // namespace FOMNetwork

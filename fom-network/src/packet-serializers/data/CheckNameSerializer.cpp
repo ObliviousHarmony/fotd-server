@@ -2,10 +2,11 @@
 
 namespace FOMNetwork {
 
-Packet::CheckName CheckNameSerializer::ReadData(RakNet::BitStream& bs) const {
-  Packet::CheckName data{};
+bool CheckNameSerializer::ReadData(RakNet::BitStream& bs,
+                                   Packet::CheckName& data) const {
   DecodeString(bs, data.name);
-  return data;
+
+  return true;
 }
 
 }  // namespace FOMNetwork

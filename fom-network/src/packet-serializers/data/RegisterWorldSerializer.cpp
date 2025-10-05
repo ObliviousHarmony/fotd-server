@@ -2,13 +2,13 @@
 
 namespace FOMNetwork {
 
-Packet::RegisterWorld RegisterWorldSerializer::ReadData(
-    RakNet::BitStream& bs) const {
-  Packet::RegisterWorld data{};
+bool RegisterWorldSerializer::ReadData(RakNet::BitStream& bs,
+                                       Packet::RegisterWorld& data) const {
   bs.ReadCompressed(data.worldID);
   ReadRawString(bs, data.address);
   bs.ReadCompressed(data.port);
-  return data;
+
+  return true;
 }
 
 void RegisterWorldSerializer::WriteData(

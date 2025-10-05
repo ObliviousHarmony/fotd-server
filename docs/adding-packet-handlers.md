@@ -82,11 +82,10 @@ void ExamplePacketSerializer::WriteData(
   bs.WriteCompressed(data.exampleShort);
 }
 
-Packet::ExamplePacket ExamplePacketSerializer::ReadData(RakNet::BitStream& bs) const {
-  Packet::ExamplePacket data{};
+bool ExamplePacketSerializer::ReadData(RakNet::BitStream& bs, Packet::ExamplePacket& data) const {
   DecodeString(bs, data.exampleString);
   bs.ReadCompressed(data.exampleShort);
-  return data;
+  return true;
 }
 
 }  // namespace FOMNetwork

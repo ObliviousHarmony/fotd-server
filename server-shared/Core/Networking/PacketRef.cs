@@ -24,6 +24,11 @@ namespace FOMServer.Shared.Core.Networking
         public readonly PacketIdentifier ID;
 
         /// <summary>
+        /// The sender of the packet this references.
+        /// </summary>
+        public readonly NetworkAddress Sender;
+
+        /// <summary>
         /// The raw buffer for the packet this references.
         /// </summary>
         private readonly Memory<byte> _data;
@@ -33,7 +38,12 @@ namespace FOMServer.Shared.Core.Networking
         /// </summary>
         private readonly PacketBuffer _parentBuffer;
 
-        public PacketRef(PacketIdentifier id, Memory<byte> data, PacketBuffer parentBuffer)
+        public PacketRef(
+            PacketIdentifier id,
+            NetworkAddress sender,
+            Memory<byte> data,
+            PacketBuffer parentBuffer
+        )
         {
             ID = id;
             _data = data;

@@ -2,12 +2,12 @@
 
 namespace FOMNetwork {
 
-Packet::PlayerEnteringWorldReturn PlayerEnteringWorldReturnSerializer::ReadData(
-    RakNet::BitStream& bs) const {
-  Packet::PlayerEnteringWorldReturn data{};
+bool PlayerEnteringWorldReturnSerializer::ReadData(
+    RakNet::BitStream& bs, Packet::PlayerEnteringWorldReturn& data) const {
   bs.ReadCompressed(data.status);
   bs.ReadCompressed(data.playerID);
-  return data;
+
+  return true;
 }
 
 void PlayerEnteringWorldReturnSerializer::WriteData(

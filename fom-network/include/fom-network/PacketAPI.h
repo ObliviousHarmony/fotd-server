@@ -3,6 +3,7 @@
 #include <fom-network/Common.h>
 #include <fom-network/FOMNetworkExport.h>
 #include <fom-network/packets/FOMPacket.h>
+#include <fom-network/packets/NetworkAddress.h>
 #include <raknet/PacketPriority.h>
 #include <raknet/RakNetTypes.h>
 #include <raknet/RakPeerInterface.h>
@@ -15,8 +16,8 @@
 #pragma pack(push, 1)
 struct ReceivedPackets {
   /**
-  * The number of packets in the buffer.
-  */
+   * The number of packets in the buffer.
+   */
   uint8_t count;
 
   /**
@@ -26,9 +27,14 @@ struct ReceivedPackets {
   Packet** packets;
 
   /**
+   * The senders for each of the received packets.
+   */
+  FOMNetwork::NetworkAddress* senders;
+
+  /**
    * The packet identifiers for each of the received packets.
    */
-  FOMNetwork::PacketIdentifier* packetIdentifiers;
+  FOMNetwork::PacketIdentifier* identifiers;
 };
 #pragma pack(pop)
 
@@ -103,12 +109,12 @@ FOM_API ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer);
  * @param packetBufferLen The number of packets in the packet buffer.
  * @return int32_t The status code.
  * @retval 0 Success.
- * @retval -1 The packetBufferLen does not match the number of received packets
- * to process.
+ * @retval -1 The packetBufferLen is not able to hold all of the received
+ * packets.
  */
 FOM_API int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
                                           const ReceivedPackets received,
-                                          FOMNetwork::FOMPacket* packetBuffer,
+                                          uint8_t* packetBuffer,
                                           int32_t packetBufferLen);
 
 /**

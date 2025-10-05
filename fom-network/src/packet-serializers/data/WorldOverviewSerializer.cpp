@@ -2,11 +2,11 @@
 
 namespace FOMNetwork {
 
-Packet::WorldOverview WorldOverviewSerializer::ReadData(
-    RakNet::BitStream& bs) const {
-  Packet::WorldOverview data{};
+bool WorldOverviewSerializer::ReadData(RakNet::BitStream& bs,
+                                       Packet::WorldOverview& data) const {
   bs.ReadCompressed(data.playerID);
-  return data;
+
+  return true;
 }
 
 }  // namespace FOMNetwork

@@ -1,5 +1,3 @@
-using FOMServer.Shared.Core.FOMPacket;
-
 namespace FOMServer.Shared.Core.Networking
 {
     public interface IPacketService
@@ -21,7 +19,7 @@ namespace FOMServer.Shared.Core.Networking
         /// Receive, as it will be overwritten.
         /// </remarks>
         /// <returns>The buffer containing the received packets.</returns>
-        Span<Packet> Receive(IntPtr peer);
+        Span<PacketRef> Receive(IntPtr peer);
 
         /// <summary>
         /// Sends packets to the specified destinations.

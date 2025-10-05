@@ -30,7 +30,8 @@ namespace FOMServer.Shared.Core.Networking
     {
         public byte Count;
         public IntPtr Packets;
-        public PacketIdentifier* PacketIdentifiers;
+        public NetworkAddress* Senders;
+        public PacketIdentifier* Identifiers;
     }
 
     /// <summary>

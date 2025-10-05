@@ -2,15 +2,15 @@
 
 namespace FOMNetwork {
 
-Packet::Login LoginSerializer::ReadData(RakNet::BitStream& bs) const {
-  Packet::Login data{};
+bool LoginSerializer::ReadData(RakNet::BitStream& bs, Packet::Login& data) const {
   DecodeString(bs, data.username);
   ReadRawString(bs, data.passwordHash);
   bs.Read(data.clientCRC);
   bs.Read(data.cshellCRC);
   bs.Read(data.objectCRC);
   DecodeString(bs, data.macAddress);
-  return data;
+
+  return true;
 }
 
 }  // namespace FOMNetwork

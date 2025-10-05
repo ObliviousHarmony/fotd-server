@@ -39,7 +39,7 @@ namespace FOMServer.Shared.Core.Networking
         /// <summary>
         /// Allocates the buffer to hold the received packets.
         /// </summary>
-        public byte[]? Rent(ReceivedPackets received)
+        public unsafe byte[]? Rent(ReceivedPackets received)
         {
             if (Interlocked.CompareExchange(ref _allocated, 1, 0) != 0)
                 return null;
@@ -50,11 +50,8 @@ namespace FOMServer.Shared.Core.Networking
             var totalSize = 0;
             for (byte i = 0; i < received.Count; i++)
             {
-                unsafe
-                {
-                    _packetIDs[i] = received.PacketIdentifiers[i];
-                    totalSize += PacketHelpers.GetPacketSize(received.PacketIdentifiers[i]);
-                }
+                _packetIDs[i] = received.Identifiers[i];
+                totalSize += PacketHelpers.GetPacketSize(received.Identifiers[i]);
             }
             _buffer = ArrayPool<byte>.Shared.Rent(totalSize);
 
@@ -65,6 +62,7 @@ namespace FOMServer.Shared.Core.Networking
                 var startIndex = GetPacketStart(i);
                 _packetRefs[i] = new PacketRef(
                     _packetIDs![i],
+                    received.Senders[i],
                     _buffer.AsMemory(startIndex, PacketHelpers.GetPacketSize(_packetIDs[i])),
                     this
                 );
@@ -82,7 +80,7 @@ namespace FOMServer.Shared.Core.Networking
         {
             if (Volatile.Read(ref _allocated) != 1 || Volatile.Read(ref _refCount) == 0)
                 throw new InvalidOperationException("PacketBuffer has not been allocated");
-            
+
             return _packetRefs.AsSpan(0, _refCount);
         }
 

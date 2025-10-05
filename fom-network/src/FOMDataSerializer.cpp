@@ -5,10 +5,50 @@
 namespace FOMNetwork {
 
 /**
+ * A map of all of the packets that the serializer can handle and their
+ * associated sizes.
+ */
+const std::unordered_map<uint8_t, uint32_t> FOMDataSerializer::PacketSizes = {
+    {ID_FOM_PACKET_READ_ERROR, sizeof(Packet::ReadPacketError)},
+
+    // RakNet Packets
+    {ID_ALREADY_CONNECTED, sizeof(Packet::AlreadyConnected)},
+    {ID_CONNECTION_ATTEMPT_FAILED, sizeof(Packet::ConnectionAttemptFailed)},
+    {ID_CONNECTION_BANNED, sizeof(Packet::ConnectionBanned)},
+    {ID_CONNECTION_LOST, sizeof(Packet::ConnectionLost)},
+    {ID_CONNECTION_REQUEST_ACCEPTED, sizeof(Packet::ConnectionRequestAccepted)},
+    {ID_DISCONNECTION_NOTIFICATION, sizeof(Packet::DisconnectionNotification)},
+    {ID_INVALID_PASSWORD, sizeof(Packet::InvalidPassword)},
+    {ID_MODIFIED_PACKET, sizeof(Packet::ModifiedPacket)},
+    {ID_NEW_INCOMING_CONNECTION, sizeof(Packet::NewIncomingConnection)},
+    {ID_NO_FREE_INCOMING_CONNECTIONS,
+     sizeof(Packet::NoFreeIncomingConnections)},
+    {ID_RSA_PUBLIC_KEY_MISMATCH, sizeof(Packet::RSAPublicKeyMismatch)},
+
+    // Game Packets
+    {ID_FOM_PACKET_READ_ERROR, sizeof(Packet::ReadPacketError)},
+    {ID_LOGIN_REQUEST, sizeof(Packet::LoginRequest)},
+    {ID_LOGIN_REQUEST_RETURN, sizeof(Packet::LoginRequestReturn)},
+    {ID_LOGIN, sizeof(Packet::Login)},
+    {ID_LOGIN_RETURN, sizeof(Packet::LoginReturn)},
+    {ID_CHECK_NAME, sizeof(Packet::CheckName)},
+    {ID_CHECK_NAME_RETURN, sizeof(Packet::CheckNameReturn)},
+    {ID_CREATE_CHARACTER, sizeof(Packet::CreateCharacter)},
+    {ID_REGISTER_WORLD, sizeof(Packet::RegisterWorld)},
+    {ID_WORLD_OVERVIEW, sizeof(Packet::WorldOverview)},
+    {ID_WORLD_OVERVIEW_RETURN, sizeof(Packet::WorldOverviewReturn)},
+    {ID_WORLD_LOGIN, sizeof(Packet::WorldLogin)},
+    {ID_WORLD_LOGIN_RETURN, sizeof(Packet::WorldLoginReturn)},
+    {ID_PLAYER_ENTERING_WORLD, sizeof(Packet::PlayerEnteringWorld)},
+    {ID_PLAYER_ENTERING_WORLD_RETURN,
+     sizeof(Packet::PlayerEnteringWorldReturn)},
+};
+
+/**
  * We need to initialize the map with all of the serializers we want to be able
  * to use.
  */
-static std::unordered_map<uint32_t, IWriter*> writerMap = {
+static const std::unordered_map<uint32_t, IWriter*> writerMap = {
     {ID_LOGIN_REQUEST_RETURN, &LoginRequestReturnSerializer::GetInstance()},
     {ID_LOGIN_RETURN, &LoginReturnSerializer::GetInstance()},
     {ID_CHECK_NAME_RETURN, &CheckNameReturnSerializer::GetInstance()},
@@ -20,7 +60,7 @@ static std::unordered_map<uint32_t, IWriter*> writerMap = {
      &PlayerEnteringWorldReturnSerializer::GetInstance()},
 };
 
-static std::unordered_map<uint32_t, IReader*> readerMap = {
+static const std::unordered_map<uint32_t, IReader*> readerMap = {
     // Some RakNet packets will be forwarded to the consumer.
     {ID_ALREADY_CONNECTED, &EmptyPacketSerializer::GetInstance()},
     {ID_CONNECTION_ATTEMPT_FAILED, &EmptyPacketSerializer::GetInstance()},
@@ -64,21 +104,36 @@ bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id,
   }
 }
 
-FOMDataUnion FOMDataSerializer::Read(RakNet::BitStream& bs,
-                                     const PacketIdentifier id) {
+bool FOMDataSerializer::Read(RakNet::BitStream& bs, const PacketIdentifier id,
+                             uint8_t* dataBuffer) {
   const auto* reader = GetReader(id);
   if (!reader) {
-    throw ReadError(Packet::ReadPacketError{
-        id, Packet::ReadPacketErrorCode::ERROR_UNHANDLED_PACKET_ID});
+    Packet::ReadPacketError* data =
+        reinterpret_cast<Packet::ReadPacketError*>(dataBuffer);
+    data->offendingID = id;
+    data->errorCode = Packet::ReadPacketErrorCode::ERROR_UNHANDLED_PACKET_ID;
+    return true;
   }
 
   // Make sure to catch any deserialization errors so that
   // the library does not crash the consuming application.
   try {
-    return reader->Read(bs);
+    bool ret = reader->Read(bs, dataBuffer);
+    if (!ret) {
+      Packet::ReadPacketError* data =
+          reinterpret_cast<Packet::ReadPacketError*>(dataBuffer);
+      data->offendingID = id;
+      data->errorCode = Packet::ReadPacketErrorCode::ERROR_READ;
+      return true;
+    }
+
+    return ret;
   } catch (const std::exception& e) {
-    throw ReadError(
-        Packet::ReadPacketError{id, Packet::ReadPacketErrorCode::ERROR_READ});
+    Packet::ReadPacketError* data =
+        reinterpret_cast<Packet::ReadPacketError*>(dataBuffer);
+    data->offendingID = id;
+    data->errorCode = Packet::ReadPacketErrorCode::ERROR_READ;
+    return true;
   }
 }
 
@@ -94,6 +149,14 @@ const IReader* FOMDataSerializer::GetReader(PacketIdentifier id) {
   auto it = readerMap.find(id);
   if (it == readerMap.end()) {
     return NULL;
+  }
+  return it->second;
+}
+
+int GetPacketSize(FOMNetwork::PacketIdentifier id) {
+  auto it = FOMDataSerializer::PacketSizes.find(id);
+  if (it == FOMDataSerializer::PacketSizes.end()) {
+    return -1;
   }
   return it->second;
 }

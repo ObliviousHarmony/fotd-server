@@ -2,12 +2,12 @@
 
 namespace FOMNetwork {
 
-Packet::LoginRequest LoginRequestSerializer::ReadData(
-    RakNet::BitStream& bs) const {
-  Packet::LoginRequest data{};
+bool LoginRequestSerializer::ReadData(RakNet::BitStream& bs,
+                                      Packet::LoginRequest& data) const {
   DecodeString(bs, data.username);
   bs.ReadCompressed(data.clientVersion);
-  return data;
+
+  return true;
 }
 
 }  // namespace FOMNetwork

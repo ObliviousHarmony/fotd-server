@@ -4,11 +4,10 @@
 
 namespace FOMNetwork {
 
-Packet::CreateCharacter CreateCharacterSerializer::ReadData(
-    RakNet::BitStream& bs) const {
+bool CreateCharacterSerializer::ReadData(RakNet::BitStream& bs,
+                                         Packet::CreateCharacter& data) const {
   AvatarModelSerializer avatarSerializer;
 
-  Packet::CreateCharacter data{};
   bs.ReadCompressed(data.playerID);
   bs.IgnoreBits(1);
   avatarSerializer.Read(bs, data.avatar);
@@ -23,7 +22,8 @@ Packet::CreateCharacter CreateCharacterSerializer::ReadData(
   bs.IgnoreBits(1);
   DecodeString(bs, data.name);
   DecodeString(bs, data.biography);
-  return data;
+
+  return true;
 }
 
 }  // namespace FOMNetwork

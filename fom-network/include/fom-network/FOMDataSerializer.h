@@ -15,14 +15,10 @@ namespace FOMNetwork {
  */
 class FOM_API FOMDataSerializer {
  public:
-  class ReadError : public std::runtime_error {
-   public:
-    FOMNetwork::Packet::ReadPacketError readError;
-
-    ReadError(FOMNetwork::Packet::ReadPacketError data)
-        : std::runtime_error("An error occurred during reading"),
-          readError(data) {}
-  };
+  /**
+   * The sizes of all of the packet structures that the serializer can handle.
+   */
+  static const std::unordered_map<uint8_t, uint32_t> PacketSizes;
 
   /**
    * Checks to see if the given packet ID is one of the packets we do not
@@ -72,6 +68,13 @@ class FOM_API FOMDataSerializer {
   }
 
   /**
+   * Fetches the size of a packet based on its ID.
+   *
+   * @param id The packet ID to fetch the size for.
+   */
+  static int GetPacketSize(PacketIdentifier id);
+
+  /**
    * Writes packet data into a bitstream buffer.
    *
    * @param bs The bitstream to write to.
@@ -86,8 +89,10 @@ class FOM_API FOMDataSerializer {
    *
    * @param bs The bitstream to read from.
    * @param id The packet ID to read.
+   * @param dataBuffer A buffer to read the packet data into.
    */
-  static FOMDataUnion Read(RakNet::BitStream& bs, const PacketIdentifier id);
+  static bool Read(RakNet::BitStream& bs, const PacketIdentifier id,
+                   uint8_t* dataBuffer);
 
  private:
   /**
