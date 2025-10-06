@@ -30,6 +30,11 @@ namespace FOMServer.Shared.Core.Networking
                 _data = ArrayPool<byte>.Shared.Rent(PacketHelpers.GetPacketSize(id));
             }
 
+            public PacketData(in TPacket data) : this()
+            {
+                MemoryMarshal.Write(_data, in data);
+            }
+
             public byte[] TransferData()
             {
                 if (Volatile.Read(ref _disposed) != 0)

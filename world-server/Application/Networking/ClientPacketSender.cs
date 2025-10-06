@@ -15,7 +15,7 @@ namespace FOMServer.World.Application.Networking
         }
 
         public void Send<TData>(
-            TData data,
+            QueuePacket.PacketData<TData> data,
             NetworkAddress destination,
             PacketPriority priority,
             PacketReliability reliability,
@@ -29,7 +29,7 @@ namespace FOMServer.World.Application.Networking
         }
 
         public void Broadcast<TData>(
-            TData data,
+            QueuePacket.PacketData<TData> data,
             NetworkAddress excludedAddress,
             PacketPriority priority,
             PacketReliability reliability,

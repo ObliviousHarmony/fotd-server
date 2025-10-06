@@ -1,3 +1,5 @@
+using System.Net.Sockets;
+using System.Runtime.InteropServices;
 using System.Threading.Channels;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
@@ -37,7 +39,7 @@ namespace FOMServer.Shared.Application.Networking
         /// We can pin the memory of the pre-allocated buffer and then
         /// pass that without having to do anything special.
         /// </remarks>
-        private readonly SendPacket[] _sendBuffer = new SendPacket[IPacketService.MaxBufferedPackets];
+        private readonly QueuePacket[] _sendBuffer = new QueuePacket[IPacketService.MaxBufferedPackets];
 
         private IntPtr _peer;
         private Action<IntPtr>? _peerShutdown;
@@ -45,7 +47,7 @@ namespace FOMServer.Shared.Application.Networking
         private readonly ILogService _logService;
         private readonly IPacketService _packetService;
         private readonly PacketProcessor _packetProcessor;
-        private readonly Channel<SendPacket> _sendQueue;
+        private readonly Channel<QueuePacket> _sendQueue;
         private readonly HashSet<PacketIdentifier> _claimedPacketIDs;
         private Task? _networkTask;
         private CancellationTokenSource? _cts;
@@ -65,7 +67,7 @@ namespace FOMServer.Shared.Application.Networking
             _claimedPacketIDs = new HashSet<PacketIdentifier>();
 
             // Single writer, single reader channel is fine here
-            _sendQueue = Channel.CreateUnbounded<SendPacket>(new UnboundedChannelOptions
+            _sendQueue = Channel.CreateUnbounded<QueuePacket>(new UnboundedChannelOptions
             {
                 SingleReader = true,
                 SingleWriter = false
@@ -142,7 +144,34 @@ namespace FOMServer.Shared.Application.Networking
                         _sendBuffer[numToSend++] = packetToSend;
 
                     if (numToSend > 0)
-                        _packetService.Send(_peer, _sendBuffer.AsSpan(0, numToSend));
+                    {
+                        Span<GCHandle> handles = stackalloc GCHandle[numToSend];
+                        Span<SendPacket> sendPackets = stackalloc SendPacket[numToSend];
+                        for (int i = 0; i < numToSend; i++)
+                        {
+                            var packetToSend = _sendBuffer[i];
+
+                            // Pin the buffer so we can pass it to native code
+                            handles[i] = GCHandle.Alloc(packetToSend.Data[0], GCHandleType.Pinned);
+
+                            sendPackets[i] = new SendPacket
+                            {
+                                ID = packetToSend.ID,
+                                Data = MemoryMarshal.Cast<byte, FOMDataUnion>(packetToSend.Data)[0],
+                                NetworkAddress = packetToSend.NetworkAddresses()[0],
+                                Priority = packetToSend.Priority,
+                                Reliability = packetToSend.Reliability,
+                                OrderingChannel = packetToSend.OrderingChannel,
+                                Broadcast = (byte)(packetToSend.Broadcast ? 1 : 0)
+                            };
+                        }
+
+                        _packetService.Send(_peer, sendPackets);
+
+                        // Free all of the handles since we're done with the packets.
+                        for (int i = 0; i < numToSend; i++)
+                            handles[i].Free();
+                    }
 
                     var received = _packetService.Receive(_peer);
                     foreach (ref readonly var packet in received)
@@ -270,7 +299,7 @@ namespace FOMServer.Shared.Application.Networking
         }
 
         public void Send<TData>(
-            TData data,
+            QueuePacket.PacketData<TData> data,
             NetworkAddress destination,
             PacketPriority priority,
             PacketReliability reliability,
@@ -280,23 +309,20 @@ namespace FOMServer.Shared.Application.Networking
             if (_peer == IntPtr.Zero)
                 throw new InvalidOperationException("Peer is not configured");
 
-            var packetData = PacketHelpers.Wrap(data, out var id);
-            var packet = new SendPacket
-            {
-                ID = id,
-                Data = packetData,
-                NetworkAddress = destination,
-                Priority = priority,
-                Reliability = reliability,
-                OrderingChannel = orderingChannel,
-                Broadcast = 0
-            };
+            var packet = new QueuePacket(
+                destination,
+                priority,
+                reliability,
+                orderingChannel,
+                false
+            );
+            packet.TransferData(data);
 
             _sendQueue.Writer.TryWrite(packet);
         }
 
         public void Broadcast<TData>(
-            TData data,
+            QueuePacket.PacketData<TData> data,
             NetworkAddress excludedAddress,
             PacketPriority priority,
             PacketReliability reliability,
@@ -306,17 +332,14 @@ namespace FOMServer.Shared.Application.Networking
             if (_peer == IntPtr.Zero)
                 throw new InvalidOperationException("Peer is not configured");
 
-            var packetData = PacketHelpers.Wrap(data, out var id);
-            var packet = new SendPacket
-            {
-                ID = id,
-                Data = packetData,
-                NetworkAddress = excludedAddress,
-                Priority = priority,
-                Reliability = reliability,
-                OrderingChannel = orderingChannel,
-                Broadcast = 1
-            };
+            var packet = new QueuePacket(
+                excludedAddress,
+                priority,
+                reliability,
+                orderingChannel,
+                true
+            );
+            packet.TransferData(data);
 
             _sendQueue.Writer.TryWrite(packet);
         }

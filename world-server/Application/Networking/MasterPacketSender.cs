@@ -15,7 +15,7 @@ namespace FOMServer.World.Application.Networking
         }
 
         public void Send<TData>(
-            TData data,
+            QueuePacket.PacketData<TData> data,
             PacketPriority priority,
             PacketReliability reliability,
             byte orderingChannel = 0

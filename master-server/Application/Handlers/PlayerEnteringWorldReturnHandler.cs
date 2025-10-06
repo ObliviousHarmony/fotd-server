@@ -4,6 +4,7 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Metadata;
 
 namespace FOMServer.World.Application.Handlers
@@ -48,8 +49,9 @@ namespace FOMServer.World.Application.Handlers
             else
                 response.Status = WorldLoginReturn.StatusCode.WORLD_LOGIN_RETURN_INVALID;
 
+            var responsePacket = new QueuePacket.PacketData<WorldLoginReturn>(response);
             _packetSender.Send(
-                response,
+                responsePacket,
                 player.ClientAddress,
                 PacketPriority.MEDIUM_PRIORITY,
                 PacketReliability.RELIABLE_ORDERED

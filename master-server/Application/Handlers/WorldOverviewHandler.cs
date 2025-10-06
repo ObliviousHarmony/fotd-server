@@ -5,6 +5,7 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers
@@ -41,7 +42,8 @@ namespace FOMServer.Master.Application.Handlers
                 WorldOverview = _worldOverviewFactory.Create(player),
             };
 
-            _packetSender.Send(response, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
+            var responsePacket = new QueuePacket.PacketData<WorldOverviewReturn>(response);
+            _packetSender.Send(responsePacket, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
         }
     }
 }

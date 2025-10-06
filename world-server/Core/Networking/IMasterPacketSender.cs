@@ -1,4 +1,5 @@
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Networking;
 
 namespace FOMServer.World.Core.Networking
 {
@@ -8,7 +9,7 @@ namespace FOMServer.World.Core.Networking
         /// Sends a packet over the network.
         /// </summary>
         void Send<TData>(
-            TData data,
+            QueuePacket.PacketData<TData> data,
             PacketPriority priority,
             PacketReliability reliability,
             byte orderingChannel = 0

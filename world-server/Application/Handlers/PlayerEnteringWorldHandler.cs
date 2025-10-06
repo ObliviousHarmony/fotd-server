@@ -2,6 +2,7 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Metadata;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
@@ -33,7 +34,8 @@ namespace FOMServer.World.Application.Handlers
             else
                 response.Status = PlayerEnteringWorldReturn.StatusCode.PLAYER_ENTERING_WORLD_RETURN_READY;
 
-            _packetSender.Send(response, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
+            var responsePacket = new QueuePacket.PacketData<PlayerEnteringWorldReturn>(response);
+            _packetSender.Send(responsePacket, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
         }
     }
 }
