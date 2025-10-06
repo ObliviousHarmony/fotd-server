@@ -1,4 +1,5 @@
 using System.Buffers;
+using System.Diagnostics.Metrics;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 
@@ -10,6 +11,15 @@ namespace FOMServer.Shared.Core.Networking
     /// </summary>
     public class PacketBuffer
     {
+        private static readonly Meter s_meter = new("FOMServer.Networking.PacketBuffer", "1.0.0");
+        private static readonly ObservableGauge<int> s_buffersInUse =
+            s_meter.CreateObservableGauge(
+                "fomserver.packet_buffers_in_use",
+                () => new Measurement<int>(Volatile.Read(in s_activeBufferCount))
+            );
+
+        private static int s_activeBufferCount;
+
         private int _allocated;
         private int _refCount;
         private byte[]? _buffer;
@@ -25,6 +35,7 @@ namespace FOMServer.Shared.Core.Networking
         {
             if (Interlocked.CompareExchange(ref _allocated, 1, 0) != 0)
                 return null;
+            Interlocked.Increment(ref s_activeBufferCount);
 
             _packetIDs = ArrayPool<PacketIdentifier>.Shared.Rent(received.Count);
 
@@ -85,6 +96,7 @@ namespace FOMServer.Shared.Core.Networking
                 var tempBuffer = Interlocked.Exchange(ref _buffer, null);
                 ArrayPool<byte>.Shared.Return(tempBuffer!);
 
+                Interlocked.Decrement(ref s_activeBufferCount);
                 Interlocked.Exchange(ref _allocated, 0);
             }
         }
