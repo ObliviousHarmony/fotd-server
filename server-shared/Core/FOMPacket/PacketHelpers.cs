@@ -83,6 +83,20 @@ namespace FOMServer.Shared.Core.FOMPacket
             return size;
         }
 
+        /// <summary>
+        /// Returns the packet ID of the given packet type
+        /// </summary>
+        public static PacketIdentifier GetPacketTypeID<TPacket>() where TPacket : unmanaged
+        {
+            var type = typeof(TPacket);
+            if (!s_idByPacketType.TryGetValue(type, out var expectedID))
+                throw new ArgumentException($"Type {type.Name} is not mapped to any PacketID");
+            return expectedID;
+        }
+
+        /// <summary>
+        /// Checks to see if a given packet type matches what the ID expects.
+        /// </summary>
         public static bool IsPacketOfType<TPacket>(PacketIdentifier id) where TPacket : unmanaged
         {
             var type = typeof(TPacket);

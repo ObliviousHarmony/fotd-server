@@ -11,34 +11,17 @@ namespace FOMServer.Shared.Core.Networking
     /// </summary>
     public class PacketBuffer
     {
-        /// <summary>
-        /// Indicates whether or not the buffer has been allocated.
-        /// </summary>
         private int _allocated;
-
-        /// <summary>
-        /// The number of packet references pulled from the buffer.
-        /// </summary>
         private int _refCount;
-
-        /// <summary>
-        /// The raw buffer containing the packet data structs.
-        /// </summary>
         private byte[]? _buffer;
-
-        /// <summary>
-        /// The IDs of the packets in the buffer.
-        /// </summary>
         private PacketIdentifier[]? _packetIDs;
 
         /// <summary>
-        /// A buffer for holding packet references to be returned after allocation.
+        /// A buffer for holding onto packet references so that each usage of the buffer
+        /// does not need to allocate a new array and use more heap memory.
         /// </summary>
         private readonly PacketRef[] _packetRefs = new PacketRef[IPacketService.MaxBufferedPackets];
 
-        /// <summary>
-        /// Allocates the buffer to hold the received packets.
-        /// </summary>
         public unsafe byte[]? Rent(ReceivedPackets received)
         {
             if (Interlocked.CompareExchange(ref _allocated, 1, 0) != 0)
@@ -73,9 +56,6 @@ namespace FOMServer.Shared.Core.Networking
             return _buffer;
         }
 
-        /// <summary>
-        /// Gets references to all of the packets contained in the buffer.
-        /// </summary>
         public Span<PacketRef> GetPackets()
         {
             if (Volatile.Read(ref _allocated) != 1 || Volatile.Read(ref _refCount) == 0)
@@ -87,6 +67,10 @@ namespace FOMServer.Shared.Core.Networking
         /// <summary>
         /// Frees the packet reference so that the buffer can be disposed.
         /// </summary>
+        /// <remarks>
+        /// Every PacketRef returned from this buffer MUST be freed in
+        /// order for the buffer to be returned to the pool.
+        /// </remarks>
         public void Free(in PacketRef refToFree)
         {
             if (Volatile.Read(ref _refCount) == 0)
@@ -106,9 +90,6 @@ namespace FOMServer.Shared.Core.Networking
             }
         }
 
-        /// <summary>
-        /// Using the given index, finds where in the buffer the selected packet starts.
-        /// </summary>
         private int GetPacketStart(int index)
         {
             if (Volatile.Read(ref _allocated) != 1 || Volatile.Read(ref _buffer) == null)

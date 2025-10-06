@@ -13,30 +13,11 @@ namespace FOMServer.Shared.Core.Networking
     /// </remarks>
     public struct PacketRef : IDisposable
     {
-        /// <summary>
-        /// Keeps track of whether or not the buffer has been disposed.
-        /// </summary>
-        private int _disposed;
-
-        /// <summary>
-        /// The ID of the packet this references.
-        /// </summary>
         public readonly PacketIdentifier ID;
-
-        /// <summary>
-        /// The sender of the packet this references.
-        /// </summary>
         public readonly NetworkAddress Sender;
-
-        /// <summary>
-        /// The raw buffer for the packet this references.
-        /// </summary>
         private readonly Memory<byte> _data;
-
-        /// <summary>
-        /// A reference to the buffer that this packet references.
-        /// </summary>
         private readonly PacketBuffer _parentBuffer;
+        private int _disposed;
 
         public PacketRef(
             PacketIdentifier id,
