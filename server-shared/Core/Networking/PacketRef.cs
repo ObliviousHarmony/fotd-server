@@ -35,7 +35,7 @@ namespace FOMServer.Shared.Core.Networking
         public ref TPacket Data<TPacket>() where TPacket : unmanaged
         {
             if (Volatile.Read(ref _disposed) == 1)
-                throw new ObjectDisposedException("PacketRef");
+                throw new ObjectDisposedException(nameof(PacketRef));
 
             if (!PacketHelpers.IsPacketOfType<TPacket>(ID))
                 throw new InvalidOperationException($"PacketRef does not contain data of type {typeof(TPacket)}");

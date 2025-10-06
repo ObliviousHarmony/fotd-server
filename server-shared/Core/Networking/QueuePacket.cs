@@ -8,7 +8,7 @@ namespace FOMServer.Shared.Core.Networking
 {
     public struct QueuePacket : IDisposable
     {
-        public struct PacketData<TPacket> where TPacket : unmanaged
+        public ref struct PacketData<TPacket> : IDisposable where TPacket : unmanaged
         {
             private readonly byte[] _data;
 
@@ -19,20 +19,25 @@ namespace FOMServer.Shared.Core.Networking
             /// </summary>
             private int _transferred;
 
+            /// <summary>
+            /// Indicates whether or not the packet has been disposed.
+            /// </summary>
+            private int _disposed;
+
             public PacketData()
             {
                 PacketIdentifier id = PacketHelpers.GetPacketTypeID<TPacket>();
                 _data = ArrayPool<byte>.Shared.Rent(PacketHelpers.GetPacketSize(id));
             }
 
-            public byte[] RawData
+            public byte[] TransferData()
             {
-                get
-                {
-                    if (Interlocked.CompareExchange(ref _transferred, 1, 0) == 1)
-                        throw new InvalidOperationException("Packet data has already been transferred to the packet queue and can no longer be accessed");
-                    return _data;
-                }
+                if (Volatile.Read(ref _disposed) != 0)
+                    throw new ObjectDisposedException(nameof(QueuePacket));
+                if (Interlocked.CompareExchange(ref _transferred, 1, 0) == 1)
+                    throw new InvalidOperationException("Packet data has already been transferred");
+
+                return _data;
             }
 
             public ref TPacket Data
@@ -40,9 +45,20 @@ namespace FOMServer.Shared.Core.Networking
                 get
                 {
                     if (Volatile.Read(ref _transferred) == 1)
-                        throw new InvalidOperationException("Packet data has already been transferred to the packet queue and can no longer be accessed");
+                        throw new InvalidOperationException("Packet data has already been transferred and cannot be accessed");
+                    if (Volatile.Read(ref _disposed) != 0)
+                        throw new ObjectDisposedException(nameof(QueuePacket));
                     return ref MemoryMarshal.AsRef<TPacket>(_data);
                 }
+            }
+
+            public void Dispose()
+            {
+                if (Interlocked.CompareExchange(ref _disposed, 1, 0) != 0)
+                    return;
+
+                if (Volatile.Read(ref _transferred) == 0)
+                    ArrayPool<byte>.Shared.Return(_data);
             }
         }
 
@@ -131,7 +147,7 @@ namespace FOMServer.Shared.Core.Networking
                 throw new InvalidOperationException("Queue packet already contains buffer data");
 
             _id = PacketHelpers.GetPacketTypeID<TPacket>();
-            _buffer = packetData.RawData;
+            _buffer = packetData.TransferData();
         }
 
         public Span<NetworkAddress> NetworkAddresses()

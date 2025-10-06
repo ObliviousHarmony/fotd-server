@@ -1,4 +1,3 @@
-using System;
 using System.Buffers;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
