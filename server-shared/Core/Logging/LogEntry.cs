@@ -1,5 +1,6 @@
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
+using FOMServer.Shared.Core.Networking;
 
 namespace FOMServer.Shared.Core.Logging
 {
@@ -94,7 +95,7 @@ namespace FOMServer.Shared.Core.Logging
 
     public struct PacketExceptionLogEntry
     {
-        public Packet Packet { get; private set; }
+        public PacketRef Packet { get; private set; }
         public Exception Exception { get; private set; }
 
         public string Format(DateTime timestamp)
@@ -102,7 +103,7 @@ namespace FOMServer.Shared.Core.Logging
             return $"[{timestamp:O}][{LogLevel.Critical}]: Packet {Packet.ID} from {Packet.Sender}: {Exception}";
         }
 
-        public static LogEntry Create(Packet packet, Exception ex)
+        public static LogEntry Create(in PacketRef packet, Exception ex)
         {
             return new LogEntry
             {

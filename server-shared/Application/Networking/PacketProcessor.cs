@@ -5,6 +5,7 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
+using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Application.Networking
@@ -20,7 +21,7 @@ namespace FOMServer.Shared.Application.Networking
         private readonly IShutdownManager _shutdownManager;
         private readonly ILogService _logService;
         private readonly Dictionary<PacketIdentifier, IPacketHandler> _handlers;
-        private readonly Channel<Packet> _packetQueue;
+        private readonly Channel<PacketRef> _packetQueue;
         private readonly List<Task> _workers = [];
 
         private CancellationTokenSource? _cts;
@@ -50,7 +51,7 @@ namespace FOMServer.Shared.Application.Networking
                 return packetIDAttr.ID;
             });
 
-            _packetQueue = Channel.CreateUnbounded<Packet>(
+            _packetQueue = Channel.CreateUnbounded<PacketRef>(
                 new UnboundedChannelOptions
                 {
                     SingleReader = false,
@@ -62,7 +63,7 @@ namespace FOMServer.Shared.Application.Networking
         /// <summary>
         /// Enqueue a packet for processing.
         /// </summary>
-        public void Enqueue(in Packet packet)
+        public void Enqueue(in PacketRef packet)
         {
             _packetQueue.Writer.TryWrite(packet);
         }
@@ -102,7 +103,7 @@ namespace FOMServer.Shared.Application.Networking
         {
             while (!ct.IsCancellationRequested)
             {
-                Packet packet;
+                PacketRef packet;
 
                 try
                 {
@@ -129,7 +130,13 @@ namespace FOMServer.Shared.Application.Networking
                     // Letting unhandled exceptions prevent further packet processing
                     // would silently break break the server, so log and continue.
                     _logService.WritePacketException(packet, ex);
-                    continue;
+                }
+                finally
+                {
+                    // Make sure that we free the packet so that the buffer can be
+                    // returned to the pool once all of the packets it contains
+                    // have been processed and disposed.
+                    packet.Dispose();
                 }
             }
 
@@ -141,7 +148,7 @@ namespace FOMServer.Shared.Application.Networking
         /// <summary>
         /// When a packet has no handler defined, this function will be called so it can be dealt with.
         /// </summary>
-        private void OnUnhandledPacket(Packet packet)
+        private void OnUnhandledPacket(PacketRef packet)
         {
             // Any unhandled internal packets should be ignored.
             if (packet.ID < PacketIdentifier.ID_FOM_PACKET_START)

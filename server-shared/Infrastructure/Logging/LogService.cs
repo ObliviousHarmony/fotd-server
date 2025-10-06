@@ -2,8 +2,8 @@ using System.Diagnostics.Metrics;
 using System.Threading.Channels;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.Logging;
+using FOMServer.Shared.Core.Networking;
 
 namespace FOMServer.Shared.Infrastructure.Logging
 {
@@ -81,7 +81,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
         /// <summary>
         /// Write a log entry for a packet exception.
         /// </summary>
-        public void WritePacketException(Packet packet, Exception ex)
+        public void WritePacketException(in PacketRef packet, Exception ex)
         {
             Write(PacketExceptionLogEntry.Create(packet, ex));
         }

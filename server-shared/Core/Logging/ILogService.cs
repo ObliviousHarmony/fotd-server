@@ -1,5 +1,5 @@
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.FOMPacket;
+using FOMServer.Shared.Core.Networking;
 
 namespace FOMServer.Shared.Core.Logging
 {
@@ -11,6 +11,6 @@ namespace FOMServer.Shared.Core.Logging
         void Write(in LogEntry entry);
         void WriteMessage(LogLevel level, string message);
         void WriteException(Exception ex);
-        void WritePacketException(Packet packet, Exception ex);
+        void WritePacketException(in PacketRef packet, Exception ex);
     }
 }
