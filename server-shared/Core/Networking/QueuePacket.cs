@@ -10,7 +10,7 @@ namespace FOMServer.Shared.Core.Networking
     {
         public ref struct PacketData<TPacket> : IDisposable where TPacket : unmanaged
         {
-            private readonly byte[] _data;
+            private byte[] _data;
 
             /// <summary>
             /// Indicates whether or not the packet's data has been transferred
@@ -53,7 +53,7 @@ namespace FOMServer.Shared.Core.Networking
                         throw new InvalidOperationException("Packet data has already been transferred and cannot be accessed");
                     if (Volatile.Read(ref _disposed) != 0)
                         throw new ObjectDisposedException(nameof(QueuePacket));
-                    return ref MemoryMarshal.AsRef<TPacket>(_data);
+                    return ref MemoryMarshal.AsRef<TPacket>(_data.AsSpan());
                 }
             }
 
@@ -148,7 +148,7 @@ namespace FOMServer.Shared.Core.Networking
             if (Volatile.Read(ref _disposed) == 1)
                 throw new ObjectDisposedException(nameof(QueuePacket));
 
-            if (Volatile.Read(ref _buffer) == null)
+            if (Volatile.Read(ref _buffer) != null)
                 throw new InvalidOperationException("Queue packet already contains buffer data");
 
             _id = PacketHelpers.GetPacketTypeID<TPacket>();

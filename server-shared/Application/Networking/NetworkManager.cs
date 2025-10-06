@@ -1,4 +1,5 @@
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading.Channels;
 using FOMServer.Shared.Core;
@@ -147,7 +148,7 @@ namespace FOMServer.Shared.Application.Networking
                     {
                         Span<GCHandle> handles = stackalloc GCHandle[numToSend];
                         Span<SendPacket> sendPackets = stackalloc SendPacket[numToSend];
-                        for (int i = 0; i < numToSend; i++)
+                        for (int i = 0; i < numToSend; ++i)
                         {
                             var packetToSend = _sendBuffer[i];
 
@@ -157,19 +158,30 @@ namespace FOMServer.Shared.Application.Networking
                             sendPackets[i] = new SendPacket
                             {
                                 ID = packetToSend.ID,
-                                Data = MemoryMarshal.Cast<byte, FOMDataUnion>(packetToSend.Data)[0],
                                 NetworkAddress = packetToSend.NetworkAddresses()[0],
                                 Priority = packetToSend.Priority,
                                 Reliability = packetToSend.Reliability,
                                 OrderingChannel = packetToSend.OrderingChannel,
                                 Broadcast = (byte)(packetToSend.Broadcast ? 1 : 0)
                             };
+
+                            unsafe
+                            {
+                                fixed (byte* p = packetToSend.Data)
+                                {
+                                    Unsafe.CopyBlockUnaligned(
+                                        ref Unsafe.As<FOMDataUnion, byte>(ref sendPackets[i].Data),
+                                        ref *p,
+                                        (uint)PacketHelpers.GetPacketSize(packetToSend.ID)
+                                    );
+                                }
+                            }
                         }
 
                         _packetService.Send(_peer, sendPackets);
 
                         // Free all of the handles since we're done with the packets.
-                        for (int i = 0; i < numToSend; i++)
+                        for (int i = 0; i < numToSend; ++i)
                             handles[i].Free();
                     }
 

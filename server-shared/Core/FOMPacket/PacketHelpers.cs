@@ -121,27 +121,6 @@ namespace FOMServer.Shared.Core.FOMPacket
         /// </summary>
         private static readonly Dictionary<PacketIdentifier, FieldInfo> s_unionFieldsByID;
 
-
-
-
-        /// <summary>
-        /// Wraps a data struct into a union and returns its associated packet ID.
-        /// </summary>
-        public static FOMDataUnion Wrap<TData>(TData data, out PacketIdentifier id) where TData : unmanaged
-        {
-            var type = typeof(TData);
-
-            if (!s_idByPacketType.TryGetValue(type, out id))
-                throw new ArgumentException($"Type {type.Name} is not mapped to any PacketID");
-
-            if (!s_unionFieldsByID.TryGetValue(id, out var field))
-                throw new ArgumentException($"No union field found for packet ID {id}");
-
-            var union = new FOMDataUnion();
-            field.SetValueDirect(__makeref(union), data);
-            return union;
-        }
-
         /// <summary>
         /// Unwraps a packet's data union to return the strongly-typed data struct.
         /// Validates that the packet ID matches the expected type.
