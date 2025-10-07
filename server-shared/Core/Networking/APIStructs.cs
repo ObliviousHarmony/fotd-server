@@ -38,9 +38,9 @@ namespace FOMServer.Shared.Core.Networking
     /// Represents a network packet to be sent, including its destination, data, and transmission settings.
     /// </summary>
     /// <remarks>
-    /// This structure encapsulates all the necessary information for sending a packet over the network. It
-    /// includes the destination address, the packet data, and various transmission options such as priority, reliability,
-    /// and ordering channel.
+    /// This structure contains a pointer to the packet's data in managed memory. This is done so that
+    /// the packet data can be read from a shared buffer to avoid unnecessary pinning of small memory
+    /// blocks.
     ///
     /// Must match the struct in `fom-network/include/fom-network/PacketAPI.h`
     /// </remarks>
@@ -48,7 +48,7 @@ namespace FOMServer.Shared.Core.Networking
     public struct SendPacket
     {
         public PacketIdentifier ID;
-        public FOMDataUnion Data;
+        public IntPtr Data;
         public NetworkAddress NetworkAddress;
         public PacketPriority Priority;
         public PacketReliability Reliability;

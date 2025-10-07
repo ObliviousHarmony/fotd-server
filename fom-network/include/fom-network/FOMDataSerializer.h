@@ -32,20 +32,20 @@ class FOM_API FOMDataSerializer {
    *
    * @param bs The bitstream to write to.
    * @param id The packet ID to write.
-   * @param data The packet data to write.
+   * @param data A buffer containing the packet data to write.
    */
   static bool Write(RakNet::BitStream& bs, const PacketIdentifier id,
-                    const FOMDataUnion& data);
+                    const uint8_t* data);
 
   /**
    * Reads a bitstream buffer into packet data.
    *
    * @param bs The bitstream to read from.
    * @param id The packet ID to read.
-   * @param dataBuffer A buffer to read the packet data into.
+   * @param data A buffer to read the packet data into.
    */
   static bool Read(RakNet::BitStream& bs, const PacketIdentifier id,
-                   uint8_t* dataBuffer);
+                   uint8_t* data);
 
  private:
   /**

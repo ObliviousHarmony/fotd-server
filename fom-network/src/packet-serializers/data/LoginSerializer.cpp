@@ -2,7 +2,8 @@
 
 namespace FOMNetwork {
 
-bool LoginSerializer::ReadData(RakNet::BitStream& bs, Packet::Login& data) const {
+bool LoginSerializer::ReadData(RakNet::BitStream& bs,
+                               Packet::Login& data) const {
   DecodeString(bs, data.username);
   ReadRawString(bs, data.passwordHash);
   bs.Read(data.clientCRC);

@@ -88,7 +88,7 @@ static const std::unordered_map<uint32_t, IReader*> readerMap = {
 };
 
 bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id,
-                              const FOMDataUnion& data) {
+                              const uint8_t* data) {
   const auto* writer = GetWriter(id);
   if (!writer) {
     return false;

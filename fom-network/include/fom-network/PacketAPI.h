@@ -50,8 +50,8 @@ struct SendPacket {
   /* The identifier for the packet being sent. */
   FOMNetwork::PacketIdentifier id;
 
-  /* The discriminated union for communicating packet data. */
-  FOMNetwork::FOMDataUnion data;
+  /* A pointer to the memory containing the packet data. */
+  uint8_t* data;
 
   /* The destination for the packet or the excluded address if it is a
    * broadcast. */
