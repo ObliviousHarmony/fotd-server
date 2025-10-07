@@ -1,6 +1,6 @@
+#include <fom-network/FOMDataSerializer.h>
 #include <fom-network/NetworkAPI.h>
 #include <fom-network/packets/PacketTypes.h>
-#include <fom-network/FOMDataSerializer.h>
 
 #include <unordered_map>
 #include <unordered_set>
