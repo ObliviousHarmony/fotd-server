@@ -36,21 +36,6 @@ ASSERT_BLITTABLE(ExamplePacket);
 }  // namespace FOMNetwork
 ```
 
-- [ ] **Data Union**: Each packet needs to be included in [the `FOMDataUnion`
-  union](../fom-network/include/fom-network/packets/FOMPacket.h) in order to be seen by the server.
-
-```cpp
-/**
- * A union representing all of FoM's packet data types.
- */
-struct FOMDataUnion {
-  union {
-    ...
-    Packet::ExamplePacket examplePacket;
-  };
-};
-```
-
 - [ ] **Serializer Declaration**: Each packet to be sent or received
   [requires a reader and/or writer](../fom-network/include/fom-network/packets/PacketSerializers.h)
   that is able to deal with the packet's `BitStream`. Macros are provided to eliminate
@@ -91,31 +76,22 @@ bool ExamplePacketSerializer::ReadData(RakNet::BitStream& bs, Packet::ExamplePac
 }  // namespace FOMNetwork
 ```
 
-- [ ] **Enable Serializer**: Each serializer needs to be
+- [ ] **Enable Packet + Serializer**: Each packet size and serializer needs to be
   [included in a map](../fom-network/src/FOMDataSerializer.cpp) in order for the network
   library to make use of it when reading and writing packet data. It should only be
   added to the map that corresponds with the behavior that it implements.
 
 ```cpp
+const std::unordered_map<uint8_t, size_t> FOMDataSerializer::PacketSizes = {
+    ...
+    {ID_EXAMPLE, sizeof(Packet::ExamplePacket)},
+};
 static std::unordered_map<uint32_t, IWriter*> writerMap = {
     ...
     {ID_EXAMPLE, &ExamplePacketSerializer::GetInstance()}};
 static std::unordered_map<uint32_t, IReader*> readerMap = {
     ...
     {ID_EXAMPLE, &ExamplePacketSerializer::GetInstance()},
-};
-```
-
-- [ ] **Interop Struct Validation**: Each packet struct needs to be added to
-  [the validation map](../fom-network/src/NetworkAPI.cpp) so that it can be
-  compared with the server's representation.
-
-```cpp
-// List all of the structs that we have defined in the library
-// so that they can be compared to the consumer's structs.
-std::unordered_map<uint8_t, uint32_t> libraryMap = {
-  ...
-  {ID_EXAMPLE, sizeof(Packet::ExamplePacket)}
 };
 ```
 
@@ -148,20 +124,6 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
         public ushort ExampleShort;
     }
 }
-```
-
-- [ ] **Data Union**: Each packet type must be added to
-  [the managed struct data union](../server-shared/Core/FOMPacket/FOMDataUnion.cs).
-
-```csharp
-// .NET does not really support unions but we can replicate the behavior by
-// including a bunch of fields that have overlapping memory.
-[StructLayout(LayoutKind.Explicit, Pack = 1)]
-    public struct FOMDataUnion
-    {
-        ...
-        [FieldOffset(0)] public ExamplePacket ExamplePacket;
-    }
 ```
 
 ## Master/World Server

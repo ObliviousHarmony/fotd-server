@@ -1,13 +1,13 @@
 using System.Runtime.InteropServices;
-using FOMServer.Shared.Core.FOMPacket;
-using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.Networking;
+using FOMServer.Shared.Core.Packets;
+using FOMServer.Shared.Core.Packets.Data;
 
 namespace FOMServer.Shared.Services.FOMNetwork
 {
     public partial class NetworkService : INetworkService
     {
-        public void ValidateFOMPacket()
+        public void ValidatePacketStructs()
         {
             // Ensure all of the API communication structs are blittable.
             if (!IsBlittable<NetworkAddress>())

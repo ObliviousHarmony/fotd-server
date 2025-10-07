@@ -17,11 +17,10 @@ to avoid data marshalling between managed and unmanaged code.
 
 ### Packet Structs
 
-To simplify the interop there is a central `FOMPacket` struct. This contains a discriminated
-union of all the types of packet data that the game sends or receives. This allows consumers
-to have a single struct instead of needing to work with complicated variable length buffers.
-A union like this _does_ use more memory (it allocates space for the largest struct in the
-union), however, the packets are short-lived enough that it doesn't use very much memory.
+All packet types are represented with a dedicated struct. These packets make aggressive use
+of direct memory access in order to avoid extra heap allocations. This allows for packets
+to take up as little memory as possible while also allowing for occasional but very large
+structs to be used.
 
 ### Interop Struct Validation
 
@@ -59,7 +58,7 @@ place in two stages.
 
 - **Receiving**: The consumer calls into the library to poll RakNet for packets.
 Instead of immediately parsing them and returning them, the library returns a structure that
-contains all of the packet pointers and a count.
+contains all of the packet pointers, their packet identifiers, and the number of packets.
 - **Processing**: Using the count from the receiving step, the consumer provides a buffer of
 managed memory that the library can write to. The packet pointer structure from the previous
 step is passed back with the buffer and the library deserializes the packet bitstreams into

@@ -2,7 +2,6 @@ using System.Reflection;
 using System.Threading.Channels;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Networking;

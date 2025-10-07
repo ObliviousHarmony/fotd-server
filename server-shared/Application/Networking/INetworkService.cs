@@ -3,7 +3,7 @@ namespace FOMServer.Shared.Core.Networking
     public interface INetworkService
     {
         /// <summary>
-        /// Validates the FOMPacket structures against the network
+        /// Validates the packet structures against the network
         /// library's expected packet structures.
         /// </summary>
         /// <remarks>
@@ -15,6 +15,6 @@ namespace FOMServer.Shared.Core.Networking
         /// <exception>
         /// Throws if the structs do not match the network library's expectations.
         /// </exception>
-        void ValidateFOMPacket();
+        void ValidatePacketStructs();
     }
 }

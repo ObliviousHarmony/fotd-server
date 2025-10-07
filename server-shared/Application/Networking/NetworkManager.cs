@@ -4,9 +4,9 @@ using System.Runtime.InteropServices;
 using System.Threading.Channels;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.FOMPacket;
 using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Networking;
+using FOMServer.Shared.Core.Packets;
 
 namespace FOMServer.Shared.Application.Networking
 {

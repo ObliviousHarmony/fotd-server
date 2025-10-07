@@ -1,5 +1,5 @@
 using System.Collections.Concurrent;
-using FOMServer.Shared.Core.FOMPacket;
+using FOMServer.Shared.Core.Packets;
 using FOMServer.World.Core.Players;
 
 namespace FOMServer.World.Application.Players

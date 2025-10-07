@@ -1,10 +1,10 @@
 using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.FOMPacket.Data;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Networking;
+using FOMServer.Shared.Core.Packets.Data;
 using FOMServer.World.Application.Networking;
 using FOMServer.World.Core;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,7 +45,7 @@ namespace FOMServer.World.Application
             // We need to make sure our packet structs are all blittable and match the C++ side.
             // This is critical to ensure that we don't have memory corruption and don't
             // require expensive marshalling of data between managed and unmanaged code.
-            _networkService.ValidateFOMPacket();
+            _networkService.ValidatePacketStructs();
 
             _logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
             _logService.WriteMessage(LogLevel.Info, "Initializing World Server");

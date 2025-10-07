@@ -9,9 +9,7 @@ namespace FOMServer.Shared.Core.Enums
     /// For each new packet added:
     ///
     /// - Core/FOMPacket/Data/<PacketType>.cs: Add a new struct representing the packet data.
-    /// - Core/FOMPacket/FOMDataUnion.cs: Add a new field to the union.
     /// - Server-Specific or Shared: Application/Handlers/<PacketType>Handler.cs: Create a packet handler.
-    /// - Server-Specific: CompositionRoot.cs: Register the packet handler with DI.
     ///
     /// </remarks>
     public enum PacketIdentifier : byte

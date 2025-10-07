@@ -46,7 +46,7 @@ namespace FOMServer.Master.Application
             // We need to make sure our packet structs are all blittable and match the C++ side.
             // This is critical to ensure that we don't have memory corruption and don't
             // require expensive marshalling of data between managed and unmanaged code.
-            _networkService.ValidateFOMPacket();
+            _networkService.ValidatePacketStructs();
 
             _logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
             _logService.WriteMessage(LogLevel.Info, "Initializing Master Server");
