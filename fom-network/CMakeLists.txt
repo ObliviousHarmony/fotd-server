@@ -33,9 +33,9 @@ set(FOMNETWORK_INC
   "include/fom-network/PacketAPI.h"
   "include/fom-network/NetworkAPI.h"
   "include/fom-network/FOMDataSerializer.h"
- 
-  "include/fom-network/packets/FOMPacket.h"
+  
   "include/fom-network/packets/PacketIdentifier.h"
+  "include/fom-network/packets/PacketTypes.h"
   "include/fom-network/packets/PacketSerializers.h"
   "src/packet-serializers/models/ModelSerializer.h"
   "include/fom-network/packets/NetworkAddress.h"

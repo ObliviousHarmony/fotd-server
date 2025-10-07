@@ -1,7 +1,7 @@
 #pragma once
 
 #include <fom-network/FOMNetworkExport.h>
-#include <fom-network/packets/FOMPacket.h>
+#include <fom-network/packets/PacketTypes.h>
 
 #pragma warning(push)
 #pragma warning(disable : 26495)

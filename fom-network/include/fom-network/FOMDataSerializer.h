@@ -1,7 +1,7 @@
 #pragma once
 
 #include <fom-network/FOMNetworkExport.h>
-#include <fom-network/packets/FOMPacket.h>
+#include <fom-network/packets/PacketIdentifier.h>
 #include <fom-network/packets/PacketSerializers.h>
 
 #include <memory>

@@ -1,8 +1,6 @@
-using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Security.AccessControl;
-using FOMServer.Shared.Core.FOMPacket;
+using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Metadata;
 
@@ -11,47 +9,11 @@ namespace FOMServer.Tests
     public class FOMPacketTest
     {
         [Fact]
-        public void FOMPacket_DataUnionFields_ShouldBeDefinedCorrectly()
-        {
-            // The FOMDataUnion struct is designed to replicate a C++ union, where all fields
-            // overlap in memory. To achieve this in C#, each field must be marked with
-            // [FieldOffset(0)] to ensure they all start at the same memory location.
-            var unionFields = typeof(FOMDataUnion).GetFields(BindingFlags.Public | BindingFlags.Instance);
-            foreach (var field in unionFields)
-            {
-                var idAttr = field.FieldType.GetCustomAttribute<PacketIDAttribute>();
-                if (idAttr == null)
-                    Assert.Fail($"Field '{field.Name}' type is missing [PacketID]");
-
-                var offsetAttr = field.GetCustomAttribute<FieldOffsetAttribute>();
-                if (offsetAttr == null || offsetAttr.Value != 0)
-                    Assert.Fail($"Field '{field.Name}' is missing [FieldOffset(0)]");
-            }
-        }
-
-        [Fact]
-        public void FOMPacket_PacketData_ShouldBeInDataUnion()
-        {
-            // Ensures that all of the packet structs with [PacketID] are represented inside of the FOMDataUnion struct.
-            var packetTypes = typeof(FOMDataUnion).Assembly.GetTypes()
-                .Where(t => t.GetCustomAttribute<PacketIDAttribute>() != null)
-                .ToList();
-
-            var unionFields = typeof(FOMDataUnion).GetFields(BindingFlags.Public | BindingFlags.Instance);
-            foreach (var type in packetTypes)
-            {
-                var found = unionFields.Any(f => f.FieldType == type);
-                if (!found)
-                    Assert.Fail($"{type.Name} has [PacketID] but is not represented in FOMDataUnion");
-            }
-        }
-
-        [Fact]
         public void FOMPacket_PacketData_ShouldHaveLayoutAttribute()
         {
             // Every packet struct must explicitly define the memory layout to
             // ensure that it matches the C++ layout exactly.
-            var packetTypes = typeof(FOMDataUnion).Assembly.GetTypes()
+            var packetTypes = typeof(IPacketHandler).Assembly.GetTypes()
                 .Where(t => t.GetCustomAttribute<PacketIDAttribute>() != null)
                 .ToList();
 
