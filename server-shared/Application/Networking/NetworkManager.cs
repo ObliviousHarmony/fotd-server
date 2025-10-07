@@ -209,6 +209,11 @@ namespace FOMServer.Shared.Application.Networking
             catch (OperationCanceledException)
             {
             }
+            catch (Exception ex)
+            {
+                _logService.WriteMessage(LogLevel.Critical, $"Network Failure: {ex}");
+                _shutdownManager.StartShutdown();
+            }
             finally
             {
                 _peerShutdown!(_peer);

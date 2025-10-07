@@ -26,6 +26,11 @@ namespace FOMServer.Shared.Core
         void TrackTask(Task task);
 
         /// <summary>
+        /// Starts the process so that the server can gracefully shut down.
+        /// </summary>
+        void StartShutdown();
+
+        /// <summary>
         /// Shuts the server down gracefully.
         /// </summary>
         Task Shutdown();

@@ -24,6 +24,11 @@ namespace FOMServer.Application.Core
                 _trackedTasks.Add(task);
         }
 
+        public void StartShutdown()
+        {
+            Environment.Exit(-1);
+        }
+
         public async Task Shutdown()
         {
             if (_rootCts.IsCancellationRequested)
