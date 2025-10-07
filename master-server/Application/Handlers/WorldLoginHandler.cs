@@ -30,20 +30,19 @@ namespace FOMServer.Master.Application.Handlers
             _worldPacketSender = worldPacketSender;
         }
 
-        public override void Handle(NetworkAddress sender, in WorldLogin data)
+        public override void Handle(NetworkAddress sender, in WorldLogin p)
         {
-            var worldServer = _worldServerService.Get(data.WorldID);
+            var worldServer = _worldServerService.Get(p.WorldID);
             if (worldServer == null)
             {
-                var response = new WorldLoginReturn()
-                {
-                    Status = WorldLoginReturn.StatusCode.WORLD_LOGIN_RETURN_SERVER_UNAVAILABLE,
-                    WorldID = data.WorldID
-                };
+                using var unavailableResponse = QueuePacket.Create<WorldLoginReturn>();
+                ref var urData = ref unavailableResponse.Data;
 
-                var responsePacket = new QueuePacket.PacketData<WorldLoginReturn>(response);
+                urData.Status = WorldLoginReturn.StatusCode.WORLD_LOGIN_RETURN_SERVER_UNAVAILABLE;
+                urData.WorldID = p.WorldID;
+
                 _clientPacketSender.Send(
-                    responsePacket,
+                    unavailableResponse,
                     sender,
                     PacketPriority.MEDIUM_PRIORITY,
                     PacketReliability.RELIABLE_ORDERED
@@ -55,18 +54,17 @@ namespace FOMServer.Master.Application.Handlers
             if (player == null)
                 throw new InvalidOperationException($"Player not found for address {sender}");
 
-            if (player.ID != data.PlayerID)
-                throw new InvalidOperationException($"Player {player.ID} Provided Wrong ID: {data.PlayerID}");
+            if (player.ID != p.PlayerID)
+                throw new InvalidOperationException($"Player {player.ID} Provided Wrong ID: {p.PlayerID}");
 
-            var worldResponse = new PlayerEnteringWorld()
-            {
-                PlayerID = data.PlayerID,
-                SelectedNodeID = data.SelectedNodeID,
-            };
+            using var worldResponse = QueuePacket.Create<PlayerEnteringWorld>();
+            ref var wrData = ref worldResponse.Data;
 
-            var worldResponsePacket = new QueuePacket.PacketData<PlayerEnteringWorld>(worldResponse);
+            wrData.PlayerID = p.PlayerID;
+            wrData.SelectedNodeID = p.SelectedNodeID;
+
             _worldPacketSender.Send(
-                worldResponsePacket,
+                worldResponse,
                 worldServer.ServerAddress,
                 PacketPriority.MEDIUM_PRIORITY,
                 PacketReliability.RELIABLE_ORDERED

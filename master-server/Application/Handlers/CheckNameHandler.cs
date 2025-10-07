@@ -21,16 +21,16 @@ namespace FOMServer.Master.Application.Handlers
             _packetSender = packetSender;
         }
 
-        public override void Handle(NetworkAddress sender, in CheckName data)
+        public override void Handle(NetworkAddress sender, in CheckName p)
         {
-            var existingID = _characterRepository.Exists(data.Name);
+            var existingID = _characterRepository.Exists(p.Name);
 
-            var response = new CheckNameReturn
-            {
-                ExistingPlayerID = existingID ?? 0
-            };
-            var responsePacket = new QueuePacket.PacketData<CheckNameReturn>(response);
-            _packetSender.Send(responsePacket, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
+            using var response = QueuePacket.Create<CheckNameReturn>();
+            ref var rData = ref response.Data;
+
+            rData.ExistingPlayerID = existingID ?? 0;
+
+            _packetSender.Send(response, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
         }
     }
 }

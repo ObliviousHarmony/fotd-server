@@ -28,22 +28,21 @@ namespace FOMServer.Master.Application.Handlers
             _packetSender = packetSender;
         }
 
-        public override void Handle(NetworkAddress sender, in WorldOverview data)
+        public override void Handle(NetworkAddress sender, in WorldOverview p)
         {
             var player = _playerService.Get(sender);
             if (player == null)
                 throw new InvalidOperationException($"Player not found for address {sender}");
-            if (player.ID != data.PlayerID)
-                throw new InvalidOperationException($"Player {player.ID} Provided Wrong ID: {data.PlayerID}");
+            if (player.ID != p.PlayerID)
+                throw new InvalidOperationException($"Player {player.ID} Provided Wrong ID: {p.PlayerID}");
 
-            var response = new WorldOverviewReturn()
-            {
-                PlayerID = player.ID,
-                WorldOverview = _worldOverviewFactory.Create(player),
-            };
+            using var response = QueuePacket.Create<WorldOverviewReturn>();
+            ref var rData = ref response.Data;
 
-            var responsePacket = new QueuePacket.PacketData<WorldOverviewReturn>(response);
-            _packetSender.Send(responsePacket, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
+            rData.PlayerID = player.ID;
+            rData.WorldOverview = _worldOverviewFactory.Create(player);
+
+            _packetSender.Send(response, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
         }
     }
 }

@@ -5,8 +5,8 @@ namespace FOMNetwork {
 bool RegisterWorldSerializer::ReadData(RakNet::BitStream& bs,
                                        Packet::RegisterWorld& data) const {
   bs.ReadCompressed(data.worldID);
-  ReadRawString(bs, data.address);
-  bs.ReadCompressed(data.port);
+  ReadRawString(bs, data.clientAddress);
+  bs.ReadCompressed(data.clientPort);
 
   return true;
 }
@@ -14,8 +14,8 @@ bool RegisterWorldSerializer::ReadData(RakNet::BitStream& bs,
 void RegisterWorldSerializer::WriteData(
     RakNet::BitStream& bs, const Packet::RegisterWorld& data) const {
   bs.WriteCompressed(data.worldID);
-  WriteRawString(bs, data.address);
-  bs.WriteCompressed(data.port);
+  WriteRawString(bs, data.clientAddress);
+  bs.WriteCompressed(data.clientPort);
 }
 
 }  // namespace FOMNetwork

@@ -25,35 +25,28 @@ namespace FOMServer.Master.Application.Handlers
             _packetSender = packetSender;
         }
 
-        public override void Handle(NetworkAddress sender, in Login data)
+        public override void Handle(NetworkAddress sender, in Login p)
         {
-            var player = _playerService.Login(data.Username, data.PasswordHash, sender);
+            var player = _playerService.Login(p.Username, p.PasswordHash, sender);
             if (player == null)
                 return;
 
-            LoginReturn response;
+            using var response = QueuePacket.Create<LoginReturn>();
+            ref var rData = ref response.Data;
+
             if (player.HasCharacter)
             {
-                response = new LoginReturn()
-                {
-                    Status = LoginReturn.StatusCode.LOGIN_RETURN_SUCCESS,
-                    PlayerID = player.ID,
-                    AccountType = 3,
-                    IsVolunteer = false,
-                    ClientVersion = GlobalConstants.ClientVersion,
-                    WorldOverview = _worldOverviewFactory.Create(player),
-                };
+                rData.Status = LoginReturn.StatusCode.LOGIN_RETURN_SUCCESS;
+                rData.PlayerID = player.ID;
+                rData.AccountType = 3;
+                rData.IsVolunteer = false;
+                rData.ClientVersion = GlobalConstants.ClientVersion;
+                rData.WorldOverview = _worldOverviewFactory.Create(player);
             }
             else
-            {
-                response = new LoginReturn()
-                {
-                    Status = LoginReturn.StatusCode.LOGIN_RETURN_CREATE_CHARACTER,
-                };
-            }
+                rData.Status = LoginReturn.StatusCode.LOGIN_RETURN_CREATE_CHARACTER;
 
-            var responsePacket = new QueuePacket.PacketData<LoginReturn>(response);
-            _packetSender.Send(responsePacket, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
+            _packetSender.Send(response, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
         }
     }
 }

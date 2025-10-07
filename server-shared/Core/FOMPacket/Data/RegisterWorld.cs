@@ -8,21 +8,23 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct RegisterWorld
     {
-        public WorldID WorldID;
-        public fixed byte RawAddress[255];
-        public ushort Port;
+        public const int AddressSize = 255;
 
-        public string Address
+        public WorldID WorldID;
+        public fixed byte RawClientAddress[AddressSize];
+        public ushort ClientPort;
+
+        public string ClientAddress
         {
             get
             {
-                fixed (byte* ptr = RawAddress)
-                    return CStringParser.ToString(ptr, 18);
+                fixed (byte* ptr = RawClientAddress)
+                    return CStringParser.ToString(ptr, AddressSize);
             }
             set
             {
-                fixed (byte* ptr = RawAddress)
-                    CStringParser.FromString(value, ptr, 18);
+                fixed (byte* ptr = RawClientAddress)
+                    CStringParser.FromString(value, ptr, AddressSize);
             }
         }
     }

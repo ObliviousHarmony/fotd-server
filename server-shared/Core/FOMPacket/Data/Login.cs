@@ -8,19 +8,23 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct Login
     {
-        public fixed byte RawUsername[19];
-        public fixed byte RawPasswordHash[32];
+        public const int UsernameSize = 19;
+        public const int PasswordHashSize = 32;
+        public const int MACAddressSize = 18;
+
+        public fixed byte RawUsername[UsernameSize];
+        public fixed byte RawPasswordHash[PasswordHashSize];
         public uint ClientCRC;
         public uint CShellCRC;
         public uint ObjectCRC;
-        public fixed byte RawMACAddress[18];
+        public fixed byte RawMACAddress[MACAddressSize];
 
         public string Username
         {
             get
             {
                 fixed (byte* ptr = RawUsername)
-                    return CStringParser.ToString(ptr, 19);
+                    return CStringParser.ToString(ptr, UsernameSize);
             }
         }
 
@@ -29,7 +33,7 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
             get
             {
                 fixed (byte* ptr = RawPasswordHash)
-                    return CStringParser.ToString(ptr, 32);
+                    return CStringParser.ToString(ptr, PasswordHashSize);
             }
         }
 
@@ -38,7 +42,7 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
             get
             {
                 fixed (byte* ptr = RawMACAddress)
-                    return CStringParser.ToString(ptr, 18);
+                    return CStringParser.ToString(ptr, MACAddressSize);
             }
         }
     }

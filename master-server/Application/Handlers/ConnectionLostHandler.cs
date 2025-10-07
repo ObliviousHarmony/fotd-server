@@ -23,7 +23,7 @@ namespace FOMServer.Master.Application.Handlers
             _logService = logService;
         }
 
-        public override void Handle(NetworkAddress sender, in ConnectionLost data)
+        public override void Handle(NetworkAddress sender, in ConnectionLost p)
         {
             if (TryWorldServerUnregister(sender))
                 return;

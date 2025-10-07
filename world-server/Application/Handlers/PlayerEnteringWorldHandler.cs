@@ -21,21 +21,19 @@ namespace FOMServer.World.Application.Handlers
             _playerService = playerService;
         }
 
-        public override void Handle(NetworkAddress sender, in PlayerEnteringWorld data)
+        public override void Handle(NetworkAddress sender, in PlayerEnteringWorld p)
         {
-            var response = new PlayerEnteringWorldReturn
-            {
-                PlayerID = data.PlayerID,
-            };
+            using var response = QueuePacket.Create<PlayerEnteringWorldReturn>();
+            ref var rData = ref response.Data;
 
-            var player = _playerService.OnPlayerEnteringWorld(data.PlayerID, data.SelectedNodeID);
+            rData.PlayerID = p.PlayerID;
+            var player = _playerService.OnPlayerEnteringWorld(p.PlayerID, p.SelectedNodeID);
             if (player == null)
-                response.Status = PlayerEnteringWorldReturn.StatusCode.PLAYER_ENTERING_WORLD_RETURN_ALREADY_IN_WORLD;
+                rData.Status = PlayerEnteringWorldReturn.StatusCode.PLAYER_ENTERING_WORLD_RETURN_ALREADY_IN_WORLD;
             else
-                response.Status = PlayerEnteringWorldReturn.StatusCode.PLAYER_ENTERING_WORLD_RETURN_READY;
+                rData.Status = PlayerEnteringWorldReturn.StatusCode.PLAYER_ENTERING_WORLD_RETURN_READY;
 
-            var responsePacket = new QueuePacket.PacketData<PlayerEnteringWorldReturn>(response);
-            _packetSender.Send(responsePacket, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
+            _packetSender.Send(response, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
         }
     }
 }

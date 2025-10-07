@@ -125,17 +125,12 @@ namespace FOMServer.World.Application
             networkManager.Configure(peer, _clientService.Disconnect);
 
             // Register this world server with the master server.
-            var responsePacket = new QueuePacket.PacketData<RegisterWorld>(new RegisterWorld
-            {
-                WorldID = _serverSettings.WorldID,
-                Port = _serverSettings.ClientPort,
-                Address = _serverSettings.ClientAddress
-            });
-            packetSender.Send(
-                responsePacket,
-                PacketPriority.MEDIUM_PRIORITY,
-                PacketReliability.RELIABLE
-            );
+            using var registerPacket = QueuePacket.Create<RegisterWorld>();
+            ref var rpData = ref registerPacket.Data;
+            rpData.WorldID = _serverSettings.WorldID;
+            rpData.ClientAddress = _serverSettings.ClientAddress;
+            rpData.ClientPort = _serverSettings.ClientPort;
+            packetSender.Send(registerPacket,PacketPriority.MEDIUM_PRIORITY,PacketReliability.RELIABLE);
 
             return networkManager;
         }

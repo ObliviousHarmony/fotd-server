@@ -9,8 +9,8 @@ namespace Packet {
 #pragma pack(push, 1)
 struct RegisterWorld {
   WorldID worldID;
-  uint8_t address[255];
-  uint16_t port;
+  uint8_t clientAddress[255];
+  uint16_t clientPort;
 };
 #pragma pack(pop)
 

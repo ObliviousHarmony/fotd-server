@@ -32,7 +32,7 @@ namespace FOMServer.Master.Application.Handlers
             _worldOverviewFactory = worldOverviewFactory;
         }
 
-        public override void Handle(NetworkAddress sender, in CreateCharacter data)
+        public override void Handle(NetworkAddress sender, in CreateCharacter p)
         {
             var player = _playerService.Get(sender);
             if (player == null)
@@ -40,31 +40,28 @@ namespace FOMServer.Master.Application.Handlers
 
             var created = _characterRepository.Create(
                 player.ID,
-                data.Avatar.Faction,
-                data.Name,
-                data.Biography,
-                data.Avatar.Sex,
-                data.Avatar.SkinColor,
-                data.Avatar.Face,
-                data.Avatar.Hair
+                p.Avatar.Faction,
+                p.Name,
+                p.Biography,
+                p.Avatar.Sex,
+                p.Avatar.SkinColor,
+                p.Avatar.Face,
+                p.Avatar.Hair
             );
             if (created == null)
                 throw new InvalidOperationException("Failed to create character");
 
             player.HasCharacter = true;
 
-            var response = new LoginReturn()
-            {
-                Status = LoginReturn.StatusCode.LOGIN_RETURN_SUCCESS,
-                PlayerID = player.ID,
-                AccountType = 3,
-                IsVolunteer = false,
-                ClientVersion = GlobalConstants.ClientVersion,
-                WorldOverview = _worldOverviewFactory.Create(player),
-            };
-
-            var responsePacket = new QueuePacket.PacketData<LoginReturn>(response);
-            _packetSender.Send(responsePacket, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
+            using var response = QueuePacket.Create<LoginReturn>();
+            ref var rData = ref response.Data;
+            rData.Status = LoginReturn.StatusCode.LOGIN_RETURN_SUCCESS;
+            rData.PlayerID = player.ID;
+            rData.AccountType = 3;
+            rData.IsVolunteer = false;
+            rData.ClientVersion = GlobalConstants.ClientVersion;
+            rData.WorldOverview = _worldOverviewFactory.Create(player);
+            _packetSender.Send(response, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
         }
     }
 }

@@ -30,15 +30,10 @@ namespace FOMServer.Shared.Core.Networking
                 _data = ArrayPool<byte>.Shared.Rent(PacketHelpers.GetPacketSize(id));
             }
 
-            public PacketData(in TPacket data) : this()
-            {
-                MemoryMarshal.Write(_data, in data);
-            }
-
             public byte[] TransferData()
             {
                 if (Volatile.Read(ref _disposed) != 0)
-                    throw new ObjectDisposedException(nameof(QueuePacket));
+                    throw new ObjectDisposedException(nameof(PacketData<TPacket>));
                 if (Interlocked.CompareExchange(ref _transferred, 1, 0) == 1)
                     throw new InvalidOperationException("Packet data has already been transferred");
 
@@ -52,7 +47,7 @@ namespace FOMServer.Shared.Core.Networking
                     if (Volatile.Read(ref _transferred) == 1)
                         throw new InvalidOperationException("Packet data has already been transferred and cannot be accessed");
                     if (Volatile.Read(ref _disposed) != 0)
-                        throw new ObjectDisposedException(nameof(QueuePacket));
+                        throw new ObjectDisposedException(nameof(PacketData<TPacket>));
                     return ref MemoryMarshal.AsRef<TPacket>(_data.AsSpan());
                 }
             }
@@ -78,6 +73,14 @@ namespace FOMServer.Shared.Core.Networking
         // Mutually exclusive, a packet either has a single destination or multiple.
         private NetworkAddress _networkAddress;
         private NetworkAddress[]? _networkAddresses;
+
+        /// <summary>
+        /// Creates a packet data structure for the specified packet type.
+        /// </summary>
+        public static PacketData<TPacket> Create<TPacket>() where TPacket : unmanaged
+        {
+            return new PacketData<TPacket>();
+        }
 
         public QueuePacket(
             NetworkAddress networkAddress,

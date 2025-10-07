@@ -23,6 +23,6 @@ namespace FOMServer.Shared.Core.Handlers
         /// <summary>
         /// Handles the data from an incoming packet.
         /// </summary>
-        public abstract void Handle(NetworkAddress sender, in TPacketData data);
+        public abstract void Handle(NetworkAddress sender, in TPacketData packet);
     }
 }

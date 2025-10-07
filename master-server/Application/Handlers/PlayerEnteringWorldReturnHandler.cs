@@ -27,9 +27,9 @@ namespace FOMServer.World.Application.Handlers
             _playerService = playerService;
         }
 
-        public override void Handle(NetworkAddress sender, in PlayerEnteringWorldReturn data)
+        public override void Handle(NetworkAddress sender, in PlayerEnteringWorldReturn p)
         {
-            var player = _playerService.Get(data.PlayerID);
+            var player = _playerService.Get(p.PlayerID);
             if (player == null)
                 throw new InvalidOperationException($"Player not found for address {sender}");
 
@@ -37,21 +37,19 @@ namespace FOMServer.World.Application.Handlers
             if (worldServer == null)
                 throw new InvalidOperationException($"World server not found for address {sender}");
 
-            var response = new WorldLoginReturn()
-            {
-                WorldID = worldServer.ID,
-            };
+            using var response = QueuePacket.Create<WorldLoginReturn>();
+            ref var rData = ref response.Data;
 
-            if (data.Status == PlayerEnteringWorldReturn.StatusCode.PLAYER_ENTERING_WORLD_RETURN_READY)
-                response.Status = WorldLoginReturn.StatusCode.WORLD_LOGIN_RETURN_SUCCESS;
-            else if (data.Status == PlayerEnteringWorldReturn.StatusCode.PLAYER_ENTERING_WORLD_RETURN_SERVER_FULL)
-                response.Status = WorldLoginReturn.StatusCode.WORLD_LOGIN_RETURN_SERVER_FULL;
+            rData.WorldID = worldServer.ID;
+            if (p.Status == PlayerEnteringWorldReturn.StatusCode.PLAYER_ENTERING_WORLD_RETURN_READY)
+                rData.Status = WorldLoginReturn.StatusCode.WORLD_LOGIN_RETURN_SUCCESS;
+            else if (p.Status == PlayerEnteringWorldReturn.StatusCode.PLAYER_ENTERING_WORLD_RETURN_SERVER_FULL)
+                rData.Status = WorldLoginReturn.StatusCode.WORLD_LOGIN_RETURN_SERVER_FULL;
             else
-                response.Status = WorldLoginReturn.StatusCode.WORLD_LOGIN_RETURN_INVALID;
+                rData.Status = WorldLoginReturn.StatusCode.WORLD_LOGIN_RETURN_INVALID;
 
-            var responsePacket = new QueuePacket.PacketData<WorldLoginReturn>(response);
             _packetSender.Send(
-                responsePacket,
+                response,
                 player.ClientAddress,
                 PacketPriority.MEDIUM_PRIORITY,
                 PacketReliability.RELIABLE_ORDERED

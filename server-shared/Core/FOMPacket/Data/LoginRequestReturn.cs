@@ -8,6 +8,8 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct LoginRequestReturn
     {
+        public const int UsernameSize = 19;
+
         public enum StatusCode : byte
         {
             LOGIN_REQUEST_INVALID_INFORMATION = 0,
@@ -17,6 +19,6 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
         }
 
         public StatusCode Status;
-        public fixed byte RawUsername[19];
+        public fixed byte RawUsername[UsernameSize];
     }
 }
