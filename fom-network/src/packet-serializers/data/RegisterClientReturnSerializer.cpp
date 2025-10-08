@@ -1,12 +1,14 @@
 #include <fom-network/packets/PacketSerializers.h>
 
 #include "../models/AvatarModelSerializer.h"
+#include "../models/PlayerAttributesModelSerializer.h"
 
 namespace FOMNetwork {
 
 void RegisterClientReturnSerializer::WriteData(
     RakNet::BitStream& bs, const Packet::RegisterClientReturn& data) const {
   AvatarModelSerializer avatarSerializer;
+  PlayerAttributesModelSerializer attributesSerializer;
 
   bs.WriteCompressed(data.worldID);
   bs.WriteCompressed(data.playerID);
@@ -53,76 +55,7 @@ void RegisterClientReturnSerializer::WriteData(
   }
 
   avatarSerializer.Write(bs, data.avatar);
-  bs.Write0(); // Hide Armor
-
-  uint8_t rank = 1;
-  WriteBits(bs, rank, 3);
-
-  // Unknown Bits
-  bs.Write1();
-  bs.Write1();
-  bs.Write1();
-  bs.Write1();
-  bs.Write1();
-  bs.Write1();
-
-  bs.WriteCompressed(data.health);
-  bs.WriteCompressed(data.stamina);
-  bs.WriteCompressed(data.bioEnergy);
-  bs.WriteCompressed(data.aura);
-  bs.WriteCompressed(data.credits);
-  bs.WriteCompressed(data.factionCredits);
-  bs.WriteCompressed(data.experiencePoints);
-  bs.WriteCompressed(data.penaltyPoints);
-  bs.WriteCompressed(data.availableClones);
-
-  bs.WriteCompressed((uint32_t)0);  // Is Prisoner
-  bs.WriteCompressed((uint32_t)1);  // Has Faction Privileges
-
-  // Booster Slots
-  // ((uint)(canonical.Booster1.ItemType + (canonical.Booster1.EffectDuration <<
-  // 16))
-  bs.WriteCompressed((uint32_t)0);
-  bs.WriteCompressed((uint32_t)0);
-  bs.WriteCompressed((uint32_t)0);
-
-  bs.WriteCompressed((uint32_t)0);  // Is Senator
-  bs.WriteCompressed((uint32_t)0);  // Is Most Wanted
-  bs.WriteCompressed((uint32_t)0);  // Is Fugitive
-
-  // Player Stats
-  bs.WriteCompressed((uint32_t)1000);  // Agility
-  bs.WriteCompressed((uint32_t)0);     // Ballistic Damage
-  bs.WriteCompressed((uint32_t)0);     // Energy Damage
-  bs.WriteCompressed((uint32_t)0);     // Stamina Damage
-  bs.WriteCompressed((uint32_t)0);     // Bio Damage
-  bs.WriteCompressed((uint32_t)0);     // Aura Damage
-  bs.WriteCompressed((uint32_t)0);     // Destruction
-  bs.WriteCompressed((uint32_t)0);     // Weapon Recoil
-  bs.WriteCompressed((uint32_t)0);     // Armor
-  bs.WriteCompressed((uint32_t)0);     // Protection Reduction
-  bs.WriteCompressed((uint32_t)0);     // Shielding
-  bs.WriteCompressed((uint32_t)0);     // Endurance
-  bs.WriteCompressed((uint32_t)0);     // Resistance
-  bs.WriteCompressed((uint32_t)0);     // Reflection
-  bs.WriteCompressed((uint32_t)0);     // Defense Rating
-  bs.WriteCompressed((uint32_t)0);     // Block Rating
-  bs.WriteCompressed((uint32_t)0);     // Crit Rating
-  bs.WriteCompressed((uint32_t)0);     // Health Regen
-  bs.WriteCompressed((uint32_t)0);     // Stamina Regen
-  bs.WriteCompressed((uint32_t)0);     // BioEnergy Regen
-  bs.WriteCompressed((uint32_t)0);     // Aura Regen
-  bs.WriteCompressed((uint32_t)0);     // Addiction
-  bs.WriteCompressed((uint32_t)0);     // Addiction Treatment
-  bs.WriteCompressed((uint32_t)0);     // Coins
-  bs.WriteCompressed((uint32_t)0);     // Drug Cooldown
-  bs.WriteCompressed((uint32_t)0);     // Food Cooldown
-  bs.WriteCompressed((uint32_t)0);     // Xeno Damage
-  bs.WriteCompressed((uint32_t)0);     // Health Drain
-  bs.WriteCompressed((uint32_t)0);     // Stamina Drain
-  bs.WriteCompressed((uint32_t)0);     // BioEnergy Drain
-  bs.WriteCompressed((uint32_t)0);     // Aura Loss
-  bs.WriteCompressed((uint32_t)0);     // Medikit Cooldown
+  attributesSerializer.Write(bs, data.attributes);
 
   // Unknown
   bs.WriteCompressed((uint32_t)0);
@@ -130,11 +63,9 @@ void RegisterClientReturnSerializer::WriteData(
   bs.Write1();
 
   EncodeString(bs, data.name);
-  bs.WriteCompressed((uint32_t)0);  // Department Name, Null Terminator (No name)
-
-  // Unknown String (RegisterClient3?)
   bs.WriteCompressed(
-      (uint32_t)0);  // sc.EncodeString("RegisterClient3", 2048, bs, 0);
+      (uint32_t)0);  // Department Name, Null Terminator (No name)
+  bs.WriteCompressed((uint32_t)0);  // Unknown String, Null Terminator
 
   bs.WriteCompressed((uint8_t)0);  // World Owner
   bs.WriteCompressed((uint8_t)0);  // World Owner Relation
@@ -151,21 +82,19 @@ void RegisterClientReturnSerializer::WriteData(
 
   // Mining/Production Processes
   for (int i = 0; i < 4; ++i) {
-    bs.WriteCompressed(
-        (uint32_t)0);
-    bs.WriteCompressed(
-        (uint16_t)0);  // Item Type
-    bs.WriteCompressed((uint8_t)0);  // Cooling %
-    bs.WriteCompressed((uint8_t)0);  // Heating %
+    bs.WriteCompressed((uint32_t)0);
+    bs.WriteCompressed((uint16_t)0);  // Item Type
+    bs.WriteCompressed((uint8_t)0);   // Cooling %
+    bs.WriteCompressed((uint8_t)0);   // Heating %
     bs.WriteCompressed((uint8_t)0);
     bs.WriteCompressed((uint8_t)0);
     bs.Write0();
     bs.WriteCompressed((uint8_t)0);  // quantity of units completed
     bs.WriteCompressed((uint8_t)0);  // quantity of units queued
-    bs.Write0();      // Paused
+    bs.Write0();                     // Paused
     bs.WriteCompressed((uint8_t)0);
     bs.WriteCompressed((uint32_t)0);  // Base Cost Per Unit
-    bs.WriteCompressed((uint8_t)0);  // Tax Rate
+    bs.WriteCompressed((uint8_t)0);   // Tax Rate
   }
 
   bs.WriteCompressed((uint16_t)0);  // player x-axis

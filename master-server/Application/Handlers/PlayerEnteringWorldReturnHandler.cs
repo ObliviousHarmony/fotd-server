@@ -51,8 +51,8 @@ namespace FOMServer.World.Application.Handlers
             _packetSender.Send(
                 response,
                 player.ClientAddress,
-                PacketPriority.MEDIUM_PRIORITY,
-                PacketReliability.RELIABLE_ORDERED
+                PacketPriority.Medium,
+                PacketReliability.ReliableOrdered
             );
         }
     }

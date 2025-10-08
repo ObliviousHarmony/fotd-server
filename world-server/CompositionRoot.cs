@@ -53,7 +53,7 @@ namespace FOMServer.World
             s_serverSettings = config.GetSection("Server").Get<ServerSettings>()!;
             s_dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
 
-            if (Enum.IsDefined<WorldID>(s_serverSettings!.WorldID) == false || s_serverSettings.WorldID == WorldID.MASTER_SERVER)
+            if (Enum.IsDefined(s_serverSettings!.WorldID) == false || s_serverSettings.WorldID == WorldID.MasterServer)
                 throw new InvalidOperationException("Server WorldID must be set to a valid world");
             if (string.IsNullOrWhiteSpace(s_serverSettings.ClientAddress))
                 throw new InvalidOperationException("Server client address must be configured");

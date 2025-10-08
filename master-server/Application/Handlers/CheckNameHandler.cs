@@ -30,7 +30,7 @@ namespace FOMServer.Master.Application.Handlers
 
             rData.ExistingPlayerID = existingID ?? 0;
 
-            _packetSender.Send(response, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
+            _packetSender.Send(response, sender, PacketPriority.Medium, PacketReliability.ReliableOrdered);
         }
     }
 }

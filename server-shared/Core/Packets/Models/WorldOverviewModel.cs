@@ -1,7 +1,6 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Packets;
 
 namespace FOMServer.Shared.Core.Packets.Models
 {

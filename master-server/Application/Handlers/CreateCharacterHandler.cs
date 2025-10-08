@@ -61,7 +61,7 @@ namespace FOMServer.Master.Application.Handlers
             rData.IsVolunteer = false;
             rData.ClientVersion = GlobalConstants.ClientVersion;
             rData.WorldOverview = _worldOverviewFactory.Create(player);
-            _packetSender.Send(response, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
+            _packetSender.Send(response, sender, PacketPriority.Medium, PacketReliability.ReliableOrdered);
         }
     }
 }

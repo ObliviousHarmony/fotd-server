@@ -46,7 +46,7 @@ namespace FOMServer.Master.Application.Handlers
             else
                 rData.Status = LoginReturn.StatusCode.LOGIN_RETURN_CREATE_CHARACTER;
 
-            _packetSender.Send(response, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
+            _packetSender.Send(response, sender, PacketPriority.Medium, PacketReliability.ReliableOrdered);
         }
     }
 }

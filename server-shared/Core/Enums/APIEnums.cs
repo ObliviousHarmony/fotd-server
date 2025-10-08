@@ -5,9 +5,9 @@ namespace FOMServer.Shared.Core.Enums
     /// </summary>
     public enum PacketPriority : byte
     {
-        HIGH_PRIORITY = 1,
-        MEDIUM_PRIORITY,
-        LOW_PRIORITY
+        High = 1, // HIGH_PRIORITY,
+        Medium = 2, // MEDIUM_PRIORITY
+        Low = 3 // LOW_PRIORITY
     }
 
     /// <summary>
@@ -15,10 +15,10 @@ namespace FOMServer.Shared.Core.Enums
     /// </summary>
     public enum PacketReliability : byte
     {
-        UNRELIABLE,
-        UNRELIABLE_SEQUENCED,
-        RELIABLE,
-        RELIABLE_ORDERED,
-        RELIABLE_SEQUENCED
+        Unreliable, // UNRELIABLE
+        UnreliableSequenced, // UNRELIABLE_SEQUENCED
+        Reliable, // RELIABLE
+        ReliableOrdered, // RELIABLE_ORDERED
+        ReliableSequenced // RELIABLE_SEQUENCED
     }
 }

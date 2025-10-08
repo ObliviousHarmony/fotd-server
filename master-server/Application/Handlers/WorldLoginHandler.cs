@@ -44,8 +44,8 @@ namespace FOMServer.Master.Application.Handlers
                 _clientPacketSender.Send(
                     unavailableResponse,
                     sender,
-                    PacketPriority.MEDIUM_PRIORITY,
-                    PacketReliability.RELIABLE_ORDERED
+                    PacketPriority.Medium,
+                    PacketReliability.ReliableOrdered
                 );
                 return;
             }
@@ -66,8 +66,8 @@ namespace FOMServer.Master.Application.Handlers
             _worldPacketSender.Send(
                 worldResponse,
                 worldServer.ServerAddress,
-                PacketPriority.MEDIUM_PRIORITY,
-                PacketReliability.RELIABLE_ORDERED
+                PacketPriority.Medium,
+                PacketReliability.ReliableOrdered
             );
         }
     }

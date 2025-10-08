@@ -52,7 +52,7 @@ namespace FOMServer.Master.Application.Handlers
             else
                 rData.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_SUCCESS;
 
-            _packetSender.Send(response, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
+            _packetSender.Send(response, sender, PacketPriority.Medium, PacketReliability.ReliableOrdered);
         }
     }
 }

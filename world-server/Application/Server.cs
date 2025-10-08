@@ -130,7 +130,7 @@ namespace FOMServer.World.Application
             rpData.WorldID = _serverSettings.WorldID;
             rpData.ClientAddress = _serverSettings.ClientAddress;
             rpData.ClientPort = _serverSettings.ClientPort;
-            packetSender.Send(registerPacket, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE);
+            packetSender.Send(registerPacket, PacketPriority.Medium, PacketReliability.Reliable);
 
             return networkManager;
         }

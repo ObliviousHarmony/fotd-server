@@ -15,5 +15,13 @@ namespace FOMServer.Shared.Core.Packets.Models
         public ushort Bottoms;
         public ushort Shoes;
         public ushort Gloves;
+        public byte ShowArmor;
+        public ushort ArmorHead;
+        public ushort ArmorGlasses;
+        public ushort ArmorShoulder;
+        public ushort ArmorArm;
+        public ushort ArmorTorso;
+        public ushort ArmorLeg;
+        public byte Rank;
     }
 }

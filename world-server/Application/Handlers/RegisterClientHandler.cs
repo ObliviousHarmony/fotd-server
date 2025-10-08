@@ -3,6 +3,7 @@ using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.Data;
+using FOMServer.Shared.Core.Packets.Models;
 using FOMServer.Shared.Metadata;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
@@ -33,14 +34,16 @@ namespace FOMServer.World.Application.Handlers
             rData.WorldID = p.WorldID;
             rData.PlayerID = p.PlayerID;
             rData.Status = RegisterClientReturn.StatusCode.REGISTER_CLIENT_RETURN_SUCCESS;
-            rData.Health = 1000;
-            rData.Stamina = 1000;
-            rData.Aura = 1000;
-            rData.BioEnergy = 1000;
+            rData.Attributes[PlayerAttribute.Health] = 1000;
+            rData.Attributes[PlayerAttribute.Stamina] = 1000;
+            rData.Attributes[PlayerAttribute.Aura] = 1000;
+            rData.Attributes[PlayerAttribute.Bioenergy] = 1000;
+            rData.Attributes[PlayerAttribute.UC] = 1234;
+            rData.Attributes[PlayerAttribute.Coins] = 5678;
             rData.Name = "Oblivious Test";
             rData.SelectedNode = player.SelectedNodeID;
 
-            _packetSender.Send(response, sender, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
+            _packetSender.Send(response, sender, PacketPriority.Medium, PacketReliability.ReliableOrdered);
         }
     }
 }

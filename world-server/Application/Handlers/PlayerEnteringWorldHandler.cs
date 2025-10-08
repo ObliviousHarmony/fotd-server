@@ -33,7 +33,7 @@ namespace FOMServer.World.Application.Handlers
             else
                 rData.Status = PlayerEnteringWorldReturn.StatusCode.PLAYER_ENTERING_WORLD_RETURN_READY;
 
-            _packetSender.Send(response, PacketPriority.MEDIUM_PRIORITY, PacketReliability.RELIABLE_ORDERED);
+            _packetSender.Send(response, PacketPriority.Medium, PacketReliability.ReliableOrdered);
         }
     }
 }

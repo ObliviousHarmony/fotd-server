@@ -3,6 +3,7 @@
 #include <fom-network/Common.h>
 #include <fom-network/FOMNetworkTypes.h>
 #include <fom-network/packets/models/AvatarModel.h>
+#include <fom-network/packets/models/PlayerAttributesModel.h>
 
 namespace FOMNetwork {
 namespace Packet {
@@ -21,15 +22,7 @@ struct RegisterClientReturn {
   PlayerID_t playerID;
   RegisterClientReturnStatus status;
   AvatarModel avatar;
-  uint32_t health;
-  uint32_t stamina;
-  uint32_t bioEnergy;
-  uint32_t aura;
-  uint32_t credits;
-  uint32_t factionCredits;
-  uint32_t experiencePoints;
-  uint32_t penaltyPoints;
-  uint32_t availableClones;
+  PlayerAttributesModel attributes;
   uint8_t name[20];
   uint8_t selectedNode;
 };

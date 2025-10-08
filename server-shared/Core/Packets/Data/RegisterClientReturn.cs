@@ -24,15 +24,7 @@ namespace FOMServer.Shared.Core.Packets.Data
         public uint PlayerID;
         public StatusCode Status;
         public AvatarModel Avatar;
-        public uint Health;
-        public uint Stamina;
-        public uint BioEnergy;
-        public uint Aura;
-        public uint Credits;
-        public uint FactionCredits;
-        public uint ExperiencePoints;
-        public uint PenaltyPoints;
-        public uint AvailableClones;
+        public PlayerAttributesModel Attributes;
         public fixed byte RawName[NameSize];
         public byte SelectedNode;
 

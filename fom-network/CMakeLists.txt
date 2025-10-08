@@ -50,6 +50,8 @@ set(FOMNETWORK_INC
     "src/packet-serializers/models/ApartmentModelSerializer.h"
     "include/fom-network/packets/models/WorldOverviewModel.h"
     "src/packet-serializers/models/WorldOverviewModelSerializer.h"
+    "include/fom-network/packets/models/PlayerAttributesModel.h"
+    "src/packet-serializers/models/PlayerAttributesModelSerializer.h"
 
     "include/fom-network/packets/data/raknet/AlreadyConnected.h"
     "include/fom-network/packets/data/raknet/ConnectionAttemptFailed.h"

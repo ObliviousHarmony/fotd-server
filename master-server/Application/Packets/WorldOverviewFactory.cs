@@ -33,7 +33,7 @@ namespace FOMServer.Master.Application.Packets
                 worldOverview.WorldBuffer[i].Address = server.ClientAddress;
                 worldOverview.WorldBuffer[i].PlayerCount = 0;
                 worldOverview.WorldBuffer[i].ControllingFaction = Faction.LED;
-                worldOverview.WorldBuffer[i].ControllingFactionRelation = FactionRelation.NEUTRAL;
+                worldOverview.WorldBuffer[i].ControllingFactionRelation = FactionRelation.Neutral;
             }
 
             return worldOverview;
