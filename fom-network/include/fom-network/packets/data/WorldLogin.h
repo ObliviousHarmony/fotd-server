@@ -1,7 +1,7 @@
 #pragma once
 
 #include <fom-network/Common.h>
-#include <fom-network/FOMNetworkEnums.h>
+#include <fom-network/FOMNetworkTypes.h>
 
 namespace FOMNetwork {
 namespace Packet {
@@ -10,7 +10,7 @@ namespace Packet {
 struct WorldLogin {
   WorldID worldID;
   uint8_t selectedNodeID;
-  uint32_t playerID;
+  PlayerID_t playerID;
   uint32_t apartmentID;
 };
 #pragma pack(pop)

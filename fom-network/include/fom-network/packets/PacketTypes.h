@@ -12,6 +12,8 @@
 #include <fom-network/packets/data/PlayerEnteringWorld.h>
 #include <fom-network/packets/data/PlayerEnteringWorldReturn.h>
 #include <fom-network/packets/data/ReadPacketError.h>
+#include <fom-network/packets/data/RegisterClient.h>
+#include <fom-network/packets/data/RegisterClientReturn.h>
 #include <fom-network/packets/data/RegisterWorld.h>
 #include <fom-network/packets/data/WorldLogin.h>
 #include <fom-network/packets/data/WorldLoginReturn.h>

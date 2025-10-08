@@ -98,7 +98,7 @@ class FOM_API EmptyPacketSerializer : public IWriter, public IReader {
  * for you.
  * --------------------------------------------------
  */
-#define SERIALIZER_BOTH(TYPE, FIELD)                                       \
+#define SERIALIZER_BOTH(TYPE)                                              \
   class FOM_API TYPE##Serializer : public BaseSerializer,                  \
                                    public IWriter,                         \
                                    public IReader {                        \
@@ -124,7 +124,7 @@ class FOM_API EmptyPacketSerializer : public IWriter, public IReader {
                   FOMNetwork::Packet::TYPE& data) const;                   \
   };
 
-#define SERIALIZER_WRITE(TYPE, FIELD)                                      \
+#define SERIALIZER_WRITE(TYPE)                                             \
   class FOM_API TYPE##Serializer : public BaseSerializer, public IWriter { \
    public:                                                                 \
     static TYPE##Serializer& GetInstance() {                               \
@@ -162,18 +162,20 @@ class FOM_API EmptyPacketSerializer : public IWriter, public IReader {
  * <PacketTypeName>Serializer
  */
 SERIALIZER_READ(LoginRequest)
-SERIALIZER_WRITE(LoginRequestReturn, loginRequestReturn)
+SERIALIZER_WRITE(LoginRequestReturn)
 SERIALIZER_READ(Login)
-SERIALIZER_WRITE(LoginReturn, loginReturn)
+SERIALIZER_WRITE(LoginReturn)
 SERIALIZER_READ(CheckName)
-SERIALIZER_WRITE(CheckNameReturn, checkNameReturn)
+SERIALIZER_WRITE(CheckNameReturn)
 SERIALIZER_READ(CreateCharacter)
-SERIALIZER_BOTH(RegisterWorld, registerWorld)
+SERIALIZER_BOTH(RegisterWorld)
 SERIALIZER_READ(WorldOverview)
-SERIALIZER_WRITE(WorldOverviewReturn, worldOverviewReturn)
+SERIALIZER_WRITE(WorldOverviewReturn)
 SERIALIZER_READ(WorldLogin)
-SERIALIZER_WRITE(WorldLoginReturn, worldLoginReturn)
-SERIALIZER_BOTH(PlayerEnteringWorld, playerEnteringWorld)
-SERIALIZER_BOTH(PlayerEnteringWorldReturn, playerEnteringWorldReturn)
+SERIALIZER_WRITE(WorldLoginReturn)
+SERIALIZER_BOTH(PlayerEnteringWorld)
+SERIALIZER_BOTH(PlayerEnteringWorldReturn)
+SERIALIZER_READ(RegisterClient)
+SERIALIZER_WRITE(RegisterClientReturn)
 
 }  // namespace FOMNetwork

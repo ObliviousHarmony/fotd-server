@@ -10,7 +10,7 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: password
     ports:
-      - "127.0.0.1:3306:3306"
+      - "127.0.0.1:33066:3306"
     volumes:
       - fom-server-database:/var/lib/mysql
 

@@ -42,6 +42,8 @@ const std::unordered_map<uint8_t, size_t> FOMDataSerializer::PacketSizes = {
     {ID_PLAYER_ENTERING_WORLD, sizeof(Packet::PlayerEnteringWorld)},
     {ID_PLAYER_ENTERING_WORLD_RETURN,
      sizeof(Packet::PlayerEnteringWorldReturn)},
+    {ID_REGISTER_CLIENT, sizeof(Packet::RegisterClient)},
+    {ID_REGISTER_CLIENT_RETURN, sizeof(Packet::RegisterClientReturn)},
 };
 
 /**
@@ -58,6 +60,7 @@ static const std::unordered_map<uint32_t, IWriter*> writerMap = {
     {ID_PLAYER_ENTERING_WORLD, &PlayerEnteringWorldSerializer::GetInstance()},
     {ID_PLAYER_ENTERING_WORLD_RETURN,
      &PlayerEnteringWorldReturnSerializer::GetInstance()},
+    {ID_REGISTER_CLIENT_RETURN, &RegisterClientReturnSerializer::GetInstance()},
 };
 
 static const std::unordered_map<uint32_t, IReader*> readerMap = {
@@ -85,6 +88,7 @@ static const std::unordered_map<uint32_t, IReader*> readerMap = {
     {ID_PLAYER_ENTERING_WORLD, &PlayerEnteringWorldSerializer::GetInstance()},
     {ID_PLAYER_ENTERING_WORLD_RETURN,
      &PlayerEnteringWorldReturnSerializer::GetInstance()},
+    {ID_REGISTER_CLIENT, &RegisterClientSerializer::GetInstance()},
 };
 
 bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id,

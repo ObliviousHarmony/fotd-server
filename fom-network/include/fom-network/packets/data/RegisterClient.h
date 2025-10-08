@@ -7,14 +7,14 @@ namespace FOMNetwork {
 namespace Packet {
 
 #pragma pack(push, 1)
-struct ApartmentModel {
-  uint32_t id;
-  uint8_t type;
-  uint8_t world;
+struct RegisterClient {
+  WorldID worldID;
+  PlayerID_t playerID;
+  uint32_t worldCRC;
 };
 #pragma pack(pop)
 
-ASSERT_BLITTABLE(ApartmentModel);
+ASSERT_BLITTABLE(RegisterClient);
 
 }  // namespace Packet
 }  // namespace FOMNetwork

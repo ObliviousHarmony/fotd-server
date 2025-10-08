@@ -2,6 +2,12 @@
 
 namespace FOMNetwork {
 
+/* Type alias for player IDs. */
+typedef uint32_t PlayerID_t;
+
+/* Type alias for item IDs. */
+typedef uint32_t ItemID_t;
+
 /**
  * @enum WorldID
  *
@@ -77,5 +83,18 @@ enum FactionRelation : uint8_t {
   ENEMY = 5,
   NUM_RELATIONS = 6
 };
+
+/**
+ * @enum ItemType
+ *
+ * The types for the items in the game.
+ */
+enum ItemType : uint16_t {
+  ITEMTYPE_INVALID = 0,
+};
+
+#define NUM_WEAPON_SLOTS 3
+#define NUM_QUICK_SLOTS 4
+enum EquipmentSlots : uint8_t { NUM_EQUIPMENT_SLOTS = 12 };
 
 }  // namespace FOMNetwork

@@ -14,7 +14,7 @@ enum PlayerEnteringWorldReturnStatus : uint8_t {
 #pragma pack(push, 1)
 struct PlayerEnteringWorldReturn {
   PlayerEnteringWorldReturnStatus status;
-  uint32_t playerID;
+  PlayerID_t playerID;
 };
 #pragma pack(pop)
 

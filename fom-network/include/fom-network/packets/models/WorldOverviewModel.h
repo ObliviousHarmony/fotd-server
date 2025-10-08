@@ -2,7 +2,7 @@
 #pragma once
 
 #include <fom-network/Common.h>
-#include <fom-network/FOMNetworkEnums.h>
+#include <fom-network/FOMNetworkTypes.h>
 #include <fom-network/packets/NetworkAddress.h>
 #include <fom-network/packets/models/ApartmentModel.h>
 

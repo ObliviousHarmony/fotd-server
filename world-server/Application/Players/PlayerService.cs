@@ -29,18 +29,30 @@ namespace FOMServer.World.Application.Players
             return player;
         }
 
-        public Player? OnPlayerEnteringWorld(uint playerID, byte selectedNodeID)
+        public Player? OnPlayerEnteringWorld(uint id, byte selectedNodeID)
         {
-            if (_registeredPlayers.ContainsKey(playerID))
+            if (_registeredPlayers.ContainsKey(id))
                 return null;
 
             var player = new Player
             {
-                ID = playerID,
+                ID = id,
                 SelectedNodeID = selectedNodeID
             };
 
-            if (!_registeredPlayers.TryAdd(playerID, player))
+            if (!_registeredPlayers.TryAdd(id, player))
+                return null;
+
+            return player;
+        }
+
+        public Player? OnPlayerEnteredWorld(uint id, NetworkAddress clientAddress)
+        {
+            if (!_registeredPlayers.TryGetValue(id, out var player))
+                return null;
+
+            player.ClientAddress = clientAddress;
+            if (!_addressMap.TryAdd(clientAddress, player))
                 return null;
 
             return player;

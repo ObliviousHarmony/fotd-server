@@ -7,7 +7,7 @@ namespace Packet {
 
 #pragma pack(push, 1)
 struct WorldOverview {
-  uint32_t playerID;
+  PlayerID_t playerID;
 };
 #pragma pack(pop)
 
