@@ -28,6 +28,10 @@ namespace FOMServer.Shared.Core.Networking
             {
                 PacketIdentifier id = PacketHelpers.GetPacketTypeID<TPacket>();
                 _data = ArrayPool<byte>.Shared.Rent(PacketHelpers.GetPacketSize(id));
+
+                // Zero-initialize the buffer so our struct
+                // doesn't contain any garbage data.
+                Unsafe.InitBlock(ref _data[0], 0, (uint)PacketHelpers.GetPacketSize(id));
             }
 
             public byte[] TransferData()
