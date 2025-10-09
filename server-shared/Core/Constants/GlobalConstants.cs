@@ -1,4 +1,4 @@
-namespace FOMServer.Shared.Core
+namespace FOMServer.Shared.Core.Constants
 {
     public static class GlobalConstants
     {

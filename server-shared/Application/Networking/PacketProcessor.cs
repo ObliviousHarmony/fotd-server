@@ -132,6 +132,9 @@ namespace FOMServer.Shared.Application.Networking
                 }
                 finally
                 {
+                    Console.WriteLine("Freeing Packet");
+                    packet.PrintContent();
+
                     // Make sure that we free the packet so that the buffer can be
                     // returned to the pool once all of the packets it contains
                     // have been processed and disposed.

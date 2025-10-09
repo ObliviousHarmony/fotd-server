@@ -46,7 +46,7 @@ class WorldOverviewModelSerializer
       auto& world = model.worldBuffer[i];
 
       bs.ReadCompressed(world.id);
-      addressSerializer.Write(bs, world.address);
+      addressSerializer.Read(bs, world.address);
       bs.ReadCompressed(world.playerCount);
       bs.ReadCompressed(world.controllingFaction);
       bs.ReadCompressed(world.controllingFactionRelation);

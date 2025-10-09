@@ -1,6 +1,6 @@
 using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Core.Players;
-using FOMServer.Shared.Core;
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
@@ -51,6 +51,9 @@ namespace FOMServer.Master.Application.Handlers
                 rData.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_OUTDATED_CLIENT;
             else
                 rData.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_SUCCESS;
+
+            Console.WriteLine("Login attempt from {0} for user '{1}' - {2}",
+                sender, p.Username, rData.Status);
 
             _packetSender.Send(response, sender, PacketPriority.Medium, PacketReliability.ReliableOrdered);
         }

@@ -1,5 +1,6 @@
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
+using FOMServer.Shared.Core.Packets.Data;
 
 namespace FOMServer.Shared.Core.Handlers
 {
@@ -14,10 +15,22 @@ namespace FOMServer.Shared.Core.Handlers
         /// </summary>
         public void Handle(in PacketRef packet)
         {
+            Console.WriteLine("Before Handle");
+            packet.PrintContent();
+            if (packet.ID == Enums.PacketIdentifier.ID_LOGIN_REQUEST)
+            if (typeof(TPacketData) == typeof(LoginRequest))
+            {
+                LoginRequest data = packet.Data<LoginRequest>();
+                 Console.WriteLine($"Username {data.Username}");
+            }
+
             Handle(
                 packet.Sender,
                 packet.Data<TPacketData>()
             );
+
+            Console.WriteLine("After Handle");
+            packet.PrintContent();
         }
 
         /// <summary>

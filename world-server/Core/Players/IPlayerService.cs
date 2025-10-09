@@ -23,5 +23,10 @@ namespace FOMServer.World.Core.Players
         /// Records that a player has now entered the world.
         /// </summary>
         Player? OnPlayerEnteredWorld(uint id, NetworkAddress clientAddress);
+
+        /// <summary>
+        /// Records that a player has left the world.
+        /// </summary>
+        void OnPlayerLeftWorld(uint id);
     }
 }

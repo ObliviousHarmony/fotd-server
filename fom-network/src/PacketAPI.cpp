@@ -33,7 +33,7 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
     // We can only handle packets that we know about.
     int packetSize = FOMDataSerializer::GetPacketSize(
         (FOMNetwork::PacketIdentifier)p->data[0]);
-    if (packetSize < 0) {
+    if (packetSize <= 0) {
       peer->DeallocatePacket(const_cast<Packet*>(p));
       continue;
     }
@@ -88,7 +88,7 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
 
     // Don't try to deserialize packets that we don't know about.
     int packetSize = FOMDataSerializer::GetPacketSize(packetID);
-    if (packetSize < 0) {
+    if (packetSize <= 0) {
       ret = -1;
       peer->DeallocatePacket(const_cast<Packet*>(p));
       continue;

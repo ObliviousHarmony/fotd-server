@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets;
@@ -32,9 +33,21 @@ namespace FOMServer.Shared.Core.Networking
             _parentBuffer = parentBuffer;
         }
 
-        public ref TPacket Data<TPacket>() where TPacket : unmanaged
+        public void PrintContent()
         {
-            if (Volatile.Read(ref _disposed) == 1)
+            var ss = _data.Span;
+            int packetSize = PacketHelpers.GetPacketSize(ID);
+            Console.WriteLine($"{ID} Ref - Buffer Size: {_data.Length} - Packet Size: {packetSize} - Sender: {Sender}");
+            for (int i = 0; i < packetSize; i++)
+            {
+                Console.Write($"{ss[i]:X2} ");
+            }
+            Console.WriteLine();
+        }
+
+        public readonly ref TPacket Data<TPacket>() where TPacket : unmanaged
+        {
+            if (Volatile.Read(in _disposed) == 1)
                 throw new ObjectDisposedException(nameof(PacketRef));
 
             if (!PacketHelpers.IsPacketOfType<TPacket>(ID))

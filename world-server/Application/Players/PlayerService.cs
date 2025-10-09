@@ -57,5 +57,12 @@ namespace FOMServer.World.Application.Players
 
             return player;
         }
+
+        public void OnPlayerLeftWorld(uint id)
+        {
+            if (!_registeredPlayers.TryRemove(id, out var player))
+                return;
+            _addressMap.TryRemove(player.ClientAddress, out _);
+        }
     }
 }

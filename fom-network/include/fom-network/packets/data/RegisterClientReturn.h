@@ -4,6 +4,8 @@
 #include <fom-network/FOMNetworkTypes.h>
 #include <fom-network/packets/models/AvatarModel.h>
 #include <fom-network/packets/models/PlayerAttributesModel.h>
+#include <fom-network/packets/models/ItemModel.h>
+#include <fom-network/packets/models/ItemSlotModel.h>
 
 namespace FOMNetwork {
 namespace Packet {
@@ -21,6 +23,11 @@ struct RegisterClientReturn {
   WorldID worldID;
   PlayerID_t playerID;
   RegisterClientReturnStatus status;
+  uint16_t numInventoryItems;
+  ItemModel inventoryItemBuffer[500];
+  ItemSlotModel equipmentSlots[NUM_EQUIPMENT_SLOTS];
+  ItemSlotModel weaponSlots[NUM_WEAPON_SLOTS];
+  ItemType quickSlots[NUM_QUICK_SLOTS];
   AvatarModel avatar;
   PlayerAttributesModel attributes;
   uint8_t name[20];

@@ -1,4 +1,7 @@
+using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets.Models;
 using FOMServer.Shared.Metadata;
@@ -10,6 +13,24 @@ namespace FOMServer.Shared.Core.Packets.Data
     public unsafe struct RegisterClientReturn
     {
         public const int NameSize = 20;
+
+        [InlineArray(PlayerConstants.MaxInventoryItems)]
+        public struct InventoryBuffer
+        {
+            public ItemModel Item;
+        }
+
+        [InlineArray((int)EquipmentSlot.NUM_EQUIPMENT_SLOTS)]
+        public struct EquipmentSlots
+        {
+            public ItemSlotModel Slot;
+        }
+
+        [InlineArray(PlayerConstants.NUM_WEAPON_SLOTS)]
+        public struct WeaponSlots
+        {
+            public ItemSlotModel Slot;
+        }
 
         public enum StatusCode : byte
         {
@@ -23,6 +44,11 @@ namespace FOMServer.Shared.Core.Packets.Data
         public WorldID WorldID;
         public uint PlayerID;
         public StatusCode Status;
+        public ushort NumInventoryItems;
+        public InventoryBuffer InventoryItems;
+        public EquipmentSlots Equipment;
+        public WeaponSlots Weapons;
+        public fixed ushort QuickSlots[PlayerConstants.NUM_QUICK_SLOTS]; // ItemType Enum
         public AvatarModel Avatar;
         public PlayerAttributesModel Attributes;
         public fixed byte RawName[NameSize];

@@ -31,7 +31,7 @@ namespace FOMServer.World.Application.Handlers
         {
             var player = _playerService.Get(p.PlayerID);
             if (player == null)
-                throw new InvalidOperationException($"Player not found for address {sender}");
+                throw new InvalidOperationException($"Player {p.PlayerID} not found");
 
             var worldServer = _worldServerService.Get(sender);
             if (worldServer == null)

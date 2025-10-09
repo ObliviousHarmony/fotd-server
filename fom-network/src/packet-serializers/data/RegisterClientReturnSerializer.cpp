@@ -2,11 +2,15 @@
 
 #include "../models/AvatarModelSerializer.h"
 #include "../models/PlayerAttributesModelSerializer.h"
+#include "../models/ItemModelSerializer.h"
+#include "../models/ItemSlotModelSerializer.h"
 
 namespace FOMNetwork {
 
 void RegisterClientReturnSerializer::WriteData(
     RakNet::BitStream& bs, const Packet::RegisterClientReturn& data) const {
+  ItemModelSerializer itemSerializer;
+  ItemSlotModelSerializer itemSlotSerializer;
   AvatarModelSerializer avatarSerializer;
   PlayerAttributesModelSerializer attributesSerializer;
 
@@ -14,44 +18,15 @@ void RegisterClientReturnSerializer::WriteData(
   bs.WriteCompressed(data.playerID);
   bs.WriteCompressed(data.status);
 
-  bs.WriteCompressed((uint16_t)0);  // Inventory Stack Count
-  // foreach (var group in ThePlayer.Inventory.GroupedItems) {
-  //   bs.WriteUShortCompressed(group.Type, Endian.Big);        // item type
-  //   bs.WriteUShortCompressed(group.Value, Endian.Big);       // value
-  //   bs.WriteUShortCompressed(group.Durability, Endian.Big);  // durability
-  //   bs.WriteBit(group.FactionItem);  // faction pool item
-  //   bs.WriteUShortCompressed((ushort)group.Items.Count,
-  //                            Endian.Big);  // quantity of item
-
-  //  foreach (var item in group.Items) {
-  //    bs.WriteUInt32Compressed(item.ItemID, Endian.Big);  // item ID
-  //  }
-  //}
-
+  itemSerializer.WriteStacks(bs, data.inventoryItemBuffer, data.numInventoryItems);
   for (int i = 0; i < NUM_EQUIPMENT_SLOTS; ++i) {
-    bs.Write0();
-    // bs.WriteBit(true);                                      // slot equipped
-    // bs.WriteUInt32Compressed(item.ItemID, Endian.Big);      // item ID
-    // bs.WriteUShortCompressed(item.Type, Endian.Big);        // item type
-    // bs.WriteUShortCompressed(item.Value, Endian.Big);       // value
-    // bs.WriteUShortCompressed(item.Durability, Endian.Big);  // durability
-    // bs.WriteBit(item.FactionItem);                          // faction pool
-    // item
+    itemSlotSerializer.Write(bs, data.equipmentSlots[i]);
   }
-
   for (int i = 0; i < NUM_WEAPON_SLOTS; ++i) {
-    bs.Write0();
-    // bs.WriteBit(true);                                      // slot equipped
-    // bs.WriteUInt32Compressed(item.ItemID, Endian.Big);      // item ID
-    // bs.WriteUShortCompressed(item.Type, Endian.Big);        // item type
-    // bs.WriteUShortCompressed(item.Value, Endian.Big);       // value
-    // bs.WriteUShortCompressed(item.Durability, Endian.Big);  // durability
-    // bs.WriteBit(item.FactionItem);                          // faction pool
-    // item
+    itemSlotSerializer.Write(bs, data.weaponSlots[i]);
   }
-
   for (int i = 0; i < NUM_QUICK_SLOTS; ++i) {
-    bs.WriteCompressed((uint16_t)0);  // item type
+    bs.WriteCompressed(data.quickSlots[i]);
   }
 
   avatarSerializer.Write(bs, data.avatar);

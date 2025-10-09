@@ -1,17 +1,21 @@
 #pragma once
 
 #include <fom-network/Common.h>
+#include <fom-network/FOMNetworkTypes.h>
+
+#include "ItemModel.h"
 
 namespace FOMNetwork {
 namespace Packet {
 
 #pragma pack(push, 1)
-struct CheckNameReturn {
-  uint32_t existingPlayerID;
+struct ItemSlotModel {
+  uint8_t inUse;
+  ItemModel item;
 };
 #pragma pack(pop)
 
-ASSERT_BLITTABLE(CheckNameReturn);
+ASSERT_BLITTABLE(ItemSlotModel);
 
 }  // namespace Packet
 }  // namespace FOMNetwork

@@ -10,46 +10,26 @@ namespace FOMServer.Shared.Services.FOMNetwork
         public void ValidatePacketStructs()
         {
             // Ensure all of the API communication structs are blittable.
-            if (!IsBlittable<NetworkAddress>())
-                throw new InvalidOperationException("The NetworkAddress struct is not blittable");
-            if (!IsBlittable<PacketStructure>())
-                throw new InvalidOperationException("The PacketStructure struct is not blittable");
-            if (!IsBlittable<ReceivedPackets>())
-                throw new InvalidOperationException("The ReceivedPackets struct is not blittable");
-            if (!IsBlittable<SendPacket>())
-                throw new InvalidOperationException("The SendPacket struct is not blittable");
+            AssertBlittable<NetworkAddress>();
+            AssertBlittable<PacketStructure>();
+            AssertBlittable<ReceivedPackets>();
+            AssertBlittable<SendPacket>();
 
-            // Ensure all packet data structs are blittable.
+            // Make sure that the packet structs match what the network library expects.
             var structures = PacketHelpers.GetPacketStructures();
-            foreach (PacketStructure s in structures)
-            {
-                if (!IsBlittable<ReadPacketError>())
-                    throw new InvalidOperationException($"The data struct for packet ID {s.ID} is not blittable");
-            }
-
             int ret = FOMNetwork_ValidatePacketStructs(structures, structures.Length);
             if (ret == -1)
                 throw new InvalidOperationException("The number of structs provided does not match the number expected by the network library");
-            else if (ret == -1)
+            else if (ret == -2)
                 throw new InvalidOperationException("The network library was asked to validate a struct that does not exist");
             else if (ret == -3)
                 throw new InvalidOperationException("One or more of the provided structs does not match the expected size");
         }
 
-        private static bool IsBlittable<T>() where T : struct
-        {
-            try
-            {
-                // An exception will be thrown if the type is not blittable.
-                var handle = GCHandle.Alloc(default(T), GCHandleType.Pinned);
-                handle.Free();
-                return true;
-            }
-            catch (ArgumentException)
-            {
-                return false;
-            }
-        }
+        /// <summary>
+        /// This will throw a compile-time error if T is not a blittable struct.
+        /// </summary>
+        private static void AssertBlittable<T>() where T : struct { }
 
         [LibraryImport("FOMNetwork")]
         private static partial int FOMNetwork_ValidatePacketStructs(PacketStructure[] structures, int count);

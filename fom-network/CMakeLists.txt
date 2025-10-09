@@ -10,6 +10,7 @@ set(FOMNETWORK_SRC
     "src/PacketAPI.cpp"
     "src/NetworkAPI.cpp"
     "src/FOMDataSerializer.cpp"
+    "src/packet-serializers/models/ItemModelSerializer.cpp"
     "src/packet-serializers/data/LoginRequestSerializer.cpp"
     "src/packet-serializers/data/LoginRequestReturnSerializer.cpp"
     "src/packet-serializers/data/LoginSerializer.cpp"
@@ -52,6 +53,10 @@ set(FOMNETWORK_INC
     "src/packet-serializers/models/WorldOverviewModelSerializer.h"
     "include/fom-network/packets/models/PlayerAttributesModel.h"
     "src/packet-serializers/models/PlayerAttributesModelSerializer.h"
+    "include/fom-network/packets/models/ItemModel.h"
+    "src/packet-serializers/models/ItemModelSerializer.h"
+    "include/fom-network/packets/models/ItemSlotModel.h"
+    "src/packet-serializers/models/ItemSlotModelSerializer.h"
 
     "include/fom-network/packets/data/raknet/AlreadyConnected.h"
     "include/fom-network/packets/data/raknet/ConnectionAttemptFailed.h"

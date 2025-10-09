@@ -40,8 +40,48 @@ namespace FOMServer.World.Application.Handlers
             rData.Attributes[PlayerAttribute.Bioenergy] = 1000;
             rData.Attributes[PlayerAttribute.UC] = 1234;
             rData.Attributes[PlayerAttribute.Coins] = 5678;
+            rData.Attributes[PlayerAttribute.Agility] = 1000;
             rData.Name = "Oblivious Test";
             rData.SelectedNode = player.SelectedNodeID;
+
+            // Item Testing
+            rData.NumInventoryItems = 3;
+            rData.InventoryItems[0] = new ItemModel()
+            {
+                ID = 1,
+                Type = (ItemType)1,
+                Value = 0,
+                Durability = 10000,
+                IsFactionItem = false,
+            };
+            rData.InventoryItems[1] = new ItemModel()
+            {
+                ID = 2,
+                Type = (ItemType)1,
+                Value = 0,
+                Durability = 10000,
+                IsFactionItem = false,
+            };
+            rData.InventoryItems[2] = new ItemModel()
+            {
+                ID = 3,
+                Type = (ItemType)1,
+                Value = 10,
+                Durability = 5000,
+                IsFactionItem = false,
+            };
+            rData.Weapons[0] = new ItemSlotModel()
+            {
+                InUse = true,
+                Item = new ItemModel()
+                {
+                    ID = 4,
+                    Type = (ItemType)2,
+                    Value = 0,
+                    Durability = 10000,
+                    IsFactionItem = false,
+                }
+            };
 
             _packetSender.Send(response, sender, PacketPriority.Medium, PacketReliability.ReliableOrdered);
         }

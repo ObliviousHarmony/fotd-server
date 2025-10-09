@@ -1,5 +1,6 @@
 using System.Buffers;
 using System.Diagnostics.Metrics;
+using System.Runtime.CompilerServices;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets;
 
@@ -23,6 +24,7 @@ namespace FOMServer.Shared.Core.Networking
         private int _allocated;
         private int _refCount;
         private byte[]? _buffer;
+        private int _bufferSize;
         private PacketIdentifier[]? _packetIDs;
 
         /// <summary>
@@ -37,16 +39,22 @@ namespace FOMServer.Shared.Core.Networking
                 return null;
             Interlocked.Increment(ref s_activeBufferCount);
 
+            Console.WriteLine("Rental Start");
+
             _packetIDs = ArrayPool<PacketIdentifier>.Shared.Rent(received.Count);
 
             // Allocate a buffer large enough to hold all of the packets.
-            var totalSize = 0;
+            _bufferSize = 0;
             for (byte i = 0; i < received.Count; i++)
             {
                 _packetIDs[i] = received.Identifiers[i];
-                totalSize += PacketHelpers.GetPacketSize(received.Identifiers[i]);
+                _bufferSize += PacketHelpers.GetPacketSize(received.Identifiers[i]);
             }
-            _buffer = ArrayPool<byte>.Shared.Rent(totalSize);
+            _buffer = ArrayPool<byte>.Shared.Rent(_bufferSize);
+
+            // Zero-initialize the buffer so our buffer
+            // doesn't contain any garbage data.
+            Unsafe.InitBlock(ref _buffer[0], 0, (uint)_bufferSize);
 
             // Let's create all of the packet references
             // here so that they're easy to access later.
@@ -71,7 +79,18 @@ namespace FOMServer.Shared.Core.Networking
             if (Volatile.Read(ref _allocated) != 1 || Volatile.Read(ref _refCount) == 0)
                 throw new InvalidOperationException("PacketBuffer has not been allocated");
 
-            return _packetRefs.AsSpan(0, _refCount);
+            Console.WriteLine();
+
+            Console.WriteLine($"Raw Buffer Size: {_bufferSize}");
+            for (int i = 0; i < _bufferSize; i++)
+                Console.Write($"{_buffer![i]:X2} ");
+            Console.WriteLine();
+
+            var packets = _packetRefs.AsSpan(0, _refCount);
+            for (int i = 0; i < packets.Length; i++)
+                packets[i].PrintContent();
+
+            return packets;
         }
 
         /// <summary>
@@ -90,6 +109,7 @@ namespace FOMServer.Shared.Core.Networking
             var refCount = Interlocked.Decrement(ref _refCount);
             if (refCount == 0)
             {
+                Console.WriteLine("Freed Buffer Start");
                 var tempIDs = Interlocked.Exchange(ref _packetIDs, null);
                 ArrayPool<PacketIdentifier>.Shared.Return(tempIDs!);
 
@@ -98,6 +118,7 @@ namespace FOMServer.Shared.Core.Networking
 
                 Interlocked.Decrement(ref s_activeBufferCount);
                 Interlocked.Exchange(ref _allocated, 0);
+                Console.WriteLine("Freed Buffer Done");
             }
         }
 
@@ -112,14 +133,15 @@ namespace FOMServer.Shared.Core.Networking
             var currentIndex = 0;
             var offset = 0;
             while (currentIndex < index)
-                offset += PacketHelpers.GetPacketSize(_packetIDs[currentIndex]);
-
-            if (offset >= _buffer!.Length)
-                throw new IndexOutOfRangeException($"Packet {index} starts at {offset} which is out of range {_buffer.Length}");
+                offset += PacketHelpers.GetPacketSize(_packetIDs[currentIndex++]);
 
             var packetEnd = offset + PacketHelpers.GetPacketSize(_packetIDs[index]);
-            if (packetEnd >= _buffer.Length)
-                throw new InvalidOperationException($"Packet {index} does not fit within the buffer");
+            if (packetEnd > _bufferSize)
+            {
+                throw new InvalidOperationException(
+                    $"Packet {_packetIDs[index]} ({index}) Size {packetEnd - offset} Overflow - {_bufferSize}"
+                );
+            }
 
             return offset;
         }

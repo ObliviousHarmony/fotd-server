@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Concurrent;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Networking;
+using FOMServer.Shared.Core.Packets;
 
 namespace FOMServer.Shared.Services.FOMNetwork
 {
@@ -37,6 +39,7 @@ namespace FOMServer.Shared.Services.FOMNetwork
             }
             if (packetBuffer == null)
             {
+                Console.WriteLine("New Buffer");
                 packetBuffer = new PacketBuffer();
                 byteBuffer = packetBuffer.Rent(received);
                 s_packetBuffers.Add(packetBuffer);
