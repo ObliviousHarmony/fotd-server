@@ -35,17 +35,23 @@ namespace FOMServer.Master.Application.Handlers
             using var response = new PacketBuilder<LoginRequestReturn>();
             ref var rData = ref response.Data;
 
-            rData.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_INVALID_INFORMATION;
+            unsafe
+            {
+                // We send back the username regardless of the outcome.
+                for (int i = 0; i < LoginRequestReturn.UsernameSize; i++)
+                    rData.RawUsername[i] = p.RawUsername[i];
+            }
 
-            response.WithAddress(sender);
-            response.WithAddress(sender);
-            response.WithAddress(sender);
-            response.WithAddress(sender);
-            response.WithAddress(sender);
-            response.WithAddress(sender);
-            response.WithAddress(sender);
-            response.WithAddress(sender);
-            response.WithAddress(sender);
+            var playerID = _playerRepository.Exists(p.Username);
+            if (playerID == null)
+                rData.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_INVALID_INFORMATION;
+            else if (_playerService.Get(playerID.Value) != null)
+                rData.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_ALREADY_LOGGED_IN;
+            else if (p.ClientVersion != GlobalConstants.ClientVersion)
+                rData.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_OUTDATED_CLIENT;
+            else
+                rData.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_SUCCESS;
+
             response.WithAddress(sender);
             _packetSender.Send(response.Build());
         }
