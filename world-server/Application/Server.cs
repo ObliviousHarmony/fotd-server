@@ -4,6 +4,7 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Networking;
+using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.Data;
 using FOMServer.World.Application.Networking;
 using FOMServer.World.Core;
@@ -129,8 +130,11 @@ namespace FOMServer.World.Application
             ref var rpData = ref registerPacket.Data;
 
             rpData.WorldID = _serverSettings.WorldID;
-            rpData.ClientAddress = _serverSettings.ClientAddress;
-            rpData.ClientPort = _serverSettings.ClientPort;
+            rpData.ClientAddress = new NetworkAddress
+            {
+                Address = _serverSettings.ClientAddress,
+                Port = _serverSettings.ClientPort
+            };
 
             packetSender.Send(registerPacket.Build());
 
