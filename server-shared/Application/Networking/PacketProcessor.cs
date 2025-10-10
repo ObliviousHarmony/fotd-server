@@ -49,7 +49,7 @@ namespace FOMServer.Shared.Application.Networking
                     throw new InvalidOperationException($"Packet type {packetType.Name} is missing [PacketID].");
 
                 return packetIDAttr.ID;
-            }); 
+            });
         }
 
         /// <summary>

@@ -26,7 +26,7 @@ namespace FOMServer.World.Application.Handlers
             using var response = new PacketBuilder<PlayerEnteringWorldReturn>();
             ref var rData = ref response.Data;
 
-            
+
 
             rData.PlayerID = p.PlayerID;
             var player = _playerService.OnPlayerEnteringWorld(p.PlayerID, p.SelectedNodeID);

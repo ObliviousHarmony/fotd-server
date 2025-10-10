@@ -3,9 +3,9 @@
 #include <fom-network/Common.h>
 #include <fom-network/FOMNetworkTypes.h>
 #include <fom-network/packets/models/AvatarModel.h>
-#include <fom-network/packets/models/PlayerAttributesModel.h>
 #include <fom-network/packets/models/ItemModel.h>
 #include <fom-network/packets/models/ItemSlotModel.h>
+#include <fom-network/packets/models/PlayerAttributesModel.h>
 
 namespace FOMNetwork {
 namespace Packet {

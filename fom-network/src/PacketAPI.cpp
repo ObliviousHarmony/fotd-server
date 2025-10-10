@@ -145,13 +145,11 @@ int32_t FOMNetwork_Send(RakPeerInterface* peer, const SendPacket* packets,
       if (s.broadcast) {
         peer->Send(&bs, (PacketPriority)s.priority,
                    (PacketReliability)s.reliability, s.orderingChannel,
-                   SystemAddress(addr.binaryAddress, addr.port),
-                   s.broadcast);
+                   SystemAddress(addr.binaryAddress, addr.port), s.broadcast);
       } else {
         peer->Send(&bs, (PacketPriority)s.priority,
                    (PacketReliability)s.reliability, s.orderingChannel,
-                   SystemAddress(addr.binaryAddress, addr.port),
-                   s.broadcast);
+                   SystemAddress(addr.binaryAddress, addr.port), s.broadcast);
       }
     }
   }

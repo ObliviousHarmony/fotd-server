@@ -1,9 +1,9 @@
 #include <fom-network/packets/PacketSerializers.h>
 
 #include "../models/AvatarModelSerializer.h"
-#include "../models/PlayerAttributesModelSerializer.h"
 #include "../models/ItemModelSerializer.h"
 #include "../models/ItemSlotModelSerializer.h"
+#include "../models/PlayerAttributesModelSerializer.h"
 
 namespace FOMNetwork {
 
@@ -18,7 +18,8 @@ void RegisterClientReturnSerializer::WriteData(
   bs.WriteCompressed(data.playerID);
   bs.WriteCompressed(data.status);
 
-  itemSerializer.WriteStacks(bs, data.inventoryItemBuffer, data.numInventoryItems);
+  itemSerializer.WriteStacks(bs, data.inventoryItemBuffer,
+                             data.numInventoryItems);
   for (int i = 0; i < NUM_EQUIPMENT_SLOTS; ++i) {
     itemSlotSerializer.Write(bs, data.equipmentSlots[i]);
   }
