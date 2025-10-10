@@ -251,12 +251,13 @@ namespace FOMServer.Shared.Application.Networking
 
                         // We're done with the network addresses now that we've sent the packets.
                         networkAddressPool.Return(networkAddresses);
+
+                        // Return any rented buffers back to the pool.
+                        for (int i = 0; i < numRentedBuffers; ++i)
+                            sendPool.Return(rentedBuffers[i]);
                     }
 
-                    // Return any rented buffers back to the pool.
-                    for (int i = 0; i < numRentedBuffers; ++i)
-                        sendPool.Return(rentedBuffers[i]);
-
+                    // Poll for incoming packets.
                     var received = _packetService.Receive(_peer);
                     foreach (ref readonly var packet in received)
                     {

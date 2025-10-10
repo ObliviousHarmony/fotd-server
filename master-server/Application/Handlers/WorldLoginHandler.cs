@@ -59,7 +59,7 @@ namespace FOMServer.Master.Application.Handlers
             wrData.PlayerID = p.PlayerID;
             wrData.SelectedNodeID = p.SelectedNodeID;
 
-            worldResponse.WithAddress(sender);
+            worldResponse.WithAddress(worldServer.ServerAddress);
             _worldPacketSender.Send(worldResponse.Build());
         }
     }
