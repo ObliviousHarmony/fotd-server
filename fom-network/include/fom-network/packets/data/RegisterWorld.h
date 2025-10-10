@@ -9,8 +9,7 @@ namespace Packet {
 #pragma pack(push, 1)
 struct RegisterWorld {
   WorldID worldID;
-  uint8_t clientAddress[255];
-  uint16_t clientPort;
+  FOMNetwork::NetworkAddress clientAddress;
 };
 #pragma pack(pop)
 

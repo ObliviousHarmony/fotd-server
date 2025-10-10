@@ -37,7 +37,7 @@ namespace FOMServer.Master.Application.Networking
             return worldServer;
         }
 
-        public WorldServer? Register(WorldID id, NetworkAddress serverAddress, string clientAddress, ushort clientPort)
+        public WorldServer? Register(WorldID id, NetworkAddress serverAddress, NetworkAddress clientAddress)
         {
             if (_worldServers.ContainsKey(id))
                 return null;
@@ -46,11 +46,7 @@ namespace FOMServer.Master.Application.Networking
             {
                 ID = id,
                 ServerAddress = serverAddress,
-                ClientAddress = new NetworkAddress
-                {
-                    Address = clientAddress,
-                    Port = clientPort,
-                }
+                ClientAddress = clientAddress
             };
 
             if (!_worldServers.TryAdd(id, worldServer))

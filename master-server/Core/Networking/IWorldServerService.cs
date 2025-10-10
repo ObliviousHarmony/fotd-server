@@ -23,7 +23,7 @@ namespace FOMServer.Master.Core.Networking
         /// <summary>
         /// Registers a world server with the master server.
         /// </summary>
-        WorldServer? Register(WorldID id, NetworkAddress serverAddress, string clientAddress, ushort clientPort);
+        WorldServer? Register(WorldID id, NetworkAddress serverAddress, NetworkAddress clientAddress);
 
         /// <summary>
         /// Unregisters a world server from the master server.

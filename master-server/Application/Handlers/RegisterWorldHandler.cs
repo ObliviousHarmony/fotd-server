@@ -24,7 +24,7 @@ namespace FOMServer.Master.Application.Handlers
 
         public override void Handle(NetworkAddress sender, in RegisterWorld p)
         {
-            var server = _worldServerService.Register(p.WorldID, sender, p.ClientAddress, p.ClientPort);
+            var server = _worldServerService.Register(p.WorldID, sender, p.ClientAddress);
             if (server == null)
                 throw new InvalidOperationException($"World '{p.WorldID}' already registered");
 
