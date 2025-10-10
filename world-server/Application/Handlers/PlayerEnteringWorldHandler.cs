@@ -23,7 +23,7 @@ namespace FOMServer.World.Application.Handlers
 
         public override void Handle(NetworkAddress sender, in PlayerEnteringWorld p)
         {
-            using var response = QueuePacket.Create<PlayerEnteringWorldReturn>();
+            using var response = new PacketBuilder<PlayerEnteringWorldReturn>();
             ref var rData = ref response.Data;
 
             
@@ -35,9 +35,7 @@ namespace FOMServer.World.Application.Handlers
             else
                 rData.Status = PlayerEnteringWorldReturn.StatusCode.PLAYER_ENTERING_WORLD_RETURN_READY;
 
-            Console.WriteLine($"Player {p.PlayerID} entering node {p.SelectedNodeID} - {rData.Status}");
-
-            _packetSender.Send(response, PacketPriority.Medium, PacketReliability.ReliableOrdered);
+            _packetSender.Send(response.Build());
         }
     }
 }

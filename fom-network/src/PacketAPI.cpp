@@ -132,27 +132,27 @@ int32_t FOMNetwork_Send(RakPeerInterface* peer, const SendPacket* packets,
   for (int32_t i = 0; i < count; i++) {
     const SendPacket& s = packets[i];
 
-    SystemAddress address = UNASSIGNED_SYSTEM_ADDRESS;
-    if (s.networkAddress.binaryAddress != 0) {
-      address.binaryAddress = s.networkAddress.binaryAddress;
-      address.port = s.networkAddress.port;
-    }
-
     RakNet::BitStream bs;
     bs.Write(s.id);
     if (!FOMDataSerializer::Write(bs, s.id, s.data)) {
       continue;
     }
 
-    packetsSent++;
-    if (s.broadcast) {
-      peer->Send(&bs, (PacketPriority)s.priority,
-                 (PacketReliability)s.reliability, s.orderingChannel, address,
-                 s.broadcast);
-    } else {
-      peer->Send(&bs, (PacketPriority)s.priority,
-                 (PacketReliability)s.reliability, s.orderingChannel, address,
-                 s.broadcast);
+    for (int32_t j = 0; j < s.numNetworkAddresses; j++) {
+      const FOMNetwork::NetworkAddress& addr = s.networkAddresses[j];
+
+      packetsSent++;
+      if (s.broadcast) {
+        peer->Send(&bs, (PacketPriority)s.priority,
+                   (PacketReliability)s.reliability, s.orderingChannel,
+                   SystemAddress(addr.binaryAddress, addr.port),
+                   s.broadcast);
+      } else {
+        peer->Send(&bs, (PacketPriority)s.priority,
+                   (PacketReliability)s.reliability, s.orderingChannel,
+                   SystemAddress(addr.binaryAddress, addr.port),
+                   s.broadcast);
+      }
     }
   }
 

@@ -25,12 +25,13 @@ namespace FOMServer.Master.Application.Handlers
         {
             var existingID = _characterRepository.Exists(p.Name);
 
-            using var response = QueuePacket.Create<CheckNameReturn>();
+            using var response = new PacketBuilder<CheckNameReturn>();
             ref var rData = ref response.Data;
 
             rData.ExistingPlayerID = existingID ?? 0;
 
-            _packetSender.Send(response, sender, PacketPriority.Medium, PacketReliability.ReliableOrdered);
+            response.WithAddress(sender);
+            _packetSender.Send(response.Build());
         }
     }
 }

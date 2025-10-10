@@ -50,12 +50,9 @@ namespace FOMServer.Master.Application.Handlers
 
         private bool TryPlayerLogout(NetworkAddress sender)
         {
-            Console.WriteLine($"Connection Lost from {sender}");
             Player? player = _playerService.Get(sender);
             if (player == null)
                 return false;
-
-            Console.WriteLine($"Player {player.ID}");
 
             _playerService.Logout(player);
             return true;

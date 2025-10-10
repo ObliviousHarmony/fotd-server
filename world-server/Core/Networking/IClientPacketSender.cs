@@ -1,6 +1,4 @@
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Networking;
-using FOMServer.Shared.Core.Packets;
 
 namespace FOMServer.World.Core.Networking
 {
@@ -9,23 +7,11 @@ namespace FOMServer.World.Core.Networking
         /// <summary>
         /// Sends a packet over the network.
         /// </summary>
-        void Send<TData>(
-            QueuePacket.PacketData<TData> data,
-            NetworkAddress destination,
-            PacketPriority priority,
-            PacketReliability reliability,
-            byte orderingChannel = 0
-        ) where TData : unmanaged;
+        void Send(in QueuePacket packet);
 
         /// <summary>
         /// Broadcast a packet to all connected clients.
         /// </summary>
-        void Broadcast<TData>(
-            QueuePacket.PacketData<TData> data,
-            NetworkAddress excludedAddress,
-            PacketPriority priority,
-            PacketReliability reliability,
-            byte orderingChannel = 0
-        ) where TData : unmanaged;
+        void Broadcast(in QueuePacket packet);
     }
 }

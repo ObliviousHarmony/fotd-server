@@ -36,13 +36,14 @@ namespace FOMServer.Master.Application.Handlers
             if (player.ID != p.PlayerID)
                 throw new InvalidOperationException($"Player {player.ID} Provided Wrong ID: {p.PlayerID}");
 
-            using var response = QueuePacket.Create<WorldOverviewReturn>();
+            using var response = new PacketBuilder<WorldOverviewReturn>();
             ref var rData = ref response.Data;
 
             rData.PlayerID = player.ID;
             rData.WorldOverview = _worldOverviewFactory.Create(player);
 
-            _packetSender.Send(response, sender, PacketPriority.Medium, PacketReliability.ReliableOrdered);
+            response.WithAddress(sender);
+            _packetSender.Send(response.Build());
         }
     }
 }

@@ -49,7 +49,8 @@ namespace FOMServer.Shared.Core.Networking
     {
         public PacketIdentifier ID;
         public IntPtr Data;
-        public NetworkAddress NetworkAddress;
+        public int NumNetworkAddresses;
+        public IntPtr NetworkAddresses;
         public PacketPriority Priority;
         public PacketReliability Reliability;
         public byte OrderingChannel;

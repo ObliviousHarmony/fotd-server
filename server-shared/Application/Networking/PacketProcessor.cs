@@ -29,6 +29,7 @@ namespace FOMServer.Shared.Application.Networking
         {
             _shutdownManager = shutdownManager;
             _logService = logService;
+            _packetQueue = Channel.CreateUnbounded<PacketRef>();
 
             // Build the map by extracting the PacketIdentifier from each handler's generic packet struct argument.
             _handlers = handlers.ToDictionary(h =>
@@ -48,15 +49,7 @@ namespace FOMServer.Shared.Application.Networking
                     throw new InvalidOperationException($"Packet type {packetType.Name} is missing [PacketID].");
 
                 return packetIDAttr.ID;
-            });
-
-            _packetQueue = Channel.CreateUnbounded<PacketRef>(
-                new UnboundedChannelOptions
-                {
-                    SingleReader = false,
-                    SingleWriter = true
-                }
-            );
+            }); 
         }
 
         /// <summary>
@@ -132,9 +125,6 @@ namespace FOMServer.Shared.Application.Networking
                 }
                 finally
                 {
-                    Console.WriteLine("Freeing Packet");
-                    packet.PrintContent();
-
                     // Make sure that we free the packet so that the buffer can be
                     // returned to the pool once all of the packets it contains
                     // have been processed and disposed.

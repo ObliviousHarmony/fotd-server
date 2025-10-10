@@ -1,7 +1,5 @@
 using FOMServer.Master.Core.Networking;
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Networking;
-using FOMServer.Shared.Core.Packets;
 
 namespace FOMServer.Master.Application.Networking
 {
@@ -14,32 +12,20 @@ namespace FOMServer.Master.Application.Networking
             _packetSender = packetSender;
         }
 
-        public void Send<TData>(
-            QueuePacket.PacketData<TData> data,
-            NetworkAddress destination,
-            PacketPriority priority,
-            PacketReliability reliability,
-            byte orderingChannel = 0
-        ) where TData : unmanaged
+        public void Send(in QueuePacket packet)
         {
             if (_packetSender == null)
                 throw new InvalidOperationException("Packet sender not initialized");
 
-            _packetSender.Send(data, destination, priority, reliability, orderingChannel);
+            _packetSender.EnqueueSend(packet);
         }
 
-        public void Broadcast<TData>(
-            QueuePacket.PacketData<TData> data,
-            NetworkAddress excludedAddress,
-            PacketPriority priority,
-            PacketReliability reliability,
-            byte orderingChannel = 0
-        ) where TData : unmanaged
+        public void Broadcast(in QueuePacket packet)
         {
             if (_packetSender == null)
                 throw new InvalidOperationException("Packet sender not initialized");
 
-            _packetSender.Broadcast(data, excludedAddress, priority, reliability, orderingChannel);
+            _packetSender.EnqueueSend(packet.ForBroadcast());
         }
     }
 }

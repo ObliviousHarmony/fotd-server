@@ -63,6 +63,17 @@ namespace FOMServer.Shared.Core.Packets
         }
 
         /// <summary>
+        /// Returns the size of the given packet struct.
+        /// </summary>
+        public static int GetPacketSize<TPacket>() where TPacket : unmanaged
+        {
+            var type = typeof(TPacket);
+            if (!s_idByPacketType.TryGetValue(type, out var id))
+                throw new ArgumentException($"Type {type.Name} is not mapped to any PacketID");
+            return GetPacketSize(id);
+        }
+
+        /// <summary>
         /// Returns the packet ID of the given packet type
         /// </summary>
         public static PacketIdentifier GetPacketTypeID<TPacket>() where TPacket : unmanaged

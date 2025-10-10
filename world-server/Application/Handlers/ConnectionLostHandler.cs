@@ -19,12 +19,9 @@ namespace FOMServer.World.Application.Handlers
 
         public override void Handle(NetworkAddress sender, in ConnectionLost p)
         {
-            Console.WriteLine($"Connection Lost from {sender}");
             Player? player = _playerService.Get(sender);
             if (player == null)
                 return;
-
-            Console.WriteLine($"Player {player.ID}");
 
             _playerService.OnPlayerLeftWorld(player.ID);
         }

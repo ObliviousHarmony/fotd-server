@@ -37,7 +37,7 @@ namespace FOMServer.World.Application.Handlers
             if (worldServer == null)
                 throw new InvalidOperationException($"World server not found for address {sender}");
 
-            using var response = QueuePacket.Create<WorldLoginReturn>();
+            using var response = new PacketBuilder<WorldLoginReturn>();
             ref var rData = ref response.Data;
 
             rData.WorldID = worldServer.ID;
@@ -48,12 +48,8 @@ namespace FOMServer.World.Application.Handlers
             else
                 rData.Status = WorldLoginReturn.StatusCode.WORLD_LOGIN_RETURN_INVALID;
 
-            _packetSender.Send(
-                response,
-                player.ClientAddress,
-                PacketPriority.Medium,
-                PacketReliability.ReliableOrdered
-            );
+            response.WithAddress(player.ClientAddress);
+            _packetSender.Send(response.Build());
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Net;
+using System.Numerics;
 using System.Runtime.InteropServices;
 
 namespace FOMServer.Shared.Core.Packets
@@ -33,6 +34,9 @@ namespace FOMServer.Shared.Core.Packets
                 BinaryAddress = BitConverter.ToUInt32(bytes, 0);
             }
         }
+
+        public static bool operator ==(NetworkAddress a, NetworkAddress b) => a.Equals(b);
+        public static bool operator !=(NetworkAddress a, NetworkAddress b) => !a.Equals(b);
 
         public override readonly bool Equals(object? obj)
         {

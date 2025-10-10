@@ -7,14 +7,10 @@ namespace FOMServer.Shared.Core.Handlers
     {
         public void Handle(in PacketRef packet)
         {
-            Console.WriteLine($"Before Handle: {packet}");
-
             Handle(
                 packet.Sender,
                 packet.Data<TPacket>()
             );
-
-            Console.WriteLine($"After Handle: {packet}");
         }
 
         public abstract void Handle(NetworkAddress sender, in TPacket packet);

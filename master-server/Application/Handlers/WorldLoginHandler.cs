@@ -35,18 +35,14 @@ namespace FOMServer.Master.Application.Handlers
             var worldServer = _worldServerService.Get(p.WorldID);
             if (worldServer == null)
             {
-                using var unavailableResponse = QueuePacket.Create<WorldLoginReturn>();
+                using var unavailableResponse = new PacketBuilder<WorldLoginReturn>();
                 ref var urData = ref unavailableResponse.Data;
 
                 urData.Status = WorldLoginReturn.StatusCode.WORLD_LOGIN_RETURN_SERVER_UNAVAILABLE;
                 urData.WorldID = p.WorldID;
 
-                _clientPacketSender.Send(
-                    unavailableResponse,
-                    sender,
-                    PacketPriority.Medium,
-                    PacketReliability.ReliableOrdered
-                );
+                unavailableResponse.WithAddress(sender);
+                _clientPacketSender.Send(unavailableResponse.Build());
                 return;
             }
 
@@ -57,18 +53,14 @@ namespace FOMServer.Master.Application.Handlers
             if (player.ID != p.PlayerID)
                 throw new InvalidOperationException($"Player {player.ID} Provided Wrong ID: {p.PlayerID}");
 
-            using var worldResponse = QueuePacket.Create<PlayerEnteringWorld>();
+            using var worldResponse = new PacketBuilder<PlayerEnteringWorld>();
             ref var wrData = ref worldResponse.Data;
 
             wrData.PlayerID = p.PlayerID;
             wrData.SelectedNodeID = p.SelectedNodeID;
 
-            _worldPacketSender.Send(
-                worldResponse,
-                worldServer.ServerAddress,
-                PacketPriority.Medium,
-                PacketReliability.ReliableOrdered
-            );
+            worldResponse.WithAddress(sender);
+            _worldPacketSender.Send(worldResponse.Build());
         }
     }
 }

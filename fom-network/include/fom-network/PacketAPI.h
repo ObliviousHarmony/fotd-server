@@ -53,9 +53,13 @@ struct SendPacket {
   /* A pointer to the memory containing the packet data. */
   uint8_t* data;
 
-  /* The destination for the packet or the excluded address if it is a
-   * broadcast. */
-  FOMNetwork::NetworkAddress networkAddress;
+  /* The number of network addresses in the packet. */
+  uint32_t numNetworkAddresses;
+
+  /* An array of network addresses to either send the packet to or
+   * exclude from a broadcast.
+   **/
+  FOMNetwork::NetworkAddress* networkAddresses;
 
   /* The priority of the packet to be sent to the networking library. */
   uint8_t priority;

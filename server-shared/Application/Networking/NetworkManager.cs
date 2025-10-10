@@ -1,4 +1,5 @@
 using System.Buffers;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading.Channels;
@@ -62,13 +63,7 @@ namespace FOMServer.Shared.Application.Networking
             _packetService = packetService;
             _packetProcessor = packetProcessor;
             _claimedPacketIDs = new HashSet<PacketIdentifier>();
-
-            // Single writer, single reader channel is fine here
-            _sendQueue = Channel.CreateUnbounded<QueuePacket>(new UnboundedChannelOptions
-            {
-                SingleReader = true,
-                SingleWriter = false
-            });
+            _sendQueue = Channel.CreateUnbounded<QueuePacket>();
         }
 
         /// <summary>
@@ -146,6 +141,7 @@ namespace FOMServer.Shared.Application.Networking
                 byte[][] rentedBuffers = new byte[IPacketService.MaxBufferedPackets][];
                 SendPacket[] sendBuffer = new SendPacket[IPacketService.MaxBufferedPackets];
                 GCHandle[] rentedBufferHandles = new GCHandle[IPacketService.MaxBufferedPackets];
+                ArrayPool<NetworkAddress> networkAddressPool = ArrayPool<NetworkAddress>.Create();
 
                 int pollingDelayMs = 1;
                 while (!ct.IsCancellationRequested)
@@ -155,6 +151,7 @@ namespace FOMServer.Shared.Application.Networking
                     int numToSend = 0;
                     int bufferSize = 0;
                     int numRentedBuffers = 0;
+                    int numNetworkAddresses = 0;
                     while (numToSend < IPacketService.MaxBufferedPackets && _sendQueue.Reader.TryRead(out var packetToSend))
                     {
                         var packetSize = PacketHelpers.GetPacketSize(packetToSend.ID);
@@ -162,6 +159,7 @@ namespace FOMServer.Shared.Application.Networking
                             throw new InvalidOperationException($"Packet ID {packetToSend.ID} is too large to send ({packetSize} bytes)");
 
                         queueBuffer[numToSend++] = packetToSend;
+                        numNetworkAddresses += packetToSend.NetworkAddresses.Length;
 
                         // Support overflow into multiple buffers if needed.
                         if (bufferSize + packetSize > MaxSendBufferSize)
@@ -173,21 +171,29 @@ namespace FOMServer.Shared.Application.Networking
                         bufferSize += packetSize;
                     }
 
-                    // Rent a buffer for any remaining packets.
-                    if (bufferSize > 0)
-                        rentedBuffers[numRentedBuffers++] = sendPool.Rent(bufferSize);
-
                     if (numToSend > 0)
                     {
-                        // Begin by pinning all of the buffers so that the garbage collector
-                        // doesn't move them around while the native code is accessing them.
-                        for (int i = 0; i < numRentedBuffers; ++i)
-                            rentedBufferHandles[i] = GCHandle.Alloc(rentedBuffers[i], GCHandleType.Pinned);
+                        // Rent a buffer for any remaining packets.
+                        if (bufferSize > 0)
+                            rentedBuffers[numRentedBuffers++] = sendPool.Rent(bufferSize);
+
+                        // We support a variable number of network addresses per packet. As a result,
+                        // they need to be copied into a contiguous block so that we can pin them
+                        // all at once rather than pinning each individual packet's addresses.
+                        var networkAddresses = networkAddressPool.Rent(numNetworkAddresses);
+                        var networkAddressesHandle = GCHandle.Alloc(networkAddresses, GCHandleType.Pinned);
 
                         unsafe
                         {
+                            // Begin by pinning all of the buffers so that the garbage collector
+                            // doesn't move them around while the native code is accessing them.
+                            for (int i = 0; i < numRentedBuffers; ++i)
+                                rentedBufferHandles[i] = GCHandle.Alloc(rentedBuffers[i], GCHandleType.Pinned);
+
                             int bufferIndex = 0;
                             int bufferOffset = 0;
+                            int networkAddressOffset = 0;
+                            NetworkAddress* networkAddressPtr = (NetworkAddress*)networkAddressesHandle.AddrOfPinnedObject();
                             for (int i = 0; i < numToSend; ++i)
                             {
                                 ref var packetToSend = ref queueBuffer[i];
@@ -200,6 +206,11 @@ namespace FOMServer.Shared.Application.Networking
                                     bufferOffset = 0;
                                     bufferIndex++;
                                 }
+
+                                // Copy all of the packet's network addresses into the block.
+                                int numAddresses = 0;
+                                foreach (var address in packetToSend.NetworkAddresses)
+                                    networkAddresses[networkAddressOffset + (numAddresses++)] = address;
 
                                 // Copy the packet data into the current buffer.
                                 byte* bufferPtr = (byte*)rentedBufferHandles[bufferIndex].AddrOfPinnedObject();
@@ -215,14 +226,16 @@ namespace FOMServer.Shared.Application.Networking
                                     {
                                         ID = packetToSend.ID,
                                         Data = (IntPtr)(bufferPtr + bufferOffset),
-                                        NetworkAddress = packetToSend.NetworkAddresses()[0],
+                                        NumNetworkAddresses = numAddresses,
+                                        NetworkAddresses = (IntPtr)(networkAddressPtr + networkAddressOffset),
                                         Priority = packetToSend.Priority,
                                         Reliability = packetToSend.Reliability,
                                         OrderingChannel = packetToSend.OrderingChannel,
-                                        Broadcast = (byte)(packetToSend.Broadcast ? 1 : 0)
+                                        Broadcast = (byte)(packetToSend.IsBroadcast ? 1 : 0)
                                     };
                                 }
                                 bufferOffset += packetSize;
+                                networkAddressOffset += numAddresses;
 
                                 // We don't need the packet's data anymore since we copied it.
                                 packetToSend.Dispose();
@@ -232,8 +245,12 @@ namespace FOMServer.Shared.Application.Networking
                         }
 
                         // Free all of the handles since we're done with the packets.
+                        networkAddressesHandle.Free();
                         for (int i = 0; i < numRentedBuffers; ++i)
                             rentedBufferHandles[i].Free();
+
+                        // We're done with the network addresses now that we've sent the packets.
+                        networkAddressPool.Return(networkAddresses);
                     }
 
                     // Return any rented buffers back to the pool.
@@ -246,6 +263,7 @@ namespace FOMServer.Shared.Application.Networking
                         // Packet IDs that have been claimed by another network manager should be ignored.
                         if (s_globalClaimedPacketIDs.Contains(packet.ID) && !_claimedPacketIDs.Contains(packet.ID))
                         {
+                            packet.Dispose();
                             _logService.WriteMessage(LogLevel.Error, $"Client {packet.Sender} sent packet with claimed ID {packet.ID}, ignoring.");
                             continue;
                         }
@@ -279,48 +297,10 @@ namespace FOMServer.Shared.Application.Networking
             }
         }
 
-        public void Send<TData>(
-            QueuePacket.PacketData<TData> data,
-            NetworkAddress destination,
-            PacketPriority priority,
-            PacketReliability reliability,
-            byte orderingChannel = 0
-        ) where TData : unmanaged
+        public void EnqueueSend(in QueuePacket packet)
         {
             if (_peer == IntPtr.Zero)
                 throw new InvalidOperationException("Peer is not configured");
-
-            var packet = new QueuePacket(
-                destination,
-                priority,
-                reliability,
-                orderingChannel,
-                false
-            );
-            packet.TransferData(data);
-
-            _sendQueue.Writer.TryWrite(packet);
-        }
-
-        public void Broadcast<TData>(
-            QueuePacket.PacketData<TData> data,
-            NetworkAddress excludedAddress,
-            PacketPriority priority,
-            PacketReliability reliability,
-            byte orderingChannel = 0
-        ) where TData : unmanaged
-        {
-            if (_peer == IntPtr.Zero)
-                throw new InvalidOperationException("Peer is not configured");
-
-            var packet = new QueuePacket(
-                excludedAddress,
-                priority,
-                reliability,
-                orderingChannel,
-                true
-            );
-            packet.TransferData(data);
 
             _sendQueue.Writer.TryWrite(packet);
         }
