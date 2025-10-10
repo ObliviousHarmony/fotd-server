@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Concurrent;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Networking;
-using FOMServer.Shared.Core.Packets;
 
 namespace FOMServer.Shared.Services.FOMNetwork
 {
@@ -16,19 +13,22 @@ namespace FOMServer.Shared.Services.FOMNetwork
         /// We are dealing with variable-sized packets that are made of different structs. Our PacketBuffer and PacketRef structs
         /// allow us to manage raw buffers while presenting a type-safe interface to the rest of the application.
         /// </remarks>
-        private static readonly ConcurrentBag<PacketBuffer> s_packetBuffers = new ConcurrentBag<PacketBuffer>();
+        [ThreadStatic]
+        private static List<PacketBuffer>? s_packetBuffers;
+        private static List<PacketBuffer> PacketBuffers => s_packetBuffers ??= new List<PacketBuffer>(5);
 
-        public Span<PacketRef> Receive(IntPtr peer)
+        public ReadOnlySpan<PacketRef> Receive(IntPtr peer)
         {
             var received = FOMNetwork_ReceivePackets(peer);
             if (received.Count == 0)
                 return Span<PacketRef>.Empty;
 
+
             // Pull from the packet buffer pool so that we don't have
             // to keep allocating new buffers for every packet batch.
             PacketBuffer? packetBuffer = null;
             byte[]? byteBuffer = null;
-            foreach (var buffer in s_packetBuffers)
+            foreach (var buffer in PacketBuffers)
             {
                 byteBuffer = buffer.Rent(received);
                 if (byteBuffer == null)
@@ -39,10 +39,9 @@ namespace FOMServer.Shared.Services.FOMNetwork
             }
             if (packetBuffer == null)
             {
-                Console.WriteLine("New Buffer");
                 packetBuffer = new PacketBuffer();
                 byteBuffer = packetBuffer.Rent(received);
-                s_packetBuffers.Add(packetBuffer);
+                PacketBuffers.Add(packetBuffer);
             }
 
             unsafe

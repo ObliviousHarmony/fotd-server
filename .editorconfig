@@ -13,6 +13,8 @@ indent_size = 2
 
 # Severity level overrides
 dotnet_diagnostic.IDE0290.severity = none # Disable "Use primary constructor" rule
+dotnet_diagnostic.CS9195.severity = error # Make sure "in" must be used with ref readonly struct parameters
+dotnet_diagnostic.CS9196.severity = error # Make sure that "ref readonly" is used in packet handlers
 
 #### Core EditorConfig Options ####
 

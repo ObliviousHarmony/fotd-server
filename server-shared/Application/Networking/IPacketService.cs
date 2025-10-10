@@ -19,7 +19,7 @@ namespace FOMServer.Shared.Core.Networking
         /// Receive, as it will be overwritten.
         /// </remarks>
         /// <returns>The buffer containing the received packets.</returns>
-        Span<PacketRef> Receive(IntPtr peer);
+        ReadOnlySpan<PacketRef> Receive(IntPtr peer);
 
         /// <summary>
         /// Sends packets to the specified destinations.

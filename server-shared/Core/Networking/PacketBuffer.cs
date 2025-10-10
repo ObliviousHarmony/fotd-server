@@ -28,18 +28,35 @@ namespace FOMServer.Shared.Core.Networking
         private PacketIdentifier[]? _packetIDs;
 
         /// <summary>
+        /// Keeps track of the current version of the buffer.
+        /// </summary>
+        /// <remarks>
+        /// Tracking the version of the buffer allows us to ensure that stale
+        /// references aren't able to access or dispose of indices that
+        /// have been re-allocated from the buffer being re-used.
+        /// </remarks>
+        private int _bufferVersion;
+
+        /// <summary>
         /// A buffer for holding onto packet references so that each usage of the buffer
         /// does not need to allocate a new array and use more heap memory.
         /// </summary>
         private readonly PacketRef[] _packetRefs = new PacketRef[IPacketService.MaxBufferedPackets];
 
+        /// <summary>
+        /// Keep track of which packet references have been disposed.
+        /// </summary>
+        /// <remarks>
+        /// Since PacketRef might be copied, we can't rely on it maintaining its own disposed flag.
+        /// We will track it here in the PacketBuffer and ensure it can only be freed once.
+        /// </remarks>
+        private readonly int[] _packetRefDisposalFlags = new int[IPacketService.MaxBufferedPackets];
+
         public unsafe byte[]? Rent(ReceivedPackets received)
         {
-            if (Interlocked.CompareExchange(ref _allocated, 1, 0) != 0)
+            if (Interlocked.Exchange(ref _allocated, 1) != 0)
                 return null;
             Interlocked.Increment(ref s_activeBufferCount);
-
-            Console.WriteLine("Rental Start");
 
             _packetIDs = ArrayPool<PacketIdentifier>.Shared.Rent(received.Count);
 
@@ -58,10 +75,15 @@ namespace FOMServer.Shared.Core.Networking
 
             // Let's create all of the packet references
             // here so that they're easy to access later.
+            int bufferVersion = Volatile.Read(in _bufferVersion);
             for (var i = 0; i < received.Count; i++)
             {
+                Volatile.Write(ref _packetRefDisposalFlags[i], 0);
+
                 var startIndex = GetPacketStart(i);
                 _packetRefs[i] = new PacketRef(
+                    i,
+                    bufferVersion,
                     _packetIDs![i],
                     received.Senders[i],
                     _buffer.AsMemory(startIndex, PacketHelpers.GetPacketSize(_packetIDs[i])),
@@ -74,23 +96,26 @@ namespace FOMServer.Shared.Core.Networking
             return _buffer;
         }
 
-        public Span<PacketRef> GetPackets()
+        public ReadOnlySpan<PacketRef> GetPackets()
         {
             if (Volatile.Read(ref _allocated) != 1 || Volatile.Read(ref _refCount) == 0)
                 throw new InvalidOperationException("PacketBuffer has not been allocated");
 
-            Console.WriteLine();
+            return _packetRefs.AsSpan(0, _refCount);
+        }
 
-            Console.WriteLine($"Raw Buffer Size: {_bufferSize}");
-            for (int i = 0; i < _bufferSize; i++)
-                Console.Write($"{_buffer![i]:X2} ");
-            Console.WriteLine();
+        /// <summary>
+        /// Indicates whether or not the given packet has been disposed of.
+        /// </summary>
+        public bool IsPacketDisposed(ref readonly PacketRef packet)
+        {
+            if (Volatile.Read(in _bufferVersion) != packet.BufferVersion)
+                return true;
 
-            var packets = _packetRefs.AsSpan(0, _refCount);
-            for (int i = 0; i < packets.Length; i++)
-                packets[i].PrintContent();
+            if (Volatile.Read(in _packetRefDisposalFlags[packet.RefIndex]) != 0)
+                return true;
 
-            return packets;
+            return false;
         }
 
         /// <summary>
@@ -100,16 +125,28 @@ namespace FOMServer.Shared.Core.Networking
         /// Every PacketRef returned from this buffer MUST be freed in
         /// order for the buffer to be returned to the pool.
         /// </remarks>
-        public void Free(in PacketRef refToFree)
+        public void DisposePacket(ref readonly PacketRef refToFree)
         {
             if (Volatile.Read(ref _refCount) == 0)
                 throw new InvalidOperationException("PacketBuffer has not been allocated");
+
+            if (Volatile.Read(in _bufferVersion) != refToFree.BufferVersion)
+                throw new ObjectDisposedException(nameof(PacketRef));
+
+            ref var disposalFlag = ref _packetRefDisposalFlags[refToFree.RefIndex];
+            int disposed = Interlocked.Exchange(ref disposalFlag, 1);
+            if (disposed != 0)
+                throw new ObjectDisposedException(nameof(PacketRef));
 
             // We don't need the buffer anymore when all of the packets have been processed.
             var refCount = Interlocked.Decrement(ref _refCount);
             if (refCount == 0)
             {
-                Console.WriteLine("Freed Buffer Start");
+                // Invalidate stale references before freeing the buffers so
+                // that they aren't able to access memory that has been
+                // returned back to the pool.
+                Interlocked.Increment(ref _bufferVersion);
+
                 var tempIDs = Interlocked.Exchange(ref _packetIDs, null);
                 ArrayPool<PacketIdentifier>.Shared.Return(tempIDs!);
 
@@ -118,7 +155,6 @@ namespace FOMServer.Shared.Core.Networking
 
                 Interlocked.Decrement(ref s_activeBufferCount);
                 Interlocked.Exchange(ref _allocated, 0);
-                Console.WriteLine("Freed Buffer Done");
             }
         }
 
