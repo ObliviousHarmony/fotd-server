@@ -23,12 +23,12 @@ struct AvatarModel {
   uint16_t gloves;
 
   uint8_t showArmor;
-  uint16_t armorHead;
-  uint16_t armorGlasses;
-  uint16_t armorShoulder;
-  uint16_t armorArm;
-  uint16_t armorTorso;
-  uint16_t armorLeg;
+  uint16_t armorHead;      // showArmor == 1
+  uint16_t armorGlasses;   // showArmor == 1
+  uint16_t armorShoulder;  // showArmor == 1
+  uint16_t armorArm;       // showArmor == 1
+  uint16_t armorTorso;     // showArmor == 1
+  uint16_t armorLeg;       // showArmor == 1
 
   uint8_t rank;
 };

@@ -1,5 +1,5 @@
-#include <fom-network/packets/PacketSerializers.h>
 #include <fom-network/enums/EquipmentSlot.h>
+#include <fom-network/packets/PacketSerializers.h>
 
 #include "../models/AvatarModelSerializer.h"
 #include "../models/ItemModelSerializer.h"

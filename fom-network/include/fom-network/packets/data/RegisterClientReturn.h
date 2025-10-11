@@ -2,9 +2,9 @@
 
 #include <fom-network/Common.h>
 #include <fom-network/FOMNetworkTypes.h>
-#include <fom-network/enums/WorldID.h>
-#include <fom-network/enums/ItemType.h>
 #include <fom-network/enums/EquipmentSlot.h>
+#include <fom-network/enums/ItemType.h>
+#include <fom-network/enums/WorldID.h>
 #include <fom-network/packets/models/AvatarModel.h>
 #include <fom-network/packets/models/ItemModel.h>
 #include <fom-network/packets/models/ItemSlotModel.h>

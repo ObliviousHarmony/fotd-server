@@ -1,7 +1,7 @@
 #pragma once
 
-#include <fom-network/packets/models/ItemModel.h>
 #include <fom-network/enums/ItemType.h>
+#include <fom-network/packets/models/ItemModel.h>
 
 #include "ModelSerializer.h"
 
@@ -44,8 +44,8 @@ class ItemModelSerializer : public ModelSerializer<Packet::ItemModel> {
     return key;
   }
 
-  inline void UnpackItemStackKey(uint64_t key, Enums::ItemType& type, uint16_t& value,
-                                 uint16_t& durability,
+  inline void UnpackItemStackKey(uint64_t key, Enums::ItemType& type,
+                                 uint16_t& value, uint16_t& durability,
                                  uint8_t& isFactionItem) const noexcept {
     type = (Enums::ItemType)(key & 0xFFFF);
     value = (uint16_t)((key >> 16) & 0xFFFF);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <fom-network/Common.h>
+#include <fom-network/FOMNetworkTypes.h>
 
 namespace FOMNetwork {
 namespace Packet {

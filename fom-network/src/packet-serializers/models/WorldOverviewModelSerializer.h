@@ -1,7 +1,7 @@
 #pragma once
 
-#include <fom-network/packets/models/WorldOverviewModel.h>
 #include <fom-network/enums/WorldID.h>
+#include <fom-network/packets/models/WorldOverviewModel.h>
 
 #include "../NetworkAddressSerializer.h"
 #include "ApartmentModelSerializer.h"

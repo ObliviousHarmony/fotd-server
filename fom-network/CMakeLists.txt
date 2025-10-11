@@ -42,6 +42,7 @@ set(FOMNETWORK_INC
     "include/fom-network/enums/Faction.h"
     "include/fom-network/enums/FactionRelation.h"
     "include/fom-network/enums/ItemType.h"
+    "include/fom-network/enums/MedicalTreatment.h"
     "include/fom-network/enums/PlayerAttachment.h"
     "include/fom-network/enums/PlayerAttribute.h"
     "include/fom-network/enums/WorldID.h"
@@ -65,6 +66,10 @@ set(FOMNETWORK_INC
     "src/packet-serializers/models/ItemModelSerializer.h"
     "include/fom-network/packets/models/ItemSlotModel.h"
     "src/packet-serializers/models/ItemSlotModelSerializer.h"
+    "include/fom-network/packets/models/WorldPlacementModel.h"
+    "src/packet-serializers/models/WorldPlacementModelSerializer.h"
+    "include/fom-network/packets/models/PlayerUpdateModel.h"
+    "src/packet-serializers/models/PlayerUpdateModelSerializer.h"
 
     "include/fom-network/packets/data/raknet/AlreadyConnected.h"
     "include/fom-network/packets/data/raknet/ConnectionAttemptFailed.h"

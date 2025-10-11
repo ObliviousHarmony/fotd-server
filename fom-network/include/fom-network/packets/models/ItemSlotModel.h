@@ -11,7 +11,7 @@ namespace Packet {
 #pragma pack(push, 1)
 struct ItemSlotModel {
   uint8_t inUse;
-  ItemModel item;
+  ItemModel item;  // inUse == 1
 };
 #pragma pack(pop)
 

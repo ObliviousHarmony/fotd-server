@@ -1,7 +1,7 @@
 #pragma once
 
-#include <fom-network/packets/models/PlayerAttributesModel.h>
 #include <fom-network/enums/PlayerAttribute.h>
+#include <fom-network/packets/models/PlayerAttributesModel.h>
 
 #include "ModelSerializer.h"
 

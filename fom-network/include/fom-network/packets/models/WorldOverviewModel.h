@@ -3,10 +3,10 @@
 
 #include <fom-network/Common.h>
 #include <fom-network/FOMNetworkTypes.h>
-#include <fom-network/packets/NetworkAddress.h>
-#include <fom-network/enums/WorldID.h>
 #include <fom-network/enums/Faction.h>
 #include <fom-network/enums/FactionRelation.h>
+#include <fom-network/enums/WorldID.h>
+#include <fom-network/packets/NetworkAddress.h>
 #include <fom-network/packets/models/ApartmentModel.h>
 
 namespace FOMNetwork {

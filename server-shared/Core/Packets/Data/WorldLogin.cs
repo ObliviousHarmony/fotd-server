@@ -11,6 +11,6 @@ namespace FOMServer.Shared.Core.Packets.Data
         public WorldID WorldID;
         public byte SelectedNodeID;
         public uint PlayerID;
-        public uint ApartmentID;
+        public uint ApartmentID; // WorldID == WorldID.Apartments
     }
 }
