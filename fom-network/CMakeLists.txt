@@ -28,6 +28,7 @@ set(FOMNETWORK_SRC
     "src/packet-serializers/data/RegisterClientSerializer.cpp"
     "src/packet-serializers/data/RegisterClientReturnSerializer.cpp"
     "src/packet-serializers/data/UpdateSerializer.cpp"
+    "src/packet-serializers/data/WorldUpdateSerializer.cpp"
  )
 set(FOMNETWORK_INC
     "include/fom-network/FOMNetworkExport.h"
@@ -107,6 +108,7 @@ set(FOMNETWORK_INC
     "include/fom-network/packets/data/RegisterClient.h"
     "include/fom-network/packets/data/RegisterClientReturn.h"
     "include/fom-network/packets/data/Update.h"
+    "include/fom-network/packets/data/WorldUpdate.h"
 )
 set(FOMNETWORK_TEST
     "tests/FOMDataSerializer_test.cpp"

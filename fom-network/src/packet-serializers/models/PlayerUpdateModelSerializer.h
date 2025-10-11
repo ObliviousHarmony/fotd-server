@@ -33,7 +33,7 @@ class PlayerUpdateModelSerializer
 
     bs.Write(model.hasWeaponEquipped == 1);
     if (model.hasWeaponEquipped) {
-      bs.ReadCompressed(model.equippedWeapon);
+      bs.WriteCompressed(model.equippedWeapon);
       bs.Write(model.isWeaponAimed == 1);
       bs.Write(model.isWeaponFiring == 1);
       if (model.isWeaponFiring) {
