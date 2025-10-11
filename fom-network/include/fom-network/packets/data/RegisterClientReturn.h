@@ -2,6 +2,9 @@
 
 #include <fom-network/Common.h>
 #include <fom-network/FOMNetworkTypes.h>
+#include <fom-network/enums/WorldID.h>
+#include <fom-network/enums/ItemType.h>
+#include <fom-network/enums/EquipmentSlot.h>
 #include <fom-network/packets/models/AvatarModel.h>
 #include <fom-network/packets/models/ItemModel.h>
 #include <fom-network/packets/models/ItemSlotModel.h>
@@ -20,14 +23,14 @@ enum RegisterClientReturnStatus : uint8_t {
 
 #pragma pack(push, 1)
 struct RegisterClientReturn {
-  WorldID worldID;
+  Enums::WorldID worldID;
   PlayerID_t playerID;
   RegisterClientReturnStatus status;
   uint16_t numInventoryItems;
   ItemModel inventoryItemBuffer[500];
-  ItemSlotModel equipmentSlots[NUM_EQUIPMENT_SLOTS];
+  ItemSlotModel equipmentSlots[Enums::NUM_EQUIPMENT_SLOTS];
   ItemSlotModel weaponSlots[NUM_WEAPON_SLOTS];
-  ItemType quickSlots[NUM_QUICK_SLOTS];
+  Enums::ItemType quickSlots[NUM_QUICK_SLOTS];
   AvatarModel avatar;
   PlayerAttributesModel attributes;
   uint8_t name[20];

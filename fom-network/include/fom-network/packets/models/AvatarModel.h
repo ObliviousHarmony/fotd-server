@@ -2,6 +2,7 @@
 
 #include <fom-network/Common.h>
 #include <fom-network/FOMNetworkTypes.h>
+#include <fom-network/enums/Faction.h>
 
 namespace FOMNetwork {
 namespace Packet {
@@ -15,7 +16,7 @@ struct AvatarModel {
   AvatarSkin skinColor;
   uint8_t face;
   uint8_t hair;
-  Faction faction;
+  Enums::Faction faction;
   uint16_t shirt;
   uint16_t bottoms;
   uint16_t shoes;

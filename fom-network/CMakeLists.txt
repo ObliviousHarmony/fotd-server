@@ -37,6 +37,14 @@ set(FOMNETWORK_INC
     "include/fom-network/PacketAPI.h"
     "include/fom-network/NetworkAPI.h"
     "include/fom-network/FOMDataSerializer.h"
+
+    "include/fom-network/enums/EquipmentSlot.h"
+    "include/fom-network/enums/Faction.h"
+    "include/fom-network/enums/FactionRelation.h"
+    "include/fom-network/enums/ItemType.h"
+    "include/fom-network/enums/PlayerAttachment.h"
+    "include/fom-network/enums/PlayerAttribute.h"
+    "include/fom-network/enums/WorldID.h"
   
     "include/fom-network/packets/PacketIdentifier.h"
     "include/fom-network/packets/PacketTypes.h"

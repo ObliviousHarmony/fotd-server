@@ -1,6 +1,7 @@
 #pragma once
 
 #include <fom-network/Common.h>
+#include <fom-network/enums/WorldID.h>
 #include <fom-network/FOMNetworkTypes.h>
 
 namespace FOMNetwork {
@@ -18,7 +19,7 @@ enum WorldLoginReturnStatus : uint8_t {
 #pragma pack(push, 1)
 struct WorldLoginReturn {
   WorldLoginReturnStatus status;
-  WorldID worldID;
+  Enums::WorldID worldID;
 };
 #pragma pack(pop)
 

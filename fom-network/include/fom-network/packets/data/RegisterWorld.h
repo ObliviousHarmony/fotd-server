@@ -2,13 +2,14 @@
 
 #include <fom-network/Common.h>
 #include <fom-network/FOMNetworkTypes.h>
+#include <fom-network/enums/WorldID.h>
 
 namespace FOMNetwork {
 namespace Packet {
 
 #pragma pack(push, 1)
 struct RegisterWorld {
-  WorldID worldID;
+  Enums::WorldID worldID;
   FOMNetwork::NetworkAddress clientAddress;
 };
 #pragma pack(pop)

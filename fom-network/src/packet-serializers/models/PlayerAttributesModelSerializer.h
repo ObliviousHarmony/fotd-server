@@ -1,6 +1,7 @@
 #pragma once
 
 #include <fom-network/packets/models/PlayerAttributesModel.h>
+#include <fom-network/enums/PlayerAttribute.h>
 
 #include "ModelSerializer.h"
 
@@ -11,14 +12,14 @@ class PlayerAttributesModelSerializer
  public:
   void Write(RakNet::BitStream& bs,
              const Packet::PlayerAttributesModel& model) const override {
-    for (int i = 0; i < NUM_ATTRIBUTES; ++i) {
+    for (int i = 0; i < Enums::NUM_ATTRIBUTES; ++i) {
       bs.WriteCompressed(model.attributes[i]);
     }
   }
 
   bool Read(RakNet::BitStream& bs,
             Packet::PlayerAttributesModel& model) const override {
-    for (int i = 0; i < NUM_ATTRIBUTES; ++i) {
+    for (int i = 0; i < Enums::NUM_ATTRIBUTES; ++i) {
       bs.ReadCompressed(model.attributes[i]);
     }
     return true;
