@@ -4,9 +4,8 @@
 #include <fom-network/FOMNetworkTypes.h>
 #include <fom-network/enums/ItemType.h>
 #include <fom-network/enums/PlayerAttachment.h>
-
-#include "../models/AvatarModel.h"
-#include "../models/WorldPlacementModel.h"
+#include <fom-network/packets/models/AvatarModel.h>
+#include <fom-network/packets/models/WorldPlacementModel.h>
 
 namespace FOMNetwork {
 namespace Packet {
@@ -14,7 +13,7 @@ namespace Packet {
 #pragma pack(push, 1)
 struct PlayerUpdateModel {
   PlayerID_t playerID;
-  WorldPlacementModel placement;
+  WorldPlacementModel placement;  // Might need to be signed?
   AvatarModel avatar;
 
   uint8_t isDead;

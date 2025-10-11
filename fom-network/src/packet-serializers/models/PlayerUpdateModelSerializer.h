@@ -133,6 +133,7 @@ class PlayerUpdateModelSerializer
 
     uint8_t temp;
     bs.ReadCompressed(temp);
+    return true;
   }
 };
 

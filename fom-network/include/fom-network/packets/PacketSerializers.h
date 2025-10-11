@@ -177,5 +177,6 @@ SERIALIZER_BOTH(PlayerEnteringWorld)
 SERIALIZER_BOTH(PlayerEnteringWorldReturn)
 SERIALIZER_READ(RegisterClient)
 SERIALIZER_WRITE(RegisterClientReturn)
+SERIALIZER_READ(Update)
 
 }  // namespace FOMNetwork

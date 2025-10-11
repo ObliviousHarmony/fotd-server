@@ -77,7 +77,7 @@ namespace FOMServer.World.Application.Handlers
                 {
                     ID = 4,
                     Type = (ItemType)2,
-                    Value = 0,
+                    Value = 100,
                     Durability = 10000,
                     IsFactionItem = false,
                 }
