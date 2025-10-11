@@ -6,7 +6,7 @@ namespace FOMServer.Shared.Core.Packets.Models
     public struct ItemSlotModel
     {
         public byte RawInUse;
-        public ItemModel Item;
+        public ItemModel Item; // RawInUse == 1
 
         public bool InUse
         {

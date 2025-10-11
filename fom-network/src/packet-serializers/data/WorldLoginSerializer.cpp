@@ -8,7 +8,7 @@ bool WorldLoginSerializer::ReadData(RakNet::BitStream& bs,
   bs.ReadCompressed(data.selectedNodeID);
   bs.ReadCompressed(data.playerID);
   bs.IgnoreBytes(4);  // hardcoded value?
-  if (data.worldID == 4) {
+  if (data.worldID == Enums::APARTMENTS) {
     bs.ReadCompressed(data.apartmentID);
   }
 

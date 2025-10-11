@@ -58,7 +58,7 @@ enum PacketIdentifier : uint8_t {
   ID_CHECK_NAME = 122,
   ID_CHECK_NAME_RETURN = 123,
   // ID_FIND_TARGET = 124,
-  // ID_UPDATE = 125,
+  ID_UPDATE = 125,
   // ID_WORLD_UPDATE = 126,
   // ID_CHAT = 127,
   // ID_TAUNT = 128,

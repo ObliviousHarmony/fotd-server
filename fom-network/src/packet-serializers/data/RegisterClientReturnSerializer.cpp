@@ -1,3 +1,4 @@
+#include <fom-network/enums/EquipmentSlot.h>
 #include <fom-network/packets/PacketSerializers.h>
 
 #include "../models/AvatarModelSerializer.h"
@@ -20,7 +21,7 @@ void RegisterClientReturnSerializer::WriteData(
 
   itemSerializer.WriteStacks(bs, data.inventoryItemBuffer,
                              data.numInventoryItems);
-  for (int i = 0; i < NUM_EQUIPMENT_SLOTS; ++i) {
+  for (int i = 0; i < Enums::NUM_EQUIPMENT_SLOTS; ++i) {
     itemSlotSerializer.Write(bs, data.equipmentSlots[i]);
   }
   for (int i = 0; i < NUM_WEAPON_SLOTS; ++i) {

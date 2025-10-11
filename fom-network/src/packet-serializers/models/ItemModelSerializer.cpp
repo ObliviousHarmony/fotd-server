@@ -50,7 +50,7 @@ void ItemModelSerializer::WriteStacks(RakNet::BitStream& bs,
     // The stack key encodes the shared item properties and
     // so we can unpack them to avoid needing to track the
     // stack properties separately.
-    ItemType type;
+    Enums::ItemType type;
     uint16_t value;
     uint16_t durability;
     uint8_t isFactionItem;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <fom-network/enums/WorldID.h>
 #include <fom-network/packets/models/WorldOverviewModel.h>
 
 #include "../NetworkAddressSerializer.h"
@@ -17,7 +18,7 @@ class WorldOverviewModelSerializer
     ApartmentModelSerializer apartmentSerializer;
 
     bs.WriteCompressed(model.numWorlds);
-    for (size_t i = 0; i < model.numWorlds && i < NUM_WORLDS; i++) {
+    for (size_t i = 0; i < model.numWorlds && i < Enums::NUM_WORLDS; i++) {
       auto& world = model.worldBuffer[i];
 
       bs.WriteCompressed(world.id);
@@ -42,7 +43,7 @@ class WorldOverviewModelSerializer
     ApartmentModelSerializer apartmentSerializer;
 
     bs.ReadCompressed(model.numWorlds);
-    for (size_t i = 0; i < model.numWorlds && i < NUM_WORLDS; i++) {
+    for (size_t i = 0; i < model.numWorlds && i < Enums::NUM_WORLDS; i++) {
       auto& world = model.worldBuffer[i];
 
       bs.ReadCompressed(world.id);
