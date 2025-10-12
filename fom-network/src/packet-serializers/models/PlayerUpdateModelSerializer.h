@@ -18,7 +18,7 @@ class PlayerUpdateModelSerializer
     AvatarModelSerializer avatarSerializer;
     PositionModelSerializer firedFromSerializer(9);
 
-     bs.WriteCompressed(model.playerID);
+    bs.WriteCompressed(model.playerID);
     positionRotationSerializer.Write(bs, model.positionRotation);
     avatarSerializer.Write(bs, model.avatar);
 
@@ -54,8 +54,7 @@ class PlayerUpdateModelSerializer
       } else
         bs.Write0();
 
-      if (model.consumedAmmo)
-        firedFromSerializer.Write(bs, model.firedFrom);
+      if (model.consumedAmmo) firedFromSerializer.Write(bs, model.firedFrom);
     } else
       bs.Write0();
 
@@ -99,6 +98,24 @@ class PlayerUpdateModelSerializer
     AvatarModelSerializer avatarSerializer;
     PositionModelSerializer firedFromSerializer(9);
 
+    printf("\n=== RAW PACKET DUMP ===\n");
+    printf("Packet size: %u bytes (%u bits)\n",
+           BITS_TO_BYTES(bs.GetNumberOfBitsUsed()), bs.GetNumberOfBitsUsed());
+    printf("Raw bytes: ");
+    for (BitSize_t i = 0; i < BITS_TO_BYTES(bs.GetNumberOfBitsUsed()); i++) {
+      printf("%02X ", bs.GetData()[i]);
+      if ((i + 1) % 16 == 0)
+        printf("\n           ");  // Line break every 16 bytes
+    }
+    printf("\n");
+
+    // Also print in binary for bit-level analysis
+    printf("Binary representation:\n");
+    char bitString[8192];  // Should be large enough
+    bs.PrintBits(bitString);
+    printf("%s", bitString);
+    printf("=== END RAW DUMP ===\n\n");
+
     bs.ReadCompressed(model.playerID);
     positionRotationSerializer.Read(bs, model.positionRotation);
     avatarSerializer.Read(bs, model.avatar);
@@ -130,8 +147,7 @@ class PlayerUpdateModelSerializer
       } else
         model.consumedAmmo = 0;
 
-      if (model.consumedAmmo)
-        firedFromSerializer.Read(bs, model.firedFrom);
+      if (model.consumedAmmo) firedFromSerializer.Read(bs, model.firedFrom);
     }
 
     model.wasHit = bs.ReadBit() ? 1 : 0;
@@ -156,8 +172,6 @@ class PlayerUpdateModelSerializer
     bs.IgnoreBits(1);
     bs.IgnoreBits(8);
     bs.IgnoreBits(3);
-
-    printf("Remaining Unread Bits: %u\n", bs.GetNumberOfUnreadBits());
 
     return true;
   }

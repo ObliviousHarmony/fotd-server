@@ -68,7 +68,8 @@ Equipped Weapon: {update.EquippedWeapon}
 Is Aiming: {update.RawIsWeaponAimed}
 Is Firing: {update.ConsumedAmmo > 0}
 Implants: {numImplants}
-Active: {update.ActiveAttachment}"
+Active: {update.ActiveAttachment}
+Shield Setting: {update.ShieldSetting}"
 );
 
                         using var response = new PacketBuilder<WorldUpdate>();

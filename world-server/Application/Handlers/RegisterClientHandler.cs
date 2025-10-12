@@ -76,13 +76,13 @@ namespace FOMServer.World.Application.Handlers
                 }
             };
 
-            rData.Equipment[(int)EquipmentSlot.Face] = new ItemSlotModel()
+            rData.Equipment[(int)EquipmentSlot.Back] = new ItemSlotModel()
             {
                 InUse = true,
                 Item = new ItemModel()
                 {
                     ID = itemID++,
-                    Type = (ItemType)100,
+                    Type = (ItemType)104,
                     Value = 200,
                     Durability = 15000,
                     IsFactionItem = false,
