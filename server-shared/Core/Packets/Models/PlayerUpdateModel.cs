@@ -13,7 +13,7 @@ namespace FOMServer.Shared.Core.Packets.Models
         }
 
         public uint PlayerID;
-        public WorldPlacementModel Placement;
+        public PositionRotationModel PositionRotation;
         public AvatarModel Avatar;
 
         public byte RawIsDead;
@@ -24,11 +24,9 @@ namespace FOMServer.Shared.Core.Packets.Models
         public byte MovementStateID;
 
         public ItemType EquippedWeapon;
-        public byte RawIsWeaponAimed; // EquippedWeapon != 0
-        public byte ConsumedAmmo;      // EquippedWeapon != 0
-        public ushort FiredPosX;      // ConsumedAmmo > 0
-        public ushort FiredPosY;      // ConsumedAmmo > 0
-        public ushort FiredPosZ;      // ConsumedAmmo > 0
+        public byte RawIsWeaponAimed;   // EquippedWeapon != 0
+        public byte ConsumedAmmo;       // EquippedWeapon != 0
+        public PositionModel FiredFrom; // ConsumedAmmo > 0
 
         public byte RawWasHit;
         public byte HitAnimationID; // RawWasHit = 1

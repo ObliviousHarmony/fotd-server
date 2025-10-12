@@ -3,11 +3,10 @@ using System.Runtime.InteropServices;
 namespace FOMServer.Shared.Core.Packets.Models
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct WorldPlacementModel
+    public struct PositionModel
     {
-        public ushort X;
-        public ushort Y;
-        public ushort Z;
-        public ushort Rotation;
+        public short X;
+        public short Y;
+        public short Z;
     }
 }

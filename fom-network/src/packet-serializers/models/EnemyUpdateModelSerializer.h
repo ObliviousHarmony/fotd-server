@@ -3,7 +3,7 @@
 #include <fom-network/packets/models/EnemyUpdateModel.h>
 
 #include "ModelSerializer.h"
-#include "SignedWorldPlacementModelSerializer.h"
+#include "PositionRotationModelSerializer.h"
 
 namespace FOMNetwork {
 
@@ -12,12 +12,12 @@ class EnemyUpdateModelSerializer
  public:
   void Write(RakNet::BitStream& bs,
              const Packet::EnemyUpdateModel& model) const override {
-    SignedWorldPlacementModelSerializer placementSerializer;
+    PositionRotationModelSerializer positionRotationSerializer;
 
     bs.WriteCompressed(model.controllingPlayerID);
     bs.WriteCompressed(model.enemyID);
     bs.WriteCompressed(model.enemyType);
-    placementSerializer.Write(bs, model.placement);
+    positionRotationSerializer.Write(bs, model.positionRotation);
 
     WriteBits(bs, model.stateFlags, 8);
     if (model.stateFlags == 0) {
@@ -31,12 +31,12 @@ class EnemyUpdateModelSerializer
 
   bool Read(RakNet::BitStream& bs,
             Packet::EnemyUpdateModel& model) const override {
-    SignedWorldPlacementModelSerializer placementSerializer;
+    PositionRotationModelSerializer positionRotationSerializer;
 
     bs.ReadCompressed(model.controllingPlayerID);
     bs.ReadCompressed(model.enemyID);
     bs.ReadCompressed(model.enemyType);
-    placementSerializer.Read(bs, model.placement);
+    positionRotationSerializer.Read(bs, model.positionRotation);
 
     ReadBits(bs, model.stateFlags, 8);
     if (model.stateFlags == 0) {

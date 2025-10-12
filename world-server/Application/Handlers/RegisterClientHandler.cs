@@ -48,6 +48,7 @@ namespace FOMServer.World.Application.Handlers
             // 1 - 49: Weapons
             // 50 - 99: Ammunition
             // 100 - 109: Implants
+            // 110 - ?: Armor
 
             // Item Testing
             uint itemID = 1;
@@ -55,7 +56,7 @@ namespace FOMServer.World.Application.Handlers
             rData.InventoryItems[itemIndex++] = new ItemModel()
             {
                 ID = itemID++,
-                Type = (ItemType)430,
+                Type = (ItemType)400,
                 Value = 10,
                 Durability = 5000,
                 IsFactionItem = false,
@@ -68,9 +69,22 @@ namespace FOMServer.World.Application.Handlers
                 Item = new ItemModel()
                 {
                     ID = itemID++,
-                    Type = (ItemType)2,
+                    Type = (ItemType)3,
                     Value = 100,
                     Durability = 10000,
+                    IsFactionItem = false,
+                }
+            };
+
+            rData.Equipment[(int)EquipmentSlot.Face] = new ItemSlotModel()
+            {
+                InUse = true,
+                Item = new ItemModel()
+                {
+                    ID = itemID++,
+                    Type = (ItemType)100,
+                    Value = 200,
+                    Durability = 15000,
                     IsFactionItem = false,
                 }
             };

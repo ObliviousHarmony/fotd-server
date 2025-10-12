@@ -45,17 +45,31 @@ namespace FOMServer.World.Application.Handlers
                             return;
                         _sendTimer.Restart();
 
-//                        Console.WriteLine(
-//    $@"Player {player.ID}
-//Position: {update.Placement.X}, {update.Placement.Y}, {update.Placement.Z}
-//Grid1: {p.Grid1} Grid2: {p.Grid2} VisibilityArea: {p.VisibilityAreaID}
-//Look Angle: {update.VerticalLookAngle},
-//Movement State: {update.MovementStateID}
-//Animation ID: {update.AnimationID}
-//Equipped Weapon: {update.EquippedWeapon}
-//Is Aiming: {update.RawIsWeaponAimed}
-//Is Firing: {update.ConsumedAmmo > 0}"
-//);
+                        return;
+
+                        int numImplants = 0;
+                        for (int i = 0; i < (int)PlayerAttachment.NUM_ATTACHMENTS; i++)
+                        {
+                            unsafe
+                            {
+                                if (update.RawIsAttachmentEquipped[i] != 0)
+                                    numImplants++;
+                            }
+                        }
+
+                        Console.WriteLine(
+    $@"Player {player.ID}
+Position: {update.PositionRotation.Position.X}, {update.PositionRotation.Position.Y}, {update.PositionRotation.Position.Z}
+Grid1: {p.Grid1} Grid2: {p.Grid2} VisibilityArea: {p.VisibilityAreaID}
+Look Angle: {update.VerticalLookAngle},
+Movement State: {update.MovementStateID}
+Animation ID: {update.AnimationID}
+Equipped Weapon: {update.EquippedWeapon}
+Is Aiming: {update.RawIsWeaponAimed}
+Is Firing: {update.ConsumedAmmo > 0}
+Implants: {numImplants}
+Active: {update.ActiveAttachment}"
+);
 
                         using var response = new PacketBuilder<WorldUpdate>();
                         ref var rData = ref response.Data;

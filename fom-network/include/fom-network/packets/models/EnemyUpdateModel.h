@@ -2,7 +2,7 @@
 
 #include <fom-network/Common.h>
 #include <fom-network/FOMNetworkTypes.h>
-#include <fom-network/packets/models/SignedWorldPlacementModel.h>
+#include <fom-network/packets/models/PositionRotationModel.h>
 
 namespace FOMNetwork {
 namespace Packet {
@@ -12,7 +12,7 @@ struct EnemyUpdateModel {
   PlayerID_t controllingPlayerID;
   uint32_t enemyID;
   uint16_t enemyType;
-  SignedWorldPlacementModel placement;
+  PositionRotationModel positionRotation;
 
   // ------------------ stateFlags == 0 ------------------
   uint8_t stateFlags;

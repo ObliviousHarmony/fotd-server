@@ -4,7 +4,8 @@
 
 #include "AvatarModelSerializer.h"
 #include "ModelSerializer.h"
-#include "WorldPlacementModelSerializer.h"
+#include "PositionModelSerializer.h"
+#include "PositionRotationModelSerializer.h"
 
 namespace FOMNetwork {
 
@@ -13,11 +14,12 @@ class PlayerUpdateModelSerializer
  public:
   void Write(RakNet::BitStream& bs,
              const Packet::PlayerUpdateModel& model) const override {
-    WorldPlacementModelSerializer placementSerializer;
+    PositionRotationModelSerializer positionRotationSerializer;
     AvatarModelSerializer avatarSerializer;
+    PositionModelSerializer firedFromSerializer(9);
 
-    bs.WriteCompressed(model.playerID);
-    placementSerializer.Write(bs, model.placement);
+     bs.WriteCompressed(model.playerID);
+    positionRotationSerializer.Write(bs, model.positionRotation);
     avatarSerializer.Write(bs, model.avatar);
 
     bs.Write(model.isDead == 1);
@@ -52,11 +54,8 @@ class PlayerUpdateModelSerializer
       } else
         bs.Write0();
 
-      if (model.consumedAmmo) {
-        WriteBits(bs, model.firedPosX, 9);
-        WriteBits(bs, model.firedPosY, 9);
-        WriteBits(bs, model.firedPosZ, 9);
-      }
+      if (model.consumedAmmo)
+        firedFromSerializer.Write(bs, model.firedFrom);
     } else
       bs.Write0();
 
@@ -96,11 +95,12 @@ class PlayerUpdateModelSerializer
 
   bool Read(RakNet::BitStream& bs,
             Packet::PlayerUpdateModel& model) const override {
-    WorldPlacementModelSerializer placementSerializer;
+    PositionRotationModelSerializer positionRotationSerializer;
     AvatarModelSerializer avatarSerializer;
+    PositionModelSerializer firedFromSerializer(9);
 
     bs.ReadCompressed(model.playerID);
-    placementSerializer.Read(bs, model.placement);
+    positionRotationSerializer.Read(bs, model.positionRotation);
     avatarSerializer.Read(bs, model.avatar);
 
     model.isDead = bs.ReadBit() ? 1 : 0;
@@ -127,26 +127,11 @@ class PlayerUpdateModelSerializer
 
       if (bs.ReadBit()) {
         ReadBits(bs, model.consumedAmmo, 7);
-      }
-
-      if (model.consumedAmmo) {
-        ReadBits(bs, model.firedPosX, 9);
-        ReadBits(bs, model.firedPosY, 9);
-        ReadBits(bs, model.firedPosZ, 9);
-
-        // These aren't mystery bits, _duh_!
-        // They're the < 16 bits case for position encoding!
-        // They indicate an axis flip (x, y, z)!
-        // One challenge though is what this does to the variables?
-        // They're _supposed_ to be unsigned, right? Maybe they're not? Maybe they're always _signed_ and
-        // this is just a strange bug that we're seeing here? Does the client get mad if I use a signed
-        // type and spawn the player at the wrong position? This generally makes sense anyway because
-        // the player can be at a negative position in the world, right?
-        uint8_t bit1 = bs.ReadBit() ? 1 : 0;
-        uint8_t bit2 = bs.ReadBit() ? 1 : 0;
-        uint8_t bit3 = bs.ReadBit() ? 1 : 0;
       } else
         model.consumedAmmo = 0;
+
+      if (model.consumedAmmo)
+        firedFromSerializer.Read(bs, model.firedFrom);
     }
 
     model.wasHit = bs.ReadBit() ? 1 : 0;
@@ -168,10 +153,7 @@ class PlayerUpdateModelSerializer
         ReadBits(bs, model.shieldSetting, 7);
     }
 
-    // Some missing state check?
-    if (bs.ReadBit()) {
-    }
-
+    bs.IgnoreBits(1);
     bs.IgnoreBits(8);
     bs.IgnoreBits(3);
 
