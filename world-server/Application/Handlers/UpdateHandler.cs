@@ -45,16 +45,17 @@ namespace FOMServer.World.Application.Handlers
                             return;
                         _sendTimer.Restart();
 
-                        Console.WriteLine(
-    $@"Player {player.ID}
-Position: {update.Placement.X}, {update.Placement.Y}, {update.Placement.Z}
-Grid1: {p.Grid1} Grid2: {p.Grid2} VisibilityArea: {p.VisibilityAreaID}
-Movement State: {update.MovementStateID}
-Animating: {update.RawIsAnimating} Animation ID: {update.AnimationID}
-Has Weapon: {update.RawHasWeaponEquipped}
-Is Aiming: {update.RawIsWeaponAimed}
-Is Firing: {update.RawIsWeaponFiring}"
-);
+//                        Console.WriteLine(
+//    $@"Player {player.ID}
+//Position: {update.Placement.X}, {update.Placement.Y}, {update.Placement.Z}
+//Grid1: {p.Grid1} Grid2: {p.Grid2} VisibilityArea: {p.VisibilityAreaID}
+//Look Angle: {update.VerticalLookAngle},
+//Movement State: {update.MovementStateID}
+//Animation ID: {update.AnimationID}
+//Equipped Weapon: {update.EquippedWeapon}
+//Is Aiming: {update.RawIsWeaponAimed}
+//Is Firing: {update.ConsumedAmmo > 0}"
+//);
 
                         using var response = new PacketBuilder<WorldUpdate>();
                         ref var rData = ref response.Data;

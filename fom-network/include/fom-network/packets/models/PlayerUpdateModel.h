@@ -19,34 +19,24 @@ struct PlayerUpdateModel {
   uint8_t isDead;
 
   // ------------------ isDead == 0 ------------------
-  uint8_t verticalLookAngle;
+  int8_t verticalLookAngle;
+  uint16_t animationID = 16; // Default Animation (standing idle)
+  uint8_t movementStateID;
 
-  uint8_t isAnimating; // Not Needed! animationID == 16 does a zero bit, otherwise it's a 1 and the ID
-  uint16_t animationID;  // isAnimating == 1
-
-  uint8_t isMoving; // Not needed! movement state ID of 0 means do nothing, otherwise, write 5 bits?
-  uint8_t movementStateID;  // isMoving == 1
-
-  uint8_t hasWeaponEquipped;  // Not needed! equippedWeapon of 0 means no
-                              // weapon, otherwise it's a 1 and the weapon ID
-  Enums::ItemType equippedWeapon;  // hasWeaponEquipped == 1
-  uint8_t isWeaponAimed;           // hasWeaponEquipped == 1
-  uint8_t isWeaponFiring;          // hasWeaponEquipped == 1
-  uint8_t currentAmmo;             // isWeaponFiring == 1 // AMMO USED, isWeaponFiring does nothing!
-  uint16_t firedPosX;              // isWeaponFiring == 1 // currentAmmo > 0
-  uint16_t firedPosY;              // isWeaponFiring == 1 // currentAmmo > 0
-  uint16_t firedPosZ;              // isWeaponFiring == 1 // currentAmmo > 0
+  Enums::ItemType equippedWeapon;
+  uint8_t isWeaponAimed;  // equippedWeapon != 0
+  uint8_t consumedAmmo;   // equippedWeapon != 0
+  uint16_t firedPosX;     // consumedAmmo > 0
+  uint16_t firedPosY;     // consumedAmmo > 0
+  uint16_t firedPosZ;     // consumedAmmo > 0
 
   uint8_t wasHit;
   uint8_t hitAnimationID;  // wasHit = 1
   uint8_t hitDirection;    // wasHit = 1
 
-  uint8_t isEmoting; // Not needed, emoteID of 0 means no emote
-  uint8_t emoteID;  // isEmoting = 1
-
-  uint8_t hasAttachments; // Not needed, see if any are equipped and write a 1 if they are, otherwise, write a zero
-  uint8_t isAttachmentEquipped[Enums::NUM_ATTACHMENTS];  // hasAttachments == 1
-  Enums::PlayerAttachment activeAttachment;              // hasAttachments == 1
+  uint8_t emoteID;
+  uint8_t isAttachmentEquipped[Enums::NUM_ATTACHMENTS];
+  Enums::PlayerAttachment activeAttachment;  // isAttachmentEquipped[n] != 0
   uint8_t shieldSetting;  // activeAttachment == Enums::IMPLANT_SHIELD
 };
 #pragma pack(pop)

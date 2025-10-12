@@ -44,38 +44,30 @@ namespace FOMServer.World.Application.Handlers
             rData.Name = "Oblivious Test";
             rData.SelectedNode = player.SelectedNodeID;
 
+            // Item Types
+            // 1 - 49: Weapons
+            // 50 - 99: Ammunition
+            // 100 - 109: Implants
+
             // Item Testing
-            rData.NumInventoryItems = 3;
-            rData.InventoryItems[0] = new ItemModel()
+            uint itemID = 1;
+            int itemIndex = 0;
+            rData.InventoryItems[itemIndex++] = new ItemModel()
             {
-                ID = 1,
-                Type = (ItemType)1,
-                Value = 0,
-                Durability = 10000,
-                IsFactionItem = false,
-            };
-            rData.InventoryItems[1] = new ItemModel()
-            {
-                ID = 2,
-                Type = (ItemType)1,
-                Value = 0,
-                Durability = 10000,
-                IsFactionItem = false,
-            };
-            rData.InventoryItems[2] = new ItemModel()
-            {
-                ID = 3,
-                Type = (ItemType)1,
+                ID = itemID++,
+                Type = (ItemType)430,
                 Value = 10,
                 Durability = 5000,
                 IsFactionItem = false,
             };
+            rData.NumInventoryItems = (byte)itemIndex;
+
             rData.Weapons[0] = new ItemSlotModel()
             {
                 InUse = true,
                 Item = new ItemModel()
                 {
-                    ID = 4,
+                    ID = itemID++,
                     Type = (ItemType)2,
                     Value = 100,
                     Durability = 10000,
