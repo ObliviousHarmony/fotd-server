@@ -18,14 +18,9 @@ struct Update {
 
   union {
     struct PlayerUpdate {
-      uint8_t isTurretTargeted; // Not needed, the turret ID is 0 if it's not argeted
-      uint32_t turretID;  // turretTargeted == 1
-
-      uint8_t usingMedicalTerminal; // Not needed, treatment type is 0 if not using
-      Enums::MedicalTreatment treatmentType;  // usingMedicalTerminal == 1
-
+      uint32_t targetingTurretID;
+      Enums::MedicalTreatment activeMedicalTreatment;
       uint8_t isEnemyOfGD;
-
       PlayerUpdateModel update;
     } player;
 

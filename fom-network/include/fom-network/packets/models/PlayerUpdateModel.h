@@ -30,8 +30,8 @@ struct PlayerUpdateModel {
   PositionModel firedFrom;  // consumedAmmo > 0
 
   uint8_t wasHit;
-  uint8_t hitAnimationID;  // wasHit = 1
-  uint8_t hitDirection;    // wasHit = 1
+  uint8_t hitAnimationID;  // wasHit == 1
+  uint8_t hitDirection;    // wasHit == 1
 
   uint8_t emoteID;
   uint8_t isAttachmentEquipped[Enums::NUM_ATTACHMENTS];

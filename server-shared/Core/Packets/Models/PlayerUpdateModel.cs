@@ -29,8 +29,8 @@ namespace FOMServer.Shared.Core.Packets.Models
         public PositionModel FiredFrom; // ConsumedAmmo > 0
 
         public byte RawWasHit;
-        public byte HitAnimationID; // RawWasHit = 1
-        public byte HitDirection;   // RawWasHit = 1
+        public byte HitAnimationID; // RawWasHit == 1
+        public byte HitDirection;   // RawWasHit == 1
 
         public byte EmoteID;
 

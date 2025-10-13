@@ -2,6 +2,8 @@
 
 #include <fom-network/packets/models/PlayerUpdateModel.h>
 
+#include <iostream>
+
 #include "AvatarModelSerializer.h"
 #include "ModelSerializer.h"
 #include "PositionModelSerializer.h"
@@ -88,7 +90,7 @@ class PlayerUpdateModelSerializer
       bs.Write0();
 
     bs.Write0();
-    WriteBits(bs, 0, 8);
+    bs.Write((uint8_t)100);
     WriteBits(bs, 0, 3);
   }
 
@@ -97,24 +99,6 @@ class PlayerUpdateModelSerializer
     PositionRotationModelSerializer positionRotationSerializer;
     AvatarModelSerializer avatarSerializer;
     PositionModelSerializer firedFromSerializer(9);
-
-    printf("\n=== RAW PACKET DUMP ===\n");
-    printf("Packet size: %u bytes (%u bits)\n",
-           BITS_TO_BYTES(bs.GetNumberOfBitsUsed()), bs.GetNumberOfBitsUsed());
-    printf("Raw bytes: ");
-    for (BitSize_t i = 0; i < BITS_TO_BYTES(bs.GetNumberOfBitsUsed()); i++) {
-      printf("%02X ", bs.GetData()[i]);
-      if ((i + 1) % 16 == 0)
-        printf("\n           ");  // Line break every 16 bytes
-    }
-    printf("\n");
-
-    // Also print in binary for bit-level analysis
-    printf("Binary representation:\n");
-    char bitString[8192];  // Should be large enough
-    bs.PrintBits(bitString);
-    printf("%s", bitString);
-    printf("=== END RAW DUMP ===\n\n");
 
     bs.ReadCompressed(model.playerID);
     positionRotationSerializer.Read(bs, model.positionRotation);
@@ -170,7 +154,7 @@ class PlayerUpdateModelSerializer
     }
 
     bs.IgnoreBits(1);
-    bs.IgnoreBits(8);
+    bs.IgnoreBytes(1);
     bs.IgnoreBits(3);
 
     return true;
