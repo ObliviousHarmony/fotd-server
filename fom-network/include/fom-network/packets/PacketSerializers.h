@@ -42,8 +42,7 @@ class BaseSerializer {
   }
 
   template <typename T>
-  bool ReadBits(RakNet::BitStream& bs, T& input,
-                int numberOfBitsToRead) const {
+  bool ReadBits(RakNet::BitStream& bs, T& input, int numberOfBitsToRead) const {
     return bs.ReadBits((uint8_t*)&input, numberOfBitsToRead);
   }
 

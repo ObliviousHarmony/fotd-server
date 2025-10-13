@@ -1,10 +1,8 @@
-using System.Diagnostics;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.Data;
-using FOMServer.Shared.Core.Packets.Models;
 using FOMServer.Shared.Metadata;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
@@ -16,9 +14,6 @@ namespace FOMServer.World.Application.Handlers
     {
         private readonly IPlayerService _playerService;
         private readonly IClientPacketSender _packetSender;
-
-        private readonly Stopwatch _sendTimer = Stopwatch.StartNew();
-        private readonly List<PlayerUpdateModel> _updates = new();
 
         public UpdateHandler(IPlayerService playerService, IClientPacketSender packetSender)
         {
@@ -40,37 +35,6 @@ namespace FOMServer.World.Application.Handlers
                         ref readonly var update = ref data.Update;
                         if (player.ID != update.PlayerID)
                             throw new InvalidOperationException($"Player {player.ID} Provided Wrong ID: {update.PlayerID}");
-
-                        if (_sendTimer.ElapsedMilliseconds < 100)
-                            return;
-                        _sendTimer.Restart();
-
-                        return;
-
-                        int numImplants = 0;
-                        for (int i = 0; i < (int)PlayerAttachment.NUM_ATTACHMENTS; i++)
-                        {
-                            unsafe
-                            {
-                                if (update.RawIsAttachmentEquipped[i] != 0)
-                                    numImplants++;
-                            }
-                        }
-
-                        Console.WriteLine(
-    $@"Player {player.ID}
-Position: {update.PositionRotation.Position.X}, {update.PositionRotation.Position.Y}, {update.PositionRotation.Position.Z}
-Grid1: {p.Grid1} Grid2: {p.Grid2} VisibilityArea: {p.VisibilityAreaID}
-Look Angle: {update.VerticalLookAngle},
-Movement State: {update.MovementStateID}
-Animation ID: {update.AnimationID}
-Equipped Weapon: {update.EquippedWeapon}
-Is Aiming: {update.RawIsWeaponAimed}
-Is Firing: {update.ConsumedAmmo > 0}
-Implants: {numImplants}
-Active: {update.ActiveAttachment}
-Shield Setting: {update.ShieldSetting}"
-);
 
                         using var response = new PacketBuilder<WorldUpdate>();
                         ref var rData = ref response.Data;

@@ -19,14 +19,9 @@ namespace FOMServer.Shared.Core.Packets.Data
             [StructLayout(LayoutKind.Sequential, Pack = 1)]
             public struct PlayerUpdate
             {
-                public byte RawIsTurretTargeted;
-                public uint TurretID; // RawIsTurretTargeted == 1
-
-                public byte RawUsingMedicalTerminal;
-                public MedicalTreatment TreatmentType; // RawUsingMedicalTerminal == 1
-
+                public uint TargetingTurretID;
+                public MedicalTreatment ActiveMedicalTreatment;
                 public byte RawIsEnemyOfGD;
-
                 public PlayerUpdateModel Update;
             }
 

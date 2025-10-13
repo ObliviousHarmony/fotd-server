@@ -17,12 +17,15 @@ bool UpdateSerializer::ReadData(RakNet::BitStream& bs,
 
       auto& updateData = data.data.player;
 
-      updateData.isTurretTargeted = bs.ReadBit() ? 1 : 0;
-      if (updateData.isTurretTargeted) bs.ReadCompressed(updateData.turretID);
+      if (bs.ReadBit())
+        bs.ReadCompressed(updateData.targetingTurretID);
+      else
+        updateData.targetingTurretID = 0;
 
-      updateData.usingMedicalTerminal = bs.ReadBit() ? 1 : 0;
-      if (updateData.usingMedicalTerminal)
-        bs.ReadCompressed(updateData.treatmentType);
+      if (bs.ReadBit())
+        bs.ReadCompressed(updateData.activeMedicalTreatment);
+      else
+        updateData.activeMedicalTreatment = Enums::INVALID_TREATMENT;
 
       updateData.isEnemyOfGD = bs.ReadBit() ? 1 : 0;
 
