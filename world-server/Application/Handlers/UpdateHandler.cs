@@ -39,11 +39,13 @@ namespace FOMServer.World.Application.Handlers
                         using var response = new PacketBuilder<WorldUpdate>();
                         ref var rData = ref response.Data;
 
+                        // Clone us so that we can test the update handling.
                         rData.PlayerID = player.ID;
-                        rData.Update = update;
-                        rData.Update.PlayerID = 2;
+                        rData.NumUpdates = 1;
+                        rData.Updates[0].Type = WorldUpdateType.Neighbor;
+                        rData.Updates[0].Player = update;
+                        rData.Updates[0].Player.PlayerID = 2;
 
-                        response.WithReliability(PacketReliability.UnreliableSequenced);
                         response.WithAddress(sender);
                         _packetSender.Send(response.Build());
                         break;

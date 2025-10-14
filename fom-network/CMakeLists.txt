@@ -78,6 +78,9 @@ set(FOMNETWORK_INC
     "include/fom-network/packets/models/EnemyUpdateModel.h"
     "src/packet-serializers/models/EnemyUpdateModelSerializer.h"
 
+    "include/fom-network/packets/models/WorldUpdateModel.h"
+    "src/packet-serializers/models/WorldUpdateModelSerializer.h"
+
     "include/fom-network/packets/data/raknet/AlreadyConnected.h"
     "include/fom-network/packets/data/raknet/ConnectionAttemptFailed.h"
     "include/fom-network/packets/data/raknet/ConnectionBanned.h"

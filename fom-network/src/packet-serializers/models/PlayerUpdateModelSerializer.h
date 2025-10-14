@@ -45,7 +45,7 @@ class PlayerUpdateModelSerializer
     } else
       bs.Write0();
 
-    if (model.equippedWeapon != 0) {
+    if ((uint16_t)model.equippedWeapon != 0) {
       bs.Write1();
       bs.WriteCompressed(model.equippedWeapon);
       bs.Write(model.isWeaponAimed == 1);

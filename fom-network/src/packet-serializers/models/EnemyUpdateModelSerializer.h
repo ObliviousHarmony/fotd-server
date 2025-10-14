@@ -46,6 +46,8 @@ class EnemyUpdateModelSerializer
       model.isAttacking = bs.ReadBit() ? 1 : 0;
       if (model.isAttacking) ReadBits(bs, model.attackAnimation, 6);
     }
+
+    return true;
   }
 };
 

@@ -26,6 +26,7 @@ namespace FOMServer.Shared.Core.Packets.Data
             }
 
             [FieldOffset(0)] public PlayerUpdate Player;
+            [FieldOffset(0)] public EnemyUpdateModel Enemy;
         }
 
         public WorldUpdateType Type;
