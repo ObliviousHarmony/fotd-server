@@ -6,40 +6,36 @@ namespace FOMServer.Shared.Core.Packets.Models
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct PlayerUpdateModel
     {
+        public PlayerUpdateModel()
+        {
+            // Default Animation (standing idle)
+            AnimationID = 16;
+        }
+
         public uint PlayerID;
-        public WorldPlacementModel Placement;
+        public PositionRotationModel PositionRotation;
         public AvatarModel Avatar;
 
         public byte RawIsDead;
 
         // ------------------ RawIsDead == 0 ------------------
-        public byte VerticalLookAngle;
+        public sbyte VerticalLookAngle;
+        public ushort AnimationID;
+        public byte MovementStateID;
 
-        public byte RawIsAnimating;
-        public ushort AnimationID; // RawIsAnimating == 1
-
-        public byte RawIsMoving;
-        public byte MovementStateID; // RawIsMoving == 1
-
-        public byte RawHasWeaponEquipped;
-        public ItemType EquippedWeapon; // RawHasWeaponEquipped == 1
-        public byte RawIsWeaponAimed;   // RawHasWeaponEquipped == 1
-        public byte RawIsWeaponFiring;  // RawHasWeaponEquipped == 1
-        public byte CurrentAmmo;        // RawIsWeaponFiring == 1
-        public ushort FiredPosX;        // RawIsWeaponFiring == 1
-        public ushort FiredPosY;        // RawIsWeaponFiring == 1
-        public ushort FiredPosZ;        // RawIsWeaponFiring == 1
+        public ItemType EquippedWeapon;
+        public byte RawIsWeaponAimed;   // EquippedWeapon != 0
+        public byte ConsumedAmmo;       // EquippedWeapon != 0
+        public PositionModel FiredFrom; // ConsumedAmmo > 0
 
         public byte RawWasHit;
-        public byte HitAnimationID; // RawWasHit = 1
-        public byte HitDirection;   // RawWasHit = 1
+        public byte HitAnimationID; // RawWasHit == 1
+        public byte HitDirection;   // RawWasHit == 1
 
-        public byte RawIsEmoting;
-        public byte EmoteID; // RawIsEmoting = 1
+        public byte EmoteID;
 
-        public byte RawHasAttachments;
-        public fixed byte RawIsAttachmentEquipped[(int)PlayerAttachment.NUM_ATTACHMENTS]; // RawHasAttachments == 1
-        public PlayerAttachment ActiveAttachment;                                         // RawHasAttachments == 1
+        public fixed byte RawIsAttachmentEquipped[(int)PlayerAttachment.NUM_ATTACHMENTS];
+        public PlayerAttachment ActiveAttachment; // RawIsAttachmentEquipped[n] != 0
         public byte ShieldSetting; // ActiveAttachment == PlayerAttachment.ShieldImplant
     }
 }

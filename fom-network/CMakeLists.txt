@@ -28,6 +28,7 @@ set(FOMNETWORK_SRC
     "src/packet-serializers/data/RegisterClientSerializer.cpp"
     "src/packet-serializers/data/RegisterClientReturnSerializer.cpp"
     "src/packet-serializers/data/UpdateSerializer.cpp"
+    "src/packet-serializers/data/WorldUpdateSerializer.cpp"
  )
 set(FOMNETWORK_INC
     "include/fom-network/FOMNetworkExport.h"
@@ -68,14 +69,17 @@ set(FOMNETWORK_INC
     "src/packet-serializers/models/ItemModelSerializer.h"
     "include/fom-network/packets/models/ItemSlotModel.h"
     "src/packet-serializers/models/ItemSlotModelSerializer.h"
-    "include/fom-network/packets/models/WorldPlacementModel.h"
-    "src/packet-serializers/models/WorldPlacementModelSerializer.h"
-    "include/fom-network/packets/models/SignedWorldPlacementModel.h"
-    "src/packet-serializers/models/SignedWorldPlacementModelSerializer.h"
+    "include/fom-network/packets/models/PositionModel.h"
+    "src/packet-serializers/models/PositionModelSerializer.h"
+    "include/fom-network/packets/models/PositionRotationModel.h"
+    "src/packet-serializers/models/PositionRotationModelSerializer.h"
     "include/fom-network/packets/models/PlayerUpdateModel.h"
     "src/packet-serializers/models/PlayerUpdateModelSerializer.h"
     "include/fom-network/packets/models/EnemyUpdateModel.h"
     "src/packet-serializers/models/EnemyUpdateModelSerializer.h"
+
+    "include/fom-network/packets/models/WorldUpdateModel.h"
+    "src/packet-serializers/models/WorldUpdateModelSerializer.h"
 
     "include/fom-network/packets/data/raknet/AlreadyConnected.h"
     "include/fom-network/packets/data/raknet/ConnectionAttemptFailed.h"
@@ -107,6 +111,7 @@ set(FOMNETWORK_INC
     "include/fom-network/packets/data/RegisterClient.h"
     "include/fom-network/packets/data/RegisterClientReturn.h"
     "include/fom-network/packets/data/Update.h"
+    "include/fom-network/packets/data/WorldUpdate.h"
 )
 set(FOMNETWORK_TEST
     "tests/FOMDataSerializer_test.cpp"

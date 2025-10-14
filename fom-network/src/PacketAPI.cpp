@@ -1,6 +1,7 @@
 #include <fom-network/FOMDataSerializer.h>
 #include <fom-network/PacketAPI.h>
 #include <fom-network/packets/PacketIdentifier.h>
+#include <raknet/GetTime.h>
 
 #include <vector>
 
@@ -14,6 +15,18 @@ using FOMNetwork::FOMDataSerializer;
  */
 namespace FOM {
 constexpr int32_t MaxBufferedPackets = 128;
+}
+
+/**
+ * Fetches the packet identifier from a packet, accounting for
+ * the timestamp byte if present.
+ */
+FOMNetwork::PacketIdentifier GetPacketIdentifier(Packet* p) {
+  if (p->data[0] == ID_TIMESTAMP)
+    return (FOMNetwork::PacketIdentifier)
+        p->data[sizeof(uint8_t) + sizeof(RakNetTime)];
+  else
+    return (FOMNetwork::PacketIdentifier)p->data[0];
 }
 
 ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
@@ -31,8 +44,8 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
     }
 
     // We can only handle packets that we know about.
-    int packetSize = FOMDataSerializer::GetPacketSize(
-        (FOMNetwork::PacketIdentifier)p->data[0]);
+    auto packetID = GetPacketIdentifier(p);
+    int packetSize = FOMDataSerializer::GetPacketSize(packetID);
     if (packetSize <= 0) {
       peer->DeallocatePacket(const_cast<Packet*>(p));
       continue;
@@ -57,7 +70,7 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
       received.packets[i] = p;
       received.senders[i].binaryAddress = p->systemAddress.binaryAddress;
       received.senders[i].port = p->systemAddress.port;
-      received.identifiers[i] = (FOMNetwork::PacketIdentifier)p->data[0];
+      received.identifiers[i] = GetPacketIdentifier(p);
     }
   }
 
@@ -84,9 +97,8 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
       continue;
     }
 
-    FOMNetwork::PacketIdentifier packetID = received.identifiers[i];
-
     // Don't try to deserialize packets that we don't know about.
+    FOMNetwork::PacketIdentifier packetID = received.identifiers[i];
     int packetSize = FOMDataSerializer::GetPacketSize(packetID);
     if (packetSize <= 0) {
       ret = -1;
@@ -96,15 +108,31 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
 
     // Make sure that the buffer can hold this packet.
     if (packetBufferOffset + packetSize > packetBufferLen) {
-      ret = -1;
+      ret = -2;
       peer->DeallocatePacket(const_cast<Packet*>(p));
       continue;
     }
 
     RakNet::BitStream bs(p->data, p->length, false);
 
-    // We already know what the packet ID is.
-    bs.IgnoreBytes(1);
+    // Skip the packet ID and rely on what the consumer gave us.
+    // The buffer was size based on those IDs and using a
+    // different one will lead to memory corruption.
+    uint8_t rawPacketID;
+    bs.Read(rawPacketID);
+    if (rawPacketID == ID_TIMESTAMP) {
+      // Skip the timestamp too if one is present.
+      bs.IgnoreBytes(sizeof(RakNetTime));
+      bs.Read(rawPacketID);
+    }
+
+    if (rawPacketID != packetID) {
+      // This should never happen, but if it does we don't
+      // want to try to read the packet.
+      ret = -1;
+      peer->DeallocatePacket(const_cast<Packet*>(p));
+      continue;
+    }
 
     // Read the packet bitstream into our packet's buffer.
     FOMDataSerializer::Read(bs, packetID, &packetBuffer[packetBufferOffset]);
@@ -133,6 +161,11 @@ int32_t FOMNetwork_Send(RakPeerInterface* peer, const SendPacket* packets,
     const SendPacket& s = packets[i];
 
     RakNet::BitStream bs;
+
+    // All packets include a timestamp
+    bs.Write((uint8_t)ID_TIMESTAMP);
+    bs.Write(RakNet::GetTime());
+
     bs.Write(s.id);
     if (!FOMDataSerializer::Write(bs, s.id, s.data)) {
       continue;

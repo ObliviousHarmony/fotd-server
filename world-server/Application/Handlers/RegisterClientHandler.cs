@@ -44,41 +44,47 @@ namespace FOMServer.World.Application.Handlers
             rData.Name = "Oblivious Test";
             rData.SelectedNode = player.SelectedNodeID;
 
+            // Item Types
+            // 1 - 49: Weapons
+            // 50 - 99: Ammunition
+            // 100 - 109: Implants
+            // 110 - ?: Armor
+
             // Item Testing
-            rData.NumInventoryItems = 3;
-            rData.InventoryItems[0] = new ItemModel()
+            uint itemID = 1;
+            int itemIndex = 0;
+            rData.InventoryItems[itemIndex++] = new ItemModel()
             {
-                ID = 1,
-                Type = (ItemType)1,
-                Value = 0,
-                Durability = 10000,
-                IsFactionItem = false,
-            };
-            rData.InventoryItems[1] = new ItemModel()
-            {
-                ID = 2,
-                Type = (ItemType)1,
-                Value = 0,
-                Durability = 10000,
-                IsFactionItem = false,
-            };
-            rData.InventoryItems[2] = new ItemModel()
-            {
-                ID = 3,
-                Type = (ItemType)1,
+                ID = itemID++,
+                Type = (ItemType)400,
                 Value = 10,
                 Durability = 5000,
                 IsFactionItem = false,
             };
+            rData.NumInventoryItems = (byte)itemIndex;
+
             rData.Weapons[0] = new ItemSlotModel()
             {
                 InUse = true,
                 Item = new ItemModel()
                 {
-                    ID = 4,
-                    Type = (ItemType)2,
+                    ID = itemID++,
+                    Type = (ItemType)3,
                     Value = 100,
                     Durability = 10000,
+                    IsFactionItem = false,
+                }
+            };
+
+            rData.Equipment[(int)EquipmentSlot.Back] = new ItemSlotModel()
+            {
+                InUse = true,
+                Item = new ItemModel()
+                {
+                    ID = itemID++,
+                    Type = (ItemType)104,
+                    Value = 200,
+                    Durability = 15000,
                     IsFactionItem = false,
                 }
             };

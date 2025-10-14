@@ -32,12 +32,12 @@ class AvatarModelSerializer : public ModelSerializer<Packet::AvatarModel> {
       bs.Write0();
 
     WriteBits(bs, model.rank, 3);
-    bs.Write1();
-    bs.Write1();
-    bs.Write1();
-    bs.Write1();
-    bs.Write1();
-    bs.Write1();
+    bs.Write0();  // Green Icon
+    bs.Write0();
+    bs.Write0();  // Volunteer Icon
+    bs.Write0();
+    bs.Write0();
+    bs.Write0();
   }
 
   bool Read(RakNet::BitStream& bs, Packet::AvatarModel& model) const override {

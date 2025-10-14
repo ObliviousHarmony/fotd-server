@@ -36,15 +36,18 @@ namespace FOMServer.World.Application.Handlers
                         if (player.ID != update.PlayerID)
                             throw new InvalidOperationException($"Player {player.ID} Provided Wrong ID: {update.PlayerID}");
 
-                        Console.WriteLine(
-                            $@"Player {player.ID}
-Position: {update.Placement.X}, {update.Placement.Y}, {update.Placement.Z}
-Grid1: {p.Grid1} Grid2: {p.Grid2} VisibilityArea: {p.VisibilityAreaID}
-Movement State: {update.MovementStateID}
-Has Weapon: {update.RawHasWeaponEquipped}
-Is Aiming: {update.RawIsWeaponAimed}
-Is Firing: {update.RawIsWeaponFiring}"
-                        );
+                        using var response = new PacketBuilder<WorldUpdate>();
+                        ref var rData = ref response.Data;
+
+                        // Clone us so that we can test the update handling.
+                        rData.PlayerID = player.ID;
+                        rData.NumUpdates = 1;
+                        rData.Updates[0].Type = WorldUpdateType.Neighbor;
+                        rData.Updates[0].Player = update;
+                        rData.Updates[0].Player.PlayerID = 2;
+
+                        response.WithAddress(sender);
+                        _packetSender.Send(response.Build());
                         break;
                     }
             }

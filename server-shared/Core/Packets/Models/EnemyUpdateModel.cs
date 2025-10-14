@@ -8,7 +8,7 @@ namespace FOMServer.Shared.Core.Packets.Models
         public uint ControllingPlayerID;
         public uint EnemyID;
         public ushort EnemyType;
-        public SignedWorldPlacementModel Placement;
+        public PositionRotationModel PositionRotation;
 
         public byte StateFlags;
 

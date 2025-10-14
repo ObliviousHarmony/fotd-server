@@ -2,9 +2,12 @@
 
 #include <fom-network/packets/models/PlayerUpdateModel.h>
 
+#include <iostream>
+
 #include "AvatarModelSerializer.h"
 #include "ModelSerializer.h"
-#include "WorldPlacementModelSerializer.h"
+#include "PositionModelSerializer.h"
+#include "PositionRotationModelSerializer.h"
 
 namespace FOMNetwork {
 
@@ -13,40 +16,49 @@ class PlayerUpdateModelSerializer
  public:
   void Write(RakNet::BitStream& bs,
              const Packet::PlayerUpdateModel& model) const override {
-    WorldPlacementModelSerializer placementSerializer;
+    PositionRotationModelSerializer positionRotationSerializer;
     AvatarModelSerializer avatarSerializer;
+    PositionModelSerializer firedFromSerializer(9);
 
     bs.WriteCompressed(model.playerID);
-    placementSerializer.Write(bs, model.placement);
+    positionRotationSerializer.Write(bs, model.positionRotation);
     avatarSerializer.Write(bs, model.avatar);
 
     bs.Write(model.isDead == 1);
     if (model.isDead) return;
 
-    bs.Write(model.verticalLookAngle);
+    uint8_t verticalLookAngle =
+        (uint8_t)(model.verticalLookAngle + 90);  // Offset to avoid negative
+    bs.Write(verticalLookAngle);
 
-    bs.Write(model.isAnimating == 1);
-    if (model.isAnimating) WriteBits(bs, model.animationID, 12);
-
-    bs.Write(model.isMoving == 1);
-    if (model.isMoving) WriteBits(bs, model.movementStateID, 5);
-
-    bs.Write(model.hasWeaponEquipped == 1);
-    if (model.hasWeaponEquipped) {
-      bs.ReadCompressed(model.equippedWeapon);
-      bs.Write(model.isWeaponAimed == 1);
-      bs.Write(model.isWeaponFiring == 1);
-      if (model.isWeaponFiring) {
-        WriteBits(bs, model.currentAmmo, 7);
-        WriteBits(bs, model.firedPosX, 9);
-        WriteBits(bs, model.firedPosY, 9);
-        WriteBits(bs, model.firedPosZ, 9);
-
-        bs.Write0();
-        bs.Write0();
-        bs.Write0();
-      }
+    // Don't write the default animation.
+    if (model.animationID == 16) {
+      bs.Write0();
+    } else {
+      bs.Write1();
+      WriteBits(bs, model.animationID, 12);
     }
+
+    if (model.movementStateID) {
+      bs.Write1();
+      WriteBits(bs, model.movementStateID, 5);
+    } else
+      bs.Write0();
+
+    if ((uint16_t)model.equippedWeapon != 0) {
+      bs.Write1();
+      bs.WriteCompressed(model.equippedWeapon);
+      bs.Write(model.isWeaponAimed == 1);
+
+      if (model.consumedAmmo) {
+        bs.Write1();
+        WriteBits(bs, model.consumedAmmo, 7);
+      } else
+        bs.Write0();
+
+      if (model.consumedAmmo) firedFromSerializer.Write(bs, model.firedFrom);
+    } else
+      bs.Write0();
 
     bs.Write(model.wasHit == 1);
     if (model.wasHit) {
@@ -54,59 +66,72 @@ class PlayerUpdateModelSerializer
       WriteBits(bs, model.hitDirection, 4);
     }
 
-    bs.Write(model.isEmoting == 1);
-    if (model.isEmoting) WriteBits(bs, model.emoteID, 6);
+    if (model.emoteID) {
+      bs.Write1();
+      WriteBits(bs, model.emoteID, 6);
+    } else
+      bs.Write0();
 
-    bs.Write(model.hasAttachments == 1);
-    if (model.hasAttachments) {
+    bool hasAttachmentEquipped = false;
+    for (int i = 0; i < Enums::NUM_ATTACHMENTS; ++i) {
+      if (model.isAttachmentEquipped[i]) {
+        hasAttachmentEquipped = true;
+        break;
+      }
+    }
+    if (hasAttachmentEquipped) {
+      bs.Write1();
       for (int i = 0; i < Enums::NUM_ATTACHMENTS; ++i)
         bs.Write(model.isAttachmentEquipped[i] == 1);
       WriteBits(bs, model.activeAttachment, 5);
       if (model.activeAttachment == Enums::IMPLANT_SHIELD)
         WriteBits(bs, model.shieldSetting, 7);
-    }
+    } else
+      bs.Write0();
 
     bs.Write0();
-    WriteBits(bs, 0, 8);
+    bs.Write((uint8_t)100);
     WriteBits(bs, 0, 3);
-    bs.WriteCompressed((uint8_t)0);
   }
 
   bool Read(RakNet::BitStream& bs,
             Packet::PlayerUpdateModel& model) const override {
-    WorldPlacementModelSerializer placementSerializer;
+    PositionRotationModelSerializer positionRotationSerializer;
     AvatarModelSerializer avatarSerializer;
+    PositionModelSerializer firedFromSerializer(9);
 
     bs.ReadCompressed(model.playerID);
-    placementSerializer.Read(bs, model.placement);
+    positionRotationSerializer.Read(bs, model.positionRotation);
     avatarSerializer.Read(bs, model.avatar);
 
     model.isDead = bs.ReadBit() ? 1 : 0;
     if (model.isDead) return true;
 
-    bs.Read(model.verticalLookAngle);
+    uint8_t verticalLookAngle;
+    bs.Read(verticalLookAngle);
+    model.verticalLookAngle =
+        (int8_t)(verticalLookAngle)-90;  // Reverse Write Offset
 
-    model.isAnimating = bs.ReadBit() ? 1 : 0;
-    if (model.isAnimating) ReadBits(bs, model.animationID, 12);
+    if (bs.ReadBit())
+      ReadBits(bs, model.animationID, 12);
+    else
+      model.animationID = 16;  // Default Animation (standing idle)
 
-    model.isMoving = bs.ReadBit() ? 1 : 0;
-    if (model.isMoving) ReadBits(bs, model.movementStateID, 5);
+    if (bs.ReadBit())
+      ReadBits(bs, model.movementStateID, 5);
+    else
+      model.movementStateID = 0;
 
-    model.hasWeaponEquipped = bs.ReadBit() ? 1 : 0;
-    if (model.hasWeaponEquipped) {
+    if (bs.ReadBit()) {
       bs.ReadCompressed(model.equippedWeapon);
       model.isWeaponAimed = bs.ReadBit() ? 1 : 0;
-      model.isWeaponFiring = bs.ReadBit() ? 1 : 0;
-      if (model.isWeaponFiring) {
-        ReadBits(bs, model.currentAmmo, 7);
-        ReadBits(bs, model.firedPosX, 9);
-        ReadBits(bs, model.firedPosY, 9);
-        ReadBits(bs, model.firedPosZ, 9);
 
-        bs.IgnoreBits(1);
-        bs.IgnoreBits(1);
-        bs.IgnoreBits(1);
-      }
+      if (bs.ReadBit()) {
+        ReadBits(bs, model.consumedAmmo, 7);
+      } else
+        model.consumedAmmo = 0;
+
+      if (model.consumedAmmo) firedFromSerializer.Read(bs, model.firedFrom);
     }
 
     model.wasHit = bs.ReadBit() ? 1 : 0;
@@ -115,11 +140,12 @@ class PlayerUpdateModelSerializer
       ReadBits(bs, model.hitDirection, 4);
     }
 
-    model.isEmoting = bs.ReadBit() ? 1 : 0;
-    if (model.isEmoting) ReadBits(bs, model.emoteID, 6);
+    if (bs.ReadBit()) {
+      ReadBits(bs, model.emoteID, 6);
+    } else
+      model.emoteID = 0;
 
-    model.hasAttachments = bs.ReadBit() ? 1 : 0;
-    if (model.hasAttachments) {
+    if (bs.ReadBit()) {
       for (int i = 0; i < Enums::NUM_ATTACHMENTS; ++i)
         model.isAttachmentEquipped[i] = bs.ReadBit() ? 1 : 0;
       ReadBits(bs, model.activeAttachment, 5);
@@ -128,11 +154,9 @@ class PlayerUpdateModelSerializer
     }
 
     bs.IgnoreBits(1);
-    bs.IgnoreBits(8);
+    bs.IgnoreBytes(1);
     bs.IgnoreBits(3);
 
-    uint8_t temp;
-    bs.ReadCompressed(temp);
     return true;
   }
 };

@@ -64,6 +64,8 @@ RakPeerInterface* FOMNetwork_Client_Connect(const char* hostAddress,
     return NULL;
   }
 
+  client->SetOccasionalPing(true);
+
   return client;
 }
 

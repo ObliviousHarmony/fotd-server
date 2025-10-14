@@ -2,20 +2,19 @@
 
 #include <fom-network/Common.h>
 #include <fom-network/FOMNetworkTypes.h>
+#include <fom-network/packets/models/PositionModel.h>
 
 namespace FOMNetwork {
 namespace Packet {
 
 #pragma pack(push, 1)
-struct WorldPlacementModel {
-  uint16_t x;
-  uint16_t y;
-  uint16_t z;
+struct PositionRotationModel {
+  PositionModel position;
   uint16_t rotation;
 };
 #pragma pack(pop)
 
-ASSERT_BLITTABLE(WorldPlacementModel);
+ASSERT_BLITTABLE(PositionRotationModel);
 
 }  // namespace Packet
 }  // namespace FOMNetwork
