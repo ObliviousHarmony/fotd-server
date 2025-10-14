@@ -19,7 +19,7 @@ class WorldUpdateModelSerializer
     bs.WriteCompressed(model.type);
     switch (model.type) {
       case Enums::WORLDUPDATE_NEIGHBOR:
-        
+
         playerSerializer.Write(bs, model.data.player);
         break;
       case Enums::WORLDUPDATE_NEIGHBOR_ENEMY:

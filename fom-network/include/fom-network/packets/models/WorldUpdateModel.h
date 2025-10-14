@@ -4,8 +4,8 @@
 #include <fom-network/Common.h>
 #include <fom-network/FOMNetworkTypes.h>
 #include <fom-network/enums/WorldUpdateType.h>
-#include <fom-network/packets/models/PlayerUpdateModel.h>
 #include <fom-network/packets/models/EnemyUpdateModel.h>
+#include <fom-network/packets/models/PlayerUpdateModel.h>
 
 namespace FOMNetwork {
 namespace Packet {
