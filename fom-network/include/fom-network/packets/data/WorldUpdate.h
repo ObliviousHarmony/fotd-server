@@ -8,7 +8,7 @@ namespace FOMNetwork {
 namespace Packet {
 
 // The game will not process more than 100 updates at a time.
-constexpr size_t MaxWorldUpdates = 100;
+constexpr uint8_t MaxWorldUpdates = 100;
 
 #pragma pack(push, 1)
 struct WorldUpdate {
