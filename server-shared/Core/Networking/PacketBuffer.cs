@@ -98,7 +98,7 @@ namespace FOMServer.Shared.Core.Networking
 
         public ReadOnlySpan<PacketRef> GetPackets()
         {
-            if (Volatile.Read(ref _allocated) != 1 || Volatile.Read(ref _refCount) == 0)
+            if (Volatile.Read(in _allocated) != 1 || Volatile.Read(in _refCount) == 0)
                 throw new InvalidOperationException("PacketBuffer has not been allocated");
 
             return _packetRefs.AsSpan(0, _refCount);
@@ -127,7 +127,7 @@ namespace FOMServer.Shared.Core.Networking
         /// </remarks>
         public void DisposePacket(ref readonly PacketRef refToFree)
         {
-            if (Volatile.Read(ref _refCount) == 0)
+            if (Volatile.Read(in _refCount) == 0)
                 throw new InvalidOperationException("PacketBuffer has not been allocated");
 
             if (Volatile.Read(in _bufferVersion) != refToFree.BufferVersion)
@@ -160,7 +160,7 @@ namespace FOMServer.Shared.Core.Networking
 
         private int GetPacketStart(int index)
         {
-            if (Volatile.Read(ref _allocated) != 1 || Volatile.Read(ref _buffer) == null)
+            if (Volatile.Read(in _allocated) != 1 || Volatile.Read(in _buffer) == null)
                 throw new InvalidOperationException("PacketBuffer has not been allocated");
 
             if (index >= _packetIDs!.Length)

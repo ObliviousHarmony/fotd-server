@@ -184,7 +184,7 @@ namespace FOMServer.Shared.Core.Networking
 
         private void ThrowIfBuilt()
         {
-            if (Volatile.Read(ref _ownsBuffer) != 1)
+            if (Volatile.Read(in _ownsBuffer) != 1)
                 throw new InvalidOperationException("Packet cannot be modified after building");
         }
     }
