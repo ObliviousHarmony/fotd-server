@@ -16,12 +16,13 @@ namespace FOMServer.Application.Core
         public CancellationToken Token => _rootCts.Token;
 
         public ShutdownManager()
-		{
+        {
             _syncRoot = new();
             _rootCts = new();
-            _trackedTasks = new();_stoppingTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
+            _trackedTasks = new();
+            _stoppingTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
             _stoppedTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
-		}
+        }
 
         public void TrackTask(Task task)
         {
