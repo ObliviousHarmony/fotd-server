@@ -1,5 +1,4 @@
 using FOMServer.Shared.Core.Networking;
-using FOMServer.Shared.Core.Packets;
 using FOMServer.World.Core.Networking;
 
 namespace FOMServer.World.Application.Networking
@@ -18,12 +17,10 @@ namespace FOMServer.World.Application.Networking
             if (_packetSender == null)
                 throw new InvalidOperationException("Packet sender not initialized");
 
-            if (packet.NetworkAddresses.Length != 1 || packet.NetworkAddresses[0] != NetworkAddress.Unassigned)
-                throw new InvalidOperationException("MasterPacketSender does not support sending to specific addresses");
+            if (!packet.Broadcast)
+                throw new InvalidOperationException("Packet must not have a destination");
 
-            // Since the server is the only "connected" peer, broadcasting sends to it
-            // without us needing to keep track of its address.
-            _packetSender.EnqueueSend(packet.WithBroadcast());
+            _packetSender.EnqueueSend(packet);
         }
     }
 }

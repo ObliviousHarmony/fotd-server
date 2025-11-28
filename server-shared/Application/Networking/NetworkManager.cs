@@ -232,7 +232,7 @@ namespace FOMServer.Shared.Application.Networking
                                         Priority = packetToSend.Priority,
                                         Reliability = packetToSend.Reliability,
                                         OrderingChannel = packetToSend.OrderingChannel,
-                                        Broadcast = (byte)(packetToSend.IsBroadcast ? 1 : 0)
+                                        Broadcast = (byte)(packetToSend.Broadcast ? 1 : 0)
                                     };
                                 }
                                 bufferOffset += packetSize;
