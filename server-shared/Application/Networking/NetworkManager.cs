@@ -63,7 +63,12 @@ namespace FOMServer.Shared.Application.Networking
             _packetService = packetService;
             _packetProcessor = packetProcessor;
             _claimedPacketIDs = new HashSet<PacketIdentifier>();
-            _sendQueue = Channel.CreateUnbounded<QueuePacket>();
+            _sendQueue = Channel.CreateUnbounded<QueuePacket>(
+                new UnboundedChannelOptions
+                {
+                    SingleReader = true
+                }
+            );
         }
 
         /// <summary>

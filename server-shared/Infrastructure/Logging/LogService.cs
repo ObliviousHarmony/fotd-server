@@ -28,8 +28,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
             _logChannel = Channel.CreateUnbounded<LogEntry>(
                 new UnboundedChannelOptions
                 {
-                    SingleReader = true,
-                    SingleWriter = false
+                    SingleReader = true
                 }
             );
 

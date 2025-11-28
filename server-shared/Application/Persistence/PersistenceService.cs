@@ -91,8 +91,18 @@ namespace FOMServer.Shared.Application.Persistence
             _shutdownManager = shutdownManager;
             _logService = logService;
             _handlers = handlers.ToDictionary(h => h.EntityType);
-            _dirtyQueue = Channel.CreateUnbounded<IPersistable>();
-            _waitQueue = Channel.CreateUnbounded<WaitRequest>();
+            _dirtyQueue = Channel.CreateUnbounded<IPersistable>(
+                new UnboundedChannelOptions
+                {
+                    SingleReader = true
+                }
+            );
+            _waitQueue = Channel.CreateUnbounded<WaitRequest>(
+                new UnboundedChannelOptions
+                {
+                    SingleReader = true
+                }
+            );
             _entityStates = new ConditionalWeakTable<IPersistable, EntityState>();
         }
 
