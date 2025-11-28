@@ -10,11 +10,11 @@ namespace FOMServer.Tests
     {
         private class TestEntity : IPersistable
         {
-            public event Action<IPersistable, IEnumerable<IPersistable>?>? OnChanged;
+            public event PersistenceChangedHandler? OnChanged;
 
-            public void MarkChanged(IEnumerable<IPersistable>? associations = null)
+            public bool MarkChanged(IEnumerable<IPersistable>? associations = null)
             {
-                OnChanged?.Invoke(this, associations);
+                return OnChanged?.Invoke(this, associations) ?? true;
             }
         }
 
@@ -24,11 +24,15 @@ namespace FOMServer.Tests
 
             public List<IPersistable> PersistedEntities { get; } = new();
             public TaskCompletionSource? BlockUntil { get; set; }
+            public bool ShouldThrow { get; set; }
 
             public async Task PersistAsync(IPersistable entity)
             {
                 if (BlockUntil != null)
                     await BlockUntil.Task;
+
+                if (ShouldThrow)
+                    throw new InvalidOperationException("Simulated persistence failure");
 
                 PersistedEntities.Add(entity);
             }
@@ -200,6 +204,80 @@ namespace FOMServer.Tests
             _logService.Verify(
                 l => l.WriteException(It.Is<InvalidOperationException>(
                     ex => ex.Message.Contains("No persistence handler registered"))),
+                Times.Once);
+        }
+
+        [Fact]
+        public async Task MarkChanged_WhileWaiting_ReturnsFalse()
+        {
+            var service = CreateService();
+            var entity = new TestEntity();
+
+            // Block persistence so we can test the waiting state
+            var blockPersist = new TaskCompletionSource();
+            _handler.BlockUntil = blockPersist;
+
+            service.Register(entity);
+
+            entity.MarkChanged();
+            service.WaitForPersistence(entity, () => { });
+
+            // Entity is now waiting - further changes should be rejected
+            var result = entity.MarkChanged();
+
+            Assert.False(result);
+
+            // Cleanup
+            blockPersist.SetResult();
+        }
+
+        [Fact]
+        public async Task MarkChanged_AfterWaitCompletes_ReturnsTrue()
+        {
+            var service = CreateService();
+            var entity = new TestEntity();
+            var callbackFired = new TaskCompletionSource();
+
+            service.Register(entity);
+
+            entity.MarkChanged();
+            service.WaitForPersistence(entity, () => callbackFired.SetResult());
+
+            // Wait for callback to fire (IsWaiting should be cleared)
+            await callbackFired.Task;
+
+            // Entity should now accept changes again
+            var result = entity.MarkChanged();
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public async Task PersistAsync_OnFailure_StillIncrementsVersion()
+        {
+            var service = CreateService();
+            var entity = new TestEntity();
+            var callbackFired = new TaskCompletionSource();
+
+            _handler.ShouldThrow = true;
+
+            service.Register(entity);
+
+            entity.MarkChanged();
+            service.WaitForPersistence(entity, () => callbackFired.SetResult());
+
+            // Callback should still fire because version increments in finally block
+            var completed = await Task.WhenAny(callbackFired.Task, Task.Delay(1000));
+
+            Assert.Equal(callbackFired.Task, completed);
+
+            // Entity was not actually persisted due to exception
+            Assert.DoesNotContain(entity, _handler.PersistedEntities);
+
+            // But exception was logged
+            _logService.Verify(
+                l => l.WriteException(It.Is<InvalidOperationException>(
+                    ex => ex.Message.Contains("Simulated persistence failure"))),
                 Times.Once);
         }
 

@@ -30,11 +30,21 @@ namespace FOMServer.Shared.Application.Persistence
         /// </summary>
         private class EntityState
         {
-            public int IsDirty = 0;
-            public long Version = 0;
+            public int IsDirty;
+            public int IsWaiting;
+            public long Version;
 
-            private readonly object _syncRoot = new();
-            private List<BlockingDependency> _blockingDependencies = new();
+            private readonly object _syncRoot;
+            private List<BlockingDependency> _blockingDependencies;
+
+            public EntityState()
+            {
+                IsDirty = 0;
+                IsWaiting = 0;
+                Version = 0;
+                _syncRoot = new();
+                _blockingDependencies = new();
+            }
 
             public void AddBlockingDependency(IPersistable entity, long version)
             {
@@ -91,9 +101,14 @@ namespace FOMServer.Shared.Application.Persistence
             entity.OnChanged += Enqueue;
         }
 
-        private void Enqueue(IPersistable entity, IEnumerable<IPersistable>? associations)
+        private bool Enqueue(IPersistable entity, IEnumerable<IPersistable>? associations)
         {
             var state = _entityStates.GetOrCreateValue(entity);
+
+            // Reject enqueue if entity is waiting for persistence
+            if (Volatile.Read(in state.IsWaiting) == 1)
+                return false;
+
             var version = Volatile.Read(in state.Version);
 
             // Record blocking dependencies on each association
@@ -109,6 +124,8 @@ namespace FOMServer.Shared.Application.Persistence
             // Use an atomic flag so that dirty entities are thread-safely queued only once.
             if (Interlocked.Exchange(ref state.IsDirty, 1) == 0)
                 _dirtyQueue.Writer.TryWrite(entity);
+
+            return true;
         }
 
         public void WaitForPersistence(IPersistable entity, Action callback)
@@ -131,6 +148,9 @@ namespace FOMServer.Shared.Application.Persistence
 
             // Ensure the entity goes through the persistence loop so waits get processed
             Enqueue(entity, null);
+
+            // Block future enqueues after we've queued this one
+            Interlocked.Exchange(ref state.IsWaiting, 1);
         }
 
         /// <summary>
@@ -167,11 +187,6 @@ namespace FOMServer.Shared.Application.Persistence
                     await Task.Delay(PersistenceDelayMs, ct);
 
                     await PersistAsync(entity);
-
-                    while (_waitQueue.Reader.TryRead(out var wait))
-                        pendingWaits.Add(wait);
-
-                    ProcessWaits(pendingWaits);
                 }
                 catch (OperationCanceledException)
                 {
@@ -186,8 +201,12 @@ namespace FOMServer.Shared.Application.Persistence
                     // Letting unhandled exceptions prevent further persistence
                     // could lead to data loss, so log and continue.
                     _logService.WriteException(ex);
-                    continue;
                 }
+
+                while (_waitQueue.Reader.TryRead(out var wait))
+                    pendingWaits.Add(wait);
+
+                ProcessWaits(pendingWaits);
             }
 
             // Drain and persist remaining entities before shutdown
@@ -204,6 +223,16 @@ namespace FOMServer.Shared.Application.Persistence
             {
                 if (!IsWaitComplete(pendingWaits[i]))
                     continue;
+
+                // Clear IsWaiting flag for all entities in this wait
+                foreach (var dependency in pendingWaits[i].BlockingDependencies)
+                {
+                    if (dependency.Entity.TryGetTarget(out var entity))
+                    {
+                        var state = _entityStates.GetOrCreateValue(entity);
+                        Interlocked.Exchange(ref state.IsWaiting, 0);
+                    }
+                }
 
                 try
                 {
@@ -229,8 +258,14 @@ namespace FOMServer.Shared.Application.Persistence
             if (!_handlers.TryGetValue(entity.GetType(), out var handler))
                 throw new InvalidOperationException($"No persistence handler registered for {entity.GetType().Name}");
 
-            await handler.PersistAsync(entity);
-            Interlocked.Increment(ref state.Version);
+            try
+            {
+                await handler.PersistAsync(entity);
+            }
+            finally
+            {
+                Interlocked.Increment(ref state.Version);
+            }
         }
 
         /// <summary>
