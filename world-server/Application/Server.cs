@@ -126,7 +126,7 @@ namespace FOMServer.World.Application
             networkManager.Configure(peer, _clientService.Disconnect);
 
             // Register this world server with the master server.
-            using var registerPacket = new PacketBuilder<RegisterWorld>();
+            using var registerPacket = new PacketWriter<RegisterWorld>();
             ref var rpData = ref registerPacket.Data;
 
             rpData.WorldID = _serverSettings.WorldID;

@@ -30,7 +30,7 @@ namespace FOMServer.Master.Application.Handlers
             if (player == null)
                 return;
 
-            using var response = new PacketBuilder<LoginReturn>();
+            using var response = new PacketWriter<LoginReturn>();
             ref var rData = ref response.Data;
 
             if (player.HasCharacter)
@@ -45,7 +45,7 @@ namespace FOMServer.Master.Application.Handlers
             else
                 rData.Status = LoginReturn.StatusCode.LOGIN_RETURN_CREATE_CHARACTER;
 
-            response.WithAddress(sender);
+            response.AddAddress(sender);
             _packetSender.Send(response.Build());
         }
     }

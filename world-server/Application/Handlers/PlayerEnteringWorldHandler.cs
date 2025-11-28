@@ -23,7 +23,7 @@ namespace FOMServer.World.Application.Handlers
 
         public override void Handle(NetworkAddress sender, in PlayerEnteringWorld p)
         {
-            using var response = new PacketBuilder<PlayerEnteringWorldReturn>();
+            using var response = new PacketWriter<PlayerEnteringWorldReturn>();
             ref var rData = ref response.Data;
 
 
