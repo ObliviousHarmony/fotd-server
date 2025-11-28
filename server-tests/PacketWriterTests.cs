@@ -98,5 +98,19 @@ namespace FOMServer.Tests
 
             Assert.Throws<InvalidOperationException>(() => writer.OrderingChannel = 5);
         }
+
+        [Fact]
+        public void ForBroadcast_CreatesCopyWithBroadcastFlag()
+        {
+            using var writer = new PacketWriter<ConnectionRequestAccepted>();
+            using var packet = writer.Build();
+
+            Assert.False(packet.IsBroadcast);
+
+            var broadcastPacket = packet.ForBroadcast();
+
+            Assert.True(broadcastPacket.IsBroadcast);
+            Assert.False(packet.IsBroadcast); // Original unchanged
+        }
     }
 }

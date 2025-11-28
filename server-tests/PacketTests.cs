@@ -5,7 +5,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Tests
 {
-    public class PacketTest
+    public class PacketTests
     {
         [Fact]
         public void Packet_PacketData_ShouldHaveLayoutAttribute()
