@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <BuildNativeLib>false</BuildNativeLib>
-    <BuildNativeLib Condition="'$(OS)' == 'Windows_NT'">true</BuildNativeLib>
+    <BuildNativeLib Condition="'$(MSBuildRuntimeType)' == 'Full'">true</BuildNativeLib>
   </PropertyGroup>
   <PropertyGroup>
     <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)/../out/build/$(Configuration)/$(MSBuildProjectName)/obj/</BaseIntermediateOutputPath>
