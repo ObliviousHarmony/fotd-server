@@ -28,7 +28,7 @@ namespace FOMServer.World.Application.Handlers
             if (player == null)
                 throw new InvalidOperationException($"Player {p.PlayerID} not found");
 
-            using var response = new PacketBuilder<RegisterClientReturn>();
+            using var response = new PacketWriter<RegisterClientReturn>();
             ref var rData = ref response.Data;
 
             rData.WorldID = p.WorldID;
@@ -89,7 +89,7 @@ namespace FOMServer.World.Application.Handlers
                 }
             };
 
-            response.WithAddress(sender);
+            response.AddAddress(sender);
             _packetSender.Send(response.Build());
         }
     }

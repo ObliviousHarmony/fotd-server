@@ -52,7 +52,7 @@ namespace FOMServer.Master.Application.Handlers
 
             player.HasCharacter = true;
 
-            using var response = new PacketBuilder<LoginReturn>();
+            using var response = new PacketWriter<LoginReturn>();
             ref var rData = ref response.Data;
 
             rData.Status = LoginReturn.StatusCode.LOGIN_RETURN_SUCCESS;
@@ -62,7 +62,7 @@ namespace FOMServer.Master.Application.Handlers
             rData.ClientVersion = GlobalConstants.ClientVersion;
             rData.WorldOverview = _worldOverviewFactory.Create(player);
 
-            response.WithAddress(sender);
+            response.AddAddress(sender);
             _packetSender.Send(response.Build());
         }
     }

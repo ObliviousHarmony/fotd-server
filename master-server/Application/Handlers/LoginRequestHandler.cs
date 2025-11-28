@@ -32,7 +32,7 @@ namespace FOMServer.Master.Application.Handlers
 
         public override void Handle(NetworkAddress sender, in LoginRequest p)
         {
-            using var response = new PacketBuilder<LoginRequestReturn>();
+            using var response = new PacketWriter<LoginRequestReturn>();
             ref var rData = ref response.Data;
 
             unsafe
@@ -52,7 +52,7 @@ namespace FOMServer.Master.Application.Handlers
             else
                 rData.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_SUCCESS;
 
-            response.WithAddress(sender);
+            response.AddAddress(sender);
             _packetSender.Send(response.Build());
         }
     }

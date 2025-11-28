@@ -6,7 +6,7 @@ using FOMServer.Shared.Core.Packets;
 
 namespace FOMServer.Shared.Core.Networking
 {
-    public struct PacketBuilder<TPacket> : IDisposable where TPacket : unmanaged
+    public struct PacketWriter<TPacket> : IDisposable where TPacket : unmanaged
     {
         /// <summary>
         /// Rather than trying to hold onto a TPacket instance directly, we use a
@@ -16,7 +16,7 @@ namespace FOMServer.Shared.Core.Networking
         private readonly byte[] _packetData;
 
         /// <summary>
-        /// Once the builder has been used to build a packet, this flag
+        /// Once the writer has been used to build a packet, this flag
         /// indicates that it no longer owns the buffer and should not
         /// return it to the pool when disposed.
         /// </summary>
@@ -35,7 +35,7 @@ namespace FOMServer.Shared.Core.Networking
         private PacketReliability _reliability;
         private byte _orderingChannel;
 
-        public PacketBuilder()
+        public PacketWriter()
         {
             _packetSize = PacketHelpers.GetPacketSize<TPacket>();
 
@@ -58,10 +58,38 @@ namespace FOMServer.Shared.Core.Networking
         {
             get
             {
-                if (Volatile.Read(ref _ownsBuffer) != 1)
-                    throw new InvalidOperationException("Packet cannot be modified after building");
-
+                ThrowIfBuilt();
                 return ref MemoryMarshal.AsRef<TPacket>(_packetData.AsSpan());
+            }
+        }
+
+        public PacketPriority Priority
+        {
+            get => _priority;
+            set
+            {
+                ThrowIfBuilt();
+                _priority = value;
+            }
+        }
+
+        public PacketReliability Reliability
+        {
+            get => _reliability;
+            set
+            {
+                ThrowIfBuilt();
+                _reliability = value;
+            }
+        }
+
+        public byte OrderingChannel
+        {
+            get => _orderingChannel;
+            set
+            {
+                ThrowIfBuilt();
+                _orderingChannel = value;
             }
         }
 
@@ -74,22 +102,21 @@ namespace FOMServer.Shared.Core.Networking
         /// This lets us avoid the allocation in most cases where only a
         /// single address is needed for a packet.
         /// </remarks>
-        public PacketBuilder<TPacket> WithAddress(NetworkAddress address)
+        public void AddAddress(NetworkAddress address)
         {
-            if (Volatile.Read(ref _ownsBuffer) != 1)
-                throw new InvalidOperationException("Packet cannot be modified after building");
+            ThrowIfBuilt();
 
             // Just keep adding addresses if we have already added more than one.
             if (_networkAddresses != null)
             {
                 _networkAddresses.Add(address);
-                return this;
+                return;
             }
 
             if (_networkAddress == NetworkAddress.Unassigned)
             {
                 _networkAddress = address;
-                return this;
+                return;
             }
 
             // Now that we have more than one address we need
@@ -99,51 +126,13 @@ namespace FOMServer.Shared.Core.Networking
                 _networkAddress,
                 address
             };
-
-            return this;
-        }
-
-        /// <summary>
-        /// Changes the priority of the packet we are building.
-        /// </summary>
-        public PacketBuilder<TPacket> WithPriority(PacketPriority priority)
-        {
-            if (Volatile.Read(ref _ownsBuffer) != 1)
-                throw new InvalidOperationException("Packet cannot be modified after building");
-
-            _priority = priority;
-            return this;
-        }
-
-        /// <summary>
-        /// Changes the reliability of the packet we are building.
-        /// </summary>
-        public PacketBuilder<TPacket> WithReliability(PacketReliability reliability)
-        {
-            if (Volatile.Read(ref _ownsBuffer) != 1)
-                throw new InvalidOperationException("Packet cannot be modified after building");
-
-            _reliability = reliability;
-            return this;
-        }
-
-        /// <summary>
-        /// Changes the ordering channel of the packet we are building.
-        /// </summary>
-        public PacketBuilder<TPacket> WithOrderingChannel(byte orderingChannel)
-        {
-            if (Volatile.Read(ref _ownsBuffer) != 1)
-                throw new InvalidOperationException("Packet cannot be modified after building");
-
-            _orderingChannel = orderingChannel;
-            return this;
         }
 
         public QueuePacket Build()
         {
             // Mark that it can't be used anymore.
             if (Interlocked.Exchange(ref _ownsBuffer, 0) != 1)
-                throw new ObjectDisposedException(nameof(PacketBuilder<TPacket>));
+                throw new ObjectDisposedException(nameof(PacketWriter<TPacket>));
 
             return new QueuePacket(
                 PacketHelpers.GetPacketTypeID<TPacket>(),
@@ -162,6 +151,12 @@ namespace FOMServer.Shared.Core.Networking
                 return;
 
             ArrayPool<byte>.Shared.Return(_packetData);
+        }
+
+        private void ThrowIfBuilt()
+        {
+            if (Volatile.Read(ref _ownsBuffer) != 1)
+                throw new InvalidOperationException("Packet cannot be modified after building");
         }
     }
 }
