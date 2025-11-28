@@ -52,7 +52,7 @@ namespace FOMServer.Master.Application.Handlers
             else
                 rData.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_SUCCESS;
 
-            response.AddAddress(sender);
+            response.AddDestination(sender);
             _packetSender.Send(response.Build());
         }
     }

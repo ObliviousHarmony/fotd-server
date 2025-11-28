@@ -89,7 +89,7 @@ namespace FOMServer.World.Application.Handlers
                 }
             };
 
-            response.AddAddress(sender);
+            response.AddDestination(sender);
             _packetSender.Send(response.Build());
         }
     }
