@@ -25,7 +25,7 @@ namespace FOMServer.World.Application.Networking
             if (_packetSender == null)
                 throw new InvalidOperationException("Packet sender not initialized");
 
-            _packetSender.EnqueueSend(packet.ForBroadcast());
+            _packetSender.EnqueueSend(packet.WithBroadcast());
         }
     }
 }

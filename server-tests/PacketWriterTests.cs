@@ -15,11 +15,13 @@ namespace FOMServer.Tests
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
             writer.AddAddress(address);
 
-            using var packet = writer.Build();
+            var packet = writer.Build();
             var addresses = packet.NetworkAddresses;
 
             Assert.Equal(1, addresses.Length);
             Assert.Equal(address, addresses[0]);
+
+            packet.Release();
         }
 
         [Fact]
@@ -34,31 +36,37 @@ namespace FOMServer.Tests
             writer.AddAddress(address2);
             writer.AddAddress(address3);
 
-            using var packet = writer.Build();
+            var packet = writer.Build();
             var addresses = packet.NetworkAddresses;
 
             Assert.Equal(3, addresses.Length);
             Assert.Equal(address1, addresses[0]);
             Assert.Equal(address2, addresses[1]);
             Assert.Equal(address3, addresses[2]);
+
+            packet.Release();
         }
 
         [Fact]
         public void Build_ThrowsObjectDisposed_WhenCalledTwice()
         {
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
-            using var packet = writer.Build();
+            var packet = writer.Build();
 
             Assert.Throws<ObjectDisposedException>(() => writer.Build());
+
+            packet.Release();
         }
 
         [Fact]
         public void Data_ThrowsInvalidOperation_AfterBuild()
         {
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
-            using var packet = writer.Build();
+            var packet = writer.Build();
 
             Assert.Throws<InvalidOperationException>(() => _ = writer.Data);
+
+            packet.Release();
         }
 
         [Fact]
@@ -67,50 +75,60 @@ namespace FOMServer.Tests
             var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
-            using var packet = writer.Build();
+            var packet = writer.Build();
 
             Assert.Throws<InvalidOperationException>(() => writer.AddAddress(address));
+
+            packet.Release();
         }
 
         [Fact]
         public void Priority_ThrowsInvalidOperation_AfterBuild()
         {
             var writer = new PacketWriter<ConnectionRequestAccepted>();
-            using var packet = writer.Build();
+            var packet = writer.Build();
 
             Assert.Throws<InvalidOperationException>(() => writer.Priority = PacketPriority.High);
+
+            packet.Release();
         }
 
         [Fact]
         public void Reliability_ThrowsInvalidOperation_AfterBuild()
         {
             var writer = new PacketWriter<ConnectionRequestAccepted>();
-            using var packet = writer.Build();
+            var packet = writer.Build();
 
             Assert.Throws<InvalidOperationException>(() => writer.Reliability = PacketReliability.Unreliable);
+
+            packet.Release();
         }
 
         [Fact]
         public void OrderingChannel_ThrowsInvalidOperation_AfterBuild()
         {
             var writer = new PacketWriter<ConnectionRequestAccepted>();
-            using var packet = writer.Build();
+            var packet = writer.Build();
 
             Assert.Throws<InvalidOperationException>(() => writer.OrderingChannel = 5);
+
+            packet.Release();
         }
 
         [Fact]
-        public void ForBroadcast_CreatesCopyWithBroadcastFlag()
+        public void WithBroadcast_CreatesCopyWithBroadcastFlag()
         {
-            using var writer = new PacketWriter<ConnectionRequestAccepted>();
-            using var packet = writer.Build();
+            var writer = new PacketWriter<ConnectionRequestAccepted>();
+            var packet = writer.Build();
 
             Assert.False(packet.IsBroadcast);
 
-            var broadcastPacket = packet.ForBroadcast();
+            var broadcastPacket = packet.WithBroadcast();
 
             Assert.True(broadcastPacket.IsBroadcast);
             Assert.False(packet.IsBroadcast); // Original unchanged
+
+            packet.Release();
         }
     }
 }

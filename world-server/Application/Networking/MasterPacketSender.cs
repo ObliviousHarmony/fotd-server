@@ -23,7 +23,7 @@ namespace FOMServer.World.Application.Networking
 
             // Since the server is the only "connected" peer, broadcasting sends to it
             // without us needing to keep track of its address.
-            _packetSender.EnqueueSend(packet.ForBroadcast());
+            _packetSender.EnqueueSend(packet.WithBroadcast());
         }
     }
 }

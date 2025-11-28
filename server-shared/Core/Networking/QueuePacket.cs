@@ -5,19 +5,26 @@ using FOMServer.Shared.Core.Packets;
 
 namespace FOMServer.Shared.Core.Networking
 {
-    public struct QueuePacket : IDisposable
+    /// <summary>
+    /// Represents a packet queued for sending over the network.
+    /// </summary>
+    /// <remarks>
+    /// This is a readonly struct to prevent defensive copies. The packet data
+    /// buffer is owned by whoever calls Release() - typically the NetworkManager
+    /// after the packet has been sent. Do not hold references to this struct
+    /// after passing it to the send queue.
+    /// </remarks>
+    public readonly struct QueuePacket
     {
         public readonly PacketIdentifier ID;
         public readonly PacketPriority Priority;
         public readonly PacketReliability Reliability;
         public readonly byte OrderingChannel;
+        public readonly bool IsBroadcast;
 
         private readonly byte[] _packetData;
         private readonly NetworkAddress _networkAddress;
         private readonly List<NetworkAddress>? _networkAddresses;
-
-        private bool _broadcast;
-        private int _disposed;
 
         public QueuePacket(
             PacketIdentifier id,
@@ -26,7 +33,8 @@ namespace FOMServer.Shared.Core.Networking
             List<NetworkAddress>? networkAddresses,
             PacketPriority priority,
             PacketReliability reliability,
-            byte orderingChannel
+            byte orderingChannel,
+            bool broadcast = false
         )
         {
             ID = id;
@@ -36,27 +44,30 @@ namespace FOMServer.Shared.Core.Networking
             Priority = priority;
             Reliability = reliability;
             OrderingChannel = orderingChannel;
+            IsBroadcast = broadcast;
         }
 
-        public readonly ReadOnlySpan<byte> Data
+        /// <summary>
+        /// Copy constructor with broadcast override.
+        /// </summary>
+        private QueuePacket(in QueuePacket other, bool broadcast)
+        {
+            ID = other.ID;
+            _packetData = other._packetData;
+            _networkAddress = other._networkAddress;
+            _networkAddresses = other._networkAddresses;
+            Priority = other.Priority;
+            Reliability = other.Reliability;
+            OrderingChannel = other.OrderingChannel;
+            IsBroadcast = broadcast;
+        }
+
+        public ReadOnlySpan<byte> Data => _packetData.AsSpan(0, PacketHelpers.GetPacketSize(ID));
+
+        public ReadOnlySpan<NetworkAddress> NetworkAddresses
         {
             get
             {
-                if (Volatile.Read(in _disposed) != 0)
-                    throw new ObjectDisposedException(nameof(QueuePacket));
-
-                return _packetData.AsSpan(0, PacketHelpers.GetPacketSize(ID));
-            }
-        }
-
-        public readonly ReadOnlySpan<NetworkAddress> NetworkAddresses
-        {
-            get
-            {
-                if (Volatile.Read(in _disposed) != 0)
-                    throw new ObjectDisposedException(nameof(QueuePacket));
-
-                // Make sure to consider any addresses that have been removed.
                 if (_networkAddresses != null)
                     return CollectionsMarshal.AsSpan(_networkAddresses);
 
@@ -64,45 +75,24 @@ namespace FOMServer.Shared.Core.Networking
             }
         }
 
-        public readonly bool IsBroadcast
-        {
-            get
-            {
-                if (Volatile.Read(in _disposed) != 0)
-                    throw new ObjectDisposedException(nameof(QueuePacket));
-
-                return _broadcast;
-            }
-        }
-
         /// <summary>
-        /// Creates a new instance of the packet that is marked for broadcast.
+        /// Returns a copy of this packet with the broadcast flag set.
         /// </summary>
         /// <remarks>
-        /// In order to avoid a defensive copy, this method is marked as readonly.
-        /// As a consequence, after the new packet is constructed, the original
-        /// will still exist and can be used to access the buffer. This is
-        /// expected and is something that developers will need to avoid.
+        /// The returned packet shares the same underlying buffer. Only one
+        /// instance should be disposed (typically by the NetworkManager).
         /// </remarks>
-        public readonly QueuePacket ForBroadcast()
+        public QueuePacket WithBroadcast() => IsBroadcast ? this : new QueuePacket(in this, broadcast: true);
+
+        /// <summary>
+        /// Returns the packet data buffer to the array pool.
+        /// </summary>
+        /// <remarks>
+        /// This should only be called once per buffer, typically by the
+        /// NetworkManager after the packet has been sent.
+        /// </remarks>
+        public void Release()
         {
-            if (_broadcast == true)
-                return this;
-
-            // Copy the struct so we can modify it.
-            var modified = this;
-
-            // Mark that the packet is a broadcast.
-            modified._broadcast = true;
-
-            return modified;
-        }
-
-        public void Dispose()
-        {
-            if (Interlocked.Exchange(ref _disposed, 1) != 0)
-                return;
-
             ArrayPool<byte>.Shared.Return(_packetData);
         }
     }
