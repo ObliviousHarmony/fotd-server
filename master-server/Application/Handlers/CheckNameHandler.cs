@@ -30,7 +30,7 @@ namespace FOMServer.Master.Application.Handlers
 
             rData.ExistingPlayerID = existingID ?? 0;
 
-            response.AddAddress(sender);
+            response.AddDestination(sender);
             _packetSender.Send(response.Build());
         }
     }

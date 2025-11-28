@@ -41,7 +41,7 @@ namespace FOMServer.Master.Application.Handlers
                 urData.Status = WorldLoginReturn.StatusCode.WORLD_LOGIN_RETURN_SERVER_UNAVAILABLE;
                 urData.WorldID = p.WorldID;
 
-                unavailableResponse.AddAddress(sender);
+                unavailableResponse.AddDestination(sender);
                 _clientPacketSender.Send(unavailableResponse.Build());
                 return;
             }
@@ -59,7 +59,7 @@ namespace FOMServer.Master.Application.Handlers
             wrData.PlayerID = p.PlayerID;
             wrData.SelectedNodeID = p.SelectedNodeID;
 
-            worldResponse.AddAddress(worldServer.ServerAddress);
+            worldResponse.AddDestination(worldServer.ServerAddress);
             _worldPacketSender.Send(worldResponse.Build());
         }
     }

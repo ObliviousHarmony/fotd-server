@@ -17,6 +17,9 @@ namespace FOMServer.World.Application.Networking
             if (_packetSender == null)
                 throw new InvalidOperationException("Packet sender not initialized");
 
+            if (packet.Broadcast)
+                throw new InvalidOperationException("Packet has no destination");
+
             _packetSender.EnqueueSend(packet);
         }
 
@@ -25,7 +28,10 @@ namespace FOMServer.World.Application.Networking
             if (_packetSender == null)
                 throw new InvalidOperationException("Packet sender not initialized");
 
-            _packetSender.EnqueueSend(packet.ForBroadcast());
+            if (!packet.Broadcast)
+                throw new InvalidOperationException("Packet must not have a destination");
+
+            _packetSender.EnqueueSend(packet);
         }
     }
 }

@@ -45,7 +45,7 @@ namespace FOMServer.Master.Application.Handlers
             else
                 rData.Status = LoginReturn.StatusCode.LOGIN_RETURN_CREATE_CHARACTER;
 
-            response.AddAddress(sender);
+            response.AddDestination(sender);
             _packetSender.Send(response.Build());
         }
     }

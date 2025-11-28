@@ -48,7 +48,7 @@ namespace FOMServer.World.Application.Handlers
             else
                 rData.Status = WorldLoginReturn.StatusCode.WORLD_LOGIN_RETURN_INVALID;
 
-            response.AddAddress(player.ClientAddress);
+            response.AddDestination(player.ClientAddress);
             _packetSender.Send(response.Build());
         }
     }

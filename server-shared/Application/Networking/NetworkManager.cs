@@ -152,13 +152,14 @@ namespace FOMServer.Shared.Application.Networking
                     int bufferSize = 0;
                     int numRentedBuffers = 0;
                     int numNetworkAddresses = 0;
-                    while (numToSend < IPacketService.MaxBufferedPackets && _sendQueue.Reader.TryRead(out var packetToSend))
+                    while (numToSend < IPacketService.MaxBufferedPackets && _sendQueue.Reader.TryRead(out queueBuffer[numToSend]))
                     {
+                        ref readonly var packetToSend = ref queueBuffer[numToSend++];
+
                         var packetSize = PacketHelpers.GetPacketSize(packetToSend.ID);
                         if (packetSize > MaxSendBufferSize)
                             throw new InvalidOperationException($"Packet ID {packetToSend.ID} is too large to send ({packetSize} bytes)");
 
-                        queueBuffer[numToSend++] = packetToSend;
                         numNetworkAddresses += packetToSend.NetworkAddresses.Length;
 
                         // Support overflow into multiple buffers if needed.
@@ -196,7 +197,7 @@ namespace FOMServer.Shared.Application.Networking
                             NetworkAddress* networkAddressPtr = (NetworkAddress*)networkAddressesHandle.AddrOfPinnedObject();
                             for (int i = 0; i < numToSend; ++i)
                             {
-                                ref var packetToSend = ref queueBuffer[i];
+                                ref readonly var packetToSend = ref queueBuffer[i];
 
                                 // We already allocated extra buffers for overflow above, so
                                 // if we overflow here, move on to the next buffer.
@@ -231,14 +232,14 @@ namespace FOMServer.Shared.Application.Networking
                                         Priority = packetToSend.Priority,
                                         Reliability = packetToSend.Reliability,
                                         OrderingChannel = packetToSend.OrderingChannel,
-                                        Broadcast = (byte)(packetToSend.IsBroadcast ? 1 : 0)
+                                        Broadcast = (byte)(packetToSend.Broadcast ? 1 : 0)
                                     };
                                 }
                                 bufferOffset += packetSize;
                                 networkAddressOffset += numAddresses;
 
                                 // We don't need the packet's data anymore since we copied it.
-                                packetToSend.Dispose();
+                                packetToSend.Release();
                             }
 
                             _packetService.Send(_peer, sendBuffer.AsSpan(0, numToSend));

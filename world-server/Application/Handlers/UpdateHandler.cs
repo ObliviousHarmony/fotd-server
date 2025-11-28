@@ -46,7 +46,7 @@ namespace FOMServer.World.Application.Handlers
                         rData.Updates[0].Player = update;
                         rData.Updates[0].Player.PlayerID = 2;
 
-                        response.AddAddress(sender);
+                        response.AddDestination(sender);
                         _packetSender.Send(response.Build());
                         break;
                     }

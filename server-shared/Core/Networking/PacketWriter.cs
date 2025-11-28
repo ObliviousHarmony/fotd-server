@@ -8,6 +8,15 @@ namespace FOMServer.Shared.Core.Networking
 {
     public struct PacketWriter<TPacket> : IDisposable where TPacket : unmanaged
     {
+        private NetworkAddress _networkAddress;
+        private List<NetworkAddress>? _networkAddresses;
+        private PacketPriority _priority;
+        private PacketReliability _reliability;
+        private byte _orderingChannel;
+        private bool _broadcast;
+
+        private readonly int _packetSize;
+
         /// <summary>
         /// Rather than trying to hold onto a TPacket instance directly, we use a
         /// raw buffer that is sized to hold the packet type. This allows us to
@@ -22,36 +31,32 @@ namespace FOMServer.Shared.Core.Networking
         /// </summary>
         private int _ownsBuffer;
 
-        /// <summary>
-        /// Since most packets are sent to a single address, we optimize for that case
-        /// by having a single address field. When more addresses are needed, this
-        /// array can be set and used in place of the single address.
-        /// </summary>
-        private List<NetworkAddress>? _networkAddresses;
-
-        private readonly int _packetSize;
-        private NetworkAddress _networkAddress;
-        private PacketPriority _priority;
-        private PacketReliability _reliability;
-        private byte _orderingChannel;
-
         public PacketWriter()
         {
-            _packetSize = PacketHelpers.GetPacketSize<TPacket>();
+            // Since most packets are sent to a single address, we optimize for that case
+            // by having a single address field. When more addresses are needed, an
+            // array can be set and used in place of the single address.
+            _networkAddress = NetworkAddress.Unassigned;
+            _networkAddresses = null;
+
+            _priority = PacketPriority.Medium;
+            _reliability = PacketReliability.ReliableOrdered;
+            _orderingChannel = 0;
+
+            // In order to keep the packet as a `readonly struct`, we need to declare whether
+            // or not a packet is for broadcast before building. Since direct packets will
+            // always require a call to add a destination, we can default to broadcast
+            // to avoid an extra call for broadcast packets.
+            _broadcast = true;
 
             // Since packets are generally small and very short-lived, we will
             // use the shared array pool to avoid excessive allocations.
+            _packetSize = PacketHelpers.GetPacketSize<TPacket>();
             _packetData = ArrayPool<byte>.Shared.Rent(_packetSize);
             _ownsBuffer = 1;
 
             // Make sure there's no junk data in the buffer.
             Unsafe.InitBlock(ref _packetData[0], 0, (uint)_packetSize);
-
-            _networkAddress = NetworkAddress.Unassigned;
-            _networkAddresses = null;
-            _priority = PacketPriority.Medium;
-            _reliability = PacketReliability.ReliableOrdered;
-            _orderingChannel = 0;
         }
 
         public ref TPacket Data
@@ -94,7 +99,7 @@ namespace FOMServer.Shared.Core.Networking
         }
 
         /// <summary>
-        /// Adds a network address to the packet.
+        /// Adds a destination address to the packet.
         /// </summary>
         /// <remarks>
         /// When there is only a single address, it is stored in a dedicated field.
@@ -102,9 +107,16 @@ namespace FOMServer.Shared.Core.Networking
         /// This lets us avoid the allocation in most cases where only a
         /// single address is needed for a packet.
         /// </remarks>
-        public void AddAddress(NetworkAddress address)
+        public void AddDestination(NetworkAddress address)
         {
             ThrowIfBuilt();
+
+            // A broadcast packet is considered explicit if it has an exclusion address.
+            if (_broadcast && _networkAddress != NetworkAddress.Unassigned)
+                throw new InvalidOperationException("Cannot add destinations after calling ExcludeFromBroadcast");
+
+            // Once an address has been added, a packet can no longer be broadcasted.
+            _broadcast = false;
 
             // Just keep adding addresses if we have already added more than one.
             if (_networkAddresses != null)
@@ -121,11 +133,27 @@ namespace FOMServer.Shared.Core.Networking
 
             // Now that we have more than one address we need
             // to allocate a list to hold all of them.
-            _networkAddresses = new List<NetworkAddress>(16)
+            _networkAddresses = new List<NetworkAddress>(32)
             {
                 _networkAddress,
                 address
             };
+        }
+
+        /// <summary>
+        /// Sets the packet to broadcast mode with an optional exclusion address.
+        /// </summary>
+        public void ExcludeFromBroadcast(NetworkAddress address)
+        {
+            ThrowIfBuilt();
+
+            if (!_broadcast)
+                throw new InvalidOperationException("Packet has a destination and cannot be broadcasted");
+
+            if (_networkAddress != NetworkAddress.Unassigned)
+                throw new InvalidOperationException("Packet can only exclude a single address from the broadcast");
+
+            _networkAddress = address;
         }
 
         public QueuePacket Build()
@@ -141,7 +169,8 @@ namespace FOMServer.Shared.Core.Networking
                 _networkAddresses,
                 _priority,
                 _reliability,
-                _orderingChannel
+                _orderingChannel,
+                _broadcast
             );
         }
 

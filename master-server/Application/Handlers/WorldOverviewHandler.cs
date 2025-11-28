@@ -42,7 +42,7 @@ namespace FOMServer.Master.Application.Handlers
             rData.PlayerID = player.ID;
             rData.WorldOverview = _worldOverviewFactory.Create(player);
 
-            response.AddAddress(sender);
+            response.AddDestination(sender);
             _packetSender.Send(response.Build());
         }
     }
