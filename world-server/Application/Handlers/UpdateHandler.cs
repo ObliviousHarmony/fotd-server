@@ -36,7 +36,7 @@ namespace FOMServer.World.Application.Handlers
                         if (player.ID != update.PlayerID)
                             throw new InvalidOperationException($"Player {player.ID} Provided Wrong ID: {update.PlayerID}");
 
-                        using var response = new PacketBuilder<WorldUpdate>();
+                        using var response = new PacketWriter<WorldUpdate>();
                         ref var rData = ref response.Data;
 
                         // Clone us so that we can test the update handling.
@@ -46,7 +46,7 @@ namespace FOMServer.World.Application.Handlers
                         rData.Updates[0].Player = update;
                         rData.Updates[0].Player.PlayerID = 2;
 
-                        response.WithAddress(sender);
+                        response.AddAddress(sender);
                         _packetSender.Send(response.Build());
                         break;
                     }
