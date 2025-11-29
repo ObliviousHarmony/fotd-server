@@ -9,7 +9,13 @@ FetchContent_Declare(
 )
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+# Suppress warnings from GoogleTest's old CMakeLists.txt
+set(CMAKE_WARN_DEPRECATED OFF CACHE BOOL "" FORCE)
+set(CMAKE_SUPPRESS_DEVELOPER_WARNINGS ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
+set(CMAKE_WARN_DEPRECATED ON CACHE BOOL "" FORCE)
+set(CMAKE_SUPPRESS_DEVELOPER_WARNINGS OFF CACHE BOOL "" FORCE)
 
 # Create the test executable FIRST
 add_executable(FOMNetworkTests ${PROJECT_SOURCE_DIR}/${FOMNETWORK_TEST})
