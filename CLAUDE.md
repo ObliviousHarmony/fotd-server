@@ -34,8 +34,8 @@ This repository contains a server emulator for the discontinued MMOFPS, "Face of
 
 ### Windows
 
-- **C++ Build**: `cmake -B out/build -DCMAKE_POLICY_VERSION_MINIMUM=3.5 && cmake --build out/build --config Debug`
-- **C++ Test**: `ctest --test-dir out/build --build-config Debug`
+- **C++ Debug Build**: `cmake --preset Debug-Windows && cmake --build --preset Debug-Windows`
+- **C++ Debug Test**: `ctest --test-dir out/build/Debug`
 - **C# Build**: `dotnet build ManagedOnly.slnf`
 - **C# Test**: `dotnet test ManagedOnly.slnf`
 
@@ -50,7 +50,12 @@ Docker is required for Linux/macOS since RakNet 3.611 requires GCC 4.8.
 
 ## Git Workflow
 
-Branch names should follow the format: `type/issue-number-short-summary`
+Branch names should follow the format: `type/[issue-number-]short-summary`
+
+Components:
+- `type`: One of the defined types below
+- `issue-number` (optional): The issue number this branch addresses.
+- `short-summary`: Summary of the issue title, otherwise the work to be done, with words separated by hyphens.
 
 Types:
 - **feat**: New functionality
@@ -60,11 +65,11 @@ Types:
 - **docs**: Documentation only
 
 Examples:
-- `feat/82-player-attributes`
-- `fix/99-packet-overflow`
-- `chore/101-update-dependencies`
+- `feat/1-player-attributes`
+- `fix/10-packet-overflow`
+- `chore/100-update-dependencies`ter
 
 ## Comprehensive Documentation
 
-- [Architecture](/docs/architecture.md): Contains _incredibly_ detailed information about how packets pass through the system, the threading model of the servers, routing, and other low-level details. This should be referenced only when a deep-dive into the system is necessary to orchestrate more complicated systems.
+- [Architecture](/docs/architecture.md): Contains _incredibly_ detailed information about how packets pass through the system, the threading model of the servers, routing, persistence, and other low-level details. This should be referenced only when a deep-dive into the system is necessary to orchestrate more complicated systems.
 - [Adding Packet Handlers](/docs/adding-packet-handlers.md): Step-by-step guide for adding new packet types and handlers across both native and managed code.

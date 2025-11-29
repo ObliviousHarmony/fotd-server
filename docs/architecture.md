@@ -109,17 +109,36 @@ threads while ensuring buffers are safely returned to the pool.
 
 ### Packet Sending
 
-Sending packets uses a similar pooling strategy:
+Sending packets uses the `PacketWriter<TPacket>` struct, which manages buffer pooling automatically:
 
-1. Handlers call `QueuePacket.Create<T>()` to get a packet data buffer
-2. The handler populates the packet fields via a `ref` to the data
-3. The packet sender transfers ownership of the buffer into a `QueuePacket`
-4. Packets are queued to the network thread
-5. The network thread batches packets, copies them into a contiguous pinned buffer
-6. All packets in the batch are sent to RakNet in a single native call
-7. Buffers are returned to their respective pools
+1. Handlers create a `PacketWriter<TPacket>` which rents a buffer from `ArrayPool<byte>.Shared`
+2. The handler populates packet fields via the `Data` property (a `ref` to the packet struct)
+3. Destination addresses are added via `AddDestination()`, or `ExcludeFromBroadcast()` for broadcasts
+4. Calling `Build()` transfers buffer ownership to a `QueuePacket` and marks the writer as consumed
+5. The packet is sent through an intermediary sender which queues it for the network thread
+6. The network thread batches packets, copies them into a contiguous pinned buffer
+7. All packets in the batch are sent to the networking library in one call
+8. Buffers are returned to their respective pools
 
-This batching reduces interop overhead and pinning costs.
+By default, a `PacketWriter` is configured for broadcast mode. To send to specific addresses,
+call `AddDestination()` which switches the packet to direct mode.
+
+Example usage in a handler:
+
+```csharp
+using var response = new PacketWriter<LoginReturn>();
+ref var data = ref response.Data;
+
+data.Status = LoginReturn.StatusCode.LOGIN_RETURN_SUCCESS;
+data.PlayerID = player.ID;
+
+response.AddDestination(sender);
+_packetSender.Send(response.Build());
+```
+
+The `using` declaration ensures the buffer is returned to the pool if `Build()` is never called
+(e.g., due to an early return or exception). Once `Build()` is called, ownership transfers to
+the `QueuePacket` and the writer no longer manages the buffer.
 
 ### Threading Model
 
