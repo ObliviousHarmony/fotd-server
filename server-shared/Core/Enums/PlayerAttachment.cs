@@ -15,7 +15,7 @@ namespace FOMServer.Shared.Core.Enums
         BunnyEars = 10, // HAT_BUNNY_EARS
         TopHat = 11, // HAT_TOP_HAT
         Fedora = 12, // HAT_FEDORA
-        Hwlo = 13, // HAT_HALO
+        Halo = 13, // HAT_HALO
         Horns = 14, // HAT_HORNS
         NUM_ATTACHMENTS = 15,
     }
