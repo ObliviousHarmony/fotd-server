@@ -160,6 +160,11 @@ int32_t FOMNetwork_Send(RakPeerInterface* peer, const SendPacket* packets,
   for (int32_t i = 0; i < count; i++) {
     const SendPacket& s = packets[i];
 
+    // Broadcasts should only have a single exclusion address.
+    if (s.broadcast && s.numNetworkAddresses > 1) {
+      return -2;
+    }
+
     RakNet::BitStream bs;
 
     // All packets include a timestamp
@@ -174,15 +179,12 @@ int32_t FOMNetwork_Send(RakPeerInterface* peer, const SendPacket* packets,
     for (int32_t j = 0; j < s.numNetworkAddresses; j++) {
       const FOMNetwork::NetworkAddress& addr = s.networkAddresses[j];
 
-      packetsSent++;
-      if (s.broadcast) {
-        peer->Send(&bs, (PacketPriority)s.priority,
-                   (PacketReliability)s.reliability, s.orderingChannel,
-                   SystemAddress(addr.binaryAddress, addr.port), s.broadcast);
-      } else {
-        peer->Send(&bs, (PacketPriority)s.priority,
-                   (PacketReliability)s.reliability, s.orderingChannel,
-                   SystemAddress(addr.binaryAddress, addr.port), s.broadcast);
+      bool sent =
+          peer->Send(&bs, (PacketPriority)s.priority,
+                     (PacketReliability)s.reliability, s.orderingChannel,
+                     SystemAddress(addr.binaryAddress, addr.port), s.broadcast);
+      if (sent) {
+        packetsSent++;
       }
     }
   }

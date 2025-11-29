@@ -129,7 +129,10 @@ FOM_API int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
  * @param peer A pointer to the network interface.
  * @param packets A buffer of packet structures to serialize and send.
  * @param count The number of packets in the buffer.
- * @return The number of packets sent, -1 on error.
+ * @return int32_t The number of packets sent or a status code on error.
+ * @retval >=0 The number of packets sent.
+ * @retval -1 No packets were provided to send.
+ * @retval -2 A broadcast packet specified more than one network address.
  */
 FOM_API int32_t FOMNetwork_Send(RakPeerInterface* peer,
                                 const SendPacket* packets, int32_t count);
