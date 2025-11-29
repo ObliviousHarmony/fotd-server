@@ -13,7 +13,6 @@ namespace FOMServer.Shared.Core.Handlers
             );
         }
 
-
         public abstract void Handle(NetworkAddress sender, in TPacket packet);
     }
 }
