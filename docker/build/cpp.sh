@@ -4,15 +4,15 @@ set -euo pipefail
 ACTION=${1:-build}
 if [[ "$ACTION" != "build" && "$ACTION" != "test" ]]; then
   echo "❌ Error: First argument must be 'build' or 'test'."
-  echo "Usage: $1 [build|test]"
+  echo "Usage: $0 [build|test]"
   exit 1
 fi
 
-BUILD_CONFIG=${FOMSERVER_BUILD_CONFIG:-Debug}
+BUILD_PRESET=${FOMSERVER_BUILD_PRESET:-Debug}
 
-cmake -S /workspace -B /workspace/out/build/$BUILD_CONFIG -DCMAKE_BUILD_TYPE="$BUILD_CONFIG"
-cmake --build /workspace/out/build/$BUILD_CONFIG --config "$BUILD_CONFIG" -j"$(nproc)"
+cmake --preset "$BUILD_PRESET"
+cmake --build --preset "$BUILD_PRESET"
 
 if [[ "$ACTION" == "test" ]]; then
-  ctest --test-dir /workspace/out/build/$BUILD_CONFIG --output-on-failure -C "$BUILD_CONFIG"
+  ctest --test-dir "/workspace/out/build/$BUILD_PRESET" --output-on-failure
 fi

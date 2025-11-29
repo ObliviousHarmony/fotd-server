@@ -30,7 +30,8 @@ runs:
           'fom-network/**/*.h',
           'extern/**/*.cpp',
           'extern/**/*.h',
-          '**/CMakeLists.txt'
+          '**/CMakeLists.txt',
+          'CMakePresets.json'
           ) }}
         restore-keys: |
           ${{ runner.os }}-build-

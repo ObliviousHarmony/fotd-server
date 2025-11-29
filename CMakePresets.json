@@ -2,7 +2,7 @@
   "version": 3,
   "cmakeMinimumRequired": {
     "major": 3,
-    "minor": 28,
+    "minor": 26,
     "patch": 0
   },
   "configurePresets": [
@@ -10,16 +10,31 @@
       "name": "base",
       "hidden": true,
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/out/build/${presetName}",
-      "installDir": "${sourceDir}/out/install/${presetName}",
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       }
     },
     {
-      "name": "base-windows",
-      "hidden": true,
+      "name": "Debug",
       "inherits": "base",
+      "displayName": "Debug",
+      "binaryDir": "${sourceDir}/out/build/Debug",
+      "installDir": "${sourceDir}/out/install/Debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [
+            "Linux"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Debug-Windows",
+      "inherits": "Debug",
+      "displayName": "Debug",
       "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
@@ -38,17 +53,13 @@
       }
     },
     {
-      "name": "base-linux",
-      "hidden": true,
+      "name": "Release",
       "inherits": "base",
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Linux"
-      },
+      "displayName": "Release",
+      "binaryDir": "${sourceDir}/out/build/Release",
+      "installDir": "${sourceDir}/out/install/Release",
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "gcc",
-        "CMAKE_CXX_COMPILER": "g++"
+        "CMAKE_BUILD_TYPE": "Release"
       },
       "vendor": {
         "microsoft.com/VisualStudioSettings/CMake/1.0": {
@@ -59,37 +70,46 @@
       }
     },
     {
-      "name": "debug",
-      "inherits": [
-        "base-windows",
-        "base-linux"
-      ],
-      "displayName": "Debug",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug"
-      }
-    },
-    {
-      "name": "release",
-      "inherits": [
-        "base-windows",
-        "base-linux"
-      ],
+      "name": "Release-Windows",
+      "inherits": "Release",
       "displayName": "Release",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release"
+        "CMAKE_C_COMPILER": "cl.exe",
+        "CMAKE_CXX_COMPILER": "cl.exe"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [
+            "Windows"
+          ]
+        }
       }
     }
   ],
   "buildPresets": [
     {
-      "name": "debug",
-      "configurePreset": "debug",
+      "name": "Debug",
+      "configurePreset": "Debug",
       "displayName": "Debug"
     },
     {
-      "name": "release",
-      "configurePreset": "release",
+      "name": "Debug-Windows",
+      "configurePreset": "Debug-Windows",
+      "displayName": "Debug"
+    },
+    {
+      "name": "Release",
+      "configurePreset": "Release",
+      "displayName": "Release"
+    },
+    {
+      "name": "Release-Windows",
+      "configurePreset": "Release-Windows",
       "displayName": "Release"
     }
   ]
