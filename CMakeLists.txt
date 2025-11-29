@@ -6,6 +6,13 @@ project(FOMServer)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 include(props)
 
+# Use ccache if available for faster rebuilds.
+find_program(CCACHE_PROGRAM ccache)
+if(CCACHE_PROGRAM)
+    set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE_PROGRAM})
+    set(CMAKE_C_COMPILER_LAUNCHER ${CCACHE_PROGRAM})
+endif()
+
 # Suppress CMake developer warnings.
 set(CMAKE_SUPPRESS_DEVELOPER_WARNINGS 1)
 

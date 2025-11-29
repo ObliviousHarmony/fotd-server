@@ -21,19 +21,13 @@ runs:
         mkdir -p ${{ inputs.build-cache-dir }}
         mkdir -p ${{ inputs.nuget-cache-dir }}
 
-    - name: Cache Build Artifacts
+    - name: Cache ccache Output
       uses: actions/cache@v3
       with:
         path: ${{ inputs.build-cache-dir }}
-        key: ${{ runner.os }}-build-${{ hashFiles(
-          'fom-network/**/*.cpp',
-          'fom-network/**/*.h',
-          'extern/**/*.cpp',
-          'extern/**/*.h',
-          '**/CMakeLists.txt'
-          ) }}
+        key: ${{ runner.os }}-ccache-${{ github.sha }}
         restore-keys: |
-          ${{ runner.os }}-build-
+          ${{ runner.os }}-ccache-
 
     - name: Cache NuGet Packages
       uses: actions/cache@v3
