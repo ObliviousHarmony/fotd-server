@@ -1,6 +1,6 @@
 # Architecture
 
-## Project Directory Structure 
+## Project Directory Structure
 
 Each of the three .NET projects follow [Clean Architecture](https://learn.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures#clean-architecture)
 and have their project directories organized as such.
@@ -17,9 +17,9 @@ to avoid data marshalling between managed and unmanaged code.
 
 ### Packet Structs and Serialization
 
-All packet types are represented with dedicated blittable structs. Each struct is sized to 
-accommodate the maximum data a packet can contain, using fixed-size arrays for variable-length 
-fields with a count field to indicate how many entries are valid. This approach eliminates 
+All packet types are represented with dedicated blittable structs. Each struct is sized to
+accommodate the maximum data a packet can contain, using fixed-size arrays for variable-length
+fields with a count field to indicate how many entries are valid. This approach eliminates
 per-packet heap allocations and enables zero-copy interop at the cost of some memory overhead.
 
 RakNet uses `BitStream` for compact network serialization with support for compression and
@@ -129,7 +129,7 @@ expensive IO. This maximizes throughput so that it can handle them as quickly as
 - **Network Thread**: RakNet requires that peer-related function calls be confined to a
   single thread. This thread is responsible for both receiving and sending packets. Received
   packets are enqueued to the packet processor, and packets to send are read from a channel
-  and batched for transmission. The thread uses exponential backoff when idle to reduce CPU 
+  and batched for transmission. The thread uses exponential backoff when idle to reduce CPU
   usage while remaining responsive.
 
 - **Packet Handler Threads**: Once a packet has been received it is enqueued to a channel
@@ -189,7 +189,7 @@ The Master Server runs two separate `NetworkManager` instances:
 ## [WorldServer](../world-server/)
 
 This server is responsible for any state and behavior that relates to a given world
-and the players that are interacting on it. Each World Server handles game simulation, 
+and the players that are interacting on it. Each World Server handles game simulation,
 player movement, combat, and other in-world interactions.
 
 The World Server runs two separate `NetworkManager` instances:
