@@ -57,8 +57,8 @@ runs:
         file: docker/build/cpp.Dockerfile
         tags: fom/build-cpp
         load: true
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+        cache-from: type=gha,scope=cpp
+        cache-to: type=gha,scope=cpp,mode=max
 
     - name: Build .NET Docker Image
       uses: docker/build-push-action@v6
@@ -67,5 +67,5 @@ runs:
         file: docker/build/dotnet.Dockerfile
         tags: fom/build-dotnet
         load: true
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+        cache-from: type=gha,scope=dotnet
+        cache-to: type=gha,scope=dotnet,mode=max
