@@ -21,13 +21,26 @@ runs:
         mkdir -p ${{ inputs.build-cache-dir }}
         mkdir -p ${{ inputs.nuget-cache-dir }}
 
-    - name: Cache ccache Output
+    - name: Cache Build Artifacts
       uses: actions/cache@v3
       with:
         path: ${{ inputs.build-cache-dir }}
-        key: ${{ runner.os }}-ccache-${{ github.sha }}
+        key: ${{ runner.os }}-build-${{ hashFiles(
+          'fom-network/**/*.cpp',
+          'fom-network/**/*.h',
+          'extern/**/*.cpp',
+          'extern/**/*.h',
+          '**/CMakeLists.txt'
+          ) }}
         restore-keys: |
-          ${{ runner.os }}-ccache-
+          ${{ runner.os }}-build-
+
+    - name: Reset Cached Build File Timestamps
+      shell: bash
+      run: |
+        if [ -d "${{ inputs.build-cache-dir }}" ]; then
+          find "${{ inputs.build-cache-dir }}" -type f -exec touch {} + || true
+        fi
 
     - name: Cache NuGet Packages
       uses: actions/cache@v3
