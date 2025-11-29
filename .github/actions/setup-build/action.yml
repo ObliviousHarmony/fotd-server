@@ -26,8 +26,10 @@ runs:
       with:
         path: ${{ inputs.build-cache-dir }}
         key: ${{ runner.os }}-build-${{ hashFiles(
-          'fom-network/**/*.{cpp,h}',
-          'extern/**/*.{cpp,h}',
+          'fom-network/**/*.cpp',
+          'fom-network/**/*.h',
+          'extern/**/*.cpp',
+          'extern/**/*.h',
           '**/CMakeLists.txt'
           ) }}
         restore-keys: |
