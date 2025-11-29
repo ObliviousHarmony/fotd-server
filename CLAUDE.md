@@ -48,6 +48,22 @@ Docker is required for Linux/macOS since RakNet 3.611 requires GCC 4.8.
 - **C# Build**: `just build-dotnet`
 - **C# Test**: `just test-dotnet`
 
+## Git Workflow
+
+Branch names should follow the format: `type/issue-number-short-summary`
+
+Types:
+- **feat**: New functionality
+- **fix**: Bug fix
+- **refactor**: Restructuring without behavior change
+- **chore**: Tooling, config, dependencies, CI
+- **docs**: Documentation only
+
+Examples:
+- `feat/82-player-attributes`
+- `fix/99-packet-overflow`
+- `chore/101-update-dependencies`
+
 ## Comprehensive Documentation
 
 - [Architecture](/docs/architecture.md): Contains _incredibly_ detailed information about how packets pass through the system, the threading model of the servers, routing, and other low-level details. This should be referenced only when a deep-dive into the system is necessary to orchestrate more complicated systems.
