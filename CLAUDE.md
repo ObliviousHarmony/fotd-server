@@ -5,7 +5,7 @@ This repository contains a server emulator for the discontinued MMOFPS, "Face of
 ## Projects
 
 - [RakNet 3.611](/extern/raknet) is the game's underlying network library.
-- [FOMNetwork](/fom-network) conmtains native packet definitions, serializers, and abstracts RakNet.
+- [FOMNetwork](/fom-network) contains native packet definitions, serializers, and abstracts RakNet.
 - [ServerShared](/server-shared) contains the managed packet definitions and shared functionality between the "master" and "world" servers. This includes things like packet sending/receiving, persistence, and interfaces for common themes between the two.
 - [MasterServer](/master-server) is for shared global state between servers and helps transfer players between world servers. This contains things like Factions, Contracts, and other global structures.
 - [WorldServer](/world-server) is for world state such as players, their attributes, their items, and their interactions with the game.
@@ -23,18 +23,32 @@ This repository contains a server emulator for the discontinued MMOFPS, "Face of
 
 ## Code Style
 
-- `.editorconfig` formatting rules
-- C++: `clang-format`
-- C#: `dotnet`
+- `.editorconfig` for formatting rules
+- `.clang-format` for C++ formatting
+- Roslyn analyzers for C# formatting
 
 ## Common Commands
 
-- `cmake` is provided for building native code and `ctest` is provided for testing.
-- `dotnet` with the `ManagedOnly.slnf` filter file is provided for building and testing native code.
-- `just build`, `just build-cpp`, `just build-dotnet`, and related `test` commands are provided, however, they use `docker` for compatibility reasons and should be avoided on Windows hosts if possible.
-- `just format`, `just format-cpp`, `just format-dotnet`, and related `format-check` commands are provided for linting and formatting.
+- **C++ Format**: `just format-cpp`
+- **C# Format**: `just format-dotnet`
+
+### Windows
+
+- **C++ Build**: `cmake -B out/build -DCMAKE_POLICY_VERSION_MINIMUM=3.5 && cmake --build out/build --config Debug`
+- **C++ Test**: `ctest --test-dir out/build --build-config Debug`
+- **C# Build**: `dotnet build ManagedOnly.slnf`
+- **C# Test**: `dotnet test ManagedOnly.slnf`
+
+### Docker
+
+Docker is required for Linux/macOS since RakNet 3.611 requires GCC 4.8.
+
+- **C++ Build**: `just build-cpp`
+- **C++ Test**: `just test-cpp`
+- **C# Build**: `just build-dotnet`
+- **C# Test**: `just test-dotnet`
 
 ## Comprehensive Documentation
 
 - [Architecture](/docs/architecture.md): Contains _incredibly_ detailed information about how packets pass through the system, the threading model of the servers, routing, and other low-level details. This should be referenced only when a deep-dive into the system is necessary to orchestrate more complicated systems.
--
+- [Adding Packet Handlers](/docs/adding-packet-handlers.md): Step-by-step guide for adding new packet types and handlers across both native and managed code.

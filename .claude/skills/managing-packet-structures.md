@@ -34,7 +34,7 @@ The FOMNetwork project contains [the native packet structures](/fom-network/incl
 - `#pragma pack(push, 1)` and `#pragma pack(pop)` wrapping `struct` definition for data and models.
 - `ASSERT_BLITTABLE()` macro does basic compile-time checks.
 - Only use `<cstdint>` `_t` types for packet data.
-- [Models contain shared data](/fom-network/include/fom-network/Packets/models/).
+- [Models contain shared data](/fom-network/include/fom-network/packets/models/).
 
 ### Serializers
 
