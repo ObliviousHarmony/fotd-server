@@ -1,6 +1,6 @@
 namespace FOMServer.Shared.Core.Enums
 {
-    public enum PlayerAttribute
+    public enum PlayerAttribute : byte
     {
         Health = 0, // ATTRIBUTE_HEALTH
         Stamina = 1, // ATTRIBUTE_STAMINA

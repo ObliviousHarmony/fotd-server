@@ -50,12 +50,13 @@ Docker is required for Linux/macOS since RakNet 3.611 requires GCC 4.8.
 
 ## Git Workflow
 
-Branch names should follow the format: `type/[issue-number-]short-summary`
+Branch names should follow the format: `{type}/[{gh-issue-number}-]{short-summary}`
 
 Components:
-- `type`: One of the defined types below
-- `issue-number` (optional): The issue number this branch addresses.
-- `short-summary`: Summary of the issue title, otherwise the work to be done, with words separated by hyphens.
+- `{type}`: One of the defined types below
+- `{gh-issue-number}` (optional): The GitHub issue number that this branch is addressing.
+- `{short-summary}`: A kebab-case short summary of the changes to be made in the branch.
+    - GitHub issue branches should match the title, or if it's uncomfortably long, a shortened version that maintains the intent of the original title.
 
 Types:
 - **feat**: New functionality
@@ -64,10 +65,9 @@ Types:
 - **chore**: Tooling, config, dependencies, CI
 - **docs**: Documentation only
 
-Examples:
-- `feat/1-player-attributes`
-- `fix/10-packet-overflow`
-- `chore/100-update-dependencies`ter
+## Helpful Reminders
+
+- The `gh` CLI tool automatically makes inferences about the current repository and active pull request.
 
 ## Comprehensive Documentation
 
