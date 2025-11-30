@@ -31,7 +31,15 @@ runs:
           'extern/**/*.cpp',
           'extern/**/*.h',
           '**/CMakeLists.txt',
-          'CMakePresets.json'
+          'CMakePresets.json',
+          'master-server/**/*.cs',
+          'master-server/*.csproj',
+          'server-shared/**/*.cs',
+          'server-shared/*.csproj',
+          'server-tests/**/*.cs',
+          'server-tests/*.csproj',
+          'world-server/**/*.cs',
+          'world-server/*.csproj'
           ) }}
         restore-keys: |
           ${{ runner.os }}-build-

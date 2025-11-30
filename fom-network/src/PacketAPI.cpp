@@ -30,8 +30,10 @@ FOMNetwork::PacketIdentifier GetPacketIdentifier(Packet* p) {
 }
 
 ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
+  ReceivedPackets received{};
+
   if (!peer) {
-    return {NULL, 0};
+    return received;
   }
 
   // Only buffer up to MaxBufferedPackets packets at a time.
@@ -53,8 +55,6 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
 
     receiveBuffer[count++] = p;
   }
-
-  ReceivedPackets received{};
 
   // We're going to pass an array of packets back to the consumer.
   // The array and the packets contained must all be deallocated

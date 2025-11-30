@@ -208,7 +208,7 @@ namespace FOMServer.Tests
         }
 
         [Fact]
-        public async Task MarkChanged_WhileWaiting_ReturnsFalse()
+        public void MarkChanged_WhileWaiting_ReturnsFalse()
         {
             var service = CreateService();
             var entity = new TestEntity();
