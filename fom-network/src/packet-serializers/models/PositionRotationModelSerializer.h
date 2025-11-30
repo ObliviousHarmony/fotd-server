@@ -28,7 +28,9 @@ class PositionRotationModelSerializer
   }
 
  private:
-  /* The number of bits to use when reading/writing the position. */
+  /**
+   * The number of bits to use when reading writing the position.
+   */
   PositionModelSerializer posSerializer;
 };
 

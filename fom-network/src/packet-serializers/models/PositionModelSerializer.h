@@ -53,7 +53,9 @@ class PositionModelSerializer : public ModelSerializer<Packet::PositionModel> {
   }
 
  private:
-  /* The number of bits to use when reading/writing the position. */
+  /**
+   * The number of bits to use when reading/writing the position.
+   */
   int numPositionBits;
 };
 

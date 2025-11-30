@@ -4,10 +4,14 @@
 
 namespace FOMNetwork {
 
-/* Type alias for player IDs. */
+/**
+ * Type alias for player IDs.
+ */
 typedef uint32_t PlayerID_t;
 
-/* Type alias for item IDs. */
+/**
+ * Type alias for item IDs.
+ */
 typedef uint32_t ItemID_t;
 
 #define NUM_WEAPON_SLOTS 3

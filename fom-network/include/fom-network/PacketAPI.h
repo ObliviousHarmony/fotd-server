@@ -47,31 +47,45 @@ ASSERT_BLITTABLE(ReceivedPackets)
  */
 #pragma pack(push, 1)
 struct SendPacket {
-  /* The identifier for the packet being sent. */
+  /**
+   * The identifier for the packet being sent.
+   */
   FOMNetwork::PacketIdentifier id;
 
-  /* A pointer to the memory containing the packet data. */
+  /**
+   * A pointer to the memory containing the packet data.
+   */
   uint8_t* data;
 
-  /* The number of network addresses in the packet. */
+  /**
+   * The number of network addresses in the packet.
+   */
   uint32_t numNetworkAddresses;
 
-  /* An array of network addresses to either send the packet to or
+  /**
+   * An array of network addresses to either send the packet to or
    * exclude from a broadcast.
-   **/
+   */
   FOMNetwork::NetworkAddress* networkAddresses;
 
-  /* The priority of the packet to be sent to the networking library. */
+  /**
+   * The priority of the packet to be sent to the networking library.
+   */
   uint8_t priority;
 
-  /* The reliability of the packet to be sent to the networking library. */
+  /**
+   * The reliability of the packet to be sent to the networking library.
+   */
   uint8_t reliability;
 
-  /* The ordering channel for the packet to be sent to the networking library.
+  /**
+   * The ordering channel for the packet to be sent to the networking library.
    */
   uint8_t orderingChannel;
 
-  /* A boolean indicating whether or not the packet should be a broadcast. */
+  /**
+   * A boolean indicating whether or not the packet should be a broadcast.
+   */
   int8_t broadcast;
 };
 #pragma pack(pop)
