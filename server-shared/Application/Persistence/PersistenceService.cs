@@ -9,7 +9,7 @@ namespace FOMServer.Shared.Application.Persistence
     /// <summary>
     /// Coordinates persistence requests across entities.
     /// </summary>
-    public class PersistenceService : IPersistenceService
+    public class PersistenceService : IPersistenceService, IServerStartable
     {
         private const int PersistenceDelayMs = 50;
 

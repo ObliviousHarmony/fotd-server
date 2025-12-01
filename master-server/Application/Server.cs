@@ -91,6 +91,9 @@ namespace FOMServer.Master.Application
             worldNetwork.Start();
             clientNetwork.Start();
 
+            foreach (var startable in _serviceProvider.GetServices<IServerStartable>())
+                startable.Start();
+
             _logService.WriteMessage(LogLevel.Info, $"World Port: {_serverSettings.WorldPort}");
             _logService.WriteMessage(LogLevel.Info, $"Client Port: {_serverSettings.ClientPort}");
             _logService.WriteMessage(LogLevel.Info, "------------------------------------------------");

@@ -88,6 +88,9 @@ namespace FOMServer.World.Application
             masterNetwork.Start();
             clientNetwork.Start();
 
+            foreach (var startable in _serviceProvider.GetServices<IServerStartable>())
+                startable.Start();
+
             _logService.WriteMessage(LogLevel.Info, $"Master Server: {_serverSettings.MasterServerAddress}:{_serverSettings.MasterServerPort}");
             _logService.WriteMessage(LogLevel.Info, $"Client Port: {_serverSettings.ClientPort}");
             _logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
