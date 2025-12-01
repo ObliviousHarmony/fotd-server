@@ -48,7 +48,7 @@ namespace FOMServer.Master.Infrastructure.Repositories
         {
             using var connection = _dbConnectionFactory.Create();
             return connection.QueryFirstOrDefault<AvatarDto?>(
-                "SELECT `player_id`, `name`, `faction`, `sex`, `skin_color`, `face`, `hair` FROM `avatar` WHERE `player_id` = @playerID",
+                "SELECT `name`, `faction`, `sex`, `skin_color`, `face`, `hair` FROM `avatar` WHERE `player_id` = @playerID",
                 new { playerID }
             );
         }
@@ -77,7 +77,6 @@ namespace FOMServer.Master.Infrastructure.Repositories
 
                 return new AvatarDto
                 {
-                    player_id = playerID,
                     name = name,
                     faction = faction,
                     sex = sex,
