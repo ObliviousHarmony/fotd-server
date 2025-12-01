@@ -38,5 +38,15 @@ namespace FOMServer.Master.Core.Players
             byte face,
             byte hair
         );
+
+        /// <summary>
+        /// Loads all attributes for the given player.
+        /// </summary>
+        IEnumerable<PlayerAttributeDto> GetAttributes(uint playerID);
+
+        /// <summary>
+        /// Saves the given attributes for the player.
+        /// </summary>
+        void SaveAttributes(uint playerID, IEnumerable<PlayerAttributeDto> attributes);
     }
 }
