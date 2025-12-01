@@ -33,7 +33,7 @@ namespace FOMServer.Master.Application.Handlers
             using var response = new PacketWriter<LoginReturn>();
             ref var rData = ref response.Data;
 
-            if (player.HasCharacter)
+            if (player.HasAvatar)
             {
                 rData.Status = LoginReturn.StatusCode.LOGIN_RETURN_SUCCESS;
                 rData.PlayerID = player.ID;

@@ -7,17 +7,15 @@ namespace FOMServer.Master.Application.Players
     public class PlayerService : IPlayerService
     {
         private readonly IPlayerRepository _playerRepository;
-        private readonly ICharacterRepository _characterRepository;
 
         private readonly ConcurrentDictionary<uint, Player> _loggedIn;
         private readonly ConcurrentDictionary<NetworkAddress, Player> _addressMap;
 
-        public PlayerService(IPlayerRepository playerRepository, ICharacterRepository characterRepository)
+        public PlayerService(IPlayerRepository playerRepository)
         {
             _playerRepository = playerRepository;
             _loggedIn = new ConcurrentDictionary<uint, Player>();
             _addressMap = new ConcurrentDictionary<NetworkAddress, Player>();
-            _characterRepository = characterRepository;
         }
 
         public Player? Get(uint id)
@@ -62,8 +60,8 @@ namespace FOMServer.Master.Application.Players
                 return null;
             }
 
-            var character = _characterRepository.Get(player.ID);
-            player.HasCharacter = character != null;
+            var avatar = _playerRepository.GetAvatar(player.ID);
+            player.HasAvatar = avatar != null;
 
             return player;
         }

@@ -1,6 +1,5 @@
 using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Core.Players;
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
@@ -12,18 +11,18 @@ namespace FOMServer.Master.Application.Handlers
     [PacketHandler]
     public class CheckNameHandler : BasePacketHandler<CheckName>
     {
-        private readonly ICharacterRepository _characterRepository;
+        private readonly IPlayerRepository _playerRepository;
         private readonly IClientPacketSender _packetSender;
 
-        public CheckNameHandler(ICharacterRepository characterRepository, IClientPacketSender packetSender)
+        public CheckNameHandler(IPlayerRepository playerRepository, IClientPacketSender packetSender)
         {
-            _characterRepository = characterRepository;
+            _playerRepository = playerRepository;
             _packetSender = packetSender;
         }
 
         public override void Handle(NetworkAddress sender, in CheckName p)
         {
-            var existingID = _characterRepository.Exists(p.Name);
+            var existingID = _playerRepository.AvatarExists(p.Name);
 
             using var response = new PacketWriter<CheckNameReturn>();
             ref var rData = ref response.Data;

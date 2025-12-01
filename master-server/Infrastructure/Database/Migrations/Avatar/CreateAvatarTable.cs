@@ -1,15 +1,15 @@
 using FluentMigrator;
 using FOMServer.Master.Extensions;
 
-namespace FOMServer.Master.Infrastructure.Database.Migrations.Character
+namespace FOMServer.Master.Infrastructure.Database.Migrations.Avatar
 {
-    [Migration(202509280939, "Creates the `character` table.")]
-    public class CreateCharacterTable : Migration
+    [Migration(202509280939, "Creates the `avatar` table.")]
+    public class CreateAvatarTable : Migration
     {
         public override void Up()
         {
-            Create.Table("character")
-                .WithColumn("id").AsUnsignedInt().NotNullable().PrimaryKey().ForeignKey("fk_character_player", "player", "id")
+            Create.Table("avatar")
+                .WithColumn("player_id").AsUnsignedInt().NotNullable().PrimaryKey().ForeignKey("fk_avatar_player", "player", "id")
                 .WithColumn("name").AsString(19).NotNullable().Unique()
                 .WithColumn("biography").AsString(510).NotNullable()
                 .WithColumn("faction").AsUnsignedByte().NotNullable()
@@ -22,7 +22,7 @@ namespace FOMServer.Master.Infrastructure.Database.Migrations.Character
 
         public override void Down()
         {
-            Delete.Table("character");
+            Delete.Table("avatar");
         }
     }
 }
