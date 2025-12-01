@@ -57,7 +57,7 @@ namespace FOMServer.Master.Infrastructure.Repositories
             connection.Execute("UPDATE `player` SET `logged_in` = 0");
         }
 
-        public uint? AvatarExists(string name)
+        public uint? GetIDByName(string name)
         {
             using var connection = _dbConnectionFactory.Create();
             return connection.QueryFirstOrDefault<uint?>(

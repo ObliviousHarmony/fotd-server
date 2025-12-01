@@ -22,7 +22,7 @@ namespace FOMServer.Master.Application.Handlers
 
         public override void Handle(NetworkAddress sender, in CheckName p)
         {
-            var existingID = _playerRepository.AvatarExists(p.Name);
+            var existingID = _playerRepository.GetIDByName(p.Name);
 
             using var response = new PacketWriter<CheckNameReturn>();
             ref var rData = ref response.Data;

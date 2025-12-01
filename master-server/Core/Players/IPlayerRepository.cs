@@ -26,9 +26,9 @@ namespace FOMServer.Master.Core.Players
         void LogoutAllPlayers();
 
         /// <summary>
-        /// Checks to see if an avatar already exists with the given name.
+        /// Gets the player ID for the given avatar name.
         /// </summary>
-        uint? AvatarExists(string name);
+        uint? GetIDByName(string name);
 
         /// <summary>
         /// Loads the avatar for the given player ID.
