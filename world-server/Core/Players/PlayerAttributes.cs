@@ -22,6 +22,8 @@ namespace FOMServer.World.Core.Players
     /// </remarks>
     public sealed class PlayerAttributes : IPersistable
     {
+        public const int AttributeCount = (int)PlayerAttribute.NUM_ATTRIBUTES;
+
         private const int DeadlockSpinThreshold = 10_000_000;
 
         private static readonly AttributeMetadata[] s_metadata;
@@ -50,11 +52,14 @@ namespace FOMServer.World.Core.Players
             s_metadata[(int)PlayerAttribute.XP] = new() { Max = int.MaxValue, LockRequired = false };
         }
 
-        public PlayerAttributes(Player player)
+        public PlayerAttributes(Player player, int[]? initialValues = null)
         {
             _player = player;
             _values = new int[(int)PlayerAttribute.NUM_ATTRIBUTES];
             _locks = new int[(int)PlayerAttribute.NUM_ATTRIBUTES];
+
+            if (initialValues != null)
+                initialValues.CopyTo(_values, 0);
         }
 
         public uint PlayerID => _player.ID;

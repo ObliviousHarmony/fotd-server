@@ -12,6 +12,7 @@ using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
 using FOMServer.World.Infrastructure.Database;
 using FOMServer.World.Infrastructure.Persistence;
+using FOMServer.World.Infrastructure.Players;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -91,6 +92,7 @@ namespace FOMServer.World
 
         private static ServiceCollection AddRepositories(this ServiceCollection services)
         {
+            services.AddSingleton<IPlayerRepository, DbPlayerRepository>();
             return services;
         }
 
