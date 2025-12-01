@@ -1,4 +1,5 @@
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Persistence;
 using FOMServer.World.Core.Exceptions;
 using FOMServer.World.Core.Players;
 
@@ -243,6 +244,48 @@ namespace FOMServer.Tests
 
             Assert.True(ucLocked);
             Assert.True(fcLocked);
+        }
+
+        [Fact]
+        public void OnChanged_FiresForAllModifications()
+        {
+            var player = new Player { ID = 123 };
+            var attributes = new PlayerAttributes(player);
+            var callCount = 0;
+            IPersistable? lastEntity = null;
+            IPersistable? lastAssociation = null;
+
+            attributes.OnChanged += (entity, association, _) =>
+            {
+                callCount++;
+                lastEntity = entity;
+                lastAssociation = association;
+                return true;
+            };
+
+            // Set fires OnChanged
+            attributes.Set(PlayerAttribute.Health, 100);
+            Assert.Equal(1, callCount);
+            Assert.Same(attributes, lastEntity);
+            Assert.Same(player, lastAssociation);
+
+            // Change fires OnChanged
+            attributes.Change(PlayerAttribute.Health, 50);
+            Assert.Equal(2, callCount);
+
+            // LockedAttribute fires OnChanged on Dispose when changed
+            using (var health = attributes.Lock(PlayerAttribute.Health))
+            {
+                health.Set(200);
+            }
+            Assert.Equal(3, callCount);
+
+            // LockedAttribute does NOT fire OnChanged if no changes made
+            using (var health = attributes.Lock(PlayerAttribute.Health))
+            {
+                _ = health.Get();
+            }
+            Assert.Equal(3, callCount);
         }
     }
 }

@@ -1,4 +1,4 @@
-namespace FOMServer.Master.Core.DTOs
+namespace FOMServer.World.Core.DTOs
 {
     public class PlayerAttributeDto
     {

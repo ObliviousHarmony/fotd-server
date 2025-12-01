@@ -1,13 +1,21 @@
 using FOMServer.Shared.Core.Persistence;
+using FOMServer.Shared.Infrastructure.Database;
 
-namespace FOMServer.Shared.Application.Persistence
+namespace FOMServer.Shared.Infrastructure.Persistence
 {
     /// <summary>
-    /// Base class providing locking around persistence operations.
+    /// Base class for persistence handlers that write to the database.
     /// </summary>
-    public abstract class PersistenceHandlerBase<T> : IPersistenceHandler
+    public abstract class DbPersistenceHandlerBase<T> : IPersistenceHandler
         where T : IPersistable
     {
+        protected readonly IDbConnectionFactory _dbConnectionFactory;
+
+        protected DbPersistenceHandlerBase(IDbConnectionFactory dbConnectionFactory)
+        {
+            _dbConnectionFactory = dbConnectionFactory;
+        }
+
         public Type EntityType => typeof(T);
 
         public async Task PersistAsync(IPersistable entity)
