@@ -1,4 +1,5 @@
 using Dapper;
+using FOMServer.Shared.Core.DTOs;
 using FOMServer.Shared.Infrastructure.Database;
 using FOMServer.World.Core.DTOs;
 using FOMServer.World.Core.Players;
@@ -14,10 +15,19 @@ namespace FOMServer.World.Infrastructure.Players
             _dbConnectionFactory = dbConnectionFactory;
         }
 
-        public IEnumerable<PlayerAttributeDto> GetAttributes(uint playerID)
+        public PlayerDTO? GetByID(uint id)
         {
             using var connection = _dbConnectionFactory.Create();
-            return connection.Query<PlayerAttributeDto>(
+            return connection.QuerySingleOrDefault<PlayerDTO>(
+                "SELECT `id`, `username` FROM `player` WHERE `id` = @id",
+                new { id }
+            );
+        }
+
+        public IEnumerable<PlayerAttributeDTO> GetAttributes(uint playerID)
+        {
+            using var connection = _dbConnectionFactory.Create();
+            return connection.Query<PlayerAttributeDTO>(
                 "SELECT `attribute_id`, `value` FROM `player_attribute` WHERE `player_id` = @playerID",
                 new { playerID }
             );

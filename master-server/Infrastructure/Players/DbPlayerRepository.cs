@@ -1,6 +1,7 @@
 using Dapper;
 using FOMServer.Master.Core.DTOs;
 using FOMServer.Master.Core.Players;
+using FOMServer.Shared.Core.DTOs;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Infrastructure.Database;
 using MySqlConnector;
@@ -16,10 +17,10 @@ namespace FOMServer.Master.Infrastructure.Repositories
             _dbConnectionFactory = dbConnectionFactory;
         }
 
-        public PlayerDto? GetByID(uint id)
+        public PlayerDTO? GetByID(uint id)
         {
             using var connection = _dbConnectionFactory.Create();
-            return connection.QuerySingleOrDefault<PlayerDto>(
+            return connection.QuerySingleOrDefault<PlayerDTO>(
                 "SELECT `id`, `username` FROM `player` WHERE `id` = @id",
                 new { id }
             );
@@ -43,16 +44,16 @@ namespace FOMServer.Master.Infrastructure.Repositories
             );
         }
 
-        public AvatarDto? GetAvatar(uint playerID)
+        public AvatarDTO? GetAvatar(uint playerID)
         {
             using var connection = _dbConnectionFactory.Create();
-            return connection.QueryFirstOrDefault<AvatarDto?>(
+            return connection.QueryFirstOrDefault<AvatarDTO?>(
                 "SELECT `name`, `faction`, `sex`, `skin_color`, `face`, `hair` FROM `avatar` WHERE `player_id` = @playerID",
                 new { playerID }
             );
         }
 
-        public AvatarDto? CreateAvatar(
+        public AvatarDTO? CreateAvatar(
             uint playerID,
             Faction faction,
             string name,
@@ -74,7 +75,7 @@ namespace FOMServer.Master.Infrastructure.Repositories
                     new { playerID, faction, name, biography, sex, skinColor, face, hair }
                 );
 
-                return new AvatarDto
+                return new AvatarDTO
                 {
                     name = name,
                     faction = faction,

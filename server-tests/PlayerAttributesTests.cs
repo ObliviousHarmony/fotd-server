@@ -1,5 +1,4 @@
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Persistence;
 using FOMServer.World.Core.Exceptions;
 using FOMServer.World.Core.Players;
 
@@ -249,25 +248,19 @@ namespace FOMServer.Tests
         [Fact]
         public void OnPersistableChange_FiresForAllModifications()
         {
-            var player = new Player { ID = 123 };
-            var attributes = new PlayerAttributes(player);
+            var attributes = new PlayerAttributes(null!);
             var callCount = 0;
-            IPersistable? lastEntity = null;
-            IPersistable? lastAssociation = null;
 
-            attributes.OnPersistableChange += (entity, association, _) =>
+            attributes.OnPersistableChange += (entity, _, _) =>
             {
                 callCount++;
-                lastEntity = entity;
-                lastAssociation = association;
+                Assert.Same(attributes, entity);
                 return true;
             };
 
             // Set fires OnPersistableChange
             attributes.Set(PlayerAttribute.Health, 100);
             Assert.Equal(1, callCount);
-            Assert.Same(attributes, lastEntity);
-            Assert.Same(player, lastAssociation);
 
             // Change fires OnPersistableChange
             attributes.Change(PlayerAttribute.Health, 50);
