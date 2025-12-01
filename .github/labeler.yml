@@ -1,0 +1,38 @@
+"project: fom-network":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "extern/raknet/**"
+      - "fom-network/**"
+      - "CMakeLists.txt"
+      - "CMakePresets.json"
+
+"project: world server":
+  - changed-files:
+    - any-glob-to-any-file: "world-server/**"
+
+"project: master server":
+  - changed-files:
+    - any-glob-to-any-file: "master-server/**"
+
+"project: server shared":
+  - changed-files:
+    - any-glob-to-any-file: "server-shared/**"
+
+"tools":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "justfile"
+      - ".editorconfig"
+      - ".clang-format"
+      - "cmake/**"
+      - "docker/**"
+      - ".github/**"
+      - "CLAUDE.md"
+      - ".claude/**"
+      - ".vscode/**"
+
+"documentation":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "docs/**"
+      - "README.md"
