@@ -1,0 +1,12 @@
+name: Enhancement
+description: Suggest an improvement to existing functionality
+type: Enhancement
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What would you like to improve and why?
+    validations:
+      required: true

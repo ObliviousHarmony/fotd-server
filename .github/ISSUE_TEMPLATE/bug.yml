@@ -1,0 +1,32 @@
+name: Bug Report
+description: Report a bug or unexpected behavior
+type: Bug
+
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What went wrong?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction Steps
+      description: How can we reproduce this bug?
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: media
+    attributes:
+      label: Media
+      description: Optional screenshots or videos
+    validations:
+      required: false
