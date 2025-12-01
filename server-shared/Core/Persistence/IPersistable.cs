@@ -25,6 +25,6 @@ namespace FOMServer.Shared.Core.Persistence
         /// <summary>
         /// Raised when the object's state changes and requires persistence.
         /// </summary>
-        event PersistenceChangedHandler OnChanged;
+        event PersistenceChangedHandler OnPersistableChange;
     }
 }

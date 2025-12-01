@@ -247,7 +247,7 @@ namespace FOMServer.Tests
         }
 
         [Fact]
-        public void OnChanged_FiresForAllModifications()
+        public void OnPersistableChange_FiresForAllModifications()
         {
             var player = new Player { ID = 123 };
             var attributes = new PlayerAttributes(player);
@@ -255,7 +255,7 @@ namespace FOMServer.Tests
             IPersistable? lastEntity = null;
             IPersistable? lastAssociation = null;
 
-            attributes.OnChanged += (entity, association, _) =>
+            attributes.OnPersistableChange += (entity, association, _) =>
             {
                 callCount++;
                 lastEntity = entity;
@@ -263,24 +263,24 @@ namespace FOMServer.Tests
                 return true;
             };
 
-            // Set fires OnChanged
+            // Set fires OnPersistableChange
             attributes.Set(PlayerAttribute.Health, 100);
             Assert.Equal(1, callCount);
             Assert.Same(attributes, lastEntity);
             Assert.Same(player, lastAssociation);
 
-            // Change fires OnChanged
+            // Change fires OnPersistableChange
             attributes.Change(PlayerAttribute.Health, 50);
             Assert.Equal(2, callCount);
 
-            // LockedAttribute fires OnChanged on Dispose when changed
+            // LockedAttribute fires OnPersistableChange on Dispose when changed
             using (var health = attributes.Lock(PlayerAttribute.Health))
             {
                 health.Set(200);
             }
             Assert.Equal(3, callCount);
 
-            // LockedAttribute does NOT fire OnChanged if no changes made
+            // LockedAttribute does NOT fire OnPersistableChange if no changes made
             using (var health = attributes.Lock(PlayerAttribute.Health))
             {
                 _ = health.Get();

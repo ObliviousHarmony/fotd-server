@@ -38,7 +38,7 @@ namespace FOMServer.World.Core.Players
             public bool LockRequired { get; init; }
         }
 
-        public event PersistenceChangedHandler? OnChanged;
+        public event PersistenceChangedHandler? OnPersistableChange;
 
         static PlayerAttributes()
         {
@@ -93,7 +93,7 @@ namespace FOMServer.World.Core.Players
                 Thread.SpinWait(1);
 
             Volatile.Write(ref _values[index], Math.Min((int)value, metadata.Max));
-            OnChanged?.Invoke(this, _player);
+            OnPersistableChange?.Invoke(this, _player);
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace FOMServer.World.Core.Players
                 Thread.SpinWait(1);
 
             var result = (uint)Math.Clamp(Interlocked.Add(ref _values[index], delta), 0, metadata.Max);
-            OnChanged?.Invoke(this, _player);
+            OnPersistableChange?.Invoke(this, _player);
             return result;
         }
 
@@ -206,7 +206,7 @@ namespace FOMServer.World.Core.Players
                 Volatile.Write(ref _parent._locks[(int)_attribute], 0);
 
                 if (_changed)
-                    _parent.OnChanged?.Invoke(_parent, _parent._player);
+                    _parent.OnPersistableChange?.Invoke(_parent, _parent._player);
             }
         }
     }

@@ -10,13 +10,13 @@ namespace FOMServer.Tests
     {
         private class TestEntity : IPersistable
         {
-            public event PersistenceChangedHandler? OnChanged;
+            public event PersistenceChangedHandler? OnPersistableChange;
 
             public bool MarkChanged(
                 IPersistable? association = null,
                 IEnumerable<IPersistable>? additionalAssociations = null)
             {
-                return OnChanged?.Invoke(this, association, additionalAssociations) ?? true;
+                return OnPersistableChange?.Invoke(this, association, additionalAssociations) ?? true;
             }
         }
 

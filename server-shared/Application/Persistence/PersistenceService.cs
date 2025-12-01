@@ -108,7 +108,7 @@ namespace FOMServer.Shared.Application.Persistence
 
         public void Register(IPersistable entity)
         {
-            entity.OnChanged += Enqueue;
+            entity.OnPersistableChange += Enqueue;
         }
 
         private bool Enqueue(

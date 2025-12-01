@@ -1,11 +1,11 @@
 using System.Reflection;
 using FOMServer.Application.Core;
+using FOMServer.Shared.Application.Persistence;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
-using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Core.Networking;
-using FOMServer.Shared.Application.Persistence;
+using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Infrastructure.Logging;
 using FOMServer.Shared.Services.FOMNetwork;
 using Microsoft.Extensions.DependencyInjection;
