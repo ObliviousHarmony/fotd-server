@@ -13,24 +13,24 @@ namespace FOMServer.Master.Application.Handlers
     [PacketHandler]
     public class WorldOverviewHandler : BasePacketHandler<WorldOverview>
     {
-        private readonly IPlayerService _playerService;
+        private readonly IPlayerRegistry _playerRegistry;
         private readonly IWorldOverviewFactory _worldOverviewFactory;
         private readonly IClientPacketSender _packetSender;
 
         public WorldOverviewHandler(
-            IPlayerService playerService,
+            IPlayerRegistry playerRegistry,
             IWorldOverviewFactory worldOverviewFactory,
             IClientPacketSender packetSender
         )
         {
-            _playerService = playerService;
+            _playerRegistry = playerRegistry;
             _worldOverviewFactory = worldOverviewFactory;
             _packetSender = packetSender;
         }
 
         public override void Handle(NetworkAddress sender, in WorldOverview p)
         {
-            var player = _playerService.Get(sender);
+            var player = _playerRegistry.Get(sender);
             if (player == null)
                 throw new InvalidOperationException($"Player not found for address {sender}");
             if (player.ID != p.PlayerID)

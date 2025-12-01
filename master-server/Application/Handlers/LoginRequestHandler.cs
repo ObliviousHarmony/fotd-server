@@ -12,18 +12,18 @@ namespace FOMServer.Master.Application.Handlers
     [PacketHandler]
     public class LoginRequestHandler : BasePacketHandler<LoginRequest>
     {
-        private readonly ILoginRepository _loginRepository;
-        private readonly IPlayerService _playerService;
+        private readonly IPlayerRepository _playerRepository;
+        private readonly IPlayerRegistry _playerRegistry;
         private readonly IClientPacketSender _packetSender;
 
         public LoginRequestHandler(
-            ILoginRepository loginRepository,
-            IPlayerService playerService,
+            IPlayerRepository playerRepository,
+            IPlayerRegistry playerRegistry,
             IClientPacketSender packetSender
         )
         {
-            _loginRepository = loginRepository;
-            _playerService = playerService;
+            _playerRepository = playerRepository;
+            _playerRegistry = playerRegistry;
             _packetSender = packetSender;
         }
 
@@ -39,10 +39,10 @@ namespace FOMServer.Master.Application.Handlers
                     rData.RawUsername[i] = p.RawUsername[i];
             }
 
-            var playerID = _loginRepository.GetIDByUsername(p.Username);
+            var playerID = _playerRepository.GetIDByUsername(p.Username);
             if (playerID == null)
                 rData.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_INVALID_INFORMATION;
-            else if (_playerService.Get(playerID.Value) != null)
+            else if (_playerRegistry.Get(playerID.Value) != null)
                 rData.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_ALREADY_LOGGED_IN;
             else if (p.ClientVersion != GlobalConstants.ClientVersion)
                 rData.Status = LoginRequestReturn.StatusCode.LOGIN_REQUEST_OUTDATED_CLIENT;

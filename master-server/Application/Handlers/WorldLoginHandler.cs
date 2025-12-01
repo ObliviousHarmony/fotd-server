@@ -12,19 +12,19 @@ namespace FOMServer.Master.Application.Handlers
     [PacketHandler]
     public class WorldLoginHandler : BasePacketHandler<WorldLogin>
     {
-        private readonly IPlayerService _playerService;
+        private readonly IPlayerRegistry _playerRegistry;
         private readonly IWorldServerService _worldServerService;
         private readonly IClientPacketSender _clientPacketSender;
         private readonly IWorldPacketSender _worldPacketSender;
 
         public WorldLoginHandler(
-            IPlayerService playerService,
+            IPlayerRegistry playerRegistry,
             IWorldServerService worldServerService,
             IClientPacketSender clientPacketSender,
             IWorldPacketSender worldPacketSender
         )
         {
-            _playerService = playerService;
+            _playerRegistry = playerRegistry;
             _worldServerService = worldServerService;
             _clientPacketSender = clientPacketSender;
             _worldPacketSender = worldPacketSender;
@@ -46,7 +46,7 @@ namespace FOMServer.Master.Application.Handlers
                 return;
             }
 
-            var player = _playerService.Get(sender);
+            var player = _playerRegistry.Get(sender);
             if (player == null)
                 throw new InvalidOperationException($"Player not found for address {sender}");
 

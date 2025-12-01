@@ -13,20 +13,23 @@ namespace FOMServer.Master.Application.Handlers
     [PacketHandler]
     public class LoginHandler : BasePacketHandler<Login>
     {
-        private readonly IPlayerService _playerService;
+        private readonly ILoginService _loginService;
         private readonly IWorldOverviewFactory _worldOverviewFactory;
         private readonly IClientPacketSender _packetSender;
 
-        public LoginHandler(IPlayerService playerService, IWorldOverviewFactory worldOverviewFactory, IClientPacketSender packetSender)
+        public LoginHandler(
+            ILoginService loginService,
+            IWorldOverviewFactory worldOverviewFactory,
+            IClientPacketSender packetSender)
         {
-            _playerService = playerService;
+            _loginService = loginService;
             _worldOverviewFactory = worldOverviewFactory;
             _packetSender = packetSender;
         }
 
         public override void Handle(NetworkAddress sender, in Login p)
         {
-            var player = _playerService.Login(p.Username, p.PasswordHash, sender);
+            var player = _loginService.Login(p.Username, p.PasswordHash, sender);
             if (player == null)
                 return;
 

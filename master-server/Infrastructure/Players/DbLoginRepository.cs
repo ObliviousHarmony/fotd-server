@@ -1,5 +1,4 @@
 using Dapper;
-using FOMServer.Master.Core.DTOs;
 using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Infrastructure.Database;
 
@@ -14,29 +13,25 @@ namespace FOMServer.Master.Infrastructure.Repositories
             _dbConnectionFactory = dbConnectionFactory;
         }
 
-        public uint? GetIDByUsername(string username)
+        public uint? TryLogin(string username, string password)
         {
             using var connection = _dbConnectionFactory.Create();
-            var dto = connection.QuerySingleOrDefault<PlayerDto>(
-                "SELECT `id`, `username` FROM `player` WHERE `username` = @username",
-                new { username }
-            );
-            return dto?.id;
-        }
 
-        public PlayerDto? TryLogin(string username, string password)
-        {
-            using var connection = _dbConnectionFactory.Create();
-            var player = connection.QuerySingleOrDefault<PlayerDto>(
-                "SELECT `id`, `username` FROM `player` WHERE `username` = @username",
+            // Atomically set logged_in = 1 only if currently 0 to prevent race conditions
+            var affected = connection.Execute(
+                "UPDATE `player` SET `logged_in` = 1 WHERE `username` = @username AND `logged_in` = 0",
                 new { username }
             );
-            if (player == null)
+            if (affected == 0)
                 return null;
 
-            connection.Execute("UPDATE `player` SET `logged_in` = 1 WHERE `id` = @id", new { id = player.id });
+            // Player is now exclusively logged in, safe to fetch their ID
+            var id = connection.QuerySingleOrDefault<uint?>(
+                "SELECT `id` FROM `player` WHERE `username` = @username",
+                new { username }
+            );
 
-            return player;
+            return id;
         }
 
         public bool Logout(uint id)

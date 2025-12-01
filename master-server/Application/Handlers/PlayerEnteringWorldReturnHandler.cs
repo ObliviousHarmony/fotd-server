@@ -7,29 +7,29 @@ using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.Data;
 using FOMServer.Shared.Metadata;
 
-namespace FOMServer.World.Application.Handlers
+namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
     public class PlayerEnteringWorldReturnHandler : BasePacketHandler<PlayerEnteringWorldReturn>
     {
-        private readonly IPlayerService _playerService;
+        private readonly IPlayerRegistry _playerRegistry;
         private readonly IWorldServerService _worldServerService;
         private readonly IClientPacketSender _packetSender;
 
         public PlayerEnteringWorldReturnHandler(
             IClientPacketSender packetSender,
             IWorldServerService worldServerService,
-            IPlayerService playerService
+            IPlayerRegistry playerRegistry
         )
         {
             _packetSender = packetSender;
             _worldServerService = worldServerService;
-            _playerService = playerService;
+            _playerRegistry = playerRegistry;
         }
 
         public override void Handle(NetworkAddress sender, in PlayerEnteringWorldReturn p)
         {
-            var player = _playerService.Get(p.PlayerID);
+            var player = _playerRegistry.Get(p.PlayerID);
             if (player == null)
                 throw new InvalidOperationException($"Player {p.PlayerID} not found");
 

@@ -14,26 +14,26 @@ namespace FOMServer.Master.Application.Handlers
     public class CreateCharacterHandler : BasePacketHandler<CreateCharacter>
     {
         private readonly IClientPacketSender _packetSender;
-        private readonly IPlayerService _playerService;
+        private readonly IPlayerRegistry _playerRegistry;
         private readonly IPlayerRepository _playerRepository;
         private readonly IWorldOverviewFactory _worldOverviewFactory;
 
         public CreateCharacterHandler(
             IClientPacketSender packetSender,
-            IPlayerService playerService,
+            IPlayerRegistry playerRegistry,
             IPlayerRepository playerRepository,
             IWorldOverviewFactory worldOverviewFactory
         )
         {
             _packetSender = packetSender;
-            _playerService = playerService;
+            _playerRegistry = playerRegistry;
             _playerRepository = playerRepository;
             _worldOverviewFactory = worldOverviewFactory;
         }
 
         public override void Handle(NetworkAddress sender, in CreateCharacter p)
         {
-            var player = _playerService.Get(sender);
+            var player = _playerRegistry.Get(sender);
             if (player == null)
                 throw new InvalidOperationException($"Player not found for address {sender}");
 

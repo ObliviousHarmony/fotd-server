@@ -12,13 +12,19 @@ namespace FOMServer.Master.Application.Handlers
     [PacketHandler]
     public class ConnectionLostHandler : BasePacketHandler<ConnectionLost>
     {
-        private readonly IPlayerService _playerService;
+        private readonly IPlayerRegistry _playerRegistry;
+        private readonly ILoginService _loginService;
         private readonly IWorldServerService _worldServerService;
         private readonly ILogService _logService;
 
-        public ConnectionLostHandler(IPlayerService playerService, IWorldServerService worldServerService, ILogService logService)
+        public ConnectionLostHandler(
+            IPlayerRegistry playerRegistry,
+            ILoginService loginService,
+            IWorldServerService worldServerService,
+            ILogService logService)
         {
-            _playerService = playerService;
+            _playerRegistry = playerRegistry;
+            _loginService = loginService;
             _worldServerService = worldServerService;
             _logService = logService;
         }
@@ -50,11 +56,11 @@ namespace FOMServer.Master.Application.Handlers
 
         private bool TryPlayerLogout(NetworkAddress sender)
         {
-            Player? player = _playerService.Get(sender);
+            Player? player = _playerRegistry.Get(sender);
             if (player == null)
                 return false;
 
-            _playerService.Logout(player);
+            _loginService.Logout(player);
             return true;
         }
     }

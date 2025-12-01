@@ -16,6 +16,24 @@ namespace FOMServer.Master.Infrastructure.Repositories
             _dbConnectionFactory = dbConnectionFactory;
         }
 
+        public PlayerDto? GetByID(uint id)
+        {
+            using var connection = _dbConnectionFactory.Create();
+            return connection.QuerySingleOrDefault<PlayerDto>(
+                "SELECT `id`, `username` FROM `player` WHERE `id` = @id",
+                new { id }
+            );
+        }
+
+        public uint? GetIDByUsername(string username)
+        {
+            using var connection = _dbConnectionFactory.Create();
+            return connection.QuerySingleOrDefault<uint?>(
+                "SELECT `id` FROM `player` WHERE `username` = @username",
+                new { username }
+            );
+        }
+
         public uint? GetIDByName(string name)
         {
             using var connection = _dbConnectionFactory.Create();
