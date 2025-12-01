@@ -14,28 +14,21 @@ namespace FOMServer.World.Application.Handlers
     public class RegisterClientHandler : BasePacketHandler<RegisterClient>
     {
         private readonly IClientPacketSender _packetSender;
-        private readonly IPlayerRegistry _playerRegistry;
         private readonly IWorldLoginService _worldLoginService;
 
         public RegisterClientHandler(
             IClientPacketSender packetSender,
-            IPlayerRegistry playerRegistry,
             IWorldLoginService worldLoginService)
         {
             _packetSender = packetSender;
-            _playerRegistry = playerRegistry;
             _worldLoginService = worldLoginService;
         }
 
         public override void Handle(NetworkAddress sender, in RegisterClient p)
         {
-            var request = _worldLoginService.GetAndRemove(p.PlayerID);
-            if (request == null)
-                throw new InvalidOperationException($"No pending world login request for player {p.PlayerID}");
-
-            var player = _playerRegistry.Register(p.PlayerID, sender);
-            if (player == null)
-                throw new InvalidOperationException($"Failed to register player {p.PlayerID}");
+            var result = _worldLoginService.Login(p.PlayerID, sender);
+            if (result == null)
+                throw new InvalidOperationException($"Failed to login player {p.PlayerID}");
 
             using var response = new PacketWriter<RegisterClientReturn>();
             ref var rData = ref response.Data;
@@ -51,7 +44,7 @@ namespace FOMServer.World.Application.Handlers
             rData.Attributes[PlayerAttribute.Coins] = 5678;
             rData.Attributes[PlayerAttribute.Agility] = 1000;
             rData.Name = "Oblivious Test";
-            rData.SelectedNode = request.SelectedNodeID;
+            rData.SelectedNode = result.SelectedNodeID;
 
             // Item Types
             // 1 - 49: Weapons

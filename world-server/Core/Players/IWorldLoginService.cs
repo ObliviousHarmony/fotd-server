@@ -1,15 +1,18 @@
+using FOMServer.Shared.Core.Packets;
+
 namespace FOMServer.World.Core.Players
 {
     public interface IWorldLoginService
     {
         /// <summary>
-        /// Adds a pending world login request.
+        /// Prepares a pending world login request.
         /// </summary>
-        void AddRequest(uint playerID, byte selectedNodeID);
+        void Prepare(uint playerID, byte selectedNodeID);
 
         /// <summary>
-        /// Gets and removes a pending request, or returns null if not found.
+        /// Logs in a player: validates the pending request, registers the player, and sets up persistence.
         /// </summary>
-        WorldLoginRequest? GetAndRemove(uint playerID);
+        /// <returns>The login result, or null if no pending request exists.</returns>
+        WorldLoginResult? Login(uint playerID, NetworkAddress clientAddress);
     }
 }

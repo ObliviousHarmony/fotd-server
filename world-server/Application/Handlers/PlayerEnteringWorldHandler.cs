@@ -39,7 +39,7 @@ namespace FOMServer.World.Application.Handlers
             }
             else
             {
-                _worldLoginService.AddRequest(p.PlayerID, p.SelectedNodeID);
+                _worldLoginService.Prepare(p.PlayerID, p.SelectedNodeID);
                 rData.Status = PlayerEnteringWorldReturn.StatusCode.PLAYER_ENTERING_WORLD_RETURN_READY;
             }
 
