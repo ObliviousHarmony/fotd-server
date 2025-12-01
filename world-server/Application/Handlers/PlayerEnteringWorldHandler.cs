@@ -1,4 +1,3 @@
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
@@ -12,15 +11,17 @@ namespace FOMServer.World.Application.Handlers
     [PacketHandler]
     public class PlayerEnteringWorldHandler : BasePacketHandler<PlayerEnteringWorld>
     {
-        private readonly IPlayerService _playerService;
         private readonly IMasterPacketSender _packetSender;
+        private readonly IPlayerRegistry _playerRegistry;
         private readonly IWorldLoginService _worldLoginService;
 
-        public PlayerEnteringWorldHandler(IMasterPacketSender packetSender, IPlayerService playerService)
+        public PlayerEnteringWorldHandler(
+            IMasterPacketSender packetSender,
+            IPlayerRegistry playerRegistry,
             IWorldLoginService worldLoginService)
         {
             _packetSender = packetSender;
-            _playerService = playerService;
+            _playerRegistry = playerRegistry;
             _worldLoginService = worldLoginService;
         }
 
@@ -29,16 +30,18 @@ namespace FOMServer.World.Application.Handlers
             using var response = new PacketWriter<PlayerEnteringWorldReturn>();
             ref var rData = ref response.Data;
 
-
-
             rData.PlayerID = p.PlayerID;
-            var player = _playerService.OnPlayerEnteringWorld(p.PlayerID, p.SelectedNodeID);
-            if (player == null)
+
+            // Check if player is already in this world
+            if (_playerRegistry.Get(p.PlayerID) != null)
+            {
                 rData.Status = PlayerEnteringWorldReturn.StatusCode.PLAYER_ENTERING_WORLD_RETURN_ALREADY_IN_WORLD;
+            }
             else
             {
                 _worldLoginService.AddRequest(p.PlayerID, p.SelectedNodeID);
                 rData.Status = PlayerEnteringWorldReturn.StatusCode.PLAYER_ENTERING_WORLD_RETURN_READY;
+            }
 
             _packetSender.Send(response.Build());
         }

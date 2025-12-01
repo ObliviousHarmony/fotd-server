@@ -12,18 +12,18 @@ namespace FOMServer.World.Application.Handlers
     [PacketHandler]
     public class UpdateHandler : BasePacketHandler<Update>
     {
-        private readonly IPlayerService _playerService;
+        private readonly IPlayerRegistry _playerRegistry;
         private readonly IClientPacketSender _packetSender;
 
-        public UpdateHandler(IPlayerService playerService, IClientPacketSender packetSender)
+        public UpdateHandler(IPlayerRegistry playerRegistry, IClientPacketSender packetSender)
         {
             _packetSender = packetSender;
-            _playerService = playerService;
+            _playerRegistry = playerRegistry;
         }
 
         public override void Handle(NetworkAddress sender, in Update p)
         {
-            var player = _playerService.Get(sender);
+            var player = _playerRegistry.Get(sender);
             if (player == null)
                 throw new InvalidOperationException($"Player at {sender} not found");
 

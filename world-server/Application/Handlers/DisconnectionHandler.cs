@@ -1,5 +1,4 @@
 using FOMServer.Shared.Core.Handlers;
-using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.Data.RakNetPackets;
 using FOMServer.Shared.Metadata;
@@ -10,20 +9,20 @@ namespace FOMServer.World.Application.Handlers
     [PacketHandler]
     public class DisconnectionHandler : BasePacketHandler<DisconnectionNotification>
     {
-        private readonly IPlayerService _playerService;
+        private readonly IPlayerRegistry _playerRegistry;
 
-        public DisconnectionHandler(IPlayerService playerService, ILogService logService)
+        public DisconnectionHandler(IPlayerRegistry playerRegistry)
         {
-            _playerService = playerService;
+            _playerRegistry = playerRegistry;
         }
 
         public override void Handle(NetworkAddress sender, in DisconnectionNotification p)
         {
-            Player? player = _playerService.Get(sender);
+            var player = _playerRegistry.Get(sender);
             if (player == null)
                 return;
 
-            _playerService.OnPlayerLeftWorld(player.ID);
+            _playerRegistry.Unregister(player.ID);
         }
     }
 }

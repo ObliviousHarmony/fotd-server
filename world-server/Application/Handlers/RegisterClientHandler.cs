@@ -13,20 +13,29 @@ namespace FOMServer.World.Application.Handlers
     [PacketHandler]
     public class RegisterClientHandler : BasePacketHandler<RegisterClient>
     {
-        private readonly IPlayerService _playerService;
         private readonly IClientPacketSender _packetSender;
+        private readonly IPlayerRegistry _playerRegistry;
+        private readonly IWorldLoginService _worldLoginService;
 
-        public RegisterClientHandler(IClientPacketSender packetSender, IPlayerService playerService)
+        public RegisterClientHandler(
+            IClientPacketSender packetSender,
+            IPlayerRegistry playerRegistry,
+            IWorldLoginService worldLoginService)
         {
             _packetSender = packetSender;
-            _playerService = playerService;
+            _playerRegistry = playerRegistry;
+            _worldLoginService = worldLoginService;
         }
 
         public override void Handle(NetworkAddress sender, in RegisterClient p)
         {
-            var player = _playerService.OnPlayerEnteredWorld(p.PlayerID, sender);
+            var request = _worldLoginService.GetAndRemove(p.PlayerID);
+            if (request == null)
+                throw new InvalidOperationException($"No pending world login request for player {p.PlayerID}");
+
+            var player = _playerRegistry.Register(p.PlayerID, sender);
             if (player == null)
-                throw new InvalidOperationException($"Player {p.PlayerID} not found");
+                throw new InvalidOperationException($"Failed to register player {p.PlayerID}");
 
             using var response = new PacketWriter<RegisterClientReturn>();
             ref var rData = ref response.Data;
@@ -42,7 +51,7 @@ namespace FOMServer.World.Application.Handlers
             rData.Attributes[PlayerAttribute.Coins] = 5678;
             rData.Attributes[PlayerAttribute.Agility] = 1000;
             rData.Name = "Oblivious Test";
-            rData.SelectedNode = player.SelectedNodeID;
+            rData.SelectedNode = request.SelectedNodeID;
 
             // Item Types
             // 1 - 49: Weapons
