@@ -13,7 +13,7 @@ using their own private servers.
   This is because the included RakNet library requires GCC 4.8 to build, which is not available on
   modern operating systems.
 - [**just**](https://github.com/casey/just): A command runner that simplifies working with tools.
-- [**CMake 3.28 (or newer)**](https://cmake.org/download)
+- [**CMake 3.26 (or newer)**](https://cmake.org/download)
 - [**ClangFormat**](https://clang.llvm.org/docs/ClangFormat.html): A C++ code formatter.
 
 ### Building
