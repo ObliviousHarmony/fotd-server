@@ -82,6 +82,7 @@ namespace FOMServer.World
 
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
             services.AddSingleton<IPlayerService, PlayerService>();
+            services.AddSingleton<IWorldLoginService, WorldLoginService>();
             return services;
         }
 

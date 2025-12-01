@@ -27,6 +27,10 @@ This repository contains a server emulator for the discontinued MMOFPS, "Face of
 - `.clang-format` for C++ formatting
 - Roslyn analyzers for C# formatting
 
+### Special Rules
+
+- Capitalize acronyms, not just the first letter (e.g., `ID` not `Id`, `HTTP` not `Http`).
+
 ## Common Commands
 
 - **C++ Format**: `just format-cpp`
