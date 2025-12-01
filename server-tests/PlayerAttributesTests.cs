@@ -9,7 +9,7 @@ namespace FOMServer.Tests
         [Fact]
         public void Get_ClampsToRange()
         {
-            var attributes = new PlayerAttributes();
+            var attributes = new PlayerAttributes(null!);
 
             // Set up internal negative value via locked Change
             using (var health = attributes.Lock(PlayerAttribute.Health))
@@ -30,7 +30,7 @@ namespace FOMServer.Tests
         [Fact]
         public void Set_ClampsToMax()
         {
-            var attributes = new PlayerAttributes();
+            var attributes = new PlayerAttributes(null!);
 
             attributes.Set(PlayerAttribute.Health, 500);
             Assert.Equal(500u, attributes.Get(PlayerAttribute.Health));
@@ -42,7 +42,7 @@ namespace FOMServer.Tests
         [Fact]
         public void Change_ClampsReturnValue()
         {
-            var attributes = new PlayerAttributes();
+            var attributes = new PlayerAttributes(null!);
 
             // Positive delta
             attributes.Set(PlayerAttribute.Health, 100);
@@ -73,7 +73,7 @@ namespace FOMServer.Tests
         [Fact]
         public void SetAndChange_ThrowInvalidOperation_WhenLockRequired()
         {
-            var attributes = new PlayerAttributes();
+            var attributes = new PlayerAttributes(null!);
 
             Assert.Throws<InvalidOperationException>(() =>
                 attributes.Set(PlayerAttribute.UC, 100));
@@ -85,7 +85,7 @@ namespace FOMServer.Tests
         [Fact]
         public void LockedAttribute_ClampsToRange()
         {
-            var attributes = new PlayerAttributes();
+            var attributes = new PlayerAttributes(null!);
 
             using (var health = attributes.Lock(PlayerAttribute.Health))
             {
@@ -108,7 +108,7 @@ namespace FOMServer.Tests
         [Fact]
         public void LockedAttribute_DisposeReleasesLock()
         {
-            var attributes = new PlayerAttributes();
+            var attributes = new PlayerAttributes(null!);
 
             // First lock and dispose
             var uc = attributes.Lock(PlayerAttribute.UC);
@@ -126,7 +126,7 @@ namespace FOMServer.Tests
         [Fact]
         public void Lock_ThrowsAttributeDeadlockException_WhenAlreadyLocked()
         {
-            var attributes = new PlayerAttributes();
+            var attributes = new PlayerAttributes(null!);
             using var held = attributes.Lock(PlayerAttribute.UC);
 
             var lockAcquired = false;
@@ -156,7 +156,7 @@ namespace FOMServer.Tests
         [Fact]
         public void Change_SpinsWhileLocked_ProceedsAfterUnlock()
         {
-            var attributes = new PlayerAttributes();
+            var attributes = new PlayerAttributes(null!);
             attributes.Set(PlayerAttribute.Health, 100);
 
             var lockHandle = attributes.Lock(PlayerAttribute.Health);
@@ -186,7 +186,7 @@ namespace FOMServer.Tests
         [Fact]
         public void Change_ConcurrentModifications_SumsCorrectly()
         {
-            var attributes = new PlayerAttributes();
+            var attributes = new PlayerAttributes(null!);
             attributes.Set(PlayerAttribute.Health, 0);
 
             const int threadCount = 10;
@@ -225,7 +225,7 @@ namespace FOMServer.Tests
         [Fact]
         public void Lock_DifferentAttributes_NoCrossBlocking()
         {
-            var attributes = new PlayerAttributes();
+            var attributes = new PlayerAttributes(null!);
             var ucLocked = false;
             var fcLocked = false;
 

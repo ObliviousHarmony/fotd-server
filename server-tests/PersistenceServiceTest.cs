@@ -12,9 +12,11 @@ namespace FOMServer.Tests
         {
             public event PersistenceChangedHandler? OnChanged;
 
-            public bool MarkChanged(IEnumerable<IPersistable>? associations = null)
+            public bool MarkChanged(
+                IPersistable? association = null,
+                IEnumerable<IPersistable>? additionalAssociations = null)
             {
-                return OnChanged?.Invoke(this, associations) ?? true;
+                return OnChanged?.Invoke(this, association, additionalAssociations) ?? true;
             }
         }
 
@@ -119,7 +121,7 @@ namespace FOMServer.Tests
 
             // Item changes and registers player as an association
             // (player must wait for item to persist before its wait completes)
-            item.MarkChanged(associations: new[] { player });
+            item.MarkChanged(player);
 
             service.WaitForPersistence(player, () => callbackFired.SetResult());
 
@@ -127,6 +129,35 @@ namespace FOMServer.Tests
 
             Assert.Equal(callbackFired.Task, completed);
             Assert.Contains(item, _handler.PersistedEntities);
+            Assert.Contains(player, _handler.PersistedEntities);
+        }
+
+        [Fact]
+        public async Task WaitForPersistence_WaitsForAdditionalAssociations()
+        {
+            var service = CreateService();
+            var player = new TestEntity();
+            var item1 = new TestEntity();
+            var item2 = new TestEntity();
+            var callbackFired = new TaskCompletionSource();
+
+            service.Register(player);
+            service.Register(item1);
+            service.Register(item2);
+
+            // Item1 changes with null primary association but player in additional associations
+            item1.MarkChanged(null, new[] { player });
+
+            // Item2 changes with both primary and additional associations
+            item2.MarkChanged(player, new[] { item1 });
+
+            service.WaitForPersistence(player, () => callbackFired.SetResult());
+
+            var completed = await Task.WhenAny(callbackFired.Task, Task.Delay(1000));
+
+            Assert.Equal(callbackFired.Task, completed);
+            Assert.Contains(item1, _handler.PersistedEntities);
+            Assert.Contains(item2, _handler.PersistedEntities);
             Assert.Contains(player, _handler.PersistedEntities);
         }
 
@@ -146,7 +177,7 @@ namespace FOMServer.Tests
             service.Register(item);
 
             // Item changes and registers player as an association
-            item.MarkChanged(associations: new[] { player });
+            item.MarkChanged(player);
 
             service.WaitForPersistence(player, () => callbackFired.SetResult());
 

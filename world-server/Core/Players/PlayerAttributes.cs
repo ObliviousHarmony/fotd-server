@@ -1,4 +1,5 @@
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Persistence;
 using FOMServer.World.Core.Exceptions;
 
 namespace FOMServer.World.Core.Players
@@ -19,9 +20,15 @@ namespace FOMServer.World.Core.Players
     /// <see cref="AttributeDeadlockException"/> if acquisition times out.
     /// </para>
     /// </remarks>
-    public sealed class PlayerAttributes
+    public sealed class PlayerAttributes : IPersistable
     {
         private const int DeadlockSpinThreshold = 10_000_000;
+
+        private static readonly AttributeMetadata[] s_metadata;
+
+        private readonly Player _player;
+        private readonly int[] _values;
+        private readonly int[] _locks;
 
         private readonly struct AttributeMetadata
         {
@@ -29,10 +36,7 @@ namespace FOMServer.World.Core.Players
             public bool LockRequired { get; init; }
         }
 
-        private static readonly AttributeMetadata[] s_metadata;
-
-        private readonly int[] _values;
-        private readonly int[] _locks;
+        public event PersistenceChangedHandler? OnChanged;
 
         static PlayerAttributes()
         {
@@ -46,11 +50,14 @@ namespace FOMServer.World.Core.Players
             s_metadata[(int)PlayerAttribute.XP] = new() { Max = int.MaxValue, LockRequired = false };
         }
 
-        public PlayerAttributes()
+        public PlayerAttributes(Player player)
         {
+            _player = player;
             _values = new int[(int)PlayerAttribute.NUM_ATTRIBUTES];
             _locks = new int[(int)PlayerAttribute.NUM_ATTRIBUTES];
         }
+
+        public uint PlayerID => _player.ID;
 
         /// <summary>
         /// Gets the current value of an attribute, clamped to [0, Max].
@@ -81,6 +88,7 @@ namespace FOMServer.World.Core.Players
                 Thread.SpinWait(1);
 
             Volatile.Write(ref _values[index], Math.Min((int)value, metadata.Max));
+            OnChanged?.Invoke(this, _player);
         }
 
         /// <summary>
@@ -104,7 +112,9 @@ namespace FOMServer.World.Core.Players
             while (Volatile.Read(ref _locks[index]) != 0)
                 Thread.SpinWait(1);
 
-            return (uint)Math.Clamp(Interlocked.Add(ref _values[index], delta), 0, metadata.Max);
+            var result = (uint)Math.Clamp(Interlocked.Add(ref _values[index], delta), 0, metadata.Max);
+            OnChanged?.Invoke(this, _player);
+            return result;
         }
 
         /// <summary>
@@ -126,12 +136,14 @@ namespace FOMServer.World.Core.Players
         {
             private readonly PlayerAttributes _parent;
             private readonly PlayerAttribute _attribute;
+            private bool _changed;
             private bool _disposed;
 
             internal LockedAttribute(PlayerAttributes parent, PlayerAttribute attribute)
             {
                 _parent = parent;
                 _attribute = attribute;
+                _changed = false;
                 _disposed = false;
 
                 int index = (int)attribute;
@@ -162,6 +174,7 @@ namespace FOMServer.World.Core.Players
             {
                 int index = (int)_attribute;
                 _parent._values[index] = Math.Min((int)value, s_metadata[index].Max);
+                _changed = true;
             }
 
             /// <summary>
@@ -172,6 +185,7 @@ namespace FOMServer.World.Core.Players
                 int index = (int)_attribute;
                 int clamped = Math.Clamp(_parent._values[index] + delta, 0, s_metadata[index].Max);
                 _parent._values[index] = clamped;
+                _changed = true;
                 return (uint)clamped;
             }
 
@@ -185,6 +199,9 @@ namespace FOMServer.World.Core.Players
 
                 _disposed = true;
                 Volatile.Write(ref _parent._locks[(int)_attribute], 0);
+
+                if (_changed)
+                    _parent.OnChanged?.Invoke(_parent, _parent._player);
             }
         }
     }
