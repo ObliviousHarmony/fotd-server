@@ -91,7 +91,6 @@ namespace FOMServer.World.Core.Players
         /// </remarks>
         /// <param name="attribute">The attribute to modify.</param>
         /// <param name="delta">The amount to change (negative to subtract).</param>
-        /// <returns>The clamped value after modification.</returns>
         public uint Change(PlayerAttribute attribute, int delta)
         {
             int index = (int)attribute;
@@ -112,7 +111,6 @@ namespace FOMServer.World.Core.Players
         /// Acquires an exclusive lock on an attribute.
         /// </summary>
         /// <param name="attribute">The attribute to lock.</param>
-        /// <returns>A handle providing exclusive access to the attribute.</returns>
         /// <exception cref="AttributeDeadlockException">
         /// Thrown if the lock cannot be acquired within the timeout period.
         /// </exception>
@@ -169,7 +167,6 @@ namespace FOMServer.World.Core.Players
             /// <summary>
             /// Changes the attribute by a delta and clamps the result to [0, Max].
             /// </summary>
-            /// <returns>The clamped value after modification.</returns>
             public uint Change(int delta)
             {
                 int index = (int)_attribute;

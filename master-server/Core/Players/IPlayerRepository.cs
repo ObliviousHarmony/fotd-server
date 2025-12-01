@@ -6,6 +6,16 @@ namespace FOMServer.Master.Core.Players
     public interface IPlayerRepository
     {
         /// <summary>
+        /// Gets the player by their ID.
+        /// </summary>
+        PlayerDto? GetByID(uint id);
+
+        /// <summary>
+        /// Gets the player ID for the given username.
+        /// </summary>
+        uint? GetIDByUsername(string username);
+
+        /// <summary>
         /// Gets the player ID for the given avatar name.
         /// </summary>
         uint? GetIDByName(string name);

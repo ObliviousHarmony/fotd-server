@@ -81,7 +81,8 @@ namespace FOMServer.Master
             services.AddSingleton<IWorldPacketSender>(sp => sp.GetRequiredService<WorldPacketSender>());
 
             services.AddSingleton<IWorldServerService, WorldServerService>();
-            services.AddSingleton<IPlayerService, PlayerService>();
+            services.AddSingleton<IPlayerRegistry, PlayerRegistry>();
+            services.AddSingleton<ILoginService, LoginService>();
             return services;
         }
 

@@ -1,11 +1,8 @@
-using FOMServer.Shared.Core.Packets;
+using FOMServer.Shared.Core.Players;
 
 namespace FOMServer.World.Core.Players
 {
-    public class Player
+    public class Player : PlayerBase
     {
-        public NetworkAddress ClientAddress { get; set; }
-        public uint ID { get; init; }
-        public byte SelectedNodeID { get; init; }
     }
 }

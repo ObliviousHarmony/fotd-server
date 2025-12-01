@@ -1,11 +1,9 @@
-using FOMServer.Shared.Core.Packets;
+using FOMServer.Shared.Core.Players;
 
 namespace FOMServer.Master.Core.Players
 {
-    public class Player
+    public class Player : PlayerBase
     {
-        public NetworkAddress ClientAddress { get; init; }
-        public uint ID { get; init; }
         public string Username { get; init; } = "";
         public bool HasAvatar { get; set; }
     }
