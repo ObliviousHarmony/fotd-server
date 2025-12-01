@@ -7,6 +7,6 @@ namespace FOMServer.Master.Core.Players
         public NetworkAddress ClientAddress { get; init; }
         public uint ID { get; init; }
         public string Username { get; init; } = "";
-        public bool HasCharacter { get; set; }
+        public bool HasAvatar { get; set; }
     }
 }

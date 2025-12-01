@@ -15,19 +15,19 @@ namespace FOMServer.Master.Application.Handlers
     {
         private readonly IClientPacketSender _packetSender;
         private readonly IPlayerService _playerService;
-        private readonly ICharacterRepository _characterRepository;
+        private readonly IPlayerRepository _playerRepository;
         private readonly IWorldOverviewFactory _worldOverviewFactory;
 
         public CreateCharacterHandler(
             IClientPacketSender packetSender,
             IPlayerService playerService,
-            ICharacterRepository characterRepository,
+            IPlayerRepository playerRepository,
             IWorldOverviewFactory worldOverviewFactory
         )
         {
             _packetSender = packetSender;
             _playerService = playerService;
-            _characterRepository = characterRepository;
+            _playerRepository = playerRepository;
             _worldOverviewFactory = worldOverviewFactory;
         }
 
@@ -37,7 +37,7 @@ namespace FOMServer.Master.Application.Handlers
             if (player == null)
                 throw new InvalidOperationException($"Player not found for address {sender}");
 
-            var created = _characterRepository.Create(
+            var created = _playerRepository.CreateAvatar(
                 player.ID,
                 p.Avatar.Faction,
                 p.Name,
@@ -48,9 +48,9 @@ namespace FOMServer.Master.Application.Handlers
                 p.Avatar.Hair
             );
             if (created == null)
-                throw new InvalidOperationException("Failed to create character");
+                throw new InvalidOperationException("Failed to create avatar");
 
-            player.HasCharacter = true;
+            player.HasAvatar = true;
 
             using var response = new PacketWriter<LoginReturn>();
             ref var rData = ref response.Data;
