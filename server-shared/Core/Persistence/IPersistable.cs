@@ -8,7 +8,6 @@ namespace FOMServer.Shared.Core.Persistence
     /// Entities that should be considered as dependent on the persistence
     /// of the changed entity.
     /// </param>
-    /// <returns>True if the change was enqueued, false if rejected (e.g., entity is waiting for persistence).</returns>
     public delegate bool PersistenceChangedHandler(IPersistable entity, IEnumerable<IPersistable>? associations);
 
     /// <summary>
