@@ -54,22 +54,32 @@ Docker is required for Linux/macOS since RakNet 3.611 requires GCC 4.8.
 
 ## Git Workflow
 
+### Branch Naming Convention
+
 Branch names should follow the format: `{type}/[{gh-issue-number}-]{short-summary}`
 
-Components:
+### Components
+
 - `{type}`: One of the defined types below
 - `{gh-issue-number}` (optional): The GitHub issue number that this branch is addressing.
 - `{short-summary}`: A kebab-case short summary of the changes to be made in the branch.
     - GitHub issue branches should match the title, or if it's uncomfortably long, a shortened version that maintains the intent of the original title.
 
-Types:
+### Types
+
 - **feat**: New functionality
 - **fix**: Bug fix
 - **refactor**: Restructuring without behavior change
 - **chore**: Tooling, config, dependencies, CI
 - **docs**: Documentation only
 
-## Helpful Reminders
+### Commit Messages
+
+The first line should be in title case with a maximum of 50 characters. After an empty line, provide a more detailed explanation with a maximum line length of 72 characters.
+
+Focus on the **why**, not the **what**. The diff shows what changed - commit messages should explain the reasoning, context, and constraints that led to the change. Avoid describing implementation details that are visible in the code.
+
+### Tools
 
 - The `gh` CLI tool automatically makes inferences about the current repository and active pull request.
 
