@@ -2,7 +2,7 @@ using FOMServer.Shared.Core.Enums;
 
 namespace FOMServer.Master.Core.DTOs
 {
-    public class AvatarDto
+    public class AvatarDTO
     {
         public string name { get; init; } = "";
         public Faction faction { get; init; }

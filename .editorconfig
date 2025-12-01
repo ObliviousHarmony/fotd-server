@@ -293,5 +293,5 @@ dotnet_naming_rule.s_prefix_for_private_static_fields.symbols  = private_static_
 dotnet_naming_rule.s_prefix_for_private_static_fields.style    = s_prefix_underscore_style
 
 # Dapper DTO exemption
-[*Dto.cs]
+[*DTO.cs]
 dotnet_diagnostic.IDE1006.severity = none
