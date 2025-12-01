@@ -75,7 +75,7 @@ Branch names should follow the format: `{type}/[{gh-issue-number}-]{short-summar
 
 ### Commit Messages
 
-The first line should be in title case with a maximum of 50 characters. After an empty line, provide a more detailed explanation with a maximum line length of 72 characters.
+The First Line Should Be in Title Case with a maximum of 50 characters. After an empty line, provide a more detailed explanation with a maximum line length of 72 characters.
 
 Focus on the **why**, not the **what**. The diff shows what changed - commit messages should explain the reasoning, context, and constraints that led to the change. Avoid describing implementation details that are visible in the code.
 
