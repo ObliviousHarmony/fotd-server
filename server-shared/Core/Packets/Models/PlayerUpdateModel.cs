@@ -6,12 +6,6 @@ namespace FOMServer.Shared.Core.Packets.Models
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct PlayerUpdateModel
     {
-        public PlayerUpdateModel()
-        {
-            // Default Animation (standing idle)
-            AnimationID = 16;
-        }
-
         public uint PlayerID;
         public PositionRotationModel PositionRotation;
         public AvatarModel Avatar;
@@ -37,5 +31,11 @@ namespace FOMServer.Shared.Core.Packets.Models
         public fixed byte RawIsAttachmentEquipped[(int)PlayerAttachment.NUM_ATTACHMENTS];
         public PlayerAttachment ActiveAttachment; // RawIsAttachmentEquipped[n] != 0
         public byte ShieldSetting; // ActiveAttachment == PlayerAttachment.ShieldImplant
+
+        public PlayerUpdateModel()
+        {
+            // Default Animation (standing idle)
+            AnimationID = 16;
+        }
     }
 }

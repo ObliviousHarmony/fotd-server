@@ -32,14 +32,6 @@ namespace FOMServer.World.Core.Players
         private readonly int[] _values;
         private readonly int[] _locks;
 
-        private readonly struct AttributeMetadata
-        {
-            public int Max { get; init; }
-            public bool LockRequired { get; init; }
-        }
-
-        public event PersistenceChangedHandler? OnPersistableChange;
-
         static PlayerAttributes()
         {
             s_metadata = new AttributeMetadata[(int)PlayerAttribute.NUM_ATTRIBUTES];
@@ -61,6 +53,8 @@ namespace FOMServer.World.Core.Players
             if (initialValues != null)
                 initialValues.CopyTo(_values, 0);
         }
+
+        public event PersistenceChangedHandler? OnPersistableChange;
 
         public uint PlayerID => _player.ID;
 
@@ -208,6 +202,12 @@ namespace FOMServer.World.Core.Players
                 if (_changed)
                     _parent.OnPersistableChange?.Invoke(_parent, _parent._player);
             }
+        }
+
+        private readonly struct AttributeMetadata
+        {
+            public int Max { get; init; }
+            public bool LockRequired { get; init; }
         }
     }
 }

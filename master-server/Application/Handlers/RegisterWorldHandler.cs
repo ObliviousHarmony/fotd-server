@@ -9,10 +9,8 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class RegisterWorldPacketHandler : BasePacketHandler<RegisterWorld>
+    public class RegisterWorldPacketHandler : PacketHandlerBase<RegisterWorld>
     {
-        public PacketIdentifier PacketID => PacketIdentifier.ID_REGISTER_WORLD;
-
         private readonly ILogService _logService;
         private readonly IWorldServerService _worldServerService;
 
@@ -21,6 +19,8 @@ namespace FOMServer.Master.Application.Handlers
             _logService = logService;
             _worldServerService = worldServerService;
         }
+
+        public PacketIdentifier PacketID => PacketIdentifier.ID_REGISTER_WORLD;
 
         public override void Handle(NetworkAddress sender, in RegisterWorld p)
         {

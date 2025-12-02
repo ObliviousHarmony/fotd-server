@@ -8,6 +8,9 @@ namespace FOMServer.Shared.Core.Packets.Data
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct PlayerEnteringWorldReturn
     {
+        public StatusCode Status;
+        public uint PlayerID;
+
         public enum StatusCode : byte
         {
             PLAYER_ENTERING_WORLD_RETURN_ERROR = 0,
@@ -15,8 +18,5 @@ namespace FOMServer.Shared.Core.Packets.Data
             PLAYER_ENTERING_WORLD_RETURN_READY = 2,
             PLAYER_ENTERING_WORLD_RETURN_SERVER_FULL = 3,
         }
-
-        public StatusCode Status;
-        public uint PlayerID;
     }
 }

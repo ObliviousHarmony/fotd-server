@@ -127,6 +127,14 @@ namespace FOMServer.Shared.Application.Networking
             _shutdownManager.TrackTask(_networkTask);
         }
 
+        public void EnqueueSend(in QueuePacket packet)
+        {
+            if (_peer == IntPtr.Zero)
+                throw new InvalidOperationException("Peer is not configured");
+
+            _sendQueue.Writer.TryWrite(packet);
+        }
+
         private async Task NetworkLoopAsync(CancellationToken ct)
         {
             try
@@ -302,14 +310,6 @@ namespace FOMServer.Shared.Application.Networking
                 _peerShutdown!(_peer);
                 _peer = IntPtr.Zero;
             }
-        }
-
-        public void EnqueueSend(in QueuePacket packet)
-        {
-            if (_peer == IntPtr.Zero)
-                throw new InvalidOperationException("Peer is not configured");
-
-            _sendQueue.Writer.TryWrite(packet);
         }
     }
 }

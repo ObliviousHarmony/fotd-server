@@ -9,6 +9,13 @@ namespace FOMServer.Shared.Core.Packets.Data
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct LoginReturn
     {
+        public StatusCode Status;
+        public uint PlayerID;
+        public byte AccountType;
+        public byte RawIsVolunteer;
+        public ushort ClientVersion;
+        public WorldOverviewModel WorldOverview;
+
         public enum StatusCode : byte
         {
             LOGIN_RETURN_INVALID_LOGIN = 0,
@@ -25,13 +32,6 @@ namespace FOMServer.Shared.Core.Packets.Data
             LOGIN_RETURN_CLIENT_ERROR = 11,
             LOGIN_RETURN_LOCKED = 12
         }
-
-        public StatusCode Status;
-        public uint PlayerID;
-        public byte AccountType;
-        public byte RawIsVolunteer;
-        public ushort ClientVersion;
-        public WorldOverviewModel WorldOverview;
 
         public bool IsVolunteer
         {

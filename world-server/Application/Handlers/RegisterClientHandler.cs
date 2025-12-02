@@ -11,7 +11,7 @@ using FOMServer.World.Core.Players;
 namespace FOMServer.World.Application.Handlers
 {
     [PacketHandler]
-    public class RegisterClientHandler : BasePacketHandler<RegisterClient>
+    public class RegisterClientHandler : PacketHandlerBase<RegisterClient>
     {
         private readonly IClientPacketSender _packetSender;
         private readonly IWorldLoginService _worldLoginService;

@@ -10,7 +10,7 @@ using FOMServer.World.Core.Players;
 namespace FOMServer.World.Application.Handlers
 {
     [PacketHandler]
-    public class UpdateHandler : BasePacketHandler<Update>
+    public class UpdateHandler : PacketHandlerBase<Update>
     {
         private readonly IPlayerRegistry _playerRegistry;
         private readonly IClientPacketSender _packetSender;

@@ -70,7 +70,7 @@ namespace FOMServer.Tests
             Assert.NotEmpty(attributedTypes); // sanity check: make sure we found some
 
             var invalidType = attributedTypes
-                .Where(t => !IsAssignableToGenericType(t, typeof(BasePacketHandler<>)))
+                .Where(t => !IsAssignableToGenericType(t, typeof(PacketHandlerBase<>)))
                 .FirstOrDefault();
 
             Assert.True(

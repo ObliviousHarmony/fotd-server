@@ -141,7 +141,7 @@ csharp_style_prefer_top_level_statements = true
 # Expression-level preferences
 csharp_prefer_simple_default_expression = true
 csharp_style_deconstructed_variable_declaration = true
-csharp_style_implicit_object_creation_when_type_is_apparent = true
+csharp_style_implicit_object_creation_when_type_is_apparent = false:error
 csharp_style_inlined_variable_declaration = true
 csharp_style_prefer_implicitly_typed_lambda_expression = true
 csharp_style_prefer_index_operator = true
@@ -291,6 +291,21 @@ dotnet_naming_rule.camel_case_for_private_internal_protected_fields.style    = c
 dotnet_naming_rule.s_prefix_for_private_static_fields.severity = error
 dotnet_naming_rule.s_prefix_for_private_static_fields.symbols  = private_static_internal_fields
 dotnet_naming_rule.s_prefix_for_private_static_fields.style    = s_prefix_underscore_style
+
+#### StyleCop Rules ####
+
+# Disable all StyleCop rules by default
+dotnet_analyzer_diagnostic.category-StyleCop.CSharp.DocumentationRules.severity = none
+dotnet_analyzer_diagnostic.category-StyleCop.CSharp.LayoutRules.severity = none
+dotnet_analyzer_diagnostic.category-StyleCop.CSharp.MaintainabilityRules.severity = none
+dotnet_analyzer_diagnostic.category-StyleCop.CSharp.NamingRules.severity = none
+dotnet_analyzer_diagnostic.category-StyleCop.CSharp.OrderingRules.severity = none
+dotnet_analyzer_diagnostic.category-StyleCop.CSharp.ReadabilityRules.severity = none
+dotnet_analyzer_diagnostic.category-StyleCop.CSharp.SpacingRules.severity = none
+
+dotnet_diagnostic.SA0001.severity = none
+dotnet_diagnostic.SA1201.severity = error
+dotnet_diagnostic.SA1202.severity = error
 
 # Dapper DTO exemption
 [*DTO.cs]

@@ -11,7 +11,7 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class LoginHandler : BasePacketHandler<Login>
+    public class LoginHandler : PacketHandlerBase<Login>
     {
         private readonly ILoginService _loginService;
         private readonly IWorldOverviewFactory _worldOverviewFactory;

@@ -3,7 +3,7 @@ using FOMServer.Shared.Core.Packets;
 
 namespace FOMServer.Shared.Core.Handlers
 {
-    public abstract class BasePacketHandler<TPacket> : IPacketHandler where TPacket : unmanaged
+    public abstract class PacketHandlerBase<TPacket> : IPacketHandler where TPacket : unmanaged
     {
         public void Handle(in PacketRef packet)
         {

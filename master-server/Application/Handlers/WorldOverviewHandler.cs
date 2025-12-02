@@ -11,7 +11,7 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class WorldOverviewHandler : BasePacketHandler<WorldOverview>
+    public class WorldOverviewHandler : PacketHandlerBase<WorldOverview>
     {
         private readonly IPlayerRegistry _playerRegistry;
         private readonly IWorldOverviewFactory _worldOverviewFactory;

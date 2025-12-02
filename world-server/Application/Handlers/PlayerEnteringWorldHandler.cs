@@ -9,7 +9,7 @@ using FOMServer.World.Core.Players;
 namespace FOMServer.World.Application.Handlers
 {
     [PacketHandler]
-    public class PlayerEnteringWorldHandler : BasePacketHandler<PlayerEnteringWorld>
+    public class PlayerEnteringWorldHandler : PacketHandlerBase<PlayerEnteringWorld>
     {
         private readonly IMasterPacketSender _packetSender;
         private readonly IPlayerRegistry _playerRegistry;

@@ -1,3 +1,4 @@
+
 # Face of Mankind Emulator
 
 This repository contains a server emulator for the discontinued MMOFPS, "Face of Mankind", first released in 2006. It features a client/server architecture with two kinds of servers, a "master" server that holds cross-server global state and individual "world" servers for player movement and interaction within a given world.
@@ -82,6 +83,7 @@ Focus on the **why**, not the **what**. The diff shows what changed - commit mes
 ### Tools
 
 - The `gh` CLI tool automatically makes inferences about the current repository and active pull request.
+- The repository contains a pull request template.
 
 ## Comprehensive Documentation
 

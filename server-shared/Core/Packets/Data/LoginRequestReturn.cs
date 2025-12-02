@@ -10,6 +10,9 @@ namespace FOMServer.Shared.Core.Packets.Data
     {
         public const int UsernameSize = 19;
 
+        public StatusCode Status;
+        public fixed byte RawUsername[UsernameSize];
+
         public enum StatusCode : byte
         {
             LOGIN_REQUEST_INVALID_INFORMATION = 0,
@@ -17,8 +20,5 @@ namespace FOMServer.Shared.Core.Packets.Data
             LOGIN_REQUEST_OUTDATED_CLIENT = 2,
             LOGIN_REQUEST_ALREADY_LOGGED_IN = 3
         }
-
-        public StatusCode Status;
-        public fixed byte RawUsername[UsernameSize];
     }
 }

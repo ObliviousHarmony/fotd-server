@@ -9,6 +9,15 @@ namespace FOMServer.Shared.Core.Logging
     /// </summary>
     public struct LogEntry
     {
+        public EntryType Type;
+        public LogLevel Level;
+        public DateTime Timestamp;
+
+        // Variant Data
+        public MessageLogEntry Message;
+        public ExceptionLogEntry Exception;
+        public PacketExceptionLogEntry PacketException;
+
         /// <summary>
         /// The type of the log entry so that we
         /// know which formatting field to use.
@@ -19,15 +28,6 @@ namespace FOMServer.Shared.Core.Logging
             Exception,
             PacketException
         }
-
-        public EntryType Type;
-        public LogLevel Level;
-        public DateTime Timestamp;
-
-        // Variant Data
-        public MessageLogEntry Message;
-        public ExceptionLogEntry Exception;
-        public PacketExceptionLogEntry PacketException;
 
         /// <summary>
         /// Formats the log entry as a string for output.

@@ -15,69 +15,6 @@ namespace FOMServer.Shared.Application.Persistence
 
         private readonly IShutdownManager _shutdownManager;
         private readonly ILogService _logService;
-
-        /// <summary>
-        /// A dependency that blocks an entity from completing persistence.
-        /// </summary>
-        private class BlockingDependency
-        {
-            public required WeakReference<IPersistable> Entity;
-            public required long Version;
-        }
-
-        /// <summary>
-        /// Tracks persistence state for each entity.
-        /// </summary>
-        private class EntityState
-        {
-            public int IsDirty;
-            public int IsWaiting;
-            public long Version;
-
-            private readonly object _syncRoot;
-            private List<BlockingDependency> _blockingDependencies;
-
-            public EntityState()
-            {
-                IsDirty = 0;
-                IsWaiting = 0;
-                Version = 0;
-                _syncRoot = new();
-                _blockingDependencies = new();
-            }
-
-            public void AddBlockingDependency(IPersistable entity, long version)
-            {
-                lock (_syncRoot)
-                {
-                    _blockingDependencies.Add(new BlockingDependency
-                    {
-                        Entity = new WeakReference<IPersistable>(entity),
-                        Version = version
-                    });
-                }
-            }
-
-            public List<BlockingDependency> TakeBlockingDependencies()
-            {
-                lock (_syncRoot)
-                {
-                    var result = _blockingDependencies;
-                    _blockingDependencies = new List<BlockingDependency>();
-                    return result;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Represents a pending wait request.
-        /// </summary>
-        private class WaitRequest
-        {
-            public List<BlockingDependency> BlockingDependencies = new();
-            public required Action Callback;
-        }
-
         private readonly Dictionary<Type, IPersistenceHandler> _handlers;
         private readonly Channel<IPersistable> _dirtyQueue;
         private readonly Channel<WaitRequest> _waitQueue;
@@ -109,42 +46,6 @@ namespace FOMServer.Shared.Application.Persistence
         public void Register(IPersistable entity)
         {
             entity.OnPersistableChange += Enqueue;
-        }
-
-        private bool Enqueue(
-            IPersistable entity,
-            IPersistable? association = null,
-            IEnumerable<IPersistable>? additionalAssociations = null)
-        {
-            var state = _entityStates.GetOrCreateValue(entity);
-
-            // Reject enqueue if entity is waiting for persistence
-            if (Volatile.Read(in state.IsWaiting) == 1)
-                return false;
-
-            var version = Volatile.Read(in state.Version);
-
-            // Record blocking dependencies on each association
-            if (association != null)
-            {
-                var assocState = _entityStates.GetOrCreateValue(association);
-                assocState.AddBlockingDependency(entity, version);
-            }
-
-            if (additionalAssociations != null)
-            {
-                foreach (var assoc in additionalAssociations)
-                {
-                    var assocState = _entityStates.GetOrCreateValue(assoc);
-                    assocState.AddBlockingDependency(entity, version);
-                }
-            }
-
-            // Use an atomic flag so that dirty entities are thread-safely queued only once.
-            if (Interlocked.Exchange(ref state.IsDirty, 1) == 0)
-                _dirtyQueue.Writer.TryWrite(entity);
-
-            return true;
         }
 
         public void WaitForPersistence(IPersistable entity, Action callback)
@@ -187,6 +88,42 @@ namespace FOMServer.Shared.Application.Persistence
 
             // Make sure that the shutdown manager waits for this task to complete.
             _shutdownManager.TrackTask(_persistenceTask);
+        }
+
+        private bool Enqueue(
+            IPersistable entity,
+            IPersistable? association = null,
+            IEnumerable<IPersistable>? additionalAssociations = null)
+        {
+            var state = _entityStates.GetOrCreateValue(entity);
+
+            // Reject enqueue if entity is waiting for persistence
+            if (Volatile.Read(in state.IsWaiting) == 1)
+                return false;
+
+            var version = Volatile.Read(in state.Version);
+
+            // Record blocking dependencies on each association
+            if (association != null)
+            {
+                var assocState = _entityStates.GetOrCreateValue(association);
+                assocState.AddBlockingDependency(entity, version);
+            }
+
+            if (additionalAssociations != null)
+            {
+                foreach (var assoc in additionalAssociations)
+                {
+                    var assocState = _entityStates.GetOrCreateValue(assoc);
+                    assocState.AddBlockingDependency(entity, version);
+                }
+            }
+
+            // Use an atomic flag so that dirty entities are thread-safely queued only once.
+            if (Interlocked.Exchange(ref state.IsDirty, 1) == 0)
+                _dirtyQueue.Writer.TryWrite(entity);
+
+            return true;
         }
 
         /// <summary>
@@ -303,6 +240,68 @@ namespace FOMServer.Shared.Application.Persistence
                     return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// A dependency that blocks an entity from completing persistence.
+        /// </summary>
+        private class BlockingDependency
+        {
+            public required WeakReference<IPersistable> Entity;
+            public required long Version;
+        }
+
+        /// <summary>
+        /// Tracks persistence state for each entity.
+        /// </summary>
+        private class EntityState
+        {
+            public int IsDirty;
+            public int IsWaiting;
+            public long Version;
+
+            private readonly object _syncRoot;
+            private List<BlockingDependency> _blockingDependencies;
+
+            public EntityState()
+            {
+                IsDirty = 0;
+                IsWaiting = 0;
+                Version = 0;
+                _syncRoot = new();
+                _blockingDependencies = new();
+            }
+
+            public void AddBlockingDependency(IPersistable entity, long version)
+            {
+                lock (_syncRoot)
+                {
+                    _blockingDependencies.Add(new BlockingDependency
+                    {
+                        Entity = new WeakReference<IPersistable>(entity),
+                        Version = version
+                    });
+                }
+            }
+
+            public List<BlockingDependency> TakeBlockingDependencies()
+            {
+                lock (_syncRoot)
+                {
+                    var result = _blockingDependencies;
+                    _blockingDependencies = new List<BlockingDependency>();
+                    return result;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Represents a pending wait request.
+        /// </summary>
+        private class WaitRequest
+        {
+            public List<BlockingDependency> BlockingDependencies = new();
+            public required Action Callback;
         }
     }
 }
