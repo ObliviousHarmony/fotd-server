@@ -4,7 +4,7 @@ using FOMServer.World.Core.Players;
 
 namespace FOMServer.World.Application.Players
 {
-    public class PlayerRegistry : BasePlayerRegistry<Player>, IPlayerRegistry
+    public class PlayerRegistry : PlayerRegistryBase<Player>, IPlayerRegistry
     {
         private readonly IPlayerRepository _playerRepository;
 

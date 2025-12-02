@@ -11,7 +11,7 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class CreateCharacterHandler : BasePacketHandler<CreateCharacter>
+    public class CreateCharacterHandler : PacketHandlerBase<CreateCharacter>
     {
         private readonly IClientPacketSender _packetSender;
         private readonly IPlayerRegistry _playerRegistry;

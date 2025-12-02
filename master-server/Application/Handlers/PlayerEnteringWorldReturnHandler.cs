@@ -10,7 +10,7 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class PlayerEnteringWorldReturnHandler : BasePacketHandler<PlayerEnteringWorldReturn>
+    public class PlayerEnteringWorldReturnHandler : PacketHandlerBase<PlayerEnteringWorldReturn>
     {
         private readonly IPlayerRegistry _playerRegistry;
         private readonly IWorldServerService _worldServerService;

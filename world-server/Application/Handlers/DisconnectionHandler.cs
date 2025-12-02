@@ -7,7 +7,7 @@ using FOMServer.World.Core.Players;
 namespace FOMServer.World.Application.Handlers
 {
     [PacketHandler]
-    public class DisconnectionHandler : BasePacketHandler<DisconnectionNotification>
+    public class DisconnectionHandler : PacketHandlerBase<DisconnectionNotification>
     {
         private readonly IPlayerRegistry _playerRegistry;
 

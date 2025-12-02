@@ -10,7 +10,7 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class WorldLoginHandler : BasePacketHandler<WorldLogin>
+    public class WorldLoginHandler : PacketHandlerBase<WorldLogin>
     {
         private readonly IPlayerRegistry _playerRegistry;
         private readonly IWorldServerService _worldServerService;

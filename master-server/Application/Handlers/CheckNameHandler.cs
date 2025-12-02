@@ -9,7 +9,7 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class CheckNameHandler : BasePacketHandler<CheckName>
+    public class CheckNameHandler : PacketHandlerBase<CheckName>
     {
         private readonly IPlayerRepository _playerRepository;
         private readonly IClientPacketSender _packetSender;

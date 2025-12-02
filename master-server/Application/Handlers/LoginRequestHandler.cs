@@ -10,7 +10,7 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class LoginRequestHandler : BasePacketHandler<LoginRequest>
+    public class LoginRequestHandler : PacketHandlerBase<LoginRequest>
     {
         private readonly IPlayerRepository _playerRepository;
         private readonly IPlayerRegistry _playerRegistry;

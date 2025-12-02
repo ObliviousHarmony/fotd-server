@@ -7,13 +7,13 @@ namespace FOMServer.Shared.Application.Players
     /// <summary>
     /// Abstract base registry for tracking players present on a server.
     /// </summary>
-    public abstract class BasePlayerRegistry<TPlayer> : IPlayerRegistry<TPlayer>
+    public abstract class PlayerRegistryBase<TPlayer> : IPlayerRegistry<TPlayer>
         where TPlayer : PlayerBase
     {
         private readonly ConcurrentDictionary<uint, TPlayer> _players;
         private readonly ConcurrentDictionary<NetworkAddress, TPlayer> _addressMap;
 
-        protected BasePlayerRegistry()
+        protected PlayerRegistryBase()
         {
             _players = new ConcurrentDictionary<uint, TPlayer>();
             _addressMap = new ConcurrentDictionary<NetworkAddress, TPlayer>();

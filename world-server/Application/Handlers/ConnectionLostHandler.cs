@@ -7,7 +7,7 @@ using FOMServer.World.Core.Players;
 namespace FOMServer.World.Application.Handlers
 {
     [PacketHandler]
-    public class ConnectionLostHandler : BasePacketHandler<ConnectionLost>
+    public class ConnectionLostHandler : PacketHandlerBase<ConnectionLost>
     {
         private readonly IPlayerRegistry _playerRegistry;
 

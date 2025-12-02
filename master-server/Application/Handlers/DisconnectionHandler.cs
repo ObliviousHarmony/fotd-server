@@ -10,7 +10,7 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class DisconnectionHandler : BasePacketHandler<DisconnectionNotification>
+    public class DisconnectionHandler : PacketHandlerBase<DisconnectionNotification>
     {
         private readonly IPlayerRegistry _playerRegistry;
         private readonly ILoginService _loginService;

@@ -9,7 +9,7 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class RegisterWorldPacketHandler : BasePacketHandler<RegisterWorld>
+    public class RegisterWorldPacketHandler : PacketHandlerBase<RegisterWorld>
     {
         private readonly ILogService _logService;
         private readonly IWorldServerService _worldServerService;
