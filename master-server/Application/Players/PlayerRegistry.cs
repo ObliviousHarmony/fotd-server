@@ -1,6 +1,7 @@
 using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Application.Players;
 using FOMServer.Shared.Core.Packets;
+using FOMServer.Shared.Core.Players;
 
 namespace FOMServer.Master.Application.Players
 {
@@ -20,8 +21,9 @@ namespace FOMServer.Master.Application.Players
                 throw new InvalidOperationException($"Player {id} not found in database");
 
             var avatar = _playerRepository.GetAvatar(id);
+            var session = new PlayerSession(id, clientAddress);
 
-            return new Player(id, clientAddress, playerDTO.username, avatar);
+            return new Player(session, playerDTO.username, avatar);
         }
     }
 }

@@ -1,25 +1,21 @@
 using FOMServer.Shared.Core.Packets;
-using FOMServer.Shared.Core.Persistence;
 
 namespace FOMServer.Shared.Core.Players
 {
     /// <summary>
     /// Base class for player entities.
     /// </summary>
-    public abstract class PlayerBase : IPersistable
+    public abstract class PlayerBase
     {
-        private readonly uint _id;
-        private readonly NetworkAddress _clientAddress;
+        private readonly PlayerSession _session;
 
-        protected PlayerBase(uint id, NetworkAddress clientAddress)
+        protected PlayerBase(PlayerSession session)
         {
-            _id = id;
-            _clientAddress = clientAddress;
+            _session = session;
         }
 
-        public event PersistenceChangedHandler? OnPersistableChange;
-
-        public uint ID => _id;
-        public NetworkAddress ClientAddress => _clientAddress;
+        public PlayerSession Session => _session;
+        public uint ID => _session.ID;
+        public NetworkAddress ClientAddress => _session.ClientAddress;
     }
 }

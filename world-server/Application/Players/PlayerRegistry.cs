@@ -1,5 +1,6 @@
 using FOMServer.Shared.Application.Players;
 using FOMServer.Shared.Core.Packets;
+using FOMServer.Shared.Core.Players;
 using FOMServer.World.Core.Players;
 
 namespace FOMServer.World.Application.Players
@@ -28,7 +29,10 @@ namespace FOMServer.World.Application.Players
             foreach (var attr in attributeDTOs)
                 attributeValues[attr.attribute_id] = attr.value;
 
-            return new Player(id, clientAddress, avatarDTO, attributeValues);
+            var session = new PlayerSession(id, clientAddress);
+            var attributes = new PlayerAttributes(session, attributeValues);
+
+            return new Player(session, avatarDTO, attributes);
         }
     }
 }

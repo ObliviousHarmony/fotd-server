@@ -1,5 +1,4 @@
 using FOMServer.Shared.Core.DTOs;
-using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Players;
 
 namespace FOMServer.World.Core.Players
@@ -9,11 +8,11 @@ namespace FOMServer.World.Core.Players
         private readonly AvatarDTO _avatar;
         private readonly PlayerAttributes _attributes;
 
-        public Player(uint id, NetworkAddress clientAddress, AvatarDTO avatar, int[] attributeValues)
-            : base(id, clientAddress)
+        public Player(PlayerSession session, AvatarDTO avatar, PlayerAttributes attributes)
+            : base(session)
         {
             _avatar = avatar;
-            _attributes = new PlayerAttributes(this, attributeValues);
+            _attributes = attributes;
         }
     }
 }
