@@ -1,29 +1,18 @@
 using Dapper;
-using FOMServer.Master.Core.DTOs;
 using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Core.DTOs;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Infrastructure.Database;
+using FOMServer.Shared.Infrastructure.Players;
 using MySqlConnector;
 
 namespace FOMServer.Master.Infrastructure.Repositories
 {
-    public class DbPlayerRepository : IPlayerRepository
+    public class DbPlayerRepository : DbPlayerRepositoryBase, IPlayerRepository
     {
-        private IDbConnectionFactory _dbConnectionFactory;
-
         public DbPlayerRepository(IDbConnectionFactory dbConnectionFactory)
+            : base(dbConnectionFactory)
         {
-            _dbConnectionFactory = dbConnectionFactory;
-        }
-
-        public PlayerDTO? GetByID(uint id)
-        {
-            using var connection = _dbConnectionFactory.Create();
-            return connection.QuerySingleOrDefault<PlayerDTO>(
-                "SELECT `id`, `username` FROM `player` WHERE `id` = @id",
-                new { id }
-            );
         }
 
         public uint? GetIDByUsername(string username)
@@ -41,15 +30,6 @@ namespace FOMServer.Master.Infrastructure.Repositories
             return connection.QueryFirstOrDefault<uint?>(
                 "SELECT `player_id` FROM `avatar` WHERE `name` = @name",
                 new { name }
-            );
-        }
-
-        public AvatarDTO? GetAvatar(uint playerID)
-        {
-            using var connection = _dbConnectionFactory.Create();
-            return connection.QueryFirstOrDefault<AvatarDTO?>(
-                "SELECT `name`, `faction`, `sex`, `skin_color`, `face`, `hair` FROM `avatar` WHERE `player_id` = @playerID",
-                new { playerID }
             );
         }
 

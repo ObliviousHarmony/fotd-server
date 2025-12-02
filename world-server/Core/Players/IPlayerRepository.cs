@@ -1,9 +1,9 @@
+using FOMServer.Shared.Core.Players;
 using FOMServer.World.Core.DTOs;
-using PlayerRepositoryBase = FOMServer.Shared.Core.Players.IPlayerRepository;
 
 namespace FOMServer.World.Core.Players
 {
-    public interface IPlayerRepository : PlayerRepositoryBase
+    public interface IPlayerRepository : IPlayerRepositoryBase
     {
         /// <summary>
         /// Loads all attributes for the given player.

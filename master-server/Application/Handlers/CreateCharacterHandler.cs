@@ -50,7 +50,7 @@ namespace FOMServer.Master.Application.Handlers
             if (created == null)
                 throw new InvalidOperationException("Failed to create avatar");
 
-            player.HasAvatar = true;
+            player.SetAvatar(created);
 
             using var response = new PacketWriter<LoginReturn>();
             ref var rData = ref response.Data;

@@ -21,13 +21,7 @@ namespace FOMServer.Master.Application.Players
 
             var avatar = _playerRepository.GetAvatar(id);
 
-            return new Player
-            {
-                ID = id,
-                ClientAddress = clientAddress,
-                Username = playerDTO.username,
-                HasAvatar = avatar != null
-            };
+            return new Player(id, clientAddress, playerDTO.username, avatar);
         }
     }
 }

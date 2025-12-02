@@ -8,8 +8,17 @@ namespace FOMServer.Shared.Core.Players
     /// </summary>
     public abstract class PlayerBase : IPersistable
     {
-        public uint ID { get; init; }
-        public NetworkAddress ClientAddress { get; set; }
+        private readonly uint _id;
+        private readonly NetworkAddress _clientAddress;
+
+        protected PlayerBase(uint id, NetworkAddress clientAddress)
+        {
+            _id = id;
+            _clientAddress = clientAddress;
+        }
+
+        public uint ID => _id;
+        public NetworkAddress ClientAddress => _clientAddress;
 
         public event PersistenceChangedHandler? OnPersistableChange;
     }

@@ -1,27 +1,16 @@
 using Dapper;
-using FOMServer.Shared.Core.DTOs;
 using FOMServer.Shared.Infrastructure.Database;
+using FOMServer.Shared.Infrastructure.Players;
 using FOMServer.World.Core.DTOs;
 using FOMServer.World.Core.Players;
 
 namespace FOMServer.World.Infrastructure.Players
 {
-    public class DbPlayerRepository : IPlayerRepository
+    public class DbPlayerRepository : DbPlayerRepositoryBase, IPlayerRepository
     {
-        private readonly IDbConnectionFactory _dbConnectionFactory;
-
         public DbPlayerRepository(IDbConnectionFactory dbConnectionFactory)
+            : base(dbConnectionFactory)
         {
-            _dbConnectionFactory = dbConnectionFactory;
-        }
-
-        public PlayerDTO? GetByID(uint id)
-        {
-            using var connection = _dbConnectionFactory.Create();
-            return connection.QuerySingleOrDefault<PlayerDTO>(
-                "SELECT `id`, `username` FROM `player` WHERE `id` = @id",
-                new { id }
-            );
         }
 
         public IEnumerable<PlayerAttributeDTO> GetAttributes(uint playerID)

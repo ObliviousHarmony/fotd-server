@@ -1,6 +1,6 @@
 using FOMServer.Shared.Core.Enums;
 
-namespace FOMServer.Master.Core.DTOs
+namespace FOMServer.Shared.Core.DTOs
 {
     public class AvatarDTO
     {
