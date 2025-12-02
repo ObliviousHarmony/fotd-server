@@ -8,49 +8,10 @@ namespace FOMServer.Tests
 {
     public class PersistenceServiceTest : IDisposable
     {
-        private class TestEntity : IPersistable
-        {
-            public event PersistenceChangedHandler? OnPersistableChange;
-
-            public bool MarkChanged(
-                IPersistable? association = null,
-                IEnumerable<IPersistable>? additionalAssociations = null)
-            {
-                return OnPersistableChange?.Invoke(this, association, additionalAssociations) ?? true;
-            }
-        }
-
-        private class TestPersistenceHandler : IPersistenceHandler
-        {
-            public Type EntityType => typeof(TestEntity);
-
-            public List<IPersistable> PersistedEntities { get; } = new();
-            public TaskCompletionSource? BlockUntil { get; set; }
-            public bool ShouldThrow { get; set; }
-
-            public async Task PersistAsync(IPersistable entity)
-            {
-                if (BlockUntil != null)
-                    await BlockUntil.Task;
-
-                if (ShouldThrow)
-                    throw new InvalidOperationException("Simulated persistence failure");
-
-                PersistedEntities.Add(entity);
-            }
-        }
-
         private readonly Mock<IShutdownManager> _shutdownManager;
         private readonly Mock<ILogService> _logService;
         private readonly TestPersistenceHandler _handler;
         private readonly CancellationTokenSource _cts;
-
-        public void Dispose()
-        {
-            _cts.Cancel();
-            _cts.Dispose();
-            GC.SuppressFinalize(this);
-        }
 
         public PersistenceServiceTest()
         {
@@ -63,15 +24,11 @@ namespace FOMServer.Tests
             _handler = new TestPersistenceHandler();
         }
 
-        private PersistenceService CreateService()
+        public void Dispose()
         {
-            var service = new PersistenceService(
-                _shutdownManager.Object,
-                _logService.Object,
-                new[] { _handler }
-            );
-            service.Start();
-            return service;
+            _cts.Cancel();
+            _cts.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         [Fact]
@@ -312,5 +269,47 @@ namespace FOMServer.Tests
                 Times.Once);
         }
 
+        private PersistenceService CreateService()
+        {
+            var service = new PersistenceService(
+                _shutdownManager.Object,
+                _logService.Object,
+                new[] { _handler }
+            );
+            service.Start();
+            return service;
+        }
+
+        private class TestEntity : IPersistable
+        {
+            public event PersistenceChangedHandler? OnPersistableChange;
+
+            public bool MarkChanged(
+                IPersistable? association = null,
+                IEnumerable<IPersistable>? additionalAssociations = null)
+            {
+                return OnPersistableChange?.Invoke(this, association, additionalAssociations) ?? true;
+            }
+        }
+
+        private class TestPersistenceHandler : IPersistenceHandler
+        {
+            public Type EntityType => typeof(TestEntity);
+
+            public List<IPersistable> PersistedEntities { get; } = new();
+            public TaskCompletionSource? BlockUntil { get; set; }
+            public bool ShouldThrow { get; set; }
+
+            public async Task PersistAsync(IPersistable entity)
+            {
+                if (BlockUntil != null)
+                    await BlockUntil.Task;
+
+                if (ShouldThrow)
+                    throw new InvalidOperationException("Simulated persistence failure");
+
+                PersistedEntities.Add(entity);
+            }
+        }
     }
 }

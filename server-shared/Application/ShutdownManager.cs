@@ -10,11 +10,6 @@ namespace FOMServer.Application.Core
         private readonly TaskCompletionSource _stoppingTcs;
         private readonly TaskCompletionSource _stoppedTcs;
 
-        public Task Stopping => _stoppingTcs.Task;
-        public Task Stopped => _stoppedTcs.Task;
-
-        public CancellationToken Token => _rootCts.Token;
-
         public ShutdownManager()
         {
             _syncRoot = new();
@@ -23,6 +18,11 @@ namespace FOMServer.Application.Core
             _stoppingTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
             _stoppedTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
         }
+
+        public Task Stopping => _stoppingTcs.Task;
+        public Task Stopped => _stoppedTcs.Task;
+
+        public CancellationToken Token => _rootCts.Token;
 
         public void TrackTask(Task task)
         {
@@ -53,5 +53,4 @@ namespace FOMServer.Application.Core
             _stoppedTcs.TrySetResult();
         }
     }
-
 }

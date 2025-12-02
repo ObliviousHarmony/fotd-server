@@ -9,24 +9,6 @@ namespace FOMServer.Tests
         private static readonly PacketIdentifier s_testPacketID = PacketIdentifier.ID_CONNECTION_REQUEST_ACCEPTED;
         private static readonly int s_testPacketSize = PacketHelpers.GetPacketSize(s_testPacketID);
 
-        /// <summary>
-        /// Creates a ReceivedPackets struct for testing with the specified number of packets.
-        /// </summary>
-        private unsafe ReceivedPackets CreateReceivedPackets(
-            byte count,
-            PacketIdentifier* identifiers,
-            NetworkAddress* senders
-        )
-        {
-            return new ReceivedPackets
-            {
-                Count = count,
-                Packets = IntPtr.Zero, // Not used by PacketBuffer.Rent
-                Identifiers = identifiers,
-                Senders = senders
-            };
-        }
-
         [Fact]
         public unsafe void Rent_ReturnsBuffer_WhenNotAlreadyAllocated()
         {
@@ -239,6 +221,24 @@ namespace FOMServer.Tests
 
             var str = packet.ToString();
             Assert.Contains("<disposed>", str);
+        }
+
+        /// <summary>
+        /// Creates a ReceivedPackets struct for testing with the specified number of packets.
+        /// </summary>
+        private unsafe ReceivedPackets CreateReceivedPackets(
+            byte count,
+            PacketIdentifier* identifiers,
+            NetworkAddress* senders
+        )
+        {
+            return new ReceivedPackets
+            {
+                Count = count,
+                Packets = IntPtr.Zero, // Not used by PacketBuffer.Rent
+                Identifiers = identifiers,
+                Senders = senders
+            };
         }
     }
 }

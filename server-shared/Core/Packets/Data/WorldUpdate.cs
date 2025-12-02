@@ -12,6 +12,10 @@ namespace FOMServer.Shared.Core.Packets.Data
     {
         public const int MaxWorldUpdates = 100;
 
+        public uint PlayerID;
+        public byte NumUpdates;
+        public Buffer Updates;
+
         /// <summary>
         /// Native code is using a discriminated union to simplify the
         /// structure. We can replicate this using an explicit layout.
@@ -30,9 +34,5 @@ namespace FOMServer.Shared.Core.Packets.Data
         {
             public UpdateData Update;
         }
-
-        public uint PlayerID;
-        public byte NumUpdates;
-        public Buffer Updates;
     }
 }

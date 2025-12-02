@@ -17,9 +17,9 @@ namespace FOMServer.Shared.Core.Players
             _clientAddress = clientAddress;
         }
 
+        public event PersistenceChangedHandler? OnPersistableChange;
+
         public uint ID => _id;
         public NetworkAddress ClientAddress => _clientAddress;
-
-        public event PersistenceChangedHandler? OnPersistableChange;
     }
 }

@@ -5,11 +5,11 @@ namespace FOMServer.Shared.Metadata
     [AttributeUsage(AttributeTargets.Struct, Inherited = false)]
     internal sealed class PacketIDAttribute : Attribute
     {
-        public PacketIdentifier ID { get; }
-
         public PacketIDAttribute(PacketIdentifier id)
         {
             ID = id;
         }
+
+        public PacketIdentifier ID { get; }
     }
 }

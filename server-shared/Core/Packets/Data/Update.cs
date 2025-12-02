@@ -9,6 +9,12 @@ namespace FOMServer.Shared.Core.Packets.Data
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct Update
     {
+        public WorldUpdateType Type;
+        public uint Grid1;
+        public uint Grid2;
+        public byte VisibilityAreaID;
+        public UpdateData Data;
+
         /// <summary>
         /// Native code is using a discriminated union to simplify the
         /// structure. We can replicate this using an explicit layout.
@@ -16,6 +22,9 @@ namespace FOMServer.Shared.Core.Packets.Data
         [StructLayout(LayoutKind.Explicit, Pack = 1)]
         public struct UpdateData
         {
+            [FieldOffset(0)] public PlayerUpdate Player;
+            [FieldOffset(0)] public EnemyUpdateModel Enemy;
+
             [StructLayout(LayoutKind.Sequential, Pack = 1)]
             public struct PlayerUpdate
             {
@@ -24,15 +33,6 @@ namespace FOMServer.Shared.Core.Packets.Data
                 public byte RawIsEnemyOfGD;
                 public PlayerUpdateModel Update;
             }
-
-            [FieldOffset(0)] public PlayerUpdate Player;
-            [FieldOffset(0)] public EnemyUpdateModel Enemy;
         }
-
-        public WorldUpdateType Type;
-        public uint Grid1;
-        public uint Grid2;
-        public byte VisibilityAreaID;
-        public UpdateData Data;
     }
 }

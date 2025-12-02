@@ -8,6 +8,9 @@ namespace FOMServer.Shared.Core.Packets.Data
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct WorldLoginReturn
     {
+        public StatusCode Status;
+        public WorldID WorldID;
+
         public enum StatusCode : byte
         {
             WORLD_LOGIN_RETURN_INVALID = 0,
@@ -17,8 +20,5 @@ namespace FOMServer.Shared.Core.Packets.Data
             WORLD_LOGIN_RETURN_SERVER_FULL = 4,
             WORLD_LOGIN_RETURN_FACTION_REVOKED = 5,
         }
-
-        public StatusCode Status;
-        public WorldID WorldID;
     }
 }
