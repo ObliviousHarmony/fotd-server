@@ -282,7 +282,7 @@ namespace FOMServer.Tests
 
         private class TestEntity : IPersistable
         {
-            public event PersistenceChangedHandler? OnPersistableChange;
+            public event PersistableChangeCallback? OnPersistableChange;
 
             public bool MarkChanged(
                 IPersistable? association = null,

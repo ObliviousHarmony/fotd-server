@@ -54,7 +54,7 @@ namespace FOMServer.World.Core.Players
                 initialValues.CopyTo(_values, 0);
         }
 
-        public event PersistenceChangedHandler? OnPersistableChange;
+        public event PersistableChangeCallback? OnPersistableChange;
 
         public uint PlayerID => _session.ID;
 

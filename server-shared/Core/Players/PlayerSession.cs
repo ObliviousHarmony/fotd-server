@@ -11,7 +11,7 @@ namespace FOMServer.Shared.Core.Players
             ClientAddress = clientAddress;
         }
 
-        public event PersistenceChangedHandler? OnPersistableChange;
+        public event PersistableChangeCallback? OnPersistableChange;
 
         public uint ID { get; }
         public NetworkAddress ClientAddress { get; }
