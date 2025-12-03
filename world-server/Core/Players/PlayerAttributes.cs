@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Core.Players;
@@ -137,12 +138,12 @@ namespace FOMServer.World.Core.Players
             private bool _changed;
             private bool _disposed;
 
-            internal LockedAttribute(PlayerAttributes parent, PlayerAttribute attribute)
+            public LockedAttribute(PlayerAttributes parent, PlayerAttribute attribute)
             {
                 _parent = parent;
                 _attribute = attribute;
                 _changed = false;
-                _disposed = false;
+                _disposed = false;         
 
                 // Attempt to acquire the lock with a 100ms timeout to avoid deadlocks.
                 int index = (int)attribute;
