@@ -28,7 +28,7 @@ namespace FOMServer.Master.Infrastructure.Repositories
         {
             using var connection = _dbConnectionFactory.Create();
             return connection.QueryFirstOrDefault<uint?>(
-                "SELECT `player_id` FROM `avatar` WHERE `name` = @name",
+                "SELECT `player_id` FROM `player_avatar` WHERE `name` = @name",
                 new { name }
             );
         }
@@ -49,7 +49,7 @@ namespace FOMServer.Master.Infrastructure.Repositories
             try
             {
                 connection.Execute(
-                    @"INSERT INTO `avatar`
+                    @"INSERT INTO `player_avatar`
 (`player_id`, `faction`, `name`, `biography`, `sex`, `skin_color`, `face`, `hair`) VALUE
 (@playerID, @faction, @name, @biography, @sex, @skinColor, @face, @hair)",
                     new { playerID, faction, name, biography, sex, skinColor, face, hair }
