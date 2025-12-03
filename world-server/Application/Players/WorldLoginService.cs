@@ -25,10 +25,14 @@ namespace FOMServer.World.Application.Players
 
         public WorldLoginResult? Login(uint playerID, NetworkAddress clientAddress)
         {
-            if (!_pendingRequests.TryRemove(playerID, out var request))
+            if (!_pendingRequests.TryGetValue(playerID, out var request))
                 return null;
 
             var player = _playerRegistry.Register(playerID, clientAddress);
+
+            // Don't remove the request until after the player registration attempt was made.
+            _pendingRequests.Remove(playerID, out _);
+
             if (player == null)
                 return null;
 
