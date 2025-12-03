@@ -8,8 +8,9 @@ namespace FOMServer.Shared.Core.Networking
 {
     public struct PacketWriter<TPacket> : IDisposable where TPacket : unmanaged
     {
+        private int _addressCount;
         private NetworkAddress _networkAddress;
-        private List<NetworkAddress>? _networkAddresses;
+        private NetworkAddress[]? _networkAddresses;
         private PacketPriority _priority;
         private PacketReliability _reliability;
         private byte _orderingChannel;
@@ -36,6 +37,7 @@ namespace FOMServer.Shared.Core.Networking
             // Since most packets are sent to a single address, we optimize for that case
             // by having a single address field. When more addresses are needed, an
             // array can be set and used in place of the single address.
+            _addressCount = 0;
             _networkAddress = NetworkAddress.Unassigned;
             _networkAddresses = null;
 
@@ -103,9 +105,9 @@ namespace FOMServer.Shared.Core.Networking
         /// </summary>
         /// <remarks>
         /// When there is only a single address, it is stored in a dedicated field.
-        /// Once more addresses are added it will allocate a list to hold them.
-        /// This lets us avoid the allocation in most cases where only a
-        /// single address is needed for a packet.
+        /// Once more addresses are added, a pooled array is rented to hold them.
+        /// This lets us avoid allocation in most cases where only a single address
+        /// is needed, and reuse arrays for multi-destination packets.
         /// </remarks>
         public void AddDestination(NetworkAddress address)
         {
@@ -121,23 +123,23 @@ namespace FOMServer.Shared.Core.Networking
             // Just keep adding addresses if we have already added more than one.
             if (_networkAddresses != null)
             {
-                _networkAddresses.Add(address);
+                TryGrowAddressArray();
+                _networkAddresses[_addressCount++] = address;
                 return;
             }
 
             if (_networkAddress == NetworkAddress.Unassigned)
             {
                 _networkAddress = address;
+                _addressCount = 1;
                 return;
             }
 
-            // Now that we have more than one address we need
-            // to allocate a list to hold all of them.
-            _networkAddresses = new List<NetworkAddress>(32)
-            {
-                _networkAddress,
-                address
-            };
+            // Now that we have more than one address, rent a pooled array.
+            _networkAddresses = ArrayPool<NetworkAddress>.Shared.Rent(32);
+            _networkAddresses[0] = _networkAddress;
+            _networkAddresses[1] = address;
+            _addressCount = 2;
         }
 
         /// <summary>
@@ -154,6 +156,7 @@ namespace FOMServer.Shared.Core.Networking
                 throw new InvalidOperationException("Packet can only exclude a single address from the broadcast");
 
             _networkAddress = address;
+            _addressCount = 1;
         }
 
         public QueuePacket Build()
@@ -167,6 +170,7 @@ namespace FOMServer.Shared.Core.Networking
                 _packetData,
                 _networkAddress,
                 _networkAddresses,
+                _addressCount,
                 _priority,
                 _reliability,
                 _orderingChannel,
@@ -180,6 +184,26 @@ namespace FOMServer.Shared.Core.Networking
                 return;
 
             ArrayPool<byte>.Shared.Return(_packetData);
+
+            if (_networkAddresses != null)
+                ArrayPool<NetworkAddress>.Shared.Return(_networkAddresses);
+        }
+
+        private void TryGrowAddressArray()
+        {
+            if (_addressCount < _networkAddresses!.Length)
+                return;
+
+            // Custom bucket jumps to skip intermediate sizes we don't use.
+            // After 512, fall back to standard doubling.
+            int newSize = _addressCount < 128 ? 128
+                        : _addressCount < 512 ? 512
+                        : _addressCount * 2;
+
+            var newArray = ArrayPool<NetworkAddress>.Shared.Rent(newSize);
+            _networkAddresses.AsSpan(0, _addressCount).CopyTo(newArray);
+            ArrayPool<NetworkAddress>.Shared.Return(_networkAddresses);
+            _networkAddresses = newArray;
         }
 
         private void ThrowIfBuilt()

@@ -24,13 +24,15 @@ namespace FOMServer.Shared.Core.Networking
 
         private readonly byte[] _packetData;
         private readonly NetworkAddress _networkAddress;
-        private readonly List<NetworkAddress>? _networkAddresses;
+        private readonly NetworkAddress[]? _networkAddresses;
+        private readonly int _addressCount;
 
         public QueuePacket(
             PacketIdentifier id,
             byte[] packetData,
             NetworkAddress networkAddress,
-            List<NetworkAddress>? networkAddresses,
+            NetworkAddress[]? networkAddresses,
+            int addressCount,
             PacketPriority priority,
             PacketReliability reliability,
             byte orderingChannel,
@@ -41,6 +43,7 @@ namespace FOMServer.Shared.Core.Networking
             _packetData = packetData;
             _networkAddress = networkAddress;
             _networkAddresses = networkAddresses;
+            _addressCount = addressCount;
             Priority = priority;
             Reliability = reliability;
             OrderingChannel = orderingChannel;
@@ -54,22 +57,25 @@ namespace FOMServer.Shared.Core.Networking
             get
             {
                 if (_networkAddresses != null)
-                    return CollectionsMarshal.AsSpan(_networkAddresses);
+                    return _networkAddresses.AsSpan(0, _addressCount);
 
                 return MemoryMarshal.CreateReadOnlySpan(in _networkAddress, 1);
             }
         }
 
         /// <summary>
-        /// Returns the packet data buffer to the array pool.
+        /// Returns the packet data buffer and address array to their pools.
         /// </summary>
         /// <remarks>
-        /// This should only be called once per buffer, typically by the
+        /// This should only be called once per packet, typically by the
         /// NetworkManager after the packet has been sent.
         /// </remarks>
         public void Release()
         {
             ArrayPool<byte>.Shared.Return(_packetData);
+
+            if (_networkAddresses != null)
+                ArrayPool<NetworkAddress>.Shared.Return(_networkAddresses);
         }
     }
 }

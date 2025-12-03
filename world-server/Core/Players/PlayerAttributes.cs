@@ -143,7 +143,7 @@ namespace FOMServer.World.Core.Players
                 _parent = parent;
                 _attribute = attribute;
                 _changed = false;
-                _disposed = false;         
+                _disposed = false;
 
                 // Attempt to acquire the lock with a 100ms timeout to avoid deadlocks.
                 int index = (int)attribute;
