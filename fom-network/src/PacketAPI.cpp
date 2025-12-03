@@ -82,11 +82,10 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
                                   uint8_t* packetBuffer,
                                   int32_t packetBufferLen) {
   if (!peer || !received.packets || received.count == 0) {
+    delete[] received.packets;
+    delete[] received.senders;
+    delete[] received.identifiers;
     return 0;
-  }
-
-  if (!packetBuffer) {
-    return -1;
   }
 
   int packetBufferOffset = 0;
@@ -107,7 +106,7 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
     }
 
     // Make sure that the buffer can hold this packet.
-    if (packetBufferOffset + packetSize > packetBufferLen) {
+    if (!packetBuffer || packetBufferOffset + packetSize > packetBufferLen) {
       ret = -2;
       peer->DeallocatePacket(const_cast<Packet*>(p));
       continue;
@@ -129,7 +128,7 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
     if (rawPacketID != packetID) {
       // This should never happen, but if it does we don't
       // want to try to read the packet.
-      ret = -1;
+      ret = -3;
       peer->DeallocatePacket(const_cast<Packet*>(p));
       continue;
     }

@@ -127,9 +127,10 @@ FOM_API ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer);
  * @param packetBufferLen The number of packets in the packet buffer.
  * @return int32_t The status code.
  * @retval 0 Success.
- * @retval -1 The packetBufferLen is not able to hold all of the received
+ * @retval -1 A packet ID was received that could not be deserialized.
+ * @retval -2 The packetBufferLen is not able to hold all of the received
  * packets.
- * @retval -2 There was a mismatch between a packet's ID and the ID provided in
+ * @retval -3 There was a mismatch between a packet's ID and the ID provided in
  * the received argument.
  */
 FOM_API int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
