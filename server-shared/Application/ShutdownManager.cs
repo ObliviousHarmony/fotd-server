@@ -13,8 +13,8 @@ namespace FOMServer.Application.Core
         public ShutdownManager()
         {
             _syncRoot = new();
-            _rootCts = new();
-            _trackedTasks = new();
+            _rootCts = new CancellationTokenSource();
+            _trackedTasks = new List<Task>();
             _stoppingTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
             _stoppedTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);
         }

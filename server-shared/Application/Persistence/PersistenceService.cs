@@ -6,11 +6,11 @@ using FOMServer.Shared.Core.Persistence;
 
 namespace FOMServer.Shared.Application.Persistence
 {
-    /// <summary>
-    /// Coordinates persistence requests across entities.
-    /// </summary>
     public class PersistenceService : IPersistenceService, IServerStartable
     {
+        /// <summary>
+        /// The length of time that the service should wait before persisting a dirty entity.
+        /// </summary>
         private const int PersistenceDelayMs = 50;
 
         private readonly IShutdownManager _shutdownManager;
