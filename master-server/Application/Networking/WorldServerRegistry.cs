@@ -5,12 +5,12 @@ using FOMServer.Shared.Core.Packets;
 
 namespace FOMServer.Master.Application.Networking
 {
-    public class WorldServerService : IWorldServerService
+    public class WorldServerRegistry : IWorldServerRegistry
     {
         private readonly ConcurrentDictionary<WorldID, WorldServer> _worldServers;
         private readonly ConcurrentDictionary<NetworkAddress, WorldID> _addressMap;
 
-        public WorldServerService()
+        public WorldServerRegistry()
         {
             _worldServers = new ConcurrentDictionary<WorldID, WorldServer>();
             _addressMap = new ConcurrentDictionary<NetworkAddress, WorldID>();

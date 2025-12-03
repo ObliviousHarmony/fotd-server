@@ -13,26 +13,26 @@ namespace FOMServer.Master.Application.Handlers
     public class WorldLoginHandler : PacketHandlerBase<WorldLogin>
     {
         private readonly IPlayerRegistry _playerRegistry;
-        private readonly IWorldServerService _worldServerService;
+        private readonly IWorldServerRegistry _worldServerRegistry;
         private readonly IClientPacketSender _clientPacketSender;
         private readonly IWorldPacketSender _worldPacketSender;
 
         public WorldLoginHandler(
             IPlayerRegistry playerRegistry,
-            IWorldServerService worldServerService,
+            IWorldServerRegistry worldServerRegistry,
             IClientPacketSender clientPacketSender,
             IWorldPacketSender worldPacketSender
         )
         {
             _playerRegistry = playerRegistry;
-            _worldServerService = worldServerService;
+            _worldServerRegistry = worldServerRegistry;
             _clientPacketSender = clientPacketSender;
             _worldPacketSender = worldPacketSender;
         }
 
         public override void Handle(NetworkAddress sender, in WorldLogin p)
         {
-            var worldServer = _worldServerService.Get(p.WorldID);
+            var worldServer = _worldServerRegistry.Get(p.WorldID);
             if (worldServer == null)
             {
                 using var unavailableResponse = new PacketWriter<WorldLoginReturn>();

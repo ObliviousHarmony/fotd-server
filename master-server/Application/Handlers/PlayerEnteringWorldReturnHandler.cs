@@ -13,17 +13,17 @@ namespace FOMServer.Master.Application.Handlers
     public class PlayerEnteringWorldReturnHandler : PacketHandlerBase<PlayerEnteringWorldReturn>
     {
         private readonly IPlayerRegistry _playerRegistry;
-        private readonly IWorldServerService _worldServerService;
+        private readonly IWorldServerRegistry _worldServerRegistry;
         private readonly IClientPacketSender _packetSender;
 
         public PlayerEnteringWorldReturnHandler(
             IClientPacketSender packetSender,
-            IWorldServerService worldServerService,
+            IWorldServerRegistry worldServerRegistry,
             IPlayerRegistry playerRegistry
         )
         {
             _packetSender = packetSender;
-            _worldServerService = worldServerService;
+            _worldServerRegistry = worldServerRegistry;
             _playerRegistry = playerRegistry;
         }
 
@@ -33,7 +33,7 @@ namespace FOMServer.Master.Application.Handlers
             if (player == null)
                 throw new InvalidOperationException($"Player {p.PlayerID} not found");
 
-            var worldServer = _worldServerService.Get(sender);
+            var worldServer = _worldServerRegistry.Get(sender);
             if (worldServer == null)
                 throw new InvalidOperationException($"World server not found for address {sender}");
 

@@ -7,11 +7,11 @@ namespace FOMServer.Master.Application.Packets
 {
     public class WorldOverviewFactory : IWorldOverviewFactory
     {
-        private readonly IWorldServerService _worldServerService;
+        private readonly IWorldServerRegistry _worldServerRegistry;
 
-        public WorldOverviewFactory(IWorldServerService worldServerService)
+        public WorldOverviewFactory(IWorldServerRegistry worldServerRegistry)
         {
-            _worldServerService = worldServerService;
+            _worldServerRegistry = worldServerRegistry;
         }
 
         public WorldOverviewModel Create(Player player)
@@ -23,7 +23,7 @@ namespace FOMServer.Master.Application.Packets
                 IsPrisoner = false,
             };
 
-            var worldServers = _worldServerService.GetAll();
+            var worldServers = _worldServerRegistry.GetAll();
             worldOverview.NumWorlds = (byte)worldServers.Length;
             for (var i = 0; i < worldServers.Length; ++i)
             {

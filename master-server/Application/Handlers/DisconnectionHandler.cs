@@ -14,18 +14,18 @@ namespace FOMServer.Master.Application.Handlers
     {
         private readonly IPlayerRegistry _playerRegistry;
         private readonly ILoginService _loginService;
-        private readonly IWorldServerService _worldServerService;
+        private readonly IWorldServerRegistry _worldServerRegistry;
         private readonly ILogService _logService;
 
         public DisconnectionHandler(
             IPlayerRegistry playerRegistry,
             ILoginService loginService,
-            IWorldServerService worldServerService,
+            IWorldServerRegistry worldServerRegistry,
             ILogService logService)
         {
             _playerRegistry = playerRegistry;
             _loginService = loginService;
-            _worldServerService = worldServerService;
+            _worldServerRegistry = worldServerRegistry;
             _logService = logService;
         }
 
@@ -40,14 +40,14 @@ namespace FOMServer.Master.Application.Handlers
 
         private bool TryWorldServerUnregister(NetworkAddress sender)
         {
-            var worldServers = _worldServerService.GetAll();
+            var worldServers = _worldServerRegistry.GetAll();
             foreach (var server in worldServers)
             {
                 if (!server.ServerAddress.Equals(sender))
                     continue;
 
                 _logService.WriteMessage(LogLevel.Info, $"World '{server.ID}' Disconnected");
-                _worldServerService.Unregister(server.ID);
+                _worldServerRegistry.Unregister(server.ID);
                 return true;
             }
 

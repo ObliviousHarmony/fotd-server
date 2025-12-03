@@ -3,7 +3,7 @@ using FOMServer.Shared.Core.Packets;
 
 namespace FOMServer.Master.Core.Networking
 {
-    public interface IWorldServerService
+    public interface IWorldServerRegistry
     {
         WorldServer[] GetAll();
         WorldServer? Get(WorldID id);

@@ -12,19 +12,19 @@ namespace FOMServer.Master.Application.Handlers
     public class RegisterWorldPacketHandler : PacketHandlerBase<RegisterWorld>
     {
         private readonly ILogService _logService;
-        private readonly IWorldServerService _worldServerService;
+        private readonly IWorldServerRegistry _worldServerRegistry;
 
-        public RegisterWorldPacketHandler(ILogService logService, IWorldServerService worldServerService)
+        public RegisterWorldPacketHandler(ILogService logService, IWorldServerRegistry worldServerRegistry)
         {
             _logService = logService;
-            _worldServerService = worldServerService;
+            _worldServerRegistry = worldServerRegistry;
         }
 
         public PacketIdentifier PacketID => PacketIdentifier.ID_REGISTER_WORLD;
 
         public override void Handle(NetworkAddress sender, in RegisterWorld p)
         {
-            var server = _worldServerService.Register(p.WorldID, sender, p.ClientAddress);
+            var server = _worldServerRegistry.Register(p.WorldID, sender, p.ClientAddress);
             if (server == null)
                 throw new InvalidOperationException($"World '{p.WorldID}' already registered");
 

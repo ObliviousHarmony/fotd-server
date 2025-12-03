@@ -80,7 +80,7 @@ namespace FOMServer.Master
             services.AddSingleton<WorldPacketSender>();
             services.AddSingleton<IWorldPacketSender>(sp => sp.GetRequiredService<WorldPacketSender>());
 
-            services.AddSingleton<IWorldServerService, WorldServerService>();
+            services.AddSingleton<IWorldServerRegistry, WorldServerRegistry>();
             services.AddSingleton<IPlayerRegistry, PlayerRegistry>();
             services.AddSingleton<ILoginService, LoginService>();
             return services;
