@@ -1,5 +1,4 @@
 using System.Net;
-using System.Numerics;
 using System.Runtime.InteropServices;
 
 namespace FOMServer.Shared.Core.Packets

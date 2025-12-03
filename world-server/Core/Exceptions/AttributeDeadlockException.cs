@@ -14,9 +14,6 @@ namespace FOMServer.World.Core.Exceptions
             Attribute = attribute;
         }
 
-        /// <summary>
-        /// The attribute that could not be locked.
-        /// </summary>
         public PlayerAttribute Attribute { get; }
     }
 }

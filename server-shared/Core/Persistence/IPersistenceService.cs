@@ -1,8 +1,5 @@
 namespace FOMServer.Shared.Core.Persistence
 {
-    /// <summary>
-    /// Interface for a service that manages persistence of entities.
-    /// </summary>
     public interface IPersistenceService
     {
         /// <summary>
@@ -12,12 +9,9 @@ namespace FOMServer.Shared.Core.Persistence
 
         /// <summary>
         /// Queues a callback to be invoked once the entity and all
-        /// of its dependencies have been persisted.
+        /// of its dependencies have been persisted. The callback is
+        /// invoked on the persistence thread.
         /// </summary>
-        /// <param name="entity">The entity to wait for the persistence of.</param>
-        /// <param name="callback">
-        /// Callback invoked on the persistence thread once persistence is completed.
-        /// </param>
         void WaitForPersistence(IPersistable entity, Action callback);
     }
 }

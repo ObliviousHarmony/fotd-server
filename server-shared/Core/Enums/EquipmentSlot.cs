@@ -1,8 +1,5 @@
 namespace FOMServer.Shared.Core.Enums
 {
-    /// <summary>
-    /// An enum representing the different equipment slots in the game.
-    /// </summary>
     public enum EquipmentSlot : byte
     {
         Head = 0, // SLOT_HEAD

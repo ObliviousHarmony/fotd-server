@@ -1,8 +1,5 @@
 namespace FOMServer.Shared.Core.Enums
 {
-    /// <summary>
-    /// The priority for a packet to be sent with.
-    /// </summary>
     public enum PacketPriority : byte
     {
         High = 1, // HIGH_PRIORITY,
@@ -10,9 +7,6 @@ namespace FOMServer.Shared.Core.Enums
         Low = 3 // LOW_PRIORITY
     }
 
-    /// <summary>
-    /// How reliable a packet should be when sent.
-    /// </summary>
     public enum PacketReliability : byte
     {
         Unreliable, // UNRELIABLE

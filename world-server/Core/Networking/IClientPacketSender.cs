@@ -4,14 +4,7 @@ namespace FOMServer.World.Core.Networking
 {
     public interface IClientPacketSender
     {
-        /// <summary>
-        /// Sends a packet over the network.
-        /// </summary>
         void Send(in QueuePacket packet);
-
-        /// <summary>
-        /// Broadcast a packet to all connected clients.
-        /// </summary>
         void Broadcast(in QueuePacket packet);
     }
 }

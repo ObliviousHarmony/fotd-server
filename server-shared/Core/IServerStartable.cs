@@ -5,9 +5,6 @@ namespace FOMServer.Shared.Core
     /// </summary>
     public interface IServerStartable
     {
-        /// <summary>
-        /// Called when the server is ready.
-        /// </summary>
         void Start();
     }
 }

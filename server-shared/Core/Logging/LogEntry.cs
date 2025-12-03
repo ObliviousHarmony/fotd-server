@@ -4,9 +4,6 @@ using FOMServer.Shared.Core.Packets;
 
 namespace FOMServer.Shared.Core.Logging
 {
-    /// <summary>
-    /// Represents a log entry to be enqueued.
-    /// </summary>
     public struct LogEntry
     {
         public EntryType Type;
@@ -29,9 +26,6 @@ namespace FOMServer.Shared.Core.Logging
             PacketException
         }
 
-        /// <summary>
-        /// Formats the log entry as a string for output.
-        /// </summary>
         public override readonly string ToString()
         {
             return Type switch
@@ -44,9 +38,6 @@ namespace FOMServer.Shared.Core.Logging
         }
     }
 
-    /// <summary>
-    /// Represents a log entry with a message.
-    /// </summary>
     public struct MessageLogEntry
     {
         public string Text { get; private set; }

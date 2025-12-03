@@ -4,10 +4,7 @@ using FOMServer.Shared.Core.Players;
 
 namespace FOMServer.Shared.Application.Players
 {
-    /// <summary>
-    /// Abstract base registry for tracking players present on a server.
-    /// </summary>
-    public abstract class PlayerRegistryBase<TPlayer> : IPlayerRegistry<TPlayer>
+    public abstract class PlayerRegistryBase<TPlayer> : IPlayerRegistryBase<TPlayer>
         where TPlayer : PlayerBase
     {
         private readonly ConcurrentDictionary<uint, TPlayer> _players;
@@ -62,9 +59,6 @@ namespace FOMServer.Shared.Application.Players
             _addressMap.TryRemove(player.ClientAddress, out _);
         }
 
-        /// <summary>
-        /// Loads a player instance. Override to load additional data from repositories.
-        /// </summary>
         protected abstract TPlayer Load(uint id, NetworkAddress clientAddress);
     }
 }

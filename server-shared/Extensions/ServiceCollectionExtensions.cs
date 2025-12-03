@@ -70,7 +70,7 @@ namespace FOMServer.Shared.Extensions
             services.AddSingleton<IShutdownManager, ShutdownManager>();
 
             services.AddSingleton<IPersistenceService, PersistenceService>();
-            services.AddSingleton<IServerStartable>(sp => (IServerStartable)sp.GetRequiredService<IPersistenceService>());
+            services.AddSingleton(sp => (IServerStartable)sp.GetRequiredService<IPersistenceService>());
 
             return services;
         }
