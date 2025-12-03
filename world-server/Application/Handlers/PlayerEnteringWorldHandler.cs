@@ -13,16 +13,16 @@ namespace FOMServer.World.Application.Handlers
     {
         private readonly IMasterPacketSender _packetSender;
         private readonly IPlayerRegistry _playerRegistry;
-        private readonly IWorldLoginService _worldLoginService;
+        private readonly ILoginService _loginService;
 
         public PlayerEnteringWorldHandler(
             IMasterPacketSender packetSender,
             IPlayerRegistry playerRegistry,
-            IWorldLoginService worldLoginService)
+            ILoginService loginService)
         {
             _packetSender = packetSender;
             _playerRegistry = playerRegistry;
-            _worldLoginService = worldLoginService;
+            _loginService = loginService;
         }
 
         public override void Handle(NetworkAddress sender, in PlayerEnteringWorld p)
@@ -39,7 +39,7 @@ namespace FOMServer.World.Application.Handlers
             }
             else
             {
-                _worldLoginService.Prepare(p.PlayerID, p.SelectedNodeID);
+                _loginService.Prepare(p.PlayerID, p.SelectedNodeID);
                 rData.Status = PlayerEnteringWorldReturn.StatusCode.PLAYER_ENTERING_WORLD_RETURN_READY;
             }
 

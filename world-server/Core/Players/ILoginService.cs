@@ -2,9 +2,9 @@ using FOMServer.Shared.Core.Packets;
 
 namespace FOMServer.World.Core.Players
 {
-    public interface IWorldLoginService
+    public interface ILoginService
     {
         void Prepare(uint playerID, byte selectedNodeID);
-        WorldLoginResult? Login(uint playerID, NetworkAddress clientAddress);
+        LoginContext? Login(uint playerID, NetworkAddress clientAddress);
     }
 }

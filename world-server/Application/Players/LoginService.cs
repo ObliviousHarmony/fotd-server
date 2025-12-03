@@ -4,12 +4,12 @@ using FOMServer.World.Core.Players;
 
 namespace FOMServer.World.Application.Players
 {
-    public class WorldLoginService : IWorldLoginService
+    public class LoginService : ILoginService
     {
         private readonly ConcurrentDictionary<uint, PendingRequest> _pendingRequests = new();
         private readonly IPlayerRegistry _playerRegistry;
 
-        public WorldLoginService(IPlayerRegistry playerRegistry)
+        public LoginService(IPlayerRegistry playerRegistry)
         {
             _playerRegistry = playerRegistry;
         }
@@ -23,7 +23,7 @@ namespace FOMServer.World.Application.Players
             });
         }
 
-        public WorldLoginResult? Login(uint playerID, NetworkAddress clientAddress)
+        public LoginContext? Login(uint playerID, NetworkAddress clientAddress)
         {
             if (!_pendingRequests.TryGetValue(playerID, out var request))
                 return null;
@@ -36,7 +36,7 @@ namespace FOMServer.World.Application.Players
             if (player == null)
                 return null;
 
-            return new WorldLoginResult
+            return new LoginContext
             {
                 Player = player,
                 SelectedNodeID = request.SelectedNodeID

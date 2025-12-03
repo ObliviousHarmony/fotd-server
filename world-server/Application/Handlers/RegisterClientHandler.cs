@@ -14,19 +14,19 @@ namespace FOMServer.World.Application.Handlers
     public class RegisterClientHandler : PacketHandlerBase<RegisterClient>
     {
         private readonly IClientPacketSender _packetSender;
-        private readonly IWorldLoginService _worldLoginService;
+        private readonly ILoginService _loginService;
 
         public RegisterClientHandler(
             IClientPacketSender packetSender,
-            IWorldLoginService worldLoginService)
+            ILoginService loginService)
         {
             _packetSender = packetSender;
-            _worldLoginService = worldLoginService;
+            _loginService = loginService;
         }
 
         public override void Handle(NetworkAddress sender, in RegisterClient p)
         {
-            var result = _worldLoginService.Login(p.PlayerID, sender);
+            var result = _loginService.Login(p.PlayerID, sender);
             if (result == null)
                 throw new InvalidOperationException($"Failed to login player {p.PlayerID}");
 
