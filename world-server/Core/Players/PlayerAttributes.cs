@@ -25,8 +25,6 @@ namespace FOMServer.World.Core.Players
     {
         public const int AttributeCount = (int)PlayerAttribute.NUM_ATTRIBUTES;
 
-        private const int DeadlockSpinThreshold = 10_000_000;
-
         private static readonly AttributeMetadata[] s_metadata;
 
         private readonly PlayerSession _session;
@@ -146,15 +144,17 @@ namespace FOMServer.World.Core.Players
                 _changed = false;
                 _disposed = false;
 
+                // Attempt to acquire the lock with a 100ms timeout to avoid deadlocks.
                 int index = (int)attribute;
-                int spins = 0;
+                var spinner = new SpinWait();
+                long timeoutTimestamp = Stopwatch.GetTimestamp() + (Stopwatch.Frequency / 10);
 
                 while (Interlocked.CompareExchange(ref _parent._locks[index], 1, 0) != 0)
                 {
-                    if (++spins > DeadlockSpinThreshold)
-                        throw new AttributeDeadlockException(attribute);
+                    spinner.SpinOnce();
 
-                    Thread.SpinWait(1);
+                    if (spinner.NextSpinWillYield && Stopwatch.GetTimestamp() > timeoutTimestamp)
+                        throw new AttributeDeadlockException(attribute);
                 }
             }
 
