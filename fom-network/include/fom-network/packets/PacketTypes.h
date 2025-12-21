@@ -2,25 +2,8 @@
 
 #include <fom-network/packets/NetworkAddress.h>
 #include <fom-network/packets/PacketIdentifier.h>
-#include <fom-network/packets/data/CheckName.h>
-#include <fom-network/packets/data/CheckNameReturn.h>
-#include <fom-network/packets/data/CreateCharacter.h>
-#include <fom-network/packets/data/Login.h>
-#include <fom-network/packets/data/LoginRequest.h>
-#include <fom-network/packets/data/LoginRequestReturn.h>
-#include <fom-network/packets/data/LoginReturn.h>
-#include <fom-network/packets/data/PlayerEnteringWorld.h>
-#include <fom-network/packets/data/PlayerEnteringWorldReturn.h>
 #include <fom-network/packets/data/ReadPacketError.h>
-#include <fom-network/packets/data/RegisterClient.h>
-#include <fom-network/packets/data/RegisterClientReturn.h>
 #include <fom-network/packets/data/RegisterWorld.h>
-#include <fom-network/packets/data/Update.h>
-#include <fom-network/packets/data/WorldLogin.h>
-#include <fom-network/packets/data/WorldLoginReturn.h>
-#include <fom-network/packets/data/WorldOverview.h>
-#include <fom-network/packets/data/WorldOverviewReturn.h>
-#include <fom-network/packets/data/WorldUpdate.h>
 #include <fom-network/packets/data/raknet/AlreadyConnected.h>
 #include <fom-network/packets/data/raknet/ConnectionAttemptFailed.h>
 #include <fom-network/packets/data/raknet/ConnectionBanned.h>

@@ -26,26 +26,7 @@ const std::unordered_map<uint8_t, size_t> FOMDataSerializer::PacketSizes = {
     {ID_RSA_PUBLIC_KEY_MISMATCH, sizeof(Packet::RSAPublicKeyMismatch)},
 
     // Game Packets
-    {ID_FOM_PACKET_READ_ERROR, sizeof(Packet::ReadPacketError)},
-    {ID_LOGIN_REQUEST, sizeof(Packet::LoginRequest)},
-    {ID_LOGIN_REQUEST_RETURN, sizeof(Packet::LoginRequestReturn)},
-    {ID_LOGIN, sizeof(Packet::Login)},
-    {ID_LOGIN_RETURN, sizeof(Packet::LoginReturn)},
-    {ID_CHECK_NAME, sizeof(Packet::CheckName)},
-    {ID_CHECK_NAME_RETURN, sizeof(Packet::CheckNameReturn)},
-    {ID_CREATE_CHARACTER, sizeof(Packet::CreateCharacter)},
     {ID_REGISTER_WORLD, sizeof(Packet::RegisterWorld)},
-    {ID_WORLD_OVERVIEW, sizeof(Packet::WorldOverview)},
-    {ID_WORLD_OVERVIEW_RETURN, sizeof(Packet::WorldOverviewReturn)},
-    {ID_WORLD_LOGIN, sizeof(Packet::WorldLogin)},
-    {ID_WORLD_LOGIN_RETURN, sizeof(Packet::WorldLoginReturn)},
-    {ID_PLAYER_ENTERING_WORLD, sizeof(Packet::PlayerEnteringWorld)},
-    {ID_PLAYER_ENTERING_WORLD_RETURN,
-     sizeof(Packet::PlayerEnteringWorldReturn)},
-    {ID_REGISTER_CLIENT, sizeof(Packet::RegisterClient)},
-    {ID_REGISTER_CLIENT_RETURN, sizeof(Packet::RegisterClientReturn)},
-    {ID_UPDATE, sizeof(Packet::Update)},
-    {ID_WORLD_UPDATE, sizeof(Packet::WorldUpdate)},
 };
 
 /**
@@ -53,17 +34,7 @@ const std::unordered_map<uint8_t, size_t> FOMDataSerializer::PacketSizes = {
  * to use.
  */
 static const std::unordered_map<uint32_t, IWriter*> writerMap = {
-    {ID_LOGIN_REQUEST_RETURN, &LoginRequestReturnSerializer::GetInstance()},
-    {ID_LOGIN_RETURN, &LoginReturnSerializer::GetInstance()},
-    {ID_CHECK_NAME_RETURN, &CheckNameReturnSerializer::GetInstance()},
     {ID_REGISTER_WORLD, &RegisterWorldSerializer::GetInstance()},
-    {ID_WORLD_OVERVIEW_RETURN, &WorldOverviewReturnSerializer::GetInstance()},
-    {ID_WORLD_LOGIN_RETURN, &WorldLoginReturnSerializer::GetInstance()},
-    {ID_PLAYER_ENTERING_WORLD, &PlayerEnteringWorldSerializer::GetInstance()},
-    {ID_PLAYER_ENTERING_WORLD_RETURN,
-     &PlayerEnteringWorldReturnSerializer::GetInstance()},
-    {ID_REGISTER_CLIENT_RETURN, &RegisterClientReturnSerializer::GetInstance()},
-    {ID_WORLD_UPDATE, &WorldUpdateSerializer::GetInstance()},
 };
 
 static const std::unordered_map<uint32_t, IReader*> readerMap = {
@@ -81,18 +52,7 @@ static const std::unordered_map<uint32_t, IReader*> readerMap = {
     {ID_RSA_PUBLIC_KEY_MISMATCH, &EmptyPacketSerializer::GetInstance()},
 
     // Game Packets
-    {ID_LOGIN_REQUEST, &LoginRequestSerializer::GetInstance()},
-    {ID_LOGIN, &LoginSerializer::GetInstance()},
-    {ID_CHECK_NAME, &CheckNameSerializer::GetInstance()},
-    {ID_CREATE_CHARACTER, &CreateCharacterSerializer::GetInstance()},
     {ID_REGISTER_WORLD, &RegisterWorldSerializer::GetInstance()},
-    {ID_WORLD_OVERVIEW, &WorldOverviewSerializer::GetInstance()},
-    {ID_WORLD_LOGIN, &WorldLoginSerializer::GetInstance()},
-    {ID_PLAYER_ENTERING_WORLD, &PlayerEnteringWorldSerializer::GetInstance()},
-    {ID_PLAYER_ENTERING_WORLD_RETURN,
-     &PlayerEnteringWorldReturnSerializer::GetInstance()},
-    {ID_REGISTER_CLIENT, &RegisterClientSerializer::GetInstance()},
-    {ID_UPDATE, &UpdateSerializer::GetInstance()},
 };
 
 bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id,

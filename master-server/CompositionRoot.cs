@@ -2,7 +2,6 @@ using FluentMigrator.Runner;
 using FOMServer.Application.Core;
 using FOMServer.Master.Application;
 using FOMServer.Master.Application.Networking;
-using FOMServer.Master.Application.Packets;
 using FOMServer.Master.Application.Players;
 using FOMServer.Master.Core;
 using FOMServer.Master.Core.Networking;
@@ -89,7 +88,6 @@ namespace FOMServer.Master
         private static ServiceCollection AddFactories(this ServiceCollection services)
         {
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
-            services.AddSingleton<IWorldOverviewFactory, WorldOverviewFactory>();
             return services;
         }
 

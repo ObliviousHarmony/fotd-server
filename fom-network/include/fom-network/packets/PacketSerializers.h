@@ -160,23 +160,6 @@ class FOM_API EmptyPacketSerializer : public IWriter, public IReader {
  * Declare all of the serializers. Keep in mind that they must be:
  * <PacketTypeName>Serializer
  */
-SERIALIZER_READ(LoginRequest)
-SERIALIZER_WRITE(LoginRequestReturn)
-SERIALIZER_READ(Login)
-SERIALIZER_WRITE(LoginReturn)
-SERIALIZER_READ(CheckName)
-SERIALIZER_WRITE(CheckNameReturn)
-SERIALIZER_READ(CreateCharacter)
 SERIALIZER_BOTH(RegisterWorld)
-SERIALIZER_READ(WorldOverview)
-SERIALIZER_WRITE(WorldOverviewReturn)
-SERIALIZER_READ(WorldLogin)
-SERIALIZER_WRITE(WorldLoginReturn)
-SERIALIZER_BOTH(PlayerEnteringWorld)
-SERIALIZER_BOTH(PlayerEnteringWorldReturn)
-SERIALIZER_READ(RegisterClient)
-SERIALIZER_WRITE(RegisterClientReturn)
-SERIALIZER_READ(Update)
-SERIALIZER_WRITE(WorldUpdate)
 
 }  // namespace FOMNetwork

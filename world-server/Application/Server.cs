@@ -119,9 +119,6 @@ namespace FOMServer.World.Application
                 packetProcessor
             );
 
-            // Make sure clients can't send packets meant for master<->world communication.
-            networkManager.ClaimPacketID(PacketIdentifier.ID_PLAYER_ENTERING_WORLD);
-
             // Initialize the packet sender for communication with the master server.
             var packetSender = _serviceProvider.GetRequiredService<MasterPacketSender>();
             packetSender.Initialize(networkManager);
