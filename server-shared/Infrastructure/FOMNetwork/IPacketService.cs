@@ -26,6 +26,6 @@ namespace FOMServer.Shared.Infrastructure.FOMNetwork
         /// <summary>
         /// Sends packets to the specified destinations.
         /// </summary>
-        void Send(IntPtr peer, Span<SendPacket> packets);
+        void Send(IntPtr peer, ReadOnlySpan<SendPacket> packets);
     }
 }

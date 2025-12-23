@@ -1,12 +1,8 @@
-using System.Buffers;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Threading.Channels;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Networking;
-using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Shared.Application.Networking
@@ -16,14 +12,6 @@ namespace FOMServer.Shared.Application.Networking
 	/// </summary>
 	public class NetworkManager : IPacketSender
     {
-        /// <summary>
-        /// Rather than pinning each packet's memory individually, we copy all of
-        /// the packet data to a contiguous buffer and pin that instead. This
-        /// is the maximum size of each individual instance of that buffer
-        /// so that we don't end up using too much memory.
-        /// </summary>
-        private const int MaxSendBufferSize = 1024 * 1024;
-
         /// <summary>
         /// Individual network managers can "claim" packet IDs so that they
         /// exclusively handle them. When another network manager receives
@@ -139,136 +127,25 @@ namespace FOMServer.Shared.Application.Networking
         {
             try
             {
-                // Rather than sending each packet individually, we batch them together to reduce
-                // the number of calls into the native networking library. In order to do this,
-                // we need to hold onto the packets we pull off the queue until after we've
-                // sent them.
-                QueuePacket[] queueBuffer = new QueuePacket[IPacketService.MaxBufferedPackets];
+                var sendBuffer = new SendPacketBuffer();
 
-                // Sending packets to the networking library requires pinning the memory they
-                // occupy so that the garbage collector doesn't move them around while the
-                // native code is accessing them. Since pinning memory is expensive, we
-                // copy the memory for all of the packets into a contiguous buffer and
-                // pin that buffer instead.
-                ArrayPool<byte> sendPool = ArrayPool<byte>.Create(MaxSendBufferSize, IPacketService.MaxBufferedPackets);
-                byte[][] rentedBuffers = new byte[IPacketService.MaxBufferedPackets][];
-                SendPacket[] sendBuffer = new SendPacket[IPacketService.MaxBufferedPackets];
-                GCHandle[] rentedBufferHandles = new GCHandle[IPacketService.MaxBufferedPackets];
-                ArrayPool<NetworkAddress> networkAddressPool = ArrayPool<NetworkAddress>.Create();
-
-                int pollingDelayMs = 1;
+                // We use an exponential back-off strategy to maintain throughput
+                // while avoiding wasted CPU cycles doing nothing.
+                var pollingDelayMs = 1;
                 while (!ct.IsCancellationRequested)
                 {
+                    var shouldBackoff = true;
+
                     // Avoid starving packet receiving with sending by
                     // limiting the number of packets sent per batch.
-                    int numToSend = 0;
-                    int bufferSize = 0;
-                    int numRentedBuffers = 0;
-                    int numNetworkAddresses = 0;
-                    while (numToSend < IPacketService.MaxBufferedPackets && _sendQueue.Reader.TryRead(out queueBuffer[numToSend]))
+                    while (sendBuffer.CanAdd && _sendQueue.Reader.TryRead(out var packetToSend))
+                        sendBuffer.TryAdd(in packetToSend);
+
+                    if (sendBuffer.HasBatch)
                     {
-                        ref readonly var packetToSend = ref queueBuffer[numToSend++];
-
-                        var packetSize = PacketHelpers.GetPacketSize(packetToSend.ID);
-                        if (packetSize > MaxSendBufferSize)
-                            throw new InvalidOperationException($"Packet ID {packetToSend.ID} is too large to send ({packetSize} bytes)");
-
-                        numNetworkAddresses += packetToSend.NetworkAddresses.Length;
-
-                        // Support overflow into multiple buffers if needed.
-                        if (bufferSize + packetSize > MaxSendBufferSize)
-                        {
-                            rentedBuffers[numRentedBuffers++] = sendPool.Rent(bufferSize);
-                            bufferSize = 0;
-                        }
-
-                        bufferSize += packetSize;
-                    }
-
-                    if (numToSend > 0)
-                    {
-                        // Rent a buffer for any remaining packets.
-                        if (bufferSize > 0)
-                            rentedBuffers[numRentedBuffers++] = sendPool.Rent(bufferSize);
-
-                        // We support a variable number of network addresses per packet. As a result,
-                        // they need to be copied into a contiguous block so that we can pin them
-                        // all at once rather than pinning each individual packet's addresses.
-                        var networkAddresses = networkAddressPool.Rent(numNetworkAddresses);
-                        var networkAddressesHandle = GCHandle.Alloc(networkAddresses, GCHandleType.Pinned);
-
-                        unsafe
-                        {
-                            // Begin by pinning all of the buffers so that the garbage collector
-                            // doesn't move them around while the native code is accessing them.
-                            for (int i = 0; i < numRentedBuffers; ++i)
-                                rentedBufferHandles[i] = GCHandle.Alloc(rentedBuffers[i], GCHandleType.Pinned);
-
-                            int bufferIndex = 0;
-                            int bufferOffset = 0;
-                            int networkAddressOffset = 0;
-                            NetworkAddress* networkAddressPtr = (NetworkAddress*)networkAddressesHandle.AddrOfPinnedObject();
-                            for (int i = 0; i < numToSend; ++i)
-                            {
-                                ref readonly var packetToSend = ref queueBuffer[i];
-
-                                // We already allocated extra buffers for overflow above, so
-                                // if we overflow here, move on to the next buffer.
-                                var packetSize = PacketHelpers.GetPacketSize(packetToSend.ID);
-                                if (bufferOffset + packetSize > MaxSendBufferSize)
-                                {
-                                    bufferOffset = 0;
-                                    bufferIndex++;
-                                }
-
-                                // Copy all of the packet's network addresses into the block.
-                                int numAddresses = 0;
-                                foreach (var address in packetToSend.NetworkAddresses)
-                                    networkAddresses[networkAddressOffset + (numAddresses++)] = address;
-
-                                // Copy the packet data into the current buffer.
-                                byte* bufferPtr = (byte*)rentedBufferHandles[bufferIndex].AddrOfPinnedObject();
-                                fixed (byte* srcPtr = packetToSend.Data)
-                                {
-                                    Unsafe.CopyBlockUnaligned(
-                                        bufferPtr + bufferOffset,
-                                        srcPtr,
-                                        (uint)packetSize
-                                    );
-
-                                    sendBuffer[i] = new SendPacket
-                                    {
-                                        ID = packetToSend.ID,
-                                        Data = (IntPtr)(bufferPtr + bufferOffset),
-                                        NumNetworkAddresses = numAddresses,
-                                        NetworkAddresses = (IntPtr)(networkAddressPtr + networkAddressOffset),
-                                        Priority = packetToSend.Priority,
-                                        Reliability = packetToSend.Reliability,
-                                        OrderingChannel = packetToSend.OrderingChannel,
-                                        Broadcast = (byte)(packetToSend.Broadcast ? 1 : 0)
-                                    };
-                                }
-                                bufferOffset += packetSize;
-                                networkAddressOffset += numAddresses;
-
-                                // We don't need the packet's data anymore since we copied it.
-                                packetToSend.Release();
-                            }
-
-                            _packetService.Send(_peer, sendBuffer.AsSpan(0, numToSend));
-                        }
-
-                        // Free all of the handles since we're done with the packets.
-                        networkAddressesHandle.Free();
-                        for (int i = 0; i < numRentedBuffers; ++i)
-                            rentedBufferHandles[i].Free();
-
-                        // We're done with the network addresses now that we've sent the packets.
-                        networkAddressPool.Return(networkAddresses);
-
-                        // Return any rented buffers back to the pool.
-                        for (int i = 0; i < numRentedBuffers; ++i)
-                            sendPool.Return(rentedBuffers[i]);
+                        _packetService.Send(_peer, sendBuffer.GetBatch());
+                        sendBuffer.Reset();
+                        shouldBackoff = false;
                     }
 
                     // Poll for incoming packets.
@@ -284,15 +161,13 @@ namespace FOMServer.Shared.Application.Networking
                         }
 
                         _packetProcessor.Enqueue(packet);
+                        shouldBackoff = false;
                     }
 
-                    // Use an exponential back-off strategy when polling to avoid
-                    // wasting CPU when idle while still being responsive to
-                    // periodic bursts of activity.
-                    if (numToSend > 0 || received.Length > 0)
-                        pollingDelayMs = 1;
-                    else
+                    if (shouldBackoff)
                         pollingDelayMs = Math.Min(pollingDelayMs * 2, 100);
+                    else
+                        pollingDelayMs = 1;
 
                     await Task.Delay(pollingDelayMs, ct);
                 }
