@@ -6,7 +6,7 @@ using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
-using FOMServer.Shared.Core.Networking;
+using FOMServer.Shared.Infrastructure.FOMNetwork;
 using Microsoft.Extensions.DependencyInjection;
 using MySqlConnector;
 

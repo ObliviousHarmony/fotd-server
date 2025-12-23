@@ -1,4 +1,4 @@
-namespace FOMServer.Shared.Core.Networking
+namespace FOMServer.Shared.Infrastructure.FOMNetwork
 {
     public interface IClientService
     {

@@ -1,4 +1,6 @@
-namespace FOMServer.Shared.Core.Networking
+using FOMServer.Shared.Core.Networking;
+
+namespace FOMServer.Shared.Infrastructure.FOMNetwork
 {
     public interface IPacketService
     {

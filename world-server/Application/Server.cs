@@ -6,6 +6,7 @@ using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.Data;
+using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.World.Application.Networking;
 using FOMServer.World.Core;
 using Microsoft.Extensions.DependencyInjection;

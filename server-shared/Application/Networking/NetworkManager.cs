@@ -7,6 +7,7 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
+using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Shared.Application.Networking
 {

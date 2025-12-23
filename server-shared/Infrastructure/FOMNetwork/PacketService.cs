@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Networking;
+using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Shared.Services.FOMNetwork
 {
