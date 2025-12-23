@@ -19,7 +19,7 @@ namespace FOMServer.Shared.Application.Networking
         private readonly SendPacket[] _sendPackets;
         private readonly byte[] _packetData;
         private readonly NetworkAddress[] _networkAddresses;
-        
+
         private int _packetDataOffset;
         private int _networkAddressOffset;
         private int _packetCount;
@@ -29,7 +29,7 @@ namespace FOMServer.Shared.Application.Networking
             // Allocate to the pinned object heap so that we don't need to pin the buffer when sending it to native code.
             _sendPackets = GC.AllocateArray<SendPacket>(IPacketService.MaxBufferedPackets, pinned: true);
             _packetData = GC.AllocateArray<byte>(IPacketService.MaxBufferedPackets * PacketHelpers.MaxPacketSize, pinned: true);
-            _networkAddresses = GC.AllocateArray<NetworkAddress>(IPacketService.MaxBufferedPackets * QueuePacket.MaxNetworkAddressesPerPacket, pinned: true); 
+            _networkAddresses = GC.AllocateArray<NetworkAddress>(IPacketService.MaxBufferedPackets * QueuePacket.MaxNetworkAddressesPerPacket, pinned: true);
         }
 
         public bool CanAdd => _packetCount < IPacketService.MaxBufferedPackets;
