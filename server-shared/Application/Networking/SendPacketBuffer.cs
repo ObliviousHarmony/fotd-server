@@ -28,7 +28,7 @@ namespace FOMServer.Shared.Application.Networking
         {
             // Allocate to the pinned object heap so that we don't need to pin the buffer when sending it to native code.
             _sendPackets = GC.AllocateArray<SendPacket>(IPacketService.MaxBufferedPackets, pinned: true);
-            _packetData = GC.AllocateArray<byte>(PacketHelpers.MaxPacketSize, pinned: true);
+            _packetData = GC.AllocateArray<byte>(IPacketService.MaxBufferedPackets * PacketHelpers.MaxPacketSize, pinned: true);
             _networkAddresses = GC.AllocateArray<NetworkAddress>(IPacketService.MaxBufferedPackets * QueuePacket.MaxNetworkAddressesPerPacket, pinned: true); 
         }
 
@@ -89,14 +89,8 @@ namespace FOMServer.Shared.Application.Networking
             return true;
         }
 
-        /// <summary>
-        /// Returns the batch of packets ready to be sent.
-        /// </summary>
         public ReadOnlySpan<SendPacket> GetBatch() => _sendPackets.AsSpan(0, _packetCount);
 
-        /// <summary>
-        /// Resets the buffer for the next batch of packets.
-        /// </summary>
         public void Reset()
         {
             _packetDataOffset = 0;

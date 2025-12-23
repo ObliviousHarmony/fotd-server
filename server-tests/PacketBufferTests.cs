@@ -1,6 +1,7 @@
+using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
+using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Tests
 {
