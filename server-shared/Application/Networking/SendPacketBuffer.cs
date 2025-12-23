@@ -43,10 +43,10 @@ namespace FOMServer.Shared.Application.Networking
         /// The packet is released after its data is copied. Do not use the packet
         /// after calling this method.
         /// </remarks>
-        public unsafe bool TryAdd(in QueuePacket packet)
+        public unsafe bool Add(in QueuePacket packet)
         {
             if (_packetCount >= IPacketService.MaxBufferedPackets)
-                return false;
+                throw new InvalidOperationException("Cannot add more packets to the buffer");
 
             var packetSize = PacketHelpers.GetPacketSize(packet.ID);
 

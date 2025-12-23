@@ -139,7 +139,7 @@ namespace FOMServer.Shared.Application.Networking
                     // Avoid starving packet receiving with sending by
                     // limiting the number of packets sent per batch.
                     while (sendBuffer.CanAdd && _sendQueue.Reader.TryRead(out var packetToSend))
-                        sendBuffer.TryAdd(in packetToSend);
+                        sendBuffer.Add(in packetToSend);
 
                     if (sendBuffer.HasBatch)
                     {
