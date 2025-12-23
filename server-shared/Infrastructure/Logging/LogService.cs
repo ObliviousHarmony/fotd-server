@@ -1,9 +1,9 @@
 using System.Diagnostics.Metrics;
 using System.Threading.Channels;
+using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Logging;
-using FOMServer.Shared.Core.Networking;
 
 namespace FOMServer.Shared.Infrastructure.Logging
 {

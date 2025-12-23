@@ -1,13 +1,18 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Networking;
+using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets
 {
     public static class PacketHelpers
     {
+        /// <summary>
+        /// The size of the largest registered packet.
+        /// </summary>
+        public static readonly int MaxPacketSize;
+
         /// <summary>
         /// A map for getting the packet ID associated with a data struct by type.
         /// </summary>
@@ -24,6 +29,7 @@ namespace FOMServer.Shared.Core.Packets
         /// </summary>
         static PacketHelpers()
         {
+            MaxPacketSize = 0;
             s_idByPacketType = [];
             s_packetSizes = [];
 
@@ -35,8 +41,12 @@ namespace FOMServer.Shared.Core.Packets
                 if (idAttr == null)
                     continue;
 
+                var size = Marshal.SizeOf(type);
+                if (size > MaxPacketSize)
+                    MaxPacketSize = size;
+
                 s_idByPacketType[type] = idAttr.ID;
-                s_packetSizes[idAttr.ID] = Marshal.SizeOf(type);
+                s_packetSizes[idAttr.ID] = size;
             }
         }
 

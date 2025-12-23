@@ -117,6 +117,9 @@ namespace FOMServer.Shared.Core.Networking
             if (_broadcast && _networkAddress != NetworkAddress.Unassigned)
                 throw new InvalidOperationException("Cannot add destinations after calling ExcludeFromBroadcast");
 
+            if (_addressCount >= QueuePacket.MaxNetworkAddressesPerPacket)
+                throw new InvalidOperationException($"Cannot add more than {QueuePacket.MaxNetworkAddressesPerPacket} destinations");
+
             // Once an address has been added, a packet can no longer be broadcasted.
             _broadcast = false;
 

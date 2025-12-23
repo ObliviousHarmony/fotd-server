@@ -1,5 +1,5 @@
+using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Networking;
 
 namespace FOMServer.Shared.Core.Logging
 {

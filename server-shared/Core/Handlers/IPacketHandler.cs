@@ -1,4 +1,4 @@
-using FOMServer.Shared.Core.Networking;
+using FOMServer.Shared.Application.Networking;
 
 namespace FOMServer.Shared.Core.Handlers
 {

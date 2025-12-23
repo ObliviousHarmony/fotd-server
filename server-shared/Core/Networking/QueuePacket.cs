@@ -16,6 +16,11 @@ namespace FOMServer.Shared.Core.Networking
     /// </remarks>
     public readonly struct QueuePacket
     {
+        /// <summary>
+        /// The maximum number of network addresses that a packet can hold.
+        /// </summary>
+        public const int MaxNetworkAddressesPerPacket = 5000;
+
         public readonly PacketIdentifier ID;
         public readonly PacketPriority Priority;
         public readonly PacketReliability Reliability;

@@ -3,7 +3,7 @@ using System.Text;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets;
 
-namespace FOMServer.Shared.Core.Networking
+namespace FOMServer.Shared.Application.Networking
 {
     /// <summary>
     /// A reference to a packet of a specific type.
