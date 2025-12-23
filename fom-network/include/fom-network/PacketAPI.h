@@ -60,7 +60,7 @@ struct SendPacket {
   /**
    * The number of network addresses in the packet.
    */
-  uint32_t numNetworkAddresses;
+  int32_t numNetworkAddresses;
 
   /**
    * An array of network addresses to either send the packet to or
@@ -86,7 +86,7 @@ struct SendPacket {
   /**
    * A boolean indicating whether or not the packet should be a broadcast.
    */
-  int8_t broadcast;
+  uint8_t broadcast;
 };
 #pragma pack(pop)
 
