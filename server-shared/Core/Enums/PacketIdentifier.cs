@@ -39,7 +39,7 @@ namespace FOMServer.Shared.Core.Enums
         ID_LOGIN_REQUEST_RETURN = 109,
         // ID_LOGIN = 110,
         // ID_LOGIN_RETURN = 111,
-        // ID_LOGIN_TOKEN_CHECK = 112,
+        ID_LOGIN_TOKEN_CHECK = 112,
         // ID_LOGOUT = 113,
         // ID_WORLD_LOGIN = 114,
         // ID_WORLD_LOGIN_RETURN = 115,
