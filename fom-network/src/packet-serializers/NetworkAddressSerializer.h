@@ -23,12 +23,12 @@ class NetworkAddressSerializer : public ModelSerializer<NetworkAddress> {
   bool Read(RakNet::BitStream& bs, NetworkAddress& model) const override {
     // Reverse the bitwise NOT and endian-swap.
     uint32_t bitStreamAddress;
-    bs.Read(bitStreamAddress);
+    if (!bs.Read(bitStreamAddress)) return false;
     bs.ReverseBytesInPlace((uint8_t*)&bitStreamAddress, 4);
     bitStreamAddress = ~bitStreamAddress;
 
     model.binaryAddress = bitStreamAddress;
-    bs.Read(model.port);
+    if (!bs.Read(model.port)) return false;
     return true;
   }
 };

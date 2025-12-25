@@ -8,8 +8,8 @@ bool RegisterWorldSerializer::ReadData(RakNet::BitStream& bs,
                                        Packet::RegisterWorld& data) const {
   NetworkAddressSerializer addressSerializer;
 
-  bs.ReadCompressed(data.worldID);
-  addressSerializer.Read(bs, data.clientAddress);
+  if (!bs.ReadCompressed(data.worldID)) return false;
+  if (!addressSerializer.Read(bs, data.clientAddress)) return false;
 
   return true;
 }
