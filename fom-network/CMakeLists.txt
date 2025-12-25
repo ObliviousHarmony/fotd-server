@@ -10,6 +10,10 @@ set(FOMNETWORK_SRC
     "src/PacketAPI.cpp"
     "src/NetworkAPI.cpp"
     "src/FOMDataSerializer.cpp"
+    "src/packet-serializers/data/LoginRequestSerializer.cpp"
+    "src/packet-serializers/data/LoginRequestReturnSerializer.cpp"
+    "src/packet-serializers/data/LoginSerializer.cpp"
+    "src/packet-serializers/data/LoginTokenCheckSerializer.cpp"
     "src/packet-serializers/data/RegisterWorldSerializer.cpp"
  )
 set(FOMNETWORK_INC
@@ -51,6 +55,10 @@ set(FOMNETWORK_INC
     "include/fom-network/packets/data/raknet/NoFreeIncomingConnections.h"
     "include/fom-network/packets/data/raknet/RSAPublicKeyMismatch.h"
 
+    "include/fom-network/packets/data/Login.h"
+    "include/fom-network/packets/data/LoginRequest.h"
+    "include/fom-network/packets/data/LoginRequestReturn.h"
+    "include/fom-network/packets/data/LoginTokenCheck.h"
     "include/fom-network/packets/data/ReadPacketError.h"
     "include/fom-network/packets/data/RegisterWorld.h"
 )

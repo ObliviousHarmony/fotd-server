@@ -26,6 +26,10 @@ const std::unordered_map<uint8_t, size_t> FOMDataSerializer::PacketSizes = {
     // Game Packets
     {ID_FOM_PACKET_READ_ERROR, sizeof(Packet::ReadPacketError)},
     {ID_REGISTER_WORLD, sizeof(Packet::RegisterWorld)},
+    {ID_LOGIN_REQUEST, sizeof(Packet::LoginRequest)},
+    {ID_LOGIN_REQUEST_RETURN, sizeof(Packet::LoginRequestReturn)},
+    {ID_LOGIN, sizeof(Packet::Login)},
+    {ID_LOGIN_TOKEN_CHECK, sizeof(Packet::LoginTokenCheck)},
 };
 
 /**
@@ -34,6 +38,8 @@ const std::unordered_map<uint8_t, size_t> FOMDataSerializer::PacketSizes = {
  */
 static const std::unordered_map<uint32_t, IWriter*> writerMap = {
     {ID_REGISTER_WORLD, &RegisterWorldSerializer::GetInstance()},
+    {ID_LOGIN_REQUEST_RETURN, &LoginRequestReturnSerializer::GetInstance()},
+    {ID_LOGIN_TOKEN_CHECK, &LoginTokenCheckSerializer::GetInstance()},
 };
 
 static const std::unordered_map<uint32_t, IReader*> readerMap = {
@@ -52,6 +58,9 @@ static const std::unordered_map<uint32_t, IReader*> readerMap = {
 
     // Game Packets
     {ID_REGISTER_WORLD, &RegisterWorldSerializer::GetInstance()},
+    {ID_LOGIN_REQUEST, &LoginRequestSerializer::GetInstance()},
+    {ID_LOGIN, &LoginSerializer::GetInstance()},
+    {ID_LOGIN_TOKEN_CHECK, &LoginTokenCheckSerializer::GetInstance()},
 };
 
 bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id,
