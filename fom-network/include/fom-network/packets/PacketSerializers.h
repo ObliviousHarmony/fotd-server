@@ -3,6 +3,9 @@
 #include <fom-network/FOMNetworkExport.h>
 #include <fom-network/packets/PacketTypes.h>
 
+#include <cmath>
+#include <cstring>
+
 #pragma warning(push)
 #pragma warning(disable : 26495)
 
@@ -46,18 +49,23 @@ class BaseSerializer {
     return bs.ReadBits((uint8_t*)&input, numberOfBitsToRead);
   }
 
-  template <size_t N>
-  void WriteRawString(RakNet::BitStream& bs, const uint8_t (&input)[N]) const {
-    bs.Write((uint8_t)N);
-    bs.WriteBits(input, N * 8);
+  template <uint8_t N>
+  void WriteString(RakNet::BitStream& bs, const uint8_t (&input)[N]) const {
+    int bitsForLength = static_cast<int>(std::floor(std::log2(N) + 1));
+    uint8_t len = static_cast<uint8_t>(strnlen((const char*)input, N));
+    bs.WriteBits((uint8_t*)&len, bitsForLength);
+    bs.WriteBits(input, len * 8);
   }
 
-  template <size_t N>
-  bool ReadRawString(RakNet::BitStream& bs, uint8_t (&output)[N]) const {
-    uint8_t len;
-    if (!bs.Read(len)) return false;
-    if (len > N) return false;
-    return bs.ReadBits(output, len * 8);
+  template <uint8_t N>
+  bool ReadString(RakNet::BitStream& bs, uint8_t (&output)[N]) const {
+    int bitsForLength = static_cast<int>(std::floor(std::log2(N) + 1));
+    uint8_t len = 0;
+    if (!bs.ReadBits((uint8_t*)&len, bitsForLength)) return false;
+    if (len >= N) len = N - 1;
+    if (!bs.ReadBits(output, len * 8)) return false;
+    output[len] = '\0';
+    return true;
   }
 
   template <size_t N>
@@ -161,5 +169,9 @@ class FOM_API EmptyPacketSerializer : public IWriter, public IReader {
  * <PacketTypeName>Serializer
  */
 SERIALIZER_BOTH(RegisterWorld)
+SERIALIZER_READ(LoginRequest)
+SERIALIZER_WRITE(LoginRequestReturn)
+SERIALIZER_READ(Login)
+SERIALIZER_BOTH(LoginTokenCheck)
 
 }  // namespace FOMNetwork

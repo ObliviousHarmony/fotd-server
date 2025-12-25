@@ -41,7 +41,7 @@ enum PacketIdentifier : uint8_t {
   // 105
   // 106
   // ID_NOTIFY = 107,
-  // ID_LOGIN_REQUEST = 108,
+  ID_LOGIN_REQUEST = 108,
   // ID_LOGIN_REQUEST_RETURN = 109,
   // ID_LOGIN = 110,
   // ID_LOGIN_RETURN = 111,
