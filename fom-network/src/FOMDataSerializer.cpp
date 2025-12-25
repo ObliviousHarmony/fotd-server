@@ -9,8 +9,6 @@ namespace FOMNetwork {
  * associated sizes.
  */
 const std::unordered_map<uint8_t, size_t> FOMDataSerializer::PacketSizes = {
-    {ID_FOM_PACKET_READ_ERROR, sizeof(Packet::ReadPacketError)},
-
     // RakNet Packets
     {ID_ALREADY_CONNECTED, sizeof(Packet::AlreadyConnected)},
     {ID_CONNECTION_ATTEMPT_FAILED, sizeof(Packet::ConnectionAttemptFailed)},
@@ -26,6 +24,7 @@ const std::unordered_map<uint8_t, size_t> FOMDataSerializer::PacketSizes = {
     {ID_RSA_PUBLIC_KEY_MISMATCH, sizeof(Packet::RSAPublicKeyMismatch)},
 
     // Game Packets
+    {ID_FOM_PACKET_READ_ERROR, sizeof(Packet::ReadPacketError)},
     {ID_REGISTER_WORLD, sizeof(Packet::RegisterWorld)},
 };
 

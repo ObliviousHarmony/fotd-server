@@ -5,6 +5,6 @@ namespace FOMServer.Shared.Core.Constants
         /// <summary>
         /// The version of the Face of Mankind client that this server supports.
         /// </summary>
-        public const int ClientVersion = 1599;
+        public const int ClientVersion = 1853;
     }
 }
