@@ -1,5 +1,21 @@
 name: fom-server
 
+x-world-server: &world-server-base
+  image: mcr.microsoft.com/dotnet/runtime:9.0
+  platform: linux/amd64
+  depends_on:
+    - db
+    - master-server
+  environment: &world-server-env
+    Server__PublicHost: "127.0.0.1"
+    Server__MasterServerHost: "master-server"
+    Database__ConnectionString: "Host=db;Port=3306;Database=fom_server;Username=admin;Password=password;"
+  volumes:
+    - fom-server-build:/app
+  working_dir: /app/publish/world
+  command: ["dotnet", "WorldServer.dll"]
+  restart: unless-stopped
+
 services:
   db:
     image: mariadb:latest
@@ -24,30 +40,21 @@ services:
       Database__ConnectionString: "Host=db;Port=3306;Database=fom_server;Username=admin;Password=password;"
     ports:
       - "61000:61000/udp"
-      - "61001:61001/udp"
+      - "61100:61100/udp"
     volumes:
       - fom-server-build:/app
     working_dir: /app/publish/master
     command: ["dotnet", "MasterServer.dll"]
     restart: unless-stopped
 
-  world-server:
-    image: mcr.microsoft.com/dotnet/runtime:9.0
-    platform: linux/amd64
-    container_name: world-server
-    depends_on:
-      - db
-      - master-server
+  world-server-1:
+    <<: *world-server-base
+    container_name: world-server-1
     environment:
-      Server__MasterServerAddress: "master-server"
-      Database__ConnectionString: "Host=db;Port=3306;Database=fom_server;Username=admin;Password=password;"
+      <<: *world-server-env
+      Server__WorldID: 1
     ports:
-      - "61002:61002/udp"
-    volumes:
-      - fom-server-build:/app
-    working_dir: /app/publish/world
-    command: ["dotnet", "WorldServer.dll"]
-    restart: unless-stopped
+      - "61001:61001/udp"
 
 volumes:
   fom-server-database:
