@@ -6,7 +6,6 @@
 #include <fom-network/packets/data/LoginRequest.h>
 #include <fom-network/packets/data/LoginRequestReturn.h>
 #include <fom-network/packets/data/LoginTokenCheck.h>
-#include <fom-network/packets/data/ReadPacketError.h>
 #include <fom-network/packets/data/RegisterWorld.h>
 #include <fom-network/packets/data/raknet/AlreadyConnected.h>
 #include <fom-network/packets/data/raknet/ConnectionAttemptFailed.h>

@@ -11,25 +11,20 @@
 using namespace FOMNetwork;
 
 TEST(FOMDataSerializer, ReadUnhandledPacketID) {
+  uint8_t* buffer = new uint8_t[1];
   RakNet::BitStream bs;
 
-  // Create a buffer big enough to hold the packet.
-  uint8_t* buffer = new uint8_t[1024];
-  FOMDataSerializer::Read(bs, (PacketIdentifier)ID_INTERNAL_PING, buffer);
+  ASSERT_FALSE(FOMDataSerializer::Read(bs, (PacketIdentifier)ID_INTERNAL_PING, buffer));
 
-  FOMNetwork::Packet::ReadPacketError* e =
-      reinterpret_cast<FOMNetwork::Packet::ReadPacketError*>(buffer);
-  ASSERT_EQ(e->offendingID, ID_INTERNAL_PING);
-  ASSERT_EQ(e->errorCode,
-            FOMNetwork::Packet::ReadPacketErrorCode::ERROR_UNHANDLED_PACKET_ID);
+  delete buffer;
 }
 
 TEST(FOMDataSerializer, ForwardCertainRakNetID) {
+  uint8_t* buffer = new uint8_t[1];
   RakNet::BitStream bs;
 
-  uint8_t* buffer = new uint8_t[1024];
-  FOMDataSerializer::Read(bs, (PacketIdentifier)ID_NEW_INCOMING_CONNECTION,
-                          buffer);
-  FOMNetwork::Packet::NewIncomingConnection* e =
-      reinterpret_cast<FOMNetwork::Packet::NewIncomingConnection*>(buffer);
+  ASSERT_TRUE(FOMDataSerializer::Read(
+      bs, (PacketIdentifier)ID_NEW_INCOMING_CONNECTION, buffer));
+
+  delete buffer;
 }

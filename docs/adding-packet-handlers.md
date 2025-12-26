@@ -150,7 +150,7 @@ namespace FOMServer.Shared.Application.Handlers
     // Each handler must be given the PacketHandler attribute 
     // to register it with the packet handling system.
     [PacketHandler]
-    public class ExamplePacketHandler : PacketHandlerBase<ReadPacketError>
+    public class ExamplePacketHandler : PacketHandlerBase<ExamplePacket>
     {
         public override void Handle(NetworkAddress sender, in ExamplePacket data) { }
     }

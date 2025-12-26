@@ -24,7 +24,6 @@ const std::unordered_map<uint8_t, size_t> FOMDataSerializer::PacketSizes = {
     {ID_RSA_PUBLIC_KEY_MISMATCH, sizeof(Packet::RSAPublicKeyMismatch)},
 
     // Game Packets
-    {ID_FOM_PACKET_READ_ERROR, sizeof(Packet::ReadPacketError)},
     {ID_REGISTER_WORLD, sizeof(Packet::RegisterWorld)},
     {ID_LOGIN_REQUEST, sizeof(Packet::LoginRequest)},
     {ID_LOGIN_REQUEST_RETURN, sizeof(Packet::LoginRequestReturn)},
