@@ -58,7 +58,7 @@ namespace FOMServer.World
             s_dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
 
             if (Enum.IsDefined(s_serverSettings!.WorldID) == false || s_serverSettings.WorldID == WorldID.MasterServer)
-                throw new InvalidOperationException("'server.WorldID' must be set to a valid world ID");
+                throw new InvalidOperationException("Server must be set to a valid world ID");
             if (string.IsNullOrWhiteSpace(s_serverSettings.PublicHost))
                 throw new InvalidOperationException("Public host must be configured");
             if (string.IsNullOrWhiteSpace(s_serverSettings.MasterServerHost))
