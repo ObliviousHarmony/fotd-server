@@ -18,7 +18,6 @@ namespace FOMServer.Master
 {
     internal static class CompositionRoot
     {
-        private static ServerSettings? s_serverSettings;
         private static DatabaseSettings? s_dbSettings;
 
         public static IServiceProvider BuildContainer()
@@ -53,21 +52,13 @@ namespace FOMServer.Master
                 .AddEnvironmentVariables()
                 .Build();
 
-            s_serverSettings = config.GetSection("Server").Get<ServerSettings>()!;
             s_dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
 
-            if (s_serverSettings.WorldPort <= 0)
-                throw new InvalidOperationException("World server port must be greater than 0");
-            if (s_serverSettings.ClientPort <= 0)
-                throw new InvalidOperationException("Client port must be greater than 0");
-            if (s_serverSettings.WorldPort == s_serverSettings.ClientPort)
-                throw new InvalidOperationException("World and client ports must be different");
             if (string.IsNullOrWhiteSpace(s_dbSettings.Name))
                 throw new InvalidOperationException("Database name must be configured");
             if (string.IsNullOrWhiteSpace(s_dbSettings.ConnectionString))
                 throw new InvalidOperationException("Database connection string must be configured");
 
-            services.AddSingleton(s_serverSettings);
             services.AddSingleton(s_dbSettings);
             return services;
         }

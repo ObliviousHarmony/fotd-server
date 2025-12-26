@@ -58,15 +58,11 @@ namespace FOMServer.World
             s_dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
 
             if (Enum.IsDefined(s_serverSettings!.WorldID) == false || s_serverSettings.WorldID == WorldID.MasterServer)
-                throw new InvalidOperationException("Server WorldID must be set to a valid world");
-            if (string.IsNullOrWhiteSpace(s_serverSettings.ClientAddress))
-                throw new InvalidOperationException("Server client address must be configured");
-            if (s_serverSettings.ClientPort <= 0)
-                throw new InvalidOperationException("Server client port must be greater than 0");
-            if (string.IsNullOrWhiteSpace(s_serverSettings.MasterServerAddress))
-                throw new InvalidOperationException("Master server address must be configured");
-            if (s_serverSettings.MasterServerPort <= 0)
-                throw new InvalidOperationException("Master server port must be greater than 0");
+                throw new InvalidOperationException("'server.WorldID' must be set to a valid world ID");
+            if (string.IsNullOrWhiteSpace(s_serverSettings.PublicHost))
+                throw new InvalidOperationException("Public host must be configured");
+            if (string.IsNullOrWhiteSpace(s_serverSettings.MasterServerHost))
+                throw new InvalidOperationException("Master server host must be configured");
             if (string.IsNullOrWhiteSpace(s_dbSettings.Name))
                 throw new InvalidOperationException("Database name must be configured");
             if (string.IsNullOrWhiteSpace(s_dbSettings.ConnectionString))

@@ -3,6 +3,7 @@ using FOMServer.Master.Application.Networking;
 using FOMServer.Master.Core;
 using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core;
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
@@ -17,7 +18,6 @@ namespace FOMServer.Master.Application
         private readonly ILogService _logService;
         private readonly IShutdownManager _shutdownManager;
         private readonly IMigrationRunner _migrationRunner;
-        private readonly ServerSettings _serverSettings;
         private readonly INetworkService _networkService;
         private readonly IServerService _serverService;
         private readonly IServiceProvider _serviceProvider;
@@ -26,7 +26,6 @@ namespace FOMServer.Master.Application
             ILogService logService,
             IShutdownManager shutdownManager,
             IMigrationRunner migrationRunner,
-            ServerSettings serverSettings,
             INetworkService networkService,
             IServerService serverService,
             IServiceProvider serviceProvider
@@ -35,7 +34,6 @@ namespace FOMServer.Master.Application
             _logService = logService;
             _shutdownManager = shutdownManager;
             _migrationRunner = migrationRunner;
-            _serverSettings = serverSettings;
             _networkService = networkService;
             _serverService = serverService;
             _serviceProvider = serviceProvider;
@@ -94,8 +92,6 @@ namespace FOMServer.Master.Application
             foreach (var startable in _serviceProvider.GetServices<IServerStartable>())
                 startable.Start();
 
-            _logService.WriteMessage(LogLevel.Info, $"World Port: {_serverSettings.WorldPort}");
-            _logService.WriteMessage(LogLevel.Info, $"Client Port: {_serverSettings.ClientPort}");
             _logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
 
             await _shutdownManager.Stopped;
@@ -125,7 +121,7 @@ namespace FOMServer.Master.Application
 
         private NetworkManager? CreateWorldServerNetwork(PacketProcessor packetProcessor)
         {
-            var peer = _serverService.Startup(_serverSettings.WorldPort);
+            var peer = _serverService.Startup(ServerConstants.MasterWorldPort);
             if (peer == IntPtr.Zero)
                 return null;
 
@@ -149,7 +145,7 @@ namespace FOMServer.Master.Application
 
         private NetworkManager? CreateClientNetwork(PacketProcessor packetProcessor)
         {
-            var peer = _serverService.Startup(_serverSettings.ClientPort);
+            var peer = _serverService.Startup(ServerConstants.MasterClientPort);
             if (peer == IntPtr.Zero)
                 return null;
 

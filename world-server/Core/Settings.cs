@@ -5,10 +5,8 @@ namespace FOMServer.World.Core
     public class ServerSettings
     {
         public WorldID WorldID { get; init; }
-        public string ClientAddress { get; init; } = null!;
-        public ushort ClientPort { get; init; }
-        public string MasterServerAddress { get; init; } = null!;
-        public ushort MasterServerPort { get; init; }
+        public string MasterServerHost { get; init; } = null!;
+        public string PublicHost { get; init; } = null!;
     }
 
     public class DatabaseSettings

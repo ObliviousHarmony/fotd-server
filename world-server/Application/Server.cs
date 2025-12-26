@@ -1,5 +1,8 @@
+using System.Net;
+using System.Net.Sockets;
 using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core;
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
@@ -92,8 +95,6 @@ namespace FOMServer.World.Application
             foreach (var startable in _serviceProvider.GetServices<IServerStartable>())
                 startable.Start();
 
-            _logService.WriteMessage(LogLevel.Info, $"Master Server: {_serverSettings.MasterServerAddress}:{_serverSettings.MasterServerPort}");
-            _logService.WriteMessage(LogLevel.Info, $"Client Port: {_serverSettings.ClientPort}");
             _logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
 
             await _shutdownManager.Stopped;
@@ -102,10 +103,17 @@ namespace FOMServer.World.Application
 
         private NetworkManager? ConnectToMasterNetwork(PacketProcessor packetProcessor)
         {
+            _logService.WriteMessage(LogLevel.Info, $"Master Server: {_serverSettings.MasterServerHost}");
+
+            var publicHostAddresses = Dns.GetHostAddresses(_serverSettings.PublicHost, AddressFamily.InterNetwork);
+            var publicIPAddress = publicHostAddresses.FirstOrDefault();
+            if (publicIPAddress == null)
+                throw new InvalidOperationException($"Failed to resolve public address: {_serverSettings.PublicHost}");
+
             IntPtr peer = IntPtr.Zero;
             while (peer == IntPtr.Zero)
             {
-                peer = _clientService.Connect(_serverSettings.MasterServerAddress, _serverSettings.MasterServerPort);
+                peer = _clientService.Connect(_serverSettings.MasterServerHost, ServerConstants.MasterWorldPort);
                 if (peer == IntPtr.Zero)
                 {
                     _logService.WriteMessage(LogLevel.Critical, "Failed to connect to master server, retrying in 5 seconds...");
@@ -133,8 +141,8 @@ namespace FOMServer.World.Application
             rpData.WorldID = _serverSettings.WorldID;
             rpData.ClientAddress = new NetworkAddress
             {
-                Address = _serverSettings.ClientAddress,
-                Port = _serverSettings.ClientPort
+                BinaryAddress = BitConverter.ToUInt32(publicIPAddress.GetAddressBytes(), 0),
+                Port = ServerConstants.GetWorldClientPort(_serverSettings.WorldID)
             };
 
             packetSender.Send(registerPacket.Build());
@@ -144,7 +152,7 @@ namespace FOMServer.World.Application
 
         private NetworkManager? CreateClientNetwork(PacketProcessor packetProcessor)
         {
-            var peer = _serverService.Startup(_serverSettings.ClientPort);
+            var peer = _serverService.Startup(ServerConstants.GetWorldClientPort(_serverSettings.WorldID));
             if (peer == IntPtr.Zero)
                 return null;
 
