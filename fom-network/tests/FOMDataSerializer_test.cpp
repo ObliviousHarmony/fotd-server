@@ -14,7 +14,8 @@ TEST(FOMDataSerializer, ReadUnhandledPacketID) {
   uint8_t* buffer = new uint8_t[1];
   RakNet::BitStream bs;
 
-  ASSERT_FALSE(FOMDataSerializer::Read(bs, (PacketIdentifier)ID_INTERNAL_PING, buffer));
+  ASSERT_FALSE(
+      FOMDataSerializer::Read(bs, (PacketIdentifier)ID_INTERNAL_PING, buffer));
 
   delete buffer;
 }
