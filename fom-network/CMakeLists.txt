@@ -33,6 +33,7 @@ set(FOMNETWORK_INC
     "include/fom-network/enums/MedicalTreatment.h"
     "include/fom-network/enums/PlayerAttachment.h"
     "include/fom-network/enums/PlayerAttribute.h"
+    "include/fom-network/enums/SerializationStatus.h"
     "include/fom-network/enums/WorldID.h"
     "include/fom-network/enums/WorldUpdateType.h"
   

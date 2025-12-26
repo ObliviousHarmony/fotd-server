@@ -6,11 +6,9 @@ bool LoginSerializer::ReadData(RakNet::BitStream& bs,
                                Packet::Login& data) const {
   if (!DecodeString(bs, data.username)) return false;
   if (!ReadString(bs, data.passwordHash)) return false;
-
   if (!bs.Read(data.clientCRC)) return false;
   if (!bs.Read(data.cshellCRC)) return false;
   if (!bs.Read(data.objectCRC)) return false;
-
   if (!DecodeString(bs, data.macAddress)) return false;
 
   for (int i = 0; i < 4; i++) {

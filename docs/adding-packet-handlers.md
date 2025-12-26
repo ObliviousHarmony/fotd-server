@@ -68,13 +68,18 @@ void ExamplePacketSerializer::WriteData(
 }
 
 bool ExamplePacketSerializer::ReadData(RakNet::BitStream& bs, Packet::ExamplePacket& data) const {
-  DecodeString(bs, data.exampleString);
-  bs.ReadCompressed(data.exampleShort);
+  if (!DecodeString(bs, data.exampleString)) return false;
+  if (!bs.ReadCompressed(data.exampleShort)) return false;
   return true;
 }
 
 }  // namespace FOMNetwork
 ```
+
+> [!NOTE]
+> Read methods must check the return value of each read operation and return `false` on failure.
+> This sets the packet's status byte to `SERIALIZATION_READ_ERROR`, allowing managed code to
+> detect and handle malformed packets gracefully.
 
 - [ ] **Enable Packet + Serializer**: Each packet size and serializer needs to be
   [included in a map](../fom-network/src/FOMDataSerializer.cpp) in order for the network

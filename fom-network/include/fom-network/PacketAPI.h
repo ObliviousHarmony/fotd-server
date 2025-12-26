@@ -115,16 +115,21 @@ FOM_API ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer);
  * Uses the received packets to fill a buffer with deserialized packet
  * structures.
  *
- * The caller should provide a buffer that can hold as many packet structures as
- * packets received. This will be filled with deserialized packets and the
- * memory from the associated packet will be freed.
+ * The caller should provide a buffer sized to hold all packets. Each packet
+ * slot in the buffer uses the format: [status byte][packet data]. The buffer
+ * size should be calculated as: sum(1 + sizeof(packet)) for each packet.
+ *
+ * The status byte indicates deserialization result:
+ * - SERIALIZATION_SUCCESS (0): Packet data is valid
+ * - SERIALIZATION_READ_ERROR (1): Deserialization failed
+ * - SERIALIZATION_UNHANDLED_PACKET (2): No reader for packet ID
  *
  * @param peer A pointer to the network interface.
  * @param received A structure containing a buffer of received packets and the
- * number of packets in
- * @param packetBuffer A buffer to be filled with deserialized packet
- * structures.
- * @param packetBufferLen The number of packets in the packet buffer.
+ * number of packets in the buffer.
+ * @param packetBuffer A buffer to be filled with status bytes and deserialized
+ * packet structures.
+ * @param packetBufferLen The size of the packet buffer in bytes.
  * @return int32_t The status code.
  * @retval 0 Success.
  * @retval -1 A packet ID was received that could not be deserialized.

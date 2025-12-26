@@ -8,9 +8,12 @@ using FOMServer.Shared.Infrastructure.FOMNetwork;
 namespace FOMServer.Shared.Application.Networking
 {
     /// <summary>
-    /// A buffer for holding packet data that has been
-    /// received from the network library.
+    /// A buffer for holding packet data that has been received from the network library.
     /// </summary>
+    /// <remarks>
+    /// Each packet slot in the buffer uses the format: [status byte][packet data].
+    /// The status byte indicates whether deserialization succeeded or failed.
+    /// </remarks>
     public class PacketBuffer
     {
         private static readonly Meter s_meter = new("FOMServer.Networking.PacketBuffer", "1.0.0");
@@ -62,11 +65,12 @@ namespace FOMServer.Shared.Application.Networking
             _packetIDs = ArrayPool<PacketIdentifier>.Shared.Rent(received.Count);
 
             // Allocate a buffer large enough to hold all of the packets.
+            // Each packet slot is 1 byte status + packet data.
             _bufferSize = 0;
             for (byte i = 0; i < received.Count; i++)
             {
                 _packetIDs[i] = received.Identifiers[i];
-                _bufferSize += PacketHelpers.GetPacketSize(received.Identifiers[i]);
+                _bufferSize += 1 + PacketHelpers.GetPacketSize(received.Identifiers[i]);
             }
             _buffer = ArrayPool<byte>.Shared.Rent(_bufferSize);
 
@@ -82,12 +86,13 @@ namespace FOMServer.Shared.Application.Networking
                 Volatile.Write(ref _packetRefDisposalFlags[i], 0);
 
                 var startIndex = GetPacketStart(i);
+                var packetSize = PacketHelpers.GetPacketSize(_packetIDs![i]);
                 _packetRefs[i] = new PacketRef(
                     i,
                     bufferVersion,
-                    _packetIDs![i],
+                    _packetIDs[i],
                     received.Senders[i],
-                    _buffer.AsMemory(startIndex, PacketHelpers.GetPacketSize(_packetIDs[i])),
+                    _buffer.AsMemory(startIndex, 1 + packetSize),
                     this
                 );
             }
@@ -170,9 +175,9 @@ namespace FOMServer.Shared.Application.Networking
             var currentIndex = 0;
             var offset = 0;
             while (currentIndex < index)
-                offset += PacketHelpers.GetPacketSize(_packetIDs[currentIndex++]);
+                offset += 1 + PacketHelpers.GetPacketSize(_packetIDs[currentIndex++]);
 
-            var packetEnd = offset + PacketHelpers.GetPacketSize(_packetIDs[index]);
+            var packetEnd = offset + 1 + PacketHelpers.GetPacketSize(_packetIDs[index]);
             if (packetEnd > _bufferSize)
             {
                 throw new InvalidOperationException(

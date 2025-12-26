@@ -152,11 +152,22 @@ namespace FOMServer.Shared.Application.Networking
                     var received = _packetService.Receive(_peer);
                     foreach (ref readonly var packet in received)
                     {
+                        // Packets that failed to deserialize should not be processed.
+                        if (packet.Status != SerializationStatus.Success)
+                        {
+                            _logService.WriteMessage(
+                                LogLevel.Warning,
+                                $"Client {packet.Sender} sent malformed packet with ID {packet.ID}: {packet.Status}"
+                            );
+                            packet.Dispose();
+                            continue;
+                        }
+
                         // Packet IDs that have been claimed by another network manager should be ignored.
                         if (s_globalClaimedPacketIDs.Contains(packet.ID) && !_claimedPacketIDs.Contains(packet.ID))
                         {
+                            _logService.WriteMessage(LogLevel.Warning, $"Client {packet.Sender} sent packet with claimed ID {packet.ID}, ignoring.");
                             packet.Dispose();
-                            _logService.WriteMessage(LogLevel.Error, $"Client {packet.Sender} sent packet with claimed ID {packet.ID}, ignoring.");
                             continue;
                         }
 

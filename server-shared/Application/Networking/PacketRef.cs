@@ -58,6 +58,16 @@ namespace FOMServer.Shared.Application.Networking
             }
         }
 
+        public readonly SerializationStatus Status
+        {
+            get
+            {
+                if (_parentBuffer.IsPacketDisposed(in this))
+                    throw new ObjectDisposedException(nameof(PacketRef));
+                return (SerializationStatus)_data.Span[0];
+            }
+        }
+
         public readonly ref readonly TPacket Data<TPacket>() where TPacket : unmanaged
         {
             if (_parentBuffer.IsPacketDisposed(in this))
@@ -66,7 +76,13 @@ namespace FOMServer.Shared.Application.Networking
             if (!PacketHelpers.IsPacketOfType<TPacket>(_id))
                 throw new InvalidOperationException($"PacketRef does not contain data of type {typeof(TPacket)}");
 
-            return ref MemoryMarshal.AsRef<TPacket>(_data.Span);
+            var data = _data.Span;
+
+            var status = (SerializationStatus)data[0];
+            if (status != SerializationStatus.Success)
+                throw new InvalidOperationException($"Cannot access data of packet with status {status}");
+
+            return ref MemoryMarshal.AsRef<TPacket>(data.Slice(1));
         }
 
         public void Dispose()
@@ -84,19 +100,28 @@ namespace FOMServer.Shared.Application.Networking
             sb.Append(packetSize);
             sb.Append(" bytes]: ");
 
-            if (!_parentBuffer.IsPacketDisposed(in this))
+            var data = _data.Span;
+            var status = (SerializationStatus)data[0];
+            if (status != SerializationStatus.Success)
             {
-                // Append as hex pairs separated by spaces
-                var data = _data.Span;
-                for (int i = 0; i < packetSize; i++)
+                sb.Append("<error: ");
+                sb.Append(status.ToString());
+                sb.Append('>');
+            }
+            else if (_parentBuffer.IsPacketDisposed(in this))
+            {
+                sb.Append("<disposed>");
+            }
+            else
+            {
+                // Append as hex pairs separated by spaces (skip status byte at index 0)
+                for (int i = 1; i <= packetSize; i++)
                 {
                     sb.Append(data[i].ToString("X2"));
-                    if (i < packetSize - 1)
+                    if (i < packetSize)
                         sb.Append(' ');
                 }
             }
-            else
-                sb.Append("<disposed>");
 
             return sb.ToString();
         }

@@ -1,6 +1,7 @@
 using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets;
+using FOMServer.Shared.Core.Packets.Data.RakNetPackets;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Tests
@@ -222,6 +223,86 @@ namespace FOMServer.Tests
 
             var str = packet.ToString();
             Assert.Contains("<disposed>", str);
+        }
+
+        [Fact]
+        public unsafe void PacketRef_Status_ReturnsSuccess_WhenStatusByteIsZero()
+        {
+            var buffer = new PacketBuffer();
+            var identifier = s_testPacketID;
+            var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
+
+            var received = CreateReceivedPackets(1, &identifier, &sender);
+            var rentedBuffer = buffer.Rent(received);
+
+            // Status byte is at offset 0, already zero from buffer initialization
+            Assert.Equal(0, rentedBuffer![0]);
+
+            var packets = buffer.GetPackets();
+            Assert.Equal(SerializationStatus.Success, packets[0].Status);
+
+            packets[0].Dispose();
+        }
+
+        [Fact]
+        public unsafe void PacketRef_Status_ReturnsReadError_WhenStatusByteIsNonZero()
+        {
+            var buffer = new PacketBuffer();
+            var identifier = s_testPacketID;
+            var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
+
+            var received = CreateReceivedPackets(1, &identifier, &sender);
+            var rentedBuffer = buffer.Rent(received);
+
+            // Simulate a read error by setting the status byte
+            rentedBuffer![0] = (byte)SerializationStatus.ReadError;
+
+            var packets = buffer.GetPackets();
+            Assert.Equal(SerializationStatus.ReadError, packets[0].Status);
+
+            packets[0].Dispose();
+        }
+
+        [Fact]
+        public unsafe void PacketRef_Data_ThrowsInvalidOperation_WhenStatusIsNotSuccess()
+        {
+            var buffer = new PacketBuffer();
+            var identifier = s_testPacketID;
+            var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
+
+            var received = CreateReceivedPackets(1, &identifier, &sender);
+            var rentedBuffer = buffer.Rent(received);
+
+            // Simulate a read error
+            rentedBuffer![0] = (byte)SerializationStatus.ReadError;
+
+            var packets = buffer.GetPackets();
+            var packet = packets[0];
+
+            Assert.Throws<InvalidOperationException>(() => packet.Data<ConnectionRequestAccepted>());
+
+            packet.Dispose();
+        }
+
+        [Fact]
+        public unsafe void PacketRef_ToString_ReturnsErrorMessage_WhenStatusIsNotSuccess()
+        {
+            var buffer = new PacketBuffer();
+            var identifier = s_testPacketID;
+            var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
+
+            var received = CreateReceivedPackets(1, &identifier, &sender);
+            var rentedBuffer = buffer.Rent(received);
+
+            // Simulate a read error
+            rentedBuffer![0] = (byte)SerializationStatus.ReadError;
+
+            var packets = buffer.GetPackets();
+            var str = packets[0].ToString();
+
+            Assert.Contains("<error: ReadError>", str);
+
+            packets[0].Dispose();
         }
 
         /// <summary>

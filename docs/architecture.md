@@ -71,6 +71,11 @@ provides a buffer of managed memory sized appropriately for the packets. The lib
 deserializes the packet BitStreams directly into this buffer, creating structured packet
 objects that the consumer can handle.
 
+Each packet slot in the buffer uses the format: `[status byte][packet data...]`. The status byte
+indicates whether deserialization succeeded (`SERIALIZATION_SUCCESS = 0`) or failed
+(`SERIALIZATION_READ_ERROR = 1`, `SERIALIZATION_UNHANDLED_PACKET = 2`). This means the buffer
+size must be calculated as the sum of `1 + sizeof(packet)` for each packet received.
+
 This two-stage approach enables managed code to control memory allocation and use pooled
 buffers, avoiding per-packet heap allocations.
 
@@ -98,11 +103,15 @@ through reference counting and buffer pooling.
 The `PacketBuffer` class manages pooled memory for batches of received packets. When packets arrive:
 
 1. A buffer is rented from the pool (or created if none available)
-2. Native code deserializes packets directly into this buffer
+2. Native code deserializes packets directly into this buffer (with status byte prefix)
 3. `PacketRef` structs are created, each holding a `Memory<byte>` slice pointing to a specific packet
 4. Each ref holds a reference to its parent buffer
 5. When a ref is disposed, it decrements the buffer's ref count
 6. When all refs are disposed, the buffer becomes available for reuse
+
+Each `PacketRef` exposes a `Status` property that reads the status byte from the buffer. Packets
+with non-success status are logged and discarded by `NetworkManager` before reaching the processor.
+Attempting to call `Data<T>()` on a packet with a failed status throws `InvalidOperationException`.
 
 This reference-counting approach allows packets to be processed concurrently by multiple
 threads while ensuring buffers are safely returned to the pool.

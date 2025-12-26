@@ -1,5 +1,6 @@
 #include <fom-network/FOMDataSerializer.h>
 #include <fom-network/PacketAPI.h>
+#include <fom-network/enums/SerializationStatus.h>
 #include <fom-network/packets/PacketIdentifier.h>
 #include <raknet/GetTime.h>
 
@@ -105,12 +106,19 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
       continue;
     }
 
+    // Each slot is 1 byte status + packet data.
+    int slotSize = 1 + packetSize;
+
     // Make sure that the buffer can hold this packet.
-    if (!packetBuffer || packetBufferOffset + packetSize > packetBufferLen) {
+    if (!packetBuffer || packetBufferOffset + slotSize > packetBufferLen) {
       ret = -2;
       peer->DeallocatePacket(const_cast<Packet*>(p));
       continue;
     }
+
+    // Get pointers to status byte and packet data within the buffer.
+    uint8_t* statusByte = &packetBuffer[packetBufferOffset];
+    uint8_t* packetData = &packetBuffer[packetBufferOffset + 1];
 
     RakNet::BitStream bs(p->data, p->length, false);
 
@@ -128,14 +136,19 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
     if (rawPacketID != packetID) {
       // This should never happen, but if it does we don't
       // want to try to read the packet.
+      *statusByte = FOMNetwork::Enums::SERIALIZATION_UNHANDLED_PACKET;
       ret = -3;
+      packetBufferOffset += slotSize;
       peer->DeallocatePacket(const_cast<Packet*>(p));
       continue;
     }
 
     // Read the packet bitstream into our packet's buffer.
-    FOMDataSerializer::Read(bs, packetID, &packetBuffer[packetBufferOffset]);
-    packetBufferOffset += packetSize;
+    bool readSuccess = FOMDataSerializer::Read(bs, packetID, packetData);
+    *statusByte = readSuccess ? FOMNetwork::Enums::SERIALIZATION_SUCCESS
+                              : FOMNetwork::Enums::SERIALIZATION_READ_ERROR;
+
+    packetBufferOffset += slotSize;
 
     // Release the packet back to RakNet.
     peer->DeallocatePacket(const_cast<Packet*>(p));

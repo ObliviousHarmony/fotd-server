@@ -84,32 +84,15 @@ bool FOMDataSerializer::Read(RakNet::BitStream& bs, const PacketIdentifier id,
                              uint8_t* dataBuffer) {
   const auto* reader = GetReader(id);
   if (!reader) {
-    Packet::ReadPacketError* data =
-        reinterpret_cast<Packet::ReadPacketError*>(dataBuffer);
-    data->offendingID = id;
-    data->errorCode = Packet::ReadPacketErrorCode::ERROR_UNHANDLED_PACKET_ID;
-    return true;
+    return false;
   }
 
   // Make sure to catch any deserialization errors so that
   // the library does not crash the consuming application.
   try {
-    bool ret = reader->Read(bs, dataBuffer);
-    if (!ret) {
-      Packet::ReadPacketError* data =
-          reinterpret_cast<Packet::ReadPacketError*>(dataBuffer);
-      data->offendingID = id;
-      data->errorCode = Packet::ReadPacketErrorCode::ERROR_READ;
-      return true;
-    }
-
-    return ret;
+    return reader->Read(bs, dataBuffer);
   } catch (const std::exception& e) {
-    Packet::ReadPacketError* data =
-        reinterpret_cast<Packet::ReadPacketError*>(dataBuffer);
-    data->offendingID = id;
-    data->errorCode = Packet::ReadPacketErrorCode::ERROR_READ;
-    return true;
+    return false;
   }
 }
 
