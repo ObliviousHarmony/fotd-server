@@ -43,6 +43,15 @@ namespace FOMServer.Shared.Core.Packets.Data
             }
         }
 
+        public string PasswordHash
+        {
+            get
+            {
+                fixed (byte* ptr = RawPasswordHash)
+                    return CStringParser.ToString(ptr, PasswordHashSize);
+            }
+        }
+
         public string MACAddress
         {
             get
