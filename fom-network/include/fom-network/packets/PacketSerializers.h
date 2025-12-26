@@ -63,7 +63,7 @@ class BaseSerializer {
     uint8_t len = 0;
     if (!bs.ReadBits((uint8_t*)&len, bitsForLength)) return false;
     if (len >= N) len = N - 1;
-    if (!bs.ReadBits(output, len * 8)) return false;
+    if (len > 0 && !bs.ReadBits(output, len * 8)) return false;
     output[len] = '\0';
     return true;
   }
