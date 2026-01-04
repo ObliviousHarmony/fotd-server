@@ -9,6 +9,7 @@ set(FOMNETWORK_SRC
     "src/ServerAPI.cpp"
     "src/PacketAPI.cpp"
     "src/NetworkAPI.cpp"
+
     "src/FOMDataSerializer.cpp"
     "src/packet-serializers/data/LoginRequestSerializer.cpp"
     "src/packet-serializers/data/LoginRequestReturnSerializer.cpp"
@@ -26,16 +27,10 @@ set(FOMNETWORK_INC
     "include/fom-network/NetworkAPI.h"
     "include/fom-network/FOMDataSerializer.h"
 
-    "include/fom-network/enums/EquipmentSlot.h"
-    "include/fom-network/enums/Faction.h"
-    "include/fom-network/enums/FactionRelation.h"
+    "include/fom-network/enums/AccountType.h"
     "include/fom-network/enums/ItemType.h"
-    "include/fom-network/enums/MedicalTreatment.h"
-    "include/fom-network/enums/PlayerAttachment.h"
-    "include/fom-network/enums/PlayerAttribute.h"
     "include/fom-network/enums/SerializationStatus.h"
     "include/fom-network/enums/WorldID.h"
-    "include/fom-network/enums/WorldUpdateType.h"
   
     "include/fom-network/packets/PacketIdentifier.h"
     "include/fom-network/packets/PacketTypes.h"

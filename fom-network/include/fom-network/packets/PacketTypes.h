@@ -3,6 +3,7 @@
 #include <fom-network/packets/NetworkAddress.h>
 #include <fom-network/packets/PacketIdentifier.h>
 #include <fom-network/packets/data/Login.h>
+#include <fom-network/packets/data/LoginReturn.h>
 #include <fom-network/packets/data/LoginRequest.h>
 #include <fom-network/packets/data/LoginRequestReturn.h>
 #include <fom-network/packets/data/LoginTokenCheck.h>
