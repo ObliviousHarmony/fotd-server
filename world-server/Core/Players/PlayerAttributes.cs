@@ -40,8 +40,6 @@ namespace FOMServer.World.Core.Players
 
             s_metadata[(int)PlayerAttribute.UC] = new() { Max = int.MaxValue, LockRequired = true };
             s_metadata[(int)PlayerAttribute.FC] = new() { Max = int.MaxValue, LockRequired = true };
-            s_metadata[(int)PlayerAttribute.Coins] = new() { Max = int.MaxValue, LockRequired = true };
-            s_metadata[(int)PlayerAttribute.XP] = new() { Max = int.MaxValue, LockRequired = false };
         }
 
         public PlayerAttributes(PlayerSession session, int[]? initialValues = null)

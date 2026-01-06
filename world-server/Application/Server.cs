@@ -47,13 +47,15 @@ namespace FOMServer.World.Application
 
         public async Task Run()
         {
+            Console.Title = $"World Server - {_serverSettings.WorldID}";
+
             // We need to make sure our packet structs are all blittable and match the C++ side.
             // This is critical to ensure that we don't have memory corruption and don't
             // require expensive marshalling of data between managed and unmanaged code.
             _networkService.ValidatePacketStructs();
 
             _logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
-            _logService.WriteMessage(LogLevel.Info, "Initializing World Server");
+            _logService.WriteMessage(LogLevel.Info, $"Initializing World Server - {_serverSettings.WorldID} - {_serverSettings.PublicHost}");
 
             Console.CancelKeyPress += (sender, e) =>
             {

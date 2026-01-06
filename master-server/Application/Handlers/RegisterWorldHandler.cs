@@ -20,8 +20,6 @@ namespace FOMServer.Master.Application.Handlers
             _worldServerRegistry = worldServerRegistry;
         }
 
-        public PacketIdentifier PacketID => PacketIdentifier.ID_REGISTER_WORLD;
-
         public override void Handle(NetworkAddress sender, in RegisterWorld p)
         {
             var server = _worldServerRegistry.Register(p.WorldID, sender, p.ClientAddress);

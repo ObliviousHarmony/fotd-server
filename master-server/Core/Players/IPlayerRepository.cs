@@ -11,7 +11,6 @@ namespace FOMServer.Master.Core.Players
 
         AvatarDTO? CreateAvatar(
             uint playerID,
-            Faction faction,
             string name,
             string biography,
             AvatarSex sex,

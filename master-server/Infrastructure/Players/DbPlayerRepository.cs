@@ -35,7 +35,6 @@ namespace FOMServer.Master.Infrastructure.Repositories
 
         public AvatarDTO? CreateAvatar(
             uint playerID,
-            Faction faction,
             string name,
             string biography,
             AvatarSex sex,
@@ -50,15 +49,14 @@ namespace FOMServer.Master.Infrastructure.Repositories
             {
                 connection.Execute(
                     @"INSERT INTO `player_avatar`
-(`player_id`, `faction`, `name`, `biography`, `sex`, `skin_color`, `face`, `hair`) VALUE
+(`player_id`, `name`, `biography`, `sex`, `skin_color`, `face`, `hair`) VALUE
 (@playerID, @faction, @name, @biography, @sex, @skinColor, @face, @hair)",
-                    new { playerID, faction, name, biography, sex, skinColor, face, hair }
+                    new { playerID, name, biography, sex, skinColor, face, hair }
                 );
 
                 return new AvatarDTO
                 {
                     name = name,
-                    faction = faction,
                     sex = sex,
                     skin_color = skinColor,
                     face = face,
