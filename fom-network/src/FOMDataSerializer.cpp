@@ -1,4 +1,21 @@
-#include <fom-network/FOMDataSerializer.h>
+#include "FOMDataSerializer.h"
+
+#include <fom-network/packets/Login.h>
+#include <fom-network/packets/LoginRequest.h>
+#include <fom-network/packets/LoginRequestReturn.h>
+#include <fom-network/packets/LoginTokenCheck.h>
+#include <fom-network/packets/RegisterWorld.h>
+#include <fom-network/packets/raknet/AlreadyConnected.h>
+#include <fom-network/packets/raknet/ConnectionAttemptFailed.h>
+#include <fom-network/packets/raknet/ConnectionBanned.h>
+#include <fom-network/packets/raknet/ConnectionLost.h>
+#include <fom-network/packets/raknet/ConnectionRequestAccepted.h>
+#include <fom-network/packets/raknet/DisconnectionNotification.h>
+#include <fom-network/packets/raknet/InvalidPassword.h>
+#include <fom-network/packets/raknet/ModifiedPacket.h>
+#include <fom-network/packets/raknet/NewIncomingConnection.h>
+#include <fom-network/packets/raknet/NoFreeIncomingConnections.h>
+#include <fom-network/packets/raknet/RSAPublicKeyMismatch.h>
 
 #include <unordered_map>
 
@@ -8,7 +25,7 @@ namespace FOMNetwork {
  * A map of all of the packets that the serializer can handle and their
  * associated sizes.
  */
-const std::unordered_map<uint8_t, size_t> FOMDataSerializer::PacketSizes = {
+static const std::unordered_map<uint8_t, size_t> packetSizes = {
     // RakNet Packets
     {ID_ALREADY_CONNECTED, sizeof(Packet::AlreadyConnected)},
     {ID_CONNECTION_ATTEMPT_FAILED, sizeof(Packet::ConnectionAttemptFailed)},
@@ -24,11 +41,11 @@ const std::unordered_map<uint8_t, size_t> FOMDataSerializer::PacketSizes = {
     {ID_RSA_PUBLIC_KEY_MISMATCH, sizeof(Packet::RSAPublicKeyMismatch)},
 
     // Game Packets
-    {ID_REGISTER_WORLD, sizeof(Packet::RegisterWorld)},
-    {ID_LOGIN_REQUEST, sizeof(Packet::LoginRequest)},
-    {ID_LOGIN_REQUEST_RETURN, sizeof(Packet::LoginRequestReturn)},
-    {ID_LOGIN, sizeof(Packet::Login)},
-    {ID_LOGIN_TOKEN_CHECK, sizeof(Packet::LoginTokenCheck)},
+    {Enum::ID_REGISTER_WORLD, sizeof(Packet::RegisterWorld)},
+    {Enum::ID_LOGIN_REQUEST, sizeof(Packet::LoginRequest)},
+    {Enum::ID_LOGIN_REQUEST_RETURN, sizeof(Packet::LoginRequestReturn)},
+    {Enum::ID_LOGIN, sizeof(Packet::Login)},
+    {Enum::ID_LOGIN_TOKEN_CHECK, sizeof(Packet::LoginTokenCheck)},
 };
 
 /**
@@ -36,9 +53,10 @@ const std::unordered_map<uint8_t, size_t> FOMDataSerializer::PacketSizes = {
  * to use.
  */
 static const std::unordered_map<uint32_t, IWriter*> writerMap = {
-    {ID_REGISTER_WORLD, &RegisterWorldSerializer::GetInstance()},
-    {ID_LOGIN_REQUEST_RETURN, &LoginRequestReturnSerializer::GetInstance()},
-    {ID_LOGIN_TOKEN_CHECK, &LoginTokenCheckSerializer::GetInstance()},
+    {Enum::ID_REGISTER_WORLD, &RegisterWorldSerializer::GetInstance()},
+    {Enum::ID_LOGIN_REQUEST_RETURN,
+     &LoginRequestReturnSerializer::GetInstance()},
+    {Enum::ID_LOGIN_TOKEN_CHECK, &LoginTokenCheckSerializer::GetInstance()},
 };
 
 static const std::unordered_map<uint32_t, IReader*> readerMap = {
@@ -56,13 +74,14 @@ static const std::unordered_map<uint32_t, IReader*> readerMap = {
     {ID_RSA_PUBLIC_KEY_MISMATCH, &EmptyPacketSerializer::GetInstance()},
 
     // Game Packets
-    {ID_REGISTER_WORLD, &RegisterWorldSerializer::GetInstance()},
-    {ID_LOGIN_REQUEST, &LoginRequestSerializer::GetInstance()},
-    {ID_LOGIN, &LoginSerializer::GetInstance()},
-    {ID_LOGIN_TOKEN_CHECK, &LoginTokenCheckSerializer::GetInstance()},
+    {Enum::ID_REGISTER_WORLD, &RegisterWorldSerializer::GetInstance()},
+    {Enum::ID_LOGIN_REQUEST, &LoginRequestSerializer::GetInstance()},
+    {Enum::ID_LOGIN, &LoginSerializer::GetInstance()},
+    {Enum::ID_LOGIN_TOKEN_CHECK, &LoginTokenCheckSerializer::GetInstance()},
 };
 
-bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id,
+bool FOMDataSerializer::Write(RakNet::BitStream& bs,
+                              const Enum::PacketIdentifier id,
                               const uint8_t* data) {
   const auto* writer = GetWriter(id);
   if (!writer) {
@@ -72,14 +91,15 @@ bool FOMDataSerializer::Write(RakNet::BitStream& bs, const PacketIdentifier id,
   // Make sure to catch any serialization error so that the
   // library does not crash the consuming application.
   try {
-    writer->Write(bs, data);
+    writer->WriteRaw(bs, data);
     return true;
   } catch (const std::exception& e) {
     return false;
   }
 }
 
-bool FOMDataSerializer::Read(RakNet::BitStream& bs, const PacketIdentifier id,
+bool FOMDataSerializer::Read(RakNet::BitStream& bs,
+                             const Enum::PacketIdentifier id,
                              uint8_t* dataBuffer) {
   const auto* reader = GetReader(id);
   if (!reader) {
@@ -89,13 +109,13 @@ bool FOMDataSerializer::Read(RakNet::BitStream& bs, const PacketIdentifier id,
   // Make sure to catch any deserialization errors so that
   // the library does not crash the consuming application.
   try {
-    return reader->Read(bs, dataBuffer);
+    return reader->ReadRaw(bs, dataBuffer);
   } catch (const std::exception& e) {
     return false;
   }
 }
 
-const IWriter* FOMDataSerializer::GetWriter(PacketIdentifier id) {
+const IWriter* FOMDataSerializer::GetWriter(Enum::PacketIdentifier id) {
   auto it = writerMap.find(id);
   if (it == writerMap.end()) {
     return NULL;
@@ -103,7 +123,7 @@ const IWriter* FOMDataSerializer::GetWriter(PacketIdentifier id) {
   return it->second;
 }
 
-const IReader* FOMDataSerializer::GetReader(PacketIdentifier id) {
+const IReader* FOMDataSerializer::GetReader(Enum::PacketIdentifier id) {
   auto it = readerMap.find(id);
   if (it == readerMap.end()) {
     return NULL;
@@ -111,9 +131,11 @@ const IReader* FOMDataSerializer::GetReader(PacketIdentifier id) {
   return it->second;
 }
 
-int FOMDataSerializer::GetPacketSize(FOMNetwork::PacketIdentifier id) {
-  auto it = PacketSizes.find(id);
-  if (it == PacketSizes.end()) {
+size_t FOMDataSerializer::GetPacketCount() { return packetSizes.size(); }
+
+int FOMDataSerializer::GetPacketSize(Enum::PacketIdentifier id) {
+  auto it = packetSizes.find(id);
+  if (it == packetSizes.end()) {
     return -1;
   }
   return (int)it->second;

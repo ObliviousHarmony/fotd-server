@@ -1,0 +1,27 @@
+#pragma once
+
+#include <cstdint>
+
+namespace FOMNetwork {
+
+typedef uint32_t PlayerID_t;
+typedef uint32_t ItemID_t;
+
+enum PacketPriority : uint8_t {
+  SYSTEM_PRIORITY,
+  HIGH_PRIORITY,
+  MEDIUM_PRIORITY,
+  LOW_PRIORITY,
+  NUMBER_OF_PRIORITIES
+};
+
+enum PacketReliability : uint8_t {
+  UNRELIABLE,
+  UNRELIABLE_SEQUENCED,
+  RELIABLE,
+  RELIABLE_ORDERED,
+  RELIABLE_SEQUENCED,
+  NUMBER_OF_RELIABILITIES
+};
+
+}  // namespace FOMNetwork

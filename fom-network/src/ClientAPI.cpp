@@ -1,10 +1,9 @@
 #include <fom-network/ClientAPI.h>
-#include <raknet/MessageIdentifiers.h>
-#include <raknet/RakNetworkFactory.h>
-#include <raknet/RakSleep.h>
 
-RakPeerInterface* FOMNetwork_Client_Connect(const char* hostAddress,
-                                            uint16_t port) {
+#include "RakNetIncludes.h"
+
+FOMNetworkPeer* FOMNetwork_Client_Connect(const char* hostAddress,
+                                          uint16_t port) {
   if (!hostAddress || port == 0) {
     return NULL;
   }
@@ -66,14 +65,15 @@ RakPeerInterface* FOMNetwork_Client_Connect(const char* hostAddress,
 
   client->SetOccasionalPing(true);
 
-  return client;
+  return static_cast<FOMNetworkPeer*>(client);
 }
 
-void FOMNetwork_Client_Disconnect(RakPeerInterface* client) {
-  if (!client) {
+void FOMNetwork_Client_Disconnect(FOMNetworkPeer* client) {
+  auto rakPeer = static_cast<RakPeerInterface*>(client);
+  if (!rakPeer) {
     return;
   }
 
-  client->Shutdown(1000, 0);
-  RakNetworkFactory::DestroyRakPeerInterface(client);
+  rakPeer->Shutdown(1000, 0);
+  RakNetworkFactory::DestroyRakPeerInterface(rakPeer);
 }

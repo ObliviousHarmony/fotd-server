@@ -1,10 +1,10 @@
-#include <fom-network/FOMDataSerializer.h>
 #include <fom-network/PacketAPI.h>
+#include <fom-network/enums/PacketIdentifier.h>
 #include <fom-network/enums/SerializationStatus.h>
-#include <fom-network/packets/PacketIdentifier.h>
-#include <raknet/GetTime.h>
 
 #include <vector>
+
+#include "FOMDataSerializer.h"
 
 using FOMNetwork::FOMDataSerializer;
 
@@ -22,18 +22,19 @@ constexpr int32_t MaxBufferedPackets = 128;
  * Fetches the packet identifier from a packet, accounting for
  * the timestamp byte if present.
  */
-FOMNetwork::PacketIdentifier GetPacketIdentifier(Packet* p) {
+FOMNetwork::Enum::PacketIdentifier GetPacketIdentifier(Packet* p) {
   if (p->data[0] == ID_TIMESTAMP)
-    return (FOMNetwork::PacketIdentifier)
+    return (FOMNetwork::Enum::PacketIdentifier)
         p->data[sizeof(uint8_t) + sizeof(RakNetTime)];
   else
-    return (FOMNetwork::PacketIdentifier)p->data[0];
+    return (FOMNetwork::Enum::PacketIdentifier)p->data[0];
 }
 
-ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
+ReceivedPackets FOMNetwork_ReceivePackets(FOMNetworkPeer* peer) {
   ReceivedPackets received{};
 
-  if (!peer) {
+  auto rakPeer = static_cast<RakPeerInterface*>(peer);
+  if (!rakPeer) {
     return received;
   }
 
@@ -41,7 +42,7 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
   int count = 0;
   Packet* receiveBuffer[FOM::MaxBufferedPackets];
   while (count < FOM::MaxBufferedPackets) {
-    Packet* p = peer->Receive();
+    Packet* p = rakPeer->Receive();
     if (!p) {
       break;
     }
@@ -50,7 +51,7 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
     auto packetID = GetPacketIdentifier(p);
     int packetSize = FOMDataSerializer::GetPacketSize(packetID);
     if (packetSize <= 0) {
-      peer->DeallocatePacket(const_cast<Packet*>(p));
+      rakPeer->DeallocatePacket(p);
       continue;
     }
 
@@ -62,9 +63,9 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
   // in FOMNetwork_ProcessPackets so that we don't leak memory!
   received.count = count;
   if (received.count > 0) {
-    received.packets = new Packet*[count];
-    received.senders = new FOMNetwork::NetworkAddress[count];
-    received.identifiers = new FOMNetwork::PacketIdentifier[count];
+    received.packets = new void*[count];
+    received.senders = new FOMNetwork::Type::NetworkAddress[count];
+    received.identifiers = new FOMNetwork::Enum::PacketIdentifier[count];
     for (int i = 0; i < count; i++) {
       Packet* p = receiveBuffer[i];
 
@@ -78,11 +79,12 @@ ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer) {
   return received;
 }
 
-int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
+int32_t FOMNetwork_ProcessPackets(FOMNetworkPeer* peer,
                                   const ReceivedPackets received,
                                   uint8_t* packetBuffer,
                                   int32_t packetBufferLen) {
-  if (!peer || !received.packets || received.count == 0) {
+  auto rakPeer = static_cast<RakPeerInterface*>(peer);
+  if (!rakPeer || !received.packets || received.count == 0) {
     delete[] received.packets;
     delete[] received.senders;
     delete[] received.identifiers;
@@ -92,17 +94,17 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
   int packetBufferOffset = 0;
   int ret = 0;
   for (int32_t i = 0; i < received.count; i++) {
-    Packet* p = received.packets[i];
+    Packet* p = static_cast<Packet*>(received.packets[i]);
     if (!p) {
       continue;
     }
 
     // Don't try to deserialize packets that we don't know about.
-    FOMNetwork::PacketIdentifier packetID = received.identifiers[i];
+    FOMNetwork::Enum::PacketIdentifier packetID = received.identifiers[i];
     int packetSize = FOMDataSerializer::GetPacketSize(packetID);
     if (packetSize <= 0) {
       ret = -1;
-      peer->DeallocatePacket(const_cast<Packet*>(p));
+      rakPeer->DeallocatePacket(p);
       continue;
     }
 
@@ -112,7 +114,7 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
     // Make sure that the buffer can hold this packet.
     if (!packetBuffer || packetBufferOffset + slotSize > packetBufferLen) {
       ret = -2;
-      peer->DeallocatePacket(const_cast<Packet*>(p));
+      rakPeer->DeallocatePacket(p);
       continue;
     }
 
@@ -136,22 +138,22 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
     if (rawPacketID != packetID) {
       // This should never happen, but if it does we don't
       // want to try to read the packet.
-      *statusByte = FOMNetwork::Enums::SERIALIZATION_UNHANDLED_PACKET;
+      *statusByte = FOMNetwork::Enum::SERIALIZATION_UNHANDLED_PACKET;
       ret = -3;
       packetBufferOffset += slotSize;
-      peer->DeallocatePacket(const_cast<Packet*>(p));
+      rakPeer->DeallocatePacket(p);
       continue;
     }
 
     // Read the packet bitstream into our packet's buffer.
     bool readSuccess = FOMDataSerializer::Read(bs, packetID, packetData);
-    *statusByte = readSuccess ? FOMNetwork::Enums::SERIALIZATION_SUCCESS
-                              : FOMNetwork::Enums::SERIALIZATION_READ_ERROR;
+    *statusByte = readSuccess ? FOMNetwork::Enum::SERIALIZATION_SUCCESS
+                              : FOMNetwork::Enum::SERIALIZATION_READ_ERROR;
 
     packetBufferOffset += slotSize;
 
     // Release the packet back to RakNet.
-    peer->DeallocatePacket(const_cast<Packet*>(p));
+    rakPeer->DeallocatePacket(p);
   }
 
   // Now that we're done we need to free the memory from the receive structure.
@@ -162,9 +164,10 @@ int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
   return ret;
 }
 
-int32_t FOMNetwork_Send(RakPeerInterface* peer, const SendPacket* packets,
+int32_t FOMNetwork_Send(FOMNetworkPeer* peer, const SendPacket* packets,
                         int32_t count) {
-  if (!peer || !packets || count == 0) {
+  auto rakPeer = static_cast<RakPeerInterface*>(peer);
+  if (!rakPeer || !packets || count == 0) {
     return -1;
   }
 
@@ -189,12 +192,12 @@ int32_t FOMNetwork_Send(RakPeerInterface* peer, const SendPacket* packets,
     }
 
     for (int32_t j = 0; j < s.numNetworkAddresses; j++) {
-      const FOMNetwork::NetworkAddress& addr = s.networkAddresses[j];
+      const FOMNetwork::Type::NetworkAddress& addr = s.networkAddresses[j];
 
-      bool sent =
-          peer->Send(&bs, (PacketPriority)s.priority,
-                     (PacketReliability)s.reliability, s.orderingChannel,
-                     SystemAddress(addr.binaryAddress, addr.port), s.broadcast);
+      bool sent = rakPeer->Send(
+          &bs, (PacketPriority)s.priority, (PacketReliability)s.reliability,
+          s.orderingChannel, SystemAddress(addr.binaryAddress, addr.port),
+          s.broadcast);
       if (sent) {
         packetsSent++;
       }

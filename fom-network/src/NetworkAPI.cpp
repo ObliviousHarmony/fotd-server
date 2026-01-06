@@ -1,17 +1,13 @@
-#include <fom-network/FOMDataSerializer.h>
 #include <fom-network/NetworkAPI.h>
-#include <fom-network/packets/PacketTypes.h>
 
-#include <unordered_map>
-#include <unordered_set>
+#include "FOMDataSerializer.h"
 
 using namespace FOMNetwork;
-using namespace FOMNetwork::Packet;
 
 int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures,
                                          int32_t count) {
   // Both should have the same number of packets defined.
-  if (FOMDataSerializer::PacketSizes.size() != count) {
+  if (FOMDataSerializer::GetPacketCount() != static_cast<size_t>(count)) {
     return -1;
   }
 
@@ -20,12 +16,12 @@ int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures,
   // consumer can perform any additional
   // verification that may be needed.
   for (int32_t i = 0; i < count; i++) {
-    auto it = FOMDataSerializer::PacketSizes.find(structures[i].id);
-    if (it == FOMDataSerializer::PacketSizes.end()) {
+    int packetSize = FOMDataSerializer::GetPacketSize(structures[i].id);
+    if (packetSize < 0) {
       return -2;
     }
 
-    if (it->second != structures[i].size) {
+    if (static_cast<size_t>(packetSize) != structures[i].size) {
       return -3;
     }
   }

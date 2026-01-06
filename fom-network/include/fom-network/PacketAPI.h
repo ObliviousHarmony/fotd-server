@@ -1,12 +1,8 @@
 #pragma once
 
-#include <fom-network/Common.h>
-#include <fom-network/FOMNetworkExport.h>
-#include <fom-network/packets/NetworkAddress.h>
-#include <fom-network/packets/PacketIdentifier.h>
-#include <raknet/PacketPriority.h>
-#include <raknet/RakNetTypes.h>
-#include <raknet/RakPeerInterface.h>
+#include <fom-network/Interop.h>
+#include <fom-network/enums/PacketIdentifier.h>
+#include <fom-network/types/NetworkAddress.h>
 
 /**
  * Container for passing a buffer of received packets around.
@@ -24,17 +20,17 @@ struct ReceivedPackets {
    * A buffer of packets that have been received and need to be deserialized and
    * released.
    */
-  Packet** packets;
+  FOMNetworkRawPacket** packets;
 
   /**
    * The senders for each of the received packets.
    */
-  FOMNetwork::NetworkAddress* senders;
+  FOMNetwork::Type::NetworkAddress* senders;
 
   /**
    * The packet identifiers for each of the received packets.
    */
-  FOMNetwork::PacketIdentifier* identifiers;
+  FOMNetwork::Enum::PacketIdentifier* identifiers;
 };
 #pragma pack(pop)
 
@@ -50,7 +46,7 @@ struct SendPacket {
   /**
    * The identifier for the packet being sent.
    */
-  FOMNetwork::PacketIdentifier id;
+  FOMNetwork::Enum::PacketIdentifier id;
 
   /**
    * A pointer to the memory containing the packet data.
@@ -66,7 +62,7 @@ struct SendPacket {
    * An array of network addresses to either send the packet to or
    * exclude from a broadcast.
    */
-  FOMNetwork::NetworkAddress* networkAddresses;
+  FOMNetwork::Type::NetworkAddress* networkAddresses;
 
   /**
    * The priority of the packet to be sent to the networking library.
@@ -109,7 +105,7 @@ extern "C" {
  * @return A structure containing a buffer of received packets and the number of
  * packets in the buffer.
  */
-FOM_API ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer);
+FOM_API ReceivedPackets FOMNetwork_ReceivePackets(FOMNetworkPeer* peer);
 
 /**
  * Uses the received packets to fill a buffer with deserialized packet
@@ -138,7 +134,7 @@ FOM_API ReceivedPackets FOMNetwork_ReceivePackets(RakPeerInterface* peer);
  * @retval -3 There was a mismatch between a packet's ID and the ID provided in
  * the received argument.
  */
-FOM_API int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
+FOM_API int32_t FOMNetwork_ProcessPackets(FOMNetworkPeer* peer,
                                           const ReceivedPackets received,
                                           uint8_t* packetBuffer,
                                           int32_t packetBufferLen);
@@ -154,8 +150,8 @@ FOM_API int32_t FOMNetwork_ProcessPackets(RakPeerInterface* peer,
  * @retval -1 No packets were provided to send.
  * @retval -2 A broadcast packet specified more than one network address.
  */
-FOM_API int32_t FOMNetwork_Send(RakPeerInterface* peer,
-                                const SendPacket* packets, int32_t count);
+FOM_API int32_t FOMNetwork_Send(FOMNetworkPeer* peer, const SendPacket* packets,
+                                int32_t count);
 
 #ifdef __cplusplus
 }

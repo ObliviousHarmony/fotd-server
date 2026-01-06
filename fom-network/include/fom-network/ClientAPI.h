@@ -1,8 +1,6 @@
 #pragma once
 
-#include <fom-network/Common.h>
-#include <fom-network/FOMNetworkExport.h>
-#include <raknet/RakPeerInterface.h>
+#include <fom-network/Interop.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -16,15 +14,15 @@ extern "C" {
  * @param port The port number of the server to connect to.
  * @return A pointer to the initialized interface, or null on failure.
  */
-FOM_API RakPeerInterface* FOMNetwork_Client_Connect(const char* hostAddress,
-                                                    uint16_t port);
+FOM_API FOMNetworkPeer* FOMNetwork_Client_Connect(const char* hostAddress,
+                                                  uint16_t port);
 
 /**
  * Disconnects from the server and shuts down the client interface.
  *
  * @param client The interface instance to disconnect and shut down.
  */
-FOM_API void FOMNetwork_Client_Disconnect(RakPeerInterface* client);
+FOM_API void FOMNetwork_Client_Disconnect(FOMNetworkPeer* client);
 
 #ifdef __cplusplus
 }

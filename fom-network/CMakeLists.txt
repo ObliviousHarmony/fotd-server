@@ -5,72 +5,95 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(FOMNETWORK_SRC
-    "src/ClientAPI.cpp"
-    "src/ServerAPI.cpp"
-    "src/PacketAPI.cpp"
-    "src/NetworkAPI.cpp"
+  # Core API
+  "src/NetworkAPI.cpp"
+  "src/ServerAPI.cpp"
+  "src/ClientAPI.cpp"
+  "src/PacketAPI.cpp"
+  "src/FOMDataSerializer.cpp"
 
-    "src/FOMDataSerializer.cpp"
-    "src/packet-serializers/data/LoginRequestSerializer.cpp"
-    "src/packet-serializers/data/LoginRequestReturnSerializer.cpp"
-    "src/packet-serializers/data/LoginSerializer.cpp"
-    "src/packet-serializers/data/LoginTokenCheckSerializer.cpp"
-    "src/packet-serializers/data/RegisterWorldSerializer.cpp"
- )
+  # Packets
+  "src/packets/RegisterWorldSerializer.cpp"
+  "src/packets/LoginTokenCheckSerializer.cpp"
+  "src/packets/LoginRequestSerializer.cpp"
+  "src/packets/LoginRequestReturnSerializer.cpp"
+  "src/packets/LoginSerializer.cpp"
+)
 set(FOMNETWORK_INC
-    "include/fom-network/FOMNetworkExport.h"
-    "include/fom-network/Common.h"
-    "include/fom-network/FOMNetworkTypes.h"
-    "include/fom-network/ClientAPI.h"
-    "include/fom-network/ServerAPI.h"
-    "include/fom-network/PacketAPI.h"
-    "include/fom-network/NetworkAPI.h"
-    "include/fom-network/FOMDataSerializer.h"
+  # Core API
+  "include/fom-network/InteropTypes.h"
+  "include/fom-network/Interop.h"
+  "include/fom-network/NetworkAPI.h"
+  "include/fom-network/ServerAPI.h"
+  "include/fom-network/ClientAPI.h"
+  "include/fom-network/PacketAPI.h"
+  "src/RakNetIncludes.h"
+  "src/FOMDataSerializer.h"
+  "src/BaseSerializer.h"
 
-    "include/fom-network/enums/AccountType.h"
-    "include/fom-network/enums/ItemType.h"
-    "include/fom-network/enums/SerializationStatus.h"
-    "include/fom-network/enums/WorldID.h"
-  
-    "include/fom-network/packets/PacketIdentifier.h"
-    "include/fom-network/packets/PacketTypes.h"
-    "include/fom-network/packets/PacketSerializers.h"
-    "src/packet-serializers/models/ModelSerializer.h"
-    "include/fom-network/packets/NetworkAddress.h"
-    "src/packet-serializers/NetworkAddressSerializer.h"
+  # Enums
+  "include/fom-network/enums/PacketIdentifier.h"
+  "include/fom-network/enums/SerializationStatus.h"
+  "include/fom-network/enums/AccountType.h"
+  "include/fom-network/enums/WorldID.h"
+  "include/fom-network/enums/ItemType.h"
 
-    "include/fom-network/packets/data/raknet/AlreadyConnected.h"
-    "include/fom-network/packets/data/raknet/ConnectionAttemptFailed.h"
-    "include/fom-network/packets/data/raknet/ConnectionBanned.h"
-    "include/fom-network/packets/data/raknet/ConnectionLost.h"
-    "include/fom-network/packets/data/raknet/ConnectionRequestAccepted.h"
-    "include/fom-network/packets/data/raknet/DisconnectionNotification.h"
-    "include/fom-network/packets/data/raknet/InvalidPassword.h"
-    "include/fom-network/packets/data/raknet/ModifiedPacket.h"
-    "include/fom-network/packets/data/raknet/NewIncomingConnection.h"
-    "include/fom-network/packets/data/raknet/NoFreeIncomingConnections.h"
-    "include/fom-network/packets/data/raknet/RSAPublicKeyMismatch.h"
+  # Types
+  "src/types/TypeSerializer.h"
+  "include/fom-network/types/NetworkAddress.h"
+  "src/types/NetworkAddressSerializer.h"
+  "include/fom-network/types/ItemBase.h"
+  "src/types/ItemBaseSerializer.h"
+  "include/fom-network/types/ItemStack.h"
+  "src/types/ItemStackSerializer.h"
+  "include/fom-network/types/ItemList.h"
+  "src/types/ItemListSerializer.h"
 
-    "include/fom-network/packets/data/Login.h"
-    "include/fom-network/packets/data/LoginRequest.h"
-    "include/fom-network/packets/data/LoginRequestReturn.h"
-    "include/fom-network/packets/data/LoginTokenCheck.h"
-    "include/fom-network/packets/data/RegisterWorld.h"
+  # RakNet Packets
+  "include/fom-network/packets/raknet/AlreadyConnected.h"
+  "include/fom-network/packets/raknet/ConnectionAttemptFailed.h"
+  "include/fom-network/packets/raknet/ConnectionBanned.h"
+  "include/fom-network/packets/raknet/ConnectionLost.h"
+  "include/fom-network/packets/raknet/ConnectionRequestAccepted.h"
+  "include/fom-network/packets/raknet/DisconnectionNotification.h"
+  "include/fom-network/packets/raknet/InvalidPassword.h"
+  "include/fom-network/packets/raknet/ModifiedPacket.h"
+  "include/fom-network/packets/raknet/NewIncomingConnection.h"
+  "include/fom-network/packets/raknet/NoFreeIncomingConnections.h"
+  "include/fom-network/packets/raknet/RSAPublicKeyMismatch.h"
+
+  # Game Packets
+  "src/packets/PacketSerializers.h"
+  "include/fom-network/packets/RegisterWorld.h"
+  "include/fom-network/packets/LoginTokenCheck.h"
+  "include/fom-network/packets/LoginRequest.h"
+  "include/fom-network/packets/LoginRequestReturn.h"
+  "include/fom-network/packets/Login.h"
 )
 set(FOMNETWORK_TEST
     "tests/FOMDataSerializer_test.cpp"
 )
 
-add_library(FOMNetwork SHARED ${FOMNETWORK_SRC})
+# Object library - compiled once, used by both DLL and tests
+add_library(FOMNetwork_obj OBJECT ${FOMNETWORK_SRC})
+target_include_directories(FOMNetwork_obj
+    PUBLIC
+    "${PROJECT_SOURCE_DIR}/include"
+)
+target_link_libraries(FOMNetwork_obj
+    PUBLIC
+    RakNet
+)
 
+# Shared library for consumers
+add_library(FOMNetwork SHARED $<TARGET_OBJECTS:FOMNetwork_obj>)
 target_include_directories(FOMNetwork
     PUBLIC
     "${PROJECT_SOURCE_DIR}/include"
 )
-
 target_link_libraries(FOMNetwork
-  PRIVATE
-  RakNet
+    PRIVATE
+    RakNet
 )
 
 if(WIN32)

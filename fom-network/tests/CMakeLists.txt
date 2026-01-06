@@ -27,7 +27,7 @@ target_include_directories(FOMNetworkTests PRIVATE
 
 target_link_libraries(FOMNetworkTests
     PRIVATE
-    FOMNetwork
+    FOMNetwork_obj
     RakNet
     gtest_main
 )

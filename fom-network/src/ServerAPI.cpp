@@ -1,7 +1,8 @@
 #include <fom-network/ServerAPI.h>
-#include <raknet/RakNetworkFactory.h>
 
-RakPeerInterface* FOMNetwork_Server_Startup(uint16_t port) {
+#include "RakNetIncludes.h"
+
+FOMNetworkPeer* FOMNetwork_Server_Startup(uint16_t port) {
   if (!port) {
     return NULL;
   }
@@ -20,14 +21,15 @@ RakPeerInterface* FOMNetwork_Server_Startup(uint16_t port) {
   server->SetIncomingPassword("37eG87Ph", 8);
   server->SetMaximumIncomingConnections(1000);
 
-  return server;
+  return static_cast<FOMNetworkPeer*>(server);
 }
 
-void FOMNetwork_Server_Shutdown(RakPeerInterface* server) {
-  if (!server) {
+void FOMNetwork_Server_Shutdown(FOMNetworkPeer* server) {
+  auto rakPeer = static_cast<RakPeerInterface*>(server);
+  if (!rakPeer) {
     return;
   }
 
-  server->Shutdown(1000, 0);
-  RakNetworkFactory::DestroyRakPeerInterface(server);
+  rakPeer->Shutdown(1000, 0);
+  RakNetworkFactory::DestroyRakPeerInterface(rakPeer);
 }

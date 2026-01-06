@@ -1,9 +1,9 @@
 #pragma once
 
-#include <fom-network/Common.h>
+#include <fom-network/InteropTypes.h>
 
 namespace FOMNetwork {
-namespace Enums {
+namespace Enum {
 
 /**
  * Status code prefixed to each packet in the buffer.
@@ -15,5 +15,5 @@ enum SerializationStatus : uint8_t {
   SERIALIZATION_UNHANDLED_PACKET = 2,
 };
 
-}  // namespace Enums
+}  // namespace Enum
 }  // namespace FOMNetwork

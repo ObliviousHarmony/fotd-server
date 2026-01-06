@@ -1,9 +1,9 @@
 #pragma once
 
-#include <fom-network/Common.h>
+#include <fom-network/InteropTypes.h>
 
 namespace FOMNetwork {
-namespace Enums {
+namespace Enum {
 
 enum WorldID : uint8_t {
   MASTER_SERVER = 0,
@@ -43,5 +43,5 @@ enum WorldID : uint8_t {
   NUM_WORLDS = 33
 };
 
-}  // namespace Enums
+}  // namespace Enum
 }  // namespace FOMNetwork

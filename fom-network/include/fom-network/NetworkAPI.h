@@ -1,9 +1,7 @@
 #pragma once
 
-#include <fom-network/Common.h>
-#include <fom-network/FOMNetworkExport.h>
-#include <fom-network/packets/PacketIdentifier.h>
-#include <raknet/RakPeer.h>
+#include <fom-network/Interop.h>
+#include <fom-network/enums/PacketIdentifier.h>
 
 /**
  * Contains information about packet structures to be used to
@@ -16,7 +14,7 @@
  */
 #pragma pack(push, 1)
 struct PacketStructure {
-  FOMNetwork::PacketIdentifier id;
+  FOMNetwork::Enum::PacketIdentifier id;
   int32_t size;
 };
 #pragma pack(pop)
