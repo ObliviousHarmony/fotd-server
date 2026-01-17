@@ -140,7 +140,8 @@ namespace FOMServer.World.Application
             using var registerPacket = new PacketWriter<RegisterWorld>();
             ref var rpData = ref registerPacket.Data;
 
-            rpData.WorldID = _serverSettings.WorldID;
+            rpData.NumWorlds = 1;
+            rpData.WorldIDs[0] = _serverSettings.WorldID;
             rpData.ClientAddress = new NetworkAddress
             {
                 BinaryAddress = BitConverter.ToUInt32(publicIPAddress.GetAddressBytes(), 0),

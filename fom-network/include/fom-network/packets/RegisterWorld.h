@@ -9,8 +9,9 @@ namespace Packet {
 
 #pragma pack(push, 1)
 struct RegisterWorld {
-  Enum::WorldID worldID;
   Type::NetworkAddress clientAddress;
+  uint8_t numWorlds;
+  Enum::WorldID worldIDs[Enum::NUM_WORLDS];
 };
 #pragma pack(pop)
 
