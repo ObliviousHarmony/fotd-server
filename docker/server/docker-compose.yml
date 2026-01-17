@@ -52,7 +52,7 @@ services:
     container_name: world-server-1
     environment:
       <<: *world-server-env
-      Server__WorldID: 1
+      Server__WorldIDs__0: 1
     ports:
       - "61001:61001/udp"
 
