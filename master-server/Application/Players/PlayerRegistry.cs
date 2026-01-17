@@ -20,10 +20,9 @@ namespace FOMServer.Master.Application.Players
             if (playerDTO == null)
                 throw new InvalidOperationException($"Player {id} not found in database");
 
-            var avatar = _playerRepository.GetAvatar(id);
             var session = new PlayerSession(id, clientAddress);
 
-            return new Player(session, playerDTO.username, avatar);
+            return new Player(session, playerDTO.username);
         }
     }
 }

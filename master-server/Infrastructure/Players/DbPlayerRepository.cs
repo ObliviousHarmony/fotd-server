@@ -1,10 +1,7 @@
 using Dapper;
 using FOMServer.Master.Core.Players;
-using FOMServer.Shared.Core.DTOs;
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Infrastructure.Database;
 using FOMServer.Shared.Infrastructure.Players;
-using MySqlConnector;
 
 namespace FOMServer.Master.Infrastructure.Repositories
 {
@@ -23,51 +20,5 @@ namespace FOMServer.Master.Infrastructure.Repositories
                 new { username }
             );
         }
-
-        public uint? GetIDByName(string name)
-        {
-            using var connection = _dbConnectionFactory.Create();
-            return connection.QueryFirstOrDefault<uint?>(
-                "SELECT `player_id` FROM `player_avatar` WHERE `name` = @name",
-                new { name }
-            );
-        }
-
-        public AvatarDTO? CreateAvatar(
-            uint playerID,
-            string name,
-            string biography,
-            AvatarSex sex,
-            AvatarSkin skinColor,
-            byte face,
-            byte hair
-        )
-        {
-            using var connection = _dbConnectionFactory.Create();
-
-            try
-            {
-                connection.Execute(
-                    @"INSERT INTO `player_avatar`
-(`player_id`, `name`, `biography`, `sex`, `skin_color`, `face`, `hair`) VALUE
-(@playerID, @faction, @name, @biography, @sex, @skinColor, @face, @hair)",
-                    new { playerID, name, biography, sex, skinColor, face, hair }
-                );
-
-                return new AvatarDTO
-                {
-                    name = name,
-                    sex = sex,
-                    skin_color = skinColor,
-                    face = face,
-                    hair = hair,
-                };
-            }
-            catch (MySqlException)
-            {
-                return null;
-            }
-        }
-
     }
 }

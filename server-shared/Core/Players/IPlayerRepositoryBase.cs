@@ -5,6 +5,5 @@ namespace FOMServer.Shared.Core.Players
     public interface IPlayerRepositoryBase
     {
         PlayerDTO? GetByID(uint id);
-        AvatarDTO? GetAvatar(uint playerID);
     }
 }

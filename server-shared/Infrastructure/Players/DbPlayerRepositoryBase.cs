@@ -22,14 +22,5 @@ namespace FOMServer.Shared.Infrastructure.Players
                 new { id }
             );
         }
-
-        public AvatarDTO? GetAvatar(uint playerID)
-        {
-            using var connection = _dbConnectionFactory.Create();
-            return connection.QueryFirstOrDefault<AvatarDTO?>(
-                "SELECT `name`, `faction`, `sex`, `skin_color`, `face`, `hair` FROM `player_avatar` WHERE `player_id` = @playerID",
-                new { playerID }
-            );
-        }
     }
 }
