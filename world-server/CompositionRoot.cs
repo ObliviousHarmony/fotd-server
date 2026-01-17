@@ -55,8 +55,15 @@ namespace FOMServer.World
             s_serverSettings = config.GetSection("Server").Get<ServerSettings>()!;
             s_dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
 
-            if (Enum.IsDefined(s_serverSettings!.WorldID) == false || s_serverSettings.WorldID == WorldID.MasterServer)
-                throw new InvalidOperationException("Server must be set to a valid world ID");
+            if (s_serverSettings!.WorldIDs.Length == 0)
+                throw new InvalidOperationException("At least one WorldID must be configured");
+            foreach (var worldID in s_serverSettings.WorldIDs)
+            {
+                if (!Enum.IsDefined(worldID) || worldID == WorldID.MasterServer || worldID == WorldID.NUM_WORLDS)
+                    throw new InvalidOperationException($"Invalid WorldID: {worldID}");
+            }
+            if (s_serverSettings.WorldIDs.Distinct().Count() != s_serverSettings.WorldIDs.Length)
+                throw new InvalidOperationException("Duplicate WorldIDs are not allowed");
             if (string.IsNullOrWhiteSpace(s_serverSettings.PublicHost))
                 throw new InvalidOperationException("Public host must be configured");
             if (string.IsNullOrWhiteSpace(s_serverSettings.MasterServerHost))

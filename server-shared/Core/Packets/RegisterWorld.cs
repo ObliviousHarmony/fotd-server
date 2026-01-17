@@ -17,7 +17,7 @@ namespace FOMServer.Shared.Core.Packets
         [InlineArray((int)WorldID.NUM_WORLDS)]
         public struct WorldIDArray
         {
-            private WorldID _element0;
+            private WorldID _worldID;
         }
     }
 }

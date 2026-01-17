@@ -23,13 +23,15 @@ namespace FOMServer.Master.Application.Handlers
         public override void Handle(NetworkAddress sender, in RegisterWorld p)
         {
             if (p.NumWorlds <= 0)
-                throw new InvalidOperationException($"World server '{sender}' did not send a world ID to register");
+                throw new InvalidOperationException($"World server '{sender}' did not send any world IDs to register");
 
-            var server = _worldServerRegistry.Register(p.WorldIDs[0], sender, p.ClientAddress);
-            if (server == null)
-                throw new InvalidOperationException($"World '{p.WorldIDs[0]}' already registered");
+            var worldIDs = new WorldID[p.NumWorlds];
+            for (int i = 0; i < p.NumWorlds; i++)
+                worldIDs[i] = p.WorldIDs[i];
 
-            _logService.WriteMessage(LogLevel.Info, $"World '{server.ID}' Connected: {server.ClientAddress}");
+            var registered = _worldServerRegistry.Register(worldIDs, sender, p.ClientAddress);
+            foreach (var worldID in registered)
+                _logService.WriteMessage(LogLevel.Info, $"World '{worldID}' Connected: {p.ClientAddress}");
         }
     }
 }

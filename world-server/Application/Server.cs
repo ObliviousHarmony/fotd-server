@@ -47,7 +47,7 @@ namespace FOMServer.World.Application
 
         public async Task Run()
         {
-            Console.Title = $"World Server - {_serverSettings.WorldID}";
+            Console.Title = $"World Server - {string.Join(", ", _serverSettings.WorldIDs)}";
 
             // We need to make sure our packet structs are all blittable and match the C++ side.
             // This is critical to ensure that we don't have memory corruption and don't
@@ -55,7 +55,9 @@ namespace FOMServer.World.Application
             _networkService.ValidatePacketStructs();
 
             _logService.WriteMessage(LogLevel.Info, "------------------------------------------------");
-            _logService.WriteMessage(LogLevel.Info, $"Initializing World Server - {_serverSettings.WorldID} - {_serverSettings.PublicHost}");
+            _logService.WriteMessage(LogLevel.Info, $"Initializing World Server - {_serverSettings.PublicHost}");
+            foreach (var worldID in _serverSettings.WorldIDs)
+                _logService.WriteMessage(LogLevel.Info, $"World - {worldID}");
 
             Console.CancelKeyPress += (sender, e) =>
             {
@@ -140,12 +142,13 @@ namespace FOMServer.World.Application
             using var registerPacket = new PacketWriter<RegisterWorld>();
             ref var rpData = ref registerPacket.Data;
 
-            rpData.NumWorlds = 1;
-            rpData.WorldIDs[0] = _serverSettings.WorldID;
+            rpData.NumWorlds = (byte)_serverSettings.WorldIDs.Length;
+            for (int i = 0; i < _serverSettings.WorldIDs.Length; i++)
+                rpData.WorldIDs[i] = _serverSettings.WorldIDs[i];
             rpData.ClientAddress = new NetworkAddress
             {
                 BinaryAddress = BitConverter.ToUInt32(publicIPAddress.GetAddressBytes(), 0),
-                Port = ServerConstants.GetWorldClientPort(_serverSettings.WorldID)
+                Port = ServerConstants.GetWorldClientPort(_serverSettings.WorldIDs[0])
             };
 
             packetSender.Send(registerPacket.Build());
@@ -155,7 +158,7 @@ namespace FOMServer.World.Application
 
         private NetworkManager? CreateClientNetwork(PacketProcessor packetProcessor)
         {
-            var peer = _serverService.Startup(ServerConstants.GetWorldClientPort(_serverSettings.WorldID));
+            var peer = _serverService.Startup(ServerConstants.GetWorldClientPort(_serverSettings.WorldIDs[0]));
             if (peer == IntPtr.Zero)
                 return null;
 

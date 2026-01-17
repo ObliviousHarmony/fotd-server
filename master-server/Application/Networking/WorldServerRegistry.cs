@@ -7,14 +7,7 @@ namespace FOMServer.Master.Application.Networking
 {
     public class WorldServerRegistry : IWorldServerRegistry
     {
-        private readonly ConcurrentDictionary<WorldID, WorldServer> _worldServers;
-        private readonly ConcurrentDictionary<NetworkAddress, WorldID> _addressMap;
-
-        public WorldServerRegistry()
-        {
-            _worldServers = new ConcurrentDictionary<WorldID, WorldServer>();
-            _addressMap = new ConcurrentDictionary<NetworkAddress, WorldID>();
-        }
+        private readonly ConcurrentDictionary<WorldID, WorldServer> _worldServers = new();
 
         public WorldServer[] GetAll()
         {
@@ -23,47 +16,46 @@ namespace FOMServer.Master.Application.Networking
 
         public WorldServer? Get(WorldID id)
         {
-            if (!_worldServers.TryGetValue(id, out var worldServer))
-                return null;
-            return worldServer;
+            return _worldServers.GetValueOrDefault(id);
         }
 
-        public WorldServer? Get(NetworkAddress networkAddress)
+        public WorldID[] Register(WorldID[] ids, NetworkAddress serverAddress, NetworkAddress clientAddress)
         {
-            if (!_addressMap.TryGetValue(networkAddress, out var id))
-                return null;
-            if (!_worldServers.TryGetValue(id, out var worldServer))
-                return null;
-            return worldServer;
-        }
+            var registered = new List<WorldID>();
 
-        public WorldServer? Register(WorldID id, NetworkAddress serverAddress, NetworkAddress clientAddress)
-        {
-            if (_worldServers.ContainsKey(id))
-                return null;
-
-            var worldServer = new WorldServer
+            foreach (var id in ids)
             {
-                ID = id,
-                ServerAddress = serverAddress,
-                ClientAddress = clientAddress
-            };
+                var worldServer = new WorldServer
+                {
+                    ID = id,
+                    ServerAddress = serverAddress,
+                    ClientAddress = clientAddress
+                };
 
-            if (!_worldServers.TryAdd(id, worldServer))
-                return null;
+                if (!_worldServers.TryAdd(id, worldServer))
+                    throw new InvalidOperationException($"World {id} has already been registered");
 
-            if (!_addressMap.TryAdd(serverAddress, id))
-            {
-                _worldServers.TryRemove(id, out _);
-                return null;
+                registered.Add(id);
+
             }
 
-            return worldServer;
+            return registered.ToArray();
         }
 
-        public bool Unregister(WorldID id)
+        public WorldID[] Unregister(NetworkAddress serverAddress)
         {
-            return _worldServers.TryRemove(id, out _);
+            var unregistered = new List<WorldID>();
+
+            foreach (var kvp in _worldServers)
+            {
+                if (kvp.Value.ServerAddress.Equals(serverAddress))
+                {
+                    if (_worldServers.TryRemove(kvp.Key, out _))
+                        unregistered.Add(kvp.Key);
+                }
+            }
+
+            return unregistered.ToArray();
         }
     }
 }

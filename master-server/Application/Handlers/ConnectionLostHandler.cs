@@ -40,18 +40,14 @@ namespace FOMServer.Master.Application.Handlers
 
         private bool TryWorldServerUnregister(NetworkAddress sender)
         {
-            var worldServers = _worldServerRegistry.GetAll();
-            foreach (var server in worldServers)
-            {
-                if (!server.ServerAddress.Equals(sender))
-                    continue;
+            var unregistered = _worldServerRegistry.Unregister(sender);
+            if (unregistered.Length == 0)
+                return false;
 
-                _logService.WriteMessage(LogLevel.Info, $"World '{server.ID}' Lost Connection");
-                _worldServerRegistry.Unregister(server.ID);
-                return true;
-            }
+            foreach (var worldID in unregistered)
+                _logService.WriteMessage(LogLevel.Info, $"World '{worldID}' Lost Connection");
 
-            return false;
+            return true;
         }
 
         private bool TryPlayerLogout(NetworkAddress sender)

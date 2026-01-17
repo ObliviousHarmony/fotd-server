@@ -1,6 +1,5 @@
 using FluentMigrator.Runner;
 using FOMServer.Master.Application.Networking;
-using FOMServer.Master.Core;
 using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Constants;
