@@ -8,7 +8,7 @@ namespace FOMServer.Shared.Core.Enums
     ///
     /// For each new packet added:
     ///
-    /// - Core/FOMPacket/Data/<PacketType>.cs: Add a new struct representing the packet data.
+    /// - Core/Packets/<PacketType>.cs: Add a new struct representing the packet data.
     /// - Server-Specific or Shared: Application/Handlers/<PacketType>Handler.cs: Create a packet handler.
     ///
     /// </remarks>

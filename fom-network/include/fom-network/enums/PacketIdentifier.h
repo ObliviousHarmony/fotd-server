@@ -8,13 +8,10 @@ namespace Enum {
 /**
  * For every packet identifier, you must also update:
  *
- * - include/fom-network/packets/data/<PacketName>.h: Requires a packet struct.
- * - include/fom-network/packets/PacketTypes.h: Requires a file include.
- * - include/fom-network/packets/PacketSerializers.h: Requires a serializer
- * declaration.
- * - src/packet-serializers/data/<PacketName>Serializer.cpp: Requires a
- * serializer implementation.
- * - src/FOMDataSerializer.cpp: Requires adding to the size map and serializers.
+ * - include/fom-network/packets/<PacketName>.h: Add a packet struct.
+ * - src/packets/PacketSerializers.h: Add a serializer declaration.
+ * - src/packets/<PacketName>Serializer.cpp: Add a serializer implementation.
+ * - src/FOMDataSerializer.cpp: Add packet struct `packetSizes` and serializer to `writerMap`/`readerMap`.
  */
 
 /**

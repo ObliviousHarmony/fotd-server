@@ -4,27 +4,28 @@ Each packet must exist in both the native library and the shared server
 library in order to be received and processed. There are a few steps that
 must be done in order to achieve that.
 
-## [FOMNetwork](../fom-network/include/fom-network/PacketIdentifier.h)
+## [FOMNetwork](/fom-network/include/fom-network/enums/PacketIdentifier.h)
 
 > [!CAUTION]
 > Please note that _all_ files added to the FOMNetwork shared library _must_ be added
 > to the list of files in order to be built. This is done using the
-> [`CMakeLists.txt`](../fom-network/CMakeLists.txt) file. Failure to add these files
+> [`CMakeLists.txt`](/fom-network/CMakeLists.txt) file. Failure to add these files
 > correctly will result in compiler errors.
 
 - [ ] **Packet Data**: Each packet requires a struct defining what it
-  contains. Create a file in [`include/fom-network/packets/data/`](../fom-network/include/fom-network/packets/data/)
+  contains. Create a file in [`include/fom-network/packets/`](/fom-network/include/fom-network/packets/)
   named after the packet to be added. Limit data types used to RakNet's provided ones with
   `_t` suffixes to ensure compatibility with the managed structs.
 
 ```cpp
 #pragma once
 
-#include <fom-network/Common.h>
+#include <fom-network/Interop.h>
 
 namespace FOMNetwork {
+namespace Packet {
 
-#pragma pack(push, 1) // MUST PACK BY 1 FOR CONSISTENCY WITH C#
+#pragma pack(push, 1)
 struct ExamplePacket {
   uint8_t exampleString[19];
   uint16_t exampleShort;
@@ -33,43 +34,44 @@ struct ExamplePacket {
 
 ASSERT_BLITTABLE(ExamplePacket);
 
+}  // namespace Packet
 }  // namespace FOMNetwork
 ```
 
 - [ ] **Serializer Declaration**: Each packet to be sent or received
-  [requires a reader and/or writer](../fom-network/include/fom-network/packets/PacketSerializers.h)
+  [requires a reader and/or writer](/fom-network/src/packets/PacketSerializers.h)
   that is able to deal with the packet's `BitStream`. Macros are provided to eliminate
   the boilerplate associated with adding a new packet serializer.
 
 ```cpp
-// The first argument is the name of the packet struct and
-// the second is the name of the union variable used to
-// access the data contained within the data struct.
-SERIALIZER_WRITE(ExamplePacket, examplePacket)
+SERIALIZER_WRITE(ExamplePacket)
 // or
-SERIALIZER_READ(ExamplePacket, examplePacket)
+SERIALIZER_READ(ExamplePacket)
 // or
-SERIALIZER_BOTH(ExamplePacket, examplePacket)
+SERIALIZER_BOTH(ExamplePacket)
 ```
 
 - [ ] **Serializer Definition**: Based on the macro used, each packet is required to have
   a write and/or a read method defined for the serializer. This is done by creating a new file
-  in [`src/packet-serializers/`](../fom-network/src/packet-serializers/data/) named `<PacketStruct>Serializer`.
+  in [`src/packets/`](/fom-network/src/packets/) named `<PacketName>Serializer.cpp`.
 
 ```cpp
-#include <fom-network/PacketSerializers.h>
+#include <fom-network/packets/ExamplePacket.h>
+
+#include "PacketSerializers.h"
 
 namespace FOMNetwork {
 
-void ExamplePacketSerializer::WriteData(
-  RakNet::BitStream& bs, const Packet::ExamplePacket& data) const {
-  EncodeString(bs, data.exampleString);
-  bs.WriteCompressed(data.exampleShort);
+void ExamplePacketSerializer::Write(RakNet::BitStream& bs,
+                                    const Packet::ExamplePacket* data) const {
+  EncodeString(bs, data->exampleString);
+  bs.WriteCompressed(data->exampleShort);
 }
 
-bool ExamplePacketSerializer::ReadData(RakNet::BitStream& bs, Packet::ExamplePacket& data) const {
-  if (!DecodeString(bs, data.exampleString)) return false;
-  if (!bs.ReadCompressed(data.exampleShort)) return false;
+bool ExamplePacketSerializer::Read(RakNet::BitStream& bs,
+                                   Packet::ExamplePacket* data) const {
+  if (!DecodeString(bs, data->exampleString)) return false;
+  if (!bs.ReadCompressed(data->exampleShort)) return false;
   return true;
 }
 
@@ -82,36 +84,41 @@ bool ExamplePacketSerializer::ReadData(RakNet::BitStream& bs, Packet::ExamplePac
 > detect and handle malformed packets gracefully.
 
 - [ ] **Enable Packet + Serializer**: Each packet size and serializer needs to be
-  [included in a map](../fom-network/src/FOMDataSerializer.cpp) in order for the network
+  [included in a map](/fom-network/src/FOMDataSerializer.cpp) in order for the network
   library to make use of it when reading and writing packet data. It should only be
   added to the map that corresponds with the behavior that it implements.
 
 ```cpp
-const std::unordered_map<uint8_t, size_t> FOMDataSerializer::PacketSizes = {
+static const std::unordered_map<uint8_t, size_t> packetSizes = {
     ...
-    {ID_EXAMPLE, sizeof(Packet::ExamplePacket)},
+    {Enum::ID_EXAMPLE, sizeof(Packet::ExamplePacket)},
 };
-static std::unordered_map<uint32_t, IWriter*> writerMap = {
+
+static const std::unordered_map<uint32_t, IWriter*> writerMap = {
     ...
-    {ID_EXAMPLE, &ExamplePacketSerializer::GetInstance()}};
-static std::unordered_map<uint32_t, IReader*> readerMap = {
+    {Enum::ID_EXAMPLE, &ExamplePacketSerializer::GetInstance()},
+};
+
+static const std::unordered_map<uint32_t, IReader*> readerMap = {
     ...
-    {ID_EXAMPLE, &ExamplePacketSerializer::GetInstance()},
+    {Enum::ID_EXAMPLE, &ExamplePacketSerializer::GetInstance()},
 };
 ```
 
-## [ServerShared](../server-shared/Core/Enums/PacketIdentifier.cs)
+## [ServerShared](/server-shared/Core/Enums/PacketIdentifier.cs)
 
 - [ ] **Packet Data**: Each native packet data struct requires a mirror copy [in the
-  shared server class library](../server-shared/Core/FOMPacket/Data).
+  shared server class library](/server-shared/Core/Packets/).
 
 > [!CAUTION]
 > Both the data types and field order must be identical!
 
 ```csharp
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Metadata;
 
-namespace FOMServer.Shared.Core.FOMPacket.Data
+namespace FOMServer.Shared.Core.Packets
 {
     // Each packet must be given a PacketID attribute.
     // This hooks the struct up and ensures that it
@@ -122,7 +129,7 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
     // Note that the "Pack = 1" option mirrors the
     // `#pragma pack(push, 1)` in the native struct.
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    unsafe public struct ExamplePacket
+    public unsafe struct ExamplePacket
     {
         // "fixed byte" arrays are required for strings to be blittable.
         public fixed byte ExampleString[19];
@@ -134,20 +141,20 @@ namespace FOMServer.Shared.Core.FOMPacket.Data
 ## Master/World Server
 
 Although all of the packets are defined in the shared class library, each type will generally only be handled
-bye one of the server types. Each packet handler is defined in their respective server projects.
+by one of the server types. Each packet handler is defined in their respective server projects.
 
 - [ ] **Packet Handler**: Each handler should be created in their own
   `Application/Handlers/<PacketType>Handler.cs` file.
 
 ```csharp
-using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Models;
-using FOMServer.Shared.Core.Models.FOMData;
+using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Core.Packets;
+using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Metadata;
 
-namespace FOMServer.Shared.Application.Handlers
+namespace FOMServer.<Master|World>.Application.Handlers
 {
-    // Each handler must be given the PacketHandler attribute 
+    // Each handler must be given the PacketHandler attribute
     // to register it with the packet handling system.
     [PacketHandler]
     public class ExamplePacketHandler : PacketHandlerBase<ExamplePacket>
