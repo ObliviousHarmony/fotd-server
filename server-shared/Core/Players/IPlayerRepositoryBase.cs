@@ -1,6 +1,6 @@
 using FOMServer.Shared.Core.DTOs;
 
-namespace FOMServer.Shared.Core.Player
+namespace FOMServer.Shared.Core.Players
 {
     public interface IPlayerRepositoryBase
     {

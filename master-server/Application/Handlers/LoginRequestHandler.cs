@@ -1,5 +1,5 @@
 using FOMServer.Master.Core.Networking;
-using FOMServer.Master.Core.Player;
+using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;

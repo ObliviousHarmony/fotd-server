@@ -1,6 +1,6 @@
 using FOMServer.Shared.Core.Packets.Types;
 
-namespace FOMServer.Shared.Core.Player
+namespace FOMServer.Shared.Core.Players
 {
     public interface IPlayerRegistryBase<TPlayer> where TPlayer : PlayerBase
     {

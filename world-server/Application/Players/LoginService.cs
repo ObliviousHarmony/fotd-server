@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 using FOMServer.Shared.Core.Packets.Types;
-using FOMServer.World.Core.Player;
+using FOMServer.World.Core.Players;
 
 namespace FOMServer.World.Application.Players
 {

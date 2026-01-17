@@ -1,9 +1,9 @@
-using FOMServer.Master.Core.Player;
-using FOMServer.Shared.Application.Player;
+using FOMServer.Master.Core.Players;
+using FOMServer.Shared.Application.Players;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Core.Players;
 
-namespace FOMServer.Master.Application.Player
+namespace FOMServer.Master.Application.Players
 {
     public class PlayerRegistry : PlayerRegistryBase<Player>, IPlayerRegistry
     {

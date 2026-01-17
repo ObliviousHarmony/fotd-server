@@ -1,7 +1,7 @@
-using FOMServer.Master.Core.Player;
+using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Core.Packets.Types;
 
-namespace FOMServer.Master.Application.Player
+namespace FOMServer.Master.Application.Players
 {
     public class LoginService : ILoginService
     {

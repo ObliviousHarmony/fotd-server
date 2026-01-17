@@ -1,4 +1,4 @@
-namespace FOMServer.World.Core.Player
+namespace FOMServer.World.Core.Players
 {
     public class LoginContext
     {

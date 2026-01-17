@@ -1,7 +1,7 @@
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Core.Persistence;
 
-namespace FOMServer.Shared.Core.Player
+namespace FOMServer.Shared.Core.Players
 {
     public class PlayerSession : IPersistable
     {

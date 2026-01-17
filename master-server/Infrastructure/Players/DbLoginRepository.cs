@@ -1,8 +1,8 @@
 using Dapper;
-using FOMServer.Master.Core.Player;
+using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Infrastructure.Database;
 
-namespace FOMServer.Master.Infrastructure.Player
+namespace FOMServer.Master.Infrastructure.Players
 {
     public class DbLoginRepository : ILoginRepository
     {

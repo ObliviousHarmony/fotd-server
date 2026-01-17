@@ -1,4 +1,4 @@
-namespace FOMServer.Master.Core.Player
+namespace FOMServer.Master.Core.Players
 {
     public interface ILoginRepository
     {

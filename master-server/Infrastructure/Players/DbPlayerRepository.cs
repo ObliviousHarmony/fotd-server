@@ -1,9 +1,9 @@
 using Dapper;
-using FOMServer.Master.Core.Player;
+using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Infrastructure.Database;
-using FOMServer.Shared.Infrastructure.Player;
+using FOMServer.Shared.Infrastructure.Players;
 
-namespace FOMServer.Master.Infrastructure.Player
+namespace FOMServer.Master.Infrastructure.Players
 {
     public class DbPlayerRepository : DbPlayerRepositoryBase, IPlayerRepository
     {

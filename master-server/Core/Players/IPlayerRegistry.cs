@@ -1,6 +1,6 @@
-using FOMServer.Shared.Core.Player;
+using FOMServer.Shared.Core.Players;
 
-namespace FOMServer.World.Core.Player
+namespace FOMServer.Master.Core.Players
 {
     public interface IPlayerRegistry : IPlayerRegistryBase<Player>
     {

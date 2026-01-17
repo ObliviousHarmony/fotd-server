@@ -1,8 +1,8 @@
 using System.Collections.Concurrent;
 using FOMServer.Shared.Core.Packets.Types;
-using FOMServer.Shared.Core.Player;
+using FOMServer.Shared.Core.Players;
 
-namespace FOMServer.Shared.Application.Player
+namespace FOMServer.Shared.Application.Players
 {
     public abstract class PlayerRegistryBase<TPlayer> : IPlayerRegistryBase<TPlayer>
         where TPlayer : PlayerBase

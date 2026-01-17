@@ -1,7 +1,7 @@
-using FOMServer.Shared.Application.Player;
+using FOMServer.Shared.Application.Players;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Core.Players;
-using FOMServer.World.Core.Player;
+using FOMServer.World.Core.Players;
 
 namespace FOMServer.World.Application.Players
 {
