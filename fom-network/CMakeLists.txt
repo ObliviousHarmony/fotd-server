@@ -77,6 +77,9 @@ target_link_libraries(FOMNetwork_obj
     PUBLIC
     RakNet
 )
+if(UNIX AND NOT WIN32)
+    set_target_properties(FOMNetwork_obj PROPERTIES POSITION_INDEPENDENT_CODE ON)
+endif()
 
 # Shared library for consumers
 add_library(FOMNetwork SHARED $<TARGET_OBJECTS:FOMNetwork_obj>)
