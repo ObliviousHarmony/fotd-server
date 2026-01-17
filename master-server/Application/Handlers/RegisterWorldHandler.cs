@@ -3,7 +3,7 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Packets;
-using FOMServer.Shared.Core.Packets.Data;
+using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers

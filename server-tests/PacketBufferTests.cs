@@ -1,7 +1,8 @@
 using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets;
-using FOMServer.Shared.Core.Packets.Data.RakNetPackets;
+using FOMServer.Shared.Core.Packets.RakNet;
+using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Tests

@@ -36,18 +36,11 @@ set(FOMNETWORK_INC
   "include/fom-network/enums/SerializationStatus.h"
   "include/fom-network/enums/AccountType.h"
   "include/fom-network/enums/WorldID.h"
-  "include/fom-network/enums/ItemType.h"
 
   # Types
   "src/types/TypeSerializer.h"
   "include/fom-network/types/NetworkAddress.h"
   "src/types/NetworkAddressSerializer.h"
-  "include/fom-network/types/ItemBase.h"
-  "src/types/ItemBaseSerializer.h"
-  "include/fom-network/types/ItemStack.h"
-  "src/types/ItemStackSerializer.h"
-  "include/fom-network/types/ItemList.h"
-  "src/types/ItemListSerializer.h"
 
   # RakNet Packets
   "include/fom-network/packets/raknet/AlreadyConnected.h"

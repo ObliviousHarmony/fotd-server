@@ -1,5 +1,5 @@
 using FOMServer.Shared.Application.Networking;
-using FOMServer.Shared.Core.Packets;
+using FOMServer.Shared.Core.Packets.Types;
 
 namespace FOMServer.Shared.Core.Handlers
 {

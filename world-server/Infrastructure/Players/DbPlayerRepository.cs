@@ -1,7 +1,7 @@
 using Dapper;
 using FOMServer.Shared.Infrastructure.Database;
-using FOMServer.Shared.Infrastructure.Players;
-using FOMServer.World.Core.Players;
+using FOMServer.Shared.Infrastructure.Player;
+using FOMServer.World.Core.Player;
 
 namespace FOMServer.World.Infrastructure.Players
 {

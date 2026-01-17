@@ -1,6 +1,7 @@
 using System.Runtime.CompilerServices;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
+using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Shared.Application.Networking

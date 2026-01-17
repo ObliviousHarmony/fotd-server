@@ -1,10 +1,10 @@
 using FOMServer.Master.Core.Networking;
-using FOMServer.Master.Core.Players;
+using FOMServer.Master.Core.Player;
 using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
-using FOMServer.Shared.Core.Packets.Data;
+using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Master.Application.Handlers

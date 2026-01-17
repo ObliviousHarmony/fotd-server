@@ -8,7 +8,7 @@ using FOMServer.World.Application.Networking;
 using FOMServer.World.Application.Players;
 using FOMServer.World.Core;
 using FOMServer.World.Core.Networking;
-using FOMServer.World.Core.Players;
+using FOMServer.World.Core.Player;
 using FOMServer.World.Infrastructure.Database;
 using FOMServer.World.Infrastructure.Players;
 using Microsoft.Extensions.Configuration;

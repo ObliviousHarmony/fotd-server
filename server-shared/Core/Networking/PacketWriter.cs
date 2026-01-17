@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets;
+using FOMServer.Shared.Core.Packets.Types;
 
 namespace FOMServer.Shared.Core.Networking
 {

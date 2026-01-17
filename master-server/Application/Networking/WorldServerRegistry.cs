@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
 using FOMServer.Master.Core.Networking;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Packets;
+using FOMServer.Shared.Core.Packets.Types;
 
 namespace FOMServer.Master.Application.Networking
 {

@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Packets;
+using FOMServer.Shared.Core.Packets.Types;
 
 namespace FOMServer.Shared.Infrastructure.FOMNetwork
 {
