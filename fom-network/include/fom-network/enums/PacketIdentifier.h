@@ -11,7 +11,8 @@ namespace Enum {
  * - include/fom-network/packets/<PacketName>.h: Add a packet struct.
  * - src/packets/PacketSerializers.h: Add a serializer declaration.
  * - src/packets/<PacketName>Serializer.cpp: Add a serializer implementation.
- * - src/FOMDataSerializer.cpp: Add packet struct `packetSizes` and serializer to `writerMap`/`readerMap`.
+ * - src/FOMDataSerializer.cpp: Add packet struct `packetSizes` and serializer
+ *   to `writerMap`/`readerMap`.
  */
 
 /**
