@@ -10,7 +10,7 @@ enum WorldID : uint8_t {
   NYC_MANHATTAN = 1,
   // NYC_BROOKLYN = 2,
   // TOKYO = 3,
-  // APARTMENTS = 4,
+  APARTMENTS = 4,
   // TRAINING_GROUND = 5,
   // NECARS_FIELD = 6,
   // PARIS = 7,
