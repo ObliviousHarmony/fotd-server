@@ -18,6 +18,9 @@ set(FOMNETWORK_SRC
   "src/packets/LoginRequestSerializer.cpp"
   "src/packets/LoginRequestReturnSerializer.cpp"
   "src/packets/LoginSerializer.cpp"
+  "src/packets/CheckNameSerializer.cpp"
+  "src/packets/CheckNameReturnSerializer.cpp"
+  "src/packets/CreateCharacterSerializer.cpp"
 )
 set(FOMNETWORK_INC
   # Core API
@@ -36,11 +39,14 @@ set(FOMNETWORK_INC
   "include/fom-network/enums/SerializationStatus.h"
   "include/fom-network/enums/AccountType.h"
   "include/fom-network/enums/WorldID.h"
+  "include/fom-network/enums/Player.h"
 
   # Types
   "src/types/TypeSerializer.h"
   "include/fom-network/types/NetworkAddress.h"
+  "include/fom-network/types/Avatar.h"
   "src/types/NetworkAddressSerializer.h"
+  "src/types/AvatarSerializer.h"
 
   # RakNet Packets
   "include/fom-network/packets/raknet/AlreadyConnected.h"
@@ -62,6 +68,9 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/LoginRequest.h"
   "include/fom-network/packets/LoginRequestReturn.h"
   "include/fom-network/packets/Login.h"
+  "include/fom-network/packets/CheckName.h"
+  "include/fom-network/packets/CheckNameReturn.h"
+  "include/fom-network/packets/CreateCharacter.h"
 )
 set(FOMNETWORK_TEST
     "tests/FOMDataSerializer_test.cpp"

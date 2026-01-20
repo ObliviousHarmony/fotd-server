@@ -5,6 +5,9 @@
 #include <fom-network/packets/LoginRequestReturn.h>
 #include <fom-network/packets/LoginTokenCheck.h>
 #include <fom-network/packets/RegisterWorld.h>
+#include <fom-network/packets/CheckName.h>
+#include <fom-network/packets/CheckNameReturn.h>
+#include <fom-network/packets/CreateCharacter.h>
 #include <fom-network/packets/raknet/AlreadyConnected.h>
 #include <fom-network/packets/raknet/ConnectionAttemptFailed.h>
 #include <fom-network/packets/raknet/ConnectionBanned.h>
@@ -46,6 +49,9 @@ static const std::unordered_map<uint8_t, size_t> packetSizes = {
     {Enum::ID_LOGIN_REQUEST_RETURN, sizeof(Packet::LoginRequestReturn)},
     {Enum::ID_LOGIN, sizeof(Packet::Login)},
     {Enum::ID_LOGIN_TOKEN_CHECK, sizeof(Packet::LoginTokenCheck)},
+    {Enum::ID_CHECK_NAME, sizeof(Packet::CheckName)},
+    {Enum::ID_CHECK_NAME_RETURN, sizeof(Packet::CheckNameReturn)},
+    {Enum::ID_CREATE_CHARACTER, sizeof(Packet::CreateCharacter)},
 };
 
 /**
@@ -57,6 +63,7 @@ static const std::unordered_map<uint32_t, IWriter*> writerMap = {
     {Enum::ID_LOGIN_REQUEST_RETURN,
      &LoginRequestReturnSerializer::GetInstance()},
     {Enum::ID_LOGIN_TOKEN_CHECK, &LoginTokenCheckSerializer::GetInstance()},
+    {Enum::ID_CHECK_NAME_RETURN, &CheckNameReturnSerializer::GetInstance()},
 };
 
 static const std::unordered_map<uint32_t, IReader*> readerMap = {
@@ -78,6 +85,8 @@ static const std::unordered_map<uint32_t, IReader*> readerMap = {
     {Enum::ID_LOGIN_REQUEST, &LoginRequestSerializer::GetInstance()},
     {Enum::ID_LOGIN, &LoginSerializer::GetInstance()},
     {Enum::ID_LOGIN_TOKEN_CHECK, &LoginTokenCheckSerializer::GetInstance()},
+    {Enum::ID_CHECK_NAME, &CheckNameSerializer::GetInstance()},
+    {Enum::ID_CREATE_CHARACTER, &CreateCharacterSerializer::GetInstance()},
 };
 
 bool FOMDataSerializer::Write(RakNet::BitStream& bs,
