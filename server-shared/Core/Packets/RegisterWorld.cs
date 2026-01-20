@@ -11,7 +11,7 @@ namespace FOMServer.Shared.Core.Packets
     public struct RegisterWorld
     {
         public NetworkAddress ClientAddress;
-        public byte NumWorlds;
+        public byte WorldIDCount;
         public WorldIDArray WorldIDs;
 
         [InlineArray((int)WorldID.NUM_WORLDS)]

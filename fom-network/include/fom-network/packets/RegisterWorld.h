@@ -10,7 +10,7 @@ namespace Packet {
 #pragma pack(push, 1)
 struct RegisterWorld {
   Type::NetworkAddress clientAddress;
-  uint8_t numWorlds;
+  uint8_t worldIDCount;
   Enum::WorldID worldIDs[Enum::NUM_WORLDS];
 };
 #pragma pack(pop)

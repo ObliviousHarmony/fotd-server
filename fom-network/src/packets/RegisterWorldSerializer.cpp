@@ -10,8 +10,8 @@ bool RegisterWorldSerializer::Read(RakNet::BitStream& bs,
   NetworkAddressSerializer addressSerializer;
   if (!addressSerializer.Read(bs, data->clientAddress)) return false;
 
-  if (!bs.ReadCompressed(data->numWorlds)) return false;
-  for (int i = 0; i < data->numWorlds; ++i) {
+  if (!bs.ReadCompressed(data->worldIDCount)) return false;
+  for (int i = 0; i < data->worldIDCount; ++i) {
     if (!bs.ReadCompressed(data->worldIDs[i])) return false;
   }
 
@@ -23,8 +23,8 @@ void RegisterWorldSerializer::Write(RakNet::BitStream& bs,
   NetworkAddressSerializer addressSerializer;
   addressSerializer.Write(bs, data->clientAddress);
 
-  bs.WriteCompressed(data->numWorlds);
-  for (int i = 0; i < data->numWorlds; ++i)
+  bs.WriteCompressed(data->worldIDCount);
+  for (int i = 0; i < data->worldIDCount; ++i)
     bs.WriteCompressed(data->worldIDs[i]);
 }
 
