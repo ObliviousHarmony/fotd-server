@@ -2,15 +2,12 @@ using FluentMigrator.Runner;
 using FOMServer.Application.Core;
 using FOMServer.Master.Application;
 using FOMServer.Master.Application.Networking;
-using FOMServer.Master.Application.Players;
 using FOMServer.Master.Core;
 using FOMServer.Master.Core.Networking;
-using FOMServer.Master.Core.Players;
-using FOMServer.Master.Infrastructure.Factories;
-using FOMServer.Master.Infrastructure.Players;
+using FOMServer.Master.Infrastructure;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Extensions;
-using FOMServer.Shared.Infrastructure.Database;
+using FOMServer.Shared.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -71,8 +68,6 @@ namespace FOMServer.Master
             services.AddSingleton<IWorldPacketSender>(sp => sp.GetRequiredService<WorldPacketSender>());
 
             services.AddSingleton<IWorldServerRegistry, WorldServerRegistry>();
-            services.AddSingleton<IPlayerRegistry, PlayerRegistry>();
-            services.AddSingleton<ILoginService, LoginService>();
             return services;
         }
 
@@ -89,7 +84,8 @@ namespace FOMServer.Master
             {
                 rb.AddMySql8()
                   .WithGlobalConnectionString(s_dbSettings!.ConnectionString)
-                  .ScanIn(typeof(Server).Assembly).For.Migrations();
+                  .ScanIn(typeof(Shared.Extensions.ServiceCollectionExtensions).Assembly)
+                  .For.Migrations();
             })
             .AddLogging(lb => lb.AddFluentMigratorConsole());
 
@@ -98,8 +94,6 @@ namespace FOMServer.Master
 
         private static ServiceCollection AddRepositories(this ServiceCollection services)
         {
-            services.AddSingleton<ILoginRepository, DbLoginRepository>();
-            services.AddSingleton<IPlayerRepository, DbPlayerRepository>();
             return services;
         }
     }

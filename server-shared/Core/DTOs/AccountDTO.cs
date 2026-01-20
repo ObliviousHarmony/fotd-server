@@ -1,10 +1,11 @@
 namespace FOMServer.Shared.Core.DTOs
 {
-    public record PlayerDTO
+    public record AccountDTO
     {
         public uint id { get; init; }
-        public string name { get; init; } = "";
-        public string biography { get; init; } = "";
+        public string username { get; init; } = "";
+        public string password { get; init; } = "";
+        public bool logged_in { get; init; }
         public DateTime created_at { get; init; }
         public DateTime updated_at { get; init; }
 

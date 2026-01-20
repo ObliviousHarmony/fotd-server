@@ -5,8 +5,10 @@ using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Persistence;
+using FOMServer.Shared.Core.Repositories;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.Shared.Infrastructure.Logging;
+using FOMServer.Shared.Infrastructure.Repositories;
 using FOMServer.Shared.Services.FOMNetwork;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -31,7 +33,34 @@ namespace FOMServer.Shared.Extensions
         {
             services.AddInteropServices();
             services.AddSharedServices();
+            services.AddSharedRepositories();
             services.AddPacketHandlers();
+            return services;
+        }
+
+        private static IServiceCollection AddInteropServices(this IServiceCollection services)
+        {
+            services.AddSingleton<INetworkService, NetworkService>();
+            services.AddSingleton<IServerService, ServerService>();
+            services.AddSingleton<IClientService, ClientService>();
+            services.AddSingleton<IPacketService, PacketService>();
+            return services;
+        }
+
+        private static IServiceCollection AddSharedServices(this IServiceCollection services)
+        {
+            services.AddSingleton<IShutdownManager, ShutdownManager>();
+
+            services.AddSingleton<IPersistenceService, PersistenceService>();
+            services.AddSingleton(sp => (IServerStartable)sp.GetRequiredService<IPersistenceService>());
+
+            return services;
+        }
+
+        private static IServiceCollection AddSharedRepositories(this IServiceCollection services)
+        {
+            services.AddSingleton<IAccountRepository, DbAccountRepository>();
+            services.AddSingleton<IPlayerRepository, DbPlayerRepository>();
             return services;
         }
 
@@ -52,25 +81,6 @@ namespace FOMServer.Shared.Extensions
 
             foreach (var type in handlerTypes)
                 services.AddSingleton(handlerInterface, type);
-
-            return services;
-        }
-
-        private static IServiceCollection AddInteropServices(this IServiceCollection services)
-        {
-            services.AddSingleton<INetworkService, NetworkService>();
-            services.AddSingleton<IServerService, ServerService>();
-            services.AddSingleton<IClientService, ClientService>();
-            services.AddSingleton<IPacketService, PacketService>();
-            return services;
-        }
-
-        private static IServiceCollection AddSharedServices(this IServiceCollection services)
-        {
-            services.AddSingleton<IShutdownManager, ShutdownManager>();
-
-            services.AddSingleton<IPersistenceService, PersistenceService>();
-            services.AddSingleton(sp => (IServerStartable)sp.GetRequiredService<IPersistenceService>());
 
             return services;
         }

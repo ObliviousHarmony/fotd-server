@@ -1,6 +1,6 @@
 using System.Data;
 
-namespace FOMServer.Shared.Infrastructure.Database
+namespace FOMServer.Shared.Infrastructure
 {
     public interface IDbConnectionFactory
     {

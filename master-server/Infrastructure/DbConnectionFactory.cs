@@ -1,9 +1,9 @@
 using System.Data;
-using FOMServer.Shared.Infrastructure.Database;
-using FOMServer.World.Core;
+using FOMServer.Master.Core;
+using FOMServer.Shared.Infrastructure;
 using MySqlConnector;
 
-namespace FOMServer.World.Infrastructure.Database
+namespace FOMServer.Master.Infrastructure
 {
     public class DbConnectionFactory : IDbConnectionFactory
     {
