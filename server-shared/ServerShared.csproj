@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>FOMServer.Shared</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -9,8 +9,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\fom-network\FOMNetwork.vcxproj" Condition="'$(BuildNativeLib)' == 'true'" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
-    <PackageReference Include="MySqlConnector" Version="2.4.0" />
+    <PackageReference Include="FluentMigrator" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.2" />
+    <PackageReference Include="MySqlConnector" Version="2.5.0" />
     <PackageReference Include="Dapper" Version="2.1.66" />
   </ItemGroup>
 
