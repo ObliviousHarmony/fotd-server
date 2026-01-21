@@ -1,15 +1,13 @@
 using FOMServer.Shared.Application.Persistence;
 using FOMServer.Shared.Core;
-using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Persistence;
-using Moq;
 
 namespace FOMServer.Tests
 {
     public class PersistenceServiceTest : IDisposable
     {
         private readonly Mock<IShutdownManager> _shutdownManager;
-        private readonly Mock<ILogService> _logService;
+        private readonly Mock<ILogger<PersistenceService>> _logger;
         private readonly TestPersistenceHandler _handler;
         private readonly CancellationTokenSource _cts;
 
@@ -20,7 +18,7 @@ namespace FOMServer.Tests
             _shutdownManager.Setup(s => s.Token).Returns(_cts.Token);
             _shutdownManager.Setup(s => s.TrackTask(It.IsAny<Task>()));
 
-            _logService = new Mock<ILogService>();
+            _logger = new Mock<ILogger<PersistenceService>>();
             _handler = new TestPersistenceHandler();
         }
 
@@ -175,7 +173,7 @@ namespace FOMServer.Tests
             // Create service with no handlers
             var service = new PersistenceService(
                 _shutdownManager.Object,
-                _logService.Object,
+                _logger.Object,
                 Enumerable.Empty<IPersistenceHandler>()
             );
 
@@ -189,9 +187,13 @@ namespace FOMServer.Tests
             // Wait for persistence loop to process and log exception
             await Task.Delay(200);
 
-            _logService.Verify(
-                l => l.WriteException(It.Is<InvalidOperationException>(
-                    ex => ex.Message.Contains("No persistence handler registered"))),
+            _logger.Verify(
+                l => l.Log(
+                    LogLevel.Critical,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("Persistence failure")),
+                    It.Is<InvalidOperationException>(ex => ex.Message.Contains("No persistence handler registered")),
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
                 Times.Once);
         }
 
@@ -263,9 +265,13 @@ namespace FOMServer.Tests
             Assert.DoesNotContain(entity, _handler.PersistedEntities);
 
             // But exception was logged
-            _logService.Verify(
-                l => l.WriteException(It.Is<InvalidOperationException>(
-                    ex => ex.Message.Contains("Simulated persistence failure"))),
+            _logger.Verify(
+                l => l.Log(
+                    LogLevel.Critical,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("Persistence failure")),
+                    It.Is<InvalidOperationException>(ex => ex.Message.Contains("Simulated persistence failure")),
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
                 Times.Once);
         }
 
@@ -273,7 +279,7 @@ namespace FOMServer.Tests
         {
             var service = new PersistenceService(
                 _shutdownManager.Object,
-                _logService.Object,
+                _logger.Object,
                 new[] { _handler }
             );
             service.Start();

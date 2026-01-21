@@ -1,8 +1,8 @@
 using System.Threading.Channels;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Networking;
+using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Shared.Application.Networking
@@ -10,7 +10,7 @@ namespace FOMServer.Shared.Application.Networking
     /// <summary>
 	/// Responsible for sending and receiving packets.
 	/// </summary>
-	public class NetworkManager : IPacketSender
+	public partial class NetworkManager : IPacketSender
     {
         /// <summary>
         /// Individual network managers can "claim" packet IDs so that they
@@ -30,7 +30,7 @@ namespace FOMServer.Shared.Application.Networking
         private IntPtr _peer;
         private Action<IntPtr>? _peerShutdown;
         private readonly IShutdownManager _shutdownManager;
-        private readonly ILogService _logService;
+        private readonly ILogger<NetworkManager> _logger;
         private readonly IPacketService _packetService;
         private readonly PacketProcessor _packetProcessor;
         private readonly Channel<QueuePacket> _sendQueue;
@@ -40,14 +40,14 @@ namespace FOMServer.Shared.Application.Networking
 
         public NetworkManager(
             IShutdownManager shutdownManager,
-            ILogService logService,
+            ILogger<NetworkManager> logger,
             IPacketService packetService,
             PacketProcessor packetProcessor
         )
         {
             _peer = IntPtr.Zero;
             _shutdownManager = shutdownManager;
-            _logService = logService;
+            _logger = logger;
             _packetService = packetService;
             _packetProcessor = packetProcessor;
             _claimedPacketIDs = new HashSet<PacketIdentifier>();
@@ -155,10 +155,7 @@ namespace FOMServer.Shared.Application.Networking
                         // Packets that failed to deserialize should not be processed.
                         if (packet.Status != SerializationStatus.Success)
                         {
-                            _logService.WriteMessage(
-                                LogLevel.Warning,
-                                $"Client {packet.Sender} sent malformed packet with ID {packet.ID}: {packet.Status}"
-                            );
+                            LogMalformedPacket(packet.Sender, packet.ID, packet.Status);
                             packet.Dispose();
                             continue;
                         }
@@ -166,7 +163,7 @@ namespace FOMServer.Shared.Application.Networking
                         // Packet IDs that have been claimed by another network manager should be ignored.
                         if (s_globalClaimedPacketIDs.Contains(packet.ID) && !_claimedPacketIDs.Contains(packet.ID))
                         {
-                            _logService.WriteMessage(LogLevel.Warning, $"Client {packet.Sender} sent packet with claimed ID {packet.ID}, ignoring.");
+                            LogClaimedPacketID(packet.Sender, packet.ID);
                             packet.Dispose();
                             continue;
                         }
@@ -188,7 +185,7 @@ namespace FOMServer.Shared.Application.Networking
             }
             catch (Exception ex)
             {
-                _logService.WriteMessage(LogLevel.Critical, $"Network Failure: {ex}");
+                LogNetworkFailure(ex);
                 _shutdownManager.StartShutdown();
             }
             finally
@@ -197,5 +194,14 @@ namespace FOMServer.Shared.Application.Networking
                 _peer = IntPtr.Zero;
             }
         }
+
+        [LoggerMessage(Level = LogLevel.Warning, Message = "Client {Sender} sent malformed packet with ID {PacketID}: {Status}")]
+        private partial void LogMalformedPacket(NetworkAddress sender, PacketIdentifier packetID, SerializationStatus status);
+
+        [LoggerMessage(Level = LogLevel.Warning, Message = "Client {Sender} sent packet with claimed ID {PacketID}, ignoring")]
+        private partial void LogClaimedPacketID(NetworkAddress sender, PacketIdentifier packetID);
+
+        [LoggerMessage(Level = LogLevel.Critical, Message = "Network Failure")]
+        private partial void LogNetworkFailure(Exception ex);
     }
 }

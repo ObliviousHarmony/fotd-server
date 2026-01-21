@@ -37,6 +37,24 @@ namespace FOMServer.Shared.Core.Packets
         public WorldID LoginWorldID;
         // ===========================
 
+        public enum StatusCode : byte
+        {
+            InvalidLogin = 0, // LOGIN_RETURN_INVALID_LOGIN
+            Success = 1, // LOGIN_RETURN_SUCCESS
+            UnknownUsername = 2, // LOGIN_RETURN_UNKNOWN_USERNAME
+            Unknown3 = 3, // LOGIN_RETURN_3
+            IncorrectPassword = 4, // LOGIN_RETURN_INCORRECT_PASSWORD
+            CreateCharacter = 5, // LOGIN_RETURN_CREATE_CHARACTER
+            CreateCharacterError = 6, // LOGIN_RETURN_CREATE_CHARACTER_ERROR
+            TempBanned = 7, // LOGIN_RETURN_TEMP_BANNED
+            PermBanned = 8, // LOGIN_RETURN_PERM_BANNED
+            DuplicateIP = 9, // LOGIN_RETURN_DUPLICATE_IP
+            IntegrityCheckFailed = 10, // LOGIN_RETURN_INTEGRITY_CHECK_FAILED
+            RunAsAdmin = 11, // LOGIN_RETURN_RUN_AS_ADMIN
+            AccountLocked = 12, // LOGIN_RETURN_ACCOUNT_LOCKED
+            NotPurchased = 13, // LOGIN_RETURN_NOT_PURCHASED
+        }
+
         public string BanLength
         {
             get
@@ -62,24 +80,6 @@ namespace FOMServer.Shared.Core.Packets
                 fixed (byte* ptr = RawFactionMOTD)
                     return CStringParser.ToString(ptr, FactionMOTDSize);
             }
-        }
-
-        public enum StatusCode : byte
-        {
-            InvalidLogin = 0, // LOGIN_RETURN_INVALID_LOGIN
-            Success = 1, // LOGIN_RETURN_SUCCESS
-            UnknownUsername = 2, // LOGIN_RETURN_UNKNOWN_USERNAME
-            Unknown3 = 3, // LOGIN_RETURN_3
-            IncorrectPassword = 4, // LOGIN_RETURN_INCORRECT_PASSWORD
-            CreateCharacter = 5, // LOGIN_RETURN_CREATE_CHARACTER
-            CreateCharacterError = 6, // LOGIN_RETURN_CREATE_CHARACTER_ERROR
-            TempBanned = 7, // LOGIN_RETURN_TEMP_BANNED
-            PermBanned = 8, // LOGIN_RETURN_PERM_BANNED
-            DuplicateIP = 9, // LOGIN_RETURN_DUPLICATE_IP
-            IntegrityCheckFailed = 10, // LOGIN_RETURN_INTEGRITY_CHECK_FAILED
-            RunAsAdmin = 11, // LOGIN_RETURN_RUN_AS_ADMIN
-            AccountLocked = 12, // LOGIN_RETURN_ACCOUNT_LOCKED
-            NotPurchased = 13, // LOGIN_RETURN_NOT_PURCHASED
         }
     }
 }

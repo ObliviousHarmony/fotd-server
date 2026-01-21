@@ -1,7 +1,6 @@
 using FOMServer.Master.Core.Networking;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
-using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Metadata;
@@ -11,12 +10,12 @@ namespace FOMServer.Master.Application.Handlers
     [PacketHandler]
     public class RegisterWorldPacketHandler : PacketHandlerBase<RegisterWorld>
     {
-        private readonly ILogService _logService;
+        private readonly ILogger<RegisterWorldPacketHandler> _logger;
         private readonly IWorldServerRegistry _worldServerRegistry;
 
-        public RegisterWorldPacketHandler(ILogService logService, IWorldServerRegistry worldServerRegistry)
+        public RegisterWorldPacketHandler(ILogger<RegisterWorldPacketHandler> logger, IWorldServerRegistry worldServerRegistry)
         {
-            _logService = logService;
+            _logger = logger;
             _worldServerRegistry = worldServerRegistry;
         }
 
@@ -31,7 +30,7 @@ namespace FOMServer.Master.Application.Handlers
 
             var registered = _worldServerRegistry.Register(worldIDs, sender, p.ClientAddress);
             foreach (var worldID in registered)
-                _logService.WriteMessage(LogLevel.Info, $"World '{worldID}' Connected: {p.ClientAddress}");
+                _logger.LogInformation("World '{WorldID}' Connected: {ClientAddress}", worldID, p.ClientAddress);
         }
     }
 }

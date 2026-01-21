@@ -1,7 +1,5 @@
 using FOMServer.Master.Core.Networking;
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
-using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Packets.RakNet;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Metadata;
@@ -12,14 +10,14 @@ namespace FOMServer.Master.Application.Handlers
     public class ConnectionLostHandler : PacketHandlerBase<ConnectionLost>
     {
         private readonly IWorldServerRegistry _worldServerRegistry;
-        private readonly ILogService _logService;
+        private readonly ILogger<ConnectionLostHandler> _logger;
 
         public ConnectionLostHandler(
             IWorldServerRegistry worldServerRegistry,
-            ILogService logService)
+            ILogger<ConnectionLostHandler> logger)
         {
             _worldServerRegistry = worldServerRegistry;
-            _logService = logService;
+            _logger = logger;
         }
 
         public override void Handle(NetworkAddress sender, in ConnectionLost p)
@@ -35,7 +33,7 @@ namespace FOMServer.Master.Application.Handlers
                 return false;
 
             foreach (var worldID in unregistered)
-                _logService.WriteMessage(LogLevel.Info, $"World '{worldID}' Lost Connection");
+                _logger.LogInformation("World '{WorldID}' Lost Connection", worldID);
 
             return true;
         }

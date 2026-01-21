@@ -8,8 +8,6 @@ using FOMServer.World.Application.Networking;
 using FOMServer.World.Core;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Infrastructure;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace FOMServer.World
 {
@@ -28,8 +26,8 @@ namespace FOMServer.World
             // Run before anything else so that the cached settings in this class are available.
             services.AddConfiguration();
 
-            // Start the log service as early as possible so that everything is logged.
-            services.StartLogService(shutdownManager);
+            // Configure logging as early as possible so that everything is logged.
+            services.ConfigureLogging(shutdownManager);
 
             services.AddServerShared();
             services.AddWorldServices();

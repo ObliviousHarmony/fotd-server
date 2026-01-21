@@ -3,7 +3,7 @@ using System.Threading.Channels;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
-using FOMServer.Shared.Core.Logging;
+using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Application.Networking
@@ -14,20 +14,20 @@ namespace FOMServer.Shared.Application.Networking
     /// For performance, this maintains a number of worker tasks that process the packets
     /// concurrently.
     /// </summary>
-    public class PacketProcessor
+    public partial class PacketProcessor
     {
         private readonly IShutdownManager _shutdownManager;
-        private readonly ILogService _logService;
+        private readonly ILogger<PacketProcessor> _logger;
         private readonly Dictionary<PacketIdentifier, IPacketHandler> _handlers;
         private readonly Channel<PacketRef> _packetQueue;
         private readonly List<Task> _workers = [];
 
         private CancellationTokenSource? _cts;
 
-        public PacketProcessor(IShutdownManager shutdownManager, ILogService logService, IEnumerable<IPacketHandler> handlers)
+        public PacketProcessor(IShutdownManager shutdownManager, ILogger<PacketProcessor> logger, IEnumerable<IPacketHandler> handlers)
         {
             _shutdownManager = shutdownManager;
-            _logService = logService;
+            _logger = logger;
             _packetQueue = Channel.CreateUnbounded<PacketRef>();
 
             // Build the map by extracting the PacketIdentifier from each handler's generic packet struct argument.
@@ -120,7 +120,7 @@ namespace FOMServer.Shared.Application.Networking
                 {
                     // Letting unhandled exceptions prevent further packet processing
                     // would silently break break the server, so log and continue.
-                    _logService.WritePacketException(packet, ex);
+                    LogPacketException(packet.ID, packet.Sender, ex);
                 }
                 finally
                 {
@@ -145,7 +145,13 @@ namespace FOMServer.Shared.Application.Networking
             if (packet.ID < PacketIdentifier.ID_FOM_PACKET_START)
                 return;
 
-            _logService.WriteMessage(LogLevel.Critical, $"Unhandled packet ID {packet.ID} from {packet.Sender}");
+            LogUnhandledPacket(packet.ID, packet.Sender);
         }
+
+        [LoggerMessage(Level = LogLevel.Critical, Message = "Packet {PacketID} from {Sender} failed")]
+        private partial void LogPacketException(PacketIdentifier packetID, NetworkAddress sender, Exception ex);
+
+        [LoggerMessage(Level = LogLevel.Critical, Message = "Unhandled packet ID {PacketID} from {Sender}")]
+        private partial void LogUnhandledPacket(PacketIdentifier packetID, NetworkAddress sender);
     }
 }

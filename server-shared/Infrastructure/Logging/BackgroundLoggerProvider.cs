@@ -1,0 +1,89 @@
+using System.Collections.Concurrent;
+using System.Threading.Channels;
+using FOMServer.Shared.Core;
+
+namespace FOMServer.Shared.Infrastructure.Logging
+{
+    public sealed class BackgroundLoggerProvider : ILoggerProvider
+    {
+        private readonly IShutdownManager _shutdownManager;
+        private readonly Channel<LogMessage> _channel;
+        private readonly ConcurrentDictionary<string, BackgroundLogger> _loggers;
+        private readonly bool _writeConsole;
+        private readonly StreamWriter? _logFileWriter;
+
+        private Task? _processingTask;
+        private CancellationTokenSource? _cts;
+
+        public BackgroundLoggerProvider(IShutdownManager shutdownManager, bool writeConsole = true, string? logFilePath = null)
+        {
+            _shutdownManager = shutdownManager;
+            _loggers = new ConcurrentDictionary<string, BackgroundLogger>();
+
+            _channel = Channel.CreateUnbounded<LogMessage>(
+                new UnboundedChannelOptions
+                {
+                    SingleReader = true
+                }
+            );
+
+            _writeConsole = writeConsole;
+
+            if (logFilePath != null)
+            {
+                _logFileWriter = new StreamWriter(File.Open(
+                   logFilePath, FileMode.Append, FileAccess.Write, FileShare.Read))
+                {
+                    AutoFlush = true
+                };
+            }
+        }
+
+        public ILogger CreateLogger(string categoryName)
+        {
+            return _loggers.GetOrAdd(categoryName, name => new BackgroundLogger(name, _channel.Writer));
+        }
+
+        public void Dispose()
+        {
+            _channel.Writer.Complete();
+            _logFileWriter?.Dispose();
+        }
+
+        public void Start()
+        {
+            if (_processingTask != null)
+                return;
+
+            _cts = CancellationTokenSource.CreateLinkedTokenSource(_shutdownManager.Token);
+
+            _processingTask = Task.Run(() => ProcessLoopAsync(_cts.Token), _cts.Token);
+
+            _shutdownManager.TrackTask(_processingTask);
+        }
+
+        private async Task ProcessLoopAsync(CancellationToken ct)
+        {
+            try
+            {
+                await foreach (var message in _channel.Reader.ReadAllAsync(ct))
+                {
+                    var formatted = message.Format();
+
+                    if (_writeConsole)
+                        Console.WriteLine(formatted);
+
+                    if (_logFileWriter != null)
+                        await _logFileWriter.WriteLineAsync(formatted);
+                }
+            }
+            catch (OperationCanceledException)
+            {
+            }
+            finally
+            {
+                _logFileWriter?.Dispose();
+            }
+        }
+    }
+}

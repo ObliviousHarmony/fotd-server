@@ -1,7 +1,5 @@
 using FOMServer.Master.Core.Networking;
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
-using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Packets.RakNet;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Metadata;
@@ -12,14 +10,14 @@ namespace FOMServer.Master.Application.Handlers
     public class DisconnectionHandler : PacketHandlerBase<DisconnectionNotification>
     {
         private readonly IWorldServerRegistry _worldServerRegistry;
-        private readonly ILogService _logService;
+        private readonly ILogger<DisconnectionHandler> _logger;
 
         public DisconnectionHandler(
             IWorldServerRegistry worldServerRegistry,
-            ILogService logService)
+            ILogger<DisconnectionHandler> logger)
         {
             _worldServerRegistry = worldServerRegistry;
-            _logService = logService;
+            _logger = logger;
         }
 
         public override void Handle(NetworkAddress sender, in DisconnectionNotification p)
@@ -35,7 +33,7 @@ namespace FOMServer.Master.Application.Handlers
                 return false;
 
             foreach (var worldID in unregistered)
-                _logService.WriteMessage(LogLevel.Info, $"World '{worldID}' Disconnected");
+                _logger.LogInformation("World '{WorldID}' Disconnected", worldID);
 
             return true;
         }

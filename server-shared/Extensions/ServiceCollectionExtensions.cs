@@ -3,32 +3,28 @@ using FOMServer.Application.Core;
 using FOMServer.Shared.Application.Persistence;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Handlers;
-using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Core.Repositories;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.Shared.Infrastructure.Logging;
 using FOMServer.Shared.Infrastructure.Repositories;
 using FOMServer.Shared.Services.FOMNetwork;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace FOMServer.Shared.Extensions
 {
     public static class ServiceCollectionExtensions
     {
-        public static void StartLogService(
+        public static void ConfigureLogging(
             this IServiceCollection services,
             IShutdownManager shutdownManager,
             bool writeToConsole = true,
             string? logFilePath = null
         )
         {
-            var logService = new LogService(shutdownManager, writeToConsole, logFilePath);
-            services.AddSingleton<ILogService>(logService);
-            services.AddSingleton<ILoggerProvider>(new LogServiceLoggerProvider(logService));
+            var provider = new BackgroundLoggerProvider(shutdownManager, writeToConsole, logFilePath);
+            services.AddLogging(lb => lb.ClearProviders().AddProvider(provider));
 
-            logService.Start();
+            provider.Start();
         }
 
         public static IServiceCollection AddServerShared(this IServiceCollection services)

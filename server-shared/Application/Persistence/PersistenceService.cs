@@ -1,7 +1,6 @@
 using System.Runtime.CompilerServices;
 using System.Threading.Channels;
 using FOMServer.Shared.Core;
-using FOMServer.Shared.Core.Logging;
 using FOMServer.Shared.Core.Persistence;
 
 namespace FOMServer.Shared.Application.Persistence
@@ -14,7 +13,7 @@ namespace FOMServer.Shared.Application.Persistence
         private const int PersistenceDelayMs = 50;
 
         private readonly IShutdownManager _shutdownManager;
-        private readonly ILogService _logService;
+        private readonly ILogger<PersistenceService> _logger;
         private readonly Dictionary<Type, IPersistenceHandler> _handlers;
         private readonly Channel<IPersistable> _dirtyQueue;
         private readonly Channel<WaitRequest> _waitQueue;
@@ -23,10 +22,10 @@ namespace FOMServer.Shared.Application.Persistence
         private Task? _persistenceTask;
         private CancellationTokenSource? _cts;
 
-        public PersistenceService(IShutdownManager shutdownManager, ILogService logService, IEnumerable<IPersistenceHandler> handlers)
+        public PersistenceService(IShutdownManager shutdownManager, ILogger<PersistenceService> logger, IEnumerable<IPersistenceHandler> handlers)
         {
             _shutdownManager = shutdownManager;
-            _logService = logService;
+            _logger = logger;
             _handlers = handlers.ToDictionary(h => h.EntityType);
             _dirtyQueue = Channel.CreateUnbounded<IPersistable>(
                 new UnboundedChannelOptions
@@ -156,7 +155,7 @@ namespace FOMServer.Shared.Application.Persistence
                 {
                     // Letting unhandled exceptions prevent further persistence
                     // could lead to data loss, so log and continue.
-                    _logService.WriteException(ex);
+                    _logger.LogCritical(ex, "Persistence failure");
                 }
 
                 while (_waitQueue.Reader.TryRead(out var wait))
@@ -196,7 +195,7 @@ namespace FOMServer.Shared.Application.Persistence
                 }
                 catch (Exception ex)
                 {
-                    _logService.WriteException(ex);
+                    _logger.LogCritical(ex, "Wait callback failure");
                 }
                 pendingWaits.RemoveAt(i);
             }
