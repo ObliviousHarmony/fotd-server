@@ -8,7 +8,7 @@ namespace FOMServer.Shared.Infrastructure.Migrations.Account
         public override void Up()
         {
             Create.Table("account")
-                .WithColumn("id").AsUnsignedInt().NotNullable().PrimaryKey().Identity()
+                .WithColumn("id").AsUInt32().NotNullable().PrimaryKey().Identity()
                 .WithColumn("username").AsString(18).NotNullable().Unique()
                 .WithColumn("password").AsString(64).NotNullable()
                 .WithColumn("logged_in").AsBoolean().NotNullable().WithDefaultValue(false)

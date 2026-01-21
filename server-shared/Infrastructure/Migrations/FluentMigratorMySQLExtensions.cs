@@ -53,25 +53,25 @@ namespace FOMServer.Shared.Infrastructure.Migrations
 
         // ---------------- CREATE TABLE: UNSIGNED INTEGERS ----------------
 
-        public static ICreateTableColumnOptionOrWithColumnSyntax AsUnsignedByte(
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsUInt8(
             this ICreateTableColumnAsTypeSyntax column)
         {
             return column.AsCustom("TINYINT UNSIGNED");
         }
 
-        public static ICreateTableColumnOptionOrWithColumnSyntax AsUnsignedInt16(
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsUInt16(
             this ICreateTableColumnAsTypeSyntax column)
         {
             return column.AsCustom("SMALLINT UNSIGNED");
         }
 
-        public static ICreateTableColumnOptionOrWithColumnSyntax AsUnsignedInt(
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsUInt32(
             this ICreateTableColumnAsTypeSyntax column)
         {
             return column.AsCustom("INT UNSIGNED");
         }
 
-        public static ICreateTableColumnOptionOrWithColumnSyntax AsUnsignedLong(
+        public static ICreateTableColumnOptionOrWithColumnSyntax AsUInt64(
             this ICreateTableColumnAsTypeSyntax column)
         {
             return column.AsCustom("BIGINT UNSIGNED");
@@ -125,25 +125,25 @@ namespace FOMServer.Shared.Infrastructure.Migrations
 
         // ---------------- ALTER TABLE: UNSIGNED INTEGERS ----------------
 
-        public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AsUnsignedByte(
+        public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AsUInt8(
             this IAlterTableColumnAsTypeSyntax column)
         {
             return column.AsCustom("TINYINT UNSIGNED");
         }
 
-        public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AsUnsignedInt16(
+        public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AsUInt16(
             this IAlterTableColumnAsTypeSyntax column)
         {
             return column.AsCustom("SMALLINT UNSIGNED");
         }
 
-        public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AsUnsignedInt(
+        public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AsUInt32(
             this IAlterTableColumnAsTypeSyntax column)
         {
             return column.AsCustom("INT UNSIGNED");
         }
 
-        public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AsUnsignedLong(
+        public static IAlterTableColumnOptionOrAddColumnOrAlterColumnSyntax AsUInt64(
             this IAlterTableColumnAsTypeSyntax column)
         {
             return column.AsCustom("BIGINT UNSIGNED");

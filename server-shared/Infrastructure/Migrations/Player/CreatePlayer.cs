@@ -8,9 +8,13 @@ namespace FOMServer.Shared.Infrastructure.Migrations.Player
         public override void Up()
         {
             Create.Table("player")
-                .WithColumn("id").AsUnsignedInt().NotNullable().PrimaryKey().ForeignKey("account", "id")
+                .WithColumn("id").AsUInt32().NotNullable().PrimaryKey().ForeignKey("account", "id")
                 .WithColumn("name").AsString(19).NotNullable().Unique()
                 .WithColumn("biography").AsText().NotNullable()
+                .WithColumn("sex").AsUInt8().NotNullable()
+                .WithColumn("race").AsUInt8().NotNullable()
+                .WithColumn("face").AsUInt16().NotNullable()
+                .WithColumn("hair").AsUInt16().NotNullable()
                 .WithColumn("created_at").AsCreatedAtTimestamp()
                 .WithColumn("updated_at").AsUpdatedAtTimestamp();
         }

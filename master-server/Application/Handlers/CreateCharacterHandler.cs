@@ -1,3 +1,4 @@
+using System.Security.Principal;
 using FOMServer.Master.Core.Networking;
 using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Handlers;
@@ -10,45 +11,47 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class LoginHandler : PacketHandlerBase<Login>
+    public class CreateCharacterHandler : PacketHandlerBase<CreateCharacter>
     {
         private readonly IClientPacketSender _packetSender;
-        private readonly IAccountRepository _accountRepository;
         private readonly IPlayerRepository _playerRepository;
 
-        public LoginHandler(
+        public CreateCharacterHandler(
             IClientPacketSender packetSender,
-            IAccountRepository accountRepository,
             IPlayerRepository playerRepository)
         {
             _packetSender = packetSender;
-            _accountRepository = accountRepository;
             _playerRepository = playerRepository;
         }
 
-        public override void Handle(NetworkAddress sender, in Login p)
+        public override void Handle(NetworkAddress sender, in CreateCharacter p)
         {
             using var response = new PacketWriter<LoginReturn>(sender);
             ref var rData = ref response.Data;
 
-            var account = _accountRepository.GetByUsername(p.Username);
-            if (account == null)
+            rData.PlayerID = p.PlayerID;
+
+            var player = _playerRepository.GetByName(p.Name);
+            if (player != null)
             {
-                rData.Status = LoginReturn.StatusCode.InvalidLogin;
+                rData.Status = LoginReturn.StatusCode.CreateCharacterError;
                 _packetSender.Send(response.Build());
                 return;
             }
 
-            // Check Ban Status
+            player = _playerRepository.Create(
+                p.PlayerID,
+                p.Name,
+                p.Biography,
+                p.Avatar.Sex,
+                p.Avatar.Race,
+                p.Avatar.Face,
+                p.Avatar.Hair
+             );
 
-            // Check Password
-
-            rData.PlayerID = account.id;
-
-            var player = _playerRepository.GetByID(account.id);
             if (player == null)
             {
-                rData.Status = LoginReturn.StatusCode.CreateCharacter;
+                rData.Status = LoginReturn.StatusCode.CreateCharacterError;
                 _packetSender.Send(response.Build());
                 return;
             }
