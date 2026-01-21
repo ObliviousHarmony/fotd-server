@@ -16,6 +16,11 @@
     <PackageReference Include="Dapper" Version="2.1.66" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="Microsoft.Extensions.DependencyInjection"/>
+    <Using Include="Microsoft.Extensions.Logging"/>
+  </ItemGroup>
+
   <PropertyGroup>
     <FOMNetworkDllFile>../out/build/$(Configuration)/fom-network/FOMNetwork.dll</FOMNetworkDllFile>
     <FOMNetworkSOFile>../out/build/$(Configuration)/fom-network/libFOMNetwork.so</FOMNetworkSOFile>

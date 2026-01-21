@@ -27,6 +27,6 @@ constexpr int32_t USERNAME = 19;
 constexpr int32_t PLAYER_NAME = 20;
 constexpr int32_t PLAYER_BIOGRAPHY = 511;
 
-}  // namespace Sizes
+}  // namespace BufferSizes
 
 }  // namespace FOMNetwork

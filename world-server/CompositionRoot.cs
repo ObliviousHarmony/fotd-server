@@ -8,6 +8,7 @@ using FOMServer.World.Application.Networking;
 using FOMServer.World.Core;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Infrastructure;
+using Microsoft.Extensions.Configuration;
 
 namespace FOMServer.World
 {

@@ -1,3 +1,4 @@
+using FluentMigrator.Runner;
 using FOMServer.Application.Core;
 using FOMServer.Master.Application;
 using FOMServer.Master.Application.Networking;
@@ -7,6 +8,7 @@ using FOMServer.Master.Infrastructure;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Extensions;
 using FOMServer.Shared.Infrastructure;
+using Microsoft.Extensions.Configuration;
 
 namespace FOMServer.Master
 {

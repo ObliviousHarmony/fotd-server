@@ -1,7 +1,7 @@
 #include <fom-network/packets/LoginReturn.h>
 
-#include "PacketSerializers.h"
 #include "../types/ApartmentSerializer.h"
+#include "PacketSerializers.h"
 
 namespace FOMNetwork {
 

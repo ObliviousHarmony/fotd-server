@@ -6,8 +6,7 @@
 
 namespace FOMNetwork {
 
-class ApartmentSerializer
-    : protected TypeSerializer<Type::Apartment> {
+class ApartmentSerializer : protected TypeSerializer<Type::Apartment> {
  public:
   void Write(RakNet::BitStream& bs, const Type::Apartment& data) const {
     bs.WriteCompressed(data.id);

@@ -12,7 +12,7 @@ indent_size = 2
 [*.cs]
 
 # Severity level overrides
-dotnet_diagnostic.IDE0005.severity = warning # Remove unnecessary usings
+dotnet_diagnostic.IDE0005.severity = suggestion # Remove unnecessary usings (suggestion prevents dotnet format auto-removal bug)
 dotnet_diagnostic.IDE0290.severity = none # Disable "Use primary constructor" rule
 dotnet_diagnostic.CS9195.severity = error # Make sure "in" must be used with ref readonly struct parameters
 dotnet_diagnostic.CS9196.severity = error # Make sure that "ref readonly" is used in packet handlers

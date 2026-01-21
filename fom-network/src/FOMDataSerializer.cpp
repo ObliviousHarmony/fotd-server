@@ -1,14 +1,14 @@
 #include "FOMDataSerializer.h"
 
-#include <fom-network/packets/Login.h>
-#include <fom-network/packets/LoginRequest.h>
-#include <fom-network/packets/LoginRequestReturn.h>
-#include <fom-network/packets/LoginTokenCheck.h>
-#include <fom-network/packets/RegisterWorld.h>
 #include <fom-network/packets/CheckName.h>
 #include <fom-network/packets/CheckNameReturn.h>
 #include <fom-network/packets/CreateCharacter.h>
+#include <fom-network/packets/Login.h>
+#include <fom-network/packets/LoginRequest.h>
+#include <fom-network/packets/LoginRequestReturn.h>
 #include <fom-network/packets/LoginReturn.h>
+#include <fom-network/packets/LoginTokenCheck.h>
+#include <fom-network/packets/RegisterWorld.h>
 #include <fom-network/packets/raknet/AlreadyConnected.h>
 #include <fom-network/packets/raknet/ConnectionAttemptFailed.h>
 #include <fom-network/packets/raknet/ConnectionBanned.h>

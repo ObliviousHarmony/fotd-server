@@ -37,8 +37,8 @@ struct LoginReturn {
   uint16_t clientVersion;
 
   uint8_t isBanned;
-  uint8_t banLength[16]; // isBanned == 1
-  uint8_t banReason[129]; // isBanned == 1
+  uint8_t banLength[16];   // isBanned == 1
+  uint8_t banReason[129];  // isBanned == 1
 
   uint8_t processBlacklistCount;
   uint32_t processBlacklist[128];

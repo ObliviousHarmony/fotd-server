@@ -1,3 +1,4 @@
+using FluentMigrator.Runner;
 using FOMServer.Master.Application.Networking;
 using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core;
@@ -5,6 +6,7 @@ using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
+using MySqlConnector;
 
 namespace FOMServer.Master.Application
 {
