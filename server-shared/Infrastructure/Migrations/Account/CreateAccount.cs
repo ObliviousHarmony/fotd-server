@@ -10,7 +10,7 @@ namespace FOMServer.Shared.Infrastructure.Migrations.Account
             Create.Table("account")
                 .WithColumn("id").AsUnsignedInt().NotNullable().PrimaryKey().Identity()
                 .WithColumn("username").AsString(18).NotNullable().Unique()
-                .WithColumn("password").AsString(32).NotNullable()
+                .WithColumn("password").AsString(64).NotNullable()
                 .WithColumn("logged_in").AsBoolean().NotNullable().WithDefaultValue(false)
                 .WithColumn("created_at").AsCreatedAtTimestamp()
                 .WithColumn("updated_at").AsUpdatedAtTimestamp();

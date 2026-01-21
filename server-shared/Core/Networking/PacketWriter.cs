@@ -62,6 +62,20 @@ namespace FOMServer.Shared.Core.Networking
             Unsafe.InitBlock(ref _packetData[0], 0, (uint)_packetSize);
         }
 
+        public PacketWriter(in NetworkAddress destination) : this()
+        {
+            AddDestination(in destination);
+        }
+
+        public PacketWriter(bool broadcast, in NetworkAddress destinationOrExcludeAddress) : this()
+        {
+            _broadcast = broadcast;
+            if (_broadcast)
+                ExcludeFromBroadcast(in destinationOrExcludeAddress);
+            else
+                AddDestination(in destinationOrExcludeAddress);
+        }
+
         public ref TPacket Data
         {
             get
@@ -110,7 +124,7 @@ namespace FOMServer.Shared.Core.Networking
         /// This lets us avoid allocation in most cases where only a single address
         /// is needed, and reuse arrays for multi-destination packets.
         /// </remarks>
-        public void AddDestination(NetworkAddress address)
+        public void AddDestination(in NetworkAddress address)
         {
             ThrowIfBuilt();
 
@@ -149,7 +163,7 @@ namespace FOMServer.Shared.Core.Networking
         /// <summary>
         /// Sets the packet to broadcast mode with an optional exclusion address.
         /// </summary>
-        public void ExcludeFromBroadcast(NetworkAddress address)
+        public void ExcludeFromBroadcast(in NetworkAddress address)
         {
             ThrowIfBuilt();
 

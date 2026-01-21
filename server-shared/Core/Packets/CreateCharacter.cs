@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Metadata;
@@ -9,20 +10,17 @@ namespace FOMServer.Shared.Core.Packets
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct CreateCharacter
     {
-        public const int NameSize = 20;
-        public const int BiographySize = 511;
-
         public uint PlayerID;
         public Avatar Avatar;
-        public fixed byte RawName[NameSize];
-        public fixed byte RawBiography[BiographySize];
+        public fixed byte RawName[BufferSizes.PlayerName];
+        public fixed byte RawBiography[BufferSizes.PlayerBiography];
 
         public string Name
         {
             get
             {
                 fixed (byte* ptr = RawName)
-                    return CStringParser.ToString(ptr, NameSize);
+                    return CStringParser.ToString(ptr, BufferSizes.PlayerName);
             }
         }
 
@@ -31,7 +29,7 @@ namespace FOMServer.Shared.Core.Packets
             get
             {
                 fixed (byte* ptr = RawBiography)
-                    return CStringParser.ToString(ptr, BiographySize);
+                    return CStringParser.ToString(ptr, BufferSizes.PlayerBiography);
             }
         }
     }

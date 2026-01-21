@@ -4,9 +4,6 @@
 
 namespace FOMNetwork {
 
-typedef uint32_t PlayerID_t;
-typedef uint32_t ItemID_t;
-
 enum PacketPriority : uint8_t {
   SYSTEM_PRIORITY,
   HIGH_PRIORITY,
@@ -23,5 +20,13 @@ enum PacketReliability : uint8_t {
   RELIABLE_SEQUENCED,
   NUMBER_OF_RELIABILITIES
 };
+
+namespace BufferSizes {
+
+constexpr int32_t USERNAME = 19;
+constexpr int32_t PLAYER_NAME = 20;
+constexpr int32_t PLAYER_BIOGRAPHY = 511;
+
+}  // namespace Sizes
 
 }  // namespace FOMNetwork

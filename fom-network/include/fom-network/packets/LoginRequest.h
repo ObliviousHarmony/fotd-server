@@ -7,7 +7,7 @@ namespace Packet {
 
 #pragma pack(push, 1)
 struct LoginRequest {
-  uint8_t username[32];
+  uint8_t username[BufferSizes::USERNAME];
   uint16_t clientVersion;
 };
 #pragma pack(pop)

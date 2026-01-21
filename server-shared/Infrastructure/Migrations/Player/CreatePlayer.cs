@@ -9,7 +9,7 @@ namespace FOMServer.Shared.Infrastructure.Migrations.Player
         {
             Create.Table("player")
                 .WithColumn("id").AsUnsignedInt().NotNullable().PrimaryKey().ForeignKey("account", "id")
-                .WithColumn("name").AsString(20).NotNullable().Unique()
+                .WithColumn("name").AsString(19).NotNullable().Unique()
                 .WithColumn("biography").AsText().NotNullable()
                 .WithColumn("created_at").AsCreatedAtTimestamp()
                 .WithColumn("updated_at").AsUpdatedAtTimestamp();

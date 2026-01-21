@@ -142,7 +142,7 @@ namespace FOMServer.World.Application
             using var registerPacket = new PacketWriter<RegisterWorld>();
             ref var rpData = ref registerPacket.Data;
 
-            rpData.NumWorlds = (byte)_serverSettings.WorldIDs.Length;
+            rpData.WorldIDCount = (byte)_serverSettings.WorldIDs.Length;
             for (int i = 0; i < _serverSettings.WorldIDs.Length; i++)
                 rpData.WorldIDs[i] = _serverSettings.WorldIDs[i];
             rpData.ClientAddress = new NetworkAddress

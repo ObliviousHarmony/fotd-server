@@ -121,5 +121,6 @@ SERIALIZER_BOTH(LoginTokenCheck)
 SERIALIZER_READ(CheckName)
 SERIALIZER_WRITE(CheckNameReturn)
 SERIALIZER_READ(CreateCharacter)
+SERIALIZER_WRITE(LoginReturn)
 
 }  // namespace FOMNetwork

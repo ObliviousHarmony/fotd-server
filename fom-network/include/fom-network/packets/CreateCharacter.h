@@ -8,10 +8,10 @@ namespace Packet {
 
 #pragma pack(push, 1)
 struct CreateCharacter {
-  PlayerID_t playerID;
+  uint32_t playerID;
   Type::Avatar avatar;
-  uint8_t name[20];
-  uint8_t biography[511];
+  uint8_t name[BufferSizes::PLAYER_NAME];
+  uint8_t biography[BufferSizes::PLAYER_BIOGRAPHY];
 };
 #pragma pack(pop)
 

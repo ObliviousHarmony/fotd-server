@@ -1,5 +1,5 @@
-using System;
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Metadata;
 
@@ -9,7 +9,6 @@ namespace FOMServer.Shared.Core.Packets
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct Login
     {
-        public const int UsernameSize = 32;
         public const int PasswordHashSize = 64;
         public const int MACAddressSize = 32;
         public const int DriveCount = 4;
@@ -19,7 +18,7 @@ namespace FOMServer.Shared.Core.Packets
         public const int ComputerNameSize = 32;
         public const int SteamTicketSize = 1024;
 
-        public fixed byte RawUsername[UsernameSize];
+        public fixed byte RawUsername[BufferSizes.Username];
         public fixed byte RawPasswordHash[PasswordHashSize];
         public uint ClientCRC;
         public uint CShellCRC;
@@ -39,7 +38,7 @@ namespace FOMServer.Shared.Core.Packets
             get
             {
                 fixed (byte* ptr = RawUsername)
-                    return CStringParser.ToString(ptr, UsernameSize);
+                    return CStringParser.ToString(ptr, BufferSizes.Username);
             }
         }
 

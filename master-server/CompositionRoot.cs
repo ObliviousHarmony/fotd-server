@@ -86,8 +86,7 @@ namespace FOMServer.Master
                   .WithGlobalConnectionString(s_dbSettings!.ConnectionString)
                   .ScanIn(typeof(Shared.Extensions.ServiceCollectionExtensions).Assembly)
                   .For.Migrations();
-            })
-            .AddLogging(lb => lb.AddFluentMigratorConsole());
+            });
 
             return services;
         }

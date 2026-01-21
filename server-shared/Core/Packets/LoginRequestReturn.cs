@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Metadata;
 
@@ -8,10 +9,8 @@ namespace FOMServer.Shared.Core.Packets
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct LoginRequestReturn
     {
-        public const int UsernameSize = 32;
-
         public StatusCode Status;
-        public fixed byte RawUsername[UsernameSize];
+        public fixed byte RawUsername[BufferSizes.Username];
 
         public enum StatusCode : byte
         {

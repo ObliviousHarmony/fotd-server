@@ -11,6 +11,7 @@ using FOMServer.Shared.Infrastructure.Logging;
 using FOMServer.Shared.Infrastructure.Repositories;
 using FOMServer.Shared.Services.FOMNetwork;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace FOMServer.Shared.Extensions
 {
@@ -25,6 +26,7 @@ namespace FOMServer.Shared.Extensions
         {
             var logService = new LogService(shutdownManager, writeToConsole, logFilePath);
             services.AddSingleton<ILogService>(logService);
+            services.AddSingleton<ILoggerProvider>(new LogServiceLoggerProvider(logService));
 
             logService.Start();
         }

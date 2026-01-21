@@ -7,7 +7,7 @@ namespace Packet {
 
 #pragma pack(push, 1)
 struct Login {
-  uint8_t username[32];
+  uint8_t username[BufferSizes::USERNAME];
   uint8_t passwordHash[64];
   uint32_t clientCRC;
   uint32_t cshellCRC;

@@ -145,7 +145,7 @@ namespace FOMServer.Shared.Application.Networking
             if (packet.ID < PacketIdentifier.ID_FOM_PACKET_START)
                 return;
 
-            throw new NotSupportedException("Missing Packet Handler");
+            _logService.WriteMessage(LogLevel.Critical, $"Unhandled packet ID {packet.ID} from {packet.Sender}");
         }
     }
 }

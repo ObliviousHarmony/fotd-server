@@ -8,6 +8,7 @@
 #include <fom-network/packets/CheckName.h>
 #include <fom-network/packets/CheckNameReturn.h>
 #include <fom-network/packets/CreateCharacter.h>
+#include <fom-network/packets/LoginReturn.h>
 #include <fom-network/packets/raknet/AlreadyConnected.h>
 #include <fom-network/packets/raknet/ConnectionAttemptFailed.h>
 #include <fom-network/packets/raknet/ConnectionBanned.h>
@@ -52,6 +53,7 @@ static const std::unordered_map<uint8_t, size_t> packetSizes = {
     {Enum::ID_CHECK_NAME, sizeof(Packet::CheckName)},
     {Enum::ID_CHECK_NAME_RETURN, sizeof(Packet::CheckNameReturn)},
     {Enum::ID_CREATE_CHARACTER, sizeof(Packet::CreateCharacter)},
+    {Enum::ID_LOGIN_RETURN, sizeof(Packet::LoginReturn)},
 };
 
 /**
@@ -64,6 +66,7 @@ static const std::unordered_map<uint32_t, IWriter*> writerMap = {
      &LoginRequestReturnSerializer::GetInstance()},
     {Enum::ID_LOGIN_TOKEN_CHECK, &LoginTokenCheckSerializer::GetInstance()},
     {Enum::ID_CHECK_NAME_RETURN, &CheckNameReturnSerializer::GetInstance()},
+    {Enum::ID_LOGIN_RETURN, &LoginReturnSerializer::GetInstance()},
 };
 
 static const std::unordered_map<uint32_t, IReader*> readerMap = {

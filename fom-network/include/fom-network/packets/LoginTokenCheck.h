@@ -12,7 +12,7 @@ struct LoginTokenCheck {
   uint8_t requestToken[32];  // fromServer == 0
 
   uint8_t success;       // fromServer == 1
-  uint8_t username[32];  // fromServer == 1
+  uint8_t username[BufferSizes::USERNAME];  // fromServer == 1
 };
 #pragma pack(pop)
 

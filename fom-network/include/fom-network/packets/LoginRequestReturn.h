@@ -15,7 +15,7 @@ enum LoginRequestReturnStatus : uint8_t {
 #pragma pack(push, 1)
 struct LoginRequestReturn {
   LoginRequestReturnStatus status;
-  uint8_t username[32];
+  uint8_t username[BufferSizes::USERNAME];
 };
 #pragma pack(pop)
 

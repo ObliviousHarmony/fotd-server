@@ -7,8 +7,8 @@ namespace Packet {
 
 #pragma pack(push, 1)
 struct CheckName {
-  uint8_t name[20];
-  PlayerID_t playerID;
+  uint8_t name[BufferSizes::PLAYER_NAME];
+  uint32_t playerID;
 };
 #pragma pack(pop)
 

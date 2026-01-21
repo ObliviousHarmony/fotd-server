@@ -5,6 +5,11 @@ namespace FOMServer.Shared.Core.Constants
     public static class ServerConstants
     {
         /// <summary>
+        /// The version of the Face of Mankind client that this server supports.
+        /// </summary>
+        public const int ClientVersion = 1853;
+
+        /// <summary>
         /// The port that the master server listens for world server connections on.
         /// </summary>
         public const ushort MasterWorldPort = 61100;
