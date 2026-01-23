@@ -10,6 +10,11 @@ namespace FOMServer.Shared.Core.Constants
         public const int ClientVersion = 1853;
 
         /// <summary>
+        /// The constant that the Face of Mankind client sends on ID_WORLD_LOGIN.
+        /// </summary>
+        public const int WorldLoginConstant = 1293394;
+
+        /// <summary>
         /// The port that the master server listens for world server connections on.
         /// </summary>
         public const ushort MasterWorldPort = 61100;

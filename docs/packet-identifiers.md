@@ -15,9 +15,9 @@
 | ID_WORLD_LOGIN              | 114 |
 | ID_WORLD_LOGIN_RETURN       | 115 |
 | ID_WORLD_LOGOUT             | 116 |
-|                             | 117 |
-|                             | 118 |
-|                             | 119 |
+| ID_PLAYER_MIGRATE_WORLD     | 117 |
+| ID_PLAYER_WORLD_READY       | 118 |
+| ID_PLAYER_LEAVING_WORLD     | 119 |
 | ID_REGISTER_CLIENT          | 120 |
 | ID_REGISTER_CLIENT_RETURN   | 121 |
 | ID_CREATE_CHARACTER         | 122 |

@@ -22,6 +22,11 @@ set(FOMNETWORK_SRC
   "src/packets/CheckNameReturnSerializer.cpp"
   "src/packets/CreateCharacterSerializer.cpp"
   "src/packets/LoginReturnSerializer.cpp"
+  "src/packets/WorldLoginSerializer.cpp"
+  "src/packets/WorldLoginReturnSerializer.cpp"
+  "src/packets/PlayerMigrateWorldSerializer.cpp"
+  "src/packets/PlayerWorldReadySerializer.cpp"
+  "src/packets/PlayerLeavingWorldSerializer.cpp"
 )
 set(FOMNETWORK_INC
   # Core API
@@ -51,6 +56,8 @@ set(FOMNETWORK_INC
   "src/types/AvatarSerializer.h"
   "include/fom-network/types/Apartment.h"
   "src/types/ApartmentSerializer.h"
+  "include/fom-network/types/Item.h"
+  "src/types/ItemSerializer.h"
 
   # RakNet Packets
   "include/fom-network/packets/raknet/AlreadyConnected.h"
@@ -76,6 +83,11 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/CheckNameReturn.h"
   "include/fom-network/packets/CreateCharacter.h"
   "include/fom-network/packets/LoginReturn.h"
+  "include/fom-network/packets/WorldLogin.h"
+  "include/fom-network/packets/WorldLoginReturn.h"
+  "include/fom-network/packets/PlayerMigrateWorld.h"
+  "include/fom-network/packets/PlayerWorldReady.h"
+  "include/fom-network/packets/PlayerLeavingWorld.h"
 )
 set(FOMNETWORK_TEST
     "tests/FOMDataSerializer_test.cpp"
