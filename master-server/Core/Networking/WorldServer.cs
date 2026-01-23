@@ -7,6 +7,6 @@ namespace FOMServer.Master.Core.Networking
     {
         public WorldID ID { get; init; }
         public NetworkAddress ServerAddress { get; init; }
-        public NetworkAddress ClientAddress { get; init; }
+        public NetworkAddress PublicAddress { get; init; }
     }
 }

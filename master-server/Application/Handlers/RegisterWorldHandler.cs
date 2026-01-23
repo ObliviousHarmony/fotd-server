@@ -28,9 +28,9 @@ namespace FOMServer.Master.Application.Handlers
             for (int i = 0; i < p.WorldIDCount; i++)
                 worldIDs[i] = p.WorldIDs[i];
 
-            var registered = _worldServerRegistry.Register(worldIDs, sender, p.ClientAddress);
+            var registered = _worldServerRegistry.Register(worldIDs, sender, p.PublicAddress);
             foreach (var worldID in registered)
-                _logger.LogInformation("World '{WorldID}' Connected: {ClientAddress}", worldID, p.ClientAddress);
+                _logger.LogInformation("World '{WorldID}' Connected: {PublicAddress}", worldID, p.PublicAddress);
         }
     }
 }

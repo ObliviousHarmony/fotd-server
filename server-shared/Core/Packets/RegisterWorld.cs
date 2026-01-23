@@ -10,7 +10,7 @@ namespace FOMServer.Shared.Core.Packets
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct RegisterWorld
     {
-        public NetworkAddress ClientAddress;
+        public NetworkAddress PublicAddress;
         public byte WorldIDCount;
         public WorldIDArray WorldIDs;
 

@@ -142,7 +142,7 @@ namespace FOMServer.World.Application
             rpData.WorldIDCount = (byte)_serverSettings.WorldIDs.Length;
             for (int i = 0; i < _serverSettings.WorldIDs.Length; i++)
                 rpData.WorldIDs[i] = _serverSettings.WorldIDs[i];
-            rpData.ClientAddress = new NetworkAddress
+            rpData.PublicAddress = new NetworkAddress
             {
                 BinaryAddress = BitConverter.ToUInt32(publicIPAddress.GetAddressBytes(), 0),
                 Port = ServerConstants.GetWorldClientPort(_serverSettings.WorldIDs[0])

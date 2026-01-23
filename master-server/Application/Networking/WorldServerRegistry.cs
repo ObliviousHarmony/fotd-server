@@ -19,7 +19,7 @@ namespace FOMServer.Master.Application.Networking
             return _worldServers.GetValueOrDefault(id);
         }
 
-        public WorldID[] Register(WorldID[] ids, NetworkAddress serverAddress, NetworkAddress clientAddress)
+        public WorldID[] Register(WorldID[] ids, NetworkAddress serverAddress, NetworkAddress publicAddress)
         {
             var registered = new List<WorldID>();
 
@@ -29,7 +29,7 @@ namespace FOMServer.Master.Application.Networking
                 {
                     ID = id,
                     ServerAddress = serverAddress,
-                    ClientAddress = clientAddress
+                    PublicAddress = publicAddress
                 };
 
                 if (!_worldServers.TryAdd(id, worldServer))
