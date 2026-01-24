@@ -7,10 +7,10 @@ namespace FOMNetwork {
 
 void WorldLoginReturnSerializer::Write(
     RakNet::BitStream& bs, const Packet::WorldLoginReturn* data) const {
+  NetworkAddressSerializer addressSerializer;
+
   bs.WriteCompressed(data->status);
   bs.WriteCompressed(data->worldID);
-
-  NetworkAddressSerializer addressSerializer;
   addressSerializer.Write(bs, data->worldServerAddress);
 }
 

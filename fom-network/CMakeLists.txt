@@ -55,6 +55,8 @@ set(FOMNETWORK_INC
   "include/fom-network/enums/ItemSecurity.h"
   "include/fom-network/enums/ItemQuality.h"
   "include/fom-network/enums/ApartmentType.h"
+  "include/fom-network/enums/EquipmentSlot.h"
+  "include/fom-network/enums/WeaponSlot.h"
 
   # Types
   "src/types/TypeSerializer.h"
@@ -70,6 +72,8 @@ set(FOMNETWORK_INC
   "src/types/ItemSerializer.h"
   "include/fom-network/types/ItemList.h"
   "src/types/ItemListSerializer.h"
+  "include/fom-network/types/Inventory.h"
+  "src/types/InventorySerializer.h"
 
   # RakNet Packets
   "include/fom-network/packets/raknet/AlreadyConnected.h"

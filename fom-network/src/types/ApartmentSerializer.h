@@ -10,6 +10,8 @@ namespace FOMNetwork {
 class ApartmentSerializer : protected TypeSerializer<Type::Apartment> {
  public:
   void Write(RakNet::BitStream& bs, const Type::Apartment& data) const {
+    ItemListSerializer itemListSerializer;
+
     bs.WriteCompressed(data.id);
     bs.WriteCompressed(data.type);
     bs.WriteCompressed(data.ownerPlayerID);
@@ -22,7 +24,6 @@ class ApartmentSerializer : protected TypeSerializer<Type::Apartment> {
     EncodeString(bs, data.ownerName);
     EncodeString(bs, data.entryCode);
 
-    ItemListSerializer itemListSerializer;
     itemListSerializer.Write(bs, data.storageItems);
 
     bs.Write(data.isPublic == 1);
@@ -39,20 +40,22 @@ class ApartmentSerializer : protected TypeSerializer<Type::Apartment> {
   }
 
   bool Read(RakNet::BitStream& bs, Type::Apartment& data) const {
+    ItemListSerializer itemListSerializer;
+    uint8_t skipU8;
+    uint32_t skipU32;
+
     if (!bs.ReadCompressed(data.id)) return false;
     if (!bs.ReadCompressed(data.type)) return false;
     if (!bs.ReadCompressed(data.ownerPlayerID)) return false;
     if (!bs.ReadCompressed(data.ownerFactionID)) return false;
 
     // Allowed Rank List
-    uint8_t skipU8;
     bs.ReadCompressed(skipU8);
 
     data.isOpen = bs.ReadBit() ? 1 : 0;
     if (!DecodeString(bs, data.ownerName)) return false;
     if (!DecodeString(bs, data.entryCode)) return false;
 
-    ItemListSerializer itemListSerializer;
     if (!itemListSerializer.Read(bs, data.storageItems)) return false;
 
     data.isPublic = bs.ReadBit() ? 1 : 0;
@@ -61,7 +64,6 @@ class ApartmentSerializer : protected TypeSerializer<Type::Apartment> {
     if (!DecodeString(bs, data.publicDescription)) return false;
 
     // Allowed Faction List
-    uint32_t skipU32;
     bs.ReadCompressed(skipU32);
 
     data.isDefault = bs.ReadBit() ? 1 : 0;

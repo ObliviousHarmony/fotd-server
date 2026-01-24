@@ -7,6 +7,8 @@ namespace FOMNetwork {
 
 void LoginReturnSerializer::Write(RakNet::BitStream &bs,
                                   const Packet::LoginReturn *data) const {
+  ApartmentSerializer apartmentSerializer;
+
   bs.WriteCompressed(data->status);
   bs.WriteCompressed(data->playerID);
 
@@ -30,7 +32,6 @@ void LoginReturnSerializer::Write(RakNet::BitStream &bs,
 
   EncodeString(bs, data->factionMOTD);
 
-  ApartmentSerializer apartmentSerializer;
   apartmentSerializer.Write(bs, data->defaultApartment);
   bs.WriteCompressed(data->defaultApartmentWorldID);
 

@@ -8,8 +8,8 @@ namespace FOMNetwork {
 bool RegisterWorldSerializer::Read(RakNet::BitStream& bs,
                                    Packet::RegisterWorld* data) const {
   NetworkAddressSerializer addressSerializer;
-  if (!addressSerializer.Read(bs, data->publicAddress)) return false;
 
+  if (!addressSerializer.Read(bs, data->publicAddress)) return false;
   if (!bs.ReadCompressed(data->worldIDCount)) return false;
   for (int i = 0; i < data->worldIDCount; ++i) {
     if (!bs.ReadCompressed(data->worldIDs[i])) return false;
@@ -21,8 +21,8 @@ bool RegisterWorldSerializer::Read(RakNet::BitStream& bs,
 void RegisterWorldSerializer::Write(RakNet::BitStream& bs,
                                     const Packet::RegisterWorld* data) const {
   NetworkAddressSerializer addressSerializer;
-  addressSerializer.Write(bs, data->publicAddress);
 
+  addressSerializer.Write(bs, data->publicAddress);
   bs.WriteCompressed(data->worldIDCount);
   for (int i = 0; i < data->worldIDCount; ++i)
     bs.WriteCompressed(data->worldIDs[i]);
