@@ -9,8 +9,8 @@ namespace FOMNetwork {
 class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
  public:
   void Write(RakNet::BitStream& bs, const Type::Avatar& data) const {
-    WriteBits(bs, data.sex, 1);
-    WriteBits(bs, data.race, 1);
+    bs.Write(data.sex == 1);
+    bs.Write(data.race == 1);
     WriteBits(bs, data.face, 5);
     WriteBits(bs, data.hair, 5);
 
@@ -18,7 +18,7 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
     WriteBits(bs, data.factionID, 32);
 
     WriteBits(bs, data.rankID, 5);
-    WriteBits(bs, 0, 6);
+    WriteBits(bs, data.unknown1, 6);
     WriteBits(bs, data.legacyFactionID, 4);
 
     WriteBits(bs, data.shirt, 12);
@@ -40,15 +40,15 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
     } else
       bs.Write0();
 
-    bs.Write0();
-    bs.Write0();
-    bs.Write0();
-    bs.Write0();
+    bs.Write(data.isCommander == 1);
+    bs.Write(data.unknown2 == 1);
+    bs.Write(data.unknown3 == 1);
+    bs.Write(data.isGroupLeader == 1);
   }
 
   bool Read(RakNet::BitStream& bs, Type::Avatar& data) const {
-    if (!ReadBits(bs, data.sex, 1)) return false;
-    if (!ReadBits(bs, data.race, 1)) return false;
+    data.sex = bs.ReadBit() ? 1 : 0;
+    data.race = bs.ReadBit() ? 1 : 0;
     if (!ReadBits(bs, data.face, 5)) return false;
     if (!ReadBits(bs, data.hair, 5)) return false;
 
@@ -56,7 +56,7 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
     if (!ReadBits(bs, data.factionID, 32)) return false;
 
     if (!ReadBits(bs, data.rankID, 5)) return false;
-    bs.IgnoreBits(6);
+    if (!ReadBits(bs, data.unknown1, 6)) return false;
     if (!ReadBits(bs, data.legacyFactionID, 4)) return false;
 
     if (!ReadBits(bs, data.shirt, 12)) return false;
@@ -74,10 +74,10 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
         data.equipmentSlots[i] = 0;
     }
 
-    bs.IgnoreBits(1);
-    bs.IgnoreBits(1);
-    bs.IgnoreBits(1);
-    bs.IgnoreBits(1);
+    data.isCommander = bs.ReadBit() ? 1 : 0;
+    data.unknown2 = bs.ReadBit() ? 1 : 0;
+    data.unknown3 = bs.ReadBit() ? 1 : 0;
+    data.isGroupLeader = bs.ReadBit() ? 1 : 0;
 
     return true;
   }

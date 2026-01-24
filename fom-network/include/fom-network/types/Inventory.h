@@ -9,11 +9,14 @@
 namespace FOMNetwork {
 namespace Type {
 
+constexpr int NUM_UNKNOWN_ITEM_SLOTS = 6;
+
 #pragma pack(push, 1)
 struct Inventory {
   ItemList inventory;
   Item equipment[Enum::NUM_EQUIPMENT_SLOTS];
   Item weapons[Enum::NUM_WEAPON_SLOTS];
+  Item unknown1[NUM_UNKNOWN_ITEM_SLOTS];
   ItemList storage;
 };
 #pragma pack(pop)

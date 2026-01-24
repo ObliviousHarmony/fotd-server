@@ -15,12 +15,18 @@ struct Avatar {
 
   uint16_t factionID;
   uint16_t rankID;
+  uint8_t unknown1;  // 6 bits on wire
   uint16_t legacyFactionID;
 
   uint16_t shirt;
   uint16_t bottoms;
   uint16_t shoes;
   uint16_t equipmentSlots[Enum::NUM_EQUIPMENT_SLOTS];
+
+  uint8_t isCommander;    // 1 bit on wire
+  uint8_t unknown2;       // 1 bit on wire
+  uint8_t unknown3;       // 1 bit on wire
+  uint8_t isGroupLeader;  // 1 bit on wire
 };
 #pragma pack(pop)
 

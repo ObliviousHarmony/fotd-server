@@ -33,9 +33,13 @@ class InventorySerializer : protected TypeSerializer<Type::Inventory> {
       }
     }
 
-    // Unknown, maybe nanomachine augmentation slots?
-    for (uint8_t i = 0; i < 6; ++i) {
-      bs.Write0();
+    for (uint8_t i = 0; i < Type::NUM_UNKNOWN_ITEM_SLOTS; ++i) {
+      if (data.unknown1[i].id != 0) {
+        bs.Write1();
+        itemSerializer.Write(bs, data.unknown1[i]);
+      } else {
+        bs.Write0();
+      }
     }
 
     itemListSerializer.Write(bs, data.storage);
@@ -63,9 +67,12 @@ class InventorySerializer : protected TypeSerializer<Type::Inventory> {
       }
     }
 
-    // Unknown, maybe nanomachine augmentation slots?
-    for (uint8_t i = 0; i < 6; ++i) {
-      bs.IgnoreBits(1);
+    for (uint8_t i = 0; i < Type::NUM_UNKNOWN_ITEM_SLOTS; ++i) {
+      if (bs.ReadBit()) {
+        if (!itemSerializer.Read(bs, data.unknown1[i])) return false;
+      } else {
+        data.unknown1[i] = {};
+      }
     }
 
     if (!itemListSerializer.Read(bs, data.storage)) return false;

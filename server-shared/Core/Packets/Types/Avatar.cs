@@ -1,5 +1,3 @@
-using System;
-using System.Net;
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Enums;
 
@@ -15,6 +13,7 @@ namespace FOMServer.Shared.Core.Packets.Types
 
         public ushort FactionID;
         public ushort RankID;
+        public byte Unknown1; // 6 bits on wire
         public ushort LegacyFactionID;
 
         public ushort Shirt;
@@ -22,5 +21,10 @@ namespace FOMServer.Shared.Core.Packets.Types
         public ushort Shoes;
 
         public fixed ushort EquipmentSlots[(int)EquipmentSlot.NUM_EQUIPMENT_SLOTS];
+
+        public byte IsCommander;   // 1 bit on wire
+        public byte Unknown2;      // 1 bit on wire
+        public byte Unknown3;      // 1 bit on wire
+        public byte IsGroupLeader; // 1 bit on wire
     }
 }
