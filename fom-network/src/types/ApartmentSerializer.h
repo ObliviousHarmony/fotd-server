@@ -2,6 +2,7 @@
 
 #include <fom-network/types/Apartment.h>
 
+#include "ItemListSerializer.h"
 #include "TypeSerializer.h"
 
 namespace FOMNetwork {
@@ -21,12 +22,8 @@ class ApartmentSerializer : protected TypeSerializer<Type::Apartment> {
     EncodeString(bs, data.ownerName);
     EncodeString(bs, data.entryCode);
 
-    // Storage Item List
-    bs.WriteCompressed((uint16_t)0);
-    bs.WriteCompressed((uint32_t)0);
-    bs.WriteCompressed((uint32_t)0);
-    bs.WriteCompressed((uint32_t)0);
-    bs.WriteCompressed((uint16_t)0);
+    ItemListSerializer itemListSerializer;
+    itemListSerializer.Write(bs, data.storageItems);
 
     bs.Write(data.isPublic == 1);
     bs.WriteCompressed(data.entryPrice);
@@ -55,14 +52,8 @@ class ApartmentSerializer : protected TypeSerializer<Type::Apartment> {
     if (!DecodeString(bs, data.ownerName)) return false;
     if (!DecodeString(bs, data.entryCode)) return false;
 
-    // Storage Item List
-    uint16_t skipU16;
-    uint32_t skipU32;
-    bs.ReadCompressed(skipU16);
-    bs.ReadCompressed(skipU32);
-    bs.ReadCompressed(skipU32);
-    bs.ReadCompressed(skipU32);
-    bs.ReadCompressed(skipU16);
+    ItemListSerializer itemListSerializer;
+    if (!itemListSerializer.Read(bs, data.storageItems)) return false;
 
     data.isPublic = bs.ReadBit() ? 1 : 0;
     if (!bs.ReadCompressed(data.entryPrice)) return false;
@@ -70,6 +61,7 @@ class ApartmentSerializer : protected TypeSerializer<Type::Apartment> {
     if (!DecodeString(bs, data.publicDescription)) return false;
 
     // Allowed Faction List
+    uint32_t skipU32;
     bs.ReadCompressed(skipU32);
 
     data.isDefault = bs.ReadBit() ? 1 : 0;

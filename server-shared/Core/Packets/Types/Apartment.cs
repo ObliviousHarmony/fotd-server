@@ -18,6 +18,7 @@ namespace FOMServer.Shared.Core.Packets.Types
         public byte IsOpen;
         public fixed byte RawOwnerName[OwnerNameSize];
         public fixed byte RawEntryCode[EntryCodeSize];
+        public ItemList StorageItems;
         public byte IsPublic;
         public uint EntryPrice;
         public fixed byte RawPublicName[PublicNameSize];
