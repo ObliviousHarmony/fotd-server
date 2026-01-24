@@ -33,12 +33,11 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
       }
     }
 
+    bs.Write(hasEquipment);
     if (hasEquipment) {
-      bs.Write1();
       for (int i = 0; i < Enum::NUM_EQUIPMENT_SLOTS; ++i)
         WriteBits(bs, data.equipmentSlots[i], 12);
-    } else
-      bs.Write0();
+    }
 
     bs.Write(data.isCommander == 1);
     bs.Write(data.unknown2 == 1);
@@ -47,8 +46,8 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
   }
 
   bool Read(RakNet::BitStream& bs, Type::Avatar& data) const {
-    data.sex = bs.ReadBit() ? 1 : 0;
-    data.race = bs.ReadBit() ? 1 : 0;
+    data.sex = bs.ReadBit() ? Enum::FEMALE : Enum::MALE;
+    data.race = bs.ReadBit() ? Enum::BLACK : Enum::WHITE;
     if (!ReadBits(bs, data.face, 5)) return false;
     if (!ReadBits(bs, data.hair, 5)) return false;
 

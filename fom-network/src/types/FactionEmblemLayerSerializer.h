@@ -14,12 +14,9 @@ class FactionEmblemLayerSerializer
     bool hasLayer =
         data.shape != 0 || data.offsetX != 0 || data.offsetY != 0;
 
-    if (!hasLayer) {
-      bs.Write0();
+    bs.Write(hasLayer);
+    if (!hasLayer)
       return;
-    }
-
-    bs.Write1();
     bs.WriteCompressed(data.shape);
     bs.WriteCompressed(data.offsetX);
     bs.WriteCompressed(data.offsetY);
@@ -33,7 +30,6 @@ class FactionEmblemLayerSerializer
 
   bool Read(RakNet::BitStream& bs, Type::FactionEmblemLayer& data) const {
     bool hasLayer = bs.ReadBit();
-
     if (!hasLayer) {
       data.shape = 0;
       data.offsetX = 0;

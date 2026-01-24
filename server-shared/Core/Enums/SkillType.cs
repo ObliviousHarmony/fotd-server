@@ -1,6 +1,6 @@
 namespace FOMServer.Shared.Core.Enums
 {
-    public enum PlayerSkill : uint
+    public enum SkillType : uint
     {
         Invalid = 0,
         BasicApplication = 1,
@@ -119,6 +119,6 @@ namespace FOMServer.Shared.Core.Enums
         // 114
         // 115
 
-        NUM_PLAYER_SKILLS = 116,
+        NUM_SKILL_TYPES = 116,
     }
 }

@@ -5,8 +5,6 @@
 namespace FOMNetwork {
 namespace Type {
 
-// Wire format per perk:
-// id (uint16_t), level (uint8_t), active (1 bit)
 #pragma pack(push, 1)
 struct FactionPerk {
   uint16_t id;

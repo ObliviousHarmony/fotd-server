@@ -7,10 +7,9 @@
 namespace FOMNetwork {
 namespace Type {
 
-// Wire format: header (uint32_t), then 10x FactionEmblemLayer (bit-prefixed)
 #pragma pack(push, 1)
 struct FactionEmblem {
-  uint32_t header;
+  uint32_t staticEmblemID;
   FactionEmblemLayer layers[Constants::NUM_FACTION_EMBLEM_LAYERS];
 };
 #pragma pack(pop)

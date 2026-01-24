@@ -1,6 +1,6 @@
 namespace FOMServer.Shared.Core.Enums
 {
-    public enum PlayerAttribute : byte
+    public enum AttributeType : byte
     {
         Health = 0,
         Stamina = 1,
@@ -56,6 +56,6 @@ namespace FOMServer.Shared.Core.Enums
         VortexEmitterCountdown = 51,
         Unknown = 52,
 
-        NUM_PLAYER_ATTRIBUTES = 53,
+        NUM_ATTRIBUTE_TYPES = 53,
     }
 }

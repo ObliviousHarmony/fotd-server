@@ -5,7 +5,7 @@
 namespace FOMNetwork {
 namespace Enum {
 
-enum PlayerAttribute : uint8_t {
+enum AttributeType : uint8_t {
   ATTRIBUTE_HEALTH = 0,
   ATTRIBUTE_STAMINA = 1,
   ATTRIBUTE_BIO_ENERGY = 2,
@@ -60,7 +60,7 @@ enum PlayerAttribute : uint8_t {
   ATTRIBUTE_VORTEX_EMITTER_COUNTDOWN = 51,
   ATTRIBUTE_UNKNOWN = 52,
 
-  NUM_PLAYER_ATTRIBUTES = 53
+  NUM_ATTRIBUTE_TYPES = 53
 };
 
 }  // namespace Enum

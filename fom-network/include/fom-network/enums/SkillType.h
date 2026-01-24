@@ -5,7 +5,7 @@
 namespace FOMNetwork {
 namespace Enum {
 
-enum PlayerSkill : uint32_t {
+enum SkillType : uint32_t {
   SKILL_INVALID = 0,
   SKILL_BASIC_APPLICATION = 1,
   SKILL_STANDARD_PROCEDURES = 2,
@@ -123,7 +123,7 @@ enum PlayerSkill : uint32_t {
   // 114
   // 115
 
-  NUM_PLAYER_SKILLS = 116
+  NUM_SKILL_TYPES = 116
 };
 
 }  // namespace Enum

@@ -5,6 +5,7 @@
 #include <fom-network/enums/Player.h>
 #include <fom-network/types/Avatar.h>
 #include <fom-network/types/FactionEmblem.h>
+#include <fom-network/types/PlayerProfile.h>
 #include <fom-network/types/FactionPerks.h>
 #include <fom-network/types/Item.h>
 #include <fom-network/types/ItemList.h>
@@ -28,40 +29,27 @@ struct RegisterClientReturn {
   uint8_t worldID;
   uint32_t playerID;
   RegisterClientReturnStatus status;
-
-  // Inventory (flattened)
   Type::ItemList inventory;
   Type::Item equipment[Enum::NUM_EQUIPMENT_SLOTS];
   Type::Item weapons[Constants::NUM_WEAPON_SLOTS];
+  Type::Item unknownSlots[Constants::NUM_UNKNOWN_ITEM_SLOTS];
   Type::ItemList storage;
-
   uint16_t quickSlots[Constants::NUM_QUICK_SLOTS];
   Type::Avatar avatar;
   Type::PlayerAttributes attributes;
-
-  // PlayerProfile (flattened)
-  uint32_t profilePlayerID;
-  uint8_t profileField_0x4;  // unknown bit field
-  uint8_t profileName[BufferSizes::PLAYER_NAME];
-  uint8_t profileFactionName[BufferSizes::FACTION_NAME];
-  uint8_t profileBiography[BufferSizes::PLAYER_BIOGRAPHY];
-  uint8_t profileRankName[BufferSizes::RANK_NAME];
-
-  uint8_t field_0xf28;  // unknown
-  uint8_t field_0xf29;  // unknown
+  Type::PlayerProfile profile;
+  uint8_t unknown1;
+  uint8_t unknown2;
   uint16_t avatarCacheCount;
   Type::Avatar avatarCache[MAX_AVATAR_CACHE];
-
-  uint8_t field_0x49c4;  // unknown bit field
+  uint8_t unknown3;
   Type::Position safezoneCenter;
   uint32_t safezoneRadius;
   uint32_t nodeID;
-  uint8_t field_0x49e0;  // unknown bit field
+  uint8_t unknown4;
   uint16_t cloningDuration;
-
   Type::FactionEmblem factionEmblem;
   uint8_t factionName[BufferSizes::FACTION_NAME];
-
   Type::PlayerSkills skills;
   Type::Position spawnPosition;
   uint8_t spawnAtPosition;

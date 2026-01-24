@@ -5,10 +5,6 @@
 namespace FOMNetwork {
 namespace Type {
 
-// Wire format: 1-bit presence flag, then if present:
-// shape (uint16_t), offsetX (int8_t), offsetY (int8_t),
-// scaleWidth (7 bits), scaleHeight (7 bits), rotation (9 bits),
-// red (uint8_t), green (uint8_t), blue (uint8_t)
 #pragma pack(push, 1)
 struct FactionEmblemLayer {
   uint16_t shape;

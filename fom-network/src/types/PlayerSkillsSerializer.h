@@ -13,7 +13,7 @@ class PlayerSkillsSerializer : protected TypeSerializer<Type::PlayerSkills> {
     bs.WriteCompressed(data.combatTrainingMultiplier);
     bs.WriteCompressed(data.ecoTrainingMultiplier);
     bs.WriteCompressed(data.techTrainingMultiplier);
-    bs.WriteCompressed(data.field_0x20);
+    bs.WriteCompressed(data.unknown1);
     bs.WriteCompressed(data.count);
 
     for (uint32_t i = 0; i < data.count; ++i) {
@@ -31,7 +31,7 @@ class PlayerSkillsSerializer : protected TypeSerializer<Type::PlayerSkills> {
     if (!bs.ReadCompressed(data.combatTrainingMultiplier)) return false;
     if (!bs.ReadCompressed(data.ecoTrainingMultiplier)) return false;
     if (!bs.ReadCompressed(data.techTrainingMultiplier)) return false;
-    if (!bs.ReadCompressed(data.field_0x20)) return false;
+    if (!bs.ReadCompressed(data.unknown1)) return false;
     if (!bs.ReadCompressed(data.count)) return false;
 
     for (uint32_t i = 0; i < data.count; ++i) {

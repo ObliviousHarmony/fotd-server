@@ -55,8 +55,8 @@ set(FOMNETWORK_INC
   "include/fom-network/enums/ItemSecurity.h"
   "include/fom-network/enums/ItemQuality.h"
   "include/fom-network/enums/ApartmentType.h"
-  "include/fom-network/enums/PlayerSkill.h"
-  "include/fom-network/enums/PlayerAttribute.h"
+  "include/fom-network/enums/SkillType.h"
+  "include/fom-network/enums/AttributeType.h"
 
   # Constants
   "include/fom-network/constants/BufferSizes.h"

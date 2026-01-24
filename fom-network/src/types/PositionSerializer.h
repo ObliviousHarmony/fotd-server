@@ -22,18 +22,9 @@ class PositionSerializer : protected TypeSerializer<Type::Position> {
       WriteBits(bs, y, data.precision);
       WriteBits(bs, z, data.precision);
 
-      if (data.x < 0)
-        bs.Write1();
-      else
-        bs.Write0();
-      if (data.y < 0)
-        bs.Write1();
-      else
-        bs.Write0();
-      if (data.z < 0)
-        bs.Write1();
-      else
-        bs.Write0();
+      bs.Write(data.x < 0);
+      bs.Write(data.y < 0);
+      bs.Write(data.z < 0);
     }
 
     WriteBits(bs, data.rot, 9);
