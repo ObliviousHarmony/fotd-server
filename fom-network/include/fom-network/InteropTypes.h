@@ -26,6 +26,7 @@ namespace BufferSizes {
 constexpr int32_t USERNAME = 19;
 constexpr int32_t PLAYER_NAME = 20;
 constexpr int32_t PLAYER_BIOGRAPHY = 511;
+constexpr uint32_t MAX_ITEM_LIST_SIZE = 60000;
 
 }  // namespace BufferSizes
 

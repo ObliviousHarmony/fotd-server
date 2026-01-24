@@ -1,19 +1,19 @@
 #pragma once
 
 #include <fom-network/Interop.h>
-#include <fom-network/types/ItemBase.h>
+#include <fom-network/types/Item.h>
 
 namespace FOMNetwork {
 namespace Type {
 
 #pragma pack(push, 1)
-struct Item {
-  uint32_t id;
-  Type::ItemBase base;
+struct ItemList {
+  uint32_t itemCount;
+  Item items[BufferSizes::MAX_ITEM_LIST_SIZE];
 };
 #pragma pack(pop)
 
-ASSERT_BLITTABLE(Item);
+ASSERT_BLITTABLE(ItemList);
 
 }  // namespace Type
 }  // namespace FOMNetwork

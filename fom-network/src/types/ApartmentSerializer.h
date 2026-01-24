@@ -42,28 +42,27 @@ class ApartmentSerializer : protected TypeSerializer<Type::Apartment> {
   }
 
   bool Read(RakNet::BitStream& bs, Type::Apartment& data) const {
-    uint8_t tempUInt8;
-    uint16_t tempUInt16;
-    uint32_t tempUInt32;
-
     if (!bs.ReadCompressed(data.id)) return false;
     if (!bs.ReadCompressed(data.type)) return false;
     if (!bs.ReadCompressed(data.ownerPlayerID)) return false;
     if (!bs.ReadCompressed(data.ownerFactionID)) return false;
 
     // Allowed Rank List
-    bs.ReadCompressed(tempUInt8);
+    uint8_t skipU8;
+    bs.ReadCompressed(skipU8);
 
     data.isOpen = bs.ReadBit() ? 1 : 0;
     if (!DecodeString(bs, data.ownerName)) return false;
     if (!DecodeString(bs, data.entryCode)) return false;
 
     // Storage Item List
-    bs.ReadCompressed(tempUInt16);
-    bs.ReadCompressed(tempUInt32);
-    bs.ReadCompressed(tempUInt32);
-    bs.ReadCompressed(tempUInt32);
-    bs.ReadCompressed(tempUInt16);
+    uint16_t skipU16;
+    uint32_t skipU32;
+    bs.ReadCompressed(skipU16);
+    bs.ReadCompressed(skipU32);
+    bs.ReadCompressed(skipU32);
+    bs.ReadCompressed(skipU32);
+    bs.ReadCompressed(skipU16);
 
     data.isPublic = bs.ReadBit() ? 1 : 0;
     if (!bs.ReadCompressed(data.entryPrice)) return false;
@@ -71,7 +70,7 @@ class ApartmentSerializer : protected TypeSerializer<Type::Apartment> {
     if (!DecodeString(bs, data.publicDescription)) return false;
 
     // Allowed Faction List
-    bs.ReadCompressed(tempUInt32);
+    bs.ReadCompressed(skipU32);
 
     data.isDefault = bs.ReadBit() ? 1 : 0;
     data.isFeatured = bs.ReadBit() ? 1 : 0;

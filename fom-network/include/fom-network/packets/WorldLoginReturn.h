@@ -7,7 +7,7 @@
 namespace FOMNetwork {
 namespace Packet {
 
-enum WorldLoginReturnStatus {
+enum WorldLoginReturnStatus : uint8_t {
   WORLD_LOGIN_RETURN_INVALID = 0,
   WORLD_LOGIN_RETURN_SUCCESS = 1,
   WORLD_LOGIN_RETURN_SERVER_OFFLINE = 2,

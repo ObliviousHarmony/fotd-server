@@ -8,5 +8,6 @@ namespace FOMServer.Shared.Core.Constants
         public const int Username = 19; // USERNAME
         public const int PlayerName = 20; // PLAYER_NAME
         public const int PlayerBiography = 511; // PLAYER_BIOGRAPHY
+        public const int MaxItemListSize = 60000; // MAX_ITEM_LIST_SIZE
     }
 }

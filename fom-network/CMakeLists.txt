@@ -12,6 +12,9 @@ set(FOMNETWORK_SRC
   "src/PacketAPI.cpp"
   "src/FOMDataSerializer.cpp"
 
+  # Types
+  "src/types/ItemListSerializer.cpp"
+
   # Packets
   "src/packets/RegisterWorldSerializer.cpp"
   "src/packets/LoginTokenCheckSerializer.cpp"
@@ -46,6 +49,9 @@ set(FOMNETWORK_INC
   "include/fom-network/enums/AccountType.h"
   "include/fom-network/enums/WorldID.h"
   "include/fom-network/enums/Player.h"
+  "include/fom-network/enums/ItemType.h"
+  "include/fom-network/enums/ItemSecurity.h"
+  "include/fom-network/enums/ItemQuality.h"
   "include/fom-network/enums/ApartmentType.h"
 
   # Types
@@ -56,8 +62,12 @@ set(FOMNETWORK_INC
   "src/types/AvatarSerializer.h"
   "include/fom-network/types/Apartment.h"
   "src/types/ApartmentSerializer.h"
+  "include/fom-network/types/ItemBase.h"
+  "src/types/ItemBaseSerializer.h"
   "include/fom-network/types/Item.h"
   "src/types/ItemSerializer.h"
+  "include/fom-network/types/ItemList.h"
+  "src/types/ItemListSerializer.h"
 
   # RakNet Packets
   "include/fom-network/packets/raknet/AlreadyConnected.h"
