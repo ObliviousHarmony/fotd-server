@@ -18,6 +18,7 @@ namespace FOMServer.World.Application
         private readonly ILogger<Server> _logger;
         private readonly IShutdownManager _shutdownManager;
         private readonly ServerSettings _serverSettings;
+        private readonly ushort _publicPort;
         private readonly INetworkService _networkService;
         private readonly IServerService _serverService;
         private readonly IClientService _clientService;
@@ -40,6 +41,8 @@ namespace FOMServer.World.Application
             _serverService = serverService;
             _clientService = clientService;
             _serviceProvider = serviceProvider;
+
+            _publicPort = ServerConstants.GetWorldClientPort(_serverSettings.WorldIDs[0]);
         }
 
         public async Task Run()
@@ -144,8 +147,8 @@ namespace FOMServer.World.Application
                 rpData.WorldIDs[i] = _serverSettings.WorldIDs[i];
             rpData.PublicAddress = new NetworkAddress
             {
-                BinaryAddress = BitConverter.ToUInt32(publicIPAddress.GetAddressBytes(), 0),
-                Port = ServerConstants.GetWorldClientPort(_serverSettings.WorldIDs[0])
+                Address = publicIPAddress.ToString(),
+                Port = _publicPort
             };
 
             packetSender.Send(registerPacket.Build());
@@ -155,7 +158,7 @@ namespace FOMServer.World.Application
 
         private NetworkManager? CreateClientNetwork(PacketProcessor packetProcessor)
         {
-            var peer = _serverService.Startup(ServerConstants.GetWorldClientPort(_serverSettings.WorldIDs[0]));
+            var peer = _serverService.Startup(_publicPort);
             if (peer == IntPtr.Zero)
                 return null;
 

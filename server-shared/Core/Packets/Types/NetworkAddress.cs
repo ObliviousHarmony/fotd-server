@@ -8,18 +8,19 @@ namespace FOMServer.Shared.Core.Packets.Types
     {
         public static readonly NetworkAddress Unassigned = new NetworkAddress
         {
-            BinaryAddress = 0xFFFFFFFF,
+            Address = "255.255.255.255",
             Port = 0xFFFF
         };
 
-        public uint BinaryAddress;
+        private uint _binaryAddress;
         public ushort Port;
 
         public string Address
         {
             readonly get
             {
-                return string.Join(".", BitConverter.GetBytes(BinaryAddress));
+                // _binaryAddress stores bytes in network order (same as inet_addr)
+                return string.Join(".", BitConverter.GetBytes(_binaryAddress));
             }
             set
             {
@@ -30,7 +31,9 @@ namespace FOMServer.Shared.Core.Packets.Types
                 if (bytes.Length != 4)
                     throw new ArgumentException("Only IPv4 addresses are supported", nameof(value));
 
-                BinaryAddress = BitConverter.ToUInt32(bytes, 0);
+                // GetAddressBytes returns network order bytes, BitConverter gives us the
+                // same uint value that inet_addr would return (bytes in memory = network order)
+                _binaryAddress = BitConverter.ToUInt32(bytes, 0);
             }
         }
 
@@ -41,12 +44,12 @@ namespace FOMServer.Shared.Core.Packets.Types
         {
             if (obj is not NetworkAddress other)
                 return false;
-            return BinaryAddress == other.BinaryAddress && Port == other.Port;
+            return _binaryAddress == other._binaryAddress && Port == other.Port;
         }
 
         public override readonly int GetHashCode()
         {
-            return HashCode.Combine(BinaryAddress, Port);
+            return HashCode.Combine(_binaryAddress, Port);
         }
 
         public override readonly string ToString()
