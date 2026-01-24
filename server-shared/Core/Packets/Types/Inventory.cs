@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 
 namespace FOMServer.Shared.Core.Packets.Types
@@ -24,7 +25,7 @@ namespace FOMServer.Shared.Core.Packets.Types
             private Item _item;
         }
 
-        [InlineArray((int)WeaponSlot.NUM_WEAPON_SLOTS)]
+        [InlineArray(PlayerConstants.NumWeaponSlots)]
         public struct WeaponList
         {
             private Item _item;

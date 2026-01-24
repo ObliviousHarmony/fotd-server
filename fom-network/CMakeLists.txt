@@ -55,8 +55,13 @@ set(FOMNETWORK_INC
   "include/fom-network/enums/ItemSecurity.h"
   "include/fom-network/enums/ItemQuality.h"
   "include/fom-network/enums/ApartmentType.h"
-  "include/fom-network/enums/EquipmentSlot.h"
-  "include/fom-network/enums/WeaponSlot.h"
+  "include/fom-network/enums/PlayerSkill.h"
+  "include/fom-network/enums/PlayerAttribute.h"
+
+  # Constants
+  "include/fom-network/constants/BufferSizes.h"
+  "include/fom-network/constants/FactionConstants.h"
+  "include/fom-network/constants/PlayerConstants.h"
 
   # Types
   "src/types/TypeSerializer.h"
@@ -72,8 +77,20 @@ set(FOMNETWORK_INC
   "src/types/ItemSerializer.h"
   "include/fom-network/types/ItemList.h"
   "src/types/ItemListSerializer.h"
-  "include/fom-network/types/Inventory.h"
-  "src/types/InventorySerializer.h"
+  "include/fom-network/types/Position.h"
+  "src/types/PositionSerializer.h"
+  "include/fom-network/types/PlayerAttributes.h"
+  "src/types/PlayerAttributesSerializer.h"
+  "include/fom-network/types/PlayerSkill.h"
+  "include/fom-network/types/PlayerSkills.h"
+  "src/types/PlayerSkillsSerializer.h"
+  "include/fom-network/types/FactionEmblemLayer.h"
+  "src/types/FactionEmblemLayerSerializer.h"
+  "include/fom-network/types/FactionEmblem.h"
+  "src/types/FactionEmblemSerializer.h"
+  "include/fom-network/types/FactionPerk.h"
+  "include/fom-network/types/FactionPerks.h"
+  "src/types/FactionPerksSerializer.h"
 
   # RakNet Packets
   "include/fom-network/packets/raknet/AlreadyConnected.h"
