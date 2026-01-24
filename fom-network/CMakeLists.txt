@@ -30,6 +30,8 @@ set(FOMNETWORK_SRC
   "src/packets/PlayerMigrateWorldSerializer.cpp"
   "src/packets/PlayerWorldReadySerializer.cpp"
   "src/packets/PlayerLeavingWorldSerializer.cpp"
+  "src/packets/RegisterClientSerializer.cpp"
+  "src/packets/RegisterClientReturnSerializer.cpp"
 )
 set(FOMNETWORK_INC
   # Core API
@@ -98,6 +100,8 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/PlayerMigrateWorld.h"
   "include/fom-network/packets/PlayerWorldReady.h"
   "include/fom-network/packets/PlayerLeavingWorld.h"
+  "include/fom-network/packets/RegisterClient.h"
+  "include/fom-network/packets/RegisterClientReturn.h"
 )
 set(FOMNETWORK_TEST
     "tests/FOMDataSerializer_test.cpp"

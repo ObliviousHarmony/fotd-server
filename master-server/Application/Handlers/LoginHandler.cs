@@ -1,5 +1,6 @@
 using FOMServer.Master.Core.Networking;
 using FOMServer.Shared.Core.Constants;
+using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
@@ -56,6 +57,8 @@ namespace FOMServer.Master.Application.Handlers
             rData.Status = LoginReturn.StatusCode.Success;
 
             // Populate Login Return
+            rData.AccountType = AccountType.Prepaid;
+            rData.LoginWorldID = WorldID.Manhattan;
 
             _packetSender.Send(response.Build());
         }

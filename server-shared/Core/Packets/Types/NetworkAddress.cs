@@ -8,19 +8,19 @@ namespace FOMServer.Shared.Core.Packets.Types
     {
         public static readonly NetworkAddress Unassigned = new NetworkAddress
         {
-            Address = "255.255.255.255",
+            BinaryAddress = 0xFFFFFFFF,
             Port = 0xFFFF
         };
 
-        private uint _binaryAddress;
+        public uint BinaryAddress;
         public ushort Port;
 
         public string Address
         {
             readonly get
             {
-                // _binaryAddress stores bytes in network order (same as inet_addr)
-                return string.Join(".", BitConverter.GetBytes(_binaryAddress));
+                // BinaryAddress stores bytes in network order (same as inet_addr)
+                return string.Join(".", BitConverter.GetBytes(BinaryAddress));
             }
             set
             {
@@ -33,7 +33,7 @@ namespace FOMServer.Shared.Core.Packets.Types
 
                 // GetAddressBytes returns network order bytes, BitConverter gives us the
                 // same uint value that inet_addr would return (bytes in memory = network order)
-                _binaryAddress = BitConverter.ToUInt32(bytes, 0);
+                BinaryAddress = BitConverter.ToUInt32(bytes, 0);
             }
         }
 
@@ -44,12 +44,12 @@ namespace FOMServer.Shared.Core.Packets.Types
         {
             if (obj is not NetworkAddress other)
                 return false;
-            return _binaryAddress == other._binaryAddress && Port == other.Port;
+            return BinaryAddress == other.BinaryAddress && Port == other.Port;
         }
 
         public override readonly int GetHashCode()
         {
-            return HashCode.Combine(_binaryAddress, Port);
+            return HashCode.Combine(BinaryAddress, Port);
         }
 
         public override readonly string ToString()

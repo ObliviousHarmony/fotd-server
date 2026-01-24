@@ -127,5 +127,7 @@ SERIALIZER_WRITE(WorldLoginReturn)
 SERIALIZER_BOTH(PlayerMigrateWorld)
 SERIALIZER_BOTH(PlayerWorldReady)
 SERIALIZER_BOTH(PlayerLeavingWorld)
+SERIALIZER_READ(RegisterClient)
+SERIALIZER_WRITE(RegisterClientReturn)
 
 }  // namespace FOMNetwork

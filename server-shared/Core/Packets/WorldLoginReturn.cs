@@ -13,7 +13,7 @@ namespace FOMServer.Shared.Core.Packets
         public WorldID WorldID;
         public NetworkAddress WorldServerAddress;
 
-        public enum StatusCode : int
+        public enum StatusCode : byte
         {
             Invalid = 0, // WORLD_LOGIN_RETURN_INVALID
             Success = 1, // WORLD_LOGIN_RETURN_SUCCESS

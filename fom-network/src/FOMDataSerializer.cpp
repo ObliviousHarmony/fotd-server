@@ -11,6 +11,8 @@
 #include <fom-network/packets/PlayerLeavingWorld.h>
 #include <fom-network/packets/PlayerMigrateWorld.h>
 #include <fom-network/packets/PlayerWorldReady.h>
+#include <fom-network/packets/RegisterClient.h>
+#include <fom-network/packets/RegisterClientReturn.h>
 #include <fom-network/packets/RegisterWorld.h>
 #include <fom-network/packets/WorldLogin.h>
 #include <fom-network/packets/WorldLoginReturn.h>
@@ -64,6 +66,8 @@ static const std::unordered_map<uint8_t, size_t> packetSizes = {
     {Enum::ID_PLAYER_MIGRATE_WORLD, sizeof(Packet::PlayerMigrateWorld)},
     {Enum::ID_PLAYER_WORLD_READY, sizeof(Packet::PlayerWorldReady)},
     {Enum::ID_PLAYER_LEAVING_WORLD, sizeof(Packet::PlayerLeavingWorld)},
+    {Enum::ID_REGISTER_CLIENT, sizeof(Packet::RegisterClient)},
+    {Enum::ID_REGISTER_CLIENT_RETURN, sizeof(Packet::RegisterClientReturn)},
 };
 
 /**
@@ -81,6 +85,8 @@ static const std::unordered_map<uint32_t, IWriter*> writerMap = {
     {Enum::ID_PLAYER_MIGRATE_WORLD, &PlayerMigrateWorldSerializer::GetInstance()},
     {Enum::ID_PLAYER_WORLD_READY, &PlayerWorldReadySerializer::GetInstance()},
     {Enum::ID_PLAYER_LEAVING_WORLD, &PlayerLeavingWorldSerializer::GetInstance()},
+    {Enum::ID_REGISTER_CLIENT_RETURN,
+     &RegisterClientReturnSerializer::GetInstance()},
 };
 
 static const std::unordered_map<uint32_t, IReader*> readerMap = {
@@ -108,6 +114,7 @@ static const std::unordered_map<uint32_t, IReader*> readerMap = {
     {Enum::ID_PLAYER_MIGRATE_WORLD, &PlayerMigrateWorldSerializer::GetInstance()},
     {Enum::ID_PLAYER_WORLD_READY, &PlayerWorldReadySerializer::GetInstance()},
     {Enum::ID_PLAYER_LEAVING_WORLD, &PlayerLeavingWorldSerializer::GetInstance()},
+    {Enum::ID_REGISTER_CLIENT, &RegisterClientSerializer::GetInstance()},
 };
 
 bool FOMDataSerializer::Write(RakNet::BitStream& bs,
