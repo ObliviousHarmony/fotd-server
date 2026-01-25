@@ -1,5 +1,4 @@
 using System.Data;
-using Dapper;
 using FOMServer.Shared.Core.DTOs;
 using FOMServer.Shared.Core.Repositories;
 
