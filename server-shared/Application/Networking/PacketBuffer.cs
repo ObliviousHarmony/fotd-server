@@ -1,6 +1,5 @@
 using System.Buffers;
 using System.Diagnostics.Metrics;
-using System.Runtime.CompilerServices;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
@@ -73,10 +72,6 @@ namespace FOMServer.Shared.Application.Networking
                 _bufferSize += 1 + PacketHelpers.GetPacketSize(received.Identifiers[i]);
             }
             _buffer = ArrayPool<byte>.Shared.Rent(_bufferSize);
-
-            // Zero-initialize the buffer so our buffer
-            // doesn't contain any garbage data.
-            Unsafe.InitBlock(ref _buffer[0], 0, (uint)_bufferSize);
 
             // Let's create all of the packet references
             // here so that they're easy to access later.

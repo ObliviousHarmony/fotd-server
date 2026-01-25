@@ -2,6 +2,7 @@
 #include <fom-network/enums/PacketIdentifier.h>
 #include <fom-network/enums/SerializationStatus.h>
 
+#include <cstring>
 #include <vector>
 
 #include "FOMDataSerializer.h"
@@ -90,6 +91,10 @@ int32_t FOMNetwork_ProcessPackets(FOMNetworkPeer* peer,
     delete[] received.identifiers;
     return 0;
   }
+
+  // Zero the buffer so that any unread fields don't contain garbage.
+  if (packetBuffer && packetBufferLen > 0)
+    memset(packetBuffer, 0, packetBufferLen);
 
   int packetBufferOffset = 0;
   int ret = 0;
