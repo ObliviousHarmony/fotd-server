@@ -10,5 +10,10 @@ namespace FOMServer.Shared.Core.Packets.Types
         public short Y;
         public short Z;
         public ushort Rotation;
+
+        public Position()
+        {
+            Precision = 16;
+        }
     }
 }

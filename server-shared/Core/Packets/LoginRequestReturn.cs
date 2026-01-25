@@ -19,5 +19,14 @@ namespace FOMServer.Shared.Core.Packets
             VersionMismatch = 2, // LOGIN_REQUEST_RETURN_VERSION_MISMATCH
             AlreadyLoggedIn = 3, // LOGIN_REQUEST_RETURN_ALREADY_LOGGED_IN
         }
+
+        public string Username
+        {
+            set
+            {
+                fixed (byte* ptr = RawUsername)
+                    CStringParser.FromString(value, ptr, BufferSizes.Username);
+            }
+        }
     }
 }

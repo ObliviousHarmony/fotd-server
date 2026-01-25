@@ -25,6 +25,11 @@ namespace FOMServer.Shared.Core.Packets
                 fixed (byte* ptr = RawRequestToken)
                     return CStringParser.ToString(ptr, RequestTokenSize);
             }
+            set
+            {
+                fixed (byte* ptr = RawRequestToken)
+                    CStringParser.FromString(value, ptr, RequestTokenSize);
+            }
         }
 
         public string Username
@@ -33,6 +38,11 @@ namespace FOMServer.Shared.Core.Packets
             {
                 fixed (byte* ptr = RawUsername)
                     return CStringParser.ToString(ptr, BufferSizes.Username);
+            }
+            set
+            {
+                fixed (byte* ptr = RawUsername)
+                    CStringParser.FromString(value, ptr, BufferSizes.Username);
             }
         }
     }

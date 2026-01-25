@@ -1,41 +1,72 @@
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Constants;
 
 namespace FOMServer.Shared.Core.Packets.Types
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct PlayerProfile
+    public unsafe struct PlayerProfile
     {
         public uint PlayerID;
         public byte Unknown1;
-        public PlayerNameBuffer PlayerName;
-        public FactionNameBuffer FactionName;
-        public BiographyBuffer Biography;
-        public RankNameBuffer RankName;
+        public fixed byte RawPlayerName[BufferSizes.PlayerName];
+        public fixed byte RawFactionName[BufferSizes.FactionName];
+        public fixed byte RawBiography[BufferSizes.PlayerBiography];
+        public fixed byte RawRankName[BufferSizes.RankName];
 
-        [InlineArray(BufferSizes.PlayerName)]
-        public struct PlayerNameBuffer
+        public string PlayerName
         {
-            private byte _element;
+            get
+            {
+                fixed (byte* ptr = RawPlayerName)
+                    return CStringParser.ToString(ptr, BufferSizes.PlayerName);
+            }
+            set
+            {
+                fixed (byte* ptr = RawPlayerName)
+                    CStringParser.FromString(value, ptr, BufferSizes.PlayerName);
+            }
         }
 
-        [InlineArray(BufferSizes.FactionName)]
-        public struct FactionNameBuffer
+        public string FactionName
         {
-            private byte _element;
+            get
+            {
+                fixed (byte* ptr = RawFactionName)
+                    return CStringParser.ToString(ptr, BufferSizes.FactionName);
+            }
+            set
+            {
+                fixed (byte* ptr = RawFactionName)
+                    CStringParser.FromString(value, ptr, BufferSizes.FactionName);
+            }
         }
 
-        [InlineArray(BufferSizes.PlayerBiography)]
-        public struct BiographyBuffer
+        public string Biography
         {
-            private byte _element;
+            get
+            {
+                fixed (byte* ptr = RawBiography)
+                    return CStringParser.ToString(ptr, BufferSizes.PlayerBiography);
+            }
+            set
+            {
+                fixed (byte* ptr = RawBiography)
+                    CStringParser.FromString(value, ptr, BufferSizes.PlayerBiography);
+            }
         }
 
-        [InlineArray(BufferSizes.RankName)]
-        public struct RankNameBuffer
+        public string RankName
         {
-            private byte _element;
+            get
+            {
+                fixed (byte* ptr = RawRankName)
+                    return CStringParser.ToString(ptr, BufferSizes.RankName);
+            }
+            set
+            {
+                fixed (byte* ptr = RawRankName)
+                    CStringParser.FromString(value, ptr, BufferSizes.RankName);
+            }
         }
     }
 }

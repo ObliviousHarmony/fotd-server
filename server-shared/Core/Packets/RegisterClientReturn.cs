@@ -9,7 +9,7 @@ namespace FOMServer.Shared.Core.Packets
 {
     [PacketID(PacketIdentifier.ID_REGISTER_CLIENT_RETURN)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct RegisterClientReturn
+    public unsafe struct RegisterClientReturn
     {
         public byte WorldID;
         public uint PlayerID;
@@ -19,7 +19,7 @@ namespace FOMServer.Shared.Core.Packets
         public WeaponsArray Weapons;
         public UnknownSlotsArray UnknownSlots;
         public ItemList Storage;
-        public QuickSlotsArray QuickSlots;
+        public fixed ushort QuickSlots[PlayerConstants.NumQuickSlots];
         public Avatar Avatar;
         public PlayerAttributes Attributes;
         public PlayerProfile Profile;
@@ -34,7 +34,7 @@ namespace FOMServer.Shared.Core.Packets
         public byte Unknown4;
         public ushort CloningDuration;
         public FactionEmblem FactionEmblem;
-        public FactionNameBuffer FactionName;
+        public fixed byte RawFactionName[BufferSizes.FactionName];
         public PlayerSkills Skills;
         public Position SpawnPosition;
         public byte SpawnAtPosition;
@@ -45,6 +45,15 @@ namespace FOMServer.Shared.Core.Packets
             Success = 1,            // REGISTER_CLIENT_RETURN_SUCCESS
             WorldFull = 4,          // REGISTER_CLIENT_RETURN_WORLD_FULL
             InvalidWorldFile = 5,   // REGISTER_CLIENT_RETURN_INVALID_WORLD_FILE
+        }
+
+        public string FactionName
+        {
+            set
+            {
+                fixed (byte* ptr = RawFactionName)
+                    CStringParser.FromString(value, ptr, BufferSizes.FactionName);
+            }
         }
 
         [InlineArray((int)EquipmentSlot.NUM_EQUIPMENT_SLOTS)]
@@ -65,22 +74,10 @@ namespace FOMServer.Shared.Core.Packets
             private Item _element;
         }
 
-        [InlineArray(PlayerConstants.NumQuickSlots)]
-        public struct QuickSlotsArray
-        {
-            private ushort _element;
-        }
-
         [InlineArray(PlayerConstants.MaxAvatarCache)]
         public struct AvatarCacheArray
         {
             private Avatar _element;
-        }
-
-        [InlineArray(BufferSizes.FactionName)]
-        public struct FactionNameBuffer
-        {
-            private byte _element;
         }
     }
 }

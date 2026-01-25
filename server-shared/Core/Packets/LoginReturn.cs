@@ -57,28 +57,28 @@ namespace FOMServer.Shared.Core.Packets
 
         public string BanLength
         {
-            get
+            set
             {
                 fixed (byte* ptr = RawBanLength)
-                    return CStringParser.ToString(ptr, BanLengthSize);
+                    CStringParser.FromString(value, ptr, BanLengthSize);
             }
         }
 
         public string BanReason
         {
-            get
+            set
             {
                 fixed (byte* ptr = RawBanReason)
-                    return CStringParser.ToString(ptr, BanReasonSize);
+                    CStringParser.FromString(value, ptr, BanReasonSize);
             }
         }
 
         public string FactionMOTD
         {
-            get
+            set
             {
                 fixed (byte* ptr = RawFactionMOTD)
-                    return CStringParser.ToString(ptr, FactionMOTDSize);
+                    CStringParser.FromString(value, ptr, FactionMOTDSize);
             }
         }
     }

@@ -21,9 +21,9 @@ struct ItemBase {
   uint32_t creatorPlayerID;
   uint32_t timeout;
   uint32_t stolenFromPlayerID;
-  uint8_t attributeBonus;
-  Enum::ItemQuality quality;
   uint8_t classification;
+  Enum::ItemQuality quality;
+  uint8_t attributeBonus;
   uint8_t balanceValues[4];
 };
 #pragma pack(pop)

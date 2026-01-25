@@ -15,9 +15,9 @@ namespace FOMServer.Shared.Core.Packets.Types
         public uint CreatorPlayerID;
         public uint Timeout;
         public uint StolenFromPlayerID;
-        public byte AttributeBonus;
-        public ItemQuality Quality;
         public byte Classification;
+        public ItemQuality Quality;
+        public byte AttributeBonus;
         public fixed byte BalanceValues[4];
     }
 }

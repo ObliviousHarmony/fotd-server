@@ -34,6 +34,11 @@ namespace FOMServer.Shared.Core.Packets.Types
                 fixed (byte* ptr = RawOwnerName)
                     return CStringParser.ToString(ptr, OwnerNameSize);
             }
+            set
+            {
+                fixed (byte* ptr = RawOwnerName)
+                    CStringParser.FromString(value, ptr, OwnerNameSize);
+            }
         }
 
         public string EntryCode
@@ -42,6 +47,11 @@ namespace FOMServer.Shared.Core.Packets.Types
             {
                 fixed (byte* ptr = RawEntryCode)
                     return CStringParser.ToString(ptr, EntryCodeSize);
+            }
+            set
+            {
+                fixed (byte* ptr = RawEntryCode)
+                    CStringParser.FromString(value, ptr, EntryCodeSize);
             }
         }
 
@@ -52,6 +62,11 @@ namespace FOMServer.Shared.Core.Packets.Types
                 fixed (byte* ptr = RawPublicName)
                     return CStringParser.ToString(ptr, PublicNameSize);
             }
+            set
+            {
+                fixed (byte* ptr = RawPublicName)
+                    CStringParser.FromString(value, ptr, PublicNameSize);
+            }
         }
 
         public string PublicDescription
@@ -60,6 +75,11 @@ namespace FOMServer.Shared.Core.Packets.Types
             {
                 fixed (byte* ptr = RawPublicDescription)
                     return CStringParser.ToString(ptr, PublicDescriptionSize);
+            }
+            set
+            {
+                fixed (byte* ptr = RawPublicDescription)
+                    CStringParser.FromString(value, ptr, PublicDescriptionSize);
             }
         }
     }
