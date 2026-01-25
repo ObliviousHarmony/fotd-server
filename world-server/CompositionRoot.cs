@@ -1,7 +1,7 @@
 using FOMServer.Application.Core;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Extensions;
+using FOMServer.Shared.Extensions.DependencyInjection;
 using FOMServer.Shared.Infrastructure;
 using FOMServer.World.Application;
 using FOMServer.World.Application.Networking;
@@ -17,7 +17,7 @@ namespace FOMServer.World
         private static ServerSettings? s_serverSettings;
         private static DatabaseSettings? s_dbSettings;
 
-        public static IServiceProvider BuildContainer()
+        public static ServiceProvider BuildContainer()
         {
             ServiceCollection services = new ServiceCollection();
 
@@ -60,14 +60,18 @@ namespace FOMServer.World
             }
             if (s_serverSettings.WorldIDs.Distinct().Count() != s_serverSettings.WorldIDs.Length)
                 throw new InvalidOperationException("Duplicate WorldIDs are not allowed");
-            if (string.IsNullOrWhiteSpace(s_serverSettings.PublicHost))
-                throw new InvalidOperationException("Public host must be configured");
+            if (string.IsNullOrWhiteSpace(s_serverSettings.ClientHost))
+                throw new InvalidOperationException("Client host must be configured");
             if (string.IsNullOrWhiteSpace(s_serverSettings.MasterServerHost))
                 throw new InvalidOperationException("Master server host must be configured");
             if (string.IsNullOrWhiteSpace(s_dbSettings.Name))
                 throw new InvalidOperationException("Database name must be configured");
             if (string.IsNullOrWhiteSpace(s_dbSettings.ConnectionString))
                 throw new InvalidOperationException("Database connection string must be configured");
+
+            var clientIP = s_serverSettings.ClientIP;
+            if (clientIP == null)
+                throw new InvalidOperationException("Client host could not be resolved");
 
             services.AddSingleton(s_serverSettings);
             services.AddSingleton(s_dbSettings);

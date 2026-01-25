@@ -18,7 +18,7 @@ namespace FOMServer.World.Application
         private readonly ILogger<Server> _logger;
         private readonly IShutdownManager _shutdownManager;
         private readonly ServerSettings _serverSettings;
-        private readonly ushort _publicPort;
+        private readonly ushort _clientPort;
         private readonly INetworkService _networkService;
         private readonly IServerService _serverService;
         private readonly IClientService _clientService;
@@ -42,7 +42,7 @@ namespace FOMServer.World.Application
             _clientService = clientService;
             _serviceProvider = serviceProvider;
 
-            _publicPort = ServerConstants.GetWorldClientPort(_serverSettings.WorldIDs[0]);
+            _clientPort = ServerConstants.GetWorldClientPort(_serverSettings.WorldIDs[0]);
         }
 
         public async Task Run()
@@ -54,21 +54,14 @@ namespace FOMServer.World.Application
             // require expensive marshalling of data between managed and unmanaged code.
             _networkService.ValidatePacketStructs();
 
-            Console.WriteLine("------------------------------------------------");
-            Console.WriteLine($"Initializing World Server - {_serverSettings.PublicHost}");
+            _logger.LogInformation("Starting world server");
             foreach (var worldID in _serverSettings.WorldIDs)
-                Console.WriteLine($"World - {worldID}");
+                _logger.LogInformation("World - {WorldID}", worldID);
 
             Console.CancelKeyPress += (sender, e) =>
             {
-                Console.WriteLine("Stopping Server...");
-
                 e.Cancel = true;
-                _shutdownManager.Shutdown();
-            };
-            AppDomain.CurrentDomain.ProcessExit += (sender, e) =>
-            {
-                _shutdownManager.Shutdown();
+                _shutdownManager.StartShutdown();
             };
 
             var packetProcessor = new PacketProcessor(
@@ -80,14 +73,14 @@ namespace FOMServer.World.Application
             var masterNetwork = ConnectToMasterNetwork(packetProcessor);
             if (masterNetwork == null)
             {
-                _logger.LogCritical("Failed to connect to the master server");
+                await _shutdownManager.Shutdown();
                 return;
             }
 
             var clientNetwork = CreateClientNetwork(packetProcessor);
             if (clientNetwork == null)
             {
-                _logger.LogCritical("Failed to create the client network");
+                await _shutdownManager.Shutdown();
                 return;
             }
 
@@ -99,28 +92,21 @@ namespace FOMServer.World.Application
             foreach (var startable in _serviceProvider.GetServices<IServerStartable>())
                 startable.Start();
 
-            Console.WriteLine("------------------------------------------------");
+            _logger.LogInformation("Server started");
+            _logger.LogInformation("Press Ctrl + C to stop the server");
 
             await _shutdownManager.Stopped;
-            Console.WriteLine("Shutdown Complete");
         }
 
         private NetworkManager? ConnectToMasterNetwork(PacketProcessor packetProcessor)
         {
-            Console.WriteLine($"Master Server: {_serverSettings.MasterServerHost}");
-
-            var publicHostAddresses = Dns.GetHostAddresses(_serverSettings.PublicHost, AddressFamily.InterNetwork);
-            var publicIPAddress = publicHostAddresses.FirstOrDefault();
-            if (publicIPAddress == null)
-                throw new InvalidOperationException($"Failed to resolve public address: {_serverSettings.PublicHost}");
-
             IntPtr peer = IntPtr.Zero;
             while (peer == IntPtr.Zero)
             {
                 peer = _clientService.Connect(_serverSettings.MasterServerHost, ServerConstants.MasterWorldPort);
                 if (peer == IntPtr.Zero)
                 {
-                    _logger.LogCritical("Failed to connect to master server, retrying in 5 seconds...");
+                    _logger.LogWarning("Failed to connect to the master server, retrying in 5 seconds");
                     Thread.Sleep(5000);
                 }
             }
@@ -147,20 +133,25 @@ namespace FOMServer.World.Application
                 rpData.WorldIDs[i] = _serverSettings.WorldIDs[i];
             rpData.PublicAddress = new NetworkAddress
             {
-                Address = publicIPAddress.ToString(),
-                Port = _publicPort
+                Address = _serverSettings.ClientIP!,
+                Port = _clientPort
             };
 
             packetSender.Send(registerPacket.Build());
+
+            _logger.LogInformation("Registered with the master server at {MasterServerHost}", _serverSettings.MasterServerHost);
 
             return networkManager;
         }
 
         private NetworkManager? CreateClientNetwork(PacketProcessor packetProcessor)
         {
-            var peer = _serverService.Startup(_publicPort);
+            var peer = _serverService.Startup(_clientPort);
             if (peer == IntPtr.Zero)
+            {
+                _logger.LogCritical("Failed to create the client network");
                 return null;
+            }
 
             var networkManager = new NetworkManager(
                 _serviceProvider.GetRequiredService<IShutdownManager>(),
@@ -174,6 +165,9 @@ namespace FOMServer.World.Application
             packetSender.Initialize(networkManager);
 
             networkManager.Configure(peer, _serverService.Shutdown);
+
+            _logger.LogInformation("Listening for clients on port {ClientPort}", _clientPort);
+
             return networkManager;
         }
     }

@@ -6,7 +6,7 @@ using FOMServer.Master.Core;
 using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Infrastructure;
 using FOMServer.Shared.Core;
-using FOMServer.Shared.Extensions;
+using FOMServer.Shared.Extensions.DependencyInjection;
 using FOMServer.Shared.Infrastructure;
 using Microsoft.Extensions.Configuration;
 
@@ -16,7 +16,7 @@ namespace FOMServer.Master
     {
         private static DatabaseSettings? s_dbSettings;
 
-        public static IServiceProvider BuildContainer()
+        public static ServiceProvider BuildContainer()
         {
             ServiceCollection services = new ServiceCollection();
 
@@ -83,7 +83,7 @@ namespace FOMServer.Master
             {
                 rb.AddMySql8()
                   .WithGlobalConnectionString(s_dbSettings!.ConnectionString)
-                  .ScanIn(typeof(Shared.Extensions.ServiceCollectionExtensions).Assembly)
+                  .ScanIn(typeof(ServiceCollectionExtensions).Assembly)
                   .For.Migrations();
             });
 

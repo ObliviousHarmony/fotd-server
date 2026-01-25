@@ -10,7 +10,7 @@ namespace FOMServer.Shared.Application.Networking
     /// <summary>
 	/// Responsible for sending and receiving packets.
 	/// </summary>
-	public partial class NetworkManager : IPacketSender
+	public partial class NetworkManager : IPacketSender, IAsyncDisposable
     {
         /// <summary>
         /// Individual network managers can "claim" packet IDs so that they
@@ -121,6 +121,20 @@ namespace FOMServer.Shared.Application.Networking
                 throw new InvalidOperationException("Peer is not configured");
 
             _sendQueue.Writer.TryWrite(packet);
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            _sendQueue.Writer.Complete();
+
+            if (_networkTask != null)
+                await _networkTask;
+
+            if (_peer != IntPtr.Zero)
+            {
+                _peerShutdown!(_peer);
+                _peer = IntPtr.Zero;
+            }
         }
 
         private async Task NetworkLoopAsync(CancellationToken ct)

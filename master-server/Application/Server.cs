@@ -45,23 +45,19 @@ namespace FOMServer.Master.Application
             // require expensive marshalling of data between managed and unmanaged code.
             _networkService.ValidatePacketStructs();
 
-            Console.WriteLine("------------------------------------------------");
-            Console.WriteLine("Initializing Master Server");
+            _logger.LogInformation("Starting master server");
 
             Console.CancelKeyPress += (sender, e) =>
             {
-                Console.WriteLine("Stopping Server...");
-
                 e.Cancel = true;
-                _shutdownManager.Shutdown();
-            };
-            AppDomain.CurrentDomain.ProcessExit += (sender, e) =>
-            {
-                _shutdownManager.Shutdown();
+                _shutdownManager.StartShutdown();
             };
 
             if (!InitializeDatabase())
+            {
+                await _shutdownManager.Shutdown();
                 return;
+            }
 
             var packetProcessor = new PacketProcessor(
                 _serviceProvider.GetRequiredService<IShutdownManager>(),
@@ -73,6 +69,7 @@ namespace FOMServer.Master.Application
             if (worldNetwork == null)
             {
                 _logger.LogCritical("Failed to create the world server network");
+                await _shutdownManager.Shutdown();
                 return;
             }
 
@@ -80,6 +77,7 @@ namespace FOMServer.Master.Application
             if (clientNetwork == null)
             {
                 _logger.LogCritical("Failed to create the client network");
+                await _shutdownManager.Shutdown();
                 return;
             }
 
@@ -91,26 +89,24 @@ namespace FOMServer.Master.Application
             foreach (var startable in _serviceProvider.GetServices<IServerStartable>())
                 startable.Start();
 
-            Console.WriteLine("------------------------------------------------");
+            _logger.LogInformation("Server started");
+            _logger.LogInformation("Press Ctrl + C to stop the server");
 
             await _shutdownManager.Stopped;
-            Console.WriteLine("Shutdown Complete");
         }
 
         private bool InitializeDatabase()
         {
             try
             {
+                if (!_migrationRunner.HasMigrationsToApplyUp())
+                    return true;
+
                 _migrationRunner.MigrateUp();
-            }
-            catch (MySqlException)
-            {
-                _logger.LogCritical("Failed to connect to the database. Please check your connection settings");
-                return false;
             }
             catch (Exception ex)
             {
-                _logger.LogCritical(ex, "Failed to apply database migrations");
+                _logger.LogCritical(ex);
                 return false;
             }
 
@@ -138,6 +134,9 @@ namespace FOMServer.Master.Application
             packetSender.Initialize(networkManager);
 
             networkManager.Configure(peer, _serverService.Shutdown);
+
+            _logger.LogInformation("Listening for world servers");
+
             return networkManager;
         }
 
@@ -159,6 +158,9 @@ namespace FOMServer.Master.Application
             packetSender.Initialize(networkManager);
 
             networkManager.Configure(peer, _serverService.Shutdown);
+
+            _logger.LogInformation("Listening for clients");
+
             return networkManager;
         }
     }

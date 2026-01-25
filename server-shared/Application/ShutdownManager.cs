@@ -35,7 +35,7 @@ namespace FOMServer.Application.Core
 
         public void StartShutdown()
         {
-            Environment.Exit(-1);
+            _ = Shutdown();
         }
 
         public async Task Shutdown()

@@ -4,7 +4,7 @@ using FOMServer.Shared.Core;
 
 namespace FOMServer.Shared.Infrastructure.Logging
 {
-    public sealed class BackgroundLoggerProvider : ILoggerProvider
+    public sealed class BackgroundLoggerProvider : ILoggerProvider, IAsyncDisposable
     {
         private readonly IShutdownManager _shutdownManager;
         private readonly Channel<LogMessage> _channel;
@@ -46,7 +46,16 @@ namespace FOMServer.Shared.Infrastructure.Logging
 
         public void Dispose()
         {
+            DisposeAsync().AsTask().GetAwaiter().GetResult();
+        }
+
+        public async ValueTask DisposeAsync()
+        {
             _channel.Writer.Complete();
+
+            if (_processingTask != null)
+                await _processingTask;
+
             _logFileWriter?.Dispose();
         }
 
@@ -68,22 +77,27 @@ namespace FOMServer.Shared.Infrastructure.Logging
             {
                 await foreach (var message in _channel.Reader.ReadAllAsync(ct))
                 {
-                    var formatted = message.Format();
-
-                    if (_writeConsole)
-                        Console.WriteLine(formatted);
-
-                    if (_logFileWriter != null)
-                        await _logFileWriter.WriteLineAsync(formatted);
+                    await WriteMessage(message);
                 }
             }
             catch (OperationCanceledException)
             {
             }
-            finally
-            {
-                _logFileWriter?.Dispose();
-            }
+
+            // Drain remaining messages after cancellation
+            while (_channel.Reader.TryRead(out var message))
+                await WriteMessage(message);
+        }
+
+        private async Task WriteMessage(LogMessage message)
+        {
+            var formatted = message.Format();
+
+            if (_writeConsole)
+                Console.WriteLine(formatted);
+
+            if (_logFileWriter != null)
+                await _logFileWriter.WriteLineAsync(formatted);
         }
     }
 }
