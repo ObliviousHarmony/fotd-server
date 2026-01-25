@@ -52,13 +52,17 @@ class ApartmentSerializer : protected TypeSerializer<Type::Apartment> {
     // Allowed Rank List
     bs.ReadCompressed(skipU8);
 
-    data.isOpen = bs.ReadBit() ? 1 : 0;
+    bool isOpen;
+    if (!bs.Read(isOpen)) return false;
+    data.isOpen = isOpen ? 1 : 0;
     if (!DecodeString(bs, data.ownerName)) return false;
     if (!DecodeString(bs, data.entryCode)) return false;
 
     if (!itemListSerializer.Read(bs, data.storageItems)) return false;
 
-    data.isPublic = bs.ReadBit() ? 1 : 0;
+    bool isPublic;
+    if (!bs.Read(isPublic)) return false;
+    data.isPublic = isPublic ? 1 : 0;
     if (!bs.ReadCompressed(data.entryPrice)) return false;
     if (!DecodeString(bs, data.publicName)) return false;
     if (!DecodeString(bs, data.publicDescription)) return false;
@@ -66,8 +70,11 @@ class ApartmentSerializer : protected TypeSerializer<Type::Apartment> {
     // Allowed Faction List
     bs.ReadCompressed(skipU32);
 
-    data.isDefault = bs.ReadBit() ? 1 : 0;
-    data.isFeatured = bs.ReadBit() ? 1 : 0;
+    bool isDefault, isFeatured;
+    if (!bs.Read(isDefault)) return false;
+    if (!bs.Read(isFeatured)) return false;
+    data.isDefault = isDefault ? 1 : 0;
+    data.isFeatured = isFeatured ? 1 : 0;
     if (!bs.ReadCompressed(data.occupants)) return false;
 
     return true;

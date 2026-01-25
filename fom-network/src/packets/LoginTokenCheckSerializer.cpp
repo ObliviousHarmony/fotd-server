@@ -6,9 +6,13 @@ namespace FOMNetwork {
 
 bool LoginTokenCheckSerializer::Read(RakNet::BitStream& bs,
                                      Packet::LoginTokenCheck* data) const {
-  data->fromServer = bs.ReadBit() ? 1 : 0;
+  bool fromServer;
+  if (!bs.Read(fromServer)) return false;
+  data->fromServer = fromServer ? 1 : 0;
   if (data->fromServer == 1) {
-    data->success = bs.ReadBit() ? 1 : 0;
+    bool success;
+    if (!bs.Read(success)) return false;
+    data->success = success ? 1 : 0;
     if (!ReadString(bs, data->username)) return false;
   } else {
     if (!ReadString(bs, data->requestToken)) return false;

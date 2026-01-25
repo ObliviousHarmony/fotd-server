@@ -20,7 +20,9 @@ bool LoginSerializer::Read(RakNet::BitStream& bs, Packet::Login* data) const {
   if (!ReadString(bs, data->loginToken)) return false;
   if (!DecodeString(bs, data->computerName)) return false;
 
-  data->hasSteamTicket = bs.ReadBit() ? 1 : 0;
+  bool hasSteamTicket;
+  if (!bs.Read(hasSteamTicket)) return false;
+  data->hasSteamTicket = hasSteamTicket ? 1 : 0;
   if (data->hasSteamTicket == 1) {
     for (int i = 0; i < 1024; i++) {
       if (!bs.ReadCompressed(data->steamTicket[i])) return false;

@@ -19,7 +19,9 @@ class PlayerProfileSerializer : protected TypeSerializer<Type::PlayerProfile> {
 
   bool Read(RakNet::BitStream& bs, Type::PlayerProfile& data) const {
     if (!bs.ReadCompressed(data.playerID)) return false;
-    data.unknown1 = bs.ReadBit() ? 1 : 0;
+    bool unknown1;
+    if (!bs.Read(unknown1)) return false;
+    data.unknown1 = unknown1 ? 1 : 0;
     if (!DecodeString(bs, data.playerName)) return false;
     if (!DecodeString(bs, data.factionName)) return false;
     if (!DecodeString(bs, data.biography)) return false;

@@ -28,7 +28,9 @@ class FactionPerksSerializer : protected TypeSerializer<Type::FactionPerks> {
     for (uint32_t i = 0; i < data.count; ++i) {
       if (!bs.ReadCompressed(data.perks[i].id)) return false;
       if (!bs.ReadCompressed(data.perks[i].level)) return false;
-      data.perks[i].active = bs.ReadBit() ? 1 : 0;
+      bool active;
+      if (!bs.Read(active)) return false;
+      data.perks[i].active = active ? 1 : 0;
     }
 
     return true;
