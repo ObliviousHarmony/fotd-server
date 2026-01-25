@@ -12,13 +12,13 @@ class PositionSerializer : protected TypeSerializer<Type::Position> {
 
   void Write(RakNet::BitStream& bs, const Type::Position& data) const {
     if (precision_ > 15) {
-      bs.WriteCompressed(data.x);
-      bs.WriteCompressed(data.y);
-      bs.WriteCompressed(data.z);
+      bs.WriteCompressed((uint16_t)data.x);
+      bs.WriteCompressed((uint16_t)data.y);
+      bs.WriteCompressed((uint16_t)data.z);
     } else {
-      int16_t x = data.x < 0 ? -data.x : data.x;
-      int16_t y = data.y < 0 ? -data.y : data.y;
-      int16_t z = data.z < 0 ? -data.z : data.z;
+      int32_t x = data.x < 0 ? -(int32_t)data.x : data.x;
+      int32_t y = data.y < 0 ? -(int32_t)data.y : data.y;
+      int32_t z = data.z < 0 ? -(int32_t)data.z : data.z;
 
       WriteBits(bs, x, precision_);
       WriteBits(bs, y, precision_);
@@ -34,9 +34,14 @@ class PositionSerializer : protected TypeSerializer<Type::Position> {
 
   bool Read(RakNet::BitStream& bs, Type::Position& data) const {
     if (precision_ > 15) {
-      if (!bs.ReadCompressed(data.x)) return false;
-      if (!bs.ReadCompressed(data.y)) return false;
-      if (!bs.ReadCompressed(data.z)) return false;
+      uint16_t x, y, z;
+      if (!bs.ReadCompressed(x)) return false;
+      if (!bs.ReadCompressed(y)) return false;
+      if (!bs.ReadCompressed(z)) return false;
+
+      data.x = (int16_t)x;
+      data.y = (int16_t)y;
+      data.z = (int16_t)z;
     } else {
       if (!ReadBits(bs, data.x, precision_)) return false;
       if (!ReadBits(bs, data.y, precision_)) return false;
