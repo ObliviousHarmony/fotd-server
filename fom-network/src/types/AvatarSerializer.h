@@ -21,21 +21,22 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
     WriteBits(bs, data.unknown1, 6);
     WriteBits(bs, data.legacyFactionID, 4);
 
-    WriteBits(bs, data.shirt, 12);
-    WriteBits(bs, data.bottoms, 12);
-    WriteBits(bs, data.shoes, 12);
+    for (int i = 0; i < Enum::NUM_BASIC_EQUIPMENT_SLOTS; ++i)
+      WriteBits(bs, data.equipmentSlots[i], 12);
 
-    bool hasEquipment = false;
-    for (int i = 0; i < Enum::NUM_EQUIPMENT_SLOTS; ++i) {
+    bool hasExtendedEquipment = false;
+    for (int i = Enum::NUM_BASIC_EQUIPMENT_SLOTS; i < Enum::NUM_EQUIPMENT_SLOTS;
+         ++i) {
       if (data.equipmentSlots[i] != 0) {
-        hasEquipment = true;
+        hasExtendedEquipment = true;
         break;
       }
     }
 
-    bs.Write(hasEquipment);
-    if (hasEquipment) {
-      for (int i = 0; i < Enum::NUM_EQUIPMENT_SLOTS; ++i)
+    bs.Write(hasExtendedEquipment);
+    if (hasExtendedEquipment) {
+      for (int i = Enum::NUM_BASIC_EQUIPMENT_SLOTS;
+           i < Enum::NUM_EQUIPMENT_SLOTS; ++i)
         WriteBits(bs, data.equipmentSlots[i], 12);
     }
 
@@ -46,8 +47,11 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
   }
 
   bool Read(RakNet::BitStream& bs, Type::Avatar& data) const {
-    data.sex = bs.ReadBit() ? Enum::FEMALE : Enum::MALE;
-    data.race = bs.ReadBit() ? Enum::BLACK : Enum::WHITE;
+    bool isFemale, isBlack;
+    if (!bs.Read(isFemale)) return false;
+    if (!bs.Read(isBlack)) return false;
+    data.sex = isFemale ? Enum::FEMALE : Enum::MALE;
+    data.race = isBlack ? Enum::BLACK : Enum::WHITE;
     if (!ReadBits(bs, data.face, 5)) return false;
     if (!ReadBits(bs, data.hair, 5)) return false;
 
@@ -58,25 +62,33 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
     if (!ReadBits(bs, data.unknown1, 6)) return false;
     if (!ReadBits(bs, data.legacyFactionID, 4)) return false;
 
-    if (!ReadBits(bs, data.shirt, 12)) return false;
-    if (!ReadBits(bs, data.bottoms, 12)) return false;
-    if (!ReadBits(bs, data.shoes, 12)) return false;
+    for (int i = 0; i < Enum::NUM_BASIC_EQUIPMENT_SLOTS; ++i) {
+      if (!ReadBits(bs, data.equipmentSlots[i], 12)) return false;
+    }
 
-    bool hasEquipment = bs.ReadBit();
-
-    if (hasEquipment) {
-      for (int i = 0; i < Enum::NUM_EQUIPMENT_SLOTS; ++i) {
+    bool hasExtendedEquipment;
+    if (!bs.Read(hasExtendedEquipment)) return false;
+    if (hasExtendedEquipment) {
+      for (int i = Enum::NUM_BASIC_EQUIPMENT_SLOTS;
+           i < Enum::NUM_EQUIPMENT_SLOTS; ++i) {
         if (!ReadBits(bs, data.equipmentSlots[i], 12)) return false;
       }
     } else {
-      for (int i = 0; i < Enum::NUM_EQUIPMENT_SLOTS; ++i)
+      for (int i = Enum::NUM_BASIC_EQUIPMENT_SLOTS;
+           i < Enum::NUM_EQUIPMENT_SLOTS; ++i) {
         data.equipmentSlots[i] = 0;
+      }
     }
 
-    data.isCommander = bs.ReadBit() ? 1 : 0;
-    data.unknown2 = bs.ReadBit() ? 1 : 0;
-    data.unknown3 = bs.ReadBit() ? 1 : 0;
-    data.isGroupLeader = bs.ReadBit() ? 1 : 0;
+    bool isCommander, unknown2, unknown3, isGroupLeader;
+    if (!bs.Read(isCommander)) return false;
+    if (!bs.Read(unknown2)) return false;
+    if (!bs.Read(unknown3)) return false;
+    if (!bs.Read(isGroupLeader)) return false;
+    data.isCommander = isCommander ? 1 : 0;
+    data.unknown2 = unknown2 ? 1 : 0;
+    data.unknown3 = unknown3 ? 1 : 0;
+    data.isGroupLeader = isGroupLeader ? 1 : 0;
 
     return true;
   }

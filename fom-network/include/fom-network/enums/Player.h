@@ -16,9 +16,13 @@ enum AvatarRace : uint8_t {
 };
 
 enum EquipmentSlot : uint8_t {
+  // Basic slots (always serialized)
   EQUIPMENT_SLOT_SHIRT = 0,
   EQUIPMENT_SLOT_BOTTOMS = 1,
   EQUIPMENT_SLOT_SHOES = 2,
+  NUM_BASIC_EQUIPMENT_SLOTS = 3,
+
+  // Extended slots (conditionally serialized)
   EQUIPMENT_SLOT_HAT = 3,
   EQUIPMENT_SLOT_HEAD = 4,
   EQUIPMENT_SLOT_EYES = 5,

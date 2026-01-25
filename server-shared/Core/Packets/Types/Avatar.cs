@@ -16,10 +16,6 @@ namespace FOMServer.Shared.Core.Packets.Types
         public byte Unknown1; // 6 bits on wire
         public ushort LegacyFactionID;
 
-        public ushort Shirt;
-        public ushort Bottoms;
-        public ushort Shoes;
-
         public fixed ushort EquipmentSlots[(int)EquipmentSlot.NUM_EQUIPMENT_SLOTS];
 
         public byte IsCommander;   // 1 bit on wire
