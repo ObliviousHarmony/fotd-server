@@ -8,8 +8,10 @@ namespace FOMNetwork {
 
 class PositionSerializer : protected TypeSerializer<Type::Position> {
  public:
+  explicit PositionSerializer(uint32_t precision = 16) : precision_(precision) {}
+
   void Write(RakNet::BitStream& bs, const Type::Position& data) const {
-    if (data.precision > 15) {
+    if (precision_ > 15) {
       bs.WriteCompressed(data.x);
       bs.WriteCompressed(data.y);
       bs.WriteCompressed(data.z);
@@ -18,9 +20,9 @@ class PositionSerializer : protected TypeSerializer<Type::Position> {
       int16_t y = data.y < 0 ? -data.y : data.y;
       int16_t z = data.z < 0 ? -data.z : data.z;
 
-      WriteBits(bs, x, data.precision);
-      WriteBits(bs, y, data.precision);
-      WriteBits(bs, z, data.precision);
+      WriteBits(bs, x, precision_);
+      WriteBits(bs, y, precision_);
+      WriteBits(bs, z, precision_);
 
       bs.Write(data.x < 0);
       bs.Write(data.y < 0);
@@ -31,14 +33,14 @@ class PositionSerializer : protected TypeSerializer<Type::Position> {
   }
 
   bool Read(RakNet::BitStream& bs, Type::Position& data) const {
-    if (data.precision > 15) {
+    if (precision_ > 15) {
       if (!bs.ReadCompressed(data.x)) return false;
       if (!bs.ReadCompressed(data.y)) return false;
       if (!bs.ReadCompressed(data.z)) return false;
     } else {
-      if (!ReadBits(bs, data.x, data.precision)) return false;
-      if (!ReadBits(bs, data.y, data.precision)) return false;
-      if (!ReadBits(bs, data.z, data.precision)) return false;
+      if (!ReadBits(bs, data.x, precision_)) return false;
+      if (!ReadBits(bs, data.y, precision_)) return false;
+      if (!ReadBits(bs, data.z, precision_)) return false;
 
       bool negX, negY, negZ;
       if (!bs.Read(negX)) return false;
@@ -53,6 +55,9 @@ class PositionSerializer : protected TypeSerializer<Type::Position> {
 
     return true;
   }
+
+ private:
+  uint32_t precision_;
 };
 
 }  // namespace FOMNetwork

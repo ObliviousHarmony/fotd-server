@@ -7,7 +7,6 @@ namespace Type {
 
 #pragma pack(push, 1)
 struct Position {
-  uint32_t precision;
   int16_t x;
   int16_t y;
   int16_t z;
