@@ -30,7 +30,7 @@ namespace FOMServer.Master.Application.Handlers
 
             var registered = _worldServerRegistry.Register(worldIDs, sender, p.PublicAddress);
             foreach (var worldID in registered)
-                _logger.LogInformation("World '{WorldID}' ({PublicAddress}) Connected: {ServerAddress}", worldID, p.PublicAddress, sender);
+                _logger.LogInformation("World '{WorldID}' ({ServerAddress}) ready for clients at {PublicAddress}", worldID, sender, p.PublicAddress);
         }
     }
 }

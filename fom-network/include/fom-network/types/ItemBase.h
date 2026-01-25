@@ -1,11 +1,11 @@
 #pragma once
 
-#include <cstring>
-
 #include <fom-network/Interop.h>
 #include <fom-network/enums/ItemQuality.h>
 #include <fom-network/enums/ItemSecurity.h>
 #include <fom-network/enums/ItemType.h>
+
+#include <cstring>
 
 namespace FOMNetwork {
 namespace Type {

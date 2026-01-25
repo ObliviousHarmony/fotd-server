@@ -627,7 +627,7 @@ namespace FOMServer.Shared.Core.Enums
         RedSpandexPantsMale = 713,  // ITEM_TYPE_RED_SPANDEX_PANTS_MALE
         AssaultPantsMale = 714,  // ITEM_TYPE_ASSAULT_PANTS_MALE
         ExecutiveTrousersMale = 715,  // ITEM_TYPE_EXECUTIVE_TROUSERS_MALE
-        WorkersâPantsMale = 716,  // ITEM_TYPE_WORKERSÂ_PANTS_MALE
+        WorkersÃ¢PantsMale = 716,  // ITEM_TYPE_WORKERSÃ‚_PANTS_MALE
         AnalyticalTrousersMale = 717,  // ITEM_TYPE_ANALYTICAL_TROUSERS_MALE
         CivilianPermalastT5EnhancedTrousersMale = 718,  // ITEM_TYPE_CIVILIAN_PERMALAST_T5_ENHANCED_TROUSERS_MALE
         CivilianThickAntiFreezeTrousersMale = 719,  // ITEM_TYPE_CIVILIAN_THICK_ANTI_FREEZE_TROUSERS_MALE
@@ -643,7 +643,7 @@ namespace FOMServer.Shared.Core.Enums
         ExecutionerTrousersMale = 729,  // ITEM_TYPE_EXECUTIONER_TROUSERS_MALE
         PredatorTrousersMale = 730,  // ITEM_TYPE_PREDATOR_TROUSERS_MALE
         HikingTrousersMale = 731,  // ITEM_TYPE_HIKING_TROUSERS_MALE
-        MinersâPantsMale = 732,  // ITEM_TYPE_MINERSÂ_PANTS_MALE
+        MinersÃ¢PantsMale = 732,  // ITEM_TYPE_MINERSÃ‚_PANTS_MALE
         AurelianCombatTrousersMale = 733,  // ITEM_TYPE_AURELIAN_COMBAT_TROUSERS_MALE
         GrayExecutiveTrousersMale = 734,  // ITEM_TYPE_GRAY_EXECUTIVE_TROUSERS_MALE
         ManagementTrousersMale = 735,  // ITEM_TYPE_MANAGEMENT_TROUSERS_MALE
@@ -667,7 +667,7 @@ namespace FOMServer.Shared.Core.Enums
         SoldnerTrousersMale = 764,  // ITEM_TYPE_SOLDNER_TROUSERS_MALE
         BergmannTrousersMale = 765,  // ITEM_TYPE_BERGMANN_TROUSERS_MALE
         NucleoTrousersMale = 766,  // ITEM_TYPE_NUCLEO_TROUSERS_MALE
-        MarketerâsTrousersMale = 767,  // ITEM_TYPE_MARKETERÂS_TROUSERS_MALE
+        MarketerÃ¢sTrousersMale = 767,  // ITEM_TYPE_MARKETERÃ‚S_TROUSERS_MALE
         MolecularTrousersMale = 768,  // ITEM_TYPE_MOLECULAR_TROUSERS_MALE
 
         LibertyTrousersMale = 780,  // ITEM_TYPE_LIBERTY_TROUSERS_MALE

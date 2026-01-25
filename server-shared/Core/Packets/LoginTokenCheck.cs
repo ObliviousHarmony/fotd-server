@@ -13,10 +13,10 @@ namespace FOMServer.Shared.Core.Packets
 
         public byte FromServer;
 
-        public fixed byte RawRequestToken[RequestTokenSize];  // FromServer == 0
+        public fixed byte RawRequestToken[RequestTokenSize]; // FromServer == 0
 
-        public byte Success;                                  // FromServer == 1
-        public fixed byte RawUsername[BufferSizes.Username];          // FromServer == 1
+        public byte Success; // FromServer == 1
+        public fixed byte RawUsername[BufferSizes.Username]; // FromServer == 1
 
         public string RequestToken
         {

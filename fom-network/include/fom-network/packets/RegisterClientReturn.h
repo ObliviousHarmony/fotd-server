@@ -5,11 +5,11 @@
 #include <fom-network/enums/Player.h>
 #include <fom-network/types/Avatar.h>
 #include <fom-network/types/FactionEmblem.h>
-#include <fom-network/types/PlayerProfile.h>
 #include <fom-network/types/FactionPerks.h>
 #include <fom-network/types/Item.h>
 #include <fom-network/types/ItemList.h>
 #include <fom-network/types/PlayerAttributes.h>
+#include <fom-network/types/PlayerProfile.h>
 #include <fom-network/types/PlayerSkills.h>
 #include <fom-network/types/Position.h>
 

@@ -13,14 +13,14 @@ namespace FOMServer.Shared.Core.Packets.Types
 
         public ushort FactionID;
         public ushort RankID;
-        public byte Unknown1; // 6 bits on wire
+        public byte Unknown1;
         public ushort LegacyFactionID;
 
         public fixed ushort EquipmentSlots[(int)EquipmentSlot.NUM_EQUIPMENT_SLOTS];
 
-        public byte IsCommander;   // 1 bit on wire
-        public byte Unknown2;      // 1 bit on wire
-        public byte Unknown3;      // 1 bit on wire
-        public byte IsGroupLeader; // 1 bit on wire
+        public byte IsCommander;
+        public byte Unknown2;
+        public byte Unknown3;
+        public byte IsGroupLeader;
     }
 }

@@ -1,8 +1,8 @@
 #pragma once
 
-#include <cstdint>
-
 #include <fom-network/constants/BufferSizes.h>
+
+#include <cstdint>
 
 namespace FOMNetwork {
 

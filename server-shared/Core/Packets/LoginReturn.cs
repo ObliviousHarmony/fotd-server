@@ -24,8 +24,8 @@ namespace FOMServer.Shared.Core.Packets
         public ushort ClientVersion;
 
         public byte IsBanned;
-        public fixed byte RawBanLength[BanLengthSize];
-        public fixed byte RawBanReason[BanReasonSize];
+        public fixed byte RawBanLength[BanLengthSize]; // IsBanned == 1
+        public fixed byte RawBanReason[BanReasonSize]; // IsBanned == 1
 
         public byte ProcessBlacklistCount;
         public fixed uint ProcessBlacklist[ProcessBlacklistSize];

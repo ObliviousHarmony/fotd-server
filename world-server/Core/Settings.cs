@@ -31,9 +31,7 @@ namespace FOMServer.World.Core
                 return _clientIP;
             }
         }
-
-        
-}
+    }
 
     public class DatabaseSettings
     {

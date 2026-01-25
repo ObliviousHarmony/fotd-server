@@ -11,12 +11,10 @@ class FactionEmblemLayerSerializer
  public:
   void Write(RakNet::BitStream& bs,
              const Type::FactionEmblemLayer& data) const {
-    bool hasLayer =
-        data.shape != 0 || data.offsetX != 0 || data.offsetY != 0;
+    bool hasLayer = data.shape != 0 || data.offsetX != 0 || data.offsetY != 0;
 
     bs.Write(hasLayer);
-    if (!hasLayer)
-      return;
+    if (!hasLayer) return;
     bs.WriteCompressed(data.shape);
     bs.WriteCompressed(data.offsetX);
     bs.WriteCompressed(data.offsetY);

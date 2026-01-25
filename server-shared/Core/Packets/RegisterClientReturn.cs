@@ -42,9 +42,9 @@ namespace FOMServer.Shared.Core.Packets
 
         public enum StatusCode : byte
         {
-            Success = 1,            // REGISTER_CLIENT_RETURN_SUCCESS
-            WorldFull = 4,          // REGISTER_CLIENT_RETURN_WORLD_FULL
-            InvalidWorldFile = 5,   // REGISTER_CLIENT_RETURN_INVALID_WORLD_FILE
+            Success = 1, // REGISTER_CLIENT_RETURN_SUCCESS
+            WorldFull = 4, // REGISTER_CLIENT_RETURN_WORLD_FULL
+            InvalidWorldFile = 5, // REGISTER_CLIENT_RETURN_INVALID_WORLD_FILE
         }
 
         public string FactionName

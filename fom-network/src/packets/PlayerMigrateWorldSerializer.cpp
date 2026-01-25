@@ -4,8 +4,8 @@
 
 namespace FOMNetwork {
 
-bool PlayerMigrateWorldSerializer::Read(RakNet::BitStream& bs,
-                                        Packet::PlayerMigrateWorld* data) const {
+bool PlayerMigrateWorldSerializer::Read(
+    RakNet::BitStream& bs, Packet::PlayerMigrateWorld* data) const {
   if (!bs.ReadCompressed(data->playerID)) return false;
   return true;
 }

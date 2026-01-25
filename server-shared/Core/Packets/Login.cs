@@ -30,8 +30,8 @@ namespace FOMServer.Shared.Core.Packets
         public fixed byte RawComputerName[ComputerNameSize];
 
         public byte HasSteamTicket;
-        public int SteamTicketLength;   // HasSteamTicket == 1
-        public fixed byte RawSteamTicket[SteamTicketSize];   // HasSteamTicket == 1
+        public int SteamTicketLength; // HasSteamTicket == 1
+        public fixed byte RawSteamTicket[SteamTicketSize]; // HasSteamTicket == 1
 
         public string Username
         {

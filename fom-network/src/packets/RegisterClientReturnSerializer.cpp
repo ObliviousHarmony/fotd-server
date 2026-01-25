@@ -3,11 +3,11 @@
 
 #include "../types/AvatarSerializer.h"
 #include "../types/FactionEmblemSerializer.h"
-#include "../types/PlayerProfileSerializer.h"
 #include "../types/FactionPerksSerializer.h"
 #include "../types/ItemListSerializer.h"
 #include "../types/ItemSerializer.h"
 #include "../types/PlayerAttributesSerializer.h"
+#include "../types/PlayerProfileSerializer.h"
 #include "../types/PlayerSkillsSerializer.h"
 #include "../types/PositionSerializer.h"
 #include "PacketSerializers.h"
@@ -40,8 +40,7 @@ void RegisterClientReturnSerializer::Write(
 
   for (int i = 0; i < Constants::NUM_WEAPON_SLOTS; ++i) {
     bs.Write(data->weapons[i].id != 0);
-    if (data->weapons[i].id != 0)
-      itemSerializer.Write(bs, data->weapons[i]);
+    if (data->weapons[i].id != 0) itemSerializer.Write(bs, data->weapons[i]);
   }
 
   for (int i = 0; i < Constants::NUM_UNKNOWN_ITEM_SLOTS; ++i) {

@@ -82,9 +82,11 @@ static const std::unordered_map<uint32_t, IWriter*> writerMap = {
     {Enum::ID_CHECK_NAME_RETURN, &CheckNameReturnSerializer::GetInstance()},
     {Enum::ID_LOGIN_RETURN, &LoginReturnSerializer::GetInstance()},
     {Enum::ID_WORLD_LOGIN_RETURN, &WorldLoginReturnSerializer::GetInstance()},
-    {Enum::ID_PLAYER_MIGRATE_WORLD, &PlayerMigrateWorldSerializer::GetInstance()},
+    {Enum::ID_PLAYER_MIGRATE_WORLD,
+     &PlayerMigrateWorldSerializer::GetInstance()},
     {Enum::ID_PLAYER_WORLD_READY, &PlayerWorldReadySerializer::GetInstance()},
-    {Enum::ID_PLAYER_LEAVING_WORLD, &PlayerLeavingWorldSerializer::GetInstance()},
+    {Enum::ID_PLAYER_LEAVING_WORLD,
+     &PlayerLeavingWorldSerializer::GetInstance()},
     {Enum::ID_REGISTER_CLIENT_RETURN,
      &RegisterClientReturnSerializer::GetInstance()},
 };
@@ -111,9 +113,11 @@ static const std::unordered_map<uint32_t, IReader*> readerMap = {
     {Enum::ID_CHECK_NAME, &CheckNameSerializer::GetInstance()},
     {Enum::ID_CREATE_CHARACTER, &CreateCharacterSerializer::GetInstance()},
     {Enum::ID_WORLD_LOGIN, &WorldLoginSerializer::GetInstance()},
-    {Enum::ID_PLAYER_MIGRATE_WORLD, &PlayerMigrateWorldSerializer::GetInstance()},
+    {Enum::ID_PLAYER_MIGRATE_WORLD,
+     &PlayerMigrateWorldSerializer::GetInstance()},
     {Enum::ID_PLAYER_WORLD_READY, &PlayerWorldReadySerializer::GetInstance()},
-    {Enum::ID_PLAYER_LEAVING_WORLD, &PlayerLeavingWorldSerializer::GetInstance()},
+    {Enum::ID_PLAYER_LEAVING_WORLD,
+     &PlayerLeavingWorldSerializer::GetInstance()},
     {Enum::ID_REGISTER_CLIENT, &RegisterClientSerializer::GetInstance()},
 };
 
