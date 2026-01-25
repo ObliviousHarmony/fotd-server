@@ -2,7 +2,7 @@ using System.Threading.Channels;
 
 namespace FOMServer.Shared.Infrastructure.Logging
 {
-    internal sealed class BackgroundLogger : ILogger
+    internal class BackgroundLogger : ILogger
     {
         private readonly string _categoryName;
         private readonly ChannelWriter<LogMessage> _writer;

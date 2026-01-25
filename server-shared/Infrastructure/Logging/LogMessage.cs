@@ -21,10 +21,20 @@ namespace FOMServer.Shared.Infrastructure.Logging
                 _ => "Info"
             };
 
-            if (Exception != null)
-                return $"[{Timestamp:O}][{levelStr}]: {Message}\n{Exception}";
+            var prefix = $"[{Timestamp:O}][{levelStr}]: ";
 
-            return $"[{Timestamp:O}][{levelStr}]: {Message}";
+            if (Exception != null)
+                return $"{prefix}{FormatException(Message, Exception)}";
+
+            return $"{prefix}{Message}";
+        }
+
+        private static string FormatException(string message, Exception ex)
+        {
+            if (string.IsNullOrWhiteSpace(message))
+                return $"[{ex.GetType().Name}]: {ex.Message}";
+
+            return $"{message}\n  [{ex.GetType().Name}]: {ex.Message}";
         }
     }
 }

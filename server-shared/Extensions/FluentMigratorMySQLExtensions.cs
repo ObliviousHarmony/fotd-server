@@ -1,7 +1,7 @@
 using FluentMigrator.Builders.Alter.Table;
 using FluentMigrator.Builders.Create.Table;
 
-namespace FOMServer.Shared.Infrastructure.Migrations
+namespace FOMServer.Shared.Extensions
 {
     public static class FluentMigratorMySQLExtensions
     {

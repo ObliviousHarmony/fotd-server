@@ -10,7 +10,7 @@ using FOMServer.Shared.Infrastructure.Logging;
 using FOMServer.Shared.Infrastructure.Repositories;
 using FOMServer.Shared.Services.FOMNetwork;
 
-namespace FOMServer.Shared.Extensions
+namespace FOMServer.Shared.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
