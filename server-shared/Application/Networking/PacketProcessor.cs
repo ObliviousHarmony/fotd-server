@@ -92,43 +92,34 @@ namespace FOMServer.Shared.Application.Networking
         /// </summary>
         private async Task WorkerLoopAsync(CancellationToken ct)
         {
-            while (!ct.IsCancellationRequested)
+            try
             {
-                PacketRef packet;
-
-                try
+                await foreach (var packet in _packetQueue.Reader.ReadAllAsync(ct))
                 {
-                    packet = await _packetQueue.Reader.ReadAsync(ct);
+                    try
+                    {
+                        if (_handlers.TryGetValue(packet.ID, out var handler))
+                            handler.Handle(packet);
+                        else
+                            OnUnhandledPacket(packet);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Letting unhandled exceptions prevent further packet processing
+                        // would silently break break the server, so log and continue.
+                        LogPacketException(packet.ID, packet.Sender, ex);
+                    }
+                    finally
+                    {
+                        // Make sure that we free the packet so that the buffer can be
+                        // returned to the pool once all of the packets it contains
+                        // have been processed and disposed.
+                        packet.Dispose();
+                    }
                 }
-                catch (OperationCanceledException)
-                {
-                    break;
-                }
-                catch (ChannelClosedException)
-                {
-                    break;
-                }
-
-                try
-                {
-                    if (_handlers.TryGetValue(packet.ID, out var handler))
-                        handler.Handle(packet);
-                    else
-                        OnUnhandledPacket(packet);
-                }
-                catch (Exception ex)
-                {
-                    // Letting unhandled exceptions prevent further packet processing
-                    // would silently break break the server, so log and continue.
-                    LogPacketException(packet.ID, packet.Sender, ex);
-                }
-                finally
-                {
-                    // Make sure that we free the packet so that the buffer can be
-                    // returned to the pool once all of the packets it contains
-                    // have been processed and disposed.
-                    packet.Dispose();
-                }
+            }
+            catch (OperationCanceledException)
+            {
             }
 
             // We intentionally do not drain the queue here because it

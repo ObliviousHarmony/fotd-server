@@ -132,36 +132,32 @@ namespace FOMServer.Shared.Application.Persistence
         {
             var pendingWaits = new List<WaitRequest>();
 
-            while (!ct.IsCancellationRequested)
+            try
             {
-                try
+                await foreach (var entity in _dirtyQueue.Reader.ReadAllAsync(ct))
                 {
-                    var entity = await _dirtyQueue.Reader.ReadAsync(ct);
+                    // Fixed delay to batch rapid updates (cancellation just skips the wait)
+                    try { await Task.Delay(PersistenceDelayMs, ct); } catch (OperationCanceledException) { }
 
-                    // Fixed delay to batch rapid updates
-                    await Task.Delay(PersistenceDelayMs, ct);
+                    try
+                    {
+                        await PersistAsync(entity);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Letting unhandled exceptions prevent further persistence
+                        // could lead to data loss, so log and continue.
+                        _logger.LogCritical(ex, "Persistence failure");
+                    }
 
-                    await PersistAsync(entity);
-                }
-                catch (OperationCanceledException)
-                {
-                    break;
-                }
-                catch (ChannelClosedException)
-                {
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    // Letting unhandled exceptions prevent further persistence
-                    // could lead to data loss, so log and continue.
-                    _logger.LogCritical(ex, "Persistence failure");
-                }
+                    while (_waitQueue.Reader.TryRead(out var wait))
+                        pendingWaits.Add(wait);
 
-                while (_waitQueue.Reader.TryRead(out var wait))
-                    pendingWaits.Add(wait);
-
-                ProcessWaits(pendingWaits);
+                    ProcessWaits(pendingWaits);
+                }
+            }
+            catch (OperationCanceledException)
+            {
             }
 
             // Drain and persist remaining entities before shutdown
