@@ -36,10 +36,6 @@ class PositionSerializer : protected TypeSerializer<Type::Position> {
       if (!bs.ReadCompressed(data.y)) return false;
       if (!bs.ReadCompressed(data.z)) return false;
     } else {
-      data.x = 0;
-      data.y = 0;
-      data.z = 0;
-
       if (!ReadBits(bs, data.x, data.precision)) return false;
       if (!ReadBits(bs, data.y, data.precision)) return false;
       if (!ReadBits(bs, data.z, data.precision)) return false;
@@ -53,7 +49,6 @@ class PositionSerializer : protected TypeSerializer<Type::Position> {
       if (negZ) data.z = -data.z;
     }
 
-    data.rot = 0;
     if (!ReadBits(bs, data.rot, 9)) return false;
 
     return true;

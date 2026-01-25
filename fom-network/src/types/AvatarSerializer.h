@@ -73,11 +73,6 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
            i < Enum::NUM_EQUIPMENT_SLOTS; ++i) {
         if (!ReadBits(bs, data.equipmentSlots[i], 12)) return false;
       }
-    } else {
-      for (int i = Enum::NUM_BASIC_EQUIPMENT_SLOTS;
-           i < Enum::NUM_EQUIPMENT_SLOTS; ++i) {
-        data.equipmentSlots[i] = 0;
-      }
     }
 
     bool isCommander, unknown2, unknown3, isGroupLeader;
