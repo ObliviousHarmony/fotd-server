@@ -1,8 +1,8 @@
 using FOMServer.Shared.Core.Enums;
 
-namespace FOMServer.Shared.Core.DTOs
+namespace FOMServer.Shared.Core.Dtos
 {
-    public record PlayerDTO
+    public record PlayerDto
     {
         public uint id { get; init; }
         public string name { get; init; } = "";

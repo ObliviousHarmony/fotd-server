@@ -1,6 +1,6 @@
-namespace FOMServer.Shared.Core.DTOs
+namespace FOMServer.Shared.Core.Dtos
 {
-    public record AccountDTO
+    public record AccountDto
     {
         public uint id { get; init; }
         public string username { get; init; } = "";
