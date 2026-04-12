@@ -19,10 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="Microsoft.Extensions.DependencyInjection"/>
-    <Using Include="Microsoft.Extensions.Logging"/>
-    <Using Include="FOMServer.Shared.Extensions"/>
-    <Using Include="Dapper"/>
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
+    <Using Include="Microsoft.Extensions.Logging" />
+    <Using Include="FOMServer.Shared.Extensions" />
+    <Using Include="Dapper" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,4 +33,5 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
 </Project>

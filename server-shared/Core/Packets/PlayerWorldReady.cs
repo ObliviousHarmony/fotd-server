@@ -9,5 +9,12 @@ namespace FOMServer.Shared.Core.Packets
     public struct PlayerWorldReady
     {
         public uint PlayerID;
+        public StatusCode Status;
+
+        public enum StatusCode : byte
+        {
+            Success = 0,
+            PlayerNotFound = 1,
+        }
     }
 }

@@ -8,7 +8,8 @@ namespace FOMNetwork {
 
 class PositionSerializer : protected TypeSerializer<Type::Position> {
  public:
-  explicit PositionSerializer(uint32_t precision = 16) : precision_(precision) {}
+  explicit PositionSerializer(uint32_t precision = 16)
+      : precision_(precision) {}
 
   void Write(RakNet::BitStream& bs, const Type::Position& data) const {
     if (precision_ > 15) {
