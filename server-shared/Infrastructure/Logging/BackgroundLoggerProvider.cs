@@ -76,9 +76,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
             try
             {
                 await foreach (var message in _channel.Reader.ReadAllAsync(ct))
-                {
                     await WriteMessage(message);
-                }
             }
             catch (OperationCanceledException)
             {

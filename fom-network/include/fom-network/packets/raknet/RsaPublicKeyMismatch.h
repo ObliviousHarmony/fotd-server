@@ -6,10 +6,10 @@ namespace FOMNetwork {
 namespace Packet {
 
 #pragma pack(push, 1)
-struct RSAPublicKeyMismatch {};
+struct RsaPublicKeyMismatch {};
 #pragma pack(pop)
 
-ASSERT_BLITTABLE(RSAPublicKeyMismatch);
+ASSERT_BLITTABLE(RsaPublicKeyMismatch);
 
 }  // namespace Packet
 }  // namespace FOMNetwork

@@ -6,5 +6,5 @@ namespace FOMServer.Shared.Core.Packets.RakNet
 {
     [PacketID(PacketIdentifier.ID_RSA_PUBLIC_KEY_MISMATCH)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct RSAPublicKeyMismatch { }
+    public struct RsaPublicKeyMismatch { }
 }

@@ -8,6 +8,7 @@ namespace Packet {
 enum PlayerWorldReadyStatus : uint8_t {
   PLAYER_WORLD_READY_SUCCESS = 0,
   PLAYER_WORLD_READY_PLAYER_NOT_FOUND = 1,
+  PLAYER_WORLD_READY_PLAYER_ALREADY_CONNECTED = 2,
 };
 
 #pragma pack(push, 1)

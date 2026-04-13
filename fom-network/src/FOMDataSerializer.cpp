@@ -26,7 +26,7 @@
 #include <fom-network/packets/raknet/ModifiedPacket.h>
 #include <fom-network/packets/raknet/NewIncomingConnection.h>
 #include <fom-network/packets/raknet/NoFreeIncomingConnections.h>
-#include <fom-network/packets/raknet/RSAPublicKeyMismatch.h>
+#include <fom-network/packets/raknet/RsaPublicKeyMismatch.h>
 
 #include <unordered_map>
 
@@ -49,7 +49,7 @@ static const std::unordered_map<uint8_t, size_t> packetSizes = {
     {ID_NEW_INCOMING_CONNECTION, sizeof(Packet::NewIncomingConnection)},
     {ID_NO_FREE_INCOMING_CONNECTIONS,
      sizeof(Packet::NoFreeIncomingConnections)},
-    {ID_RSA_PUBLIC_KEY_MISMATCH, sizeof(Packet::RSAPublicKeyMismatch)},
+    {ID_RSA_PUBLIC_KEY_MISMATCH, sizeof(Packet::RsaPublicKeyMismatch)},
 
     // Game Packets
     {Enum::ID_REGISTER_WORLD, sizeof(Packet::RegisterWorld)},

@@ -103,7 +103,7 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/raknet/ModifiedPacket.h"
   "include/fom-network/packets/raknet/NewIncomingConnection.h"
   "include/fom-network/packets/raknet/NoFreeIncomingConnections.h"
-  "include/fom-network/packets/raknet/RSAPublicKeyMismatch.h"
+  "include/fom-network/packets/raknet/RsaPublicKeyMismatch.h"
 
   # Game Packets
   "src/packets/PacketSerializers.h"
