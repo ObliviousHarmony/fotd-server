@@ -2,7 +2,7 @@ using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets.RakNet;
 using FOMServer.Shared.Core.Packets.Types;
 
-namespace FOMServer.Tests
+namespace FOMServer.Shared.Tests
 {
     public class PacketWriterTests
     {

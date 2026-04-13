@@ -2,7 +2,7 @@ using FOMServer.Shared.Application.Persistence;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Persistence;
 
-namespace FOMServer.Tests
+namespace FOMServer.Shared.Tests
 {
     public class PersistenceServiceTest : IDisposable
     {

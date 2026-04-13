@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Metadata;
 
-namespace FOMServer.Tests
+namespace FOMServer.Shared.Tests
 {
     public class PacketTests
     {

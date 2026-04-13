@@ -4,9 +4,9 @@
     <BuildNativeLib Condition="'$(MSBuildRuntimeType)' == 'Full'">true</BuildNativeLib>
   </PropertyGroup>
   <PropertyGroup>
-    <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)/../out/build/$(Configuration)/$(MSBuildProjectName)/obj/</BaseIntermediateOutputPath>
+    <BaseIntermediateOutputPath>$(MSBuildThisFileDirectory)out/build/$(Configuration)/$(MSBuildProjectName)/obj/</BaseIntermediateOutputPath>
     <IntermediateOutputPath>$(BaseIntermediateOutputPath)</IntermediateOutputPath>
-    <OutputPath>$(MSBuildProjectDirectory)/../out/build/$(Configuration)/$(MSBuildProjectName)/bin/</OutputPath>
+    <OutputPath>$(MSBuildThisFileDirectory)out/build/$(Configuration)/$(MSBuildProjectName)/bin/</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.556">

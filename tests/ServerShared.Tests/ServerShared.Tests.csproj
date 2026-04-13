@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <RootNamespace>FOMServer.Tests</RootNamespace>
+    <RootNamespace>FOMServer.Shared.Tests</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
@@ -24,9 +24,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\server-shared\ServerShared.csproj" />
-    <ProjectReference Include="..\world-server\WorldServer.csproj" />
-    <ProjectReference Include="..\master-server\MasterServer.csproj" />
+    <ProjectReference Include="..\..\server-shared\ServerShared.csproj" />
+    <ProjectReference Include="..\..\master-server\MasterServer.csproj" />
+    <ProjectReference Include="..\..\world-server\WorldServer.csproj" />
   </ItemGroup>
 
 </Project>

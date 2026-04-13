@@ -1,18 +1,16 @@
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Core.Players;
 using FOMServer.World.Core.Exceptions;
 using FOMServer.World.Core.Players;
-using WorldPlayerAttributes = FOMServer.World.Core.Players.PlayerAttributes;
 
-namespace FOMServer.Tests
+namespace FOMServer.World.Tests
 {
     public class PlayerAttributesTests
     {
         [Fact]
         public void GetMetadata_CurrencyRequiresLock()
         {
-            var credits = WorldPlayerAttributes.GetMetadata(AttributeType.UniversalCredits);
+            var credits = PlayerAttributes.GetMetadata(AttributeType.UniversalCredits);
             Assert.True(credits.LockRequired);
             Assert.Equal(int.MaxValue, credits.Max);
             Assert.Equal(0, credits.Default);
@@ -28,7 +26,7 @@ namespace FOMServer.Tests
         [Fact]
         public void Constructor_WithInitialValues_SetsValues()
         {
-            var initial = new int[WorldPlayerAttributes.AttributeCount];
+            var initial = new int[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.Health] = 500;
             initial[(int)AttributeType.Agility] = 300;
 
@@ -41,7 +39,7 @@ namespace FOMServer.Tests
         [Fact]
         public void Get_ClampsNegativeToZero()
         {
-            var initial = new int[WorldPlayerAttributes.AttributeCount];
+            var initial = new int[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.Health] = -100;
 
             var attrs = CreateAttributes(initial);
@@ -52,12 +50,12 @@ namespace FOMServer.Tests
         [Fact]
         public void Get_ClampsAboveMax()
         {
-            var initial = new int[WorldPlayerAttributes.AttributeCount];
+            var initial = new int[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.Health] = 9999;
 
             var attrs = CreateAttributes(initial);
 
-            var max = WorldPlayerAttributes.GetMetadata(AttributeType.Health).Max;
+            var max = PlayerAttributes.GetMetadata(AttributeType.Health).Max;
             Assert.Equal((uint)max, attrs.Get(AttributeType.Health));
         }
 
@@ -76,7 +74,7 @@ namespace FOMServer.Tests
             var attrs = CreateAttributes();
             attrs.Set(AttributeType.Health, 9999);
 
-            var max = WorldPlayerAttributes.GetMetadata(AttributeType.Health).Max;
+            var max = PlayerAttributes.GetMetadata(AttributeType.Health).Max;
             Assert.Equal((uint)max, attrs.Get(AttributeType.Health));
         }
 
@@ -104,7 +102,7 @@ namespace FOMServer.Tests
         [Fact]
         public void Change_PositiveDelta()
         {
-            var initial = new int[WorldPlayerAttributes.AttributeCount];
+            var initial = new int[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.Health] = 500;
 
             var attrs = CreateAttributes(initial);
@@ -117,7 +115,7 @@ namespace FOMServer.Tests
         [Fact]
         public void Change_NegativeDelta()
         {
-            var initial = new int[WorldPlayerAttributes.AttributeCount];
+            var initial = new int[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.Health] = 500;
 
             var attrs = CreateAttributes(initial);
@@ -129,7 +127,7 @@ namespace FOMServer.Tests
         [Fact]
         public void Change_ClampsAtZero()
         {
-            var initial = new int[WorldPlayerAttributes.AttributeCount];
+            var initial = new int[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.Health] = 100;
 
             var attrs = CreateAttributes(initial);
@@ -141,13 +139,13 @@ namespace FOMServer.Tests
         [Fact]
         public void Change_ClampsAtMax()
         {
-            var initial = new int[WorldPlayerAttributes.AttributeCount];
+            var initial = new int[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.Health] = 900;
 
             var attrs = CreateAttributes(initial);
             var result = attrs.Change(AttributeType.Health, 500);
 
-            var max = WorldPlayerAttributes.GetMetadata(AttributeType.Health).Max;
+            var max = PlayerAttributes.GetMetadata(AttributeType.Health).Max;
             Assert.Equal((uint)max, result);
         }
 
@@ -175,7 +173,7 @@ namespace FOMServer.Tests
         [Fact]
         public void Lock_GetReturnsCurrentValue()
         {
-            var initial = new int[WorldPlayerAttributes.AttributeCount];
+            var initial = new int[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.UniversalCredits] = 1000;
 
             var attrs = CreateAttributes(initial);
@@ -197,7 +195,7 @@ namespace FOMServer.Tests
         [Fact]
         public void Lock_ChangeUpdatesValue()
         {
-            var initial = new int[WorldPlayerAttributes.AttributeCount];
+            var initial = new int[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.UniversalCredits] = 1000;
 
             var attrs = CreateAttributes(initial);
@@ -279,10 +277,10 @@ namespace FOMServer.Tests
                 () => attrs.Lock(AttributeType.Coins));
         }
 
-        private static WorldPlayerAttributes CreateAttributes(int[]? initial = null)
+        private static PlayerAttributes CreateAttributes(int[]? initial = null)
         {
-            var session = new PlayerSession(1, new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 });
-            return new WorldPlayerAttributes(session, initial);
+            var session = new PlayerSession(1, new Shared.Core.Packets.Types.NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 });
+            return new PlayerAttributes(session, initial);
         }
     }
 }

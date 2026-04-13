@@ -6,7 +6,7 @@ using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 
-namespace FOMServer.Tests
+namespace FOMServer.Shared.Tests
 {
     public class SendPacketBufferTests
     {
