@@ -23,7 +23,7 @@ namespace FOMServer.World.Core.Players
     /// <see cref="AttributeDeadlockException"/> if acquisition times out.
     /// </para>
     /// </remarks>
-    public class PlayerAttributes : IPersistable
+    internal class PlayerAttributes : IPersistable
     {
         public const int AttributeCount = (int)AttributeType.NUM_ATTRIBUTE_TYPES;
 

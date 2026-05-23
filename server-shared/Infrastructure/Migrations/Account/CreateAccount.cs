@@ -3,7 +3,7 @@ using FluentMigrator;
 namespace FOMServer.Shared.Infrastructure.Migrations.Account
 {
     [Migration(202601191443, "Creates the account tables.")]
-    public class CreateAccount : ForwardOnlyMigration
+    internal class CreateAccount : ForwardOnlyMigration
     {
         public override void Up()
         {

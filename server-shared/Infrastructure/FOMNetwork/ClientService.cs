@@ -3,7 +3,7 @@ using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Shared.Services.FOMNetwork
 {
-    public partial class ClientService : IClientService
+    internal partial class ClientService : IClientService
     {
         public IntPtr Connect(string hostAddress, ushort port) => FOMNetwork_Client_Connect(hostAddress, port);
 

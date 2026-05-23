@@ -6,7 +6,7 @@ namespace FOMServer.World.Core.Exceptions
     /// Exception thrown when a lock acquisition on a player attribute times out,
     /// indicating a potential deadlock.
     /// </summary>
-    public class AttributeDeadlockException : Exception
+    internal class AttributeDeadlockException : Exception
     {
         public AttributeDeadlockException(AttributeType attribute)
             : base($"Potential deadlock acquiring lock on {attribute}")

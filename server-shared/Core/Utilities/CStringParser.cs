@@ -1,6 +1,6 @@
 using System.Text;
 
-public static class CStringParser
+internal static class CStringParser
 {
     /// <summary>
     /// Reads a null-terminated ASCII string from a fixed-size byte buffer.

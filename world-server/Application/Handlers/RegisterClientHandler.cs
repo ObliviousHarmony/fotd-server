@@ -12,7 +12,7 @@ using FOMServer.World.Core.Networking;
 namespace FOMServer.World.Application.Handlers
 {
     [PacketHandler]
-    public class RegisterClientHandler : PacketHandlerBase<RegisterClient>
+    internal class RegisterClientHandler : PacketHandlerBase<RegisterClient>
     {
         private readonly IClientPacketSender _packetSender;
 

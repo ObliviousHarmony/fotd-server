@@ -10,7 +10,7 @@ using MySqlConnector;
 
 namespace FOMServer.Master.Application
 {
-    public class Server
+    internal class Server
     {
         private readonly ILogger<Server> _logger;
         private readonly IShutdownManager _shutdownManager;

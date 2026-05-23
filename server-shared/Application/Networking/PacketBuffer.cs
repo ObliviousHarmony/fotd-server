@@ -13,7 +13,7 @@ namespace FOMServer.Shared.Application.Networking
     /// Each packet slot in the buffer uses the format: [status byte][packet data].
     /// The status byte indicates whether deserialization succeeded or failed.
     /// </remarks>
-    public class PacketBuffer
+    internal class PacketBuffer
     {
         private static readonly Meter s_meter = new("FOMServer.Networking.PacketBuffer", "1.0.0");
         private static readonly ObservableGauge<int> s_buffersInUse =

@@ -15,7 +15,7 @@ namespace FOMServer.Shared.Application.Networking
     /// into these buffers, allowing the original packet buffers to be released
     /// immediately.
     /// </remarks>
-    public class SendPacketBuffer
+    internal class SendPacketBuffer
     {
         private readonly SendPacket[] _sendPackets;
         private readonly byte[] _packetData;

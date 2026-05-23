@@ -6,7 +6,7 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.World.Application.Handlers
 {
     [PacketHandler]
-    public class ConnectionLostHandler : PacketHandlerBase<ConnectionLost>
+    internal class ConnectionLostHandler : PacketHandlerBase<ConnectionLost>
     {
         public ConnectionLostHandler()
         {

@@ -4,7 +4,7 @@ using FOMServer.Shared.Core.Repositories;
 
 namespace FOMServer.Shared.Infrastructure.Repositories
 {
-    public class DbAccountRepository : IAccountRepository
+    internal class DbAccountRepository : IAccountRepository
     {
         private readonly IDbConnectionFactory _dbConnectionFactory;
 

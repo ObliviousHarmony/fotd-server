@@ -7,7 +7,7 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class ConnectionLostHandler : PacketHandlerBase<ConnectionLost>
+    internal class ConnectionLostHandler : PacketHandlerBase<ConnectionLost>
     {
         private readonly IWorldServerRegistry _worldServerRegistry;
         private readonly ILogger<ConnectionLostHandler> _logger;

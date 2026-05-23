@@ -12,7 +12,7 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class WorldLoginHandler : PacketHandlerBase<WorldLogin>
+    internal class WorldLoginHandler : PacketHandlerBase<WorldLogin>
     {
         private readonly IClientPacketSender _packetSender;
         private readonly IPlayerRepository _playerRepository;

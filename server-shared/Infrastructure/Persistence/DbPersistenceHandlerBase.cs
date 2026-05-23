@@ -5,7 +5,7 @@ namespace FOMServer.Shared.Infrastructure.Persistence
     /// <summary>
     /// Base class for persistence handlers that write to the database.
     /// </summary>
-    public abstract class DbPersistenceHandlerBase<T> : IPersistenceHandler
+    internal abstract class DbPersistenceHandlerBase<T> : IPersistenceHandler
         where T : IPersistable
     {
         protected readonly IDbConnectionFactory _dbConnectionFactory;

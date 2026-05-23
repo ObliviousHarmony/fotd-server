@@ -3,7 +3,7 @@ using FOMServer.World.Core.Networking;
 
 namespace FOMServer.World.Application.Networking
 {
-    public class ClientPacketSender : IClientPacketSender
+    internal class ClientPacketSender : IClientPacketSender
     {
         private IPacketSender? _packetSender;
 

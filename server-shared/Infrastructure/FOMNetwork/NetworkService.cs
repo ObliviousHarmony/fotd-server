@@ -5,7 +5,7 @@ using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Shared.Services.FOMNetwork
 {
-    public partial class NetworkService : INetworkService
+    internal partial class NetworkService : INetworkService
     {
         public void ValidatePacketStructs()
         {

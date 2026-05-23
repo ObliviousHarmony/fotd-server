@@ -3,7 +3,7 @@ using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Shared.Services.FOMNetwork
 {
-    public partial class ServerService : IServerService
+    internal partial class ServerService : IServerService
     {
         public IntPtr Startup(ushort port) => FOMNetwork_Server_Startup(port);
 

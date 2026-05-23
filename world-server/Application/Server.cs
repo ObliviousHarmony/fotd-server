@@ -13,7 +13,7 @@ using FOMServer.World.Core;
 
 namespace FOMServer.World.Application
 {
-    public class Server
+    internal class Server
     {
         private readonly ILogger<Server> _logger;
         private readonly IShutdownManager _shutdownManager;

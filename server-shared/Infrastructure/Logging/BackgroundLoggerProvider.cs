@@ -4,7 +4,7 @@ using FOMServer.Shared.Core;
 
 namespace FOMServer.Shared.Infrastructure.Logging
 {
-    public sealed class BackgroundLoggerProvider : ILoggerProvider, IAsyncDisposable
+    internal sealed class BackgroundLoggerProvider : ILoggerProvider, IAsyncDisposable
     {
         private readonly IShutdownManager _shutdownManager;
         private readonly Channel<LogMessage> _channel;

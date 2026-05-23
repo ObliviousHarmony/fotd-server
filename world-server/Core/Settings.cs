@@ -4,7 +4,7 @@ using FOMServer.Shared.Core.Enums;
 
 namespace FOMServer.World.Core
 {
-    public class ServerSettings
+    internal class ServerSettings
     {
         private string? _clientIP;
 
@@ -33,7 +33,7 @@ namespace FOMServer.World.Core
         }
     }
 
-    public class DatabaseSettings
+    internal class DatabaseSettings
     {
         public string Name { get; init; } = null!;
         public string ConnectionString { get; init; } = null!;

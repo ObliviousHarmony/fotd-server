@@ -10,7 +10,7 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class LoginRequestHandler : PacketHandlerBase<LoginRequest>
+    internal class LoginRequestHandler : PacketHandlerBase<LoginRequest>
     {
         private readonly IClientPacketSender _packetSender;
         private readonly IAccountRepository _accountRepository;

@@ -5,7 +5,7 @@ using FOMServer.Shared.Core.Packets.Types;
 
 namespace FOMServer.Master.Application.Networking
 {
-    public class WorldServerRegistry : IWorldServerRegistry
+    internal class WorldServerRegistry : IWorldServerRegistry
     {
         private readonly ConcurrentDictionary<WorldID, WorldServer> _worldServers = new();
 

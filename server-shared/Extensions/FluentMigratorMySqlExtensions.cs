@@ -3,7 +3,7 @@ using FluentMigrator.Builders.Create.Table;
 
 namespace FOMServer.Shared.Extensions
 {
-    public static class FluentMigratorMySqlExtensions
+    internal static class FluentMigratorMySqlExtensions
     {
         // ---------------- CREATE TABLE: TEXT TYPES ----------------
 

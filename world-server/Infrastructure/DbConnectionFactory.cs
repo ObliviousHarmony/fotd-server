@@ -5,7 +5,7 @@ using MySqlConnector;
 
 namespace FOMServer.World.Infrastructure
 {
-    public class DbConnectionFactory : IDbConnectionFactory
+    internal class DbConnectionFactory : IDbConnectionFactory
     {
         private readonly DatabaseSettings _dbSettings;
 

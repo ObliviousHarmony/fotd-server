@@ -5,7 +5,7 @@ using FOMServer.Shared.Core.Persistence;
 
 namespace FOMServer.Shared.Application.Persistence
 {
-    public class PersistenceService : IPersistenceService, IServerStartable
+    internal class PersistenceService : IPersistenceService, IServerStartable
     {
         /// <summary>
         /// The length of time that the service should wait before persisting a dirty entity.

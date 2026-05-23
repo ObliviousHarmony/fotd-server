@@ -22,7 +22,7 @@ namespace FOMServer.Shared.Application.Networking
         private readonly ReadOnlyMemory<byte> _data;
         private readonly PacketBuffer _parentBuffer;
 
-        public PacketRef(
+        internal PacketRef(
             int refIndex,
             int bufferVersion,
             PacketIdentifier id,

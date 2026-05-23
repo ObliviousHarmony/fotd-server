@@ -4,7 +4,7 @@ using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Shared.Services.FOMNetwork
 {
-    public partial class PacketService : IPacketService
+    internal partial class PacketService : IPacketService
     {
         /// <summary>
         /// A static pool for packet buffers to hold packets that have been received.

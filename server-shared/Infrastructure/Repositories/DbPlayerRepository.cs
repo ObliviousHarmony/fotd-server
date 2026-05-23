@@ -6,7 +6,7 @@ using MySqlConnector;
 
 namespace FOMServer.Shared.Infrastructure.Repositories
 {
-    public class DbPlayerRepository : IPlayerRepository
+    internal class DbPlayerRepository : IPlayerRepository
     {
         private readonly IDbConnectionFactory _dbConnectionFactory;
 

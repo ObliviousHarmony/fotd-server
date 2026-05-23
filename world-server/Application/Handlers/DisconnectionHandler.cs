@@ -6,7 +6,7 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.World.Application.Handlers
 {
     [PacketHandler]
-    public class DisconnectionHandler : PacketHandlerBase<DisconnectionNotification>
+    internal class DisconnectionHandler : PacketHandlerBase<DisconnectionNotification>
     {
         public DisconnectionHandler()
         {
