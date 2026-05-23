@@ -9,6 +9,7 @@ bool RegisterClientSerializer::Read(RakNet::BitStream& bs,
   if (!bs.ReadCompressed(data->worldID)) return false;
   if (!bs.ReadCompressed(data->playerID)) return false;
   if (!bs.ReadCompressed(data->worldCRC)) return false;
+
   return true;
 }
 

@@ -10,6 +10,7 @@ namespace Packet {
 #pragma pack(push, 1)
 struct PlayerMigrateWorld {
   uint32_t playerID;
+  Type::NetworkAddress clientAddress;
 };
 #pragma pack(pop)
 

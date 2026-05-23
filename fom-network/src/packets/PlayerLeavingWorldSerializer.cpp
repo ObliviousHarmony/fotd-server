@@ -7,6 +7,7 @@ namespace FOMNetwork {
 bool PlayerLeavingWorldSerializer::Read(
     RakNet::BitStream& bs, Packet::PlayerLeavingWorld* data) const {
   if (!bs.ReadCompressed(data->playerID)) return false;
+
   return true;
 }
 

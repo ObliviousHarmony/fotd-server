@@ -8,6 +8,7 @@ bool PlayerWorldReadySerializer::Read(RakNet::BitStream& bs,
                                       Packet::PlayerWorldReady* data) const {
   if (!bs.ReadCompressed(data->playerID)) return false;
   if (!bs.ReadCompressed(data->status)) return false;
+
   return true;
 }
 

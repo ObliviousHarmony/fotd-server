@@ -10,6 +10,7 @@ bool WorldLoginSerializer::Read(RakNet::BitStream& bs,
   if (!bs.ReadCompressed(data->nodeID)) return false;
   if (!bs.ReadCompressed(data->playerID)) return false;
   if (!bs.ReadCompressed(data->constant)) return false;
+
   return true;
 }
 

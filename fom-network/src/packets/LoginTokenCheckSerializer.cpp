@@ -9,6 +9,7 @@ bool LoginTokenCheckSerializer::Read(RakNet::BitStream& bs,
   bool fromServer;
   if (!bs.Read(fromServer)) return false;
   data->fromServer = fromServer ? 1 : 0;
+
   if (data->fromServer == 1) {
     bool success;
     if (!bs.Read(success)) return false;
@@ -17,6 +18,7 @@ bool LoginTokenCheckSerializer::Read(RakNet::BitStream& bs,
   } else {
     if (!ReadString(bs, data->requestToken)) return false;
   }
+
   return true;
 }
 
