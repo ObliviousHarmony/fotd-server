@@ -148,6 +148,40 @@ namespace FOMServer.Shared.Tests
         }
 
         [Fact]
+        public async Task WaitForPersistence_MultipleWaitsOnSameEntity_AllCallbacksFire()
+        {
+            var service = CreateService();
+            var entity = new TestEntity();
+            var firstFired = new TaskCompletionSource();
+            var secondFired = new TaskCompletionSource();
+
+            // Block item persistence until both callbacks have been registered.
+            var blockPersist = new TaskCompletionSource();
+            _handler.BlockUntil = blockPersist;
+
+            service.Register(entity);
+
+            entity.MarkChanged();
+            service.WaitForPersistence(entity, () => firstFired.SetResult());
+            service.WaitForPersistence(entity, () => secondFired.SetResult());
+
+            await Task.Delay(150);
+            Assert.False(firstFired.Task.IsCompleted, "First wait must not fire before the flush");
+            Assert.False(secondFired.Task.IsCompleted, "Second wait must not fire before the flush");
+
+            // Release the lock
+            blockPersist.SetResult();
+
+            var bothFired = Task.WhenAll(firstFired.Task, secondFired.Task);
+            var completed = await Task.WhenAny(bothFired, Task.Delay(1000));
+
+            Assert.Equal(bothFired, completed);
+            Assert.True(firstFired.Task.IsCompletedSuccessfully, "First wait callback should fire");
+            Assert.True(secondFired.Task.IsCompletedSuccessfully, "Second wait callback should fire");
+            Assert.Contains(entity, _handler.PersistedEntities);
+        }
+
+        [Fact]
         public async Task MarkChanged_RapidChanges_BatchedIntoPersist()
         {
             var service = CreateService();
