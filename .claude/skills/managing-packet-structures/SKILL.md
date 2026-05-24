@@ -11,9 +11,11 @@ Packets are blittable structs passed between managed and native code. These pack
 
 - `bool` is not blittable and is passed around as `uint8_t`
 
+Two categories of struct live side by side: **packets** (top-level messages, marked with a packet ID) and **types** (reusable component structs composed into packets). They live in parallel folders in each project.
+
 ## Managed Code
 
-The ServerShared project contains [the managed packet structures](/server-shared/Core/Packets/Data).
+The ServerShared project contains [the managed packet structs](/server-shared/Core/Packets).
 
 - [PacketIdentifier Enum](/server-shared/Core/Enums/PacketIdentifier.cs) matches native code.
 - Required `struct` Attributes:
@@ -24,33 +26,33 @@ The ServerShared project contains [the managed packet structures](/server-shared
 - `InlineArray` attribute for arrays of other blittable structs.
 - `uint8_t` bools are parsed using a property getter.
 - C-style strings are parsed into `string` types using a property getter.
-- [Models contain shared data](/server-shared/Core/Packets/Models/).
+- [Types contain shared component structs](/server-shared/Core/Packets/Types).
 
 ## Native Code
 
-The FOMNetwork project contains [the native packet structures](/fom-network/include/fom-network/packets/data) as well as [the BitStream serializers](/fom-network/src/packet-serializers/data). Keep [the list of sizes and serializers maintained](/fom-network/src/FOMDataSerializer.cpp).
+The FOMNetwork project contains [the native packet structs](/fom-network/include/fom-network/packets) as well as [the BitStream serializers](/fom-network/src/packets). Keep [the list of sizes and serializers maintained](/fom-network/src/FOMDataSerializer.cpp).
 
 ### Structures
 
-- [PacketIdentifier Enum](/fom-network/include/fom-network/packets/PacketIdentifier.h) matches managed code.
-- `#pragma pack(push, 1)` and `#pragma pack(pop)` wrapping `struct` definition for data and models.
+- [PacketIdentifier Enum](/fom-network/include/fom-network/enums/PacketIdentifier.h) matches managed code.
+- `#pragma pack(push, 1)` and `#pragma pack(pop)` wrapping `struct` definitions for both packets and types.
 - `ASSERT_BLITTABLE()` macro does basic compile-time checks.
 - Only use `<cstdint>` `_t` types for packet data.
-- [Models contain shared data](/fom-network/include/fom-network/packets/models/).
+- [Types contain shared component structs](/fom-network/include/fom-network/types).
 
 ### Serializers
 
-- Use [serializer macros](/fom-network/include/fom-network/packets/PacketSerializers.h) to avoid creating headers for each serializer.
+- Use [serializer macros](/fom-network/src/packets/PacketSerializers.h) to avoid creating headers for each serializer.
 - Packets Read/Write using `RakNet::BitStream` with identical read/write paths.
 - `EncodeString/DecodeString()` in packet serializers for compressed strings.
 - `WriteRawString/ReadRawString` for raw C-style strings.
 - `WriteBits/ReadBits` for specific lengths.
 - `bs.Read()` to read bools and `bs.Write(val == 1)` for writing `uint8_t` bools.
-- [Models have dedicated serializers](/fom-network/src/packet-serializers/models).
+- [Types have dedicated serializers](/fom-network/src/types).
 
 ## Examples
 
 - Login Return Packet
-  - [Managed Struct](/server-shared/Core/Packets/Data/LoginReturn.cs)
-  - [Native Struct](/fom-network/include/fom-network/packets/data/LoginReturn.h)
-  - [Native Serializer](/fom-network/src/packet-serializers/data/LoginReturnSerializer.cpp)
+  - [Managed Struct](/server-shared/Core/Packets/LoginReturn.cs)
+  - [Native Struct](/fom-network/include/fom-network/packets/LoginReturn.h)
+  - [Native Serializer](/fom-network/src/packets/LoginReturnSerializer.cpp)
