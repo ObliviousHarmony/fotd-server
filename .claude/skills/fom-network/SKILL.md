@@ -1,6 +1,6 @@
 ---
 name: fom-network
-description: Comprehensive information about the FOMNetwork project.
+description: Use when working on the Server <-> Client packet serialization and networking library - packet definitions, BitStream serialization, and managed <-> native RakNet binding.
 ---
 
 # FOMNetwork

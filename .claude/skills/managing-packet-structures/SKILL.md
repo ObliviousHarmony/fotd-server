@@ -1,9 +1,11 @@
 ---
 name: managing-packet-structures
-description: Describes how to add, remove, and edit packet structures. Only use when dealing with the structures themselves, not for handlers.
+description: Use this when adding, removing, or editing packet structures. Do not use when building packet handlers.
 ---
 
 # Managing Packet Structures
+
+> **Feature-complete constraint**: This is a server emulator for an immutable, discontinued client. Packet structures and their enums mirror what the original game client expects on the wire — they are **feature-complete and frozen**. Never add status codes, fields, or new packet types to packets the client sends or receives. The structs that exist are the complete set. If a flow seems to need a new code/field, reuse an existing value, handle it server-side without a response, or defer to out-of-band mechanisms (e.g. forcible disconnect) — do not extend the packet.
 
 Packets are blittable structs passed between managed and native code. These packets _must_ be blittable in order for them to function properly and follow zero-copy semantics. `struct` layout, packing, and data types must be identical.
 
