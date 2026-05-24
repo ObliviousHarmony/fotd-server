@@ -2,8 +2,10 @@ using FluentMigrator.Runner;
 using FOMServer.Application.Core;
 using FOMServer.Master.Application;
 using FOMServer.Master.Application.Networking;
+using FOMServer.Master.Application.Players;
 using FOMServer.Master.Core;
 using FOMServer.Master.Core.Networking;
+using FOMServer.Master.Core.Players;
 using FOMServer.Master.Infrastructure;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Extensions.DependencyInjection;
@@ -67,6 +69,9 @@ namespace FOMServer.Master
             services.AddSingleton<IWorldPacketSender>(sp => sp.GetRequiredService<WorldPacketSender>());
 
             services.AddSingleton<IWorldServerRegistry, WorldServerRegistry>();
+
+            services.AddSingleton<IClientRegistry, ClientRegistry>();
+            services.AddSingleton<IPlayerRegistry, PlayerRegistry>();
             return services;
         }
 

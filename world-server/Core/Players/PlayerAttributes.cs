@@ -2,7 +2,6 @@ using System.Diagnostics;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Core.Persistence;
-using FOMServer.Shared.Core.Players;
 using FOMServer.World.Core.Exceptions;
 
 namespace FOMServer.World.Core.Players
@@ -29,7 +28,7 @@ namespace FOMServer.World.Core.Players
 
         private static readonly AttributeMetadata[] s_metadata;
 
-        private readonly PlayerSession _session;
+        private readonly Player _player;
         private readonly int[] _values = new int[AttributeCount];
         private readonly int[] _locks = new int[AttributeCount];
 
@@ -49,17 +48,17 @@ namespace FOMServer.World.Core.Players
             s_metadata[(int)AttributeType.Coins] = new() { Max = int.MaxValue, Default = 0, LockRequired = true };
         }
 
-        public PlayerAttributes(PlayerSession session, int[]? initialValues = null)
+        public PlayerAttributes(Player player, int[]? initialValues = null)
         {
-            _session = session;
+            _player = player;
 
-            if (initialValues != null)
+            if (initialValues is not null)
                 initialValues.CopyTo(_values, 0);
         }
 
         public event PersistableChangeCallback? OnPersistableChange;
 
-        public uint PlayerID => _session.ID;
+        public uint PlayerID => _player.ID;
 
         public static ref readonly AttributeMetadata GetMetadata(AttributeType attribute)
         {
@@ -104,7 +103,7 @@ namespace FOMServer.World.Core.Players
                 Thread.SpinWait(1);
 
             Volatile.Write(ref _values[index], Math.Min((int)value, metadata.Max));
-            OnPersistableChange?.Invoke(this, _session);
+            OnPersistableChange?.Invoke(this, _player);
         }
 
         /// <summary>
@@ -133,7 +132,7 @@ namespace FOMServer.World.Core.Players
                 Thread.SpinWait(1);
 
             var result = (uint)Math.Clamp(Interlocked.Add(ref _values[index], delta), 0, metadata.Max);
-            OnPersistableChange?.Invoke(this, _session);
+            OnPersistableChange?.Invoke(this, _player);
             return result;
         }
 
@@ -223,7 +222,7 @@ namespace FOMServer.World.Core.Players
                 Volatile.Write(ref _parent._locks[(int)_attribute], 0);
 
                 if (_changed)
-                    _parent.OnPersistableChange?.Invoke(_parent, _parent._session);
+                    _parent.OnPersistableChange?.Invoke(_parent, _parent._player);
             }
         }
 

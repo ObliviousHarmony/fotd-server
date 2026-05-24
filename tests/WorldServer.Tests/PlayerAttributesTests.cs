@@ -1,7 +1,7 @@
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Players;
 using FOMServer.World.Core.Exceptions;
 using FOMServer.World.Core.Players;
+using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.World.Tests
 {
@@ -279,8 +279,10 @@ namespace FOMServer.World.Tests
 
         private static PlayerAttributes CreateAttributes(int[]? initial = null)
         {
-            var session = new PlayerSession(1, new Shared.Core.Packets.Types.NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 });
-            return new PlayerAttributes(session, initial);
+            var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
+            var session = new ClientSession(address);
+            var player = new Player(1, session, initial);
+            return player.Attributes;
         }
     }
 }

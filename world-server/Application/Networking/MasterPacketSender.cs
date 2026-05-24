@@ -14,7 +14,7 @@ namespace FOMServer.World.Application.Networking
 
         public void Send(in QueuePacket packet)
         {
-            if (_packetSender == null)
+            if (_packetSender is null)
                 throw new InvalidOperationException("Packet sender not initialized");
 
             if (!packet.Broadcast)

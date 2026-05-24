@@ -1,0 +1,14 @@
+using FOMServer.Shared.Core.Packets.Types;
+
+namespace FOMServer.Master.Core.Players
+{
+    internal interface IClientRegistry
+    {
+        ClientSession? Get(NetworkAddress address);
+        ClientSession? Get(uint playerID);
+
+        ClientSession Register(NetworkAddress address);
+        void StartLogin(ClientSession session, uint playerID);
+        bool Unregister(ClientSession session);
+    }
+}

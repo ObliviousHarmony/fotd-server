@@ -36,7 +36,7 @@ namespace FOMServer.Master.Application.Handlers
             rData.WorldID = p.WorldID;
 
             var player = _playerRepository.GetByID(p.PlayerID);
-            if (player == null)
+            if (player is null)
             {
                 rData.Status = WorldLoginReturn.StatusCode.UnknownError;
                 _packetSender.Send(response.Build());
@@ -44,7 +44,7 @@ namespace FOMServer.Master.Application.Handlers
             }
 
             var worldServer = _worldServerRegistry.Get(p.WorldID);
-            if (worldServer == null)
+            if (worldServer is null)
             {
                 rData.Status = WorldLoginReturn.StatusCode.ServerOffline;
                 _packetSender.Send(response.Build());

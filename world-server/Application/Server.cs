@@ -71,14 +71,14 @@ namespace FOMServer.World.Application
             );
 
             var masterNetwork = ConnectToMasterNetwork(packetProcessor);
-            if (masterNetwork == null)
+            if (masterNetwork is null)
             {
                 await _shutdownManager.Shutdown();
                 return;
             }
 
             var clientNetwork = CreateClientNetwork(packetProcessor);
-            if (clientNetwork == null)
+            if (clientNetwork is null)
             {
                 await _shutdownManager.Shutdown();
                 return;

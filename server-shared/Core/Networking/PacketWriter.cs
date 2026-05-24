@@ -139,7 +139,7 @@ namespace FOMServer.Shared.Core.Networking
             _broadcast = false;
 
             // Just keep adding addresses if we have already added more than one.
-            if (_networkAddresses != null)
+            if (_networkAddresses is not null)
             {
                 TryGrowAddressArray();
                 _networkAddresses[_addressCount++] = address;
@@ -203,7 +203,7 @@ namespace FOMServer.Shared.Core.Networking
 
             ArrayPool<byte>.Shared.Return(_packetData);
 
-            if (_networkAddresses != null)
+            if (_networkAddresses is not null)
                 ArrayPool<NetworkAddress>.Shared.Return(_networkAddresses);
         }
 

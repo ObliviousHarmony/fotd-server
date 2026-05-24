@@ -28,7 +28,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
 
             _writeConsole = writeConsole;
 
-            if (logFilePath != null)
+            if (logFilePath is not null)
             {
                 _logFileWriter = new StreamWriter(File.Open(
                    logFilePath, FileMode.Append, FileAccess.Write, FileShare.Read))
@@ -52,7 +52,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
         {
             _channel.Writer.Complete();
 
-            if (_processingTask != null)
+            if (_processingTask is not null)
                 await _processingTask;
 
             _logFileWriter?.Dispose();
@@ -60,7 +60,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
 
         public void Start()
         {
-            if (_processingTask != null)
+            if (_processingTask is not null)
                 return;
 
             _cts = CancellationTokenSource.CreateLinkedTokenSource(_shutdownManager.Token);
@@ -93,7 +93,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
             if (_writeConsole)
                 Console.WriteLine(formatted);
 
-            if (_logFileWriter != null)
+            if (_logFileWriter is not null)
                 await _logFileWriter.WriteLineAsync(formatted);
         }
     }

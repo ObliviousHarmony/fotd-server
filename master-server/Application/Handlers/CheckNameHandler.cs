@@ -29,7 +29,7 @@ namespace FOMServer.Master.Application.Handlers
             ref var rData = ref response.Data;
 
             var player = _playerRepository.GetByName(p.Name);
-            if (player != null)
+            if (player is not null)
                 rData.OwnerPlayerID = player.id;
 
             _packetSender.Send(response.Build());

@@ -5,8 +5,10 @@ using FOMServer.Shared.Extensions.DependencyInjection;
 using FOMServer.Shared.Infrastructure;
 using FOMServer.World.Application;
 using FOMServer.World.Application.Networking;
+using FOMServer.World.Application.Players;
 using FOMServer.World.Core;
 using FOMServer.World.Core.Networking;
+using FOMServer.World.Core.Players;
 using FOMServer.World.Infrastructure;
 using Microsoft.Extensions.Configuration;
 
@@ -70,7 +72,7 @@ namespace FOMServer.World
                 throw new InvalidOperationException("Database connection string must be configured");
 
             var clientIP = s_serverSettings.ClientIP;
-            if (clientIP == null)
+            if (clientIP is null)
                 throw new InvalidOperationException("Client host could not be resolved");
 
             services.AddSingleton(s_serverSettings);
@@ -86,6 +88,9 @@ namespace FOMServer.World
             services.AddSingleton<IMasterPacketSender>(sp => sp.GetRequiredService<MasterPacketSender>());
 
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
+
+            services.AddSingleton<IClientRegistry, ClientRegistry>();
+            services.AddSingleton<IPlayerRegistry, PlayerRegistry>();
             return services;
         }
 

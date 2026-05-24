@@ -13,13 +13,13 @@ namespace FOMServer.Shared.Tests
             // Every packet struct must explicitly define the memory layout to
             // ensure that it matches the C++ layout exactly.
             var packetTypes = typeof(IPacketHandler).Assembly.GetTypes()
-                .Where(t => t.GetCustomAttribute<PacketIDAttribute>() != null)
+                .Where(t => t.GetCustomAttribute<PacketIDAttribute>() is not null)
                 .ToList();
 
             foreach (var type in packetTypes)
             {
                 var layout = type.StructLayoutAttribute;
-                if (layout == null || layout.Value != LayoutKind.Sequential || layout.Pack != 1)
+                if (layout is null || layout.Value != LayoutKind.Sequential || layout.Pack != 1)
                     Assert.Fail($"{type.Name} must be declared with [StructLayout(LayoutKind.Sequential, Pack = 1)]");
             }
         }
@@ -47,7 +47,7 @@ namespace FOMServer.Shared.Tests
                 var attr = type.GetCustomAttribute<PacketHandlerAttribute>(inherit: false);
 
                 Assert.True(
-                    attr != null,
+                    attr is not null,
                     $"Packet handler '{type.FullName}' is missing [PacketHandler] attribute"
                 );
             }
@@ -64,7 +64,7 @@ namespace FOMServer.Shared.Tests
 
             var attributedTypes = assemblies
                 .SelectMany(a => a.GetTypes())
-                .Where(t => t.GetCustomAttribute<PacketHandlerAttribute>() != null)
+                .Where(t => t.GetCustomAttribute<PacketHandlerAttribute>() is not null)
                 .ToArray();
 
             Assert.NotEmpty(attributedTypes); // sanity check: make sure we found some
@@ -74,7 +74,7 @@ namespace FOMServer.Shared.Tests
                 .FirstOrDefault();
 
             Assert.True(
-                invalidType == null,
+                invalidType is null,
                 $"Type '{invalidType?.FullName}' has [PacketHandler] but does not inherit from BasePacketHandler<T>"
             );
         }
@@ -84,7 +84,7 @@ namespace FOMServer.Shared.Tests
         /// </summary>
         private static bool IsAssignableToGenericType(Type givenType, Type genericType)
         {
-            if (givenType == null || genericType == null)
+            if (givenType is null || genericType is null)
                 return false;
 
             if (givenType.IsGenericType && givenType.GetGenericTypeDefinition() == genericType)
@@ -97,7 +97,7 @@ namespace FOMServer.Shared.Tests
             }
 
             var baseType = givenType.BaseType;
-            return baseType != null && IsAssignableToGenericType(baseType, genericType);
+            return baseType is not null && IsAssignableToGenericType(baseType, genericType);
         }
     }
 }

@@ -308,7 +308,7 @@ namespace FOMServer.Shared.Tests
 
             public async Task PersistAsync(IPersistable entity)
             {
-                if (BlockUntil != null)
+                if (BlockUntil is not null)
                     await BlockUntil.Task;
 
                 if (ShouldThrow)

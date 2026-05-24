@@ -1,28 +1,49 @@
-using System;
-using System.Net.Sockets;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
-using FOMServer.Shared.Core.Packets.RakNet;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Metadata;
 using FOMServer.World.Core.Networking;
+using FOMServer.World.Core.Players;
 
 namespace FOMServer.World.Application.Handlers
 {
     [PacketHandler]
     internal class RegisterClientHandler : PacketHandlerBase<RegisterClient>
     {
+        private readonly IClientRegistry _clientRegistry;
+        private readonly IPlayerRegistry _playerRegistry;
         private readonly IClientPacketSender _packetSender;
+        private readonly ILogger<RegisterClientHandler> _logger;
 
-        public RegisterClientHandler(IClientPacketSender packetSender)
+        public RegisterClientHandler(
+            IClientRegistry clientRegistry,
+            IPlayerRegistry playerRegistry,
+            IClientPacketSender packetSender,
+            ILogger<RegisterClientHandler> logger)
         {
+            _clientRegistry = clientRegistry;
+            _playerRegistry = playerRegistry;
             _packetSender = packetSender;
+            _logger = logger;
         }
 
         public override void Handle(NetworkAddress sender, in RegisterClient p)
         {
+            var session = _clientRegistry.Get(sender);
+            if (session is null)
+            {
+                _logger.LogWarning("Dropping client registration from '{Address}' with no registered session", sender);
+                return;
+            }
+
+            if (session.Player is null)
+            {
+                _clientRegistry.StartLogin(session, p.PlayerID);
+                _playerRegistry.Login(session);
+            }
+
             using var response = new PacketWriter<RegisterClientReturn>(sender);
             ref var rData = ref response.Data;
 
@@ -30,6 +51,8 @@ namespace FOMServer.World.Application.Handlers
             rData.PlayerID = p.PlayerID;
             rData.Status = RegisterClientReturn.StatusCode.Success;
 
+            // Placeholder world-entry state; real values are sourced from the loaded Player
+            // once DB-backed attribute/inventory loading lands (out of scope here).
             unsafe
             {
                 rData.Avatar.Face = 5;

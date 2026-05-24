@@ -37,7 +37,7 @@ namespace FOMServer.Master.Application.Handlers
             }
 
             var player = _accountRepository.GetByUsername(p.Username);
-            if (player == null)
+            if (player is null)
                 rData.Status = LoginRequestReturn.StatusCode.Invalid;
             else if (player.logged_in)
                 rData.Status = LoginRequestReturn.StatusCode.AlreadyLoggedIn;

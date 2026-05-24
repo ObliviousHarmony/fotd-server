@@ -23,7 +23,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
 
             var prefix = $"[{Timestamp:O}][{levelStr}]: ";
 
-            if (Exception != null)
+            if (Exception is not null)
                 return $"{prefix}{FormatException(Message, Exception)}";
 
             return $"{prefix}{Message}";

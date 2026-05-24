@@ -66,7 +66,7 @@ namespace FOMServer.Master.Application
             );
 
             var worldNetwork = CreateWorldServerNetwork(packetProcessor);
-            if (worldNetwork == null)
+            if (worldNetwork is null)
             {
                 _logger.LogCritical("Failed to create the world server network");
                 await _shutdownManager.Shutdown();
@@ -74,7 +74,7 @@ namespace FOMServer.Master.Application
             }
 
             var clientNetwork = CreateClientNetwork(packetProcessor);
-            if (clientNetwork == null)
+            if (clientNetwork is null)
             {
                 _logger.LogCritical("Failed to create the client network");
                 await _shutdownManager.Shutdown();
@@ -152,6 +152,10 @@ namespace FOMServer.Master.Application
                 _serviceProvider.GetRequiredService<IPacketService>(),
                 packetProcessor
             );
+
+            // Clients connecting produce NewIncomingConnection. Claim it on the client network
+            // so world-server connections (on the other manager) don't get registered as client sessions.
+            networkManager.ClaimPacketID(PacketIdentifier.ID_NEW_INCOMING_CONNECTION);
 
             // Initialize the packet sender for communication with clients.
             var packetSender = _serviceProvider.GetRequiredService<ClientPacketSender>();
