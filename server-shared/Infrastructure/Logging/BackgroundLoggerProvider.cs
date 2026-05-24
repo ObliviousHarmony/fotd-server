@@ -8,7 +8,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
     {
         private readonly IShutdownManager _shutdownManager;
         private readonly Channel<LogMessage> _channel;
-        private readonly ConcurrentDictionary<string, BackgroundLogger> _loggers;
+        private readonly ConcurrentDictionary<string, BackgroundLogger> _loggers = new();
         private readonly bool _writeConsole;
         private readonly StreamWriter? _logFileWriter;
 
@@ -18,7 +18,6 @@ namespace FOMServer.Shared.Infrastructure.Logging
         public BackgroundLoggerProvider(IShutdownManager shutdownManager, bool writeConsole = true, string? logFilePath = null)
         {
             _shutdownManager = shutdownManager;
-            _loggers = new ConcurrentDictionary<string, BackgroundLogger>();
 
             _channel = Channel.CreateUnbounded<LogMessage>(
                 new UnboundedChannelOptions

@@ -34,7 +34,7 @@ namespace FOMServer.Shared.Application.Networking
         private readonly IPacketService _packetService;
         private readonly PacketProcessor _packetProcessor;
         private readonly Channel<QueuePacket> _sendQueue;
-        private readonly HashSet<PacketIdentifier> _claimedPacketIDs;
+        private readonly HashSet<PacketIdentifier> _claimedPacketIDs = [];
         private Task? _networkTask;
         private CancellationTokenSource? _cts;
 
@@ -45,12 +45,10 @@ namespace FOMServer.Shared.Application.Networking
             PacketProcessor packetProcessor
         )
         {
-            _peer = IntPtr.Zero;
             _shutdownManager = shutdownManager;
             _logger = logger;
             _packetService = packetService;
             _packetProcessor = packetProcessor;
-            _claimedPacketIDs = new HashSet<PacketIdentifier>();
             _sendQueue = Channel.CreateUnbounded<QueuePacket>(
                 new UnboundedChannelOptions
                 {

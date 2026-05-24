@@ -30,8 +30,8 @@ namespace FOMServer.World.Core.Players
         private static readonly AttributeMetadata[] s_metadata;
 
         private readonly PlayerSession _session;
-        private readonly int[] _values;
-        private readonly int[] _locks;
+        private readonly int[] _values = new int[AttributeCount];
+        private readonly int[] _locks = new int[AttributeCount];
 
         static PlayerAttributes()
         {
@@ -52,8 +52,6 @@ namespace FOMServer.World.Core.Players
         public PlayerAttributes(PlayerSession session, int[]? initialValues = null)
         {
             _session = session;
-            _values = new int[(int)AttributeType.NUM_ATTRIBUTE_TYPES];
-            _locks = new int[(int)AttributeType.NUM_ATTRIBUTE_TYPES];
 
             if (initialValues != null)
                 initialValues.CopyTo(_values, 0);

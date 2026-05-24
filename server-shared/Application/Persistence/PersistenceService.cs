@@ -17,7 +17,7 @@ namespace FOMServer.Shared.Application.Persistence
         private readonly Dictionary<Type, IPersistenceHandler> _handlers;
         private readonly Channel<IPersistable> _dirtyQueue;
         private readonly Channel<WaitRequest> _waitQueue;
-        private readonly ConditionalWeakTable<IPersistable, EntityState> _entityStates;
+        private readonly ConditionalWeakTable<IPersistable, EntityState> _entityStates = new();
 
         private Task? _persistenceTask;
         private CancellationTokenSource? _cts;
@@ -39,7 +39,6 @@ namespace FOMServer.Shared.Application.Persistence
                     SingleReader = true
                 }
             );
-            _entityStates = new ConditionalWeakTable<IPersistable, EntityState>();
         }
 
         public void Register(IPersistable entity)
@@ -255,17 +254,8 @@ namespace FOMServer.Shared.Application.Persistence
             public int IsWaiting;
             public long Version;
 
-            private readonly object _syncRoot;
-            private List<BlockingDependency> _blockingDependencies;
-
-            public EntityState()
-            {
-                IsDirty = 0;
-                IsWaiting = 0;
-                Version = 0;
-                _syncRoot = new();
-                _blockingDependencies = new();
-            }
+            private readonly object _syncRoot = new();
+            private List<BlockingDependency> _blockingDependencies = new();
 
             public void AddBlockingDependency(IPersistable entity, long version)
             {

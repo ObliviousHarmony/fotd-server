@@ -16,12 +16,12 @@ namespace FOMServer.Shared.Core.Packets
         /// <summary>
         /// A map for getting the packet ID associated with a data struct by type.
         /// </summary>
-        private static readonly Dictionary<Type, PacketIdentifier> s_idByPacketType;
+        private static readonly Dictionary<Type, PacketIdentifier> s_idByPacketType = [];
 
         /// <summary>
         /// A map for the sizes of each packet type by its identifier.
         /// </summary>
-        private static readonly Dictionary<PacketIdentifier, int> s_packetSizes;
+        private static readonly Dictionary<PacketIdentifier, int> s_packetSizes = [];
 
         /// <summary>
         /// Populates the reflection caches so that packet processing
@@ -30,9 +30,6 @@ namespace FOMServer.Shared.Core.Packets
         static PacketHelpers()
         {
             MaxPacketSize = 0;
-            s_idByPacketType = [];
-            s_packetSizes = [];
-
             var allTypes = typeof(PacketHelpers).Assembly.GetTypes();
             foreach (var type in allTypes)
             {
