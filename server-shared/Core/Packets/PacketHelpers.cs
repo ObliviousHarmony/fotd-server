@@ -35,7 +35,7 @@ namespace FOMServer.Shared.Core.Packets
             {
                 // Check for your PacketIDAttribute
                 var idAttr = type.GetCustomAttribute<PacketIDAttribute>();
-                if (idAttr == null)
+                if (idAttr is null)
                     continue;
 
                 var size = Marshal.SizeOf(type);

@@ -76,7 +76,7 @@ namespace FOMServer.Shared.Application.Persistence
         /// </summary>
         public void Start()
         {
-            if (_persistenceTask != null)
+            if (_persistenceTask is not null)
                 return;
 
             _cts = CancellationTokenSource.CreateLinkedTokenSource(_shutdownManager.Token);
@@ -102,13 +102,13 @@ namespace FOMServer.Shared.Application.Persistence
             var version = Volatile.Read(in state.Version);
 
             // Record blocking dependencies on each association
-            if (association != null)
+            if (association is not null)
             {
                 var assocState = _entityStates.GetOrCreateValue(association);
                 assocState.AddBlockingDependency(entity, version);
             }
 
-            if (additionalAssociations != null)
+            if (additionalAssociations is not null)
             {
                 foreach (var assoc in additionalAssociations)
                 {

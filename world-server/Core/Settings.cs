@@ -16,15 +16,15 @@ namespace FOMServer.World.Core
         {
             get
             {
-                if (_clientIP != null)
+                if (_clientIP is not null)
                     return _clientIP;
 
                 var hostAddresses = Dns.GetHostAddresses(ClientHost, AddressFamily.InterNetwork);
-                if (hostAddresses == null)
+                if (hostAddresses is null)
                     return null;
 
                 var ipAddress = hostAddresses.FirstOrDefault();
-                if (ipAddress == null)
+                if (ipAddress is null)
                     return null;
 
                 _clientIP = ipAddress.ToString();

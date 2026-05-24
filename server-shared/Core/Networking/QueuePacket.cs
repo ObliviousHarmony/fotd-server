@@ -62,7 +62,7 @@ namespace FOMServer.Shared.Core.Networking
         {
             get
             {
-                if (_networkAddresses != null)
+                if (_networkAddresses is not null)
                     return _networkAddresses.AsSpan(0, _addressCount);
 
                 return MemoryMarshal.CreateReadOnlySpan(in _networkAddress, 1);
@@ -80,7 +80,7 @@ namespace FOMServer.Shared.Core.Networking
         {
             ArrayPool<byte>.Shared.Return(_packetData);
 
-            if (_networkAddresses != null)
+            if (_networkAddresses is not null)
                 ArrayPool<NetworkAddress>.Shared.Return(_networkAddresses);
         }
     }

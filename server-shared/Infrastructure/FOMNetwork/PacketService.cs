@@ -31,13 +31,13 @@ namespace FOMServer.Shared.Services.FOMNetwork
             foreach (var buffer in PacketBuffers)
             {
                 byteBuffer = buffer.Rent(received);
-                if (byteBuffer == null)
+                if (byteBuffer is null)
                     continue;
 
                 packetBuffer = buffer;
                 break;
             }
-            if (packetBuffer == null)
+            if (packetBuffer is null)
             {
                 packetBuffer = new PacketBuffer();
                 byteBuffer = packetBuffer.Rent(received);

@@ -161,7 +161,7 @@ namespace FOMServer.Shared.Application.Networking
 
         private int GetPacketStart(int index)
         {
-            if (Volatile.Read(in _allocated) != 1 || Volatile.Read(in _buffer) == null)
+            if (Volatile.Read(in _allocated) != 1 || Volatile.Read(in _buffer) is null)
                 throw new InvalidOperationException("PacketBuffer has not been allocated");
 
             if (index >= _packetIDs!.Length)

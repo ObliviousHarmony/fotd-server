@@ -39,12 +39,12 @@ namespace FOMServer.Shared.Application.Networking
                     throw new InvalidOperationException($"Handler type {handlerType.Name} is missing [PacketHandler]");
 
                 var baseType = handlerType.BaseType;
-                if (baseType == null || !baseType.IsGenericType)
+                if (baseType is null || !baseType.IsGenericType)
                     throw new InvalidOperationException($"Handler {handlerType.Name} does not derive from BasePacketHandler<T>.");
 
                 var packetType = baseType.GetGenericArguments()[0];
                 var packetIDAttr = packetType.GetCustomAttribute<PacketIDAttribute>();
-                if (packetIDAttr == null)
+                if (packetIDAttr is null)
                     throw new InvalidOperationException($"Packet type {packetType.Name} is missing [PacketID].");
 
                 return packetIDAttr.ID;
@@ -64,7 +64,7 @@ namespace FOMServer.Shared.Application.Networking
         /// </summary>
         public void Start(int workerCount = 1)
         {
-            if (_cts != null)
+            if (_cts is not null)
                 return;
 
             _cts = CancellationTokenSource.CreateLinkedTokenSource(_shutdownManager.Token);

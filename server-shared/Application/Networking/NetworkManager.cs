@@ -92,7 +92,7 @@ namespace FOMServer.Shared.Application.Networking
             if (_peer == IntPtr.Zero)
                 throw new InvalidOperationException("Peer must be configured");
 
-            if (_networkTask != null)
+            if (_networkTask is not null)
                 return;
 
             // Once a network manager has started, no more claims can be made.
@@ -125,7 +125,7 @@ namespace FOMServer.Shared.Application.Networking
         {
             _sendQueue.Writer.Complete();
 
-            if (_networkTask != null)
+            if (_networkTask is not null)
                 await _networkTask;
 
             if (_peer != IntPtr.Zero)
@@ -210,10 +210,10 @@ namespace FOMServer.Shared.Application.Networking
         [LoggerMessage(Level = LogLevel.Warning, Message = "Client {Sender} sent malformed packet with ID {PacketID}: {Status}")]
         private partial void LogMalformedPacket(NetworkAddress sender, PacketIdentifier packetID, SerializationStatus status);
 
-        [LoggerMessage(Level = LogLevel.Warning, Message = "Client {Sender} sent packet with claimed ID {PacketID}, ignoring")]
+        [LoggerMessage(Level = LogLevel.Warning, Message = "Ignoring packet with claimed ID {PacketID} from {Sender}")]
         private partial void LogClaimedPacketID(NetworkAddress sender, PacketIdentifier packetID);
 
-        [LoggerMessage(Level = LogLevel.Critical, Message = "Network Failure")]
+        [LoggerMessage(Level = LogLevel.Critical, Message = "Network failure")]
         private partial void LogNetworkFailure(Exception ex);
     }
 }

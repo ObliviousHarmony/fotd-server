@@ -50,7 +50,7 @@ namespace FOMServer.Master.Application.Networking
             {
                 if (kvp.Value.ServerAddress.Equals(serverAddress))
                 {
-                    if (_worldServers.TryRemove(kvp.Key, out _))
+                    if (_worldServers.TryRemove(kvp))
                         unregistered.Add(kvp.Key);
                 }
             }
