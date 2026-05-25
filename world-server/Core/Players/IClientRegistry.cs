@@ -8,7 +8,7 @@ namespace FOMServer.World.Core.Players
         ClientSession? Get(uint playerID);
 
         ClientSession Register(NetworkAddress address);
-        void StartLogin(ClientSession session, uint playerID);
+        void BeginLogin(ClientSession session, uint playerID);
         bool Unregister(ClientSession session);
     }
 }

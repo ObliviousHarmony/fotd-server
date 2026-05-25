@@ -84,7 +84,7 @@ namespace FOMServer.Master.Application.Handlers
                 return;
             }
 
-            _clientRegistry.StartLogin(session, account.id);
+            _clientRegistry.BeginLogin(session, account.id);
             _playerRegistry.Login(session);
 
             rData.Status = LoginReturn.StatusCode.Success;

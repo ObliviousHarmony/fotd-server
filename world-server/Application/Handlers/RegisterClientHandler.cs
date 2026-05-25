@@ -40,7 +40,7 @@ namespace FOMServer.World.Application.Handlers
 
             if (session.Player is null)
             {
-                _clientRegistry.StartLogin(session, p.PlayerID);
+                _clientRegistry.BeginLogin(session, p.PlayerID);
                 _playerRegistry.Login(session);
             }
 

@@ -16,7 +16,7 @@ namespace FOMServer.World.Core.Players
         public bool IsLoggingIn => PlayerID.HasValue && Player is null;
         public bool IsReady => Player is not null;
 
-        public void StartLogin(uint playerID)
+        public void BeginLogin(uint playerID)
         {
             if (PlayerID.HasValue)
                 throw new InvalidOperationException("Session login already started");

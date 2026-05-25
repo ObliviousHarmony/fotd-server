@@ -22,9 +22,9 @@ namespace FOMServer.World.Application.Players
             return session;
         }
 
-        public void StartLogin(ClientSession session, uint playerID)
+        public void BeginLogin(ClientSession session, uint playerID)
         {
-            session.StartLogin(playerID);
+            session.BeginLogin(playerID);
             _sessionsByPlayerID[playerID] = session;
         }
 

@@ -65,7 +65,7 @@ namespace FOMServer.Shared.Core.Packets
         public static int GetPacketSize(PacketIdentifier id)
         {
             if (!s_packetSizes.TryGetValue(id, out var size))
-                throw new ArgumentException($"No size found for ID {id}");
+                throw new ArgumentException($"No size found for ID {id}", nameof(id));
             return size;
         }
 
@@ -76,7 +76,7 @@ namespace FOMServer.Shared.Core.Packets
         {
             var type = typeof(TPacket);
             if (!s_idByPacketType.TryGetValue(type, out var id))
-                throw new ArgumentException($"Type {type.Name} is not mapped to any PacketID");
+                throw new InvalidOperationException($"Type {type.Name} is not mapped to any PacketID");
             return GetPacketSize(id);
         }
 
@@ -87,7 +87,7 @@ namespace FOMServer.Shared.Core.Packets
         {
             var type = typeof(TPacket);
             if (!s_idByPacketType.TryGetValue(type, out var expectedID))
-                throw new ArgumentException($"Type {type.Name} is not mapped to any PacketID");
+                throw new InvalidOperationException($"Type {type.Name} is not mapped to any PacketID");
             return expectedID;
         }
 
@@ -98,7 +98,7 @@ namespace FOMServer.Shared.Core.Packets
         {
             var type = typeof(TPacket);
             if (!s_idByPacketType.TryGetValue(type, out var expectedID))
-                throw new ArgumentException($"Type {type.Name} is not mapped to any PacketID");
+                throw new InvalidOperationException($"Type {type.Name} is not mapped to any PacketID");
             return id == expectedID;
         }
     }
