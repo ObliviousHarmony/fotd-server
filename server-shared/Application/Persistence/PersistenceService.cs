@@ -254,7 +254,7 @@ namespace FOMServer.Shared.Application.Persistence
             public int IsWaiting;
             public long Version;
 
-            private readonly object _syncRoot = new();
+            private readonly Lock _syncRoot = new();
             private List<BlockingDependency> _blockingDependencies = new();
 
             public void AddBlockingDependency(IPersistable entity, long version)

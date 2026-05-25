@@ -4,7 +4,7 @@ namespace FOMServer.Application.Core
 {
     public class ShutdownManager : IShutdownManager
     {
-        private readonly object _syncRoot = new();
+        private readonly Lock _syncRoot = new();
         private readonly CancellationTokenSource _rootCts = new();
         private readonly List<Task> _trackedTasks = [];
         private readonly TaskCompletionSource _stoppingTcs = new(TaskCreationOptions.RunContinuationsAsynchronously);

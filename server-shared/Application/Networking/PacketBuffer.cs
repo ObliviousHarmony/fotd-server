@@ -15,7 +15,7 @@ namespace FOMServer.Shared.Application.Networking
     /// </remarks>
     internal class PacketBuffer
     {
-        private static readonly Meter s_meter = new("FOMServer.Networking.PacketBuffer", "1.0.0");
+        private static readonly Meter s_meter = new("FOMServer.Networking.PacketBuffer");
         private static readonly ObservableGauge<int> s_buffersInUse =
             s_meter.CreateObservableGauge(
                 "fomserver.packet_buffers_in_use",
@@ -78,7 +78,7 @@ namespace FOMServer.Shared.Application.Networking
             int bufferVersion = Volatile.Read(in _bufferVersion);
             for (var i = 0; i < received.Count; i++)
             {
-                Volatile.Write(ref _packetRefDisposalFlags[i], 0);
+                _packetRefDisposalFlags[i] = 0;
 
                 var startIndex = GetPacketStart(i);
                 var packetSize = PacketHelpers.GetPacketSize(_packetIDs![i]);
