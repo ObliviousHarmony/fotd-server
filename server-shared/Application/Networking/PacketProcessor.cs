@@ -40,12 +40,12 @@ namespace FOMServer.Shared.Application.Networking
 
                 var baseType = handlerType.BaseType;
                 if (baseType is null || !baseType.IsGenericType)
-                    throw new InvalidOperationException($"Handler {handlerType.Name} does not derive from BasePacketHandler<T>.");
+                    throw new InvalidOperationException($"Handler {handlerType.Name} does not derive from BasePacketHandler<T>");
 
                 var packetType = baseType.GetGenericArguments()[0];
                 var packetIDAttr = packetType.GetCustomAttribute<PacketIDAttribute>();
                 if (packetIDAttr is null)
-                    throw new InvalidOperationException($"Packet type {packetType.Name} is missing [PacketID].");
+                    throw new InvalidOperationException($"Packet type {packetType.Name} is missing [PacketID]");
 
                 return packetIDAttr.ID;
             });

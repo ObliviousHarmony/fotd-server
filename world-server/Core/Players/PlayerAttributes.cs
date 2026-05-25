@@ -92,7 +92,7 @@ namespace FOMServer.World.Core.Players
 
             if (metadata.LockRequired)
                 throw new InvalidOperationException(
-                    $"{attribute} requires locking. Use Lock() to acquire exclusive access.");
+                    $"{attribute} requires locking. Use Lock() to acquire exclusive access");
 
             // Wait for the attribute to unlock. There is a small window between
             // this spin completing and the write below where a Lock() could acquire
@@ -121,7 +121,7 @@ namespace FOMServer.World.Core.Players
 
             if (metadata.LockRequired)
                 throw new InvalidOperationException(
-                    $"{attribute} requires locking. Use Lock() to acquire exclusive access.");
+                    $"{attribute} requires locking. Use Lock() to acquire exclusive access");
 
             // Wait for the attribute to unlock. There is a small window between
             // this spin completing and the write below where a Lock() could acquire
