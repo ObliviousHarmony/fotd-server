@@ -7,12 +7,12 @@ namespace FOMServer.Shared.Infrastructure.Migrations.Player
     {
         public override void Up()
         {
-            Create.Table("player_attribute")
+            _ = Create.Table("player_attribute")
                 .WithColumn("player_id").AsUInt32().NotNullable().ForeignKey("player", "id")
                 .WithColumn("type").AsUInt8().NotNullable()
                 .WithColumn("value").AsUInt32().NotNullable().WithDefaultValue(0);
 
-            Create.PrimaryKey("pk_player_attribute")
+            _ = Create.PrimaryKey("pk_player_attribute")
                 .OnTable("player_attribute")
                 .Columns("player_id", "type");
         }

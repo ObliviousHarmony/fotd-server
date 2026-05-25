@@ -27,12 +27,16 @@ namespace FOMServer.World.Application.Handlers
         {
             var session = _clientRegistry.Get(sender);
             if (session is null)
+            {
                 return;
+            }
 
             if (session.Player is not null)
+            {
                 _playerRegistry.Logout(session.Player);
+            }
 
-            _clientRegistry.Unregister(session);
+            _ = _clientRegistry.Unregister(session);
             _logger.LogInformation("Client '{Address}' disconnected", sender);
         }
     }

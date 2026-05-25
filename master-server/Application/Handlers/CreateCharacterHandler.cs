@@ -77,7 +77,7 @@ namespace FOMServer.Master.Application.Handlers
             }
 
             _clientRegistry.BeginLogin(session, p.PlayerID);
-            _playerRegistry.Login(session);
+            _ = _playerRegistry.Login(session);
 
             rData.Status = LoginReturn.StatusCode.Success;
             _packetSender.Send(response.Build());

@@ -20,8 +20,10 @@ namespace FOMServer.Shared.Infrastructure.Persistence
         public async Task PersistAsync(IPersistable entity)
         {
             if (entity is not T typedEntity)
+            {
                 throw new InvalidOperationException(
                     $"Handler {GetType().Name} cannot persist entity of type {entity.GetType().Name}");
+            }
 
             await PersistAsync(typedEntity);
         }

@@ -1,4 +1,3 @@
-using System.Data;
 using FOMServer.Shared.Core.Dtos;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Repositories;
@@ -21,7 +20,7 @@ namespace FOMServer.Shared.Infrastructure.Repositories
             {
                 using var connection = _dbConnectionFactory.Create();
 
-                connection.Execute(
+                _ = connection.Execute(
                     @"INSERT INTO `player` (`id`, `name`, `biography`, `sex`, `race`, `face`, `hair`)
                       VALUES (@id, @name, @biography, @sex, @race, @face, @hair)",
                     new { id, name, biography, sex = (byte)sex, race = (byte)race, face, hair }

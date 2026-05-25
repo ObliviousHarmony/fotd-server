@@ -41,7 +41,7 @@ namespace FOMServer.World.Application.Handlers
             if (session.Player is null)
             {
                 _clientRegistry.BeginLogin(session, p.PlayerID);
-                _playerRegistry.Login(session);
+                _ = _playerRegistry.Login(session);
             }
 
             using var response = new PacketWriter<RegisterClientReturn>(sender);

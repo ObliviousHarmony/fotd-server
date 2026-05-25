@@ -14,19 +14,26 @@ namespace FOMServer.World.Application.Players
             _persistenceService = persistenceService;
         }
 
-        public Player? Get(uint playerID) => _players.GetValueOrDefault(playerID);
+        public Player? Get(uint playerID)
+        {
+            return _players.GetValueOrDefault(playerID);
+        }
 
         public Player Login(ClientSession session)
         {
             if (!session.PlayerID.HasValue)
+            {
                 throw new InvalidOperationException("Session login must be started before it can be completed");
+            }
 
             var playerID = session.PlayerID.Value;
 
             var player = new Player(playerID, session);
 
             if (!_players.TryAdd(playerID, player))
+            {
                 throw new InvalidOperationException($"Player {playerID} is already logged in");
+            }
 
             session.CompleteLogin(player);
             _persistenceService.Register(player);

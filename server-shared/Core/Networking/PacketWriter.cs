@@ -71,12 +71,16 @@ namespace FOMServer.Shared.Core.Networking
         {
             _broadcast = broadcast;
             if (_broadcast)
+            {
                 ExcludeFromBroadcast(in destinationOrExcludeAddress);
+            }
             else
+            {
                 AddDestination(in destinationOrExcludeAddress);
+            }
         }
 
-        public ref TPacket Data
+        public readonly ref TPacket Data
         {
             get
             {
@@ -87,7 +91,7 @@ namespace FOMServer.Shared.Core.Networking
 
         public PacketPriority Priority
         {
-            get => _priority;
+            readonly get => _priority;
             set
             {
                 ThrowIfBuilt();
@@ -97,7 +101,7 @@ namespace FOMServer.Shared.Core.Networking
 
         public PacketReliability Reliability
         {
-            get => _reliability;
+            readonly get => _reliability;
             set
             {
                 ThrowIfBuilt();
@@ -107,7 +111,7 @@ namespace FOMServer.Shared.Core.Networking
 
         public byte OrderingChannel
         {
-            get => _orderingChannel;
+            readonly get => _orderingChannel;
             set
             {
                 ThrowIfBuilt();
@@ -130,10 +134,14 @@ namespace FOMServer.Shared.Core.Networking
 
             // A broadcast packet is considered explicit if it has an exclusion address.
             if (_broadcast && _networkAddress != NetworkAddress.Unassigned)
+            {
                 throw new InvalidOperationException("Cannot add destinations after calling ExcludeFromBroadcast");
+            }
 
             if (_addressCount >= QueuePacket.MaxNetworkAddressesPerPacket)
+            {
                 throw new InvalidOperationException($"Cannot add more than {QueuePacket.MaxNetworkAddressesPerPacket} destinations");
+            }
 
             // Once an address has been added, a packet can no longer be broadcasted.
             _broadcast = false;
@@ -168,10 +176,14 @@ namespace FOMServer.Shared.Core.Networking
             ThrowIfBuilt();
 
             if (!_broadcast)
+            {
                 throw new InvalidOperationException("Packet has a destination and cannot be broadcasted");
+            }
 
             if (_networkAddress != NetworkAddress.Unassigned)
+            {
                 throw new InvalidOperationException("Packet can only exclude a single address from the broadcast");
+            }
 
             _networkAddress = address;
             _addressCount = 1;
@@ -180,10 +192,9 @@ namespace FOMServer.Shared.Core.Networking
         public QueuePacket Build()
         {
             // Mark that it can't be used anymore.
-            if (Interlocked.Exchange(ref _ownsBuffer, 0) != 1)
-                throw new ObjectDisposedException(nameof(PacketWriter<TPacket>));
-
-            return new QueuePacket(
+            return Interlocked.Exchange(ref _ownsBuffer, 0) != 1
+                ? throw new ObjectDisposedException(nameof(PacketWriter<>))
+                : new QueuePacket(
                 PacketHelpers.GetPacketTypeID<TPacket>(),
                 _packetData,
                 _networkAddress,
@@ -199,22 +210,28 @@ namespace FOMServer.Shared.Core.Networking
         public void Dispose()
         {
             if (Interlocked.Exchange(ref _ownsBuffer, 0) != 1)
+            {
                 return;
+            }
 
             ArrayPool<byte>.Shared.Return(_packetData);
 
             if (_networkAddresses is not null)
+            {
                 ArrayPool<NetworkAddress>.Shared.Return(_networkAddresses);
+            }
         }
 
         private void TryGrowAddressArray()
         {
             if (_addressCount < _networkAddresses!.Length)
+            {
                 return;
+            }
 
             // Custom bucket jumps to skip intermediate sizes we don't use.
             // After 512, fall back to standard doubling.
-            int newSize = _addressCount < 128 ? 128
+            var newSize = _addressCount < 128 ? 128
                         : _addressCount < 512 ? 512
                         : _addressCount * 2;
 
@@ -224,10 +241,12 @@ namespace FOMServer.Shared.Core.Networking
             _networkAddresses = newArray;
         }
 
-        private void ThrowIfBuilt()
+        private readonly void ThrowIfBuilt()
         {
             if (Volatile.Read(in _ownsBuffer) != 1)
+            {
                 throw new InvalidOperationException("Packet cannot be modified after building");
+            }
         }
     }
 }

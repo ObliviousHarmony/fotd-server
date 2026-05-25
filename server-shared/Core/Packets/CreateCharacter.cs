@@ -20,7 +20,9 @@ namespace FOMServer.Shared.Core.Packets
             get
             {
                 fixed (byte* ptr = RawName)
+                {
                     return CStringParser.ToString(ptr, BufferSizes.PlayerName);
+                }
             }
         }
 
@@ -29,7 +31,9 @@ namespace FOMServer.Shared.Core.Packets
             get
             {
                 fixed (byte* ptr = RawBiography)
+                {
                     return CStringParser.ToString(ptr, BufferSizes.PlayerBiography);
+                }
             }
         }
     }

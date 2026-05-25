@@ -9,17 +9,22 @@ namespace FOMServer.World.Application.Players
         private readonly ConcurrentDictionary<NetworkAddress, ClientSession> _sessions = new();
         private readonly ConcurrentDictionary<uint, ClientSession> _sessionsByPlayerID = new();
 
-        public ClientSession? Get(NetworkAddress address) => _sessions.GetValueOrDefault(address);
+        public ClientSession? Get(NetworkAddress address)
+        {
+            return _sessions.GetValueOrDefault(address);
+        }
 
-        public ClientSession? Get(uint playerID) => _sessionsByPlayerID.GetValueOrDefault(playerID);
+        public ClientSession? Get(uint playerID)
+        {
+            return _sessionsByPlayerID.GetValueOrDefault(playerID);
+        }
 
         public ClientSession Register(NetworkAddress address)
         {
             var session = new ClientSession(address);
-            if (!_sessions.TryAdd(address, session))
-                throw new InvalidOperationException($"Client {address} is already registered");
-
-            return session;
+            return !_sessions.TryAdd(address, session)
+                ? throw new InvalidOperationException($"Client {address} is already registered")
+                : session;
         }
 
         public void BeginLogin(ClientSession session, uint playerID)
@@ -31,10 +36,14 @@ namespace FOMServer.World.Application.Players
         public bool Unregister(ClientSession session)
         {
             if (!_sessions.TryRemove(new KeyValuePair<NetworkAddress, ClientSession>(session.Address, session)))
+            {
                 return false;
+            }
 
             if (session.PlayerID.HasValue)
-                _sessionsByPlayerID.TryRemove(new KeyValuePair<uint, ClientSession>(session.PlayerID.Value, session));
+            {
+                _ = _sessionsByPlayerID.TryRemove(new KeyValuePair<uint, ClientSession>(session.PlayerID.Value, session));
+            }
 
             return true;
         }

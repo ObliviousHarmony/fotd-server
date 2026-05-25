@@ -18,12 +18,17 @@ namespace FOMServer.Shared.Core.Packets.Types
             get
             {
                 fixed (byte* ptr = RawPlayerName)
+                {
                     return CStringParser.ToString(ptr, BufferSizes.PlayerName);
+                }
             }
+
             set
             {
                 fixed (byte* ptr = RawPlayerName)
+                {
                     CStringParser.FromString(value, ptr, BufferSizes.PlayerName);
+                }
             }
         }
 
@@ -32,12 +37,17 @@ namespace FOMServer.Shared.Core.Packets.Types
             get
             {
                 fixed (byte* ptr = RawFactionName)
+                {
                     return CStringParser.ToString(ptr, BufferSizes.FactionName);
+                }
             }
+
             set
             {
                 fixed (byte* ptr = RawFactionName)
+                {
                     CStringParser.FromString(value, ptr, BufferSizes.FactionName);
+                }
             }
         }
 
@@ -46,12 +56,17 @@ namespace FOMServer.Shared.Core.Packets.Types
             get
             {
                 fixed (byte* ptr = RawBiography)
+                {
                     return CStringParser.ToString(ptr, BufferSizes.PlayerBiography);
+                }
             }
+
             set
             {
                 fixed (byte* ptr = RawBiography)
+                {
                     CStringParser.FromString(value, ptr, BufferSizes.PlayerBiography);
+                }
             }
         }
 
@@ -60,12 +75,17 @@ namespace FOMServer.Shared.Core.Packets.Types
             get
             {
                 fixed (byte* ptr = RawRankName)
+                {
                     return CStringParser.ToString(ptr, BufferSizes.RankName);
+                }
             }
+
             set
             {
                 fixed (byte* ptr = RawRankName)
+                {
                     CStringParser.FromString(value, ptr, BufferSizes.RankName);
+                }
             }
         }
     }

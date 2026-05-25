@@ -20,7 +20,9 @@ namespace FOMServer.Shared.Tests
             {
                 var layout = type.StructLayoutAttribute;
                 if (layout is null || layout.Value != LayoutKind.Sequential || layout.Pack != 1)
+                {
                     Assert.Fail($"{type.Name} must be declared with [StructLayout(LayoutKind.Sequential, Pack = 1)]");
+                }
             }
         }
 
@@ -85,15 +87,21 @@ namespace FOMServer.Shared.Tests
         private static bool IsAssignableToGenericType(Type givenType, Type genericType)
         {
             if (givenType is null || genericType is null)
+            {
                 return false;
+            }
 
             if (givenType.IsGenericType && givenType.GetGenericTypeDefinition() == genericType)
+            {
                 return true;
+            }
 
             foreach (var it in givenType.GetInterfaces())
             {
                 if (it.IsGenericType && it.GetGenericTypeDefinition() == genericType)
+                {
                     return true;
+                }
             }
 
             var baseType = givenType.BaseType;

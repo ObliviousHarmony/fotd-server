@@ -1,7 +1,6 @@
 using FOMServer.Master.Application.Handlers;
 using FOMServer.Master.Application.Players;
 using FOMServer.Master.Core.Networking;
-using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Core.Dtos;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Networking;
@@ -86,17 +85,18 @@ namespace FOMServer.Master.Tests
                 ClientRegistry = new ClientRegistry();
 
                 var persistence = new Mock<IPersistenceService>();
+
                 // Flush synchronously so logout removal happens within the disconnect call.
-                persistence
+                _ = persistence
                     .Setup(s => s.WaitForPersistence(It.IsAny<IPersistable>(), It.IsAny<Action>()))
                     .Callback<IPersistable, Action>((_, callback) => callback());
                 PlayerRegistry = new PlayerRegistry(persistence.Object);
 
                 var accounts = new Mock<IAccountRepository>();
-                accounts.Setup(r => r.GetByUsername(It.IsAny<string>())).Returns(new AccountDto { id = PlayerID });
+                _ = accounts.Setup(r => r.GetByUsername(It.IsAny<string>())).Returns(new AccountDto { id = PlayerID });
 
                 var players = new Mock<IPlayerRepository>();
-                players.Setup(r => r.GetByID(PlayerID)).Returns(new PlayerDto { id = PlayerID, name = "Tester" });
+                _ = players.Setup(r => r.GetByID(PlayerID)).Returns(new PlayerDto { id = PlayerID, name = "Tester" });
 
                 // IWorldServerRegistry is an internal interface; mocking it would need an
                 // unsigned DynamicProxy assembly that the keyed InternalsVisibleTo doesn't cover.
@@ -117,29 +117,46 @@ namespace FOMServer.Master.Tests
             }
 
             public RecordingPacketSender Sender { get; }
+
             public ClientRegistry ClientRegistry { get; }
+
             public PlayerRegistry PlayerRegistry { get; }
+
             public NewIncomingConnectionHandler NewConnection { get; }
+
             public LoginHandler Login { get; }
+
             public DisconnectionHandler Disconnect { get; }
+
             public ConnectionLostHandler ConnectionLost { get; }
         }
 
         private sealed class EmptyWorldRegistry : IWorldServerRegistry
         {
-            public WorldServer[] GetAll() => Array.Empty<WorldServer>();
+            public WorldServer[] GetAll()
+            {
+                return [];
+            }
 
-            public WorldServer? Get(WorldID id) => null;
+            public WorldServer? Get(WorldID id)
+            {
+                return null;
+            }
 
             public WorldID[] Register(WorldID[] ids, NetworkAddress serverAddress, NetworkAddress publicAddress)
-                => Array.Empty<WorldID>();
+            {
+                return [];
+            }
 
-            public WorldID[] Unregister(NetworkAddress serverAddress) => Array.Empty<WorldID>();
+            public WorldID[] Unregister(NetworkAddress serverAddress)
+            {
+                return [];
+            }
         }
 
         private sealed class RecordingPacketSender : IClientPacketSender
         {
-            public List<PacketIdentifier> Sent { get; } = new();
+            public List<PacketIdentifier> Sent { get; } = [];
 
             public void Send(in QueuePacket packet)
             {

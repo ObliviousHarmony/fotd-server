@@ -53,7 +53,9 @@ namespace FOMServer.Shared.Infrastructure.Logging
             _channel.Writer.Complete();
 
             if (_processingTask is not null)
+            {
                 await _processingTask;
+            }
 
             _logFileWriter?.Dispose();
         }
@@ -61,7 +63,9 @@ namespace FOMServer.Shared.Infrastructure.Logging
         public void Start()
         {
             if (_processingTask is not null)
+            {
                 return;
+            }
 
             _cts = CancellationTokenSource.CreateLinkedTokenSource(_shutdownManager.Token);
 
@@ -75,7 +79,9 @@ namespace FOMServer.Shared.Infrastructure.Logging
             try
             {
                 await foreach (var message in _channel.Reader.ReadAllAsync(ct))
+                {
                     await WriteMessage(message);
+                }
             }
             catch (OperationCanceledException)
             {
@@ -83,7 +89,9 @@ namespace FOMServer.Shared.Infrastructure.Logging
 
             // Drain remaining messages after cancellation
             while (_channel.Reader.TryRead(out var message))
+            {
                 await WriteMessage(message);
+            }
         }
 
         private async Task WriteMessage(LogMessage message)
@@ -91,10 +99,14 @@ namespace FOMServer.Shared.Infrastructure.Logging
             var formatted = message.Format();
 
             if (_writeConsole)
+            {
                 Console.WriteLine(formatted);
+            }
 
             if (_logFileWriter is not null)
+            {
                 await _logFileWriter.WriteLineAsync(formatted);
+            }
         }
     }
 }

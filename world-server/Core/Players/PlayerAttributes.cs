@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.World.Core.Exceptions;
 
@@ -35,8 +34,10 @@ namespace FOMServer.World.Core.Players
         static PlayerAttributes()
         {
             s_metadata = new AttributeMetadata[(int)AttributeType.NUM_ATTRIBUTE_TYPES];
-            for (int i = 0; i < s_metadata.Length; i++)
+            for (var i = 0; i < s_metadata.Length; i++)
+            {
                 s_metadata[i] = new() { Max = 1000, Default = 0, LockRequired = false };
+            }
 
             s_metadata[(int)AttributeType.Health] = new() { Max = 1000, Default = 1000, LockRequired = false };
             s_metadata[(int)AttributeType.Stamina] = new() { Max = 1000, Default = 1000, LockRequired = false };
@@ -52,8 +53,7 @@ namespace FOMServer.World.Core.Players
         {
             _player = player;
 
-            if (initialValues is not null)
-                initialValues.CopyTo(_values, 0);
+            initialValues?.CopyTo(_values, 0);
         }
 
         public event PersistableChangeCallback? OnPersistableChange;
@@ -75,7 +75,7 @@ namespace FOMServer.World.Core.Players
         /// </summary>
         public uint Get(AttributeType attribute)
         {
-            int index = (int)attribute;
+            var index = (int)attribute;
             return (uint)Math.Clamp(Volatile.Read(ref _values[index]), 0, s_metadata[index].Max);
         }
 
@@ -87,12 +87,14 @@ namespace FOMServer.World.Core.Players
         /// </remarks>
         public void Set(AttributeType attribute, uint value)
         {
-            int index = (int)attribute;
+            var index = (int)attribute;
             ref readonly var metadata = ref s_metadata[index];
 
             if (metadata.LockRequired)
+            {
                 throw new InvalidOperationException(
                     $"{attribute} requires locking. Use Lock() to acquire exclusive access");
+            }
 
             // Wait for the attribute to unlock. There is a small window between
             // this spin completing and the write below where a Lock() could acquire
@@ -100,10 +102,12 @@ namespace FOMServer.World.Core.Players
             // because Set is used for infrequent, derived values (e.g., armor from
             // equipment).
             while (Volatile.Read(ref _locks[index]) != 0)
+            {
                 Thread.SpinWait(1);
+            }
 
             Volatile.Write(ref _values[index], Math.Min((int)value, metadata.Max));
-            OnPersistableChange?.Invoke(this, _player);
+            _ = (OnPersistableChange?.Invoke(this, _player));
         }
 
         /// <summary>
@@ -116,12 +120,14 @@ namespace FOMServer.World.Core.Players
         /// <param name="delta">The amount to change (negative to subtract).</param>
         public uint Change(AttributeType attribute, int delta)
         {
-            int index = (int)attribute;
+            var index = (int)attribute;
             ref readonly var metadata = ref s_metadata[index];
 
             if (metadata.LockRequired)
+            {
                 throw new InvalidOperationException(
                     $"{attribute} requires locking. Use Lock() to acquire exclusive access");
+            }
 
             // Wait for the attribute to unlock. There is a small window between
             // this spin completing and the write below where a Lock() could acquire
@@ -129,10 +135,12 @@ namespace FOMServer.World.Core.Players
             // because Set is used for infrequent, derived values (e.g., armor from
             // equipment).
             while (Volatile.Read(ref _locks[index]) != 0)
+            {
                 Thread.SpinWait(1);
+            }
 
             var result = (uint)Math.Clamp(Interlocked.Add(ref _values[index], delta), 0, metadata.Max);
-            OnPersistableChange?.Invoke(this, _player);
+            _ = (OnPersistableChange?.Invoke(this, _player));
             return result;
         }
 
@@ -166,25 +174,27 @@ namespace FOMServer.World.Core.Players
                 _disposed = false;
 
                 // Attempt to acquire the lock with a 100ms timeout to avoid deadlocks.
-                int index = (int)attribute;
+                var index = (int)attribute;
                 var spinner = new SpinWait();
-                long timeoutTimestamp = Stopwatch.GetTimestamp() + (Stopwatch.Frequency / 10);
+                var timeoutTimestamp = Stopwatch.GetTimestamp() + (Stopwatch.Frequency / 10);
 
                 while (Interlocked.CompareExchange(ref _parent._locks[index], 1, 0) != 0)
                 {
                     spinner.SpinOnce();
 
                     if (spinner.NextSpinWillYield && Stopwatch.GetTimestamp() > timeoutTimestamp)
+                    {
                         throw new AttributeDeadlockException(attribute);
+                    }
                 }
             }
 
             /// <summary>
             /// Gets the current value, clamped to [0, Max].
             /// </summary>
-            public uint Get()
+            public readonly uint Get()
             {
-                int index = (int)_attribute;
+                var index = (int)_attribute;
                 return (uint)Math.Clamp(_parent._values[index], 0, s_metadata[index].Max);
             }
 
@@ -193,7 +203,7 @@ namespace FOMServer.World.Core.Players
             /// </summary>
             public void Set(uint value)
             {
-                int index = (int)_attribute;
+                var index = (int)_attribute;
                 _parent._values[index] = Math.Min((int)value, s_metadata[index].Max);
                 _changed = true;
             }
@@ -203,8 +213,8 @@ namespace FOMServer.World.Core.Players
             /// </summary>
             public uint Change(int delta)
             {
-                int index = (int)_attribute;
-                int clamped = Math.Clamp(_parent._values[index] + delta, 0, s_metadata[index].Max);
+                var index = (int)_attribute;
+                var clamped = Math.Clamp(_parent._values[index] + delta, 0, s_metadata[index].Max);
                 _parent._values[index] = clamped;
                 _changed = true;
                 return (uint)clamped;
@@ -216,20 +226,26 @@ namespace FOMServer.World.Core.Players
             public void Dispose()
             {
                 if (_disposed)
+                {
                     return;
+                }
 
                 _disposed = true;
                 Volatile.Write(ref _parent._locks[(int)_attribute], 0);
 
                 if (_changed)
-                    _parent.OnPersistableChange?.Invoke(_parent, _parent._player);
+                {
+                    _ = (_parent.OnPersistableChange?.Invoke(_parent, _parent._player));
+                }
             }
         }
 
         public readonly struct AttributeMetadata
         {
             public int Max { get; init; }
+
             public int Default { get; init; }
+
             public bool LockRequired { get; init; }
         }
     }

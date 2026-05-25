@@ -58,16 +58,9 @@ namespace FOMServer.Shared.Core.Networking
 
         public ReadOnlySpan<byte> Data => _packetData.AsSpan(0, PacketHelpers.GetPacketSize(ID));
 
-        public ReadOnlySpan<NetworkAddress> NetworkAddresses
-        {
-            get
-            {
-                if (_networkAddresses is not null)
-                    return _networkAddresses.AsSpan(0, _addressCount);
-
-                return MemoryMarshal.CreateReadOnlySpan(in _networkAddress, 1);
-            }
-        }
+        public ReadOnlySpan<NetworkAddress> NetworkAddresses => _networkAddresses is not null
+                    ? _networkAddresses.AsSpan(0, _addressCount)
+                    : MemoryMarshal.CreateReadOnlySpan(in _networkAddress, 1);
 
         /// <summary>
         /// Returns the packet data buffer and address array to their pools.
@@ -81,7 +74,9 @@ namespace FOMServer.Shared.Core.Networking
             ArrayPool<byte>.Shared.Return(_packetData);
 
             if (_networkAddresses is not null)
+            {
                 ArrayPool<NetworkAddress>.Shared.Return(_networkAddresses);
+            }
         }
     }
 }

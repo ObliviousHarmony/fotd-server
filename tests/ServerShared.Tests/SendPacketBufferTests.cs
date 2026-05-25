@@ -20,8 +20,8 @@ namespace FOMServer.Shared.Tests
             var packet1 = CreateTestPacket();
             var packet2 = CreateTestPacket();
 
-            buffer.Add(in packet1);
-            buffer.Add(in packet2);
+            _ = buffer.Add(in packet1);
+            _ = buffer.Add(in packet2);
             var batch = buffer.GetBatch();
 
             Assert.Equal(2, batch.Length);
@@ -40,7 +40,7 @@ namespace FOMServer.Shared.Tests
                 broadcast: false
             );
 
-            buffer.Add(in packet);
+            _ = buffer.Add(in packet);
             var batch = buffer.GetBatch();
 
             Assert.Equal(s_testPacketID, batch[0].ID);
@@ -63,7 +63,7 @@ namespace FOMServer.Shared.Tests
             };
             var packet = CreateTestPacketWithMultipleAddresses(addresses);
 
-            buffer.Add(in packet);
+            _ = buffer.Add(in packet);
             var batch = buffer.GetBatch();
 
             Assert.Equal(3, batch[0].NumNetworkAddresses);
@@ -75,17 +75,17 @@ namespace FOMServer.Shared.Tests
             var buffer = new SendPacketBuffer();
 
             // Fill the buffer to capacity
-            for (int i = 0; i < IPacketService.MaxBufferedPackets; i++)
+            for (var i = 0; i < IPacketService.MaxBufferedPackets; i++)
             {
                 var packet = CreateTestPacket();
-                buffer.Add(in packet);
+                _ = buffer.Add(in packet);
             }
 
             Assert.False(buffer.CanAdd);
 
             // Next add should throw
             var overflowPacket = CreateTestPacket();
-            Assert.Throws<InvalidOperationException>(() => buffer.Add(in overflowPacket));
+            _ = Assert.Throws<InvalidOperationException>(() => buffer.Add(in overflowPacket));
 
             // Clean up the overflow packet since it wasn't added
             overflowPacket.Release();

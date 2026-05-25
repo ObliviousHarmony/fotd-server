@@ -15,8 +15,8 @@ namespace FOMServer.Shared.Tests
         {
             _cts = new CancellationTokenSource();
             _shutdownManager = new Mock<IShutdownManager>();
-            _shutdownManager.Setup(s => s.Token).Returns(_cts.Token);
-            _shutdownManager.Setup(s => s.TrackTask(It.IsAny<Task>()));
+            _ = _shutdownManager.Setup(s => s.Token).Returns(_cts.Token);
+            _ = _shutdownManager.Setup(s => s.TrackTask(It.IsAny<Task>()));
 
             _logger = new Mock<ILogger<PersistenceService>>();
             _handler = new TestPersistenceHandler();
@@ -37,7 +37,7 @@ namespace FOMServer.Shared.Tests
 
             service.Register(entity);
 
-            entity.MarkChanged();
+            _ = entity.MarkChanged();
 
             // Wait for persistence loop to process
             await Task.Delay(200);
@@ -54,8 +54,8 @@ namespace FOMServer.Shared.Tests
 
             service.Register(entity);
 
-            entity.MarkChanged();
-            service.WaitForPersistence(entity, () => callbackFired.SetResult());
+            _ = entity.MarkChanged();
+            service.WaitForPersistence(entity, callbackFired.SetResult);
 
             var completed = await Task.WhenAny(callbackFired.Task, Task.Delay(1000));
 
@@ -76,9 +76,9 @@ namespace FOMServer.Shared.Tests
 
             // Item changes and registers player as an association
             // (player must wait for item to persist before its wait completes)
-            item.MarkChanged(player);
+            _ = item.MarkChanged(player);
 
-            service.WaitForPersistence(player, () => callbackFired.SetResult());
+            service.WaitForPersistence(player, callbackFired.SetResult);
 
             var completed = await Task.WhenAny(callbackFired.Task, Task.Delay(1000));
 
@@ -101,12 +101,12 @@ namespace FOMServer.Shared.Tests
             service.Register(item2);
 
             // Item1 changes with null primary association but player in additional associations
-            item1.MarkChanged(null, new[] { player });
+            _ = item1.MarkChanged(null, [player]);
 
             // Item2 changes with both primary and additional associations
-            item2.MarkChanged(player, new[] { item1 });
+            _ = item2.MarkChanged(player, [item1]);
 
-            service.WaitForPersistence(player, () => callbackFired.SetResult());
+            service.WaitForPersistence(player, callbackFired.SetResult);
 
             var completed = await Task.WhenAny(callbackFired.Task, Task.Delay(1000));
 
@@ -132,9 +132,9 @@ namespace FOMServer.Shared.Tests
             service.Register(item);
 
             // Item changes and registers player as an association
-            item.MarkChanged(player);
+            _ = item.MarkChanged(player);
 
-            service.WaitForPersistence(player, () => callbackFired.SetResult());
+            service.WaitForPersistence(player, callbackFired.SetResult);
 
             // Wait a bit - callback should NOT have fired yet
             await Task.Delay(200);
@@ -161,9 +161,9 @@ namespace FOMServer.Shared.Tests
 
             service.Register(entity);
 
-            entity.MarkChanged();
-            service.WaitForPersistence(entity, () => firstFired.SetResult());
-            service.WaitForPersistence(entity, () => secondFired.SetResult());
+            _ = entity.MarkChanged();
+            service.WaitForPersistence(entity, firstFired.SetResult);
+            service.WaitForPersistence(entity, secondFired.SetResult);
 
             await Task.Delay(150);
             Assert.False(firstFired.Task.IsCompleted, "First wait must not fire before the flush");
@@ -190,15 +190,15 @@ namespace FOMServer.Shared.Tests
             service.Register(entity);
 
             // Rapid-fire changes
-            entity.MarkChanged();
-            entity.MarkChanged();
-            entity.MarkChanged();
+            _ = entity.MarkChanged();
+            _ = entity.MarkChanged();
+            _ = entity.MarkChanged();
 
             // Wait for persistence loop to process
             await Task.Delay(200);
 
             // Should only persist once due to batching
-            Assert.Single(_handler.PersistedEntities);
+            _ = Assert.Single(_handler.PersistedEntities);
         }
 
         [Fact]
@@ -208,7 +208,7 @@ namespace FOMServer.Shared.Tests
             var service = new PersistenceService(
                 _shutdownManager.Object,
                 _logger.Object,
-                Enumerable.Empty<IPersistenceHandler>()
+                []
             );
 
             var entity = new TestEntity();
@@ -216,7 +216,7 @@ namespace FOMServer.Shared.Tests
             service.Register(entity);
             service.Start();
 
-            entity.MarkChanged();
+            _ = entity.MarkChanged();
 
             // Wait for persistence loop to process and log exception
             await Task.Delay(200);
@@ -243,7 +243,7 @@ namespace FOMServer.Shared.Tests
 
             service.Register(entity);
 
-            entity.MarkChanged();
+            _ = entity.MarkChanged();
             service.WaitForPersistence(entity, () => { });
 
             // Entity is now waiting - further changes should be rejected
@@ -264,8 +264,8 @@ namespace FOMServer.Shared.Tests
 
             service.Register(entity);
 
-            entity.MarkChanged();
-            service.WaitForPersistence(entity, () => callbackFired.SetResult());
+            _ = entity.MarkChanged();
+            service.WaitForPersistence(entity, callbackFired.SetResult);
 
             // Wait for callback to fire (IsWaiting should be cleared)
             await callbackFired.Task;
@@ -287,8 +287,8 @@ namespace FOMServer.Shared.Tests
 
             service.Register(entity);
 
-            entity.MarkChanged();
-            service.WaitForPersistence(entity, () => callbackFired.SetResult());
+            _ = entity.MarkChanged();
+            service.WaitForPersistence(entity, callbackFired.SetResult);
 
             // Callback should still fire because version increments in finally block
             var completed = await Task.WhenAny(callbackFired.Task, Task.Delay(1000));
@@ -314,7 +314,7 @@ namespace FOMServer.Shared.Tests
             var service = new PersistenceService(
                 _shutdownManager.Object,
                 _logger.Object,
-                new[] { _handler }
+                [_handler]
             );
             service.Start();
             return service;
@@ -336,17 +336,23 @@ namespace FOMServer.Shared.Tests
         {
             public Type EntityType => typeof(TestEntity);
 
-            public List<IPersistable> PersistedEntities { get; } = new();
+            public List<IPersistable> PersistedEntities { get; } = [];
+
             public TaskCompletionSource? BlockUntil { get; set; }
+
             public bool ShouldThrow { get; set; }
 
             public async Task PersistAsync(IPersistable entity)
             {
                 if (BlockUntil is not null)
+                {
                     await BlockUntil.Task;
+                }
 
                 if (ShouldThrow)
+                {
                     throw new InvalidOperationException("Simulated persistence failure");
+                }
 
                 PersistedEntities.Add(entity);
             }

@@ -35,6 +35,7 @@ namespace FOMServer.Shared.Core.Packets
         public Apartment DefaultApartment;
         public WorldID DefaultApartmentWorldID;
         public WorldID LoginWorldID;
+
         // ===========================
 
         public enum StatusCode : byte
@@ -60,7 +61,9 @@ namespace FOMServer.Shared.Core.Packets
             set
             {
                 fixed (byte* ptr = RawBanLength)
+                {
                     CStringParser.FromString(value, ptr, BanLengthSize);
+                }
             }
         }
 
@@ -69,7 +72,9 @@ namespace FOMServer.Shared.Core.Packets
             set
             {
                 fixed (byte* ptr = RawBanReason)
+                {
                     CStringParser.FromString(value, ptr, BanReasonSize);
+                }
             }
         }
 
@@ -78,7 +83,9 @@ namespace FOMServer.Shared.Core.Packets
             set
             {
                 fixed (byte* ptr = RawFactionMOTD)
+                {
                     CStringParser.FromString(value, ptr, FactionMOTDSize);
+                }
             }
         }
     }

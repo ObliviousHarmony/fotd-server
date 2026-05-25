@@ -17,7 +17,7 @@ namespace FOMServer.Shared.Application.Persistence
         private readonly Dictionary<Type, IPersistenceHandler> _handlers;
         private readonly Channel<IPersistable> _dirtyQueue;
         private readonly Channel<WaitRequest> _waitQueue;
-        private readonly ConditionalWeakTable<IPersistable, EntityState> _entityStates = new();
+        private readonly ConditionalWeakTable<IPersistable, EntityState> _entityStates = [];
 
         private Task? _persistenceTask;
         private CancellationTokenSource? _cts;
@@ -58,17 +58,17 @@ namespace FOMServer.Shared.Application.Persistence
                 Version = Volatile.Read(in state.Version)
             });
 
-            _waitQueue.Writer.TryWrite(new WaitRequest
+            _ = _waitQueue.Writer.TryWrite(new WaitRequest
             {
                 BlockingDependencies = blockingDependencies,
                 Callback = callback
             });
 
             // Ensure the entity goes through the persistence loop so waits get processed
-            Enqueue(entity);
+            _ = Enqueue(entity);
 
             // Block future enqueues after we've queued this one
-            Interlocked.Exchange(ref state.IsWaiting, 1);
+            _ = Interlocked.Exchange(ref state.IsWaiting, 1);
         }
 
         /// <summary>
@@ -77,7 +77,9 @@ namespace FOMServer.Shared.Application.Persistence
         public void Start()
         {
             if (_persistenceTask is not null)
+            {
                 return;
+            }
 
             _cts = CancellationTokenSource.CreateLinkedTokenSource(_shutdownManager.Token);
 
@@ -97,7 +99,9 @@ namespace FOMServer.Shared.Application.Persistence
 
             // Reject enqueue if entity is waiting for persistence
             if (Volatile.Read(in state.IsWaiting) == 1)
+            {
                 return false;
+            }
 
             var version = Volatile.Read(in state.Version);
 
@@ -119,7 +123,9 @@ namespace FOMServer.Shared.Application.Persistence
 
             // Use an atomic flag so that dirty entities are thread-safely queued only once.
             if (Interlocked.Exchange(ref state.IsDirty, 1) == 0)
-                _dirtyQueue.Writer.TryWrite(entity);
+            {
+                _ = _dirtyQueue.Writer.TryWrite(entity);
+            }
 
             return true;
         }
@@ -150,7 +156,9 @@ namespace FOMServer.Shared.Application.Persistence
                     }
 
                     while (_waitQueue.Reader.TryRead(out var wait))
+                    {
                         pendingWaits.Add(wait);
+                    }
 
                     ProcessWaits(pendingWaits);
                 }
@@ -161,7 +169,9 @@ namespace FOMServer.Shared.Application.Persistence
 
             // Drain and persist remaining entities before shutdown
             while (_dirtyQueue.Reader.TryRead(out var entity))
+            {
                 await PersistAsync(entity);
+            }
         }
 
         /// <summary>
@@ -169,10 +179,12 @@ namespace FOMServer.Shared.Application.Persistence
         /// </summary>
         private void ProcessWaits(List<WaitRequest> pendingWaits)
         {
-            for (int i = pendingWaits.Count - 1; i >= 0; i--)
+            for (var i = pendingWaits.Count - 1; i >= 0; i--)
             {
                 if (!IsWaitComplete(pendingWaits[i]))
+                {
                     continue;
+                }
 
                 // Clear IsWaiting flag for all entities in this wait
                 foreach (var dependency in pendingWaits[i].BlockingDependencies)
@@ -180,7 +192,7 @@ namespace FOMServer.Shared.Application.Persistence
                     if (dependency.Entity.TryGetTarget(out var entity))
                     {
                         var state = _entityStates.GetOrCreateValue(entity);
-                        Interlocked.Exchange(ref state.IsWaiting, 0);
+                        _ = Interlocked.Exchange(ref state.IsWaiting, 0);
                     }
                 }
 
@@ -203,10 +215,14 @@ namespace FOMServer.Shared.Application.Persistence
         {
             var state = _entityStates.GetOrCreateValue(entity);
             if (Interlocked.Exchange(ref state.IsDirty, 0) == 0)
+            {
                 return;
+            }
 
             if (!_handlers.TryGetValue(entity.GetType(), out var handler))
+            {
                 throw new InvalidOperationException($"No persistence handler registered for {entity.GetType().Name}");
+            }
 
             try
             {
@@ -214,7 +230,7 @@ namespace FOMServer.Shared.Application.Persistence
             }
             finally
             {
-                Interlocked.Increment(ref state.Version);
+                _ = Interlocked.Increment(ref state.Version);
             }
         }
 
@@ -227,11 +243,15 @@ namespace FOMServer.Shared.Application.Persistence
             {
                 // If the entity was garbage collected, treat as satisfied
                 if (!dependency.Entity.TryGetTarget(out var entity))
+                {
                     continue;
+                }
 
                 var state = _entityStates.GetOrCreateValue(entity);
                 if (Volatile.Read(in state.Version) <= dependency.Version)
+                {
                     return false;
+                }
             }
             return true;
         }
@@ -255,7 +275,7 @@ namespace FOMServer.Shared.Application.Persistence
             public long Version;
 
             private readonly Lock _syncRoot = new();
-            private List<BlockingDependency> _blockingDependencies = new();
+            private List<BlockingDependency> _blockingDependencies = [];
 
             public void AddBlockingDependency(IPersistable entity, long version)
             {
@@ -274,7 +294,7 @@ namespace FOMServer.Shared.Application.Persistence
                 lock (_syncRoot)
                 {
                     var result = _blockingDependencies;
-                    _blockingDependencies = new List<BlockingDependency>();
+                    _blockingDependencies = [];
                     return result;
                 }
             }
@@ -285,7 +305,7 @@ namespace FOMServer.Shared.Application.Persistence
         /// </summary>
         private class WaitRequest
         {
-            public List<BlockingDependency> BlockingDependencies = new();
+            public List<BlockingDependency> BlockingDependencies = [];
             public required Action Callback;
         }
     }

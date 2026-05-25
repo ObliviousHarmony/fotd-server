@@ -6,7 +6,6 @@ using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
-using MySqlConnector;
 
 namespace FOMServer.Master.Application
 {
@@ -87,7 +86,9 @@ namespace FOMServer.Master.Application
             clientNetwork.Start();
 
             foreach (var startable in _serviceProvider.GetServices<IServerStartable>())
+            {
                 startable.Start();
+            }
 
             _logger.LogInformation("Server started");
             _logger.LogInformation("Press Ctrl + C to stop the server");
@@ -100,7 +101,9 @@ namespace FOMServer.Master.Application
             try
             {
                 if (!_migrationRunner.HasMigrationsToApplyUp())
+                {
                     return true;
+                }
 
                 _migrationRunner.MigrateUp();
             }
@@ -117,7 +120,9 @@ namespace FOMServer.Master.Application
         {
             var peer = _serverService.Startup(ServerConstants.MasterWorldPort);
             if (peer == IntPtr.Zero)
+            {
                 return null;
+            }
 
             var networkManager = new NetworkManager(
                 _serviceProvider.GetRequiredService<IShutdownManager>(),
@@ -144,7 +149,9 @@ namespace FOMServer.Master.Application
         {
             var peer = _serverService.Startup(ServerConstants.MasterClientPort);
             if (peer == IntPtr.Zero)
+            {
                 return null;
+            }
 
             var networkManager = new NetworkManager(
                 _serviceProvider.GetRequiredService<IShutdownManager>(),

@@ -36,18 +36,21 @@ namespace FOMServer.Shared.Application.Networking
                 var handlerType = h.GetType();
 
                 if (!Attribute.IsDefined(handlerType, typeof(PacketHandlerAttribute)))
+                {
                     throw new InvalidOperationException($"Handler type {handlerType.Name} is missing [PacketHandler]");
+                }
 
                 var baseType = handlerType.BaseType;
                 if (baseType is null || !baseType.IsGenericType)
+                {
                     throw new InvalidOperationException($"Handler {handlerType.Name} does not derive from BasePacketHandler<T>");
+                }
 
                 var packetType = baseType.GetGenericArguments()[0];
                 var packetIDAttr = packetType.GetCustomAttribute<PacketIDAttribute>();
-                if (packetIDAttr is null)
-                    throw new InvalidOperationException($"Packet type {packetType.Name} is missing [PacketID]");
-
-                return packetIDAttr.ID;
+                return packetIDAttr is null
+                    ? throw new InvalidOperationException($"Packet type {packetType.Name} is missing [PacketID]")
+                    : packetIDAttr.ID;
             });
         }
 
@@ -56,7 +59,7 @@ namespace FOMServer.Shared.Application.Networking
         /// </summary>
         public void Enqueue(in PacketRef packet)
         {
-            _packetQueue.Writer.TryWrite(packet);
+            _ = _packetQueue.Writer.TryWrite(packet);
         }
 
         /// <summary>
@@ -65,11 +68,13 @@ namespace FOMServer.Shared.Application.Networking
         public void Start(int workerCount = 1)
         {
             if (_cts is not null)
+            {
                 return;
+            }
 
             _cts = CancellationTokenSource.CreateLinkedTokenSource(_shutdownManager.Token);
 
-            for (int i = 0; i < workerCount; i++)
+            for (var i = 0; i < workerCount; i++)
             {
                 // Use a dedicated thread for each worker because new packets
                 // will consistently be arriving and needing to be handled.
@@ -99,9 +104,13 @@ namespace FOMServer.Shared.Application.Networking
                     try
                     {
                         if (_handlers.TryGetValue(packet.ID, out var handler))
+                        {
                             handler.Handle(packet);
+                        }
                         else
+                        {
                             OnUnhandledPacket(packet);
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -134,7 +143,9 @@ namespace FOMServer.Shared.Application.Networking
         {
             // Any unhandled internal packets should be ignored.
             if (packet.ID < PacketIdentifier.ID_FOM_PACKET_START)
+            {
                 return;
+            }
 
             LogUnhandledPacket(packet.ID, packet.Sender);
         }

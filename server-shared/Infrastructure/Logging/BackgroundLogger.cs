@@ -13,9 +13,15 @@ namespace FOMServer.Shared.Infrastructure.Logging
             _writer = writer;
         }
 
-        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => null;
+        public IDisposable? BeginScope<TState>(TState state) where TState : notnull
+        {
+            return null;
+        }
 
-        public bool IsEnabled(LogLevel logLevel) => logLevel != LogLevel.None;
+        public bool IsEnabled(LogLevel logLevel)
+        {
+            return logLevel != LogLevel.None;
+        }
 
         public void Log<TState>(
             LogLevel logLevel,
@@ -25,7 +31,9 @@ namespace FOMServer.Shared.Infrastructure.Logging
             Func<TState, Exception?, string> formatter)
         {
             if (!IsEnabled(logLevel))
+            {
                 return;
+            }
 
             var message = new LogMessage
             {
@@ -37,7 +45,9 @@ namespace FOMServer.Shared.Infrastructure.Logging
             };
 
             if (!_writer.TryWrite(message))
+            {
                 throw new InvalidOperationException("Logging channel is closed");
+            }
         }
     }
 }

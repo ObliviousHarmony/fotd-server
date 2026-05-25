@@ -38,7 +38,9 @@ namespace FOMServer.Shared.Core.Packets
             get
             {
                 fixed (byte* ptr = RawUsername)
+                {
                     return CStringParser.ToString(ptr, BufferSizes.Username);
+                }
             }
         }
 
@@ -47,7 +49,9 @@ namespace FOMServer.Shared.Core.Packets
             get
             {
                 fixed (byte* ptr = RawPasswordHash)
+                {
                     return CStringParser.ToString(ptr, PasswordHashSize);
+                }
             }
         }
 
@@ -56,7 +60,9 @@ namespace FOMServer.Shared.Core.Packets
             get
             {
                 fixed (byte* ptr = RawMACAddress)
+                {
                     return CStringParser.ToString(ptr, MACAddressSize);
+                }
             }
         }
 
@@ -65,26 +71,36 @@ namespace FOMServer.Shared.Core.Packets
             get
             {
                 fixed (byte* ptr = RawComputerName)
+                {
                     return CStringParser.ToString(ptr, ComputerNameSize);
+                }
             }
         }
 
         public string GetDriveModel(int index)
         {
-            if (index < 0 || index >= DriveCount)
+            if (index is < 0 or >= DriveCount)
+            {
                 throw new ArgumentOutOfRangeException(nameof(index));
+            }
 
             fixed (byte* ptr = RawDriveModels)
+            {
                 return CStringParser.ToString(ptr + (index * DriveModelSize), DriveModelSize);
+            }
         }
 
         public string GetDriveSerialNumber(int index)
         {
-            if (index < 0 || index >= DriveCount)
+            if (index is < 0 or >= DriveCount)
+            {
                 throw new ArgumentOutOfRangeException(nameof(index));
+            }
 
             fixed (byte* ptr = RawDriveSerialNumbers)
+            {
                 return CStringParser.ToString(ptr + (index * DriveSerialNumberSize), DriveSerialNumberSize);
+            }
         }
     }
 }

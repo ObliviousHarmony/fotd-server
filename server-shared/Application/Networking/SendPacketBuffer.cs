@@ -47,7 +47,9 @@ namespace FOMServer.Shared.Application.Networking
         public unsafe bool Add(in QueuePacket packet)
         {
             if (_packetCount >= IPacketService.MaxBufferedPackets)
+            {
                 throw new InvalidOperationException("Cannot add more packets to the buffer");
+            }
 
             var packetSize = PacketHelpers.GetPacketSize(packet.ID);
 
@@ -60,8 +62,10 @@ namespace FOMServer.Shared.Application.Networking
 
             // Copy network addresses into the POH buffer.
             var addresses = packet.NetworkAddresses;
-            for (int i = 0; i < addresses.Length; i++)
+            for (var i = 0; i < addresses.Length; i++)
+            {
                 _networkAddresses[_networkAddressOffset + i] = addresses[i];
+            }
 
             // Build the SendPacket struct with pointers into the POH buffers.
             fixed (byte* dataPtr = &_packetData[_packetDataOffset])
@@ -90,7 +94,10 @@ namespace FOMServer.Shared.Application.Networking
             return true;
         }
 
-        public ReadOnlySpan<SendPacket> GetBatch() => _sendPackets.AsSpan(0, _packetCount);
+        public ReadOnlySpan<SendPacket> GetBatch()
+        {
+            return _sendPackets.AsSpan(0, _packetCount);
+        }
 
         public void Reset()
         {

@@ -25,7 +25,9 @@ namespace FOMServer.Shared.Core.Packets
             set
             {
                 fixed (byte* ptr = RawUsername)
+                {
                     CStringParser.FromString(value, ptr, BufferSizes.Username);
+                }
             }
         }
     }

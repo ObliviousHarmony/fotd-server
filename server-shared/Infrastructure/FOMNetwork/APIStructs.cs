@@ -35,5 +35,4 @@ namespace FOMServer.Shared.Infrastructure.FOMNetwork
         public byte OrderingChannel;
         public byte Broadcast;
     }
-
 }

@@ -58,8 +58,11 @@ namespace FOMServer.Shared.Application.Networking
         public unsafe byte[]? Rent(ReceivedPackets received)
         {
             if (Interlocked.Exchange(ref _allocated, 1) != 0)
+            {
                 return null;
-            Interlocked.Increment(ref s_activeBufferCount);
+            }
+
+            _ = Interlocked.Increment(ref s_activeBufferCount);
 
             _packetIDs = ArrayPool<PacketIdentifier>.Shared.Rent(received.Count);
 
@@ -75,7 +78,7 @@ namespace FOMServer.Shared.Application.Networking
 
             // Let's create all of the packet references
             // here so that they're easy to access later.
-            int bufferVersion = Volatile.Read(in _bufferVersion);
+            var bufferVersion = Volatile.Read(in _bufferVersion);
             for (var i = 0; i < received.Count; i++)
             {
                 _packetRefDisposalFlags[i] = 0;
@@ -91,6 +94,7 @@ namespace FOMServer.Shared.Application.Networking
                     this
                 );
             }
+
             // Mark that the references are ready to be used.
             Volatile.Write(ref _refCount, received.Count);
 
@@ -99,10 +103,9 @@ namespace FOMServer.Shared.Application.Networking
 
         public ReadOnlySpan<PacketRef> GetPackets()
         {
-            if (Volatile.Read(in _allocated) != 1 || Volatile.Read(in _refCount) == 0)
-                throw new InvalidOperationException("PacketBuffer has not been allocated");
-
-            return _packetRefs.AsSpan(0, _refCount);
+            return Volatile.Read(in _allocated) != 1 || Volatile.Read(in _refCount) == 0
+                ? throw new InvalidOperationException("PacketBuffer has not been allocated")
+                : (ReadOnlySpan<PacketRef>)_packetRefs.AsSpan(0, _refCount);
         }
 
         /// <summary>
@@ -110,13 +113,7 @@ namespace FOMServer.Shared.Application.Networking
         /// </summary>
         public bool IsPacketDisposed(ref readonly PacketRef packet)
         {
-            if (Volatile.Read(in _bufferVersion) != packet.BufferVersion)
-                return true;
-
-            if (Volatile.Read(in _packetRefDisposalFlags[packet.RefIndex]) != 0)
-                return true;
-
-            return false;
+            return Volatile.Read(in _bufferVersion) != packet.BufferVersion || Volatile.Read(in _packetRefDisposalFlags[packet.RefIndex]) != 0;
         }
 
         /// <summary>
@@ -129,15 +126,21 @@ namespace FOMServer.Shared.Application.Networking
         public void DisposePacket(ref readonly PacketRef refToFree)
         {
             if (Volatile.Read(in _refCount) == 0)
+            {
                 throw new InvalidOperationException("PacketBuffer has not been allocated");
+            }
 
             if (Volatile.Read(in _bufferVersion) != refToFree.BufferVersion)
+            {
                 throw new ObjectDisposedException(nameof(PacketRef));
+            }
 
             ref var disposalFlag = ref _packetRefDisposalFlags[refToFree.RefIndex];
-            int disposed = Interlocked.Exchange(ref disposalFlag, 1);
+            var disposed = Interlocked.Exchange(ref disposalFlag, 1);
             if (disposed != 0)
+            {
                 throw new ObjectDisposedException(nameof(PacketRef));
+            }
 
             // We don't need the buffer anymore when all of the packets have been processed.
             var refCount = Interlocked.Decrement(ref _refCount);
@@ -146,7 +149,7 @@ namespace FOMServer.Shared.Application.Networking
                 // Invalidate stale references before freeing the buffers so
                 // that they aren't able to access memory that has been
                 // returned back to the pool.
-                Interlocked.Increment(ref _bufferVersion);
+                _ = Interlocked.Increment(ref _bufferVersion);
 
                 var tempIDs = Interlocked.Exchange(ref _packetIDs, null);
                 ArrayPool<PacketIdentifier>.Shared.Return(tempIDs!);
@@ -154,33 +157,36 @@ namespace FOMServer.Shared.Application.Networking
                 var tempBuffer = Interlocked.Exchange(ref _buffer, null);
                 ArrayPool<byte>.Shared.Return(tempBuffer!);
 
-                Interlocked.Decrement(ref s_activeBufferCount);
-                Interlocked.Exchange(ref _allocated, 0);
+                _ = Interlocked.Decrement(ref s_activeBufferCount);
+                _ = Interlocked.Exchange(ref _allocated, 0);
             }
         }
 
         private int GetPacketStart(int index)
         {
             if (Volatile.Read(in _allocated) != 1 || Volatile.Read(in _buffer) is null)
+            {
                 throw new InvalidOperationException("PacketBuffer has not been allocated");
+            }
 
             if (index >= _packetIDs!.Length)
+            {
                 throw new IndexOutOfRangeException($"Packet {index} is out of range {_packetIDs.Length}");
+            }
 
             var currentIndex = 0;
             var offset = 0;
             while (currentIndex < index)
-                offset += 1 + PacketHelpers.GetPacketSize(_packetIDs[currentIndex++]);
-
-            var packetEnd = offset + 1 + PacketHelpers.GetPacketSize(_packetIDs[index]);
-            if (packetEnd > _bufferSize)
             {
-                throw new InvalidOperationException(
-                    $"Packet {_packetIDs[index]} ({index}) Size {packetEnd - offset} Overflow - {_bufferSize}"
-                );
+                offset += 1 + PacketHelpers.GetPacketSize(_packetIDs[currentIndex++]);
             }
 
-            return offset;
+            var packetEnd = offset + 1 + PacketHelpers.GetPacketSize(_packetIDs[index]);
+            return packetEnd > _bufferSize
+                ? throw new InvalidOperationException(
+                    $"Packet {_packetIDs[index]} ({index}) Size {packetEnd - offset} Overflow - {_bufferSize}"
+                )
+                : offset;
         }
     }
 }

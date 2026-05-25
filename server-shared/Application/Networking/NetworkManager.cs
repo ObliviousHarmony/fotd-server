@@ -17,7 +17,7 @@ namespace FOMServer.Shared.Application.Networking
         /// exclusively handle them. When another network manager receives
         /// a packet with a claimed ID, it will ignore it.
         /// </summary>
-        private static readonly HashSet<PacketIdentifier> s_globalClaimedPacketIDs = new HashSet<PacketIdentifier>();
+        private static readonly HashSet<PacketIdentifier> s_globalClaimedPacketIDs = [];
 
         /// <summary>
         /// Packet ID claims are not using a thread-safe collection for
@@ -63,13 +63,17 @@ namespace FOMServer.Shared.Application.Networking
         public void ClaimPacketID(PacketIdentifier id)
         {
             if (!s_canClaimPacketIDs)
+            {
                 throw new InvalidOperationException("Cannot claim packet IDs after a network manager has started");
+            }
 
             if (s_globalClaimedPacketIDs.Contains(id))
+            {
                 throw new InvalidOperationException($"Packet ID {id} is already claimed by another network manager");
+            }
 
-            s_globalClaimedPacketIDs.Add(id);
-            _claimedPacketIDs.Add(id);
+            _ = s_globalClaimedPacketIDs.Add(id);
+            _ = _claimedPacketIDs.Add(id);
         }
 
         /// <summary>
@@ -78,7 +82,9 @@ namespace FOMServer.Shared.Application.Networking
         public void Configure(IntPtr peer, Action<IntPtr> peerShutdown)
         {
             if (_peer != IntPtr.Zero)
+            {
                 throw new InvalidOperationException("Peer is already configured");
+            }
 
             _peer = peer;
             _peerShutdown = peerShutdown;
@@ -90,10 +96,14 @@ namespace FOMServer.Shared.Application.Networking
         public void Start()
         {
             if (_peer == IntPtr.Zero)
+            {
                 throw new InvalidOperationException("Peer must be configured");
+            }
 
             if (_networkTask is not null)
+            {
                 return;
+            }
 
             // Once a network manager has started, no more claims can be made.
             s_canClaimPacketIDs = false;
@@ -116,9 +126,11 @@ namespace FOMServer.Shared.Application.Networking
         public void EnqueueSend(in QueuePacket packet)
         {
             if (_peer == IntPtr.Zero)
+            {
                 throw new InvalidOperationException("Peer is not configured");
+            }
 
-            _sendQueue.Writer.TryWrite(packet);
+            _ = _sendQueue.Writer.TryWrite(packet);
         }
 
         public async ValueTask DisposeAsync()
@@ -126,7 +138,9 @@ namespace FOMServer.Shared.Application.Networking
             _sendQueue.Writer.Complete();
 
             if (_networkTask is not null)
+            {
                 await _networkTask;
+            }
 
             if (_peer != IntPtr.Zero)
             {
@@ -151,7 +165,9 @@ namespace FOMServer.Shared.Application.Networking
                     // Avoid starving packet receiving with sending by
                     // limiting the number of packets sent per batch.
                     while (sendBuffer.CanAdd && _sendQueue.Reader.TryRead(out var packetToSend))
-                        sendBuffer.Add(in packetToSend);
+                    {
+                        _ = sendBuffer.Add(in packetToSend);
+                    }
 
                     if (sendBuffer.HasBatch)
                     {
@@ -184,10 +200,7 @@ namespace FOMServer.Shared.Application.Networking
                         shouldBackoff = false;
                     }
 
-                    if (shouldBackoff)
-                        pollingDelayMs = Math.Min(pollingDelayMs * 2, 100);
-                    else
-                        pollingDelayMs = 1;
+                    pollingDelayMs = shouldBackoff ? Math.Min(pollingDelayMs * 2, 100) : 1;
 
                     await Task.Delay(pollingDelayMs, ct);
                 }

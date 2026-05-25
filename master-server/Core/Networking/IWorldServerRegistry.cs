@@ -6,8 +6,11 @@ namespace FOMServer.Master.Core.Networking
     internal interface IWorldServerRegistry
     {
         WorldServer[] GetAll();
+
         WorldServer? Get(WorldID id);
+
         WorldID[] Register(WorldID[] ids, NetworkAddress serverAddress, NetworkAddress publicAddress);
+
         WorldID[] Unregister(NetworkAddress serverAddress);
     }
 }

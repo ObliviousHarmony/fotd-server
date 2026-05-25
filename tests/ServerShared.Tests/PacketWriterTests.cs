@@ -85,7 +85,7 @@ namespace FOMServer.Shared.Tests
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
             writer.AddDestination(address);
 
-            Assert.Throws<InvalidOperationException>(() => writer.ExcludeFromBroadcast(address));
+            _ = Assert.Throws<InvalidOperationException>(() => writer.ExcludeFromBroadcast(address));
         }
 
         [Fact]
@@ -96,7 +96,7 @@ namespace FOMServer.Shared.Tests
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
             writer.ExcludeFromBroadcast(address);
 
-            Assert.Throws<InvalidOperationException>(() => writer.AddDestination(address));
+            _ = Assert.Throws<InvalidOperationException>(() => writer.AddDestination(address));
         }
 
         [Fact]
@@ -108,7 +108,7 @@ namespace FOMServer.Shared.Tests
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
             writer.ExcludeFromBroadcast(address1);
 
-            Assert.Throws<InvalidOperationException>(() => writer.ExcludeFromBroadcast(address2));
+            _ = Assert.Throws<InvalidOperationException>(() => writer.ExcludeFromBroadcast(address2));
         }
 
         [Fact]
@@ -117,7 +117,7 @@ namespace FOMServer.Shared.Tests
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
             var packet = writer.Build();
 
-            Assert.Throws<ObjectDisposedException>(() => writer.Build());
+            _ = Assert.Throws<ObjectDisposedException>(() => writer.Build());
 
             packet.Release();
         }
@@ -128,7 +128,7 @@ namespace FOMServer.Shared.Tests
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
             var packet = writer.Build();
 
-            Assert.Throws<InvalidOperationException>(() => _ = writer.Data);
+            _ = Assert.Throws<InvalidOperationException>(() => _ = writer.Data);
 
             packet.Release();
         }
@@ -141,10 +141,9 @@ namespace FOMServer.Shared.Tests
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
             var packet = writer.Build();
 
-            Assert.Throws<InvalidOperationException>(() => writer.AddDestination(address));
+            _ = Assert.Throws<InvalidOperationException>(() => writer.AddDestination(address));
 
             packet.Release();
         }
-
     }
 }

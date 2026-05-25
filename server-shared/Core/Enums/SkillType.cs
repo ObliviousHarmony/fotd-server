@@ -8,6 +8,7 @@ namespace FOMServer.Shared.Core.Enums
         AdvancedApplication = 3,
         EmergencyMedication = 4,
         Biology = 5,
+
         // 6
         NanomachineMedication = 7,
         PhysicalEducation = 8,
@@ -23,16 +24,19 @@ namespace FOMServer.Shared.Core.Enums
         Decryption = 18,
         Infiltration = 19,
         InfluenceManipulation = 20,
+
         // 21
         MechanicalAugmentation = 22,
         NanomachineAugmentation = 23,
         GeneticReconfiguration = 24,
         BioelectricEfficiency = 25,
+
         // 26
         Zanathid5Inflex = 27,
         Ryx7Streamline = 28,
         ArmaliteSurvival = 29,
         Techtronic6x6 = 30,
+
         // 31
         // 32
         RGI9 = 33,
@@ -61,6 +65,7 @@ namespace FOMServer.Shared.Core.Enums
         MiningEquipment = 56,
         MineralScanners = 57,
         DrillingOperations = 58,
+
         // 59
         CarbonTechnology = 60,
         MetalRefinement = 61,
@@ -102,6 +107,7 @@ namespace FOMServer.Shared.Core.Enums
         LightEnergyArmorProduction = 97,
         HeavyBallisticArmorProduction = 98,
         HeavyEnergyArmorProduction = 99,
+
         // 100
         // 101
         // 102
@@ -116,6 +122,7 @@ namespace FOMServer.Shared.Core.Enums
         InfiltrationHackingProduction = 111,
         BadgeOfDominance = 112,
         DeployableExplosives = 113,
+
         // 114
         // 115
 

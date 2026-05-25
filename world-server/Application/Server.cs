@@ -1,5 +1,3 @@
-using System.Net;
-using System.Net.Sockets;
 using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Constants;
@@ -56,7 +54,9 @@ namespace FOMServer.World.Application
 
             _logger.LogInformation("Starting world server");
             foreach (var worldID in _serverSettings.WorldIDs)
+            {
                 _logger.LogInformation("World - {WorldID}", worldID);
+            }
 
             Console.CancelKeyPress += (sender, e) =>
             {
@@ -90,7 +90,9 @@ namespace FOMServer.World.Application
             clientNetwork.Start();
 
             foreach (var startable in _serviceProvider.GetServices<IServerStartable>())
+            {
                 startable.Start();
+            }
 
             _logger.LogInformation("Server started");
             _logger.LogInformation("Press Ctrl + C to stop the server");
@@ -100,7 +102,7 @@ namespace FOMServer.World.Application
 
         private NetworkManager? ConnectToMasterNetwork(PacketProcessor packetProcessor)
         {
-            IntPtr peer = IntPtr.Zero;
+            var peer = IntPtr.Zero;
             while (peer == IntPtr.Zero)
             {
                 peer = _clientService.Connect(_serverSettings.MasterServerHost, ServerConstants.MasterWorldPort);
@@ -129,8 +131,11 @@ namespace FOMServer.World.Application
             ref var rpData = ref registerPacket.Data;
 
             rpData.WorldIDCount = (byte)_serverSettings.WorldIDs.Length;
-            for (int i = 0; i < _serverSettings.WorldIDs.Length; i++)
+            for (var i = 0; i < _serverSettings.WorldIDs.Length; i++)
+            {
                 rpData.WorldIDs[i] = _serverSettings.WorldIDs[i];
+            }
+
             rpData.PublicAddress = new NetworkAddress
             {
                 Address = _serverSettings.ClientIP!,

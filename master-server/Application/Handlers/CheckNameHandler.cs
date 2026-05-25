@@ -1,5 +1,4 @@
 using FOMServer.Master.Core.Networking;
-using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
@@ -30,7 +29,9 @@ namespace FOMServer.Master.Application.Handlers
 
             var player = _playerRepository.GetByName(p.Name);
             if (player is not null)
+            {
                 rData.OwnerPlayerID = player.id;
+            }
 
             _packetSender.Send(response.Build());
         }

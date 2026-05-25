@@ -30,7 +30,9 @@ namespace FOMServer.Master.Application.Handlers
         public override void Handle(NetworkAddress sender, in DisconnectionNotification p)
         {
             if (TryWorldServerUnregister(sender))
+            {
                 return;
+            }
 
             TryClientUnregister(sender);
         }
@@ -39,10 +41,14 @@ namespace FOMServer.Master.Application.Handlers
         {
             var unregistered = _worldServerRegistry.Unregister(sender);
             if (unregistered.Length == 0)
+            {
                 return false;
+            }
 
             foreach (var worldID in unregistered)
+            {
                 _logger.LogInformation("World '{WorldID}' disconnected", worldID);
+            }
 
             return true;
         }
@@ -51,12 +57,16 @@ namespace FOMServer.Master.Application.Handlers
         {
             var session = _clientRegistry.Get(sender);
             if (session is null)
+            {
                 return;
+            }
 
             if (session.Player is not null)
+            {
                 _playerRegistry.Logout(session.Player);
+            }
 
-            _clientRegistry.Unregister(session);
+            _ = _clientRegistry.Unregister(session);
             _logger.LogInformation("Client '{Address}' disconnected", sender);
         }
     }

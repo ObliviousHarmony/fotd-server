@@ -6,7 +6,9 @@ namespace FOMServer.Master.Core.Networking
     internal class WorldServer
     {
         public WorldID ID { get; init; }
+
         public NetworkAddress ServerAddress { get; init; }
+
         public NetworkAddress PublicAddress { get; init; }
     }
 }

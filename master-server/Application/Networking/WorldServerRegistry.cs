@@ -11,7 +11,7 @@ namespace FOMServer.Master.Application.Networking
 
         public WorldServer[] GetAll()
         {
-            return _worldServers.Values.ToArray();
+            return [.. _worldServers.Values];
         }
 
         public WorldServer? Get(WorldID id)
@@ -33,13 +33,14 @@ namespace FOMServer.Master.Application.Networking
                 };
 
                 if (!_worldServers.TryAdd(id, worldServer))
+                {
                     throw new InvalidOperationException($"World {id} has already been registered");
+                }
 
                 registered.Add(id);
-
             }
 
-            return registered.ToArray();
+            return [.. registered];
         }
 
         public WorldID[] Unregister(NetworkAddress serverAddress)
@@ -51,11 +52,13 @@ namespace FOMServer.Master.Application.Networking
                 if (kvp.Value.ServerAddress.Equals(serverAddress))
                 {
                     if (_worldServers.TryRemove(kvp))
+                    {
                         unregistered.Add(kvp.Key);
+                    }
                 }
             }
 
-            return unregistered.ToArray();
+            return [.. unregistered];
         }
     }
 }

@@ -52,7 +52,9 @@ namespace FOMServer.Shared.Core.Packets
             set
             {
                 fixed (byte* ptr = RawFactionName)
+                {
                     CStringParser.FromString(value, ptr, BufferSizes.FactionName);
+                }
             }
         }
 

@@ -9,9 +9,11 @@ internal static class CStringParser
     {
         var span = new ReadOnlySpan<byte>(buffer, len);
 
-        int strLength = span.IndexOf((byte)0);
+        var strLength = span.IndexOf((byte)0);
         if (strLength < 0)
+        {
             strLength = len;
+        }
 
         return Encoding.ASCII.GetString(span[..strLength]);
     }
@@ -23,9 +25,11 @@ internal static class CStringParser
     {
         var bytes = Encoding.ASCII.GetBytes(str);
 
-        int copyLength = Math.Min(bytes.Length, len - 1);
-        for (int i = 0; i < copyLength; i++)
+        var copyLength = Math.Min(bytes.Length, len - 1);
+        for (var i = 0; i < copyLength; i++)
+        {
             buffer[i] = bytes[i];
+        }
 
         buffer[copyLength] = 0;
     }
