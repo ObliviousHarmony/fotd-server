@@ -42,6 +42,8 @@ This repository contains a server emulator for the discontinued MMOFPS, "Face of
   | `SCREAMING_SNAKE_CASE` constants | A separate naming convention; acronym casing does not apply. Covers the `ID_*` wire identifiers (which mirror RakNet's `MessageIdentifiers`) and enum value names. | `ID_WORLD_LOGIN`, `MASTER_SERVER`, `NUM_WORLDS` |
   | External / framework type names | Keep the upstream spelling; not ours to rename. | `IPAddress`, `IPEndPoint` |
 
+- **No empty property patterns**: Never use the empty property pattern `{ }` for null tests or captures — not `x is { }`, `x is not { }`, nor `x is { } y`. Use `is null` / `is not null` for the check, and `.HasValue` + `.Value` (or a plain assignment) when you need the value; it reads more clearly, and the `{ }` form additionally hides a `Nullable<T>` unwrap. Property patterns with real subpatterns (`x is { Status: Success }`) are fine.
+
 ## Common Commands
 
 - **C++ Format**: `just format-cpp`

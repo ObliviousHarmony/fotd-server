@@ -45,15 +45,14 @@ namespace FOMServer.Master.Application.Handlers
                 return;
             }
 
-            var player = _playerRepository.GetById(p.PlayerId);
-            if (player is null)
+            if (_playerRepository.GetById(p.PlayerId) is null)
             {
                 SendLoginError(sender, p.WorldId, WorldLoginReturn.StatusCode.UnknownError);
                 return;
             }
 
-            var worldServer = _worldServerRegistry.Get(p.WorldId);
-            if (worldServer is null)
+            var destinationServer = _worldServerRegistry.Get(p.WorldId);
+            if (destinationServer is null)
             {
                 SendLoginError(sender, p.WorldId, WorldLoginReturn.StatusCode.ServerOffline);
                 return;
@@ -61,13 +60,25 @@ namespace FOMServer.Master.Application.Handlers
 
             session.BeginWorldTransfer(p.WorldId);
 
-            using var prepareWorldServer = new PacketWriter<PlayerMigrateWorld>(worldServer.ServerAddress);
-            ref var mData = ref prepareWorldServer.Data;
+            WorldServer? currentServer = null;
+            if (session.CurrentWorld.HasValue)
+            {
+                currentServer = _worldServerRegistry.Get(session.CurrentWorld.Value);
+            }
 
+            if (currentServer is not null)
+            {
+                using var leaving = new PacketWriter<PlayerLeavingWorld>(currentServer.ServerAddress);
+                leaving.Data.PlayerId = p.PlayerId;
+                _worldPacketSender.Send(leaving.Build());
+                return;
+            }
+
+            using var migrate = new PacketWriter<PlayerMigrateWorld>(destinationServer.ServerAddress);
+            ref var mData = ref migrate.Data;
             mData.PlayerId = p.PlayerId;
             mData.ClientBinaryAddress = sender.BinaryAddress;
-
-            _worldPacketSender.Send(prepareWorldServer.Build());
+            _worldPacketSender.Send(migrate.Build());
         }
 
         private void SendLoginError(in NetworkAddress destination, WorldId worldId, WorldLoginReturn.StatusCode status)
