@@ -150,10 +150,10 @@ namespace FOMServer.Shared.Application.Networking
             LogUnhandledPacket(packet.ID, packet.Sender);
         }
 
-        [LoggerMessage(Level = LogLevel.Critical, Message = "Packet {PacketID} from {Sender} failed")]
+        [LoggerMessage(Level = LogLevel.Critical, Message = "Packet '{PacketID}' from '{Sender}' failed")]
         private partial void LogPacketException(PacketIdentifier packetID, NetworkAddress sender, Exception ex);
 
-        [LoggerMessage(Level = LogLevel.Critical, Message = "Unhandled packet ID {PacketID} from {Sender}")]
+        [LoggerMessage(Level = LogLevel.Critical, Message = "Unhandled packet ID '{PacketID}' from '{Sender}'")]
         private partial void LogUnhandledPacket(PacketIdentifier packetID, NetworkAddress sender);
     }
 }

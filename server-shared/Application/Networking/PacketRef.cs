@@ -55,7 +55,7 @@ namespace FOMServer.Shared.Application.Networking
 
             if (!PacketHelpers.IsPacketOfType<TPacket>(_id))
             {
-                throw new InvalidOperationException($"PacketRef does not contain data of type {typeof(TPacket)}");
+                throw new InvalidOperationException($"PacketRef does not contain data of type '{typeof(TPacket)}'");
             }
 
             var data = _data.Span;

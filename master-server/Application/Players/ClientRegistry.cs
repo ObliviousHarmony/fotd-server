@@ -23,7 +23,7 @@ namespace FOMServer.Master.Application.Players
         {
             var session = new ClientSession(address);
             return !_sessions.TryAdd(address, session)
-                ? throw new InvalidOperationException($"Client {address} is already registered")
+                ? throw new InvalidOperationException($"Client '{address}' is already registered")
                 : session;
         }
 

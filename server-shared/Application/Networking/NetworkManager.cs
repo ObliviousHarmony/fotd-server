@@ -69,7 +69,7 @@ namespace FOMServer.Shared.Application.Networking
 
             if (s_globalClaimedPacketIDs.Contains(id))
             {
-                throw new InvalidOperationException($"Packet ID {id} is already claimed by another network manager");
+                throw new InvalidOperationException($"Packet ID '{id}' is already claimed by another network manager");
             }
 
             _ = s_globalClaimedPacketIDs.Add(id);
@@ -220,10 +220,10 @@ namespace FOMServer.Shared.Application.Networking
             }
         }
 
-        [LoggerMessage(Level = LogLevel.Warning, Message = "Client {Sender} sent malformed packet with ID {PacketID}: {Status}")]
+        [LoggerMessage(Level = LogLevel.Warning, Message = "Client '{Sender}' sent malformed packet with ID '{PacketID}': {Status}")]
         private partial void LogMalformedPacket(NetworkAddress sender, PacketIdentifier packetID, SerializationStatus status);
 
-        [LoggerMessage(Level = LogLevel.Warning, Message = "Ignoring packet with claimed ID {PacketID} from {Sender}")]
+        [LoggerMessage(Level = LogLevel.Warning, Message = "Ignoring packet with claimed ID '{PacketID}' from '{Sender}'")]
         private partial void LogClaimedPacketID(NetworkAddress sender, PacketIdentifier packetID);
 
         [LoggerMessage(Level = LogLevel.Critical, Message = "Network failure")]

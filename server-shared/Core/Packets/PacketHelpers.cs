@@ -68,7 +68,7 @@ namespace FOMServer.Shared.Core.Packets
         /// </summary>
         public static int GetPacketSize(PacketIdentifier id)
         {
-            return !s_packetSizes.TryGetValue(id, out var size) ? throw new ArgumentException($"No size found for ID {id}", nameof(id)) : size;
+            return !s_packetSizes.TryGetValue(id, out var size) ? throw new ArgumentException($"No size found for ID '{id}'", nameof(id)) : size;
         }
 
         /// <summary>

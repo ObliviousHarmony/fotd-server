@@ -34,7 +34,7 @@ namespace FOMServer.Master.Application.Networking
 
                 if (!_worldServers.TryAdd(id, worldServer))
                 {
-                    throw new InvalidOperationException($"World {id} has already been registered");
+                    throw new InvalidOperationException($"World '{id}' has already been registered");
                 }
 
                 registered.Add(id);
