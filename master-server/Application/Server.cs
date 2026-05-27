@@ -109,7 +109,7 @@ namespace FOMServer.Master.Application
             }
             catch (Exception ex)
             {
-                _logger.LogCritical(ex);
+                _logger.LogCritical(ex, "Database migration failed");
                 return false;
             }
 

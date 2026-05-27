@@ -40,7 +40,7 @@ namespace FOMServer.Master.Application.Handlers
 
             if (!session.PendingWorld.HasValue)
             {
-                _logger.LogWarning("Received world-ready for player {PlayerId} with no transfer in progress", p.PlayerId);
+                _logger.LogWarning("Received unexpected world-ready for player {PlayerId}", p.PlayerId);
                 return;
             }
 

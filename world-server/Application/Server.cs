@@ -109,7 +109,7 @@ namespace FOMServer.World.Application
                 peer = _clientService.Connect(_serverSettings.MasterServerHost, ServerConstants.MasterWorldPort);
                 if (peer == IntPtr.Zero)
                 {
-                    _logger.LogWarning("Failed to connect to the master server, retrying in 5 seconds");
+                    _logger.LogError("Failed to connect to the master server, retrying in 5 seconds");
                     Thread.Sleep(5000);
                 }
             }

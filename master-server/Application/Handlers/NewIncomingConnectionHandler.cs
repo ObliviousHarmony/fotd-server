@@ -29,7 +29,6 @@ namespace FOMServer.Master.Application.Handlers
             }
 
             _ = _clientRegistry.Register(sender);
-            _logger.LogInformation("Client '{Address}' connected", sender);
         }
     }
 }

@@ -26,7 +26,6 @@ namespace FOMServer.World.Application.Handlers
             if (player is not null)
             {
                 _playerRegistry.Logout(player);
-                _logger.LogInformation("Client '{Address}' disconnected", sender);
             }
         }
     }

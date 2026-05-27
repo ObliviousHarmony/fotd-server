@@ -47,7 +47,7 @@ namespace FOMServer.Master.Application.Handlers
 
             foreach (var worldId in unregistered)
             {
-                _logger.LogInformation("World '{WorldId}' lost connection", worldId);
+                _logger.LogWarning("World '{WorldId}' lost connection", worldId);
             }
 
             return true;
@@ -67,7 +67,6 @@ namespace FOMServer.Master.Application.Handlers
             }
 
             _ = _clientRegistry.Unregister(session);
-            _logger.LogInformation("Client '{Address}' lost connection", sender);
         }
     }
 }

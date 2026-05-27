@@ -67,7 +67,6 @@ namespace FOMServer.Master.Application.Handlers
             }
 
             _ = _clientRegistry.Unregister(session);
-            _logger.LogInformation("Client '{Address}' disconnected", sender);
         }
     }
 }

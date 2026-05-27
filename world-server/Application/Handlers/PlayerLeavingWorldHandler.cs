@@ -30,7 +30,7 @@ namespace FOMServer.World.Application.Handlers
             var player = _playerRegistry.Get(p.PlayerId);
             if (player is null)
             {
-                _logger.LogWarning("Asked to hand off unknown player {PlayerId}", p.PlayerId);
+                _logger.LogWarning("Received unexpected player migration request for player {PlayerId}", p.PlayerId);
                 return;
             }
 
@@ -41,8 +41,6 @@ namespace FOMServer.World.Application.Handlers
             mData.ClientBinaryAddress = player.Address.BinaryAddress;
 
             _masterPacketSender.Send(migrate.Build());
-
-            _logger.LogInformation("Released player {PlayerId} to migrate worlds", p.PlayerId);
         }
     }
 }

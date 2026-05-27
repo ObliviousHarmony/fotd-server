@@ -1,7 +1,5 @@
-using System.Net.NetworkInformation;
 using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Core.Players;
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
@@ -44,7 +42,7 @@ namespace FOMServer.Master.Application.Handlers
 
             if (!session.PendingWorld.HasValue)
             {
-                _logger.LogWarning("Received world migration for player {PlayerId} with no transfer in progress", p.PlayerId);
+                _logger.LogWarning("Received unexpected world migration for player {PlayerId}", p.PlayerId);
                 return;
             }
 
