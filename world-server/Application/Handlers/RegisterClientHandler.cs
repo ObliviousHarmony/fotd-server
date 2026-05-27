@@ -12,18 +12,15 @@ namespace FOMServer.World.Application.Handlers
     [PacketHandler]
     internal class RegisterClientHandler : PacketHandlerBase<RegisterClient>
     {
-        private readonly IClientRegistry _clientRegistry;
         private readonly IPlayerRegistry _playerRegistry;
         private readonly IClientPacketSender _packetSender;
         private readonly ILogger<RegisterClientHandler> _logger;
 
         public RegisterClientHandler(
-            IClientRegistry clientRegistry,
             IPlayerRegistry playerRegistry,
             IClientPacketSender packetSender,
             ILogger<RegisterClientHandler> logger)
         {
-            _clientRegistry = clientRegistry;
             _playerRegistry = playerRegistry;
             _packetSender = packetSender;
             _logger = logger;
@@ -31,17 +28,14 @@ namespace FOMServer.World.Application.Handlers
 
         public override void Handle(NetworkAddress sender, in RegisterClient p)
         {
-            var session = _clientRegistry.Get(sender);
-            if (session is null)
+            var player = _playerRegistry.ClaimForClient(p.PlayerID, sender);
+            if (player is null)
             {
-                _logger.LogWarning("Dropping client registration from '{Address}' with no registered session", sender);
+                _logger.LogWarning(
+                    "Dropping client registration for player {PlayerID} from '{Address}': no matching pending player",
+                    p.PlayerID,
+                    sender);
                 return;
-            }
-
-            if (session.Player is null)
-            {
-                _clientRegistry.BeginLogin(session, p.PlayerID);
-                _ = _playerRegistry.Login(session);
             }
 
             using var response = new PacketWriter<RegisterClientReturn>(sender);

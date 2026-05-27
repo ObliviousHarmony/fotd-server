@@ -29,6 +29,8 @@ namespace FOMServer.Shared.Extensions
 
         public static IServiceCollection AddServerShared(this IServiceCollection services)
         {
+            _ = services.AddSingleton(TimeProvider.System);
+
             _ = services.AddInteropServices();
             _ = services.AddSharedServices();
             _ = services.AddSharedRepositories();

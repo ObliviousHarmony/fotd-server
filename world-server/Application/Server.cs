@@ -1,6 +1,7 @@
 using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Constants;
+using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
@@ -55,7 +56,7 @@ namespace FOMServer.World.Application
             _logger.LogInformation("Starting world server");
             foreach (var worldID in _serverSettings.WorldIDs)
             {
-                _logger.LogInformation("World - {WorldID}", worldID);
+                _logger.LogInformation("World - '{WorldID}'", worldID);
             }
 
             Console.CancelKeyPress += (sender, e) =>
@@ -119,6 +120,10 @@ namespace FOMServer.World.Application
                 _serviceProvider.GetRequiredService<IPacketService>(),
                 packetProcessor
             );
+
+            // Make sure clients can't send packets meant for master<->world communication.
+            networkManager.ClaimPacketID(PacketIdentifier.ID_PLAYER_MIGRATE_WORLD);
+            networkManager.ClaimPacketID(PacketIdentifier.ID_PLAYER_LEAVING_WORLD);
 
             // Initialize the packet sender for communication with the master server.
             var packetSender = _serviceProvider.GetRequiredService<MasterPacketSender>();

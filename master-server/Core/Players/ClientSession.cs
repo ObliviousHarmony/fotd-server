@@ -6,7 +6,6 @@ namespace FOMServer.Master.Core.Players
     internal class ClientSession
     {
         private readonly Lock _syncRoot = new();
-        private WorldID? _pendingWorld;
 
         public ClientSession(NetworkAddress address)
         {
@@ -54,6 +53,25 @@ namespace FOMServer.Master.Core.Players
         }
 
         public WorldID? CurrentWorld
+        {
+            get
+            {
+                lock (_syncRoot)
+                {
+                    return field;
+                }
+            }
+
+            private set
+            {
+                lock (_syncRoot)
+                {
+                    field = value;
+                }
+            }
+        }
+
+        public WorldID? PendingWorld
         {
             get
             {
@@ -130,26 +148,30 @@ namespace FOMServer.Master.Core.Players
 
             lock (_syncRoot)
             {
-                if (_pendingWorld.HasValue)
+                if (PendingWorld.HasValue)
                 {
                     throw new InvalidOperationException("A world transfer is already in progress");
                 }
 
-                _pendingWorld = world;
+                PendingWorld = world;
             }
         }
 
-        public void CompleteWorldTransfer()
+        public void CompleteWorldTransfer(bool success)
         {
             lock (_syncRoot)
             {
-                if (!_pendingWorld.HasValue)
+                if (!PendingWorld.HasValue)
                 {
                     throw new InvalidOperationException("There is no world transfer in progress");
                 }
 
-                CurrentWorld = _pendingWorld;
-                _pendingWorld = null;
+                if (success)
+                {
+                    CurrentWorld = PendingWorld;
+                }
+
+                PendingWorld = null;
             }
         }
     }

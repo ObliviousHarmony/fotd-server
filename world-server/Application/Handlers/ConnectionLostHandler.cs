@@ -9,35 +9,25 @@ namespace FOMServer.World.Application.Handlers
     [PacketHandler]
     internal class ConnectionLostHandler : PacketHandlerBase<ConnectionLost>
     {
-        private readonly IClientRegistry _clientRegistry;
         private readonly IPlayerRegistry _playerRegistry;
         private readonly ILogger<ConnectionLostHandler> _logger;
 
         public ConnectionLostHandler(
-            IClientRegistry clientRegistry,
             IPlayerRegistry playerRegistry,
             ILogger<ConnectionLostHandler> logger)
         {
-            _clientRegistry = clientRegistry;
             _playerRegistry = playerRegistry;
             _logger = logger;
         }
 
         public override void Handle(NetworkAddress sender, in ConnectionLost p)
         {
-            var session = _clientRegistry.Get(sender);
-            if (session is null)
+            var player = _playerRegistry.Get(sender);
+            if (player is not null)
             {
-                return;
+                _playerRegistry.Logout(player);
+                _logger.LogInformation("Client '{Address}' lost connection", sender);
             }
-
-            if (session.Player is not null)
-            {
-                _playerRegistry.Logout(session.Player);
-            }
-
-            _ = _clientRegistry.Unregister(session);
-            _logger.LogInformation("Client '{Address}' lost connection", sender);
         }
     }
 }

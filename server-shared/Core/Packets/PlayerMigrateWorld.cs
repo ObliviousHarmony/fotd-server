@@ -9,5 +9,6 @@ namespace FOMServer.Shared.Core.Packets
     public struct PlayerMigrateWorld
     {
         public uint PlayerID;
+        public uint ClientBinaryAddress;
     }
 }

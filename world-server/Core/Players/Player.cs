@@ -1,15 +1,15 @@
+using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Core.Persistence;
 
 namespace FOMServer.World.Core.Players
 {
     internal class Player : IPersistable
     {
-        private readonly ClientSession _session;
+        private readonly Lock _syncRoot = new();
 
-        public Player(uint id, ClientSession session, int[]? initialAttributes = null)
+        public Player(uint id, int[]? initialAttributes = null)
         {
             ID = id;
-            _session = session;
             Attributes = new PlayerAttributes(this, initialAttributes);
         }
 
@@ -17,6 +17,20 @@ namespace FOMServer.World.Core.Players
 
         public uint ID { get; }
 
+        public NetworkAddress Address { get; private set; } = NetworkAddress.Unassigned;
+
         public PlayerAttributes Attributes { get; }
+
+        public void ClaimForClient(NetworkAddress address)
+        {
+            lock (_syncRoot)
+            {
+                if (Address != NetworkAddress.Unassigned)
+                {
+                    throw new InvalidOperationException($"Client '{address}' cannot claim player {ID} ({Address})");
+                }
+                Address = address;
+            }
+        }
     }
 }

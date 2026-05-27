@@ -104,7 +104,6 @@ namespace FOMServer.World
 
             _ = services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
 
-            _ = services.AddSingleton<IClientRegistry, ClientRegistry>();
             _ = services.AddSingleton<IPlayerRegistry, PlayerRegistry>();
             return services;
         }
