@@ -1,5 +1,6 @@
 using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Core.Players;
+using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
@@ -45,16 +46,10 @@ namespace FOMServer.Master.Application.Handlers
 
             var worldID = session.PendingWorld.Value;
 
-            using var response = new PacketWriter<WorldLoginReturn>(session.Address);
-            ref var rData = ref response.Data;
-            rData.WorldID = worldID;
-
             if (p.Status != PlayerWorldReady.StatusCode.Success)
             {
                 _logger.LogWarning("World failed to prepare player {PlayerID}: {Status}", p.PlayerID, p.Status);
-                session.CompleteWorldTransfer(false);
-                rData.Status = WorldLoginReturn.StatusCode.UnknownError;
-                _packetSender.Send(response.Build());
+                SendLoginError(session, worldID, WorldLoginReturn.StatusCode.UnknownError);
                 return;
             }
 
@@ -62,15 +57,33 @@ namespace FOMServer.Master.Application.Handlers
             if (worldServer is null)
             {
                 _logger.LogWarning("World {WorldID} went offline before player {PlayerID} could enter", worldID, p.PlayerID);
-                session.CompleteWorldTransfer(false);
-                rData.Status = WorldLoginReturn.StatusCode.ServerOffline;
-                _packetSender.Send(response.Build());
+                SendLoginError(session, worldID, WorldLoginReturn.StatusCode.ServerOffline);
                 return;
             }
 
-            session.CompleteWorldTransfer(success: true);
+            session.CompleteWorldTransfer();
+
+            using var response = new PacketWriter<WorldLoginReturn>(session.Address);
+            ref var rData = ref response.Data;
+            rData.WorldID = worldID;
             rData.Status = WorldLoginReturn.StatusCode.Success;
             rData.WorldServerAddress = worldServer.PublicAddress;
+            _packetSender.Send(response.Build());
+        }
+
+        private void SendLoginError(ClientSession session, WorldID worldID, WorldLoginReturn.StatusCode status)
+        {
+            if (status == WorldLoginReturn.StatusCode.Success)
+            {
+                throw new ArgumentException("A login error requires a failure status", nameof(status));
+            }
+
+            session.AbortWorldTransfer();
+
+            using var response = new PacketWriter<WorldLoginReturn>(session.Address);
+            ref var rData = ref response.Data;
+            rData.WorldID = worldID;
+            rData.Status = status;
             _packetSender.Send(response.Build());
         }
     }

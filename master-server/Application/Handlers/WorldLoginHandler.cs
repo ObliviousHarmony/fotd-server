@@ -13,7 +13,7 @@ namespace FOMServer.Master.Application.Handlers
     [PacketHandler]
     internal class WorldLoginHandler : PacketHandlerBase<WorldLogin>
     {
-        private readonly IClientPacketSender _packetSender;
+        private readonly IClientPacketSender _clientPacketSender;
         private readonly IWorldPacketSender _worldPacketSender;
         private readonly IClientRegistry _clientRegistry;
         private readonly IPlayerRepository _playerRepository;
@@ -21,14 +21,14 @@ namespace FOMServer.Master.Application.Handlers
         private readonly ILogger<WorldLoginHandler> _logger;
 
         public WorldLoginHandler(
-            IClientPacketSender packetSender,
+            IClientPacketSender clientPacketSender,
             IWorldPacketSender worldPacketSender,
             IClientRegistry clientRegistry,
             IPlayerRepository playerRepository,
             IWorldServerRegistry worldServerRegistry,
             ILogger<WorldLoginHandler> logger)
         {
-            _packetSender = packetSender;
+            _clientPacketSender = clientPacketSender;
             _worldPacketSender = worldPacketSender;
             _clientRegistry = clientRegistry;
             _playerRepository = playerRepository;
@@ -72,13 +72,18 @@ namespace FOMServer.Master.Application.Handlers
 
         private void SendLoginError(in NetworkAddress destination, WorldID worldID, WorldLoginReturn.StatusCode status)
         {
+            if (status == WorldLoginReturn.StatusCode.Success)
+            {
+                throw new ArgumentException("A login error requires a failure status", nameof(status));
+            }
+
             using var response = new PacketWriter<WorldLoginReturn>(destination);
             ref var rData = ref response.Data;
 
             rData.WorldID = worldID;
             rData.Status = status;
 
-            _packetSender.Send(response.Build());
+            _clientPacketSender.Send(response.Build());
         }
     }
 }

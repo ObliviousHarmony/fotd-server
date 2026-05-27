@@ -157,7 +157,7 @@ namespace FOMServer.Master.Core.Players
             }
         }
 
-        public void CompleteWorldTransfer(bool success)
+        public void CompleteWorldTransfer()
         {
             lock (_syncRoot)
             {
@@ -166,9 +166,18 @@ namespace FOMServer.Master.Core.Players
                     throw new InvalidOperationException("There is no world transfer in progress");
                 }
 
-                if (success)
+                CurrentWorld = PendingWorld;
+                PendingWorld = null;
+            }
+        }
+
+        public void AbortWorldTransfer()
+        {
+            lock (_syncRoot)
+            {
+                if (!PendingWorld.HasValue)
                 {
-                    CurrentWorld = PendingWorld;
+                    throw new InvalidOperationException("There is no world transfer in progress");
                 }
 
                 PendingWorld = null;
