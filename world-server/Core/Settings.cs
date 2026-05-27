@@ -6,13 +6,13 @@ namespace FOMServer.World.Core
 {
     internal class ServerSettings
     {
-        public WorldID[] WorldIDs { get; init; } = [];
+        public WorldId[] WorldIds { get; init; } = [];
 
         public string MasterServerHost { get; init; } = null!;
 
         public string ClientHost { get; init; } = null!;
 
-        public string? ClientIP
+        public string? ClientIp
         {
             get
             {

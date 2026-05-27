@@ -27,9 +27,9 @@ namespace FOMServer.Shared.Core.Constants
         /// <summary>
         /// Gets the port that the world server should listen for client connections on.
         /// </summary>
-        public static ushort GetWorldClientPort(WorldID worldID)
+        public static ushort GetWorldClientPort(WorldId worldId)
         {
-            return (ushort)(MasterClientPort + (ushort)worldID);
+            return (ushort)(MasterClientPort + (ushort)worldId);
         }
     }
 }

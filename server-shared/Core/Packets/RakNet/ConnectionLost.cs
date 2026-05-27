@@ -4,7 +4,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets.RakNet
 {
-    [PacketID(PacketIdentifier.ID_CONNECTION_LOST)]
+    [PacketId(PacketIdentifier.ID_CONNECTION_LOST)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct ConnectionLost { }
 }

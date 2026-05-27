@@ -7,10 +7,10 @@ namespace FOMServer.Master.Core.Networking
     {
         WorldServer[] GetAll();
 
-        WorldServer? Get(WorldID id);
+        WorldServer? Get(WorldId id);
 
-        WorldID[] Register(WorldID[] ids, NetworkAddress serverAddress, NetworkAddress publicAddress);
+        WorldId[] Register(WorldId[] ids, NetworkAddress serverAddress, NetworkAddress publicAddress);
 
-        WorldID[] Unregister(NetworkAddress serverAddress);
+        WorldId[] Unregister(NetworkAddress serverAddress);
     }
 }

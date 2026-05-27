@@ -4,7 +4,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets.RakNet
 {
-    [PacketID(PacketIdentifier.ID_NO_FREE_INCOMING_CONNECTIONS)]
+    [PacketId(PacketIdentifier.ID_NO_FREE_INCOMING_CONNECTIONS)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct NoFreeIncomingConnections { }
 }

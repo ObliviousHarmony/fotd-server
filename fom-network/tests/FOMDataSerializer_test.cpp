@@ -8,7 +8,7 @@
 
 using namespace FOMNetwork;
 
-TEST(FOMDataSerializer, ReadUnhandledPacketID) {
+TEST(FOMDataSerializer, ReadUnhandledPacketId) {
   uint8_t* buffer = new uint8_t[1];
   RakNet::BitStream bs;
 
@@ -18,7 +18,7 @@ TEST(FOMDataSerializer, ReadUnhandledPacketID) {
   delete buffer;
 }
 
-TEST(FOMDataSerializer, ForwardCertainRakNetID) {
+TEST(FOMDataSerializer, ForwardCertainRakNetId) {
   uint8_t* buffer = new uint8_t[1];
   RakNet::BitStream bs;
 

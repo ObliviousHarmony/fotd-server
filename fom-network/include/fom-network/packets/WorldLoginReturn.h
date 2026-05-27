@@ -1,7 +1,7 @@
 #pragma once
 
 #include <fom-network/Interop.h>
-#include <fom-network/enums/WorldID.h>
+#include <fom-network/enums/WorldId.h>
 #include <fom-network/types/NetworkAddress.h>
 
 namespace FOMNetwork {
@@ -22,7 +22,7 @@ enum WorldLoginReturnStatus : uint8_t {
 #pragma pack(push, 1)
 struct WorldLoginReturn {
   WorldLoginReturnStatus status;
-  Enum::WorldID worldID;
+  Enum::WorldId worldId;
   Type::NetworkAddress worldServerAddress;
 };
 #pragma pack(pop)

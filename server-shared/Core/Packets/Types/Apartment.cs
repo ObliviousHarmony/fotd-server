@@ -11,10 +11,10 @@ namespace FOMServer.Shared.Core.Packets.Types
         public const int PublicNameSize = 24;
         public const int PublicDescriptionSize = 512;
 
-        public uint ID;
+        public uint Id;
         public ApartmentType Type;
-        public uint OwnerPlayerID;
-        public uint OwnerFactionID;
+        public uint OwnerPlayerId;
+        public uint OwnerFactionId;
         public byte IsOpen;
         public fixed byte RawOwnerName[OwnerNameSize];
         public fixed byte RawEntryCode[EntryCodeSize];

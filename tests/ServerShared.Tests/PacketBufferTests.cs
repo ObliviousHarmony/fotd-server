@@ -9,14 +9,14 @@ namespace FOMServer.Shared.Tests
 {
     public class PacketBufferTests
     {
-        private static readonly PacketIdentifier s_testPacketID = PacketIdentifier.ID_CONNECTION_REQUEST_ACCEPTED;
-        private static readonly int s_testPacketSize = PacketHelpers.GetPacketSize(s_testPacketID);
+        private static readonly PacketIdentifier s_testPacketId = PacketIdentifier.ID_CONNECTION_REQUEST_ACCEPTED;
+        private static readonly int s_testPacketSize = PacketHelpers.GetPacketSize(s_testPacketId);
 
         [Fact]
         public unsafe void Rent_ReturnsBuffer_WhenNotAlreadyAllocated()
         {
             var buffer = new PacketBuffer();
-            var identifier = s_testPacketID;
+            var identifier = s_testPacketId;
             var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             var received = CreateReceivedPackets(1, &identifier, &sender);
@@ -35,7 +35,7 @@ namespace FOMServer.Shared.Tests
         public unsafe void Rent_ReturnsNull_WhenAlreadyAllocated()
         {
             var buffer = new PacketBuffer();
-            var identifier = s_testPacketID;
+            var identifier = s_testPacketId;
             var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             var received = CreateReceivedPackets(1, &identifier, &sender);
@@ -65,7 +65,7 @@ namespace FOMServer.Shared.Tests
         public unsafe void DisposePacket_FreesBuffer_WhenLastPacketDisposed()
         {
             var buffer = new PacketBuffer();
-            var identifiers = stackalloc PacketIdentifier[2] { s_testPacketID, s_testPacketID };
+            var identifiers = stackalloc PacketIdentifier[2] { s_testPacketId, s_testPacketId };
             var senders = stackalloc NetworkAddress[2]
             {
                 new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 },
@@ -103,7 +103,7 @@ namespace FOMServer.Shared.Tests
 
             // Use 2 packets so the buffer stays allocated after disposing the first one.
             // This ensures we hit the disposal flag check rather than the refCount check.
-            var identifiers = stackalloc PacketIdentifier[2] { s_testPacketID, s_testPacketID };
+            var identifiers = stackalloc PacketIdentifier[2] { s_testPacketId, s_testPacketId };
             var senders = stackalloc NetworkAddress[2]
             {
                 new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 },
@@ -130,7 +130,7 @@ namespace FOMServer.Shared.Tests
         public unsafe void DisposePacket_ThrowsObjectDisposed_WhenBufferVersionMismatch()
         {
             var buffer = new PacketBuffer();
-            var identifier = s_testPacketID;
+            var identifier = s_testPacketId;
             var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             var received = CreateReceivedPackets(1, &identifier, &sender);
@@ -157,7 +157,7 @@ namespace FOMServer.Shared.Tests
         public unsafe void PacketRef_ID_ThrowsObjectDisposed_WhenAccessingDisposedPacket()
         {
             var buffer = new PacketBuffer();
-            var identifier = s_testPacketID;
+            var identifier = s_testPacketId;
             var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             var received = CreateReceivedPackets(1, &identifier, &sender);
@@ -168,14 +168,14 @@ namespace FOMServer.Shared.Tests
 
             packet.Dispose();
 
-            _ = Assert.Throws<ObjectDisposedException>(() => _ = packet.ID);
+            _ = Assert.Throws<ObjectDisposedException>(() => _ = packet.Id);
         }
 
         [Fact]
         public unsafe void PacketRef_Sender_ThrowsObjectDisposed_WhenAccessingDisposedPacket()
         {
             var buffer = new PacketBuffer();
-            var identifier = s_testPacketID;
+            var identifier = s_testPacketId;
             var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             var received = CreateReceivedPackets(1, &identifier, &sender);
@@ -193,7 +193,7 @@ namespace FOMServer.Shared.Tests
         public unsafe void PacketRef_ReturnsCorrectValues_BeforeDispose()
         {
             var buffer = new PacketBuffer();
-            var identifier = s_testPacketID;
+            var identifier = s_testPacketId;
             var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             var received = CreateReceivedPackets(1, &identifier, &sender);
@@ -202,7 +202,7 @@ namespace FOMServer.Shared.Tests
             var packets = buffer.GetPackets();
             var packet = packets[0];
 
-            Assert.Equal(s_testPacketID, packet.ID);
+            Assert.Equal(s_testPacketId, packet.Id);
             Assert.Equal(sender, packet.Sender);
 
             // Clean up
@@ -213,7 +213,7 @@ namespace FOMServer.Shared.Tests
         public unsafe void PacketRef_ToString_ReturnsDisposedMessage_AfterDispose()
         {
             var buffer = new PacketBuffer();
-            var identifier = s_testPacketID;
+            var identifier = s_testPacketId;
             var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             var received = CreateReceivedPackets(1, &identifier, &sender);
@@ -232,7 +232,7 @@ namespace FOMServer.Shared.Tests
         public unsafe void PacketRef_Status_ReturnsReadError_WhenStatusByteIsNonZero()
         {
             var buffer = new PacketBuffer();
-            var identifier = s_testPacketID;
+            var identifier = s_testPacketId;
             var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             var received = CreateReceivedPackets(1, &identifier, &sender);
@@ -251,7 +251,7 @@ namespace FOMServer.Shared.Tests
         public unsafe void PacketRef_Data_ThrowsInvalidOperation_WhenStatusIsNotSuccess()
         {
             var buffer = new PacketBuffer();
-            var identifier = s_testPacketID;
+            var identifier = s_testPacketId;
             var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             var received = CreateReceivedPackets(1, &identifier, &sender);
@@ -272,7 +272,7 @@ namespace FOMServer.Shared.Tests
         public unsafe void PacketRef_ToString_ReturnsErrorMessage_WhenStatusIsNotSuccess()
         {
             var buffer = new PacketBuffer();
-            var identifier = s_testPacketID;
+            var identifier = s_testPacketId;
             var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             var received = CreateReceivedPackets(1, &identifier, &sender);

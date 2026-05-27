@@ -14,7 +14,7 @@ namespace FOMServer.Master.Core.Players
 
         public NetworkAddress Address { get; }
 
-        public uint? PlayerID
+        public uint? PlayerId
         {
             get
             {
@@ -52,7 +52,7 @@ namespace FOMServer.Master.Core.Players
             }
         }
 
-        public WorldID? CurrentWorld
+        public WorldId? CurrentWorld
         {
             get
             {
@@ -71,7 +71,7 @@ namespace FOMServer.Master.Core.Players
             }
         }
 
-        public WorldID? PendingWorld
+        public WorldId? PendingWorld
         {
             get
             {
@@ -96,7 +96,7 @@ namespace FOMServer.Master.Core.Players
             {
                 lock (_syncRoot)
                 {
-                    return PlayerID.HasValue && Player is null;
+                    return PlayerId.HasValue && Player is null;
                 }
             }
         }
@@ -112,16 +112,16 @@ namespace FOMServer.Master.Core.Players
             }
         }
 
-        public void BeginLogin(uint playerID)
+        public void BeginLogin(uint playerId)
         {
             lock (_syncRoot)
             {
-                if (PlayerID is not null)
+                if (PlayerId is not null)
                 {
                     throw new InvalidOperationException("Session login already started");
                 }
 
-                PlayerID = playerID;
+                PlayerId = playerId;
             }
         }
 
@@ -129,21 +129,21 @@ namespace FOMServer.Master.Core.Players
         {
             lock (_syncRoot)
             {
-                if (player.ID != PlayerID)
+                if (player.Id != PlayerId)
                 {
                     throw new InvalidOperationException(
-                        $"Player ID {player.ID} does not match the session's login ID {PlayerID}");
+                        $"Player Id {player.Id} does not match the session's login Id {PlayerId}");
                 }
 
                 Player = player;
             }
         }
 
-        public void BeginWorldTransfer(WorldID world)
+        public void BeginWorldTransfer(WorldId world)
         {
-            if (world == WorldID.MasterServer)
+            if (world == WorldId.MasterServer)
             {
-                throw new ArgumentException("Must use a valid WorldID", nameof(world));
+                throw new ArgumentException("Must use a valid WorldId", nameof(world));
             }
 
             lock (_syncRoot)

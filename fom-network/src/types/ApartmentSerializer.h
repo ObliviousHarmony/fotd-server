@@ -14,8 +14,8 @@ class ApartmentSerializer : protected TypeSerializer<Type::Apartment> {
 
     bs.WriteCompressed(data.id);
     bs.WriteCompressed(data.type);
-    bs.WriteCompressed(data.ownerPlayerID);
-    bs.WriteCompressed(data.ownerFactionID);
+    bs.WriteCompressed(data.ownerPlayerId);
+    bs.WriteCompressed(data.ownerFactionId);
 
     // Allowed Rank List
     bs.WriteCompressed((uint8_t)0);
@@ -46,8 +46,8 @@ class ApartmentSerializer : protected TypeSerializer<Type::Apartment> {
 
     if (!bs.ReadCompressed(data.id)) return false;
     if (!bs.ReadCompressed(data.type)) return false;
-    if (!bs.ReadCompressed(data.ownerPlayerID)) return false;
-    if (!bs.ReadCompressed(data.ownerFactionID)) return false;
+    if (!bs.ReadCompressed(data.ownerPlayerId)) return false;
+    if (!bs.ReadCompressed(data.ownerFactionId)) return false;
 
     // Allowed Rank List
     bs.ReadCompressed(skipU8);

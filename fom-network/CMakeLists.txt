@@ -6,10 +6,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(FOMNETWORK_SRC
   # Core API
-  "src/NetworkAPI.cpp"
-  "src/ServerAPI.cpp"
-  "src/ClientAPI.cpp"
-  "src/PacketAPI.cpp"
+  "src/NetworkApi.cpp"
+  "src/ServerApi.cpp"
+  "src/ClientApi.cpp"
+  "src/PacketApi.cpp"
   "src/FOMDataSerializer.cpp"
 
   # Types
@@ -37,10 +37,10 @@ set(FOMNETWORK_INC
   # Core API
   "include/fom-network/InteropTypes.h"
   "include/fom-network/Interop.h"
-  "include/fom-network/NetworkAPI.h"
-  "include/fom-network/ServerAPI.h"
-  "include/fom-network/ClientAPI.h"
-  "include/fom-network/PacketAPI.h"
+  "include/fom-network/NetworkApi.h"
+  "include/fom-network/ServerApi.h"
+  "include/fom-network/ClientApi.h"
+  "include/fom-network/PacketApi.h"
   "src/RakNetIncludes.h"
   "src/FOMDataSerializer.h"
   "src/BaseSerializer.h"
@@ -49,7 +49,7 @@ set(FOMNETWORK_INC
   "include/fom-network/enums/PacketIdentifier.h"
   "include/fom-network/enums/SerializationStatus.h"
   "include/fom-network/enums/AccountType.h"
-  "include/fom-network/enums/WorldID.h"
+  "include/fom-network/enums/WorldId.h"
   "include/fom-network/enums/Player.h"
   "include/fom-network/enums/ItemType.h"
   "include/fom-network/enums/ItemSecurity.h"

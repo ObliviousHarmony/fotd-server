@@ -31,10 +31,10 @@ namespace FOMServer.Shared.Infrastructure.Repositories
                 return null;
             }
 
-            return GetByID(id)!;
+            return GetById(id)!;
         }
 
-        public PlayerDto? GetByID(uint id)
+        public PlayerDto? GetById(uint id)
         {
             using var connection = _dbConnectionFactory.Create();
 

@@ -2,7 +2,7 @@
 
 #include <fom-network/Interop.h>
 #include <fom-network/enums/ApartmentType.h>
-#include <fom-network/enums/WorldID.h>
+#include <fom-network/enums/WorldId.h>
 #include <fom-network/types/ItemList.h>
 
 namespace FOMNetwork {
@@ -12,8 +12,8 @@ namespace Type {
 struct Apartment {
   uint32_t id;
   Enum::ApartmentType type;
-  uint32_t ownerPlayerID;
-  uint32_t ownerFactionID;
+  uint32_t ownerPlayerId;
+  uint32_t ownerFactionId;
   uint8_t isOpen;
   uint8_t ownerName[BufferSizes::PLAYER_NAME];
   uint8_t entryCode[8];

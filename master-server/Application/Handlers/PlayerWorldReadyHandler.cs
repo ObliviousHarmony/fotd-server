@@ -31,33 +31,33 @@ namespace FOMServer.Master.Application.Handlers
 
         public override void Handle(NetworkAddress sender, in PlayerWorldReady p)
         {
-            var session = _clientRegistry.Get(p.PlayerID);
+            var session = _clientRegistry.Get(p.PlayerId);
             if (session is null)
             {
-                _logger.LogWarning("Received world-ready for unknown player {PlayerID}", p.PlayerID);
+                _logger.LogWarning("Received world-ready for unknown player {PlayerId}", p.PlayerId);
                 return;
             }
 
             if (!session.PendingWorld.HasValue)
             {
-                _logger.LogWarning("Received world-ready for player {PlayerID} with no transfer in progress", p.PlayerID);
+                _logger.LogWarning("Received world-ready for player {PlayerId} with no transfer in progress", p.PlayerId);
                 return;
             }
 
-            var worldID = session.PendingWorld.Value;
+            var worldId = session.PendingWorld.Value;
 
             if (p.Status != PlayerWorldReady.StatusCode.Success)
             {
-                _logger.LogWarning("World failed to prepare player {PlayerID}: {Status}", p.PlayerID, p.Status);
-                SendLoginError(session, worldID, WorldLoginReturn.StatusCode.UnknownError);
+                _logger.LogWarning("World failed to prepare player {PlayerId}: {Status}", p.PlayerId, p.Status);
+                SendLoginError(session, worldId, WorldLoginReturn.StatusCode.UnknownError);
                 return;
             }
 
-            var worldServer = _worldServerRegistry.Get(worldID);
+            var worldServer = _worldServerRegistry.Get(worldId);
             if (worldServer is null)
             {
-                _logger.LogWarning("World {WorldID} went offline before player {PlayerID} could enter", worldID, p.PlayerID);
-                SendLoginError(session, worldID, WorldLoginReturn.StatusCode.ServerOffline);
+                _logger.LogWarning("World {WorldId} went offline before player {PlayerId} could enter", worldId, p.PlayerId);
+                SendLoginError(session, worldId, WorldLoginReturn.StatusCode.ServerOffline);
                 return;
             }
 
@@ -65,13 +65,13 @@ namespace FOMServer.Master.Application.Handlers
 
             using var response = new PacketWriter<WorldLoginReturn>(session.Address);
             ref var rData = ref response.Data;
-            rData.WorldID = worldID;
+            rData.WorldId = worldId;
             rData.Status = WorldLoginReturn.StatusCode.Success;
             rData.WorldServerAddress = worldServer.PublicAddress;
             _packetSender.Send(response.Build());
         }
 
-        private void SendLoginError(ClientSession session, WorldID worldID, WorldLoginReturn.StatusCode status)
+        private void SendLoginError(ClientSession session, WorldId worldId, WorldLoginReturn.StatusCode status)
         {
             if (status == WorldLoginReturn.StatusCode.Success)
             {
@@ -82,7 +82,7 @@ namespace FOMServer.Master.Application.Handlers
 
             using var response = new PacketWriter<WorldLoginReturn>(session.Address);
             ref var rData = ref response.Data;
-            rData.WorldID = worldID;
+            rData.WorldId = worldId;
             rData.Status = status;
             _packetSender.Send(response.Build());
         }

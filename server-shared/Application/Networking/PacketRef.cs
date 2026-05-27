@@ -38,7 +38,7 @@ namespace FOMServer.Shared.Application.Networking
             _parentBuffer = parentBuffer;
         }
 
-        public readonly PacketIdentifier ID => _parentBuffer.IsPacketDisposed(in this) ? throw new ObjectDisposedException(nameof(PacketRef)) : _id;
+        public readonly PacketIdentifier Id => _parentBuffer.IsPacketDisposed(in this) ? throw new ObjectDisposedException(nameof(PacketRef)) : _id;
 
         public readonly NetworkAddress Sender => _parentBuffer.IsPacketDisposed(in this) ? throw new ObjectDisposedException(nameof(PacketRef)) : field;
 

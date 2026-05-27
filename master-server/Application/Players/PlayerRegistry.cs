@@ -14,25 +14,25 @@ namespace FOMServer.Master.Application.Players
             _persistenceService = persistenceService;
         }
 
-        public Player? Get(uint playerID)
+        public Player? Get(uint playerId)
         {
-            return _players.GetValueOrDefault(playerID);
+            return _players.GetValueOrDefault(playerId);
         }
 
         public Player Login(ClientSession session)
         {
-            if (!session.PlayerID.HasValue)
+            if (!session.PlayerId.HasValue)
             {
                 throw new InvalidOperationException("Session login must be started before it can be completed");
             }
 
-            var playerID = session.PlayerID.Value;
+            var playerId = session.PlayerId.Value;
 
-            var player = new Player(playerID, session);
+            var player = new Player(playerId, session);
 
-            if (!_players.TryAdd(playerID, player))
+            if (!_players.TryAdd(playerId, player))
             {
-                throw new InvalidOperationException($"Player {playerID} is already logged in");
+                throw new InvalidOperationException($"Player {playerId} is already logged in");
             }
 
             session.CompleteLogin(player);
@@ -44,7 +44,7 @@ namespace FOMServer.Master.Application.Players
         {
             _persistenceService.WaitForPersistence(
                 player,
-                () => _players.TryRemove(new KeyValuePair<uint, Player>(player.ID, player)));
+                () => _players.TryRemove(new KeyValuePair<uint, Player>(player.Id, player)));
         }
     }
 }

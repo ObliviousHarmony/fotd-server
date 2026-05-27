@@ -27,13 +27,13 @@ namespace FOMServer.World.Application.Handlers
 
         public override void Handle(NetworkAddress sender, in PlayerMigrateWorld p)
         {
-            _ = _playerRegistry.PrepareForClient(p.PlayerID, p.ClientBinaryAddress);
-            _logger.LogInformation("Prepared player {PlayerID} for takeover", p.PlayerID);
+            _ = _playerRegistry.PrepareForClient(p.PlayerId, p.ClientBinaryAddress);
+            _logger.LogInformation("Prepared player {PlayerId} for takeover", p.PlayerId);
 
             using var response = new PacketWriter<PlayerWorldReady>();
             ref var rData = ref response.Data;
 
-            rData.PlayerID = p.PlayerID;
+            rData.PlayerId = p.PlayerId;
             rData.Status = PlayerWorldReady.StatusCode.Success;
 
             _packetSender.Send(response.Build());

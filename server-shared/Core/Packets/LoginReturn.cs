@@ -5,19 +5,19 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets
 {
-    [PacketID(PacketIdentifier.ID_LOGIN_RETURN)]
+    [PacketId(PacketIdentifier.ID_LOGIN_RETURN)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct LoginReturn
     {
         public const int BanLengthSize = 16;
         public const int BanReasonSize = 129;
         public const int ProcessBlacklistSize = 128;
-        public const int FactionMOTDSize = 1024;
+        public const int FactionMotdSize = 1024;
 
         public StatusCode Status;
-        public uint PlayerID;
+        public uint PlayerId;
 
-        // ====== PlayerID != 0 ======
+        // ====== PlayerId != 0 ======
         public AccountType AccountType;
         public byte IsVolunteer;
         public byte IsNewPlayer;
@@ -30,11 +30,11 @@ namespace FOMServer.Shared.Core.Packets
         public byte ProcessBlacklistCount;
         public fixed uint ProcessBlacklist[ProcessBlacklistSize];
 
-        public fixed byte RawFactionMOTD[FactionMOTDSize];
+        public fixed byte RawFactionMotd[FactionMotdSize];
 
         public Apartment DefaultApartment;
-        public WorldID DefaultApartmentWorldID;
-        public WorldID LoginWorldID;
+        public WorldId DefaultApartmentWorldId;
+        public WorldId LoginWorldId;
 
         // ===========================
 
@@ -49,7 +49,7 @@ namespace FOMServer.Shared.Core.Packets
             CreateCharacterError = 6, // LOGIN_RETURN_CREATE_CHARACTER_ERROR
             TempBanned = 7, // LOGIN_RETURN_TEMP_BANNED
             PermBanned = 8, // LOGIN_RETURN_PERM_BANNED
-            DuplicateIP = 9, // LOGIN_RETURN_DUPLICATE_IP
+            DuplicateIp = 9, // LOGIN_RETURN_DUPLICATE_IP
             IntegrityCheckFailed = 10, // LOGIN_RETURN_INTEGRITY_CHECK_FAILED
             RunAsAdmin = 11, // LOGIN_RETURN_RUN_AS_ADMIN
             AccountLocked = 12, // LOGIN_RETURN_ACCOUNT_LOCKED
@@ -78,13 +78,13 @@ namespace FOMServer.Shared.Core.Packets
             }
         }
 
-        public string FactionMOTD
+        public string FactionMotd
         {
             set
             {
-                fixed (byte* ptr = RawFactionMOTD)
+                fixed (byte* ptr = RawFactionMotd)
                 {
-                    CStringParser.FromString(value, ptr, FactionMOTDSize);
+                    CStringParser.FromString(value, ptr, FactionMotdSize);
                 }
             }
         }

@@ -41,12 +41,12 @@ namespace FOMServer.World.Application
             _clientService = clientService;
             _serviceProvider = serviceProvider;
 
-            _clientPort = ServerConstants.GetWorldClientPort(_serverSettings.WorldIDs[0]);
+            _clientPort = ServerConstants.GetWorldClientPort(_serverSettings.WorldIds[0]);
         }
 
         public async Task Run()
         {
-            Console.Title = $"World Server - {string.Join(", ", _serverSettings.WorldIDs)}";
+            Console.Title = $"World Server - {string.Join(", ", _serverSettings.WorldIds)}";
 
             // We need to make sure our packet structs are all blittable and match the C++ side.
             // This is critical to ensure that we don't have memory corruption and don't
@@ -54,9 +54,9 @@ namespace FOMServer.World.Application
             _networkService.ValidatePacketStructs();
 
             _logger.LogInformation("Starting world server");
-            foreach (var worldID in _serverSettings.WorldIDs)
+            foreach (var worldId in _serverSettings.WorldIds)
             {
-                _logger.LogInformation("World - '{WorldID}'", worldID);
+                _logger.LogInformation("World - '{WorldId}'", worldId);
             }
 
             Console.CancelKeyPress += (sender, e) =>
@@ -122,8 +122,8 @@ namespace FOMServer.World.Application
             );
 
             // Make sure clients can't send packets meant for master<->world communication.
-            networkManager.ClaimPacketID(PacketIdentifier.ID_PLAYER_MIGRATE_WORLD);
-            networkManager.ClaimPacketID(PacketIdentifier.ID_PLAYER_LEAVING_WORLD);
+            networkManager.ClaimPacketId(PacketIdentifier.ID_PLAYER_MIGRATE_WORLD);
+            networkManager.ClaimPacketId(PacketIdentifier.ID_PLAYER_LEAVING_WORLD);
 
             // Initialize the packet sender for communication with the master server.
             var packetSender = _serviceProvider.GetRequiredService<MasterPacketSender>();
@@ -135,15 +135,15 @@ namespace FOMServer.World.Application
             using var registerPacket = new PacketWriter<RegisterWorld>();
             ref var rpData = ref registerPacket.Data;
 
-            rpData.WorldIDCount = (byte)_serverSettings.WorldIDs.Length;
-            for (var i = 0; i < _serverSettings.WorldIDs.Length; i++)
+            rpData.WorldIdCount = (byte)_serverSettings.WorldIds.Length;
+            for (var i = 0; i < _serverSettings.WorldIds.Length; i++)
             {
-                rpData.WorldIDs[i] = _serverSettings.WorldIDs[i];
+                rpData.WorldIds[i] = _serverSettings.WorldIds[i];
             }
 
             rpData.PublicAddress = new NetworkAddress
             {
-                Address = _serverSettings.ClientIP!,
+                Address = _serverSettings.ClientIp!,
                 Port = _clientPort
             };
 

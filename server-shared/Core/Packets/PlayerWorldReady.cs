@@ -4,11 +4,11 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets
 {
-    [PacketID(PacketIdentifier.ID_PLAYER_WORLD_READY)]
+    [PacketId(PacketIdentifier.ID_PLAYER_WORLD_READY)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct PlayerWorldReady
     {
-        public uint PlayerID;
+        public uint PlayerId;
         public StatusCode Status;
 
         public enum StatusCode : byte

@@ -12,7 +12,7 @@ namespace FOMServer.Shared.Infrastructure.Repositories
             _dbConnectionFactory = dbConnectionFactory;
         }
 
-        public AccountDto? GetByID(uint id)
+        public AccountDto? GetById(uint id)
         {
             using var connection = _dbConnectionFactory.Create();
 

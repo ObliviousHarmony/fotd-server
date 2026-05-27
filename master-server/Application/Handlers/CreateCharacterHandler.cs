@@ -43,7 +43,7 @@ namespace FOMServer.Master.Application.Handlers
 
             using var response = new PacketWriter<LoginReturn>(sender);
             ref var rData = ref response.Data;
-            rData.PlayerID = p.PlayerID;
+            rData.PlayerId = p.PlayerId;
 
             if (session.Player is not null)
             {
@@ -61,7 +61,7 @@ namespace FOMServer.Master.Application.Handlers
             }
 
             var created = _playerRepository.Create(
-                p.PlayerID,
+                p.PlayerId,
                 p.Name,
                 p.Biography,
                 p.Avatar.Sex,
@@ -76,7 +76,7 @@ namespace FOMServer.Master.Application.Handlers
                 return;
             }
 
-            _clientRegistry.BeginLogin(session, p.PlayerID);
+            _clientRegistry.BeginLogin(session, p.PlayerId);
             _ = _playerRegistry.Login(session);
 
             rData.Status = LoginReturn.StatusCode.Success;

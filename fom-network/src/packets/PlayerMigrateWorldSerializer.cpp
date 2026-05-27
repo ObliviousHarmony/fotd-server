@@ -6,7 +6,7 @@ namespace FOMNetwork {
 
 bool PlayerMigrateWorldSerializer::Read(
     RakNet::BitStream& bs, Packet::PlayerMigrateWorld* data) const {
-  if (!bs.ReadCompressed(data->playerID)) return false;
+  if (!bs.ReadCompressed(data->playerId)) return false;
   if (!bs.Read(data->clientBinaryAddress)) return false;
 
   return true;
@@ -14,7 +14,7 @@ bool PlayerMigrateWorldSerializer::Read(
 
 void PlayerMigrateWorldSerializer::Write(
     RakNet::BitStream& bs, const Packet::PlayerMigrateWorld* data) const {
-  bs.WriteCompressed(data->playerID);
+  bs.WriteCompressed(data->playerId);
   bs.Write(data->clientBinaryAddress);
 }
 

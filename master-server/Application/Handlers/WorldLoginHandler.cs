@@ -45,32 +45,32 @@ namespace FOMServer.Master.Application.Handlers
                 return;
             }
 
-            var player = _playerRepository.GetByID(p.PlayerID);
+            var player = _playerRepository.GetById(p.PlayerId);
             if (player is null)
             {
-                SendLoginError(sender, p.WorldID, WorldLoginReturn.StatusCode.UnknownError);
+                SendLoginError(sender, p.WorldId, WorldLoginReturn.StatusCode.UnknownError);
                 return;
             }
 
-            var worldServer = _worldServerRegistry.Get(p.WorldID);
+            var worldServer = _worldServerRegistry.Get(p.WorldId);
             if (worldServer is null)
             {
-                SendLoginError(sender, p.WorldID, WorldLoginReturn.StatusCode.ServerOffline);
+                SendLoginError(sender, p.WorldId, WorldLoginReturn.StatusCode.ServerOffline);
                 return;
             }
 
-            session.BeginWorldTransfer(p.WorldID);
+            session.BeginWorldTransfer(p.WorldId);
 
             using var prepareWorldServer = new PacketWriter<PlayerMigrateWorld>(worldServer.ServerAddress);
             ref var mData = ref prepareWorldServer.Data;
 
-            mData.PlayerID = p.PlayerID;
+            mData.PlayerId = p.PlayerId;
             mData.ClientBinaryAddress = sender.BinaryAddress;
 
             _worldPacketSender.Send(prepareWorldServer.Build());
         }
 
-        private void SendLoginError(in NetworkAddress destination, WorldID worldID, WorldLoginReturn.StatusCode status)
+        private void SendLoginError(in NetworkAddress destination, WorldId worldId, WorldLoginReturn.StatusCode status)
         {
             if (status == WorldLoginReturn.StatusCode.Success)
             {
@@ -80,7 +80,7 @@ namespace FOMServer.Master.Application.Handlers
             using var response = new PacketWriter<WorldLoginReturn>(destination);
             ref var rData = ref response.Data;
 
-            rData.WorldID = worldID;
+            rData.WorldId = worldId;
             rData.Status = status;
 
             _clientPacketSender.Send(response.Build());

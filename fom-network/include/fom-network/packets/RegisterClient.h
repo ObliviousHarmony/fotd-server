@@ -7,9 +7,9 @@ namespace Packet {
 
 #pragma pack(push, 1)
 struct RegisterClient {
-  uint8_t worldID;
-  uint32_t playerID;
-  uint32_t worldCRC;
+  uint8_t worldId;
+  uint32_t playerId;
+  uint32_t worldCrc;
 };
 #pragma pack(pop)
 

@@ -8,7 +8,7 @@
 namespace FOMNetwork {
 
 /**
- * Handles packet data serialization and deserialization based on packet ID.
+ * Handles packet data serialization and deserialization based on packet Id.
  */
 class FOMDataSerializer {
  public:
@@ -18,9 +18,9 @@ class FOMDataSerializer {
   static size_t GetPacketCount();
 
   /**
-   * Fetches the size of a packet based on its ID.
+   * Fetches the size of a packet based on its Id.
    *
-   * @param id The packet ID to fetch the size for.
+   * @param id The packet Id to fetch the size for.
    */
   static int GetPacketSize(Enum::PacketIdentifier id);
 
@@ -28,7 +28,7 @@ class FOMDataSerializer {
    * Writes packet data into a bitstream buffer.
    *
    * @param bs The bitstream to write to.
-   * @param id The packet ID to write.
+   * @param id The packet Id to write.
    * @param data A buffer containing the packet data to write.
    */
   static bool Write(RakNet::BitStream& bs, const Enum::PacketIdentifier id,
@@ -38,7 +38,7 @@ class FOMDataSerializer {
    * Reads a bitstream buffer into packet data.
    *
    * @param bs The bitstream to read from.
-   * @param id The packet ID to read.
+   * @param id The packet Id to read.
    * @param data A buffer to read the packet data into.
    */
   static bool Read(RakNet::BitStream& bs, const Enum::PacketIdentifier id,
@@ -46,16 +46,16 @@ class FOMDataSerializer {
 
  private:
   /**
-   * Fetches the writer for a given packet ID.
+   * Fetches the writer for a given packet Id.
    *
-   * @param id The packet ID to fetch the writer for.
+   * @param id The packet Id to fetch the writer for.
    */
   static const IWriter* GetWriter(Enum::PacketIdentifier id);
 
   /**
-   * Fetches the reader for a given packet ID.
+   * Fetches the reader for a given packet Id.
    *
-   * @param id The packet ID to fetch the reader for.
+   * @param id The packet Id to fetch the reader for.
    */
   static const IReader* GetReader(Enum::PacketIdentifier id);
 };

@@ -19,9 +19,9 @@ namespace FOMServer.World.Application.Players
             _timeProvider = timeProvider;
         }
 
-        public Player? Get(uint playerID)
+        public Player? Get(uint playerId)
         {
-            return _players.GetValueOrDefault(playerID);
+            return _players.GetValueOrDefault(playerId);
         }
 
         public Player? Get(NetworkAddress address)
@@ -29,23 +29,23 @@ namespace FOMServer.World.Application.Players
             return _playersByAddress.GetValueOrDefault(address);
         }
 
-        public Player PrepareForClient(uint playerID, uint clientBinaryAddress)
+        public Player PrepareForClient(uint playerId, uint clientBinaryAddress)
         {
-            var player = new Player(playerID);
-            _pendingPlayers[playerID] = new PendingPlayer(player, clientBinaryAddress, _timeProvider.GetUtcNow());
+            var player = new Player(playerId);
+            _pendingPlayers[playerId] = new PendingPlayer(player, clientBinaryAddress, _timeProvider.GetUtcNow());
             return player;
         }
 
-        public Player? ClaimForClient(uint playerID, NetworkAddress sender)
+        public Player? ClaimForClient(uint playerId, NetworkAddress sender)
         {
-            if (!_pendingPlayers.TryGetValue(playerID, out var pending))
+            if (!_pendingPlayers.TryGetValue(playerId, out var pending))
             {
                 return null;
             }
 
             if (pending.IsExpired(_timeProvider.GetUtcNow()))
             {
-                _ = _pendingPlayers.TryRemove(new KeyValuePair<uint, PendingPlayer>(playerID, pending));
+                _ = _pendingPlayers.TryRemove(new KeyValuePair<uint, PendingPlayer>(playerId, pending));
                 return null;
             }
 
@@ -54,7 +54,7 @@ namespace FOMServer.World.Application.Players
                 return null;
             }
 
-            if (!_pendingPlayers.TryRemove(new KeyValuePair<uint, PendingPlayer>(playerID, pending)))
+            if (!_pendingPlayers.TryRemove(new KeyValuePair<uint, PendingPlayer>(playerId, pending)))
             {
                 return null;
             }
@@ -62,7 +62,7 @@ namespace FOMServer.World.Application.Players
             var player = pending.Player;
             player.ClaimForClient(sender);
 
-            if (!_players.TryAdd(playerID, player))
+            if (!_players.TryAdd(playerId, player))
             {
                 return null;
             }
@@ -79,7 +79,7 @@ namespace FOMServer.World.Application.Players
                 () =>
                 {
                     _ = _playersByAddress.TryRemove(new KeyValuePair<NetworkAddress, Player>(player.Address, player));
-                    _ = _players.TryRemove(new KeyValuePair<uint, Player>(player.ID, player));
+                    _ = _players.TryRemove(new KeyValuePair<uint, Player>(player.Id, player));
                 });
         }
 

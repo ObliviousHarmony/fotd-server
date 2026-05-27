@@ -15,7 +15,7 @@ namespace FOMServer.Master.Tests
 {
     public class ConnectionLifecycleTests
     {
-        private const uint PlayerID = 42;
+        private const uint PlayerId = 42;
 
         [Fact]
         public void Connect_Login_Disconnect_DrivesSessionAndPlayerLifecycle()
@@ -30,22 +30,22 @@ namespace FOMServer.Master.Tests
             Assert.NotNull(session);
             Assert.False(session!.IsLoggingIn);
             Assert.False(session.IsReady);
-            Assert.Null(fixture.PlayerRegistry.Get(PlayerID));
+            Assert.Null(fixture.PlayerRegistry.Get(PlayerId));
 
             // 2. Login: starts login, loads + completes the player, replies.
             fixture.Login.Handle(address, new Login());
 
             Assert.True(session.IsReady);
             Assert.NotNull(session.Player);
-            Assert.Equal(PlayerID, session.Player!.ID);
-            Assert.Same(session.Player, fixture.PlayerRegistry.Get(PlayerID));
-            Assert.Contains(PacketHelpers.GetPacketTypeID<LoginReturn>(), fixture.Sender.Sent);
+            Assert.Equal(PlayerId, session.Player!.Id);
+            Assert.Same(session.Player, fixture.PlayerRegistry.Get(PlayerId));
+            Assert.Contains(PacketHelpers.GetPacketTypeId<LoginReturn>(), fixture.Sender.Sent);
 
             // 3. Disconnect: unregisters the session and logs the player out.
             fixture.Disconnect.Handle(address, new DisconnectionNotification());
 
             Assert.Null(fixture.ClientRegistry.Get(address));
-            Assert.Null(fixture.PlayerRegistry.Get(PlayerID));
+            Assert.Null(fixture.PlayerRegistry.Get(PlayerId));
         }
 
         [Fact]
@@ -56,12 +56,12 @@ namespace FOMServer.Master.Tests
 
             fixture.NewConnection.Handle(address, new NewIncomingConnection());
             fixture.Login.Handle(address, new Login());
-            Assert.NotNull(fixture.PlayerRegistry.Get(PlayerID));
+            Assert.NotNull(fixture.PlayerRegistry.Get(PlayerId));
 
             fixture.ConnectionLost.Handle(address, new ConnectionLost());
 
             Assert.Null(fixture.ClientRegistry.Get(address));
-            Assert.Null(fixture.PlayerRegistry.Get(PlayerID));
+            Assert.Null(fixture.PlayerRegistry.Get(PlayerId));
         }
 
         [Fact]
@@ -93,10 +93,10 @@ namespace FOMServer.Master.Tests
                 PlayerRegistry = new PlayerRegistry(persistence.Object);
 
                 var accounts = new Mock<IAccountRepository>();
-                _ = accounts.Setup(r => r.GetByUsername(It.IsAny<string>())).Returns(new AccountDto { id = PlayerID });
+                _ = accounts.Setup(r => r.GetByUsername(It.IsAny<string>())).Returns(new AccountDto { id = PlayerId });
 
                 var players = new Mock<IPlayerRepository>();
-                _ = players.Setup(r => r.GetByID(PlayerID)).Returns(new PlayerDto { id = PlayerID, name = "Tester" });
+                _ = players.Setup(r => r.GetById(PlayerId)).Returns(new PlayerDto { id = PlayerId, name = "Tester" });
 
                 // IWorldServerRegistry is an internal interface; mocking it would need an
                 // unsigned DynamicProxy assembly that the keyed InternalsVisibleTo doesn't cover.
@@ -138,17 +138,17 @@ namespace FOMServer.Master.Tests
                 return [];
             }
 
-            public WorldServer? Get(WorldID id)
+            public WorldServer? Get(WorldId id)
             {
                 return null;
             }
 
-            public WorldID[] Register(WorldID[] ids, NetworkAddress serverAddress, NetworkAddress publicAddress)
+            public WorldId[] Register(WorldId[] ids, NetworkAddress serverAddress, NetworkAddress publicAddress)
             {
                 return [];
             }
 
-            public WorldID[] Unregister(NetworkAddress serverAddress)
+            public WorldId[] Unregister(NetworkAddress serverAddress)
             {
                 return [];
             }
@@ -160,13 +160,13 @@ namespace FOMServer.Master.Tests
 
             public void Send(in QueuePacket packet)
             {
-                Sent.Add(packet.ID);
+                Sent.Add(packet.Id);
                 packet.Release();
             }
 
             public void Broadcast(in QueuePacket packet)
             {
-                Sent.Add(packet.ID);
+                Sent.Add(packet.Id);
                 packet.Release();
             }
         }

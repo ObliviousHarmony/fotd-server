@@ -30,7 +30,7 @@ namespace FOMServer.Master.Application.Handlers
             var player = _playerRepository.GetByName(p.Name);
             if (player is not null)
             {
-                rData.OwnerPlayerID = player.id;
+                rData.OwnerPlayerId = player.id;
             }
 
             _packetSender.Send(response.Build());

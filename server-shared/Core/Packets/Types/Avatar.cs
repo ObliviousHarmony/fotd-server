@@ -11,10 +11,10 @@ namespace FOMServer.Shared.Core.Packets.Types
         public ushort Face;
         public ushort Hair;
 
-        public ushort FactionID;
-        public ushort RankID;
+        public ushort FactionId;
+        public ushort RankId;
         public byte Unknown1;
-        public ushort LegacyFactionID;
+        public ushort LegacyFactionId;
 
         public fixed ushort EquipmentSlots[(int)EquipmentSlot.NUM_EQUIPMENT_SLOTS];
 

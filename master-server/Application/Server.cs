@@ -132,9 +132,9 @@ namespace FOMServer.Master.Application
             );
 
             // Make sure clients can't send packets meant for master<->world communication.
-            networkManager.ClaimPacketID(PacketIdentifier.ID_REGISTER_WORLD);
-            networkManager.ClaimPacketID(PacketIdentifier.ID_PLAYER_WORLD_READY);
-            networkManager.ClaimPacketID(PacketIdentifier.ID_PLAYER_MIGRATE_WORLD);
+            networkManager.ClaimPacketId(PacketIdentifier.ID_REGISTER_WORLD);
+            networkManager.ClaimPacketId(PacketIdentifier.ID_PLAYER_WORLD_READY);
+            networkManager.ClaimPacketId(PacketIdentifier.ID_PLAYER_MIGRATE_WORLD);
 
             // Initialize the packet sender for communication with world servers.
             var packetSender = _serviceProvider.GetRequiredService<WorldPacketSender>();
@@ -164,7 +164,7 @@ namespace FOMServer.Master.Application
 
             // Clients connecting produce NewIncomingConnection. Claim it on the client network
             // so world-server connections (on the other manager) don't get registered as client sessions.
-            networkManager.ClaimPacketID(PacketIdentifier.ID_NEW_INCOMING_CONNECTION);
+            networkManager.ClaimPacketId(PacketIdentifier.ID_NEW_INCOMING_CONNECTION);
 
             // Initialize the packet sender for communication with clients.
             var packetSender = _serviceProvider.GetRequiredService<ClientPacketSender>();

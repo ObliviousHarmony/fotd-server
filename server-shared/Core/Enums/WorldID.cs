@@ -1,6 +1,6 @@
 namespace FOMServer.Shared.Core.Enums
 {
-    public enum WorldID : byte
+    public enum WorldId : byte
     {
         MasterServer = 0, // MASTER_SERVER
         Manhattan = 1, // NYC_MANHATTAN

@@ -7,7 +7,7 @@ namespace FOMServer.Shared.Core.Repositories
     {
         PlayerDto? Create(uint id, string name, string biography, AvatarSex sex, AvatarRace race, ushort face, ushort hair);
 
-        PlayerDto? GetByID(uint id);
+        PlayerDto? GetById(uint id);
 
         PlayerDto? GetByName(string name);
 

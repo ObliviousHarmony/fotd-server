@@ -10,7 +10,7 @@ void WorldLoginReturnSerializer::Write(
   NetworkAddressSerializer addressSerializer;
 
   bs.WriteCompressed(data->status);
-  bs.WriteCompressed(data->worldID);
+  bs.WriteCompressed(data->worldId);
   addressSerializer.Write(bs, data->worldServerAddress);
 }
 

@@ -6,11 +6,11 @@ namespace FOMServer.Master.Core.Players
     {
         ClientSession? Get(NetworkAddress address);
 
-        ClientSession? Get(uint playerID);
+        ClientSession? Get(uint playerId);
 
         ClientSession Register(NetworkAddress address);
 
-        void BeginLogin(ClientSession session, uint playerID);
+        void BeginLogin(ClientSession session, uint playerId);
 
         bool Unregister(ClientSession session);
     }

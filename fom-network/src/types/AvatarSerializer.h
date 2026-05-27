@@ -14,12 +14,12 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
     WriteBits(bs, data.face, 5);
     WriteBits(bs, data.hair, 5);
 
-    // This is a bug, factionID is 16-bits but that's what the client does.
-    WriteBits(bs, data.factionID, 32);
+    // This is a bug, factionId is 16-bits but that's what the client does.
+    WriteBits(bs, data.factionId, 32);
 
-    WriteBits(bs, data.rankID, 5);
+    WriteBits(bs, data.rankId, 5);
     WriteBits(bs, data.unknown1, 6);
-    WriteBits(bs, data.legacyFactionID, 4);
+    WriteBits(bs, data.legacyFactionId, 4);
 
     for (int i = 0; i < Enum::NUM_BASIC_EQUIPMENT_SLOTS; ++i)
       WriteBits(bs, data.equipmentSlots[i], 12);
@@ -55,12 +55,12 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
     if (!ReadBits(bs, data.face, 5)) return false;
     if (!ReadBits(bs, data.hair, 5)) return false;
 
-    // This is a bug, factionID is 16-bits but that's what the client does.
-    if (!ReadBits(bs, data.factionID, 32)) return false;
+    // This is a bug, factionId is 16-bits but that's what the client does.
+    if (!ReadBits(bs, data.factionId, 32)) return false;
 
-    if (!ReadBits(bs, data.rankID, 5)) return false;
+    if (!ReadBits(bs, data.rankId, 5)) return false;
     if (!ReadBits(bs, data.unknown1, 6)) return false;
-    if (!ReadBits(bs, data.legacyFactionID, 4)) return false;
+    if (!ReadBits(bs, data.legacyFactionId, 4)) return false;
 
     for (int i = 0; i < Enum::NUM_BASIC_EQUIPMENT_SLOTS; ++i) {
       if (!ReadBits(bs, data.equipmentSlots[i], 12)) return false;

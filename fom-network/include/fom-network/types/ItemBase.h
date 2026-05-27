@@ -18,9 +18,9 @@ struct ItemBase {
   uint16_t durability;
   uint8_t durabilityLossFactor;
   Enum::ItemSecurity security;
-  uint32_t creatorPlayerID;
+  uint32_t creatorPlayerId;
   uint32_t timeout;
-  uint32_t stolenFromPlayerID;
+  uint32_t stolenFromPlayerId;
   uint8_t classification;
   Enum::ItemQuality quality;
   uint8_t attributeBonus;

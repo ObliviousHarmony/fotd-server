@@ -51,7 +51,7 @@ namespace FOMServer.Shared.Application.Networking
                 throw new InvalidOperationException("Cannot add more packets to the buffer");
             }
 
-            var packetSize = PacketHelpers.GetPacketSize(packet.ID);
+            var packetSize = PacketHelpers.GetPacketSize(packet.Id);
 
             // Copy packet data into the POH buffer.
             fixed (byte* destPtr = &_packetData[_packetDataOffset])
@@ -73,7 +73,7 @@ namespace FOMServer.Shared.Application.Networking
             {
                 _sendPackets[_packetCount] = new SendPacket
                 {
-                    ID = packet.ID,
+                    Id = packet.Id,
                     Data = (IntPtr)dataPtr,
                     NumNetworkAddresses = addresses.Length,
                     NetworkAddresses = (IntPtr)addrPtr,

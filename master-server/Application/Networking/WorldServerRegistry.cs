@@ -7,27 +7,27 @@ namespace FOMServer.Master.Application.Networking
 {
     internal class WorldServerRegistry : IWorldServerRegistry
     {
-        private readonly ConcurrentDictionary<WorldID, WorldServer> _worldServers = new();
+        private readonly ConcurrentDictionary<WorldId, WorldServer> _worldServers = new();
 
         public WorldServer[] GetAll()
         {
             return [.. _worldServers.Values];
         }
 
-        public WorldServer? Get(WorldID id)
+        public WorldServer? Get(WorldId id)
         {
             return _worldServers.GetValueOrDefault(id);
         }
 
-        public WorldID[] Register(WorldID[] ids, NetworkAddress serverAddress, NetworkAddress publicAddress)
+        public WorldId[] Register(WorldId[] ids, NetworkAddress serverAddress, NetworkAddress publicAddress)
         {
-            var registered = new List<WorldID>();
+            var registered = new List<WorldId>();
 
             foreach (var id in ids)
             {
                 var worldServer = new WorldServer
                 {
-                    ID = id,
+                    Id = id,
                     ServerAddress = serverAddress,
                     PublicAddress = publicAddress
                 };
@@ -43,9 +43,9 @@ namespace FOMServer.Master.Application.Networking
             return [.. registered];
         }
 
-        public WorldID[] Unregister(NetworkAddress serverAddress)
+        public WorldId[] Unregister(NetworkAddress serverAddress)
         {
-            var unregistered = new List<WorldID>();
+            var unregistered = new List<WorldId>();
 
             foreach (var kvp in _worldServers)
             {

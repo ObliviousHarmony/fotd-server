@@ -15,9 +15,9 @@ class ItemBaseSerializer : protected TypeSerializer<Type::ItemBase> {
     bs.WriteCompressed(data.durability);
     bs.WriteCompressed(data.durabilityLossFactor);
     bs.WriteCompressed(data.security);
-    bs.WriteCompressed(data.creatorPlayerID);
+    bs.WriteCompressed(data.creatorPlayerId);
     bs.WriteCompressed(data.timeout);
-    bs.WriteCompressed(data.stolenFromPlayerID);
+    bs.WriteCompressed(data.stolenFromPlayerId);
     bs.WriteCompressed(data.classification);
     bs.WriteCompressed(data.quality);
     bs.WriteCompressed(data.attributeBonus);
@@ -32,9 +32,9 @@ class ItemBaseSerializer : protected TypeSerializer<Type::ItemBase> {
     if (!bs.ReadCompressed(data.durability)) return false;
     if (!bs.ReadCompressed(data.durabilityLossFactor)) return false;
     if (!bs.ReadCompressed(data.security)) return false;
-    if (!bs.ReadCompressed(data.creatorPlayerID)) return false;
+    if (!bs.ReadCompressed(data.creatorPlayerId)) return false;
     if (!bs.ReadCompressed(data.timeout)) return false;
-    if (!bs.ReadCompressed(data.stolenFromPlayerID)) return false;
+    if (!bs.ReadCompressed(data.stolenFromPlayerId)) return false;
     if (!bs.ReadCompressed(data.classification)) return false;
     if (!bs.ReadCompressed(data.quality)) return false;
     if (!bs.ReadCompressed(data.attributeBonus)) return false;

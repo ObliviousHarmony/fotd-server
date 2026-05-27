@@ -7,16 +7,16 @@ namespace FOMServer.Master.Application.Players
     internal class ClientRegistry : IClientRegistry
     {
         private readonly ConcurrentDictionary<NetworkAddress, ClientSession> _sessions = new();
-        private readonly ConcurrentDictionary<uint, ClientSession> _sessionsByPlayerID = new();
+        private readonly ConcurrentDictionary<uint, ClientSession> _sessionsByPlayerId = new();
 
         public ClientSession? Get(NetworkAddress address)
         {
             return _sessions.GetValueOrDefault(address);
         }
 
-        public ClientSession? Get(uint playerID)
+        public ClientSession? Get(uint playerId)
         {
-            return _sessionsByPlayerID.GetValueOrDefault(playerID);
+            return _sessionsByPlayerId.GetValueOrDefault(playerId);
         }
 
         public ClientSession Register(NetworkAddress address)
@@ -27,10 +27,10 @@ namespace FOMServer.Master.Application.Players
                 : session;
         }
 
-        public void BeginLogin(ClientSession session, uint playerID)
+        public void BeginLogin(ClientSession session, uint playerId)
         {
-            session.BeginLogin(playerID);
-            _sessionsByPlayerID[playerID] = session;
+            session.BeginLogin(playerId);
+            _sessionsByPlayerId[playerId] = session;
         }
 
         public bool Unregister(ClientSession session)
@@ -40,9 +40,9 @@ namespace FOMServer.Master.Application.Players
                 return false;
             }
 
-            if (session.PlayerID.HasValue)
+            if (session.PlayerId.HasValue)
             {
-                _ = _sessionsByPlayerID.TryRemove(new KeyValuePair<uint, ClientSession>(session.PlayerID.Value, session));
+                _ = _sessionsByPlayerId.TryRemove(new KeyValuePair<uint, ClientSession>(session.PlayerId.Value, session));
             }
 
             return true;

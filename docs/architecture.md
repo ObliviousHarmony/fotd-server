@@ -37,13 +37,13 @@ the containing fields must be the same size and have the same offsets. Failing
 to meet this criteria will lead to undefined behavior since the same sections
 of memory will be interpreted differently between native and managed code.
 
-In order to make sure this happens the library supplies [a validation function](../fom-network/include/fom-network/NetworkAPI.h).
+In order to make sure this happens the library supplies [a validation function](../fom-network/include/fom-network/NetworkApi.h).
 Consumers are expected to call this and provide all of the structures used for the packet data.
 
 ### Connection Management
 
-The library supports both [listening for connections](../fom-network/include/fom-network/ServerAPI.h)
-and [opening them with remote hosts](../fom-network/include/fom-network/ClientAPI.h).
+The library supports both [listening for connections](../fom-network/include/fom-network/ServerApi.h)
+and [opening them with remote hosts](../fom-network/include/fom-network/ClientApi.h).
 Consumers are provided `RakPeerInterface` pointers that are then used by the
 rest of the library's functions to interact with the network. Since these are
 a blittable type, managed code is able to hold on to them without marshalling.
@@ -139,7 +139,7 @@ using var response = new PacketWriter<LoginReturn>();
 ref var data = ref response.Data;
 
 data.Status = LoginReturn.StatusCode.LOGIN_RETURN_SUCCESS;
-data.PlayerID = player.ID;
+data.PlayerId = player.Id;
 
 response.AddDestination(sender);
 _packetSender.Send(response.Build());
@@ -193,7 +193,7 @@ new packet types and handlers.
 
 Multiple `NetworkManager` instances can coexist (e.g., one for client connections, one for
 server-to-server communication). To prevent clients from spoofing internal packets, network
-managers can "claim" packet IDs using `ClaimPacketID()`. When a packet with a claimed ID
+managers can "claim" packet IDs using `ClaimPacketId()`. When a packet with a claimed ID
 is received by a different network manager, it is ignored and logged.
 
 ### Database Persistence

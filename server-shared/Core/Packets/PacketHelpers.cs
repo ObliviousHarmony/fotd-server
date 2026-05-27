@@ -14,7 +14,7 @@ namespace FOMServer.Shared.Core.Packets
         public static readonly int MaxPacketSize;
 
         /// <summary>
-        /// A map for getting the packet ID associated with a data struct by type.
+        /// A map for getting the packet Id associated with a data struct by type.
         /// </summary>
         private static readonly Dictionary<Type, PacketIdentifier> s_idByPacketType = [];
 
@@ -33,8 +33,8 @@ namespace FOMServer.Shared.Core.Packets
             var allTypes = typeof(PacketHelpers).Assembly.GetTypes();
             foreach (var type in allTypes)
             {
-                // Check for your PacketIDAttribute
-                var idAttr = type.GetCustomAttribute<PacketIDAttribute>();
+                // Check for your PacketIdAttribute
+                var idAttr = type.GetCustomAttribute<PacketIdAttribute>();
                 if (idAttr is null)
                 {
                     continue;
@@ -46,8 +46,8 @@ namespace FOMServer.Shared.Core.Packets
                     MaxPacketSize = size;
                 }
 
-                s_idByPacketType[type] = idAttr.ID;
-                s_packetSizes[idAttr.ID] = size;
+                s_idByPacketType[type] = idAttr.Id;
+                s_packetSizes[idAttr.Id] = size;
             }
         }
 
@@ -58,17 +58,17 @@ namespace FOMServer.Shared.Core.Packets
         {
             return [.. s_packetSizes.Select(kv => new PacketStructure
             {
-                ID = kv.Key,
+                Id = kv.Key,
                 Size = kv.Value
             })];
         }
 
         /// <summary>
-        /// Returns the size of the struct associated with the given packet ID.
+        /// Returns the size of the struct associated with the given packet Id.
         /// </summary>
         public static int GetPacketSize(PacketIdentifier id)
         {
-            return !s_packetSizes.TryGetValue(id, out var size) ? throw new ArgumentException($"No size found for ID '{id}'", nameof(id)) : size;
+            return !s_packetSizes.TryGetValue(id, out var size) ? throw new ArgumentException($"No size found for Id '{id}'", nameof(id)) : size;
         }
 
         /// <summary>
@@ -78,30 +78,30 @@ namespace FOMServer.Shared.Core.Packets
         {
             var type = typeof(TPacket);
             return !s_idByPacketType.TryGetValue(type, out var id)
-                ? throw new InvalidOperationException($"Type {type.Name} is not mapped to any PacketID")
+                ? throw new InvalidOperationException($"Type {type.Name} is not mapped to any PacketId")
                 : GetPacketSize(id);
         }
 
         /// <summary>
-        /// Returns the packet ID of the given packet type
+        /// Returns the packet Id of the given packet type
         /// </summary>
-        public static PacketIdentifier GetPacketTypeID<TPacket>() where TPacket : unmanaged
+        public static PacketIdentifier GetPacketTypeId<TPacket>() where TPacket : unmanaged
         {
             var type = typeof(TPacket);
-            return !s_idByPacketType.TryGetValue(type, out var expectedID)
-                ? throw new InvalidOperationException($"Type {type.Name} is not mapped to any PacketID")
-                : expectedID;
+            return !s_idByPacketType.TryGetValue(type, out var expectedId)
+                ? throw new InvalidOperationException($"Type {type.Name} is not mapped to any PacketId")
+                : expectedId;
         }
 
         /// <summary>
-        /// Checks to see if a given packet type matches what the ID expects.
+        /// Checks to see if a given packet type matches what the Id expects.
         /// </summary>
         public static bool IsPacketOfType<TPacket>(PacketIdentifier id) where TPacket : unmanaged
         {
             var type = typeof(TPacket);
-            return !s_idByPacketType.TryGetValue(type, out var expectedID)
-                ? throw new InvalidOperationException($"Type {type.Name} is not mapped to any PacketID")
-                : id == expectedID;
+            return !s_idByPacketType.TryGetValue(type, out var expectedId)
+                ? throw new InvalidOperationException($"Type {type.Name} is not mapped to any PacketId")
+                : id == expectedId;
         }
     }
 }

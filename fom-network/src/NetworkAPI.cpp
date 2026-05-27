@@ -1,4 +1,4 @@
-#include <fom-network/NetworkAPI.h>
+#include <fom-network/NetworkApi.h>
 
 #include "FOMDataSerializer.h"
 
@@ -11,7 +11,7 @@ int32_t FOMNetwork_ValidatePacketStructs(const PacketStructure* structures,
     return -1;
   }
 
-  // Make sure that the size of each packet ID matches.
+  // Make sure that the size of each packet Id matches.
   // This is not a comprehensive check but the
   // consumer can perform any additional
   // verification that may be needed.

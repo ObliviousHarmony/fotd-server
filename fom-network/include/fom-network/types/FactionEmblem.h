@@ -9,7 +9,7 @@ namespace Type {
 
 #pragma pack(push, 1)
 struct FactionEmblem {
-  uint32_t staticEmblemID;
+  uint32_t staticEmblemId;
   FactionEmblemLayer layers[Constants::NUM_FACTION_EMBLEM_LAYERS];
 };
 #pragma pack(pop)

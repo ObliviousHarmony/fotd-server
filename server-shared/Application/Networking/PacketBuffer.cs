@@ -28,7 +28,7 @@ namespace FOMServer.Shared.Application.Networking
         private int _refCount;
         private byte[]? _buffer;
         private int _bufferSize;
-        private PacketIdentifier[]? _packetIDs;
+        private PacketIdentifier[]? _packetIds;
 
         /// <summary>
         /// Keeps track of the current version of the buffer.
@@ -64,14 +64,14 @@ namespace FOMServer.Shared.Application.Networking
 
             _ = Interlocked.Increment(ref s_activeBufferCount);
 
-            _packetIDs = ArrayPool<PacketIdentifier>.Shared.Rent(received.Count);
+            _packetIds = ArrayPool<PacketIdentifier>.Shared.Rent(received.Count);
 
             // Allocate a buffer large enough to hold all of the packets.
             // Each packet slot is 1 byte status + packet data.
             _bufferSize = 0;
             for (byte i = 0; i < received.Count; i++)
             {
-                _packetIDs[i] = received.Identifiers[i];
+                _packetIds[i] = received.Identifiers[i];
                 _bufferSize += 1 + PacketHelpers.GetPacketSize(received.Identifiers[i]);
             }
             _buffer = ArrayPool<byte>.Shared.Rent(_bufferSize);
@@ -84,11 +84,11 @@ namespace FOMServer.Shared.Application.Networking
                 _packetRefDisposalFlags[i] = 0;
 
                 var startIndex = GetPacketStart(i);
-                var packetSize = PacketHelpers.GetPacketSize(_packetIDs![i]);
+                var packetSize = PacketHelpers.GetPacketSize(_packetIds![i]);
                 _packetRefs[i] = new PacketRef(
                     i,
                     bufferVersion,
-                    _packetIDs[i],
+                    _packetIds[i],
                     received.Senders[i],
                     _buffer.AsMemory(startIndex, 1 + packetSize),
                     this
@@ -151,8 +151,8 @@ namespace FOMServer.Shared.Application.Networking
                 // returned back to the pool.
                 _ = Interlocked.Increment(ref _bufferVersion);
 
-                var tempIDs = Interlocked.Exchange(ref _packetIDs, null);
-                ArrayPool<PacketIdentifier>.Shared.Return(tempIDs!);
+                var tempIds = Interlocked.Exchange(ref _packetIds, null);
+                ArrayPool<PacketIdentifier>.Shared.Return(tempIds!);
 
                 var tempBuffer = Interlocked.Exchange(ref _buffer, null);
                 ArrayPool<byte>.Shared.Return(tempBuffer!);
@@ -169,22 +169,22 @@ namespace FOMServer.Shared.Application.Networking
                 throw new InvalidOperationException("PacketBuffer has not been allocated");
             }
 
-            if (index >= _packetIDs!.Length)
+            if (index >= _packetIds!.Length)
             {
-                throw new IndexOutOfRangeException($"Packet {index} is out of range {_packetIDs.Length}");
+                throw new IndexOutOfRangeException($"Packet {index} is out of range {_packetIds.Length}");
             }
 
             var currentIndex = 0;
             var offset = 0;
             while (currentIndex < index)
             {
-                offset += 1 + PacketHelpers.GetPacketSize(_packetIDs[currentIndex++]);
+                offset += 1 + PacketHelpers.GetPacketSize(_packetIds[currentIndex++]);
             }
 
-            var packetEnd = offset + 1 + PacketHelpers.GetPacketSize(_packetIDs[index]);
+            var packetEnd = offset + 1 + PacketHelpers.GetPacketSize(_packetIds[index]);
             return packetEnd > _bufferSize
                 ? throw new InvalidOperationException(
-                    $"Packet {_packetIDs[index]} ({index}) Size {packetEnd - offset} Overflow - {_bufferSize}"
+                    $"Packet {_packetIds[index]} ({index}) Size {packetEnd - offset} Overflow - {_bufferSize}"
                 )
                 : offset;
         }

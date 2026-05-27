@@ -7,7 +7,7 @@ namespace FOMServer.Shared.Core.Packets.Types
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct FactionEmblem
     {
-        public uint StaticEmblemID;
+        public uint StaticEmblemId;
         public LayersArray Layers;
 
         [InlineArray(FactionConstants.NumFactionEmblemLayers)]

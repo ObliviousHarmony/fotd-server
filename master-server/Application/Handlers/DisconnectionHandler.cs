@@ -45,9 +45,9 @@ namespace FOMServer.Master.Application.Handlers
                 return false;
             }
 
-            foreach (var worldID in unregistered)
+            foreach (var worldId in unregistered)
             {
-                _logger.LogInformation("World '{WorldID}' disconnected", worldID);
+                _logger.LogInformation("World '{WorldId}' disconnected", worldId);
             }
 
             return true;

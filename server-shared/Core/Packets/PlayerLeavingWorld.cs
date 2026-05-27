@@ -4,10 +4,10 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets
 {
-    [PacketID(PacketIdentifier.ID_PLAYER_LEAVING_WORLD)]
+    [PacketId(PacketIdentifier.ID_PLAYER_LEAVING_WORLD)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct PlayerLeavingWorld
     {
-        public uint PlayerID;
+        public uint PlayerId;
     }
 }

@@ -118,7 +118,7 @@ FOM_API ReceivedPackets FOMNetwork_ReceivePackets(FOMNetworkPeer* peer);
  * The status byte indicates deserialization result:
  * - SERIALIZATION_SUCCESS (0): Packet data is valid
  * - SERIALIZATION_READ_ERROR (1): Deserialization failed
- * - SERIALIZATION_UNHANDLED_PACKET (2): No reader for packet ID
+ * - SERIALIZATION_UNHANDLED_PACKET (2): No reader for packet Id
  *
  * @param peer A pointer to the network interface.
  * @param received A structure containing a buffer of received packets and the
@@ -128,10 +128,10 @@ FOM_API ReceivedPackets FOMNetwork_ReceivePackets(FOMNetworkPeer* peer);
  * @param packetBufferLen The size of the packet buffer in bytes.
  * @return int32_t The status code.
  * @retval 0 Success.
- * @retval -1 A packet ID was received that could not be deserialized.
+ * @retval -1 A packet Id was received that could not be deserialized.
  * @retval -2 The packetBufferLen is not able to hold all of the received
  * packets.
- * @retval -3 There was a mismatch between a packet's ID and the ID provided in
+ * @retval -3 There was a mismatch between a packet's Id and the Id provided in
  * the received argument.
  */
 FOM_API int32_t FOMNetwork_ProcessPackets(FOMNetworkPeer* peer,

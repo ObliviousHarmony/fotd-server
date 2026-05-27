@@ -6,7 +6,7 @@ namespace FOMNetwork {
 
 void CheckNameReturnSerializer::Write(
     RakNet::BitStream& bs, const Packet::CheckNameReturn* data) const {
-  bs.WriteCompressed(data->ownerPlayerID);
+  bs.WriteCompressed(data->ownerPlayerId);
 }
 
 }  // namespace FOMNetwork

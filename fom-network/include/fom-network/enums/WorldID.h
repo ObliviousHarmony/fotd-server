@@ -5,7 +5,7 @@
 namespace FOMNetwork {
 namespace Enum {
 
-enum WorldID : uint8_t {
+enum WorldId : uint8_t {
   MASTER_SERVER = 0,
   NYC_MANHATTAN = 1,
   // NYC_BROOKLYN = 2,

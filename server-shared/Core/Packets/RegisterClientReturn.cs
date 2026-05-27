@@ -7,12 +7,12 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets
 {
-    [PacketID(PacketIdentifier.ID_REGISTER_CLIENT_RETURN)]
+    [PacketId(PacketIdentifier.ID_REGISTER_CLIENT_RETURN)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct RegisterClientReturn
     {
-        public byte WorldID;
-        public uint PlayerID;
+        public byte WorldId;
+        public uint PlayerId;
         public StatusCode Status;
         public ItemList Inventory;
         public EquipmentArray Equipment;
@@ -30,7 +30,7 @@ namespace FOMServer.Shared.Core.Packets
         public byte Unknown3;
         public Position SafezoneCenter;
         public uint SafezoneRadius;
-        public uint NodeID;
+        public uint NodeId;
         public byte Unknown4;
         public ushort CloningDuration;
         public FactionEmblem FactionEmblem;

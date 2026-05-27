@@ -12,9 +12,9 @@ namespace FOMServer.Shared.Core.Packets.Types
         public ushort Durability;
         public byte DurabilityLossFactor;
         public ItemSecurity Security;
-        public uint CreatorPlayerID;
+        public uint CreatorPlayerId;
         public uint Timeout;
-        public uint StolenFromPlayerID;
+        public uint StolenFromPlayerId;
         public byte Classification;
         public ItemQuality Quality;
         public byte AttributeBonus;

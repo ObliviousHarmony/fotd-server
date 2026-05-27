@@ -5,12 +5,12 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets
 {
-    [PacketID(PacketIdentifier.ID_LOGIN)]
+    [PacketId(PacketIdentifier.ID_LOGIN)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct Login
     {
         public const int PasswordHashSize = 64;
-        public const int MACAddressSize = 32;
+        public const int MacAddressSize = 32;
         public const int DriveCount = 4;
         public const int DriveModelSize = 64;
         public const int DriveSerialNumberSize = 32;
@@ -20,10 +20,10 @@ namespace FOMServer.Shared.Core.Packets
 
         public fixed byte RawUsername[BufferSizes.Username];
         public fixed byte RawPasswordHash[PasswordHashSize];
-        public uint ClientCRC;
-        public uint CShellCRC;
-        public uint ObjectCRC;
-        public fixed byte RawMACAddress[MACAddressSize];
+        public uint ClientCrc;
+        public uint CShellCrc;
+        public uint ObjectCrc;
+        public fixed byte RawMacAddress[MacAddressSize];
         public fixed byte RawDriveModels[DriveCount * DriveModelSize];
         public fixed byte RawDriveSerialNumbers[DriveCount * DriveSerialNumberSize];
         public fixed byte RawLoginToken[LoginTokenSize];
@@ -55,13 +55,13 @@ namespace FOMServer.Shared.Core.Packets
             }
         }
 
-        public string MACAddress
+        public string MacAddress
         {
             get
             {
-                fixed (byte* ptr = RawMACAddress)
+                fixed (byte* ptr = RawMacAddress)
                 {
-                    return CStringParser.ToString(ptr, MACAddressSize);
+                    return CStringParser.ToString(ptr, MacAddressSize);
                 }
             }
         }

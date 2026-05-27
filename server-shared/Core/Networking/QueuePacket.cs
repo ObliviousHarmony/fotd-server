@@ -22,7 +22,7 @@ namespace FOMServer.Shared.Core.Networking
         /// </summary>
         public const int MaxNetworkAddressesPerPacket = 5000;
 
-        public readonly PacketIdentifier ID;
+        public readonly PacketIdentifier Id;
         public readonly PacketPriority Priority;
         public readonly PacketReliability Reliability;
         public readonly byte OrderingChannel;
@@ -45,7 +45,7 @@ namespace FOMServer.Shared.Core.Networking
             bool broadcast
         )
         {
-            ID = id;
+            Id = id;
             _packetData = packetData;
             _networkAddress = networkAddress;
             _networkAddresses = networkAddresses;
@@ -56,7 +56,7 @@ namespace FOMServer.Shared.Core.Networking
             Broadcast = broadcast;
         }
 
-        public ReadOnlySpan<byte> Data => _packetData.AsSpan(0, PacketHelpers.GetPacketSize(ID));
+        public ReadOnlySpan<byte> Data => _packetData.AsSpan(0, PacketHelpers.GetPacketSize(Id));
 
         public ReadOnlySpan<NetworkAddress> NetworkAddresses => _networkAddresses is not null
                     ? _networkAddresses.AsSpan(0, _addressCount)

@@ -13,7 +13,7 @@ enum PlayerWorldReadyStatus : uint8_t {
 
 #pragma pack(push, 1)
 struct PlayerWorldReady {
-  uint32_t playerID;
+  uint32_t playerId;
   PlayerWorldReadyStatus status;
 };
 #pragma pack(pop)

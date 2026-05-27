@@ -13,10 +13,10 @@ struct Avatar {
   uint16_t face;
   uint16_t hair;
 
-  uint16_t factionID;
-  uint16_t rankID;
+  uint16_t factionId;
+  uint16_t rankId;
   uint8_t unknown1;  // 6 bits on wire
-  uint16_t legacyFactionID;
+  uint16_t legacyFactionId;
 
   uint16_t equipmentSlots[Enum::NUM_EQUIPMENT_SLOTS];
 

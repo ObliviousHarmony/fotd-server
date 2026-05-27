@@ -9,13 +9,13 @@ namespace FOMServer.World.Core.Players
 
         public Player(uint id, int[]? initialAttributes = null)
         {
-            ID = id;
+            Id = id;
             Attributes = new PlayerAttributes(this, initialAttributes);
         }
 
         public event PersistableChangeCallback? OnPersistableChange;
 
-        public uint ID { get; }
+        public uint Id { get; }
 
         public NetworkAddress Address { get; private set; } = NetworkAddress.Unassigned;
 
@@ -27,7 +27,7 @@ namespace FOMServer.World.Core.Players
             {
                 if (Address != NetworkAddress.Unassigned)
                 {
-                    throw new InvalidOperationException($"Client '{address}' cannot claim player {ID} ({Address})");
+                    throw new InvalidOperationException($"Client '{address}' cannot claim player {Id} ({Address})");
                 }
                 Address = address;
             }

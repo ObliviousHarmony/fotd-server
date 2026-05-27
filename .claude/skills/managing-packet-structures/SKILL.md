@@ -19,7 +19,7 @@ The ServerShared project contains [the managed packet structs](/server-shared/Co
 
 - [PacketIdentifier Enum](/server-shared/Core/Enums/PacketIdentifier.cs) matches native code.
 - Required `struct` Attributes:
-  - `[PacketID(PacketIdentifier.{VALUE})]` hooks into validation and testing.
+  - `[PacketId(PacketIdentifier.{VALUE})]` hooks into validation and testing.
   - `[StructLayout(LayoutKind.Sequential, Pack = 1)]` for blittability.
 - Strings are fixed-length `byte` arrays that map to C-style strings in native code.
 - Variable-length arrays of data have a fixed-length buffer and a size field.

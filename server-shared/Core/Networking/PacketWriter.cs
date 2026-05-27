@@ -195,7 +195,7 @@ namespace FOMServer.Shared.Core.Networking
             return Interlocked.Exchange(ref _ownsBuffer, 0) != 1
                 ? throw new ObjectDisposedException(nameof(PacketWriter<>))
                 : new QueuePacket(
-                PacketHelpers.GetPacketTypeID<TPacket>(),
+                PacketHelpers.GetPacketTypeId<TPacket>(),
                 _packetData,
                 _networkAddress,
                 _networkAddresses,

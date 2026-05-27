@@ -54,10 +54,10 @@ namespace FOMServer.Master.Application.Handlers
             // Already logged in on this session: idempotent success.
             if (session.Player is not null)
             {
-                rData.PlayerID = session.Player.ID;
+                rData.PlayerId = session.Player.Id;
                 rData.Status = LoginReturn.StatusCode.Success;
                 rData.AccountType = AccountType.Prepaid;
-                rData.LoginWorldID = WorldID.Manhattan;
+                rData.LoginWorldId = WorldId.Manhattan;
                 _packetSender.Send(response.Build());
                 return;
             }
@@ -74,9 +74,9 @@ namespace FOMServer.Master.Application.Handlers
 
             // Check Password
 
-            rData.PlayerID = account.id;
+            rData.PlayerId = account.id;
 
-            var player = _playerRepository.GetByID(account.id);
+            var player = _playerRepository.GetById(account.id);
             if (player is null)
             {
                 rData.Status = LoginReturn.StatusCode.CreateCharacter;
@@ -89,7 +89,7 @@ namespace FOMServer.Master.Application.Handlers
 
             rData.Status = LoginReturn.StatusCode.Success;
             rData.AccountType = AccountType.Prepaid;
-            rData.LoginWorldID = WorldID.Manhattan;
+            rData.LoginWorldId = WorldId.Manhattan;
             _packetSender.Send(response.Build());
         }
     }

@@ -9,7 +9,7 @@ namespace FOMNetwork {
 class PlayerProfileSerializer : protected TypeSerializer<Type::PlayerProfile> {
  public:
   void Write(RakNet::BitStream& bs, const Type::PlayerProfile& data) const {
-    bs.WriteCompressed(data.playerID);
+    bs.WriteCompressed(data.playerId);
     bs.Write(data.unknown1 == 1);
     EncodeString(bs, data.playerName);
     EncodeString(bs, data.factionName);
@@ -18,7 +18,7 @@ class PlayerProfileSerializer : protected TypeSerializer<Type::PlayerProfile> {
   }
 
   bool Read(RakNet::BitStream& bs, Type::PlayerProfile& data) const {
-    if (!bs.ReadCompressed(data.playerID)) return false;
+    if (!bs.ReadCompressed(data.playerId)) return false;
     bool unknown1;
     if (!bs.Read(unknown1)) return false;
     data.unknown1 = unknown1 ? 1 : 0;

@@ -6,11 +6,11 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets
 {
-    [PacketID(PacketIdentifier.ID_CREATE_CHARACTER)]
+    [PacketId(PacketIdentifier.ID_CREATE_CHARACTER)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct CreateCharacter
     {
-        public uint PlayerID;
+        public uint PlayerId;
         public Avatar Avatar;
         public fixed byte RawName[BufferSizes.PlayerName];
         public fixed byte RawBiography[BufferSizes.PlayerBiography];

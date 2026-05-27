@@ -7,7 +7,7 @@ namespace Packet {
 
 #pragma pack(push, 1)
 struct PlayerMigrateWorld {
-  uint32_t playerID;
+  uint32_t playerId;
   uint32_t clientBinaryAddress;
 };
 #pragma pack(pop)

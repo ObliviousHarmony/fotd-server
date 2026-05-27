@@ -21,21 +21,21 @@ namespace FOMServer.Master.Application.Handlers
 
         public override void Handle(NetworkAddress sender, in RegisterWorld p)
         {
-            if (p.WorldIDCount <= 0)
+            if (p.WorldIdCount <= 0)
             {
-                throw new InvalidOperationException($"World server '{sender}' did not send any world IDs to register");
+                throw new InvalidOperationException($"World server '{sender}' did not send any world Ids to register");
             }
 
-            var worldIDs = new WorldID[p.WorldIDCount];
-            for (var i = 0; i < p.WorldIDCount; i++)
+            var worldIds = new WorldId[p.WorldIdCount];
+            for (var i = 0; i < p.WorldIdCount; i++)
             {
-                worldIDs[i] = p.WorldIDs[i];
+                worldIds[i] = p.WorldIds[i];
             }
 
-            var registered = _worldServerRegistry.Register(worldIDs, sender, p.PublicAddress);
-            foreach (var worldID in registered)
+            var registered = _worldServerRegistry.Register(worldIds, sender, p.PublicAddress);
+            foreach (var worldId in registered)
             {
-                _logger.LogInformation("World '{WorldID}' ({ServerAddress}) ready for clients at {PublicAddress}", worldID, sender, p.PublicAddress);
+                _logger.LogInformation("World '{WorldId}' ({ServerAddress}) ready for clients at {PublicAddress}", worldId, sender, p.PublicAddress);
             }
         }
     }

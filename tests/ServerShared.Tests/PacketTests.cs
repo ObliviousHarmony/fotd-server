@@ -13,7 +13,7 @@ namespace FOMServer.Shared.Tests
             // Every packet struct must explicitly define the memory layout to
             // ensure that it matches the C++ layout exactly.
             var packetTypes = typeof(IPacketHandler).Assembly.GetTypes()
-                .Where(t => t.GetCustomAttribute<PacketIDAttribute>() is not null)
+                .Where(t => t.GetCustomAttribute<PacketIdAttribute>() is not null)
                 .ToList();
 
             foreach (var type in packetTypes)

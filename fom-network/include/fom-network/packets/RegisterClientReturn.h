@@ -26,8 +26,8 @@ constexpr int MAX_AVATAR_CACHE = 300;
 
 #pragma pack(push, 1)
 struct RegisterClientReturn {
-  uint8_t worldID;
-  uint32_t playerID;
+  uint8_t worldId;
+  uint32_t playerId;
   RegisterClientReturnStatus status;
   Type::ItemList inventory;
   Type::Item equipment[Enum::NUM_EQUIPMENT_SLOTS];
@@ -45,7 +45,7 @@ struct RegisterClientReturn {
   uint8_t unknown3;
   Type::Position safezoneCenter;
   uint32_t safezoneRadius;
-  uint32_t nodeID;
+  uint32_t nodeId;
   uint8_t unknown4;
   uint16_t cloningDuration;
   Type::FactionEmblem factionEmblem;

@@ -1,4 +1,4 @@
-#include <fom-network/PacketAPI.h>
+#include <fom-network/PacketApi.h>
 #include <fom-network/enums/PacketIdentifier.h>
 #include <fom-network/enums/SerializationStatus.h>
 
@@ -49,8 +49,8 @@ ReceivedPackets FOMNetwork_ReceivePackets(FOMNetworkPeer* peer) {
     }
 
     // We can only handle packets that we know about.
-    auto packetID = GetPacketIdentifier(p);
-    int packetSize = FOMDataSerializer::GetPacketSize(packetID);
+    auto packetId = GetPacketIdentifier(p);
+    int packetSize = FOMDataSerializer::GetPacketSize(packetId);
     if (packetSize <= 0) {
       rakPeer->DeallocatePacket(p);
       continue;
@@ -105,8 +105,8 @@ int32_t FOMNetwork_ProcessPackets(FOMNetworkPeer* peer,
     }
 
     // Don't try to deserialize packets that we don't know about.
-    FOMNetwork::Enum::PacketIdentifier packetID = received.identifiers[i];
-    int packetSize = FOMDataSerializer::GetPacketSize(packetID);
+    FOMNetwork::Enum::PacketIdentifier packetId = received.identifiers[i];
+    int packetSize = FOMDataSerializer::GetPacketSize(packetId);
     if (packetSize <= 0) {
       ret = -1;
       rakPeer->DeallocatePacket(p);
@@ -129,18 +129,18 @@ int32_t FOMNetwork_ProcessPackets(FOMNetworkPeer* peer,
 
     RakNet::BitStream bs(p->data, p->length, false);
 
-    // Skip the packet ID and rely on what the consumer gave us.
-    // The buffer was size based on those IDs and using a
+    // Skip the packet Id and rely on what the consumer gave us.
+    // The buffer was size based on those Ids and using a
     // different one will lead to memory corruption.
-    uint8_t rawPacketID;
-    bs.Read(rawPacketID);
-    if (rawPacketID == ID_TIMESTAMP) {
+    uint8_t rawPacketId;
+    bs.Read(rawPacketId);
+    if (rawPacketId == ID_TIMESTAMP) {
       // Skip the timestamp too if one is present.
       bs.IgnoreBytes(sizeof(RakNetTime));
-      bs.Read(rawPacketID);
+      bs.Read(rawPacketId);
     }
 
-    if (rawPacketID != packetID) {
+    if (rawPacketId != packetId) {
       // This should never happen, but if it does we don't
       // want to try to read the packet.
       *statusByte = FOMNetwork::Enum::SERIALIZATION_UNHANDLED_PACKET;
@@ -151,7 +151,7 @@ int32_t FOMNetwork_ProcessPackets(FOMNetworkPeer* peer,
     }
 
     // Read the packet bitstream into our packet's buffer.
-    bool readSuccess = FOMDataSerializer::Read(bs, packetID, packetData);
+    bool readSuccess = FOMDataSerializer::Read(bs, packetId, packetData);
     *statusByte = readSuccess ? FOMNetwork::Enum::SERIALIZATION_SUCCESS
                               : FOMNetwork::Enum::SERIALIZATION_READ_ERROR;
 

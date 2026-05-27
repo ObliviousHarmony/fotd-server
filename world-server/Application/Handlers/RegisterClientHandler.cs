@@ -28,12 +28,12 @@ namespace FOMServer.World.Application.Handlers
 
         public override void Handle(NetworkAddress sender, in RegisterClient p)
         {
-            var player = _playerRegistry.ClaimForClient(p.PlayerID, sender);
+            var player = _playerRegistry.ClaimForClient(p.PlayerId, sender);
             if (player is null)
             {
                 _logger.LogWarning(
-                    "Dropping client registration for player {PlayerID} from '{Address}': no matching pending player",
-                    p.PlayerID,
+                    "Dropping client registration for player {PlayerId} from '{Address}': no matching pending player",
+                    p.PlayerId,
                     sender);
                 return;
             }
@@ -41,8 +41,8 @@ namespace FOMServer.World.Application.Handlers
             using var response = new PacketWriter<RegisterClientReturn>(sender);
             ref var rData = ref response.Data;
 
-            rData.WorldID = p.WorldID;
-            rData.PlayerID = p.PlayerID;
+            rData.WorldId = p.WorldId;
+            rData.PlayerId = p.PlayerId;
             rData.Status = RegisterClientReturn.StatusCode.Success;
 
             // Placeholder world-entry state; real values are sourced from the loaded Player
@@ -63,7 +63,7 @@ namespace FOMServer.World.Application.Handlers
             }
 
             rData.Profile.PlayerName = "Naruto Uzumaki";
-            rData.NodeID = 1;
+            rData.NodeId = 1;
 
             _packetSender.Send(response.Build());
         }

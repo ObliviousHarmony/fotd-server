@@ -5,7 +5,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets
 {
-    [PacketID(PacketIdentifier.ID_LOGIN_REQUEST_RETURN)]
+    [PacketId(PacketIdentifier.ID_LOGIN_REQUEST_RETURN)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct LoginRequestReturn
     {

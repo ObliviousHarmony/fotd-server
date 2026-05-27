@@ -4,13 +4,13 @@ namespace FOMServer.World.Core.Players
 {
     internal interface IPlayerRegistry
     {
-        Player? Get(uint playerID);
+        Player? Get(uint playerId);
 
         Player? Get(NetworkAddress address);
 
-        Player PrepareForClient(uint playerID, uint clientBinaryAddress);
+        Player PrepareForClient(uint playerId, uint clientBinaryAddress);
 
-        Player? ClaimForClient(uint playerID, NetworkAddress sender);
+        Player? ClaimForClient(uint playerId, NetworkAddress sender);
 
         void Logout(Player player);
     }

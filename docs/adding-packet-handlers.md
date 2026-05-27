@@ -129,11 +129,11 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets
 {
-    // Each packet must be given a PacketID attribute.
+    // Each packet must be given a PacketId attribute.
     // This hooks the struct up and ensures that it
     // is handled correctly and validated in the
     // places where it needs to be.
-    [PacketID(PacketIdentifier.ID_EXAMPLE)]
+    [PacketId(PacketIdentifier.ID_EXAMPLE)]
     // This attribute ensures that the field layout is not changed.
     // Note that the "Pack = 1" option mirrors the
     // `#pragma pack(push, 1)` in the native struct.
@@ -178,5 +178,5 @@ namespace FOMServer.<Master|World>.Application.Handlers
       This is done in the server's `Server.cs` file after the network manager is created.
 
 ```csharp
-networkManager.ClaimPacketID(PacketIdentifier.ID_EXAMPLE);
+networkManager.ClaimPacketId(PacketIdentifier.ID_EXAMPLE);
 ```

@@ -6,9 +6,9 @@ namespace FOMNetwork {
 
 bool RegisterClientSerializer::Read(RakNet::BitStream& bs,
                                     Packet::RegisterClient* data) const {
-  if (!bs.ReadCompressed(data->worldID)) return false;
-  if (!bs.ReadCompressed(data->playerID)) return false;
-  if (!bs.ReadCompressed(data->worldCRC)) return false;
+  if (!bs.ReadCompressed(data->worldId)) return false;
+  if (!bs.ReadCompressed(data->playerId)) return false;
+  if (!bs.ReadCompressed(data->worldCrc)) return false;
 
   return true;
 }

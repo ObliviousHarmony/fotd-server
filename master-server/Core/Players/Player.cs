@@ -8,12 +8,12 @@ namespace FOMServer.Master.Core.Players
 
         public Player(uint id, ClientSession session)
         {
-            ID = id;
+            Id = id;
             _session = session;
         }
 
         public event PersistableChangeCallback? OnPersistableChange;
 
-        public uint ID { get; }
+        public uint Id { get; }
     }
 }

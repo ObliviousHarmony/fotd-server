@@ -58,7 +58,7 @@ namespace FOMServer.World.Core.Players
 
         public event PersistableChangeCallback? OnPersistableChange;
 
-        public uint PlayerID => _player.ID;
+        public uint PlayerId => _player.Id;
 
         public static ref readonly AttributeMetadata GetMetadata(AttributeType attribute)
         {

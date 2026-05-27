@@ -5,12 +5,12 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets
 {
-    [PacketID(PacketIdentifier.ID_WORLD_LOGIN_RETURN)]
+    [PacketId(PacketIdentifier.ID_WORLD_LOGIN_RETURN)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct WorldLoginReturn
     {
         public StatusCode Status;
-        public WorldID WorldID;
+        public WorldId WorldId;
         public NetworkAddress WorldServerAddress;
 
         public enum StatusCode : byte

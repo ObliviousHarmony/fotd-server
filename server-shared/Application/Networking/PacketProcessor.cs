@@ -47,10 +47,10 @@ namespace FOMServer.Shared.Application.Networking
                 }
 
                 var packetType = baseType.GetGenericArguments()[0];
-                var packetIDAttr = packetType.GetCustomAttribute<PacketIDAttribute>();
-                return packetIDAttr is null
-                    ? throw new InvalidOperationException($"Packet type {packetType.Name} is missing [PacketID]")
-                    : packetIDAttr.ID;
+                var packetIdAttr = packetType.GetCustomAttribute<PacketIdAttribute>();
+                return packetIdAttr is null
+                    ? throw new InvalidOperationException($"Packet type {packetType.Name} is missing [PacketId]")
+                    : packetIdAttr.Id;
             });
         }
 
@@ -103,7 +103,7 @@ namespace FOMServer.Shared.Application.Networking
                 {
                     try
                     {
-                        if (_handlers.TryGetValue(packet.ID, out var handler))
+                        if (_handlers.TryGetValue(packet.Id, out var handler))
                         {
                             handler.Handle(packet);
                         }
@@ -116,7 +116,7 @@ namespace FOMServer.Shared.Application.Networking
                     {
                         // Letting unhandled exceptions prevent further packet processing
                         // would silently break break the server, so log and continue.
-                        LogPacketException(packet.ID, packet.Sender, ex);
+                        LogPacketException(packet.Id, packet.Sender, ex);
                     }
                     finally
                     {
@@ -142,18 +142,18 @@ namespace FOMServer.Shared.Application.Networking
         private void OnUnhandledPacket(PacketRef packet)
         {
             // Any unhandled internal packets should be ignored.
-            if (packet.ID < PacketIdentifier.ID_FOM_PACKET_START)
+            if (packet.Id < PacketIdentifier.ID_FOM_PACKET_START)
             {
                 return;
             }
 
-            LogUnhandledPacket(packet.ID, packet.Sender);
+            LogUnhandledPacket(packet.Id, packet.Sender);
         }
 
-        [LoggerMessage(Level = LogLevel.Critical, Message = "Packet '{PacketID}' from '{Sender}' failed")]
-        private partial void LogPacketException(PacketIdentifier packetID, NetworkAddress sender, Exception ex);
+        [LoggerMessage(Level = LogLevel.Critical, Message = "Packet '{PacketId}' from '{Sender}' failed")]
+        private partial void LogPacketException(PacketIdentifier packetId, NetworkAddress sender, Exception ex);
 
-        [LoggerMessage(Level = LogLevel.Critical, Message = "Unhandled packet ID '{PacketID}' from '{Sender}'")]
-        private partial void LogUnhandledPacket(PacketIdentifier packetID, NetworkAddress sender);
+        [LoggerMessage(Level = LogLevel.Critical, Message = "Unhandled packet Id '{PacketId}' from '{Sender}'")]
+        private partial void LogUnhandledPacket(PacketIdentifier packetId, NetworkAddress sender);
     }
 }

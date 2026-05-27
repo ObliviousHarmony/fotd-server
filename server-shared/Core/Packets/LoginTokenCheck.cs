@@ -5,7 +5,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets
 {
-    [PacketID(PacketIdentifier.ID_LOGIN_TOKEN_CHECK)]
+    [PacketId(PacketIdentifier.ID_LOGIN_TOKEN_CHECK)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct LoginTokenCheck
     {

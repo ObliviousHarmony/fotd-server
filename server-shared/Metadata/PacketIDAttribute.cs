@@ -3,13 +3,13 @@ using FOMServer.Shared.Core.Enums;
 namespace FOMServer.Shared.Metadata
 {
     [AttributeUsage(AttributeTargets.Struct, Inherited = false)]
-    internal sealed class PacketIDAttribute : Attribute
+    internal sealed class PacketIdAttribute : Attribute
     {
-        public PacketIDAttribute(PacketIdentifier id)
+        public PacketIdAttribute(PacketIdentifier id)
         {
-            ID = id;
+            Id = id;
         }
 
-        public PacketIdentifier ID { get; }
+        public PacketIdentifier Id { get; }
     }
 }

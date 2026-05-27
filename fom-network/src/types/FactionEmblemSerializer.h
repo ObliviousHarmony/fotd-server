@@ -13,7 +13,7 @@ class FactionEmblemSerializer : protected TypeSerializer<Type::FactionEmblem> {
   void Write(RakNet::BitStream& bs, const Type::FactionEmblem& data) const {
     FactionEmblemLayerSerializer layerSerializer;
 
-    bs.WriteCompressed(data.staticEmblemID);
+    bs.WriteCompressed(data.staticEmblemId);
     for (int i = 0; i < Constants::NUM_FACTION_EMBLEM_LAYERS; ++i)
       layerSerializer.Write(bs, data.layers[i]);
   }
@@ -21,7 +21,7 @@ class FactionEmblemSerializer : protected TypeSerializer<Type::FactionEmblem> {
   bool Read(RakNet::BitStream& bs, Type::FactionEmblem& data) const {
     FactionEmblemLayerSerializer layerSerializer;
 
-    if (!bs.ReadCompressed(data.staticEmblemID)) return false;
+    if (!bs.ReadCompressed(data.staticEmblemId)) return false;
     for (int i = 0; i < Constants::NUM_FACTION_EMBLEM_LAYERS; ++i) {
       if (!layerSerializer.Read(bs, data.layers[i])) return false;
     }

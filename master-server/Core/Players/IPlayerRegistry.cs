@@ -2,7 +2,7 @@ namespace FOMServer.Master.Core.Players
 {
     internal interface IPlayerRegistry
     {
-        Player? Get(uint playerID);
+        Player? Get(uint playerId);
 
         Player Login(ClientSession session);
 

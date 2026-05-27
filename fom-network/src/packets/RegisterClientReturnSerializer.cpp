@@ -26,8 +26,8 @@ void RegisterClientReturnSerializer::Write(
   PlayerSkillsSerializer skillsSerializer;
   FactionPerksSerializer perksSerializer;
 
-  bs.WriteCompressed(data->worldID);
-  bs.WriteCompressed(data->playerID);
+  bs.WriteCompressed(data->worldId);
+  bs.WriteCompressed(data->playerId);
   bs.WriteCompressed(data->status);
 
   itemListSerializer.Write(bs, data->inventory);
@@ -68,7 +68,7 @@ void RegisterClientReturnSerializer::Write(
   bs.Write(data->unknown3 == 1);
   positionSerializer.Write(bs, data->safezoneCenter);
   bs.WriteCompressed(data->safezoneRadius);
-  bs.WriteCompressed(data->nodeID);
+  bs.WriteCompressed(data->nodeId);
   bs.Write(data->unknown4 == 1);
   bs.WriteCompressed(data->cloningDuration);
   emblemSerializer.Write(bs, data->factionEmblem);

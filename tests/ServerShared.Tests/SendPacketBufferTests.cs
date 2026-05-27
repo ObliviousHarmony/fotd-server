@@ -10,8 +10,8 @@ namespace FOMServer.Shared.Tests
 {
     public class SendPacketBufferTests
     {
-        private static readonly PacketIdentifier s_testPacketID = PacketIdentifier.ID_CONNECTION_REQUEST_ACCEPTED;
-        private static readonly int s_testPacketSize = PacketHelpers.GetPacketSize(s_testPacketID);
+        private static readonly PacketIdentifier s_testPacketId = PacketIdentifier.ID_CONNECTION_REQUEST_ACCEPTED;
+        private static readonly int s_testPacketSize = PacketHelpers.GetPacketSize(s_testPacketId);
 
         [Fact]
         public void Add_GetBatch_ReturnsPackets()
@@ -43,7 +43,7 @@ namespace FOMServer.Shared.Tests
             _ = buffer.Add(in packet);
             var batch = buffer.GetBatch();
 
-            Assert.Equal(s_testPacketID, batch[0].ID);
+            Assert.Equal(s_testPacketId, batch[0].Id);
             Assert.Equal(PacketPriority.High, batch[0].Priority);
             Assert.Equal(PacketReliability.Reliable, batch[0].Reliability);
             Assert.Equal(5, batch[0].OrderingChannel);
@@ -103,7 +103,7 @@ namespace FOMServer.Shared.Tests
             var networkAddress = address ?? new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             return new QueuePacket(
-                s_testPacketID,
+                s_testPacketId,
                 packetData,
                 networkAddress,
                 networkAddresses: null,
@@ -122,7 +122,7 @@ namespace FOMServer.Shared.Tests
             addresses.CopyTo(rentedAddresses, 0);
 
             return new QueuePacket(
-                s_testPacketID,
+                s_testPacketId,
                 packetData,
                 NetworkAddress.Unassigned,
                 rentedAddresses,

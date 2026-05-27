@@ -52,21 +52,21 @@ namespace FOMServer.World
             s_serverSettings = config.GetSection("Server").Get<ServerSettings>()!;
             s_dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
 
-            if (s_serverSettings!.WorldIDs.Length == 0)
+            if (s_serverSettings!.WorldIds.Length == 0)
             {
-                throw new InvalidOperationException("At least one WorldID must be configured");
+                throw new InvalidOperationException("At least one WorldId must be configured");
             }
 
-            foreach (var worldID in s_serverSettings.WorldIDs)
+            foreach (var worldId in s_serverSettings.WorldIds)
             {
-                if (!Enum.IsDefined(worldID) || worldID == WorldID.MasterServer || worldID == WorldID.NUM_WORLDS)
+                if (!Enum.IsDefined(worldId) || worldId == WorldId.MasterServer || worldId == WorldId.NUM_WORLDS)
                 {
-                    throw new InvalidOperationException($"Invalid WorldID: {worldID}");
+                    throw new InvalidOperationException($"Invalid WorldId: {worldId}");
                 }
             }
-            if (s_serverSettings.WorldIDs.Distinct().Count() != s_serverSettings.WorldIDs.Length)
+            if (s_serverSettings.WorldIds.Distinct().Count() != s_serverSettings.WorldIds.Length)
             {
-                throw new InvalidOperationException("Duplicate WorldIDs are not allowed");
+                throw new InvalidOperationException("Duplicate WorldIds are not allowed");
             }
 
             if (string.IsNullOrWhiteSpace(s_serverSettings.ClientHost))
@@ -89,7 +89,7 @@ namespace FOMServer.World
                 throw new InvalidOperationException("Database connection string must be configured");
             }
 
-            _ = s_serverSettings.ClientIP ?? throw new InvalidOperationException("Client host could not be resolved");
+            _ = s_serverSettings.ClientIp ?? throw new InvalidOperationException("Client host could not be resolved");
             _ = services.AddSingleton(s_serverSettings);
             _ = services.AddSingleton(s_dbSettings);
             return services;

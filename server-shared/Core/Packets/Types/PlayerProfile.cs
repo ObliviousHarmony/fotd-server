@@ -6,7 +6,7 @@ namespace FOMServer.Shared.Core.Packets.Types
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct PlayerProfile
     {
-        public uint PlayerID;
+        public uint PlayerId;
         public byte Unknown1;
         public fixed byte RawPlayerName[BufferSizes.PlayerName];
         public fixed byte RawFactionName[BufferSizes.FactionName];

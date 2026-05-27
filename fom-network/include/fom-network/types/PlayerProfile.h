@@ -7,7 +7,7 @@ namespace Type {
 
 #pragma pack(push, 1)
 struct PlayerProfile {
-  uint32_t playerID;
+  uint32_t playerId;
   uint8_t unknown1;
   uint8_t playerName[BufferSizes::PLAYER_NAME];
   uint8_t factionName[BufferSizes::FACTION_NAME];
