@@ -24,6 +24,7 @@ class FactionPerksSerializer : protected TypeSerializer<Type::FactionPerks> {
     if (!bs.ReadCompressed(data.unknown1)) return false;
     if (!bs.ReadCompressed(data.unknown2)) return false;
     if (!bs.ReadCompressed(data.count)) return false;
+    if (data.count > Type::MAX_FACTION_PERKS) return false;
 
     for (uint32_t i = 0; i < data.count; ++i) {
       if (!bs.ReadCompressed(data.perks[i].id)) return false;

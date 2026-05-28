@@ -33,6 +33,7 @@ class PlayerSkillsSerializer : protected TypeSerializer<Type::PlayerSkills> {
     if (!bs.ReadCompressed(data.techTrainingMultiplier)) return false;
     if (!bs.ReadCompressed(data.unknown1)) return false;
     if (!bs.ReadCompressed(data.count)) return false;
+    if (data.count > Enum::NUM_SKILL_TYPES) return false;
 
     for (uint32_t i = 0; i < data.count; ++i) {
       if (!bs.ReadCompressed(data.skills[i].id)) return false;

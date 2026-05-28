@@ -11,6 +11,7 @@ bool RegisterWorldSerializer::Read(RakNet::BitStream& bs,
 
   if (!addressSerializer.Read(bs, data->publicAddress)) return false;
   if (!bs.ReadCompressed(data->worldIdCount)) return false;
+  if (data->worldIdCount > Enum::NUM_WORLDS) return false;
   for (int i = 0; i < data->worldIdCount; ++i) {
     if (!bs.ReadCompressed(data->worldIds[i])) return false;
   }
