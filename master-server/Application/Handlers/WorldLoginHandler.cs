@@ -45,6 +45,13 @@ namespace FOMServer.Master.Application.Handlers
                 return;
             }
 
+            if (session.PlayerId != p.PlayerId)
+            {
+                _logger.LogWarning("Unexpected world login for player {PlayerId} from player {CurrentPlayerId}", p.PlayerId, session.PlayerId);
+                SendLoginError(sender, p.WorldId, WorldLoginReturn.StatusCode.UnknownError);
+                return;
+            }
+
             if (_playerRepository.GetById(p.PlayerId) is null)
             {
                 SendLoginError(sender, p.WorldId, WorldLoginReturn.StatusCode.UnknownError);
