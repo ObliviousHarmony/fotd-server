@@ -49,8 +49,6 @@ namespace FOMServer.Shared.Extensions
 
         private static IServiceCollection AddSharedServices(this IServiceCollection services)
         {
-            _ = services.AddSingleton<IShutdownManager, ShutdownManager>();
-
             _ = services.AddSingleton<IPersistenceService, PersistenceService>();
             _ = services.AddSingleton(sp => (IServerStartable)sp.GetRequiredService<IPersistenceService>());
 
