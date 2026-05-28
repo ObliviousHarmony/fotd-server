@@ -31,7 +31,7 @@ namespace FOMServer.Shared.Core.Networking
         /// indicates that it no longer owns the buffer and should not
         /// return it to the pool when disposed.
         /// </summary>
-        private int _ownsBuffer;
+        private bool _ownsBuffer;
 
         public PacketWriter()
         {
@@ -56,7 +56,7 @@ namespace FOMServer.Shared.Core.Networking
             // use the shared array pool to avoid excessive allocations.
             _packetSize = PacketHelpers.GetPacketSize<TPacket>();
             _packetData = ArrayPool<byte>.Shared.Rent(_packetSize);
-            _ownsBuffer = 1;
+            _ownsBuffer = true;
 
             // Make sure there's no junk data in the buffer.
             Unsafe.InitBlock(ref _packetData[0], 0, (uint)_packetSize);
@@ -191,10 +191,14 @@ namespace FOMServer.Shared.Core.Networking
 
         public QueuePacket Build()
         {
+            if (!_ownsBuffer)
+            {
+                throw new ObjectDisposedException(nameof(PacketWriter<>));
+            }
+
             // Mark that it can't be used anymore.
-            return Interlocked.Exchange(ref _ownsBuffer, 0) != 1
-                ? throw new ObjectDisposedException(nameof(PacketWriter<>))
-                : new QueuePacket(
+            _ownsBuffer = false;
+            return new QueuePacket(
                 PacketHelpers.GetPacketTypeId<TPacket>(),
                 _packetData,
                 _networkAddress,
@@ -209,11 +213,12 @@ namespace FOMServer.Shared.Core.Networking
 
         public void Dispose()
         {
-            if (Interlocked.Exchange(ref _ownsBuffer, 0) != 1)
+            if (!_ownsBuffer)
             {
                 return;
             }
 
+            _ownsBuffer = false;
             ArrayPool<byte>.Shared.Return(_packetData);
 
             if (_networkAddresses is not null)
@@ -243,7 +248,7 @@ namespace FOMServer.Shared.Core.Networking
 
         private readonly void ThrowIfBuilt()
         {
-            if (Volatile.Read(in _ownsBuffer) != 1)
+            if (!_ownsBuffer)
             {
                 throw new InvalidOperationException("Packet cannot be modified after building");
             }
