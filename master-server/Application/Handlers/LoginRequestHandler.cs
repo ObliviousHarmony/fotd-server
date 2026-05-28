@@ -39,13 +39,22 @@ namespace FOMServer.Master.Application.Handlers
             }
 
             var player = _accountRepository.GetByUsername(p.Username);
-            rData.Status = player is null
-                ? LoginRequestReturn.StatusCode.Invalid
-                : player.logged_in
-                    ? LoginRequestReturn.StatusCode.AlreadyLoggedIn
-                    : p.ClientVersion != ServerConstants.ClientVersion
-                    ? LoginRequestReturn.StatusCode.VersionMismatch
-                    : LoginRequestReturn.StatusCode.Success;
+            if (player is null)
+            {
+                rData.Status = LoginRequestReturn.StatusCode.Invalid;
+            }
+            else if (player.logged_in)
+            {
+                rData.Status = LoginRequestReturn.StatusCode.AlreadyLoggedIn;
+            }
+            else if (p.ClientVersion != ServerConstants.ClientVersion)
+            {
+                rData.Status = LoginRequestReturn.StatusCode.VersionMismatch;
+            }
+            else
+            {
+                rData.Status = LoginRequestReturn.StatusCode.Success;
+            }
 
             _clientPacketSender.Send(response.Build());
         }
