@@ -3,7 +3,7 @@ using FluentMigrator;
 namespace FOMServer.Shared.Infrastructure.Migrations.Player
 {
     [Migration(202601191446, "Creates the player attribute table.")]
-    internal class CreatePlayerAttribute : ForwardOnlyMigration
+    public class CreatePlayerAttribute : ForwardOnlyMigration
     {
         public override void Up()
         {

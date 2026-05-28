@@ -3,7 +3,7 @@ using FluentMigrator;
 namespace FOMServer.Shared.Infrastructure.Migrations.Player
 {
     [Migration(202601191445, "Creates the player tables.")]
-    internal class CreatePlayer : ForwardOnlyMigration
+    public class CreatePlayer : ForwardOnlyMigration
     {
         public override void Up()
         {
