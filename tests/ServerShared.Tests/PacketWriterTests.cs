@@ -85,7 +85,14 @@ namespace FOMServer.Shared.Tests
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
             writer.AddDestination(address);
 
-            _ = Assert.Throws<InvalidOperationException>(() => writer.ExcludeFromBroadcast(address));
+            try
+            {
+                writer.ExcludeFromBroadcast(address);
+                Assert.Fail("Expected InvalidOperationException");
+            }
+            catch (InvalidOperationException)
+            {
+            }
         }
 
         [Fact]
@@ -96,7 +103,14 @@ namespace FOMServer.Shared.Tests
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
             writer.ExcludeFromBroadcast(address);
 
-            _ = Assert.Throws<InvalidOperationException>(() => writer.AddDestination(address));
+            try
+            {
+                writer.AddDestination(address);
+                Assert.Fail("Expected InvalidOperationException");
+            }
+            catch (InvalidOperationException)
+            {
+            }
         }
 
         [Fact]
@@ -108,7 +122,14 @@ namespace FOMServer.Shared.Tests
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
             writer.ExcludeFromBroadcast(address1);
 
-            _ = Assert.Throws<InvalidOperationException>(() => writer.ExcludeFromBroadcast(address2));
+            try
+            {
+                writer.ExcludeFromBroadcast(address2);
+                Assert.Fail("Expected InvalidOperationException");
+            }
+            catch (InvalidOperationException)
+            {
+            }
         }
 
         [Fact]
@@ -117,7 +138,14 @@ namespace FOMServer.Shared.Tests
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
             var packet = writer.Build();
 
-            _ = Assert.Throws<ObjectDisposedException>(() => writer.Build());
+            try
+            {
+                _ = writer.Build();
+                Assert.Fail("Expected ObjectDisposedException");
+            }
+            catch (ObjectDisposedException)
+            {
+            }
 
             packet.Release();
         }
@@ -128,7 +156,14 @@ namespace FOMServer.Shared.Tests
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
             var packet = writer.Build();
 
-            _ = Assert.Throws<InvalidOperationException>(() => _ = writer.Data);
+            try
+            {
+                _ = writer.Data;
+                Assert.Fail("Expected InvalidOperationException");
+            }
+            catch (InvalidOperationException)
+            {
+            }
 
             packet.Release();
         }
@@ -141,7 +176,14 @@ namespace FOMServer.Shared.Tests
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
             var packet = writer.Build();
 
-            _ = Assert.Throws<InvalidOperationException>(() => writer.AddDestination(address));
+            try
+            {
+                writer.AddDestination(address);
+                Assert.Fail("Expected InvalidOperationException");
+            }
+            catch (InvalidOperationException)
+            {
+            }
 
             packet.Release();
         }

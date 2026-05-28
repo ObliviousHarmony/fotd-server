@@ -7,7 +7,7 @@ using FOMServer.Shared.Core.Packets.Types;
 
 namespace FOMServer.Shared.Core.Networking
 {
-    public struct PacketWriter<TPacket> : IDisposable where TPacket : unmanaged
+    public ref struct PacketWriter<TPacket> : IDisposable where TPacket : unmanaged
     {
         private int _addressCount;
         private NetworkAddress _networkAddress;
