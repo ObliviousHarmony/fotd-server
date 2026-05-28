@@ -15,20 +15,20 @@ namespace FOMServer.Master.Application.Handlers
         private readonly IPlayerRepository _playerRepository;
         private readonly IClientRegistry _clientRegistry;
         private readonly IPlayerRegistry _playerRegistry;
-        private readonly IClientPacketSender _packetSender;
+        private readonly IClientPacketSender _clientPacketSender;
         private readonly ILogger<CreateCharacterHandler> _logger;
 
         public CreateCharacterHandler(
             IPlayerRepository playerRepository,
             IClientRegistry clientRegistry,
             IPlayerRegistry playerRegistry,
-            IClientPacketSender packetSender,
+            IClientPacketSender clientPacketSender,
             ILogger<CreateCharacterHandler> logger)
         {
             _playerRepository = playerRepository;
             _clientRegistry = clientRegistry;
             _playerRegistry = playerRegistry;
-            _packetSender = packetSender;
+            _clientPacketSender = clientPacketSender;
             _logger = logger;
         }
 
@@ -48,7 +48,7 @@ namespace FOMServer.Master.Application.Handlers
             if (session.Player is not null)
             {
                 rData.Status = LoginReturn.StatusCode.Success;
-                _packetSender.Send(response.Build());
+                _clientPacketSender.Send(response.Build());
                 return;
             }
 
@@ -56,7 +56,7 @@ namespace FOMServer.Master.Application.Handlers
             if (existing is not null)
             {
                 rData.Status = LoginReturn.StatusCode.CreateCharacterError;
-                _packetSender.Send(response.Build());
+                _clientPacketSender.Send(response.Build());
                 return;
             }
 
@@ -72,7 +72,7 @@ namespace FOMServer.Master.Application.Handlers
             if (created is null)
             {
                 rData.Status = LoginReturn.StatusCode.CreateCharacterError;
-                _packetSender.Send(response.Build());
+                _clientPacketSender.Send(response.Build());
                 return;
             }
 
@@ -80,7 +80,7 @@ namespace FOMServer.Master.Application.Handlers
             _ = _playerRegistry.Login(session);
 
             rData.Status = LoginReturn.StatusCode.Success;
-            _packetSender.Send(response.Build());
+            _clientPacketSender.Send(response.Build());
         }
     }
 }

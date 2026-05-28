@@ -12,16 +12,16 @@ namespace FOMServer.World.Application.Handlers
     internal class PlayerMigrateWorldHandler : PacketHandlerBase<PlayerMigrateWorld>
     {
         private readonly IPlayerRegistry _playerRegistry;
-        private readonly IMasterPacketSender _packetSender;
+        private readonly IMasterPacketSender _masterPacketSender;
         private readonly ILogger<PlayerMigrateWorldHandler> _logger;
 
         public PlayerMigrateWorldHandler(
             IPlayerRegistry playerRegistry,
-            IMasterPacketSender packetSender,
+            IMasterPacketSender masterPacketSender,
             ILogger<PlayerMigrateWorldHandler> logger)
         {
             _playerRegistry = playerRegistry;
-            _packetSender = packetSender;
+            _masterPacketSender = masterPacketSender;
             _logger = logger;
         }
 
@@ -35,7 +35,7 @@ namespace FOMServer.World.Application.Handlers
             rData.PlayerId = p.PlayerId;
             rData.Status = PlayerWorldReady.StatusCode.Success;
 
-            _packetSender.Send(response.Build());
+            _masterPacketSender.Send(response.Build());
         }
     }
 }

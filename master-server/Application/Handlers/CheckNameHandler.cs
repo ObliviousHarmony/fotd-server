@@ -11,14 +11,14 @@ namespace FOMServer.Master.Application.Handlers
     [PacketHandler]
     internal class CheckNameHandler : PacketHandlerBase<CheckName>
     {
-        private readonly IClientPacketSender _packetSender;
+        private readonly IClientPacketSender _clientPacketSender;
         private readonly IPlayerRepository _playerRepository;
 
         public CheckNameHandler(
-            IClientPacketSender packetSender,
+            IClientPacketSender clientPacketSender,
             IPlayerRepository playerRepository)
         {
-            _packetSender = packetSender;
+            _clientPacketSender = clientPacketSender;
             _playerRepository = playerRepository;
         }
 
@@ -33,7 +33,7 @@ namespace FOMServer.Master.Application.Handlers
                 rData.OwnerPlayerId = player.id;
             }
 
-            _packetSender.Send(response.Build());
+            _clientPacketSender.Send(response.Build());
         }
     }
 }

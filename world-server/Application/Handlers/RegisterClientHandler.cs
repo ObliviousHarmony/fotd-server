@@ -13,16 +13,16 @@ namespace FOMServer.World.Application.Handlers
     internal class RegisterClientHandler : PacketHandlerBase<RegisterClient>
     {
         private readonly IPlayerRegistry _playerRegistry;
-        private readonly IClientPacketSender _packetSender;
+        private readonly IClientPacketSender _clientPacketSender;
         private readonly ILogger<RegisterClientHandler> _logger;
 
         public RegisterClientHandler(
             IPlayerRegistry playerRegistry,
-            IClientPacketSender packetSender,
+            IClientPacketSender clientPacketSender,
             ILogger<RegisterClientHandler> logger)
         {
             _playerRegistry = playerRegistry;
-            _packetSender = packetSender;
+            _clientPacketSender = clientPacketSender;
             _logger = logger;
         }
 
@@ -62,7 +62,7 @@ namespace FOMServer.World.Application.Handlers
             rData.Profile.PlayerName = "Naruto Uzumaki";
             rData.NodeId = 1;
 
-            _packetSender.Send(response.Build());
+            _clientPacketSender.Send(response.Build());
         }
     }
 }

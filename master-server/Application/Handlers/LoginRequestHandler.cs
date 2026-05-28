@@ -12,15 +12,15 @@ namespace FOMServer.Master.Application.Handlers
     [PacketHandler]
     internal class LoginRequestHandler : PacketHandlerBase<LoginRequest>
     {
-        private readonly IClientPacketSender _packetSender;
+        private readonly IClientPacketSender _clientPacketSender;
         private readonly IAccountRepository _accountRepository;
 
         public LoginRequestHandler(
-            IClientPacketSender packetSender,
+            IClientPacketSender clientPacketSender,
             IAccountRepository accountRepository
         )
         {
-            _packetSender = packetSender;
+            _clientPacketSender = clientPacketSender;
             _accountRepository = accountRepository;
         }
 
@@ -47,7 +47,7 @@ namespace FOMServer.Master.Application.Handlers
                     ? LoginRequestReturn.StatusCode.VersionMismatch
                     : LoginRequestReturn.StatusCode.Success;
 
-            _packetSender.Send(response.Build());
+            _clientPacketSender.Send(response.Build());
         }
     }
 }

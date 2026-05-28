@@ -17,7 +17,7 @@ namespace FOMServer.Master.Application.Handlers
         private readonly IPlayerRepository _playerRepository;
         private readonly IClientRegistry _clientRegistry;
         private readonly IPlayerRegistry _playerRegistry;
-        private readonly IClientPacketSender _packetSender;
+        private readonly IClientPacketSender _clientPacketSender;
         private readonly ILogger<LoginHandler> _logger;
 
         public LoginHandler(
@@ -25,14 +25,14 @@ namespace FOMServer.Master.Application.Handlers
             IPlayerRepository playerRepository,
             IClientRegistry clientRegistry,
             IPlayerRegistry playerRegistry,
-            IClientPacketSender packetSender,
+            IClientPacketSender clientPacketSender,
             ILogger<LoginHandler> logger)
         {
             _accountRepository = accountRepository;
             _playerRepository = playerRepository;
             _clientRegistry = clientRegistry;
             _playerRegistry = playerRegistry;
-            _packetSender = packetSender;
+            _clientPacketSender = clientPacketSender;
             _logger = logger;
         }
 
@@ -58,7 +58,7 @@ namespace FOMServer.Master.Application.Handlers
                 rData.Status = LoginReturn.StatusCode.Success;
                 rData.AccountType = AccountType.Prepaid;
                 rData.LoginWorldId = WorldId.Manhattan;
-                _packetSender.Send(response.Build());
+                _clientPacketSender.Send(response.Build());
                 return;
             }
 
@@ -66,7 +66,7 @@ namespace FOMServer.Master.Application.Handlers
             if (account is null)
             {
                 rData.Status = LoginReturn.StatusCode.InvalidLogin;
-                _packetSender.Send(response.Build());
+                _clientPacketSender.Send(response.Build());
                 return;
             }
 
@@ -80,7 +80,7 @@ namespace FOMServer.Master.Application.Handlers
             if (player is null)
             {
                 rData.Status = LoginReturn.StatusCode.CreateCharacter;
-                _packetSender.Send(response.Build());
+                _clientPacketSender.Send(response.Build());
                 return;
             }
 
@@ -90,7 +90,7 @@ namespace FOMServer.Master.Application.Handlers
             rData.Status = LoginReturn.StatusCode.Success;
             rData.AccountType = AccountType.Prepaid;
             rData.LoginWorldId = WorldId.Manhattan;
-            _packetSender.Send(response.Build());
+            _clientPacketSender.Send(response.Build());
         }
     }
 }

@@ -12,18 +12,18 @@ namespace FOMServer.Master.Application.Handlers
     [PacketHandler]
     internal class PlayerWorldReadyHandler : PacketHandlerBase<PlayerWorldReady>
     {
-        private readonly IClientPacketSender _packetSender;
+        private readonly IClientPacketSender _clientPacketSender;
         private readonly IClientRegistry _clientRegistry;
         private readonly IWorldServerRegistry _worldServerRegistry;
         private readonly ILogger<PlayerWorldReadyHandler> _logger;
 
         public PlayerWorldReadyHandler(
-            IClientPacketSender packetSender,
+            IClientPacketSender clientPacketSender,
             IClientRegistry clientRegistry,
             IWorldServerRegistry worldServerRegistry,
             ILogger<PlayerWorldReadyHandler> logger)
         {
-            _packetSender = packetSender;
+            _clientPacketSender = clientPacketSender;
             _clientRegistry = clientRegistry;
             _worldServerRegistry = worldServerRegistry;
             _logger = logger;
@@ -68,7 +68,7 @@ namespace FOMServer.Master.Application.Handlers
             rData.WorldId = worldId;
             rData.Status = WorldLoginReturn.StatusCode.Success;
             rData.WorldServerAddress = worldServer.PublicAddress;
-            _packetSender.Send(response.Build());
+            _clientPacketSender.Send(response.Build());
         }
 
         private void SendLoginError(ClientSession session, WorldId worldId, WorldLoginReturn.StatusCode status)
@@ -84,7 +84,7 @@ namespace FOMServer.Master.Application.Handlers
             ref var rData = ref response.Data;
             rData.WorldId = worldId;
             rData.Status = status;
-            _packetSender.Send(response.Build());
+            _clientPacketSender.Send(response.Build());
         }
     }
 }
