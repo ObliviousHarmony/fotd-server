@@ -16,8 +16,8 @@ namespace FOMServer.Shared.Core.Enums
         // Berlin = 9, // BERLIN
         // Unused = 10, // UNUSED_WORLD
         // AndromedaCity = 11, // ANDROMEDA_CITY
-        //NEW_HAVEN = 12,
-        //GANYMEDE = 13,
+        // NEW_HAVEN = 12,
+        // GANYMEDE = 13,
         // DeMorgansCastle = 14, // DEMORGANS_CASTLE
         // KEPLERS_DOME = 15,
         // MOON_BASE = 16,

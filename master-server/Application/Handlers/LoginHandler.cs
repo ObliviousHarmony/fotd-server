@@ -41,9 +41,6 @@ namespace FOMServer.Master.Application.Handlers
             var session = _clientRegistry.Get(sender);
             if (session is null)
             {
-                // A login with no registered session shouldn't happen (it implies a packet
-                // arrived before NewIncomingConnection or after cleanup). Server->client packets
-                // are feature-complete, so we can't signal this state; log and drop.
                 _logger.LogWarning("Dropping login from '{Address}' with no registered session", sender);
                 return;
             }
@@ -51,7 +48,6 @@ namespace FOMServer.Master.Application.Handlers
             using var response = new PacketWriter<LoginReturn>(sender);
             ref var rData = ref response.Data;
 
-            // Already logged in on this session: idempotent success.
             if (session.Player is not null)
             {
                 rData.PlayerId = session.Player.Id;

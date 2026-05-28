@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22
+# Visual Studio Version 18
+VisualStudioVersion = 18.6.11819.183 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterServer", "master-server\MasterServer.csproj", "{F3EB14A3-DCBC-28F5-2F37-69B6C364CD53}"
 EndProject
@@ -14,12 +14,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0AB3BF05-4346-4AA6-1389-037BE0695223}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerShared.Tests", "tests\ServerShared.Tests\ServerShared.Tests.csproj", "{21B865A9-B6F6-40FB-9A24-C78015AF6EDF}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "server-shared", "server-shared", "{A4C4EDF6-FAB3-C121-0D50-9CC98140D4B6}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "master-server", "master-server", "{283DC0DB-4E36-22FE-B162-370C6139194C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "world-server", "world-server", "{2717C673-D93A-056A-5A3B-5DE5F5558BC9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MasterServer.Tests", "tests\MasterServer.Tests\MasterServer.Tests.csproj", "{AB02672C-3A5F-4552-9707-B265E93ED6B1}"
 EndProject

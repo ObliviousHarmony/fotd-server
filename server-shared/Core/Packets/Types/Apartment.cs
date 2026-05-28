@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 
 namespace FOMServer.Shared.Core.Packets.Types
@@ -6,7 +7,6 @@ namespace FOMServer.Shared.Core.Packets.Types
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct Apartment
     {
-        public const int OwnerNameSize = 20;
         public const int EntryCodeSize = 8;
         public const int PublicNameSize = 24;
         public const int PublicDescriptionSize = 512;
@@ -16,7 +16,7 @@ namespace FOMServer.Shared.Core.Packets.Types
         public uint OwnerPlayerId;
         public uint OwnerFactionId;
         public byte IsOpen;
-        public fixed byte RawOwnerName[OwnerNameSize];
+        public fixed byte RawOwnerName[BufferSizes.PlayerName];
         public fixed byte RawEntryCode[EntryCodeSize];
         public ItemList StorageItems;
         public byte IsPublic;
@@ -33,7 +33,7 @@ namespace FOMServer.Shared.Core.Packets.Types
             {
                 fixed (byte* ptr = RawOwnerName)
                 {
-                    return CStringParser.ToString(ptr, OwnerNameSize);
+                    return CStringParser.ToString(ptr, BufferSizes.PlayerName);
                 }
             }
 
@@ -41,7 +41,7 @@ namespace FOMServer.Shared.Core.Packets.Types
             {
                 fixed (byte* ptr = RawOwnerName)
                 {
-                    CStringParser.FromString(value, ptr, OwnerNameSize);
+                    CStringParser.FromString(value, ptr, BufferSizes.PlayerName);
                 }
             }
         }

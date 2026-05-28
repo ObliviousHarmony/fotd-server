@@ -8,12 +8,12 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    internal class RegisterWorldPacketHandler : PacketHandlerBase<RegisterWorld>
+    internal class RegisterWorldHandler : PacketHandlerBase<RegisterWorld>
     {
-        private readonly ILogger<RegisterWorldPacketHandler> _logger;
+        private readonly ILogger<RegisterWorldHandler> _logger;
         private readonly IWorldServerRegistry _worldServerRegistry;
 
-        public RegisterWorldPacketHandler(ILogger<RegisterWorldPacketHandler> logger, IWorldServerRegistry worldServerRegistry)
+        public RegisterWorldHandler(ILogger<RegisterWorldHandler> logger, IWorldServerRegistry worldServerRegistry)
         {
             _logger = logger;
             _worldServerRegistry = worldServerRegistry;

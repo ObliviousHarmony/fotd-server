@@ -5,38 +5,38 @@ namespace FOMServer.Shared.Core.Enums
         Invalid = 0,  // ITEM_TYPE_INVALID
         Zanathid5Inflex = 1,  // ITEM_TYPE_ZANATHID_5_INFLEX
         Ryx7Streamline = 2,  // ITEM_TYPE_RYX_7_STREAMLINE
-        Rgi9 = 3,  // ITEM_TYPE_RGI_9
-        OrbitXbInfineon = 4,  // ITEM_TYPE_ORBIT_XB_INFINEON
+        RGI9 = 3,  // ITEM_TYPE_RGI_9
+        OrbitXBInfineon = 4,  // ITEM_TYPE_ORBIT_XB_INFINEON
         ArmaliteSurvival = 5,  // ITEM_TYPE_ARMALITE_SURVIVAL
         EnfieldLifeProtector = 6,  // ITEM_TYPE_ENFIELD_LIFE_PROTECTOR
-        Fgz78 = 7,  // ITEM_TYPE_FGZ_78
-        MilitekEmp = 8,  // ITEM_TYPE_MILITEK_EMP
+        FGz78 = 7,  // ITEM_TYPE_FGZ_78
+        MilitekEMP = 8,  // ITEM_TYPE_MILITEK_EMP
         Techtronic6x6 = 9,  // ITEM_TYPE_TECHTRONIC_6X6
-        Hr420 = 10,  // ITEM_TYPE_HR420
-        LinnerPp7 = 11,  // ITEM_TYPE_LINNER_PP7
-        Doa187 = 12,  // ITEM_TYPE_DOA_187
-        SalvotecHp220 = 13,  // ITEM_TYPE_SALVOTEC_HP220
-        EmpRv3 = 14,  // ITEM_TYPE_EMP_RV3
-        GakkMg6 = 15,  // ITEM_TYPE_GAKK_MG6
-        HallemTar7TacticalAssaultRifle = 16,  // ITEM_TYPE_HALLEM_TAR7_TACTICAL_ASSAULT_RIFLE
+        HR420 = 10,  // ITEM_TYPE_HR420
+        LinnerPP7 = 11,  // ITEM_TYPE_LINNER_PP7
+        DOA187 = 12,  // ITEM_TYPE_DOA_187
+        SalvotecHP220 = 13,  // ITEM_TYPE_SALVOTEC_HP220
+        EMPRv3 = 14,  // ITEM_TYPE_EMP_RV3
+        GakkMG6 = 15,  // ITEM_TYPE_GAKK_MG6
+        HallemTAR7TacticalAssaultRifle = 16,  // ITEM_TYPE_HALLEM_TAR7_TACTICAL_ASSAULT_RIFLE
         ProtonixBarracuda = 17,  // ITEM_TYPE_PROTONIX_BARRACUDA
-        ChronoEnervonPistolEp24 = 18,  // ITEM_TYPE_CHRONO_ENERVON_PISTOL_EP24
+        ChronoEnervonPistolEP24 = 18,  // ITEM_TYPE_CHRONO_ENERVON_PISTOL_EP24
         AurelianTechnologiesDominator = 19,  // ITEM_TYPE_AURELIAN_TECHNOLOGIES_DOMINATOR
-        EnfieldIncapacitatorRifleErX = 20,  // ITEM_TYPE_ENFIELD_INCAPACITATOR_RIFLE_ER_X
-        CryotechMedigunCm2 = 21,  // ITEM_TYPE_CRYOTECH_MEDIGUN_CM2
+        EnfieldIncapacitatorRifleERX = 20,  // ITEM_TYPE_ENFIELD_INCAPACITATOR_RIFLE_ER_X
+        CryotechMedigunCM2 = 21,  // ITEM_TYPE_CRYOTECH_MEDIGUN_CM2
         PersonalTurret = 22,  // ITEM_TYPE_PERSONAL_TURRET
         ExperimentalX01Gun = 23,  // ITEM_TYPE_EXPERIMENTAL_X_01_GUN
-        Rk2a7MiningTool = 24,  // ITEM_TYPE_RK_2A7_MINING_TOOL
-        RxZephyrAdvancedMiningTool = 25,  // ITEM_TYPE_RX_ZEPHYR_ADVANCED_MINING_TOOL
+        RK2a7MiningTool = 24,  // ITEM_TYPE_RK_2A7_MINING_TOOL
+        RXZephyrAdvancedMiningTool = 25,  // ITEM_TYPE_RX_ZEPHYR_ADVANCED_MINING_TOOL
         CucurbitaGrenade = 26,  // ITEM_TYPE_CUCURBITA_GRENADE
         ArachnidExplosive = 27,  // ITEM_TYPE_ARACHNID_EXPLOSIVE
-        HallemIx78PrecisionEnergyRifle = 28,  // ITEM_TYPE_HALLEM_IX_78_PRECISION_ENERGY_RIFLE
-        CryotechMedigunCm1 = 29,  // ITEM_TYPE_CRYOTECH_MEDIGUN_CM1
+        HallemIX78PrecisionEnergyRifle = 28,  // ITEM_TYPE_HALLEM_IX_78_PRECISION_ENERGY_RIFLE
+        CryotechMedigunCM1 = 29,  // ITEM_TYPE_CRYOTECH_MEDIGUN_CM1
         Frostbite = 30,  // ITEM_TYPE_FROSTBITE
         UV890HyperAdvancedMiningTool = 31,  // ITEM_TYPE_U_V890_HYPER_ADVANCED_MINING_TOOL
-        LinnerPpX = 32,  // ITEM_TYPE_LINNER_PP_X
+        LinnerPPX = 32,  // ITEM_TYPE_LINNER_PP_X
         Hawk72 = 33,  // ITEM_TYPE_HAWK_72
-        Zanathid55Copkiller = 34,  // ITEM_TYPE_ZANATHID_55_COPKILLER
+        Zanathid55CopKiller = 34,  // ITEM_TYPE_ZANATHID_55_COPKILLER
         BackerRifle = 35,  // ITEM_TYPE_BACKER_RIFLE
         TerritoryTurret = 36,  // ITEM_TYPE_TERRITORY_TURRET
         GoldenZanathid5Inflex = 37,  // ITEM_TYPE_GOLDEN_ZANATHID_5_INFLEX
@@ -73,7 +73,7 @@ namespace FOMServer.Shared.Core.Enums
         HunterVx270 = 108,  // ITEM_TYPE_HUNTER_VX270
 
         AdvancedCivilianHelmet = 110,  // ITEM_TYPE_ADVANCED_CIVILIAN_HELMET
-        Mt27BallisticsHelmet = 111,  // ITEM_TYPE_MT_27_BALLISTICS_HELMET
+        MT27BallisticsHelmet = 111,  // ITEM_TYPE_MT_27_BALLISTICS_HELMET
         TacticalSystemsHelmet = 112,  // ITEM_TYPE_TACTICAL_SYSTEMS_HELMET
         LocansDefenseHelmet = 113,  // ITEM_TYPE_LOCANS_DEFENSE_HELMET
         LocansEtherealHelmet = 114,  // ITEM_TYPE_LOCANS_ETHEREAL_HELMET
@@ -171,7 +171,7 @@ namespace FOMServer.Shared.Core.Enums
         BackerHelmet = 207,  // ITEM_TYPE_BACKER_HELMET
 
         AdvancedCivilianShoulderPads = 210,  // ITEM_TYPE_ADVANCED_CIVILIAN_SHOULDER_PADS
-        Mt27BallisticsShoulderPads = 211,  // ITEM_TYPE_MT_27_BALLISTICS_SHOULDER_PADS
+        MT27BallisticsShoulderPads = 211,  // ITEM_TYPE_MT_27_BALLISTICS_SHOULDER_PADS
         TacticalSystemsShoulderPads = 212,  // ITEM_TYPE_TACTICAL_SYSTEMS_SHOULDER_PADS
         LocansDefenseShoulderPads = 213,  // ITEM_TYPE_LOCANS_DEFENSE_SHOULDER_PADS
         LocansEtherealShoulderPads = 214,  // ITEM_TYPE_LOCANS_ETHEREAL_SHOULDER_PADS
@@ -220,7 +220,7 @@ namespace FOMServer.Shared.Core.Enums
         BackerShoulderPads = 257,  // ITEM_TYPE_BACKER_SHOULDER_PADS
 
         AdvancedCivilianArmPads = 260,  // ITEM_TYPE_ADVANCED_CIVILIAN_ARM_PADS
-        Mt27BallisticsArmPads = 261,  // ITEM_TYPE_MT_27_BALLISTICS_ARM_PADS
+        MT27BallisticsArmPads = 261,  // ITEM_TYPE_MT_27_BALLISTICS_ARM_PADS
         TacticalSystemsArmPads = 262,  // ITEM_TYPE_TACTICAL_SYSTEMS_ARM_PADS
         LocansDefenseArmPads = 263,  // ITEM_TYPE_LOCANS_DEFENSE_ARM_PADS
         LocansEtherealArmPads = 264,  // ITEM_TYPE_LOCANS_ETHEREAL_ARM_PADS
@@ -269,7 +269,7 @@ namespace FOMServer.Shared.Core.Enums
         BackerArmPads = 307,  // ITEM_TYPE_BACKER_ARM_PADS
 
         AdvancedCivilianTorsoArmor = 310,  // ITEM_TYPE_ADVANCED_CIVILIAN_TORSO_ARMOR
-        Mt27BallisticsTorsoArmor = 311,  // ITEM_TYPE_MT_27_BALLISTICS_TORSO_ARMOR
+        MT27BallisticsTorsoArmor = 311,  // ITEM_TYPE_MT_27_BALLISTICS_TORSO_ARMOR
         TacticalSystemsTorsoArmor = 312,  // ITEM_TYPE_TACTICAL_SYSTEMS_TORSO_ARMOR
         LocansDefenseTorsoArmor = 313,  // ITEM_TYPE_LOCANS_DEFENSE_TORSO_ARMOR
         LocansEtherealTorsoArmor = 314,  // ITEM_TYPE_LOCANS_ETHEREAL_TORSO_ARMOR
@@ -318,7 +318,7 @@ namespace FOMServer.Shared.Core.Enums
         BackerTorsoArmor = 357,  // ITEM_TYPE_BACKER_TORSO_ARMOR
 
         AdvancedCivilianLegPads = 360,  // ITEM_TYPE_ADVANCED_CIVILIAN_LEG_PADS
-        Mt27BallisticsLegPads = 361,  // ITEM_TYPE_MT_27_BALLISTICS_LEG_PADS
+        MT27BallisticsLegPads = 361,  // ITEM_TYPE_MT_27_BALLISTICS_LEG_PADS
         TacticalSystemsLegPads = 362,  // ITEM_TYPE_TACTICAL_SYSTEMS_LEG_PADS
         LocansDefenseLegPads = 363,  // ITEM_TYPE_LOCANS_DEFENSE_LEG_PADS
         LocansEtherealLegPads = 364,  // ITEM_TYPE_LOCANS_ETHEREAL_LEG_PADS
@@ -839,7 +839,7 @@ namespace FOMServer.Shared.Core.Enums
         BypassHackingInterface = 990,  // ITEM_TYPE_BYPASS_HACKING_INTERFACE
         ApartmentIdentifier = 991,  // ITEM_TYPE_APARTMENT_IDENTIFIER
         TerritoryController = 992,  // ITEM_TYPE_TERRITORY_CONTROLLER
-        SalvotechCx90ExplosiveCharge = 993,  // ITEM_TYPE_SALVOTECH_CX_90_EXPLOSIVE_CHARGE
+        SalvotechCX90ExplosiveCharge = 993,  // ITEM_TYPE_SALVOTECH_CX_90_EXPLOSIVE_CHARGE
         VortexReactor = 994,  // ITEM_TYPE_VORTEX_REACTOR
         ProductionManager = 995,  // ITEM_TYPE_PRODUCTION_MANAGER
         MulticomAccessPoint = 996,  // ITEM_TYPE_MULTICOM_ACCESS_POINT
