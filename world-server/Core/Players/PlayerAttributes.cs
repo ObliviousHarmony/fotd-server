@@ -80,40 +80,14 @@ namespace FOMServer.World.Core.Players
         }
 
         /// <summary>
-        /// Sets an attribute to an absolute value.
-        /// </summary>
-        /// <remarks>
-        /// Throws if the attribute requires locking and spins if it's currently locked.
-        /// </remarks>
-        public void Set(AttributeType attribute, uint value)
-        {
-            var index = (int)attribute;
-            ref readonly var metadata = ref s_metadata[index];
-
-            if (metadata.LockRequired)
-            {
-                throw new InvalidOperationException(
-                    $"{attribute} requires locking. Use Lock() to acquire exclusive access");
-            }
-
-            // Wait for the attribute to unlock. There is a small window between
-            // this spin completing and the write below where a Lock() could acquire
-            // and write, then be overwritten by our Volatile.Write. This is acceptable
-            // because Set is used for infrequent, derived values (e.g., armor from
-            // equipment).
-            while (Volatile.Read(ref _locks[index]) != 0)
-            {
-                Thread.SpinWait(1);
-            }
-
-            Volatile.Write(ref _values[index], Math.Min((int)value, metadata.Max));
-            _ = (OnPersistableChange?.Invoke(this, _player));
-        }
-
-        /// <summary>
         /// Atomically changes an attribute by a delta.
         /// </summary>
         /// <remarks>
+        /// For performance, it's possible for this method to push the value out of bounds.
+        /// This happens invisible since we clamp on Get(),however, you should be aware
+        /// that future changes might need to overcome the underflow/overflow before
+        /// being visible.
+        /// 
         /// Throws if the attribute requires locking and spins if it's currently locked.
         /// </remarks>
         /// <param name="attribute">The attribute to modify.</param>
@@ -173,10 +147,10 @@ namespace FOMServer.World.Core.Players
                 _changed = false;
                 _disposed = false;
 
-                // Attempt to acquire the lock with a 100ms timeout to avoid deadlocks.
+                // Attempt to acquire the lock with a 20ms timeout to avoid deadlocks.
                 var index = (int)attribute;
                 var spinner = new SpinWait();
-                var timeoutTimestamp = Stopwatch.GetTimestamp() + (Stopwatch.Frequency / 10);
+                var timeoutTimestamp = Stopwatch.GetTimestamp() + (Stopwatch.Frequency / 50);
 
                 while (Interlocked.CompareExchange(ref _parent._locks[index], 1, 0) != 0)
                 {

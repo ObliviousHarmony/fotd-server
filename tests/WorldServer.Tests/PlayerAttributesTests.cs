@@ -59,46 +59,6 @@ namespace FOMServer.World.Tests
         }
 
         [Fact]
-        public void Set_StoresValue()
-        {
-            var attrs = CreateAttributes();
-            attrs.Set(AttributeType.Health, 750);
-
-            Assert.Equal(750u, attrs.Get(AttributeType.Health));
-        }
-
-        [Fact]
-        public void Set_ClampsToMax()
-        {
-            var attrs = CreateAttributes();
-            attrs.Set(AttributeType.Health, 9999);
-
-            var max = PlayerAttributes.GetMetadata(AttributeType.Health).Max;
-            Assert.Equal((uint)max, attrs.Get(AttributeType.Health));
-        }
-
-        [Fact]
-        public void Set_ThrowsForLockRequiredAttribute()
-        {
-            var attrs = CreateAttributes();
-
-            _ = Assert.Throws<InvalidOperationException>(
-                () => attrs.Set(AttributeType.UniversalCredits, 100));
-        }
-
-        [Fact]
-        public void Set_FiresPersistableChange()
-        {
-            var attrs = CreateAttributes();
-            var fired = false;
-            attrs.OnPersistableChange += (_, _, _) => { fired = true; return true; };
-
-            attrs.Set(AttributeType.Health, 500);
-
-            Assert.True(fired);
-        }
-
-        [Fact]
         public void Change_PositiveDelta()
         {
             var initial = new int[PlayerAttributes.AttributeCount];
@@ -188,7 +148,37 @@ namespace FOMServer.World.Tests
 
             using var locked = attrs.Lock(AttributeType.UniversalCredits);
             locked.Set(500);
+
             Assert.Equal(500u, locked.Get());
+        }
+
+        [Fact]
+        public void Lock_SetClampsToMax()
+        {
+            var attrs = CreateAttributes();
+
+            using var locked = attrs.Lock(AttributeType.Health);
+            locked.Set(9999);
+
+            var max = PlayerAttributes.GetMetadata(AttributeType.Health).Max;
+            Assert.Equal((uint)max, attrs.Get(AttributeType.Health));
+        }
+
+        [Fact]
+        public void Lock_SetFiresPersistableChangeOnDispose()
+        {
+            var attrs = CreateAttributes();
+            var fired = false;
+            attrs.OnPersistableChange += (_, _, _) => { fired = true; return true; };
+
+            var locked = attrs.Lock(AttributeType.Health);
+            locked.Set(500);
+
+            Assert.False(fired);
+
+            locked.Dispose();
+
+            Assert.True(fired);
         }
 
         [Fact]
