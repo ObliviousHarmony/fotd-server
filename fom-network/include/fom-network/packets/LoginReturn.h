@@ -25,6 +25,8 @@ enum LoginReturnStatus : uint8_t {
   LOGIN_RETURN_NOT_PURCHASED = 13,
 };
 
+constexpr int MAX_PROCESS_BLACKLIST = 128;
+
 #pragma pack(push, 1)
 struct LoginReturn {
   LoginReturnStatus status;
@@ -41,7 +43,7 @@ struct LoginReturn {
   uint8_t banReason[129];  // isBanned == 1
 
   uint8_t processBlacklistCount;
-  uint32_t processBlacklist[128];
+  uint32_t processBlacklist[MAX_PROCESS_BLACKLIST];
 
   uint8_t factionMotd[1024];
 

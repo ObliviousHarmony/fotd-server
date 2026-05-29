@@ -9,11 +9,14 @@ namespace FOMNetwork {
 class FactionPerksSerializer : protected TypeSerializer<Type::FactionPerks> {
  public:
   void Write(RakNet::BitStream& bs, const Type::FactionPerks& data) const {
+    uint32_t count = data.count;
+    if (count > Type::MAX_FACTION_PERKS) count = Type::MAX_FACTION_PERKS;
+
     bs.WriteCompressed(data.unknown1);
     bs.WriteCompressed(data.unknown2);
-    bs.WriteCompressed(data.count);
+    bs.WriteCompressed(count);
 
-    for (uint32_t i = 0; i < data.count; ++i) {
+    for (uint32_t i = 0; i < count; ++i) {
       bs.WriteCompressed(data.perks[i].id);
       bs.WriteCompressed(data.perks[i].level);
       bs.Write(data.perks[i].active == 1);

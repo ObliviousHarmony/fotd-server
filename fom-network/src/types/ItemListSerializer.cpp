@@ -7,13 +7,17 @@ namespace FOMNetwork {
 
 void ItemListSerializer::Write(RakNet::BitStream& bs,
                                const Type::ItemList& data) const {
+  uint32_t itemCount = data.itemCount;
+  if (itemCount > BufferSizes::MAX_ITEM_LIST_SIZE)
+    itemCount = BufferSizes::MAX_ITEM_LIST_SIZE;
+
   bs.WriteCompressed((uint16_t)0);
   bs.WriteCompressed((uint32_t)0);
   bs.WriteCompressed((uint32_t)0);
   bs.WriteCompressed((uint32_t)0);
 
   std::map<Type::ItemBase, std::vector<uint32_t>> stacks;
-  for (uint32_t i = 0; i < data.itemCount; ++i) {
+  for (uint32_t i = 0; i < itemCount; ++i) {
     stacks[data.items[i].base].push_back(data.items[i].id);
   }
 

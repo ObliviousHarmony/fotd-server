@@ -23,9 +23,12 @@ void RegisterWorldSerializer::Write(RakNet::BitStream& bs,
                                     const Packet::RegisterWorld* data) const {
   NetworkAddressSerializer addressSerializer;
 
+  uint8_t worldIdCount = data->worldIdCount;
+  if (worldIdCount > Enum::NUM_WORLDS) worldIdCount = Enum::NUM_WORLDS;
+
   addressSerializer.Write(bs, data->publicAddress);
-  bs.WriteCompressed(data->worldIdCount);
-  for (int i = 0; i < data->worldIdCount; ++i)
+  bs.WriteCompressed(worldIdCount);
+  for (int i = 0; i < worldIdCount; ++i)
     bs.WriteCompressed(data->worldIds[i]);
 }
 

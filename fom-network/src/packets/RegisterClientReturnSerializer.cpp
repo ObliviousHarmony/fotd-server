@@ -61,8 +61,11 @@ void RegisterClientReturnSerializer::Write(
   bs.WriteCompressed(data->unknown1);
   bs.WriteCompressed(data->unknown2);
 
-  bs.WriteCompressed(data->avatarCacheCount);
-  for (int i = 0; i < data->avatarCacheCount; ++i)
+  uint16_t avatarCacheCount = data->avatarCacheCount;
+  if (avatarCacheCount > Packet::MAX_AVATAR_CACHE)
+    avatarCacheCount = Packet::MAX_AVATAR_CACHE;
+  bs.WriteCompressed(avatarCacheCount);
+  for (int i = 0; i < avatarCacheCount; ++i)
     avatarSerializer.Write(bs, data->avatarCache[i]);
 
   bs.Write(data->unknown3 == 1);

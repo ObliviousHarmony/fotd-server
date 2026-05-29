@@ -25,8 +25,11 @@ void LoginReturnSerializer::Write(RakNet::BitStream &bs,
     EncodeString(bs, data->banReason);
   }
 
-  bs.WriteCompressed(data->processBlacklistCount);
-  for (int i = 0; i < data->processBlacklistCount; ++i) {
+  uint8_t processBlacklistCount = data->processBlacklistCount;
+  if (processBlacklistCount > Packet::MAX_PROCESS_BLACKLIST)
+    processBlacklistCount = Packet::MAX_PROCESS_BLACKLIST;
+  bs.WriteCompressed(processBlacklistCount);
+  for (int i = 0; i < processBlacklistCount; ++i) {
     bs.WriteCompressed(data->processBlacklist[i]);
   }
 
