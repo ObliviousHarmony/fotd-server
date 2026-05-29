@@ -14,7 +14,8 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
     WriteBits(bs, data.face, 5);
     WriteBits(bs, data.hair, 5);
 
-    // This is a bug in the game client, factionId is 16-bits but this is what the client does.
+    // This is a bug in the game client, factionId is 16-bits but this is what
+    // the client does.
     WriteBits(bs, data.factionId, 32);
 
     WriteBits(bs, data.rankId, 5);
@@ -55,7 +56,8 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
     if (!ReadBits(bs, data.face, 5)) return false;
     if (!ReadBits(bs, data.hair, 5)) return false;
 
-    // This is a bug in the game client, factionId is 16-bits but this is what the client does.
+    // This is a bug in the game client, factionId is 16-bits but this is what
+    // the client does.
     if (!ReadBits(bs, data.factionId, 32)) return false;
 
     if (!ReadBits(bs, data.rankId, 5)) return false;

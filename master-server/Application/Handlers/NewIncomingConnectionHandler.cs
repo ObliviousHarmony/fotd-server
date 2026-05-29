@@ -24,7 +24,7 @@ namespace FOMServer.Master.Application.Handlers
         {
             if (_clientRegistry.Get(sender) is not null)
             {
-                _logger.LogWarning("Ignoring duplicate connection for '{Address}'", sender);
+                _logger.LogWarning("Ignoring duplicate connection for '{Sender}'", sender);
                 return;
             }
 

@@ -41,13 +41,13 @@ namespace FOMServer.Master.Application.Handlers
             var session = _clientRegistry.Get(sender);
             if (session is null)
             {
-                _logger.LogWarning("Dropping unexpected world login from '{Address}'", sender);
+                _logger.LogWarning("Dropping unexpected world login from '{Sender}'", sender);
                 return;
             }
 
             if (session.PlayerId != p.PlayerId)
             {
-                _logger.LogWarning("Unexpected world login for player {PlayerId} from player {CurrentPlayerId}", p.PlayerId, session.PlayerId);
+                _logger.LogWarning("Player {PlayerId} attempted world login on session belonging to {SessionPlayerId}", p.PlayerId, session.PlayerId);
                 SendLoginError(sender, p.WorldId, WorldLoginReturn.StatusCode.UnknownError);
                 return;
             }

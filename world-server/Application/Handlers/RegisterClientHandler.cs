@@ -31,7 +31,7 @@ namespace FOMServer.World.Application.Handlers
             var player = _playerRegistry.ClaimForClient(p.PlayerId, sender);
             if (player is null)
             {
-                _logger.LogWarning("Client '{Address}' attempted to register unexpected player {PlayerId}", p.PlayerId, sender);
+                _logger.LogWarning("Client '{Sender}' attempted to register unexpected player {PlayerId}", sender, p.PlayerId);
                 return;
             }
 

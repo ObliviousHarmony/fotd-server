@@ -28,8 +28,7 @@ void RegisterWorldSerializer::Write(RakNet::BitStream& bs,
 
   addressSerializer.Write(bs, data->publicAddress);
   bs.WriteCompressed(worldIdCount);
-  for (int i = 0; i < worldIdCount; ++i)
-    bs.WriteCompressed(data->worldIds[i]);
+  for (int i = 0; i < worldIdCount; ++i) bs.WriteCompressed(data->worldIds[i]);
 }
 
 }  // namespace FOMNetwork

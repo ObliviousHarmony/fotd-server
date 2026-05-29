@@ -41,7 +41,7 @@ namespace FOMServer.Master.Application.Handlers
             var session = _clientRegistry.Get(sender);
             if (session is null)
             {
-                _logger.LogWarning("Dropping login from '{Address}' with no registered session", sender);
+                _logger.LogWarning("Dropping login from '{Sender}' with no registered session", sender);
                 return;
             }
 
