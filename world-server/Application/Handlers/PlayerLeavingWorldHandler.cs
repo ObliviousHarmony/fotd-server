@@ -41,6 +41,7 @@ namespace FOMServer.World.Application.Handlers
             mData.ClientBinaryAddress = player.Address.BinaryAddress;
 
             _masterPacketSender.Send(migrate.Build());
+            _playerRegistry.Logout(player);
         }
     }
 }
