@@ -140,7 +140,7 @@ namespace FOMServer.Shared.Tests
 
             try
             {
-                _ = writer.Build();
+                writer.Build();
                 Assert.Fail("Expected ObjectDisposedException");
             }
             catch (ObjectDisposedException)

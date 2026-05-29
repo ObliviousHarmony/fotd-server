@@ -87,16 +87,16 @@ namespace FOMServer.Master.Tests
                 var persistence = new Mock<IPersistenceService>();
 
                 // Flush synchronously so logout removal happens within the disconnect call.
-                _ = persistence
+                persistence
                     .Setup(s => s.WaitForPersistence(It.IsAny<IPersistable>(), It.IsAny<Action>()))
                     .Callback<IPersistable, Action>((_, callback) => callback());
                 PlayerRegistry = new PlayerRegistry(persistence.Object);
 
                 var accounts = new Mock<IAccountRepository>();
-                _ = accounts.Setup(r => r.GetByUsername(It.IsAny<string>())).Returns(new AccountDto { id = PlayerId });
+                accounts.Setup(r => r.GetByUsername(It.IsAny<string>())).Returns(new AccountDto { id = PlayerId });
 
                 var players = new Mock<IPlayerRepository>();
-                _ = players.Setup(r => r.GetById(PlayerId)).Returns(new PlayerDto { id = PlayerId, name = "Tester" });
+                players.Setup(r => r.GetById(PlayerId)).Returns(new PlayerDto { id = PlayerId, name = "Tester" });
 
                 // IWorldServerRegistry is an internal interface; mocking it would need an
                 // unsigned DynamicProxy assembly that the keyed InternalsVisibleTo doesn't cover.

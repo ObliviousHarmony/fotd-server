@@ -59,7 +59,7 @@ namespace FOMServer.Shared.Application.Networking
         /// </summary>
         public void Enqueue(in PacketRef packet)
         {
-            _ = _packetQueue.Writer.TryWrite(packet);
+            _packetQueue.Writer.TryWrite(packet);
         }
 
         /// <summary>

@@ -27,7 +27,7 @@ namespace FOMServer.World.Application.Handlers
 
         public override void Handle(NetworkAddress sender, in PlayerMigrateWorld p)
         {
-            _ = _playerRegistry.PrepareForClient(p.PlayerId, p.ClientBinaryAddress);
+            _playerRegistry.PrepareForClient(p.PlayerId, p.ClientBinaryAddress);
 
             using var response = new PacketWriter<PlayerWorldReady>();
             ref var rData = ref response.Data;

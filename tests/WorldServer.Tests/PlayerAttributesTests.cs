@@ -113,7 +113,7 @@ namespace FOMServer.World.Tests
         {
             var attrs = CreateAttributes();
 
-            _ = Assert.Throws<InvalidOperationException>(
+            Assert.Throws<InvalidOperationException>(
                 () => attrs.Change(AttributeType.Coins, 100));
         }
 
@@ -124,7 +124,7 @@ namespace FOMServer.World.Tests
             var fired = false;
             attrs.OnPersistableChange += (_, _, _) => { fired = true; return true; };
 
-            _ = attrs.Change(AttributeType.Health, 10);
+            attrs.Change(AttributeType.Health, 10);
 
             Assert.True(fired);
         }
@@ -235,7 +235,7 @@ namespace FOMServer.World.Tests
 
             using (var locked = attrs.Lock(AttributeType.UniversalCredits))
             {
-                _ = locked.Get();
+                locked.Get();
             }
 
             Assert.False(fired);
@@ -262,7 +262,7 @@ namespace FOMServer.World.Tests
 
             using var locked = attrs.Lock(AttributeType.Coins);
 
-            _ = Assert.Throws<AttributeDeadlockException>(
+            Assert.Throws<AttributeDeadlockException>(
                 () => attrs.Lock(AttributeType.Coins));
         }
 

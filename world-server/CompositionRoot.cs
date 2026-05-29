@@ -23,20 +23,20 @@ namespace FOMServer.World
             var services = new ServiceCollection();
 
             var shutdownManager = new ShutdownManager();
-            _ = services.AddSingleton<IShutdownManager>(sp => shutdownManager);
+            services.AddSingleton<IShutdownManager>(sp => shutdownManager);
 
             // Run before anything else so that the cached settings in this class are available.
-            _ = services.AddConfiguration();
+            services.AddConfiguration();
 
             // Configure logging as early as possible so that everything is logged.
             services.ConfigureLogging(shutdownManager);
 
-            _ = services.AddServerShared();
-            _ = services.AddWorldServices();
-            _ = services.AddRepositories();
-            _ = services.AddPersistenceHandlers();
+            services.AddServerShared();
+            services.AddWorldServices();
+            services.AddRepositories();
+            services.AddPersistenceHandlers();
 
-            _ = services.AddSingleton<Server>();
+            services.AddSingleton<Server>();
             return services.BuildServiceProvider();
         }
 
@@ -90,21 +90,21 @@ namespace FOMServer.World
             }
 
             _ = s_serverSettings.ClientIp ?? throw new InvalidOperationException("Client host could not be resolved");
-            _ = services.AddSingleton(s_serverSettings);
-            _ = services.AddSingleton(s_dbSettings);
+            services.AddSingleton(s_serverSettings);
+            services.AddSingleton(s_dbSettings);
             return services;
         }
 
         private static ServiceCollection AddWorldServices(this ServiceCollection services)
         {
-            _ = services.AddSingleton<ClientPacketSender>();
-            _ = services.AddSingleton<IClientPacketSender>(sp => sp.GetRequiredService<ClientPacketSender>());
-            _ = services.AddSingleton<MasterPacketSender>();
-            _ = services.AddSingleton<IMasterPacketSender>(sp => sp.GetRequiredService<MasterPacketSender>());
+            services.AddSingleton<ClientPacketSender>();
+            services.AddSingleton<IClientPacketSender>(sp => sp.GetRequiredService<ClientPacketSender>());
+            services.AddSingleton<MasterPacketSender>();
+            services.AddSingleton<IMasterPacketSender>(sp => sp.GetRequiredService<MasterPacketSender>());
 
-            _ = services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
+            services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
 
-            _ = services.AddSingleton<IPlayerRegistry, PlayerRegistry>();
+            services.AddSingleton<IPlayerRegistry, PlayerRegistry>();
             return services;
         }
 

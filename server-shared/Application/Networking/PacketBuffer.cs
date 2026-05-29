@@ -62,7 +62,7 @@ namespace FOMServer.Shared.Application.Networking
                 return null;
             }
 
-            _ = Interlocked.Increment(ref s_activeBufferCount);
+            Interlocked.Increment(ref s_activeBufferCount);
 
             _packetIds = ArrayPool<PacketIdentifier>.Shared.Rent(received.Count);
 
@@ -149,7 +149,7 @@ namespace FOMServer.Shared.Application.Networking
                 // Invalidate stale references before freeing the buffers so
                 // that they aren't able to access memory that has been
                 // returned back to the pool.
-                _ = Interlocked.Increment(ref _bufferVersion);
+                Interlocked.Increment(ref _bufferVersion);
 
                 var tempIds = Interlocked.Exchange(ref _packetIds, null);
                 ArrayPool<PacketIdentifier>.Shared.Return(tempIds!);
@@ -157,8 +157,8 @@ namespace FOMServer.Shared.Application.Networking
                 var tempBuffer = Interlocked.Exchange(ref _buffer, null);
                 ArrayPool<byte>.Shared.Return(tempBuffer!);
 
-                _ = Interlocked.Decrement(ref s_activeBufferCount);
-                _ = Interlocked.Exchange(ref _allocated, 0);
+                Interlocked.Decrement(ref s_activeBufferCount);
+                Interlocked.Exchange(ref _allocated, 0);
             }
         }
 

@@ -79,32 +79,32 @@ namespace FOMServer.Shared.Application.Networking
             var packetSize = PacketHelpers.GetPacketSize(_id);
             var sb = new StringBuilder(32 + (packetSize * 3));
 
-            _ = sb.Append(_id);
-            _ = sb.Append(" [");
-            _ = sb.Append(packetSize);
-            _ = sb.Append(" bytes]: ");
+            sb.Append(_id);
+            sb.Append(" [");
+            sb.Append(packetSize);
+            sb.Append(" bytes]: ");
 
             var data = _data.Span;
             var status = (SerializationStatus)data[0];
             if (status != SerializationStatus.Success)
             {
-                _ = sb.Append("<error: ");
-                _ = sb.Append(status.ToString());
-                _ = sb.Append('>');
+                sb.Append("<error: ");
+                sb.Append(status.ToString());
+                sb.Append('>');
             }
             else if (_parentBuffer.IsPacketDisposed(in this))
             {
-                _ = sb.Append("<disposed>");
+                sb.Append("<disposed>");
             }
             else
             {
                 // Append as hex pairs separated by spaces (skip status byte at index 0)
                 for (var i = 1; i <= packetSize; i++)
                 {
-                    _ = sb.Append(data[i].ToString("X2"));
+                    sb.Append(data[i].ToString("X2"));
                     if (i < packetSize)
                     {
-                        _ = sb.Append(' ');
+                        sb.Append(' ');
                     }
                 }
             }

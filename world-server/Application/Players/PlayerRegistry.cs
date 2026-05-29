@@ -45,7 +45,7 @@ namespace FOMServer.World.Application.Players
 
             if (pending.IsExpired(_timeProvider.GetUtcNow()))
             {
-                _ = _pendingPlayers.TryRemove(new KeyValuePair<uint, PendingPlayer>(playerId, pending));
+                _pendingPlayers.TryRemove(new KeyValuePair<uint, PendingPlayer>(playerId, pending));
                 return null;
             }
 
@@ -78,8 +78,8 @@ namespace FOMServer.World.Application.Players
                 player,
                 () =>
                 {
-                    _ = _playersByAddress.TryRemove(new KeyValuePair<NetworkAddress, Player>(player.Address, player));
-                    _ = _players.TryRemove(new KeyValuePair<uint, Player>(player.Id, player));
+                    _playersByAddress.TryRemove(new KeyValuePair<NetworkAddress, Player>(player.Address, player));
+                    _players.TryRemove(new KeyValuePair<uint, Player>(player.Id, player));
                 });
         }
 

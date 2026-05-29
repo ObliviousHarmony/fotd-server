@@ -28,7 +28,7 @@ namespace FOMServer.Master.Application.Handlers
                 return;
             }
 
-            _ = _clientRegistry.Register(sender);
+            _clientRegistry.Register(sender);
         }
     }
 }

@@ -22,21 +22,21 @@ namespace FOMServer.Master
             var services = new ServiceCollection();
 
             var shutdownManager = new ShutdownManager();
-            _ = services.AddSingleton<IShutdownManager>(sp => shutdownManager);
+            services.AddSingleton<IShutdownManager>(sp => shutdownManager);
 
             // Run before anything else so that the cached settings in this class are available.
-            _ = services.AddConfiguration();
+            services.AddConfiguration();
 
             // Configure logging as early as possible so that everything is logged.
             services.ConfigureLogging(shutdownManager);
 
-            _ = services.AddServerShared();
-            _ = services.AddMasterServices();
-            _ = services.AddFactories();
-            _ = services.AddDatabaseMigrations();
-            _ = services.AddRepositories();
+            services.AddServerShared();
+            services.AddMasterServices();
+            services.AddFactories();
+            services.AddDatabaseMigrations();
+            services.AddRepositories();
 
-            _ = services.AddSingleton<Server>();
+            services.AddSingleton<Server>();
             return services.BuildServiceProvider();
         }
 
@@ -61,33 +61,33 @@ namespace FOMServer.Master
                 throw new InvalidOperationException("Database connection string must be configured");
             }
 
-            _ = services.AddSingleton(s_dbSettings);
+            services.AddSingleton(s_dbSettings);
             return services;
         }
 
         private static ServiceCollection AddMasterServices(this ServiceCollection services)
         {
-            _ = services.AddSingleton<ClientPacketSender>();
-            _ = services.AddSingleton<IClientPacketSender>(sp => sp.GetRequiredService<ClientPacketSender>());
-            _ = services.AddSingleton<WorldPacketSender>();
-            _ = services.AddSingleton<IWorldPacketSender>(sp => sp.GetRequiredService<WorldPacketSender>());
+            services.AddSingleton<ClientPacketSender>();
+            services.AddSingleton<IClientPacketSender>(sp => sp.GetRequiredService<ClientPacketSender>());
+            services.AddSingleton<WorldPacketSender>();
+            services.AddSingleton<IWorldPacketSender>(sp => sp.GetRequiredService<WorldPacketSender>());
 
-            _ = services.AddSingleton<IWorldServerRegistry, WorldServerRegistry>();
+            services.AddSingleton<IWorldServerRegistry, WorldServerRegistry>();
 
-            _ = services.AddSingleton<IClientRegistry, ClientRegistry>();
-            _ = services.AddSingleton<IPlayerRegistry, PlayerRegistry>();
+            services.AddSingleton<IClientRegistry, ClientRegistry>();
+            services.AddSingleton<IPlayerRegistry, PlayerRegistry>();
             return services;
         }
 
         private static ServiceCollection AddFactories(this ServiceCollection services)
         {
-            _ = services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
+            services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
             return services;
         }
 
         private static ServiceCollection AddDatabaseMigrations(this ServiceCollection services)
         {
-            _ = services.AddFluentMigratorCore()
+            services.AddFluentMigratorCore()
             .ConfigureRunner(rb => rb.AddMySql8()
                   .WithGlobalConnectionString(s_dbSettings!.ConnectionString)
                   .ScanIn(typeof(ServiceCollectionExtensions).Assembly)

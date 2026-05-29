@@ -72,8 +72,8 @@ namespace FOMServer.Shared.Application.Networking
                 throw new InvalidOperationException($"Packet Id '{id}' is already claimed by another network manager");
             }
 
-            _ = s_globalClaimedPacketIds.Add(id);
-            _ = _claimedPacketIds.Add(id);
+            s_globalClaimedPacketIds.Add(id);
+            _claimedPacketIds.Add(id);
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace FOMServer.Shared.Application.Networking
                 throw new InvalidOperationException("Peer is not configured");
             }
 
-            _ = _sendQueue.Writer.TryWrite(packet);
+            _sendQueue.Writer.TryWrite(packet);
         }
 
         public async ValueTask DisposeAsync()
@@ -166,7 +166,7 @@ namespace FOMServer.Shared.Application.Networking
                     // limiting the number of packets sent per batch.
                     while (sendBuffer.CanAdd && _sendQueue.Reader.TryRead(out var packetToSend))
                     {
-                        _ = sendBuffer.Add(in packetToSend);
+                        sendBuffer.Add(in packetToSend);
                     }
 
                     if (sendBuffer.HasBatch)

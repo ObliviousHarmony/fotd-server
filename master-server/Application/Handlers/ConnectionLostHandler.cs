@@ -66,7 +66,7 @@ namespace FOMServer.Master.Application.Handlers
                 _playerRegistry.Logout(session.Player);
             }
 
-            _ = _clientRegistry.Unregister(session);
+            _clientRegistry.Unregister(session);
         }
     }
 }

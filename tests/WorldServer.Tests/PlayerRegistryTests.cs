@@ -14,7 +14,7 @@ namespace FOMServer.World.Tests
         {
             var fixture = new Fixture();
 
-            _ = fixture.Registry.PrepareForClient(PlayerId, ClientBinary);
+            fixture.Registry.PrepareForClient(PlayerId, ClientBinary);
 
             // A pending player is unreachable through either lookup.
             Assert.Null(fixture.Registry.Get(PlayerId));
@@ -31,7 +31,7 @@ namespace FOMServer.World.Tests
         public void Claim_MatchingBinaryAddressDifferentPort_Activates()
         {
             var fixture = new Fixture();
-            _ = fixture.Registry.PrepareForClient(PlayerId, ClientBinary);
+            fixture.Registry.PrepareForClient(PlayerId, ClientBinary);
 
             // The world sees the client through a different socket, so only the IP is gated.
             var sender = Address(port: 51234);
@@ -45,7 +45,7 @@ namespace FOMServer.World.Tests
         public void Claim_WrongBinaryAddress_ReturnsNullAndLeavesPendingIntact()
         {
             var fixture = new Fixture();
-            _ = fixture.Registry.PrepareForClient(PlayerId, ClientBinary);
+            fixture.Registry.PrepareForClient(PlayerId, ClientBinary);
 
             Assert.Null(fixture.Registry.ClaimForClient(PlayerId, Address(binary: 0x02000010)));
             Assert.Null(fixture.Registry.Get(PlayerId));
@@ -58,7 +58,7 @@ namespace FOMServer.World.Tests
         public void Claim_AfterTimeout_ReturnsNullAndDropsEntry()
         {
             var fixture = new Fixture();
-            _ = fixture.Registry.PrepareForClient(PlayerId, ClientBinary);
+            fixture.Registry.PrepareForClient(PlayerId, ClientBinary);
 
             fixture.Time.Advance(TimeSpan.FromHours(1));
 
@@ -69,7 +69,7 @@ namespace FOMServer.World.Tests
         public void Claim_JustBeforeTimeout_StillActivates()
         {
             var fixture = new Fixture();
-            _ = fixture.Registry.PrepareForClient(PlayerId, ClientBinary);
+            fixture.Registry.PrepareForClient(PlayerId, ClientBinary);
 
             fixture.Time.Advance(TimeSpan.FromSeconds(29));
 
@@ -80,8 +80,8 @@ namespace FOMServer.World.Tests
         public void Prepare_Twice_ReplacesTheTakeoverAddress()
         {
             var fixture = new Fixture();
-            _ = fixture.Registry.PrepareForClient(PlayerId, 0x0100007F);
-            _ = fixture.Registry.PrepareForClient(PlayerId, 0x02000010);
+            fixture.Registry.PrepareForClient(PlayerId, 0x0100007F);
+            fixture.Registry.PrepareForClient(PlayerId, 0x02000010);
 
             // The replacement's address gates the takeover.
             Assert.Null(fixture.Registry.ClaimForClient(PlayerId, Address(binary: 0x0100007F)));

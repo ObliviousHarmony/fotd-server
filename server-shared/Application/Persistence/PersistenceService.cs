@@ -58,17 +58,17 @@ namespace FOMServer.Shared.Application.Persistence
                 Version = Volatile.Read(in state.Version)
             });
 
-            _ = _waitQueue.Writer.TryWrite(new WaitRequest
+            _waitQueue.Writer.TryWrite(new WaitRequest
             {
                 BlockingDependencies = blockingDependencies,
                 Callback = callback
             });
 
             // Ensure the entity goes through the persistence loop so waits get processed
-            _ = Enqueue(entity);
+            Enqueue(entity);
 
             // Block future enqueues after we've queued this one
-            _ = Interlocked.Exchange(ref state.IsWaiting, 1);
+            Interlocked.Exchange(ref state.IsWaiting, 1);
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace FOMServer.Shared.Application.Persistence
             // Use an atomic flag so that dirty entities are thread-safely queued only once.
             if (Interlocked.Exchange(ref state.IsDirty, 1) == 0)
             {
-                _ = _dirtyQueue.Writer.TryWrite(entity);
+                _dirtyQueue.Writer.TryWrite(entity);
             }
 
             return true;
@@ -192,7 +192,7 @@ namespace FOMServer.Shared.Application.Persistence
                     if (dependency.Entity.TryGetTarget(out var entity))
                     {
                         var state = _entityStates.GetOrCreateValue(entity);
-                        _ = Interlocked.Exchange(ref state.IsWaiting, 0);
+                        Interlocked.Exchange(ref state.IsWaiting, 0);
                     }
                 }
 
@@ -230,7 +230,7 @@ namespace FOMServer.Shared.Application.Persistence
             }
             finally
             {
-                _ = Interlocked.Increment(ref state.Version);
+                Interlocked.Increment(ref state.Version);
             }
         }
 

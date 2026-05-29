@@ -42,7 +42,7 @@ namespace FOMServer.Shared.Application
             }
 
             _rootCts.Cancel();
-            _ = _stoppingTcs.TrySetResult();
+            _stoppingTcs.TrySetResult();
 
             Task[] tasksToWait;
             lock (_syncRoot)
@@ -51,7 +51,7 @@ namespace FOMServer.Shared.Application
             }
 
             await Task.WhenAll(tasksToWait);
-            _ = _stoppedTcs.TrySetResult();
+            _stoppedTcs.TrySetResult();
         }
     }
 }

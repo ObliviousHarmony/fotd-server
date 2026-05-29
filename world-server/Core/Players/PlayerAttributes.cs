@@ -114,7 +114,7 @@ namespace FOMServer.World.Core.Players
             }
 
             var result = (uint)Math.Clamp(Interlocked.Add(ref _values[index], delta), 0, metadata.Max);
-            _ = (OnPersistableChange?.Invoke(this, _player));
+            OnPersistableChange?.Invoke(this, _player);
             return result;
         }
 
@@ -209,7 +209,7 @@ namespace FOMServer.World.Core.Players
 
                 if (_changed)
                 {
-                    _ = (_parent.OnPersistableChange?.Invoke(_parent, _parent._player));
+                    _parent.OnPersistableChange?.Invoke(_parent, _parent._player);
                 }
             }
         }

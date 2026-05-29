@@ -58,7 +58,7 @@ namespace FOMServer.Shared.Tests
         {
             var buffer = new PacketBuffer();
 
-            _ = Assert.Throws<InvalidOperationException>(() => buffer.GetPackets());
+            Assert.Throws<InvalidOperationException>(() => buffer.GetPackets());
         }
 
         [Fact]
@@ -73,7 +73,7 @@ namespace FOMServer.Shared.Tests
             };
 
             var received = CreateReceivedPackets(2, identifiers, senders);
-            _ = buffer.Rent(received);
+            buffer.Rent(received);
 
             var packets = buffer.GetPackets();
             Assert.Equal(2, packets.Length);
@@ -111,7 +111,7 @@ namespace FOMServer.Shared.Tests
             };
 
             var received = CreateReceivedPackets(2, identifiers, senders);
-            _ = buffer.Rent(received);
+            buffer.Rent(received);
 
             var packets = buffer.GetPackets();
             var packet = packets[0];
@@ -120,7 +120,7 @@ namespace FOMServer.Shared.Tests
             packet.Dispose();
 
             // Second dispose should throw ObjectDisposedException
-            _ = Assert.Throws<ObjectDisposedException>(packet.Dispose);
+            Assert.Throws<ObjectDisposedException>(packet.Dispose);
 
             // Clean up the second packet
             packets[1].Dispose();
@@ -134,7 +134,7 @@ namespace FOMServer.Shared.Tests
             var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             var received = CreateReceivedPackets(1, &identifier, &sender);
-            _ = buffer.Rent(received);
+            buffer.Rent(received);
 
             var packets = buffer.GetPackets();
             var stalePacket = packets[0];
@@ -143,11 +143,11 @@ namespace FOMServer.Shared.Tests
             stalePacket.Dispose();
 
             // Rent again - this increments the buffer version
-            _ = buffer.Rent(received);
+            buffer.Rent(received);
             var newPackets = buffer.GetPackets();
 
             // The stale packet reference should throw because version mismatches
-            _ = Assert.Throws<ObjectDisposedException>(stalePacket.Dispose);
+            Assert.Throws<ObjectDisposedException>(stalePacket.Dispose);
 
             // Clean up new allocation
             newPackets[0].Dispose();
@@ -161,14 +161,14 @@ namespace FOMServer.Shared.Tests
             var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             var received = CreateReceivedPackets(1, &identifier, &sender);
-            _ = buffer.Rent(received);
+            buffer.Rent(received);
 
             var packets = buffer.GetPackets();
             var packet = packets[0];
 
             packet.Dispose();
 
-            _ = Assert.Throws<ObjectDisposedException>(() => _ = packet.Id);
+            Assert.Throws<ObjectDisposedException>(() => _ = packet.Id);
         }
 
         [Fact]
@@ -179,14 +179,14 @@ namespace FOMServer.Shared.Tests
             var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             var received = CreateReceivedPackets(1, &identifier, &sender);
-            _ = buffer.Rent(received);
+            buffer.Rent(received);
 
             var packets = buffer.GetPackets();
             var packet = packets[0];
 
             packet.Dispose();
 
-            _ = Assert.Throws<ObjectDisposedException>(() => _ = packet.Sender);
+            Assert.Throws<ObjectDisposedException>(() => _ = packet.Sender);
         }
 
         [Fact]
@@ -197,7 +197,7 @@ namespace FOMServer.Shared.Tests
             var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             var received = CreateReceivedPackets(1, &identifier, &sender);
-            _ = buffer.Rent(received);
+            buffer.Rent(received);
 
             var packets = buffer.GetPackets();
             var packet = packets[0];
@@ -217,7 +217,7 @@ namespace FOMServer.Shared.Tests
             var sender = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             var received = CreateReceivedPackets(1, &identifier, &sender);
-            _ = buffer.Rent(received);
+            buffer.Rent(received);
 
             var packets = buffer.GetPackets();
             var packet = packets[0];
@@ -263,7 +263,7 @@ namespace FOMServer.Shared.Tests
             var packets = buffer.GetPackets();
             var packet = packets[0];
 
-            _ = Assert.Throws<InvalidOperationException>(() => packet.Data<ConnectionRequestAccepted>());
+            Assert.Throws<InvalidOperationException>(() => packet.Data<ConnectionRequestAccepted>());
 
             packet.Dispose();
         }

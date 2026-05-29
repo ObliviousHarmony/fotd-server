@@ -81,7 +81,7 @@ namespace FOMServer.Master.Application.Handlers
             }
 
             _clientRegistry.BeginLogin(session, account.id);
-            _ = _playerRegistry.Login(session);
+            _playerRegistry.Login(session);
 
             rData.Status = LoginReturn.StatusCode.Success;
             rData.AccountType = AccountType.Prepaid;

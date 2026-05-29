@@ -15,8 +15,8 @@ namespace FOMServer.Shared.Tests
         {
             _cts = new CancellationTokenSource();
             _shutdownManager = new Mock<IShutdownManager>();
-            _ = _shutdownManager.Setup(s => s.Token).Returns(_cts.Token);
-            _ = _shutdownManager.Setup(s => s.TrackTask(It.IsAny<Task>()));
+            _shutdownManager.Setup(s => s.Token).Returns(_cts.Token);
+            _shutdownManager.Setup(s => s.TrackTask(It.IsAny<Task>()));
 
             _logger = new Mock<ILogger<PersistenceService>>();
             _handler = new TestPersistenceHandler();
@@ -37,7 +37,7 @@ namespace FOMServer.Shared.Tests
 
             service.Register(entity);
 
-            _ = entity.MarkChanged();
+            entity.MarkChanged();
 
             // Wait for persistence loop to process
             await Task.Delay(200);
@@ -54,7 +54,7 @@ namespace FOMServer.Shared.Tests
 
             service.Register(entity);
 
-            _ = entity.MarkChanged();
+            entity.MarkChanged();
             service.WaitForPersistence(entity, callbackFired.SetResult);
 
             var completed = await Task.WhenAny(callbackFired.Task, Task.Delay(1000));
@@ -76,7 +76,7 @@ namespace FOMServer.Shared.Tests
 
             // Item changes and registers player as an association
             // (player must wait for item to persist before its wait completes)
-            _ = item.MarkChanged(player);
+            item.MarkChanged(player);
 
             service.WaitForPersistence(player, callbackFired.SetResult);
 
@@ -101,10 +101,10 @@ namespace FOMServer.Shared.Tests
             service.Register(item2);
 
             // Item1 changes with null primary association but player in additional associations
-            _ = item1.MarkChanged(null, [player]);
+            item1.MarkChanged(null, [player]);
 
             // Item2 changes with both primary and additional associations
-            _ = item2.MarkChanged(player, [item1]);
+            item2.MarkChanged(player, [item1]);
 
             service.WaitForPersistence(player, callbackFired.SetResult);
 
@@ -132,7 +132,7 @@ namespace FOMServer.Shared.Tests
             service.Register(item);
 
             // Item changes and registers player as an association
-            _ = item.MarkChanged(player);
+            item.MarkChanged(player);
 
             service.WaitForPersistence(player, callbackFired.SetResult);
 
@@ -161,7 +161,7 @@ namespace FOMServer.Shared.Tests
 
             service.Register(entity);
 
-            _ = entity.MarkChanged();
+            entity.MarkChanged();
             service.WaitForPersistence(entity, firstFired.SetResult);
             service.WaitForPersistence(entity, secondFired.SetResult);
 
@@ -190,15 +190,15 @@ namespace FOMServer.Shared.Tests
             service.Register(entity);
 
             // Rapid-fire changes
-            _ = entity.MarkChanged();
-            _ = entity.MarkChanged();
-            _ = entity.MarkChanged();
+            entity.MarkChanged();
+            entity.MarkChanged();
+            entity.MarkChanged();
 
             // Wait for persistence loop to process
             await Task.Delay(200);
 
             // Should only persist once due to batching
-            _ = Assert.Single(_handler.PersistedEntities);
+            Assert.Single(_handler.PersistedEntities);
         }
 
         [Fact]
@@ -216,7 +216,7 @@ namespace FOMServer.Shared.Tests
             service.Register(entity);
             service.Start();
 
-            _ = entity.MarkChanged();
+            entity.MarkChanged();
 
             // Wait for persistence loop to process and log exception
             await Task.Delay(200);
@@ -243,7 +243,7 @@ namespace FOMServer.Shared.Tests
 
             service.Register(entity);
 
-            _ = entity.MarkChanged();
+            entity.MarkChanged();
             service.WaitForPersistence(entity, () => { });
 
             // Entity is now waiting - further changes should be rejected
@@ -264,7 +264,7 @@ namespace FOMServer.Shared.Tests
 
             service.Register(entity);
 
-            _ = entity.MarkChanged();
+            entity.MarkChanged();
             service.WaitForPersistence(entity, callbackFired.SetResult);
 
             // Wait for callback to fire (IsWaiting should be cleared)
@@ -287,7 +287,7 @@ namespace FOMServer.Shared.Tests
 
             service.Register(entity);
 
-            _ = entity.MarkChanged();
+            entity.MarkChanged();
             service.WaitForPersistence(entity, callbackFired.SetResult);
 
             // Callback should still fire because version increments in finally block

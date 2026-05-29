@@ -42,7 +42,7 @@ namespace FOMServer.Master.Application.Players
 
             if (session.PlayerId.HasValue)
             {
-                _ = _sessionsByPlayerId.TryRemove(new KeyValuePair<uint, ClientSession>(session.PlayerId.Value, session));
+                _sessionsByPlayerId.TryRemove(new KeyValuePair<uint, ClientSession>(session.PlayerId.Value, session));
             }
 
             return true;

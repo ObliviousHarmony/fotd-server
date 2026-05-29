@@ -21,43 +21,43 @@ namespace FOMServer.Shared.Extensions
         )
         {
             var provider = new BackgroundLoggerProvider(shutdownManager, writeToConsole, logFilePath);
-            _ = services.AddLogging(lb => lb.ClearProviders().AddProvider(provider));
+            services.AddLogging(lb => lb.ClearProviders().AddProvider(provider));
 
             provider.Start();
         }
 
         public static IServiceCollection AddServerShared(this IServiceCollection services)
         {
-            _ = services.AddSingleton(TimeProvider.System);
+            services.AddSingleton(TimeProvider.System);
 
-            _ = services.AddInteropServices();
-            _ = services.AddSharedServices();
-            _ = services.AddSharedRepositories();
-            _ = services.AddPacketHandlers();
+            services.AddInteropServices();
+            services.AddSharedServices();
+            services.AddSharedRepositories();
+            services.AddPacketHandlers();
             return services;
         }
 
         private static IServiceCollection AddInteropServices(this IServiceCollection services)
         {
-            _ = services.AddSingleton<INetworkService, NetworkService>();
-            _ = services.AddSingleton<IServerService, ServerService>();
-            _ = services.AddSingleton<IClientService, ClientService>();
-            _ = services.AddSingleton<IPacketService, PacketService>();
+            services.AddSingleton<INetworkService, NetworkService>();
+            services.AddSingleton<IServerService, ServerService>();
+            services.AddSingleton<IClientService, ClientService>();
+            services.AddSingleton<IPacketService, PacketService>();
             return services;
         }
 
         private static IServiceCollection AddSharedServices(this IServiceCollection services)
         {
-            _ = services.AddSingleton<IPersistenceService, PersistenceService>();
-            _ = services.AddSingleton(sp => (IServerStartable)sp.GetRequiredService<IPersistenceService>());
+            services.AddSingleton<IPersistenceService, PersistenceService>();
+            services.AddSingleton(sp => (IServerStartable)sp.GetRequiredService<IPersistenceService>());
 
             return services;
         }
 
         private static IServiceCollection AddSharedRepositories(this IServiceCollection services)
         {
-            _ = services.AddSingleton<IAccountRepository, DbAccountRepository>();
-            _ = services.AddSingleton<IPlayerRepository, DbPlayerRepository>();
+            services.AddSingleton<IAccountRepository, DbAccountRepository>();
+            services.AddSingleton<IPlayerRepository, DbPlayerRepository>();
             return services;
         }
 
@@ -78,7 +78,7 @@ namespace FOMServer.Shared.Extensions
 
             foreach (var type in handlerTypes)
             {
-                _ = services.AddSingleton(handlerInterface, type);
+                services.AddSingleton(handlerInterface, type);
             }
 
             return services;
