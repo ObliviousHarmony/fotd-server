@@ -1,10 +1,11 @@
-using FOMServer.Shared.Core.DTOs;
+using FOMServer.Shared.Core.Dtos;
 
 namespace FOMServer.Shared.Core.Repositories
 {
     public interface IAccountRepository
     {
-        AccountDTO? GetByID(uint id);
-        AccountDTO? GetByUsername(string username);
+        AccountDto? GetById(uint id);
+
+        AccountDto? GetByUsername(string username);
     }
 }

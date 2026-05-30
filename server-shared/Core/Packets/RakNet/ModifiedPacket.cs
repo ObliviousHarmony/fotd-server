@@ -4,7 +4,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets.RakNet
 {
-    [PacketID(PacketIdentifier.ID_MODIFIED_PACKET)]
+    [PacketId(PacketIdentifier.ID_MODIFIED_PACKET)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct ModifiedPacket { }
 }

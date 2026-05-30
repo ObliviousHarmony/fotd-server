@@ -8,9 +8,9 @@ namespace FOMServer.Shared.Infrastructure.FOMNetwork
         /// The maximum number of packets that can be buffered at once.
         /// </summary>
         /// <remarks>
-        /// Must match `fom-network/src/PacketAPI.cpp` MaxBufferedPackets.
+        /// Must match `fom-network/src/PacketApi.cpp` MaxBufferedPackets.
         /// </remarks>
-        public const int MaxBufferedPackets = 64;
+        const int MaxBufferedPackets = 64;
 
         /// <summary>
         /// Polls the network interface for packets, parses them, and returns them in a memory buffer.

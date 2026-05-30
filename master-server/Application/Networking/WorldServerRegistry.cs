@@ -5,57 +5,60 @@ using FOMServer.Shared.Core.Packets.Types;
 
 namespace FOMServer.Master.Application.Networking
 {
-    public class WorldServerRegistry : IWorldServerRegistry
+    internal class WorldServerRegistry : IWorldServerRegistry
     {
-        private readonly ConcurrentDictionary<WorldID, WorldServer> _worldServers = new();
+        private readonly ConcurrentDictionary<WorldId, WorldServer> _worldServers = new();
 
         public WorldServer[] GetAll()
         {
-            return _worldServers.Values.ToArray();
+            return [.. _worldServers.Values];
         }
 
-        public WorldServer? Get(WorldID id)
+        public WorldServer? Get(WorldId id)
         {
             return _worldServers.GetValueOrDefault(id);
         }
 
-        public WorldID[] Register(WorldID[] ids, NetworkAddress serverAddress, NetworkAddress clientAddress)
+        public WorldId[] Register(WorldId[] ids, NetworkAddress serverAddress, NetworkAddress publicAddress)
         {
-            var registered = new List<WorldID>();
+            var registered = new List<WorldId>();
 
             foreach (var id in ids)
             {
                 var worldServer = new WorldServer
                 {
-                    ID = id,
+                    Id = id,
                     ServerAddress = serverAddress,
-                    ClientAddress = clientAddress
+                    PublicAddress = publicAddress
                 };
 
                 if (!_worldServers.TryAdd(id, worldServer))
-                    throw new InvalidOperationException($"World {id} has already been registered");
+                {
+                    throw new InvalidOperationException($"World '{id}' has already been registered");
+                }
 
                 registered.Add(id);
-
             }
 
-            return registered.ToArray();
+            return [.. registered];
         }
 
-        public WorldID[] Unregister(NetworkAddress serverAddress)
+        public WorldId[] Unregister(NetworkAddress serverAddress)
         {
-            var unregistered = new List<WorldID>();
+            var unregistered = new List<WorldId>();
 
             foreach (var kvp in _worldServers)
             {
                 if (kvp.Value.ServerAddress.Equals(serverAddress))
                 {
-                    if (_worldServers.TryRemove(kvp.Key, out _))
+                    if (_worldServers.TryRemove(kvp))
+                    {
                         unregistered.Add(kvp.Key);
+                    }
                 }
             }
 
-            return unregistered.ToArray();
+            return [.. unregistered];
         }
     }
 }

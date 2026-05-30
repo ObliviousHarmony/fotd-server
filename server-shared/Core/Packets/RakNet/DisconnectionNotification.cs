@@ -4,7 +4,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets.RakNet
 {
-    [PacketID(PacketIdentifier.ID_DISCONNECTION_NOTIFICATION)]
+    [PacketId(PacketIdentifier.ID_DISCONNECTION_NOTIFICATION)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct DisconnectionNotification { }
 }

@@ -4,7 +4,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets.RakNet
 {
-    [PacketID(PacketIdentifier.ID_CONNECTION_ATTEMPT_FAILED)]
+    [PacketId(PacketIdentifier.ID_CONNECTION_ATTEMPT_FAILED)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct ConnectionAttemptFailed { }
 }

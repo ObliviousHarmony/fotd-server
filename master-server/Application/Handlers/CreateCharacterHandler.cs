@@ -1,6 +1,5 @@
-using System.Security.Principal;
 using FOMServer.Master.Core.Networking;
-using FOMServer.Shared.Core.Constants;
+using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
@@ -11,56 +10,77 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class CreateCharacterHandler : PacketHandlerBase<CreateCharacter>
+    internal class CreateCharacterHandler : PacketHandlerBase<CreateCharacter>
     {
-        private readonly IClientPacketSender _packetSender;
         private readonly IPlayerRepository _playerRepository;
+        private readonly IClientRegistry _clientRegistry;
+        private readonly IPlayerRegistry _playerRegistry;
+        private readonly IClientPacketSender _clientPacketSender;
+        private readonly ILogger<CreateCharacterHandler> _logger;
 
         public CreateCharacterHandler(
-            IClientPacketSender packetSender,
-            IPlayerRepository playerRepository)
+            IPlayerRepository playerRepository,
+            IClientRegistry clientRegistry,
+            IPlayerRegistry playerRegistry,
+            IClientPacketSender clientPacketSender,
+            ILogger<CreateCharacterHandler> logger)
         {
-            _packetSender = packetSender;
             _playerRepository = playerRepository;
+            _clientRegistry = clientRegistry;
+            _playerRegistry = playerRegistry;
+            _clientPacketSender = clientPacketSender;
+            _logger = logger;
         }
 
         public override void Handle(NetworkAddress sender, in CreateCharacter p)
         {
-            using var response = new PacketWriter<LoginReturn>(sender);
-            ref var rData = ref response.Data;
-
-            rData.PlayerID = p.PlayerID;
-
-            var player = _playerRepository.GetByName(p.Name);
-            if (player != null)
+            var session = _clientRegistry.Get(sender);
+            if (session is null)
             {
-                rData.Status = LoginReturn.StatusCode.CreateCharacterError;
-                _packetSender.Send(response.Build());
+                _logger.LogWarning("Dropping character creation from '{Sender}' with no registered session", sender);
                 return;
             }
 
-            player = _playerRepository.Create(
-                p.PlayerID,
+            using var response = new PacketWriter<LoginReturn>(sender);
+            ref var rData = ref response.Data;
+            rData.PlayerId = p.PlayerId;
+
+            if (session.Player is not null)
+            {
+                rData.Status = LoginReturn.StatusCode.Success;
+                _clientPacketSender.Send(response.Build());
+                return;
+            }
+
+            var existing = _playerRepository.GetByName(p.Name);
+            if (existing is not null)
+            {
+                rData.Status = LoginReturn.StatusCode.CreateCharacterError;
+                _clientPacketSender.Send(response.Build());
+                return;
+            }
+
+            var created = _playerRepository.Create(
+                p.PlayerId,
                 p.Name,
                 p.Biography,
                 p.Avatar.Sex,
                 p.Avatar.Race,
                 p.Avatar.Face,
-                p.Avatar.Hair
-             );
+                p.Avatar.Hair);
 
-            if (player == null)
+            if (created is null)
             {
                 rData.Status = LoginReturn.StatusCode.CreateCharacterError;
-                _packetSender.Send(response.Build());
+                _clientPacketSender.Send(response.Build());
                 return;
             }
 
+            _clientRegistry.BeginLogin(session, p.PlayerId);
+            _playerRegistry.Login(session);
+
             rData.Status = LoginReturn.StatusCode.Success;
-
-            // Populate Login Return
-
-            _packetSender.Send(response.Build());
+            _clientPacketSender.Send(response.Build());
         }
     }
 }

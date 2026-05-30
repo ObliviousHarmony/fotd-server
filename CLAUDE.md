@@ -5,7 +5,7 @@ This repository contains a server emulator for the discontinued MMOFPS, "Face of
 
 ## Projects
 
-- [RakNet 3.611](/extern/raknet) is the game's underlying network library.
+- [RakNet 3.611](/extern/raknet) is the game's underlying network library. **Never modify any file under `/extern/raknet`** — it is vendored third-party code and is exempt from all conventions in this document.
 - [FOMNetwork](/fom-network) contains native packet definitions, serializers, and abstracts RakNet.
 - [ServerShared](/server-shared) contains the managed packet definitions and shared functionality between the "master" and "world" servers. This includes things like packet sending/receiving, persistence, and interfaces for common themes between the two.
 - [MasterServer](/master-server) is for shared global state between servers and helps transfer players between world servers. This contains things like Factions, Contracts, and other global structures.
@@ -30,7 +30,19 @@ This repository contains a server emulator for the discontinued MMOFPS, "Face of
 
 ### Special Rules
 
-- Capitalize acronyms, not just the first letter (e.g., `ID` not `Id`, `HTTP` not `Http`).
+- **Acronym casing**: Treat acronyms as words — capitalize only the first letter, regardless of length — then apply the language's normal casing (PascalCase for C# types/members and C++ types, camelCase for C++ members, etc.). Plurals follow the same rule. Examples: `PlayerId`, `WorldId`, `PacketIds`, `ApiStructs`, `HtmlParser`, `Db`, `Ip`.
+
+  The following are **not** acronyms-in-identifiers and are exempt from the rule:
+
+  | Exception | Handling | Examples |
+  | --- | --- | --- |
+  | `/extern/raknet` | Vendored third-party; never modified at all. | — |
+  | `FOM` (the product, "Face of Mankind") | Proper noun — stays uppercase. | `FOMNetwork`, `FOMServer`, `FOMDataSerializer` |
+  | In-game item / weapon / skill / apartment names | Proper nouns mirroring the original game's master data — keep their original casing. The `SCREAMING_SNAKE_CASE` wire constant in the trailing comment is authoritative. | `GakkMG6`, `EnfieldERX`, `TacticalHQ`, `SalvotecHP` |
+  | `SCREAMING_SNAKE_CASE` constants | A separate naming convention; acronym casing does not apply. Covers the `ID_*` wire identifiers (which mirror RakNet's `MessageIdentifiers`) and enum value names. | `ID_WORLD_LOGIN`, `MASTER_SERVER`, `NUM_WORLDS` |
+  | External / framework type names | Keep the upstream spelling; not ours to rename. | `IPAddress`, `IPEndPoint` |
+
+- **No empty property patterns**: Never use the empty property pattern `{ }` for null tests or captures — not `x is { }`, `x is not { }`, nor `x is { } y`. Use `is null` / `is not null` for the check, and `.HasValue` + `.Value` (or a plain assignment) when you need the value; it reads more clearly, and the `{ }` form additionally hides a `Nullable<T>` unwrap. Property patterns with real subpatterns (`x is { Status: Success }`) are fine.
 
 ## Common Commands
 

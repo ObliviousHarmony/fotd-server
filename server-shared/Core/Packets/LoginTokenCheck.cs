@@ -5,7 +5,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets
 {
-    [PacketID(PacketIdentifier.ID_LOGIN_TOKEN_CHECK)]
+    [PacketId(PacketIdentifier.ID_LOGIN_TOKEN_CHECK)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct LoginTokenCheck
     {
@@ -13,17 +13,27 @@ namespace FOMServer.Shared.Core.Packets
 
         public byte FromServer;
 
-        public fixed byte RawRequestToken[RequestTokenSize];  // FromServer == 0
+        public fixed byte RawRequestToken[RequestTokenSize]; // FromServer == 0
 
-        public byte Success;                                  // FromServer == 1
-        public fixed byte RawUsername[BufferSizes.Username];          // FromServer == 1
+        public byte Success; // FromServer == 1
+        public fixed byte RawUsername[BufferSizes.Username]; // FromServer == 1
 
         public string RequestToken
         {
             get
             {
                 fixed (byte* ptr = RawRequestToken)
+                {
                     return CStringParser.ToString(ptr, RequestTokenSize);
+                }
+            }
+
+            set
+            {
+                fixed (byte* ptr = RawRequestToken)
+                {
+                    CStringParser.FromString(value, ptr, RequestTokenSize);
+                }
             }
         }
 
@@ -32,7 +42,17 @@ namespace FOMServer.Shared.Core.Packets
             get
             {
                 fixed (byte* ptr = RawUsername)
+                {
                     return CStringParser.ToString(ptr, BufferSizes.Username);
+                }
+            }
+
+            set
+            {
+                fixed (byte* ptr = RawUsername)
+                {
+                    CStringParser.FromString(value, ptr, BufferSizes.Username);
+                }
             }
         }
     }

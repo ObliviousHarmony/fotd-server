@@ -1,12 +1,13 @@
 using FluentMigrator.Runner;
-using FOMServer.Application.Core;
 using FOMServer.Master.Application;
 using FOMServer.Master.Application.Networking;
+using FOMServer.Master.Application.Players;
 using FOMServer.Master.Core;
 using FOMServer.Master.Core.Networking;
+using FOMServer.Master.Core.Players;
 using FOMServer.Master.Infrastructure;
+using FOMServer.Shared.Application;
 using FOMServer.Shared.Core;
-using FOMServer.Shared.Extensions;
 using FOMServer.Shared.Infrastructure;
 using Microsoft.Extensions.Configuration;
 
@@ -16,9 +17,9 @@ namespace FOMServer.Master
     {
         private static DatabaseSettings? s_dbSettings;
 
-        public static IServiceProvider BuildContainer()
+        public static ServiceProvider BuildContainer()
         {
-            ServiceCollection services = new ServiceCollection();
+            var services = new ServiceCollection();
 
             var shutdownManager = new ShutdownManager();
             services.AddSingleton<IShutdownManager>(sp => shutdownManager);
@@ -41,7 +42,7 @@ namespace FOMServer.Master
 
         private static ServiceCollection AddConfiguration(this ServiceCollection services)
         {
-            IConfigurationRoot config = new ConfigurationBuilder()
+            var config = new ConfigurationBuilder()
                 .SetBasePath(AppContext.BaseDirectory)
                 .AddJsonFile("appsettings.json", optional: false)
                 .AddJsonFile("appsettings.development.json", optional: true)
@@ -51,9 +52,14 @@ namespace FOMServer.Master
             s_dbSettings = config.GetSection("Database").Get<DatabaseSettings>()!;
 
             if (string.IsNullOrWhiteSpace(s_dbSettings.Name))
+            {
                 throw new InvalidOperationException("Database name must be configured");
+            }
+
             if (string.IsNullOrWhiteSpace(s_dbSettings.ConnectionString))
+            {
                 throw new InvalidOperationException("Database connection string must be configured");
+            }
 
             services.AddSingleton(s_dbSettings);
             return services;
@@ -67,6 +73,9 @@ namespace FOMServer.Master
             services.AddSingleton<IWorldPacketSender>(sp => sp.GetRequiredService<WorldPacketSender>());
 
             services.AddSingleton<IWorldServerRegistry, WorldServerRegistry>();
+
+            services.AddSingleton<IClientRegistry, ClientRegistry>();
+            services.AddSingleton<IPlayerRegistry, PlayerRegistry>();
             return services;
         }
 
@@ -79,13 +88,10 @@ namespace FOMServer.Master
         private static ServiceCollection AddDatabaseMigrations(this ServiceCollection services)
         {
             services.AddFluentMigratorCore()
-            .ConfigureRunner(rb =>
-            {
-                rb.AddMySql8()
+            .ConfigureRunner(rb => rb.AddMySql8()
                   .WithGlobalConnectionString(s_dbSettings!.ConnectionString)
-                  .ScanIn(typeof(Shared.Extensions.ServiceCollectionExtensions).Assembly)
-                  .For.Migrations();
-            });
+                  .ScanIn(typeof(ServiceCollectionExtensions).Assembly)
+                  .For.Migrations());
 
             return services;
         }

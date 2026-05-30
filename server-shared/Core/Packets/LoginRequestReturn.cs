@@ -5,7 +5,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets
 {
-    [PacketID(PacketIdentifier.ID_LOGIN_REQUEST_RETURN)]
+    [PacketId(PacketIdentifier.ID_LOGIN_REQUEST_RETURN)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct LoginRequestReturn
     {
@@ -18,6 +18,17 @@ namespace FOMServer.Shared.Core.Packets
             Success = 1, // LOGIN_REQUEST_RETURN_SUCCESS
             VersionMismatch = 2, // LOGIN_REQUEST_RETURN_VERSION_MISMATCH
             AlreadyLoggedIn = 3, // LOGIN_REQUEST_RETURN_ALREADY_LOGGED_IN
+        }
+
+        public string Username
+        {
+            set
+            {
+                fixed (byte* ptr = RawUsername)
+                {
+                    CStringParser.FromString(value, ptr, BufferSizes.Username);
+                }
+            }
         }
     }
 }

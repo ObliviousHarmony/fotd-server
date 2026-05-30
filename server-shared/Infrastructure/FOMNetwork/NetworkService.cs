@@ -5,7 +5,7 @@ using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Shared.Services.FOMNetwork
 {
-    public partial class NetworkService : INetworkService
+    internal partial class NetworkService : INetworkService
     {
         public void ValidatePacketStructs()
         {
@@ -17,13 +17,19 @@ namespace FOMServer.Shared.Services.FOMNetwork
 
             // Make sure that the packet structs match what the network library expects.
             var structures = PacketHelpers.GetPacketStructures();
-            int ret = FOMNetwork_ValidatePacketStructs(structures, structures.Length);
+            var ret = FOMNetwork_ValidatePacketStructs(structures, structures.Length);
             if (ret == -1)
+            {
                 throw new InvalidOperationException("The number of structs provided does not match the number expected by the network library");
+            }
             else if (ret == -2)
+            {
                 throw new InvalidOperationException("The network library was asked to validate a struct that does not exist");
+            }
             else if (ret == -3)
+            {
                 throw new InvalidOperationException("One or more of the provided structs does not match the expected size");
+            }
         }
 
         /// <summary>

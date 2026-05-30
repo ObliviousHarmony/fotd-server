@@ -2,18 +2,31 @@ using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Packets.RakNet;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Metadata;
+using FOMServer.World.Core.Players;
 
 namespace FOMServer.World.Application.Handlers
 {
     [PacketHandler]
-    public class ConnectionLostHandler : PacketHandlerBase<ConnectionLost>
+    internal class ConnectionLostHandler : PacketHandlerBase<ConnectionLost>
     {
-        public ConnectionLostHandler()
+        private readonly IPlayerRegistry _playerRegistry;
+        private readonly ILogger<ConnectionLostHandler> _logger;
+
+        public ConnectionLostHandler(
+            IPlayerRegistry playerRegistry,
+            ILogger<ConnectionLostHandler> logger)
         {
+            _playerRegistry = playerRegistry;
+            _logger = logger;
         }
 
         public override void Handle(NetworkAddress sender, in ConnectionLost p)
         {
+            var player = _playerRegistry.Get(sender);
+            if (player is not null)
+            {
+                _playerRegistry.Logout(player);
+            }
         }
     }
 }

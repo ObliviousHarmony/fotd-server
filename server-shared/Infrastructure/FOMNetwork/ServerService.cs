@@ -3,11 +3,17 @@ using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Shared.Services.FOMNetwork
 {
-    public partial class ServerService : IServerService
+    internal partial class ServerService : IServerService
     {
-        public IntPtr Startup(ushort port) => FOMNetwork_Server_Startup(port);
+        public IntPtr Startup(ushort port)
+        {
+            return FOMNetwork_Server_Startup(port);
+        }
 
-        public void Shutdown(IntPtr server) => FOMNetwork_Server_Shutdown(server);
+        public void Shutdown(IntPtr server)
+        {
+            FOMNetwork_Server_Shutdown(server);
+        }
 
         [LibraryImport("FOMNetwork")]
         private static partial IntPtr FOMNetwork_Server_Startup(ushort port);

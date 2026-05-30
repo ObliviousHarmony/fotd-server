@@ -36,18 +36,21 @@ namespace FOMServer.Shared.Application.Networking
                 var handlerType = h.GetType();
 
                 if (!Attribute.IsDefined(handlerType, typeof(PacketHandlerAttribute)))
+                {
                     throw new InvalidOperationException($"Handler type {handlerType.Name} is missing [PacketHandler]");
+                }
 
                 var baseType = handlerType.BaseType;
-                if (baseType == null || !baseType.IsGenericType)
-                    throw new InvalidOperationException($"Handler {handlerType.Name} does not derive from BasePacketHandler<T>.");
+                if (baseType is null || !baseType.IsGenericType)
+                {
+                    throw new InvalidOperationException($"Handler {handlerType.Name} does not derive from BasePacketHandler<T>");
+                }
 
                 var packetType = baseType.GetGenericArguments()[0];
-                var packetIDAttr = packetType.GetCustomAttribute<PacketIDAttribute>();
-                if (packetIDAttr == null)
-                    throw new InvalidOperationException($"Packet type {packetType.Name} is missing [PacketID].");
-
-                return packetIDAttr.ID;
+                var packetIdAttr = packetType.GetCustomAttribute<PacketIdAttribute>();
+                return packetIdAttr is null
+                    ? throw new InvalidOperationException($"Packet type {packetType.Name} is missing [PacketId]")
+                    : packetIdAttr.Id;
             });
         }
 
@@ -64,12 +67,14 @@ namespace FOMServer.Shared.Application.Networking
         /// </summary>
         public void Start(int workerCount = 1)
         {
-            if (_cts != null)
+            if (_cts is not null)
+            {
                 return;
+            }
 
             _cts = CancellationTokenSource.CreateLinkedTokenSource(_shutdownManager.Token);
 
-            for (int i = 0; i < workerCount; i++)
+            for (var i = 0; i < workerCount; i++)
             {
                 // Use a dedicated thread for each worker because new packets
                 // will consistently be arriving and needing to be handled.
@@ -92,43 +97,38 @@ namespace FOMServer.Shared.Application.Networking
         /// </summary>
         private async Task WorkerLoopAsync(CancellationToken ct)
         {
-            while (!ct.IsCancellationRequested)
+            try
             {
-                PacketRef packet;
-
-                try
+                await foreach (var packet in _packetQueue.Reader.ReadAllAsync(ct))
                 {
-                    packet = await _packetQueue.Reader.ReadAsync(ct);
+                    try
+                    {
+                        if (_handlers.TryGetValue(packet.Id, out var handler))
+                        {
+                            handler.Handle(packet);
+                        }
+                        else
+                        {
+                            OnUnhandledPacket(packet);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Letting unhandled exceptions prevent further packet processing
+                        // would silently break break the server, so log and continue.
+                        LogPacketException(packet.Id, packet.Sender, ex);
+                    }
+                    finally
+                    {
+                        // Make sure that we free the packet so that the buffer can be
+                        // returned to the pool once all of the packets it contains
+                        // have been processed and disposed.
+                        packet.Dispose();
+                    }
                 }
-                catch (OperationCanceledException)
-                {
-                    break;
-                }
-                catch (ChannelClosedException)
-                {
-                    break;
-                }
-
-                try
-                {
-                    if (_handlers.TryGetValue(packet.ID, out var handler))
-                        handler.Handle(packet);
-                    else
-                        OnUnhandledPacket(packet);
-                }
-                catch (Exception ex)
-                {
-                    // Letting unhandled exceptions prevent further packet processing
-                    // would silently break break the server, so log and continue.
-                    LogPacketException(packet.ID, packet.Sender, ex);
-                }
-                finally
-                {
-                    // Make sure that we free the packet so that the buffer can be
-                    // returned to the pool once all of the packets it contains
-                    // have been processed and disposed.
-                    packet.Dispose();
-                }
+            }
+            catch (OperationCanceledException)
+            {
             }
 
             // We intentionally do not drain the queue here because it
@@ -142,16 +142,18 @@ namespace FOMServer.Shared.Application.Networking
         private void OnUnhandledPacket(PacketRef packet)
         {
             // Any unhandled internal packets should be ignored.
-            if (packet.ID < PacketIdentifier.ID_FOM_PACKET_START)
+            if (packet.Id < PacketIdentifier.ID_FOM_PACKET_START)
+            {
                 return;
+            }
 
-            LogUnhandledPacket(packet.ID, packet.Sender);
+            LogUnhandledPacket(packet.Id, packet.Sender);
         }
 
-        [LoggerMessage(Level = LogLevel.Critical, Message = "Packet {PacketID} from {Sender} failed")]
-        private partial void LogPacketException(PacketIdentifier packetID, NetworkAddress sender, Exception ex);
+        [LoggerMessage(Level = LogLevel.Critical, Message = "Packet '{PacketId}' from '{Sender}' failed")]
+        private partial void LogPacketException(PacketIdentifier packetId, NetworkAddress sender, Exception ex);
 
-        [LoggerMessage(Level = LogLevel.Critical, Message = "Unhandled packet ID {PacketID} from {Sender}")]
-        private partial void LogUnhandledPacket(PacketIdentifier packetID, NetworkAddress sender);
+        [LoggerMessage(Level = LogLevel.Critical, Message = "Unhandled packet Id '{PacketId}' from '{Sender}'")]
+        private partial void LogUnhandledPacket(PacketIdentifier packetId, NetworkAddress sender);
     }
 }

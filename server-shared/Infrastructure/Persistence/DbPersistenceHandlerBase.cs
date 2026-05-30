@@ -5,7 +5,7 @@ namespace FOMServer.Shared.Infrastructure.Persistence
     /// <summary>
     /// Base class for persistence handlers that write to the database.
     /// </summary>
-    public abstract class DbPersistenceHandlerBase<T> : IPersistenceHandler
+    internal abstract class DbPersistenceHandlerBase<T> : IPersistenceHandler
         where T : IPersistable
     {
         protected readonly IDbConnectionFactory _dbConnectionFactory;
@@ -20,8 +20,10 @@ namespace FOMServer.Shared.Infrastructure.Persistence
         public async Task PersistAsync(IPersistable entity)
         {
             if (entity is not T typedEntity)
+            {
                 throw new InvalidOperationException(
                     $"Handler {GetType().Name} cannot persist entity of type {entity.GetType().Name}");
+            }
 
             await PersistAsync(typedEntity);
         }

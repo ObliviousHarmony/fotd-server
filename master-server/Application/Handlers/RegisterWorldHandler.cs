@@ -8,12 +8,12 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class RegisterWorldPacketHandler : PacketHandlerBase<RegisterWorld>
+    internal class RegisterWorldHandler : PacketHandlerBase<RegisterWorld>
     {
-        private readonly ILogger<RegisterWorldPacketHandler> _logger;
+        private readonly ILogger<RegisterWorldHandler> _logger;
         private readonly IWorldServerRegistry _worldServerRegistry;
 
-        public RegisterWorldPacketHandler(ILogger<RegisterWorldPacketHandler> logger, IWorldServerRegistry worldServerRegistry)
+        public RegisterWorldHandler(ILogger<RegisterWorldHandler> logger, IWorldServerRegistry worldServerRegistry)
         {
             _logger = logger;
             _worldServerRegistry = worldServerRegistry;
@@ -21,16 +21,22 @@ namespace FOMServer.Master.Application.Handlers
 
         public override void Handle(NetworkAddress sender, in RegisterWorld p)
         {
-            if (p.WorldIDCount <= 0)
-                throw new InvalidOperationException($"World server '{sender}' did not send any world IDs to register");
+            if (p.WorldIdCount <= 0)
+            {
+                throw new InvalidOperationException($"World server '{sender}' did not send any world Ids to register");
+            }
 
-            var worldIDs = new WorldID[p.WorldIDCount];
-            for (int i = 0; i < p.WorldIDCount; i++)
-                worldIDs[i] = p.WorldIDs[i];
+            var worldIds = new WorldId[p.WorldIdCount];
+            for (var i = 0; i < p.WorldIdCount; i++)
+            {
+                worldIds[i] = p.WorldIds[i];
+            }
 
-            var registered = _worldServerRegistry.Register(worldIDs, sender, p.ClientAddress);
-            foreach (var worldID in registered)
-                _logger.LogInformation("World '{WorldID}' Connected: {ClientAddress}", worldID, p.ClientAddress);
+            var registered = _worldServerRegistry.Register(worldIds, sender, p.PublicAddress);
+            foreach (var worldId in registered)
+            {
+                _logger.LogInformation("World '{WorldId}' ({ServerAddress}) ready for clients at {PublicAddress}", worldId, sender, p.PublicAddress);
+            }
         }
     }
 }

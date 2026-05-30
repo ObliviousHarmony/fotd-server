@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 
 namespace FOMServer.Shared.Core.Packets.Types
@@ -6,18 +7,18 @@ namespace FOMServer.Shared.Core.Packets.Types
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct Apartment
     {
-        public const int OwnerNameSize = 20;
         public const int EntryCodeSize = 8;
         public const int PublicNameSize = 24;
         public const int PublicDescriptionSize = 512;
 
-        public uint ID;
+        public uint Id;
         public ApartmentType Type;
-        public uint OwnerPlayerID;
-        public uint OwnerFactionID;
+        public uint OwnerPlayerId;
+        public uint OwnerFactionId;
         public byte IsOpen;
-        public fixed byte RawOwnerName[OwnerNameSize];
+        public fixed byte RawOwnerName[BufferSizes.PlayerName];
         public fixed byte RawEntryCode[EntryCodeSize];
+        public ItemList StorageItems;
         public byte IsPublic;
         public uint EntryPrice;
         public fixed byte RawPublicName[PublicNameSize];
@@ -31,7 +32,17 @@ namespace FOMServer.Shared.Core.Packets.Types
             get
             {
                 fixed (byte* ptr = RawOwnerName)
-                    return CStringParser.ToString(ptr, OwnerNameSize);
+                {
+                    return CStringParser.ToString(ptr, BufferSizes.PlayerName);
+                }
+            }
+
+            set
+            {
+                fixed (byte* ptr = RawOwnerName)
+                {
+                    CStringParser.FromString(value, ptr, BufferSizes.PlayerName);
+                }
             }
         }
 
@@ -40,7 +51,17 @@ namespace FOMServer.Shared.Core.Packets.Types
             get
             {
                 fixed (byte* ptr = RawEntryCode)
+                {
                     return CStringParser.ToString(ptr, EntryCodeSize);
+                }
+            }
+
+            set
+            {
+                fixed (byte* ptr = RawEntryCode)
+                {
+                    CStringParser.FromString(value, ptr, EntryCodeSize);
+                }
             }
         }
 
@@ -49,7 +70,17 @@ namespace FOMServer.Shared.Core.Packets.Types
             get
             {
                 fixed (byte* ptr = RawPublicName)
+                {
                     return CStringParser.ToString(ptr, PublicNameSize);
+                }
+            }
+
+            set
+            {
+                fixed (byte* ptr = RawPublicName)
+                {
+                    CStringParser.FromString(value, ptr, PublicNameSize);
+                }
             }
         }
 
@@ -58,7 +89,17 @@ namespace FOMServer.Shared.Core.Packets.Types
             get
             {
                 fixed (byte* ptr = RawPublicDescription)
+                {
                     return CStringParser.ToString(ptr, PublicDescriptionSize);
+                }
+            }
+
+            set
+            {
+                fixed (byte* ptr = RawPublicDescription)
+                {
+                    CStringParser.FromString(value, ptr, PublicDescriptionSize);
+                }
             }
         }
     }

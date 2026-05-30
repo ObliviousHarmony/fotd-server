@@ -6,11 +6,10 @@ using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
-using MySqlConnector;
 
 namespace FOMServer.Master.Application
 {
-    public class Server
+    internal class Server
     {
         private readonly ILogger<Server> _logger;
         private readonly IShutdownManager _shutdownManager;
@@ -45,23 +44,19 @@ namespace FOMServer.Master.Application
             // require expensive marshalling of data between managed and unmanaged code.
             _networkService.ValidatePacketStructs();
 
-            Console.WriteLine("------------------------------------------------");
-            Console.WriteLine("Initializing Master Server");
+            _logger.LogInformation("Starting master server");
 
             Console.CancelKeyPress += (sender, e) =>
             {
-                Console.WriteLine("Stopping Server...");
-
                 e.Cancel = true;
-                _shutdownManager.Shutdown();
-            };
-            AppDomain.CurrentDomain.ProcessExit += (sender, e) =>
-            {
-                _shutdownManager.Shutdown();
+                _shutdownManager.StartShutdown();
             };
 
             if (!InitializeDatabase())
+            {
+                await _shutdownManager.Shutdown();
                 return;
+            }
 
             var packetProcessor = new PacketProcessor(
                 _serviceProvider.GetRequiredService<IShutdownManager>(),
@@ -70,16 +65,18 @@ namespace FOMServer.Master.Application
             );
 
             var worldNetwork = CreateWorldServerNetwork(packetProcessor);
-            if (worldNetwork == null)
+            if (worldNetwork is null)
             {
                 _logger.LogCritical("Failed to create the world server network");
+                await _shutdownManager.Shutdown();
                 return;
             }
 
             var clientNetwork = CreateClientNetwork(packetProcessor);
-            if (clientNetwork == null)
+            if (clientNetwork is null)
             {
                 _logger.LogCritical("Failed to create the client network");
+                await _shutdownManager.Shutdown();
                 return;
             }
 
@@ -89,28 +86,30 @@ namespace FOMServer.Master.Application
             clientNetwork.Start();
 
             foreach (var startable in _serviceProvider.GetServices<IServerStartable>())
+            {
                 startable.Start();
+            }
 
-            Console.WriteLine("------------------------------------------------");
+            _logger.LogInformation("Server started");
+            _logger.LogInformation("Press Ctrl + C to stop the server");
 
             await _shutdownManager.Stopped;
-            Console.WriteLine("Shutdown Complete");
         }
 
         private bool InitializeDatabase()
         {
             try
             {
+                if (!_migrationRunner.HasMigrationsToApplyUp())
+                {
+                    return true;
+                }
+
                 _migrationRunner.MigrateUp();
-            }
-            catch (MySqlException)
-            {
-                _logger.LogCritical("Failed to connect to the database. Please check your connection settings");
-                return false;
             }
             catch (Exception ex)
             {
-                _logger.LogCritical(ex, "Failed to apply database migrations");
+                _logger.LogCritical(ex, "Database migration failed");
                 return false;
             }
 
@@ -121,7 +120,9 @@ namespace FOMServer.Master.Application
         {
             var peer = _serverService.Startup(ServerConstants.MasterWorldPort);
             if (peer == IntPtr.Zero)
+            {
                 return null;
+            }
 
             var networkManager = new NetworkManager(
                 _serviceProvider.GetRequiredService<IShutdownManager>(),
@@ -131,13 +132,18 @@ namespace FOMServer.Master.Application
             );
 
             // Make sure clients can't send packets meant for master<->world communication.
-            networkManager.ClaimPacketID(PacketIdentifier.ID_REGISTER_WORLD);
+            networkManager.ClaimPacketId(PacketIdentifier.ID_REGISTER_WORLD);
+            networkManager.ClaimPacketId(PacketIdentifier.ID_PLAYER_WORLD_READY);
+            networkManager.ClaimPacketId(PacketIdentifier.ID_PLAYER_MIGRATE_WORLD);
 
             // Initialize the packet sender for communication with world servers.
             var packetSender = _serviceProvider.GetRequiredService<WorldPacketSender>();
             packetSender.Initialize(networkManager);
 
             networkManager.Configure(peer, _serverService.Shutdown);
+
+            _logger.LogInformation("Listening for world servers");
+
             return networkManager;
         }
 
@@ -145,7 +151,9 @@ namespace FOMServer.Master.Application
         {
             var peer = _serverService.Startup(ServerConstants.MasterClientPort);
             if (peer == IntPtr.Zero)
+            {
                 return null;
+            }
 
             var networkManager = new NetworkManager(
                 _serviceProvider.GetRequiredService<IShutdownManager>(),
@@ -154,11 +162,18 @@ namespace FOMServer.Master.Application
                 packetProcessor
             );
 
+            // Clients connecting produce NewIncomingConnection. Claim it on the client network
+            // so world-server connections (on the other manager) don't get registered as client sessions.
+            networkManager.ClaimPacketId(PacketIdentifier.ID_NEW_INCOMING_CONNECTION);
+
             // Initialize the packet sender for communication with clients.
             var packetSender = _serviceProvider.GetRequiredService<ClientPacketSender>();
             packetSender.Initialize(networkManager);
 
             networkManager.Configure(peer, _serverService.Shutdown);
+
+            _logger.LogInformation("Listening for clients");
+
             return networkManager;
         }
     }

@@ -6,18 +6,18 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets
 {
-    [PacketID(PacketIdentifier.ID_REGISTER_WORLD)]
+    [PacketId(PacketIdentifier.ID_REGISTER_WORLD)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct RegisterWorld
     {
-        public NetworkAddress ClientAddress;
-        public byte WorldIDCount;
-        public WorldIDArray WorldIDs;
+        public NetworkAddress PublicAddress;
+        public byte WorldIdCount;
+        public WorldIdArray WorldIds;
 
-        [InlineArray((int)WorldID.NUM_WORLDS)]
-        public struct WorldIDArray
+        [InlineArray((int)WorldId.NUM_WORLDS)]
+        public struct WorldIdArray
         {
-            private WorldID _worldID;
+            private WorldId _worldId;
         }
     }
 }

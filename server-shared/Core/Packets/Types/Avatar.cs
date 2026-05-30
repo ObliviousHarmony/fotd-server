@@ -1,5 +1,3 @@
-using System;
-using System.Net;
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Enums;
 
@@ -13,14 +11,16 @@ namespace FOMServer.Shared.Core.Packets.Types
         public ushort Face;
         public ushort Hair;
 
-        public ushort FactionID;
-        public ushort RankID;
-        public ushort LegacyFactionID;
-
-        public ushort Shirt;
-        public ushort Bottoms;
-        public ushort Shoes;
+        public ushort FactionId;
+        public ushort RankId;
+        public byte Unknown1;
+        public ushort LegacyFactionId;
 
         public fixed ushort EquipmentSlots[(int)EquipmentSlot.NUM_EQUIPMENT_SLOTS];
+
+        public byte IsCommander;
+        public byte Unknown2;
+        public byte Unknown3;
+        public byte IsGroupLeader;
     }
 }

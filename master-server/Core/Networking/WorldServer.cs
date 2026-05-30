@@ -3,10 +3,12 @@ using FOMServer.Shared.Core.Packets.Types;
 
 namespace FOMServer.Master.Core.Networking
 {
-    public class WorldServer
+    internal class WorldServer
     {
-        public WorldID ID { get; init; }
+        public WorldId Id { get; init; }
+
         public NetworkAddress ServerAddress { get; init; }
-        public NetworkAddress ClientAddress { get; init; }
+
+        public NetworkAddress PublicAddress { get; init; }
     }
 }

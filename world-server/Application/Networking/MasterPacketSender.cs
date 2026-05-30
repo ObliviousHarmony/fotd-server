@@ -3,7 +3,7 @@ using FOMServer.World.Core.Networking;
 
 namespace FOMServer.World.Application.Networking
 {
-    public class MasterPacketSender : IMasterPacketSender
+    internal class MasterPacketSender : IMasterPacketSender
     {
         private IPacketSender? _packetSender;
 
@@ -14,11 +14,15 @@ namespace FOMServer.World.Application.Networking
 
         public void Send(in QueuePacket packet)
         {
-            if (_packetSender == null)
+            if (_packetSender is null)
+            {
                 throw new InvalidOperationException("Packet sender not initialized");
+            }
 
             if (!packet.Broadcast)
+            {
                 throw new InvalidOperationException("Packet must not have a destination");
+            }
 
             _packetSender.EnqueueSend(packet);
         }

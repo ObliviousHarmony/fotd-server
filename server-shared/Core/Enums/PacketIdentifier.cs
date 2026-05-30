@@ -14,7 +14,7 @@ namespace FOMServer.Shared.Core.Enums
     /// </remarks>
     public enum PacketIdentifier : byte
     {
-        // These are the internal packet IDs that cross the interop boundary.
+        // These are the internal packet Ids that cross the interop boundary.
         ID_CONNECTION_REQUEST_ACCEPTED = 14, // Connection request to the server has been accepted.
         ID_CONNECTION_ATTEMPT_FAILED = 15, // Could not connect to the server.
         ID_ALREADY_CONNECTED = 16, // Attempted to connect to a server we're already connected to.
@@ -29,6 +29,7 @@ namespace FOMServer.Shared.Core.Enums
 
         ID_FOM_PACKET_START = 104,
         ID_REGISTER_WORLD = ID_FOM_PACKET_START,
+
         // 105
         // 106
         // ID_NOTIFY = 107,
@@ -37,19 +38,23 @@ namespace FOMServer.Shared.Core.Enums
         ID_LOGIN = 110,
         ID_LOGIN_RETURN = 111,
         ID_LOGIN_TOKEN_CHECK = 112,
+
         // ID_LOGOUT = 113,
-        // ID_WORLD_LOGIN = 114,
-        // ID_WORLD_LOGIN_RETURN = 115,
+        ID_WORLD_LOGIN = 114,
+        ID_WORLD_LOGIN_RETURN = 115,
+
         // ID_WORLD_LOGOUT = 116,
-        // 117
-        // 118
-        // 119
-        // ID_REGISTER_CLIENT = 120,
-        // ID_REGISTER_CLIENT_RETURN = 121,
+        ID_PLAYER_MIGRATE_WORLD = 117,
+        ID_PLAYER_WORLD_READY = 118,
+        ID_PLAYER_LEAVING_WORLD = 119,
+        ID_REGISTER_CLIENT = 120,
+        ID_REGISTER_CLIENT_RETURN = 121,
         ID_CREATE_CHARACTER = 122,
+
         // ID_VORTEX_GATE = 123,
         ID_CHECK_NAME = 124,
         ID_CHECK_NAME_RETURN = 125,
+
         // ID_UPDATE = 126,
         // ID_WORLD_UPDATE = 127,
         // ID_WEATHER = 128,

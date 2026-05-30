@@ -8,11 +8,12 @@ namespace FOMNetwork {
 bool RegisterWorldSerializer::Read(RakNet::BitStream& bs,
                                    Packet::RegisterWorld* data) const {
   NetworkAddressSerializer addressSerializer;
-  if (!addressSerializer.Read(bs, data->clientAddress)) return false;
 
-  if (!bs.ReadCompressed(data->worldIDCount)) return false;
-  for (int i = 0; i < data->worldIDCount; ++i) {
-    if (!bs.ReadCompressed(data->worldIDs[i])) return false;
+  if (!addressSerializer.Read(bs, data->publicAddress)) return false;
+  if (!bs.ReadCompressed(data->worldIdCount)) return false;
+  if (data->worldIdCount > Enum::NUM_WORLDS) return false;
+  for (int i = 0; i < data->worldIdCount; ++i) {
+    if (!bs.ReadCompressed(data->worldIds[i])) return false;
   }
 
   return true;
@@ -21,11 +22,13 @@ bool RegisterWorldSerializer::Read(RakNet::BitStream& bs,
 void RegisterWorldSerializer::Write(RakNet::BitStream& bs,
                                     const Packet::RegisterWorld* data) const {
   NetworkAddressSerializer addressSerializer;
-  addressSerializer.Write(bs, data->clientAddress);
 
-  bs.WriteCompressed(data->worldIDCount);
-  for (int i = 0; i < data->worldIDCount; ++i)
-    bs.WriteCompressed(data->worldIDs[i]);
+  uint8_t worldIdCount = data->worldIdCount;
+  if (worldIdCount > Enum::NUM_WORLDS) worldIdCount = Enum::NUM_WORLDS;
+
+  addressSerializer.Write(bs, data->publicAddress);
+  bs.WriteCompressed(worldIdCount);
+  for (int i = 0; i < worldIdCount; ++i) bs.WriteCompressed(data->worldIds[i]);
 }
 
 }  // namespace FOMNetwork

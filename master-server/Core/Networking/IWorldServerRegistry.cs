@@ -3,11 +3,14 @@ using FOMServer.Shared.Core.Packets.Types;
 
 namespace FOMServer.Master.Core.Networking
 {
-    public interface IWorldServerRegistry
+    internal interface IWorldServerRegistry
     {
         WorldServer[] GetAll();
-        WorldServer? Get(WorldID id);
-        WorldID[] Register(WorldID[] ids, NetworkAddress serverAddress, NetworkAddress clientAddress);
-        WorldID[] Unregister(NetworkAddress serverAddress);
+
+        WorldServer? Get(WorldId id);
+
+        WorldId[] Register(WorldId[] ids, NetworkAddress serverAddress, NetworkAddress publicAddress);
+
+        WorldId[] Unregister(NetworkAddress serverAddress);
     }
 }

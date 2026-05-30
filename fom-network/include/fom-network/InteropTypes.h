@@ -1,5 +1,7 @@
 #pragma once
 
+#include <fom-network/constants/BufferSizes.h>
+
 #include <cstdint>
 
 namespace FOMNetwork {
@@ -20,13 +22,5 @@ enum PacketReliability : uint8_t {
   RELIABLE_SEQUENCED,
   NUMBER_OF_RELIABILITIES
 };
-
-namespace BufferSizes {
-
-constexpr int32_t USERNAME = 19;
-constexpr int32_t PLAYER_NAME = 20;
-constexpr int32_t PLAYER_BIOGRAPHY = 511;
-
-}  // namespace BufferSizes
 
 }  // namespace FOMNetwork

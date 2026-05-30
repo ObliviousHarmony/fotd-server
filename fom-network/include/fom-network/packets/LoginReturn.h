@@ -2,7 +2,7 @@
 
 #include <fom-network/Interop.h>
 #include <fom-network/enums/AccountType.h>
-#include <fom-network/enums/WorldID.h>
+#include <fom-network/enums/WorldId.h>
 #include <fom-network/types/Apartment.h>
 
 namespace FOMNetwork {
@@ -25,12 +25,14 @@ enum LoginReturnStatus : uint8_t {
   LOGIN_RETURN_NOT_PURCHASED = 13,
 };
 
+constexpr int MAX_PROCESS_BLACKLIST = 128;
+
 #pragma pack(push, 1)
 struct LoginReturn {
   LoginReturnStatus status;
-  uint32_t playerID;
+  uint32_t playerId;
 
-  // ====== playerID != 0 ======
+  // ====== playerId != 0 ======
   Enum::AccountType accountType;
   uint8_t isVolunteer;
   uint8_t isNewPlayer;
@@ -41,13 +43,13 @@ struct LoginReturn {
   uint8_t banReason[129];  // isBanned == 1
 
   uint8_t processBlacklistCount;
-  uint32_t processBlacklist[128];
+  uint32_t processBlacklist[MAX_PROCESS_BLACKLIST];
 
-  uint8_t factionMOTD[1024];
+  uint8_t factionMotd[1024];
 
   Type::Apartment defaultApartment;
-  Enum::WorldID defaultApartmentWorldID;
-  Enum::WorldID loginWorldID;
+  Enum::WorldId defaultApartmentWorldId;
+  Enum::WorldId loginWorldId;
   // ===========================
 };
 #pragma pack(pop)

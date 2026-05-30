@@ -10,22 +10,22 @@ namespace FOMServer.Shared.Application.Networking
     /// <summary>
 	/// Responsible for sending and receiving packets.
 	/// </summary>
-	public partial class NetworkManager : IPacketSender
+	public partial class NetworkManager : IPacketSender, IAsyncDisposable
     {
         /// <summary>
-        /// Individual network managers can "claim" packet IDs so that they
+        /// Individual network managers can "claim" packet Ids so that they
         /// exclusively handle them. When another network manager receives
-        /// a packet with a claimed ID, it will ignore it.
+        /// a packet with a claimed Id, it will ignore it.
         /// </summary>
-        private static readonly HashSet<PacketIdentifier> s_globalClaimedPacketIDs = new HashSet<PacketIdentifier>();
+        private static readonly HashSet<PacketIdentifier> s_globalClaimedPacketIds = [];
 
         /// <summary>
-        /// Packet ID claims are not using a thread-safe collection for
+        /// Packet Id claims are not using a thread-safe collection for
         /// performance reasons. Claims should be done during
         /// initialization and be prevented once the first
         /// network manager has started.
         /// </summary>
-        private static bool s_canClaimPacketIDs = true;
+        private static bool s_canClaimPacketIds = true;
 
         private IntPtr _peer;
         private Action<IntPtr>? _peerShutdown;
@@ -34,7 +34,7 @@ namespace FOMServer.Shared.Application.Networking
         private readonly IPacketService _packetService;
         private readonly PacketProcessor _packetProcessor;
         private readonly Channel<QueuePacket> _sendQueue;
-        private readonly HashSet<PacketIdentifier> _claimedPacketIDs;
+        private readonly HashSet<PacketIdentifier> _claimedPacketIds = [];
         private Task? _networkTask;
         private CancellationTokenSource? _cts;
 
@@ -45,12 +45,10 @@ namespace FOMServer.Shared.Application.Networking
             PacketProcessor packetProcessor
         )
         {
-            _peer = IntPtr.Zero;
             _shutdownManager = shutdownManager;
             _logger = logger;
             _packetService = packetService;
             _packetProcessor = packetProcessor;
-            _claimedPacketIDs = new HashSet<PacketIdentifier>();
             _sendQueue = Channel.CreateUnbounded<QueuePacket>(
                 new UnboundedChannelOptions
                 {
@@ -60,18 +58,22 @@ namespace FOMServer.Shared.Application.Networking
         }
 
         /// <summary>
-        /// Claims a packet ID for this exclusive handling by this network manager.
+        /// Claims a packet Id for this exclusive handling by this network manager.
         /// </summary>
-        public void ClaimPacketID(PacketIdentifier id)
+        public void ClaimPacketId(PacketIdentifier id)
         {
-            if (!s_canClaimPacketIDs)
-                throw new InvalidOperationException("Cannot claim packet IDs after a network manager has started");
+            if (!s_canClaimPacketIds)
+            {
+                throw new InvalidOperationException("Cannot claim packet Ids after a network manager has started");
+            }
 
-            if (s_globalClaimedPacketIDs.Contains(id))
-                throw new InvalidOperationException($"Packet ID {id} is already claimed by another network manager");
+            if (s_globalClaimedPacketIds.Contains(id))
+            {
+                throw new InvalidOperationException($"Packet Id '{id}' is already claimed by another network manager");
+            }
 
-            s_globalClaimedPacketIDs.Add(id);
-            _claimedPacketIDs.Add(id);
+            s_globalClaimedPacketIds.Add(id);
+            _claimedPacketIds.Add(id);
         }
 
         /// <summary>
@@ -80,7 +82,9 @@ namespace FOMServer.Shared.Application.Networking
         public void Configure(IntPtr peer, Action<IntPtr> peerShutdown)
         {
             if (_peer != IntPtr.Zero)
+            {
                 throw new InvalidOperationException("Peer is already configured");
+            }
 
             _peer = peer;
             _peerShutdown = peerShutdown;
@@ -92,13 +96,17 @@ namespace FOMServer.Shared.Application.Networking
         public void Start()
         {
             if (_peer == IntPtr.Zero)
+            {
                 throw new InvalidOperationException("Peer must be configured");
+            }
 
-            if (_networkTask != null)
+            if (_networkTask is not null)
+            {
                 return;
+            }
 
             // Once a network manager has started, no more claims can be made.
-            s_canClaimPacketIDs = false;
+            s_canClaimPacketIds = false;
 
             _cts = CancellationTokenSource.CreateLinkedTokenSource(_shutdownManager.Token);
 
@@ -118,9 +126,27 @@ namespace FOMServer.Shared.Application.Networking
         public void EnqueueSend(in QueuePacket packet)
         {
             if (_peer == IntPtr.Zero)
+            {
                 throw new InvalidOperationException("Peer is not configured");
+            }
 
             _sendQueue.Writer.TryWrite(packet);
+        }
+
+        public async ValueTask DisposeAsync()
+        {
+            _sendQueue.Writer.Complete();
+
+            if (_networkTask is not null)
+            {
+                await _networkTask;
+            }
+
+            if (_peer != IntPtr.Zero)
+            {
+                _peerShutdown!(_peer);
+                _peer = IntPtr.Zero;
+            }
         }
 
         private async Task NetworkLoopAsync(CancellationToken ct)
@@ -139,7 +165,9 @@ namespace FOMServer.Shared.Application.Networking
                     // Avoid starving packet receiving with sending by
                     // limiting the number of packets sent per batch.
                     while (sendBuffer.CanAdd && _sendQueue.Reader.TryRead(out var packetToSend))
+                    {
                         sendBuffer.Add(in packetToSend);
+                    }
 
                     if (sendBuffer.HasBatch)
                     {
@@ -155,15 +183,15 @@ namespace FOMServer.Shared.Application.Networking
                         // Packets that failed to deserialize should not be processed.
                         if (packet.Status != SerializationStatus.Success)
                         {
-                            LogMalformedPacket(packet.Sender, packet.ID, packet.Status);
+                            LogMalformedPacket(packet.Sender, packet.Id, packet.Status);
                             packet.Dispose();
                             continue;
                         }
 
-                        // Packet IDs that have been claimed by another network manager should be ignored.
-                        if (s_globalClaimedPacketIDs.Contains(packet.ID) && !_claimedPacketIDs.Contains(packet.ID))
+                        // Packet Ids that have been claimed by another network manager should be ignored.
+                        if (s_globalClaimedPacketIds.Contains(packet.Id) && !_claimedPacketIds.Contains(packet.Id))
                         {
-                            LogClaimedPacketID(packet.Sender, packet.ID);
+                            LogClaimedPacketId(packet.Sender, packet.Id);
                             packet.Dispose();
                             continue;
                         }
@@ -172,10 +200,7 @@ namespace FOMServer.Shared.Application.Networking
                         shouldBackoff = false;
                     }
 
-                    if (shouldBackoff)
-                        pollingDelayMs = Math.Min(pollingDelayMs * 2, 100);
-                    else
-                        pollingDelayMs = 1;
+                    pollingDelayMs = shouldBackoff ? Math.Min(pollingDelayMs * 2, 100) : 1;
 
                     await Task.Delay(pollingDelayMs, ct);
                 }
@@ -195,13 +220,13 @@ namespace FOMServer.Shared.Application.Networking
             }
         }
 
-        [LoggerMessage(Level = LogLevel.Warning, Message = "Client {Sender} sent malformed packet with ID {PacketID}: {Status}")]
-        private partial void LogMalformedPacket(NetworkAddress sender, PacketIdentifier packetID, SerializationStatus status);
+        [LoggerMessage(Level = LogLevel.Warning, Message = "Client '{Sender}' sent malformed packet with Id '{PacketId}': {Status}")]
+        private partial void LogMalformedPacket(NetworkAddress sender, PacketIdentifier packetId, SerializationStatus status);
 
-        [LoggerMessage(Level = LogLevel.Warning, Message = "Client {Sender} sent packet with claimed ID {PacketID}, ignoring")]
-        private partial void LogClaimedPacketID(NetworkAddress sender, PacketIdentifier packetID);
+        [LoggerMessage(Level = LogLevel.Warning, Message = "Ignoring packet with claimed Id '{PacketId}' from '{Sender}'")]
+        private partial void LogClaimedPacketId(NetworkAddress sender, PacketIdentifier packetId);
 
-        [LoggerMessage(Level = LogLevel.Critical, Message = "Network Failure")]
+        [LoggerMessage(Level = LogLevel.Critical, Message = "Network failure")]
         private partial void LogNetworkFailure(Exception ex);
     }
 }

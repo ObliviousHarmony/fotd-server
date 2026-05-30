@@ -1,5 +1,4 @@
 using System.Reflection;
-using FOMServer.Application.Core;
 using FOMServer.Shared.Application.Persistence;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Handlers;
@@ -29,6 +28,8 @@ namespace FOMServer.Shared.Extensions
 
         public static IServiceCollection AddServerShared(this IServiceCollection services)
         {
+            services.AddSingleton(TimeProvider.System);
+
             services.AddInteropServices();
             services.AddSharedServices();
             services.AddSharedRepositories();
@@ -47,8 +48,6 @@ namespace FOMServer.Shared.Extensions
 
         private static IServiceCollection AddSharedServices(this IServiceCollection services)
         {
-            services.AddSingleton<IShutdownManager, ShutdownManager>();
-
             services.AddSingleton<IPersistenceService, PersistenceService>();
             services.AddSingleton(sp => (IServerStartable)sp.GetRequiredService<IPersistenceService>());
 
@@ -78,7 +77,9 @@ namespace FOMServer.Shared.Extensions
                 .ToArray();
 
             foreach (var type in handlerTypes)
+            {
                 services.AddSingleton(handlerInterface, type);
+            }
 
             return services;
         }

@@ -9,9 +9,9 @@ namespace Packet {
 struct Login {
   uint8_t username[BufferSizes::USERNAME];
   uint8_t passwordHash[64];
-  uint32_t clientCRC;
-  uint32_t cshellCRC;
-  uint32_t objectCRC;
+  uint32_t clientCrc;
+  uint32_t cshellCrc;
+  uint32_t objectCrc;
   uint8_t macAddress[32];
   uint8_t driveModels[4][64];
   uint8_t driveSerialNumbers[4][32];

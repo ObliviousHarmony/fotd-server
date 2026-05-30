@@ -6,11 +6,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(FOMNETWORK_SRC
   # Core API
-  "src/NetworkAPI.cpp"
-  "src/ServerAPI.cpp"
-  "src/ClientAPI.cpp"
-  "src/PacketAPI.cpp"
+  "src/NetworkApi.cpp"
+  "src/ServerApi.cpp"
+  "src/ClientApi.cpp"
+  "src/PacketApi.cpp"
   "src/FOMDataSerializer.cpp"
+
+  # Types
+  "src/types/ItemListSerializer.cpp"
 
   # Packets
   "src/packets/RegisterWorldSerializer.cpp"
@@ -22,15 +25,22 @@ set(FOMNETWORK_SRC
   "src/packets/CheckNameReturnSerializer.cpp"
   "src/packets/CreateCharacterSerializer.cpp"
   "src/packets/LoginReturnSerializer.cpp"
+  "src/packets/WorldLoginSerializer.cpp"
+  "src/packets/WorldLoginReturnSerializer.cpp"
+  "src/packets/PlayerMigrateWorldSerializer.cpp"
+  "src/packets/PlayerWorldReadySerializer.cpp"
+  "src/packets/PlayerLeavingWorldSerializer.cpp"
+  "src/packets/RegisterClientSerializer.cpp"
+  "src/packets/RegisterClientReturnSerializer.cpp"
 )
 set(FOMNETWORK_INC
   # Core API
   "include/fom-network/InteropTypes.h"
   "include/fom-network/Interop.h"
-  "include/fom-network/NetworkAPI.h"
-  "include/fom-network/ServerAPI.h"
-  "include/fom-network/ClientAPI.h"
-  "include/fom-network/PacketAPI.h"
+  "include/fom-network/NetworkApi.h"
+  "include/fom-network/ServerApi.h"
+  "include/fom-network/ClientApi.h"
+  "include/fom-network/PacketApi.h"
   "src/RakNetIncludes.h"
   "src/FOMDataSerializer.h"
   "src/BaseSerializer.h"
@@ -39,9 +49,19 @@ set(FOMNETWORK_INC
   "include/fom-network/enums/PacketIdentifier.h"
   "include/fom-network/enums/SerializationStatus.h"
   "include/fom-network/enums/AccountType.h"
-  "include/fom-network/enums/WorldID.h"
+  "include/fom-network/enums/WorldId.h"
   "include/fom-network/enums/Player.h"
+  "include/fom-network/enums/ItemType.h"
+  "include/fom-network/enums/ItemSecurity.h"
+  "include/fom-network/enums/ItemQuality.h"
   "include/fom-network/enums/ApartmentType.h"
+  "include/fom-network/enums/SkillType.h"
+  "include/fom-network/enums/AttributeType.h"
+
+  # Constants
+  "include/fom-network/constants/BufferSizes.h"
+  "include/fom-network/constants/FactionConstants.h"
+  "include/fom-network/constants/PlayerConstants.h"
 
   # Types
   "src/types/TypeSerializer.h"
@@ -51,6 +71,26 @@ set(FOMNETWORK_INC
   "src/types/AvatarSerializer.h"
   "include/fom-network/types/Apartment.h"
   "src/types/ApartmentSerializer.h"
+  "include/fom-network/types/ItemBase.h"
+  "src/types/ItemBaseSerializer.h"
+  "include/fom-network/types/Item.h"
+  "src/types/ItemSerializer.h"
+  "include/fom-network/types/ItemList.h"
+  "src/types/ItemListSerializer.h"
+  "include/fom-network/types/Position.h"
+  "src/types/PositionSerializer.h"
+  "include/fom-network/types/PlayerAttributes.h"
+  "src/types/PlayerAttributesSerializer.h"
+  "include/fom-network/types/PlayerSkill.h"
+  "include/fom-network/types/PlayerSkills.h"
+  "src/types/PlayerSkillsSerializer.h"
+  "include/fom-network/types/FactionEmblemLayer.h"
+  "src/types/FactionEmblemLayerSerializer.h"
+  "include/fom-network/types/FactionEmblem.h"
+  "src/types/FactionEmblemSerializer.h"
+  "include/fom-network/types/FactionPerk.h"
+  "include/fom-network/types/FactionPerks.h"
+  "src/types/FactionPerksSerializer.h"
 
   # RakNet Packets
   "include/fom-network/packets/raknet/AlreadyConnected.h"
@@ -63,7 +103,7 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/raknet/ModifiedPacket.h"
   "include/fom-network/packets/raknet/NewIncomingConnection.h"
   "include/fom-network/packets/raknet/NoFreeIncomingConnections.h"
-  "include/fom-network/packets/raknet/RSAPublicKeyMismatch.h"
+  "include/fom-network/packets/raknet/RsaPublicKeyMismatch.h"
 
   # Game Packets
   "src/packets/PacketSerializers.h"
@@ -76,6 +116,13 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/CheckNameReturn.h"
   "include/fom-network/packets/CreateCharacter.h"
   "include/fom-network/packets/LoginReturn.h"
+  "include/fom-network/packets/WorldLogin.h"
+  "include/fom-network/packets/WorldLoginReturn.h"
+  "include/fom-network/packets/PlayerMigrateWorld.h"
+  "include/fom-network/packets/PlayerWorldReady.h"
+  "include/fom-network/packets/PlayerLeavingWorld.h"
+  "include/fom-network/packets/RegisterClient.h"
+  "include/fom-network/packets/RegisterClientReturn.h"
 )
 set(FOMNETWORK_TEST
     "tests/FOMDataSerializer_test.cpp"

@@ -15,7 +15,7 @@ namespace FOMServer.Shared.Application.Networking
     /// into these buffers, allowing the original packet buffers to be released
     /// immediately.
     /// </remarks>
-    public class SendPacketBuffer
+    internal class SendPacketBuffer
     {
         private readonly SendPacket[] _sendPackets;
         private readonly byte[] _packetData;
@@ -47,9 +47,11 @@ namespace FOMServer.Shared.Application.Networking
         public unsafe bool Add(in QueuePacket packet)
         {
             if (_packetCount >= IPacketService.MaxBufferedPackets)
+            {
                 throw new InvalidOperationException("Cannot add more packets to the buffer");
+            }
 
-            var packetSize = PacketHelpers.GetPacketSize(packet.ID);
+            var packetSize = PacketHelpers.GetPacketSize(packet.Id);
 
             // Copy packet data into the POH buffer.
             fixed (byte* destPtr = &_packetData[_packetDataOffset])
@@ -60,8 +62,10 @@ namespace FOMServer.Shared.Application.Networking
 
             // Copy network addresses into the POH buffer.
             var addresses = packet.NetworkAddresses;
-            for (int i = 0; i < addresses.Length; i++)
+            for (var i = 0; i < addresses.Length; i++)
+            {
                 _networkAddresses[_networkAddressOffset + i] = addresses[i];
+            }
 
             // Build the SendPacket struct with pointers into the POH buffers.
             fixed (byte* dataPtr = &_packetData[_packetDataOffset])
@@ -69,7 +73,7 @@ namespace FOMServer.Shared.Application.Networking
             {
                 _sendPackets[_packetCount] = new SendPacket
                 {
-                    ID = packet.ID,
+                    Id = packet.Id,
                     Data = (IntPtr)dataPtr,
                     NumNetworkAddresses = addresses.Length,
                     NetworkAddresses = (IntPtr)addrPtr,
@@ -90,7 +94,10 @@ namespace FOMServer.Shared.Application.Networking
             return true;
         }
 
-        public ReadOnlySpan<SendPacket> GetBatch() => _sendPackets.AsSpan(0, _packetCount);
+        public ReadOnlySpan<SendPacket> GetBatch()
+        {
+            return _sendPackets.AsSpan(0, _packetCount);
+        }
 
         public void Reset()
         {

@@ -7,7 +7,7 @@ using FOMServer.Shared.Core.Packets.Types;
 
 namespace FOMServer.Shared.Core.Networking
 {
-    public struct PacketWriter<TPacket> : IDisposable where TPacket : unmanaged
+    public ref struct PacketWriter<TPacket> : IDisposable where TPacket : unmanaged
     {
         private int _addressCount;
         private NetworkAddress _networkAddress;
@@ -31,7 +31,7 @@ namespace FOMServer.Shared.Core.Networking
         /// indicates that it no longer owns the buffer and should not
         /// return it to the pool when disposed.
         /// </summary>
-        private int _ownsBuffer;
+        private bool _ownsBuffer;
 
         public PacketWriter()
         {
@@ -56,7 +56,7 @@ namespace FOMServer.Shared.Core.Networking
             // use the shared array pool to avoid excessive allocations.
             _packetSize = PacketHelpers.GetPacketSize<TPacket>();
             _packetData = ArrayPool<byte>.Shared.Rent(_packetSize);
-            _ownsBuffer = 1;
+            _ownsBuffer = true;
 
             // Make sure there's no junk data in the buffer.
             Unsafe.InitBlock(ref _packetData[0], 0, (uint)_packetSize);
@@ -71,12 +71,16 @@ namespace FOMServer.Shared.Core.Networking
         {
             _broadcast = broadcast;
             if (_broadcast)
+            {
                 ExcludeFromBroadcast(in destinationOrExcludeAddress);
+            }
             else
+            {
                 AddDestination(in destinationOrExcludeAddress);
+            }
         }
 
-        public ref TPacket Data
+        public readonly ref TPacket Data
         {
             get
             {
@@ -87,7 +91,7 @@ namespace FOMServer.Shared.Core.Networking
 
         public PacketPriority Priority
         {
-            get => _priority;
+            readonly get => _priority;
             set
             {
                 ThrowIfBuilt();
@@ -97,7 +101,7 @@ namespace FOMServer.Shared.Core.Networking
 
         public PacketReliability Reliability
         {
-            get => _reliability;
+            readonly get => _reliability;
             set
             {
                 ThrowIfBuilt();
@@ -107,7 +111,7 @@ namespace FOMServer.Shared.Core.Networking
 
         public byte OrderingChannel
         {
-            get => _orderingChannel;
+            readonly get => _orderingChannel;
             set
             {
                 ThrowIfBuilt();
@@ -130,16 +134,20 @@ namespace FOMServer.Shared.Core.Networking
 
             // A broadcast packet is considered explicit if it has an exclusion address.
             if (_broadcast && _networkAddress != NetworkAddress.Unassigned)
+            {
                 throw new InvalidOperationException("Cannot add destinations after calling ExcludeFromBroadcast");
+            }
 
             if (_addressCount >= QueuePacket.MaxNetworkAddressesPerPacket)
+            {
                 throw new InvalidOperationException($"Cannot add more than {QueuePacket.MaxNetworkAddressesPerPacket} destinations");
+            }
 
             // Once an address has been added, a packet can no longer be broadcasted.
             _broadcast = false;
 
             // Just keep adding addresses if we have already added more than one.
-            if (_networkAddresses != null)
+            if (_networkAddresses is not null)
             {
                 TryGrowAddressArray();
                 _networkAddresses[_addressCount++] = address;
@@ -168,10 +176,14 @@ namespace FOMServer.Shared.Core.Networking
             ThrowIfBuilt();
 
             if (!_broadcast)
+            {
                 throw new InvalidOperationException("Packet has a destination and cannot be broadcasted");
+            }
 
             if (_networkAddress != NetworkAddress.Unassigned)
+            {
                 throw new InvalidOperationException("Packet can only exclude a single address from the broadcast");
+            }
 
             _networkAddress = address;
             _addressCount = 1;
@@ -179,12 +191,15 @@ namespace FOMServer.Shared.Core.Networking
 
         public QueuePacket Build()
         {
-            // Mark that it can't be used anymore.
-            if (Interlocked.Exchange(ref _ownsBuffer, 0) != 1)
-                throw new ObjectDisposedException(nameof(PacketWriter<TPacket>));
+            if (!_ownsBuffer)
+            {
+                throw new ObjectDisposedException(nameof(PacketWriter<>));
+            }
 
+            // Mark that it can't be used anymore.
+            _ownsBuffer = false;
             return new QueuePacket(
-                PacketHelpers.GetPacketTypeID<TPacket>(),
+                PacketHelpers.GetPacketTypeId<TPacket>(),
                 _packetData,
                 _networkAddress,
                 _networkAddresses,
@@ -198,23 +213,30 @@ namespace FOMServer.Shared.Core.Networking
 
         public void Dispose()
         {
-            if (Interlocked.Exchange(ref _ownsBuffer, 0) != 1)
+            if (!_ownsBuffer)
+            {
                 return;
+            }
 
+            _ownsBuffer = false;
             ArrayPool<byte>.Shared.Return(_packetData);
 
-            if (_networkAddresses != null)
+            if (_networkAddresses is not null)
+            {
                 ArrayPool<NetworkAddress>.Shared.Return(_networkAddresses);
+            }
         }
 
         private void TryGrowAddressArray()
         {
             if (_addressCount < _networkAddresses!.Length)
+            {
                 return;
+            }
 
             // Custom bucket jumps to skip intermediate sizes we don't use.
             // After 512, fall back to standard doubling.
-            int newSize = _addressCount < 128 ? 128
+            var newSize = _addressCount < 128 ? 128
                         : _addressCount < 512 ? 512
                         : _addressCount * 2;
 
@@ -224,10 +246,12 @@ namespace FOMServer.Shared.Core.Networking
             _networkAddresses = newArray;
         }
 
-        private void ThrowIfBuilt()
+        private readonly void ThrowIfBuilt()
         {
-            if (Volatile.Read(in _ownsBuffer) != 1)
+            if (!_ownsBuffer)
+            {
                 throw new InvalidOperationException("Packet cannot be modified after building");
+            }
         }
     }
 }

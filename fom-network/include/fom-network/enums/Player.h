@@ -16,17 +16,24 @@ enum AvatarRace : uint8_t {
 };
 
 enum EquipmentSlot : uint8_t {
-  HAT = 0,
-  HEAD = 1,
-  EYES = 2,
-  SHOULDER = 3,
-  ARMS = 4,
-  TORSO = 5,
-  BACK = 6,
-  LEGS = 7,
-  HANDS = 8,
+  // Basic slots (always serialized)
+  EQUIPMENT_SLOT_SHIRT = 0,
+  EQUIPMENT_SLOT_BOTTOMS = 1,
+  EQUIPMENT_SLOT_SHOES = 2,
+  NUM_BASIC_EQUIPMENT_SLOTS = 3,
 
-  NUM_EQUIPMENT_SLOTS = 9
+  // Extended slots (conditionally serialized)
+  EQUIPMENT_SLOT_HAT = 3,
+  EQUIPMENT_SLOT_HEAD = 4,
+  EQUIPMENT_SLOT_EYES = 5,
+  EQUIPMENT_SLOT_SHOULDER = 6,
+  EQUIPMENT_SLOT_ARMS = 7,
+  EQUIPMENT_SLOT_TORSO = 8,
+  EQUIPMENT_SLOT_BACK = 9,
+  EQUIPMENT_SLOT_LEGS = 10,
+  EQUIPMENT_SLOT_HANDS = 11,
+
+  NUM_EQUIPMENT_SLOTS = 12
 };
 
 }  // namespace Enum

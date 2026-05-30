@@ -14,16 +14,23 @@ namespace FOMServer.Shared.Core.Enums
 
     public enum EquipmentSlot : byte
     {
-        Hat = 0, // HAT
-        Head = 1, // HEAD
-        Eyes = 2, // EYES
-        Shoulder = 3, // SHOULDER
-        Arms = 4, // ARMS
-        Torso = 5, // TORSO
-        Back = 6, // BACK
-        Legs = 7, // LEGS
-        Hands = 8, // HANDS
+        // Basic slots (always serialized)
+        Shirt = 0, // EQUIPMENT_SLOT_SHIRT
+        Bottoms = 1, // EQUIPMENT_SLOT_BOTTOMS
+        Shoes = 2, // EQUIPMENT_SLOT_SHOES
+        NUM_BASIC_EQUIPMENT_SLOTS = 3,
 
-        NUM_EQUIPMENT_SLOTS = 9
+        // Extended slots (conditionally serialized)
+        Hat = 3, // EQUIPMENT_SLOT_HAT
+        Head = 4, // EQUIPMENT_SLOT_HEAD
+        Eyes = 5, // EQUIPMENT_SLOT_EYES
+        Shoulder = 6, // EQUIPMENT_SLOT_SHOULDER
+        Arms = 7, // EQUIPMENT_SLOT_ARMS
+        Torso = 8, // EQUIPMENT_SLOT_TORSO
+        Back = 9, // EQUIPMENT_SLOT_BACK
+        Legs = 10, // EQUIPMENT_SLOT_LEGS
+        Hands = 11, // EQUIPMENT_SLOT_HANDS
+
+        NUM_EQUIPMENT_SLOTS = 12,
     }
 }

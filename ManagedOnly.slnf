@@ -5,7 +5,9 @@
     "server-shared\\ServerShared.csproj",
     "master-server\\MasterServer.csproj",
     "world-server\\WorldServer.csproj",
-    "server-tests\\ServerTests.csproj"
+    "tests\\ServerShared.Tests\\ServerShared.Tests.csproj",
+    "tests\\MasterServer.Tests\\MasterServer.Tests.csproj",
+    "tests\\WorldServer.Tests\\WorldServer.Tests.csproj"
   ]
   }
 }

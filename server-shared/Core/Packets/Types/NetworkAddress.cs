@@ -6,7 +6,7 @@ namespace FOMServer.Shared.Core.Packets.Types
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct NetworkAddress
     {
-        public static readonly NetworkAddress Unassigned = new NetworkAddress
+        public static readonly NetworkAddress Unassigned = new()
         {
             BinaryAddress = 0xFFFFFFFF,
             Port = 0xFFFF
@@ -17,31 +17,43 @@ namespace FOMServer.Shared.Core.Packets.Types
 
         public string Address
         {
-            readonly get
-            {
-                return string.Join(".", BitConverter.GetBytes(BinaryAddress));
-            }
+            readonly get =>
+
+                // BinaryAddress stores bytes in network order (same as inet_addr)
+                string.Join(".", BitConverter.GetBytes(BinaryAddress));
+
             set
             {
                 if (!IPAddress.TryParse(value, out var ip))
+                {
                     throw new ArgumentException("Invalid IP address format", nameof(value));
+                }
 
                 var bytes = ip.GetAddressBytes();
                 if (bytes.Length != 4)
+                {
                     throw new ArgumentException("Only IPv4 addresses are supported", nameof(value));
+                }
 
+                // GetAddressBytes returns network order bytes, BitConverter gives us the
+                // same uint value that inet_addr would return (bytes in memory = network order)
                 BinaryAddress = BitConverter.ToUInt32(bytes, 0);
             }
         }
 
-        public static bool operator ==(NetworkAddress a, NetworkAddress b) => a.Equals(b);
-        public static bool operator !=(NetworkAddress a, NetworkAddress b) => !a.Equals(b);
+        public static bool operator ==(NetworkAddress a, NetworkAddress b)
+        {
+            return a.Equals(b);
+        }
+
+        public static bool operator !=(NetworkAddress a, NetworkAddress b)
+        {
+            return !a.Equals(b);
+        }
 
         public override readonly bool Equals(object? obj)
         {
-            if (obj is not NetworkAddress other)
-                return false;
-            return BinaryAddress == other.BinaryAddress && Port == other.Port;
+            return obj is NetworkAddress other && BinaryAddress == other.BinaryAddress && Port == other.Port;
         }
 
         public override readonly int GetHashCode()

@@ -18,11 +18,10 @@ namespace FOMServer.Shared.Application.Networking
         public readonly int RefIndex;
         public readonly int BufferVersion;
         private readonly PacketIdentifier _id;
-        private readonly NetworkAddress _sender;
         private readonly ReadOnlyMemory<byte> _data;
         private readonly PacketBuffer _parentBuffer;
 
-        public PacketRef(
+        internal PacketRef(
             int refIndex,
             int bufferVersion,
             PacketIdentifier id,
@@ -34,56 +33,40 @@ namespace FOMServer.Shared.Application.Networking
             RefIndex = refIndex;
             BufferVersion = bufferVersion;
             _id = id;
-            _sender = sender;
+            Sender = sender;
             _data = data;
             _parentBuffer = parentBuffer;
         }
 
-        public readonly PacketIdentifier ID
-        {
-            get
-            {
-                if (_parentBuffer.IsPacketDisposed(in this))
-                    throw new ObjectDisposedException(nameof(PacketRef));
-                return _id;
-            }
-        }
+        public readonly PacketIdentifier Id => _parentBuffer.IsPacketDisposed(in this) ? throw new ObjectDisposedException(nameof(PacketRef)) : _id;
 
-        public readonly NetworkAddress Sender
-        {
-            get
-            {
-                if (_parentBuffer.IsPacketDisposed(in this))
-                    throw new ObjectDisposedException(nameof(PacketRef));
-                return _sender;
-            }
-        }
+        public readonly NetworkAddress Sender => _parentBuffer.IsPacketDisposed(in this) ? throw new ObjectDisposedException(nameof(PacketRef)) : field;
 
-        public readonly SerializationStatus Status
-        {
-            get
-            {
-                if (_parentBuffer.IsPacketDisposed(in this))
-                    throw new ObjectDisposedException(nameof(PacketRef));
-                return (SerializationStatus)_data.Span[0];
-            }
-        }
+        public readonly SerializationStatus Status => _parentBuffer.IsPacketDisposed(in this)
+                    ? throw new ObjectDisposedException(nameof(PacketRef))
+                    : (SerializationStatus)_data.Span[0];
 
         public readonly ref readonly TPacket Data<TPacket>() where TPacket : unmanaged
         {
             if (_parentBuffer.IsPacketDisposed(in this))
+            {
                 throw new ObjectDisposedException(nameof(PacketRef));
+            }
 
             if (!PacketHelpers.IsPacketOfType<TPacket>(_id))
-                throw new InvalidOperationException($"PacketRef does not contain data of type {typeof(TPacket)}");
+            {
+                throw new InvalidOperationException($"PacketRef does not contain data of type '{typeof(TPacket)}'");
+            }
 
             var data = _data.Span;
 
             var status = (SerializationStatus)data[0];
             if (status != SerializationStatus.Success)
+            {
                 throw new InvalidOperationException($"Cannot access data of packet with status {status}");
+            }
 
-            return ref MemoryMarshal.AsRef<TPacket>(data.Slice(1));
+            return ref MemoryMarshal.AsRef<TPacket>(data[1..]);
         }
 
         public void Dispose()
@@ -93,7 +76,7 @@ namespace FOMServer.Shared.Application.Networking
 
         public override readonly string ToString()
         {
-            int packetSize = PacketHelpers.GetPacketSize(_id);
+            var packetSize = PacketHelpers.GetPacketSize(_id);
             var sb = new StringBuilder(32 + (packetSize * 3));
 
             sb.Append(_id);
@@ -116,11 +99,13 @@ namespace FOMServer.Shared.Application.Networking
             else
             {
                 // Append as hex pairs separated by spaces (skip status byte at index 0)
-                for (int i = 1; i <= packetSize; i++)
+                for (var i = 1; i <= packetSize; i++)
                 {
                     sb.Append(data[i].ToString("X2"));
                     if (i < packetSize)
+                    {
                         sb.Append(' ');
+                    }
                 }
             }
 

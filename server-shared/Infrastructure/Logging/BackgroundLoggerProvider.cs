@@ -4,11 +4,11 @@ using FOMServer.Shared.Core;
 
 namespace FOMServer.Shared.Infrastructure.Logging
 {
-    public sealed class BackgroundLoggerProvider : ILoggerProvider
+    internal sealed class BackgroundLoggerProvider : ILoggerProvider, IAsyncDisposable
     {
         private readonly IShutdownManager _shutdownManager;
         private readonly Channel<LogMessage> _channel;
-        private readonly ConcurrentDictionary<string, BackgroundLogger> _loggers;
+        private readonly ConcurrentDictionary<string, BackgroundLogger> _loggers = new();
         private readonly bool _writeConsole;
         private readonly StreamWriter? _logFileWriter;
 
@@ -18,7 +18,6 @@ namespace FOMServer.Shared.Infrastructure.Logging
         public BackgroundLoggerProvider(IShutdownManager shutdownManager, bool writeConsole = true, string? logFilePath = null)
         {
             _shutdownManager = shutdownManager;
-            _loggers = new ConcurrentDictionary<string, BackgroundLogger>();
 
             _channel = Channel.CreateUnbounded<LogMessage>(
                 new UnboundedChannelOptions
@@ -29,7 +28,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
 
             _writeConsole = writeConsole;
 
-            if (logFilePath != null)
+            if (logFilePath is not null)
             {
                 _logFileWriter = new StreamWriter(File.Open(
                    logFilePath, FileMode.Append, FileAccess.Write, FileShare.Read))
@@ -46,14 +45,27 @@ namespace FOMServer.Shared.Infrastructure.Logging
 
         public void Dispose()
         {
+            DisposeAsync().AsTask().GetAwaiter().GetResult();
+        }
+
+        public async ValueTask DisposeAsync()
+        {
             _channel.Writer.Complete();
+
+            if (_processingTask is not null)
+            {
+                await _processingTask;
+            }
+
             _logFileWriter?.Dispose();
         }
 
         public void Start()
         {
-            if (_processingTask != null)
+            if (_processingTask is not null)
+            {
                 return;
+            }
 
             _cts = CancellationTokenSource.CreateLinkedTokenSource(_shutdownManager.Token);
 
@@ -68,21 +80,32 @@ namespace FOMServer.Shared.Infrastructure.Logging
             {
                 await foreach (var message in _channel.Reader.ReadAllAsync(ct))
                 {
-                    var formatted = message.Format();
-
-                    if (_writeConsole)
-                        Console.WriteLine(formatted);
-
-                    if (_logFileWriter != null)
-                        await _logFileWriter.WriteLineAsync(formatted);
+                    await WriteMessage(message);
                 }
             }
             catch (OperationCanceledException)
             {
             }
-            finally
+
+            // Drain remaining messages after cancellation
+            while (_channel.Reader.TryRead(out var message))
             {
-                _logFileWriter?.Dispose();
+                await WriteMessage(message);
+            }
+        }
+
+        private async Task WriteMessage(LogMessage message)
+        {
+            var formatted = message.Format();
+
+            if (_writeConsole)
+            {
+                Console.WriteLine(formatted);
+            }
+
+            if (_logFileWriter is not null)
+            {
+                await _logFileWriter.WriteLineAsync(formatted);
             }
         }
     }

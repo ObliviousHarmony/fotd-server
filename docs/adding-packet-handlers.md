@@ -6,12 +6,6 @@ must be done in order to achieve that.
 
 ## [FOMNetwork](/fom-network/include/fom-network/enums/PacketIdentifier.h)
 
-> [!CAUTION]
-> Please note that _all_ files added to the FOMNetwork shared library _must_ be added
-> to the list of files in order to be built. This is done using the
-> [`CMakeLists.txt`](/fom-network/CMakeLists.txt) file. Failure to add these files
-> correctly will result in compiler errors.
-
 - [ ] **Packet Data**: Each packet requires a struct defining what it
   contains. Create a file in [`include/fom-network/packets/`](/fom-network/include/fom-network/packets/)
   named after the packet to be added. Limit data types used to RakNet's provided ones with
@@ -105,6 +99,21 @@ static const std::unordered_map<uint32_t, IReader*> readerMap = {
 };
 ```
 
+- [ ] **CMakeLists.txt**: Add the new packet header and serializer source file to
+  [`CMakeLists.txt`](/fom-network/CMakeLists.txt). Headers go in `FOMNETWORK_INC` and
+  source files go in `FOMNETWORK_SRC`.
+
+```cmake
+set(FOMNETWORK_SRC
+  ...
+  "src/packets/ExamplePacketSerializer.cpp"
+)
+set(FOMNETWORK_INC
+  ...
+  "include/fom-network/packets/ExamplePacket.h"
+)
+```
+
 ## [ServerShared](/server-shared/Core/Enums/PacketIdentifier.cs)
 
 - [ ] **Packet Data**: Each native packet data struct requires a mirror copy [in the
@@ -120,11 +129,11 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets
 {
-    // Each packet must be given a PacketID attribute.
+    // Each packet must be given a PacketId attribute.
     // This hooks the struct up and ensures that it
     // is handled correctly and validated in the
     // places where it needs to be.
-    [PacketID(PacketIdentifier.ID_EXAMPLE)]
+    [PacketId(PacketIdentifier.ID_EXAMPLE)]
     // This attribute ensures that the field layout is not changed.
     // Note that the "Pack = 1" option mirrors the
     // `#pragma pack(push, 1)` in the native struct.
@@ -169,5 +178,5 @@ namespace FOMServer.<Master|World>.Application.Handlers
       This is done in the server's `Server.cs` file after the network manager is created.
 
 ```csharp
-networkManager.ClaimPacketID(PacketIdentifier.ID_EXAMPLE);
+networkManager.ClaimPacketId(PacketIdentifier.ID_EXAMPLE);
 ```

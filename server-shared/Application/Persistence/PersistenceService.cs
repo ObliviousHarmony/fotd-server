@@ -5,7 +5,7 @@ using FOMServer.Shared.Core.Persistence;
 
 namespace FOMServer.Shared.Application.Persistence
 {
-    public class PersistenceService : IPersistenceService, IServerStartable
+    internal class PersistenceService : IPersistenceService, IServerStartable
     {
         /// <summary>
         /// The length of time that the service should wait before persisting a dirty entity.
@@ -17,7 +17,7 @@ namespace FOMServer.Shared.Application.Persistence
         private readonly Dictionary<Type, IPersistenceHandler> _handlers;
         private readonly Channel<IPersistable> _dirtyQueue;
         private readonly Channel<WaitRequest> _waitQueue;
-        private readonly ConditionalWeakTable<IPersistable, EntityState> _entityStates;
+        private readonly ConditionalWeakTable<IPersistable, EntityState> _entityStates = [];
 
         private Task? _persistenceTask;
         private CancellationTokenSource? _cts;
@@ -39,7 +39,6 @@ namespace FOMServer.Shared.Application.Persistence
                     SingleReader = true
                 }
             );
-            _entityStates = new ConditionalWeakTable<IPersistable, EntityState>();
         }
 
         public void Register(IPersistable entity)
@@ -77,8 +76,10 @@ namespace FOMServer.Shared.Application.Persistence
         /// </summary>
         public void Start()
         {
-            if (_persistenceTask != null)
+            if (_persistenceTask is not null)
+            {
                 return;
+            }
 
             _cts = CancellationTokenSource.CreateLinkedTokenSource(_shutdownManager.Token);
 
@@ -98,18 +99,20 @@ namespace FOMServer.Shared.Application.Persistence
 
             // Reject enqueue if entity is waiting for persistence
             if (Volatile.Read(in state.IsWaiting) == 1)
+            {
                 return false;
+            }
 
             var version = Volatile.Read(in state.Version);
 
             // Record blocking dependencies on each association
-            if (association != null)
+            if (association is not null)
             {
                 var assocState = _entityStates.GetOrCreateValue(association);
                 assocState.AddBlockingDependency(entity, version);
             }
 
-            if (additionalAssociations != null)
+            if (additionalAssociations is not null)
             {
                 foreach (var assoc in additionalAssociations)
                 {
@@ -120,7 +123,9 @@ namespace FOMServer.Shared.Application.Persistence
 
             // Use an atomic flag so that dirty entities are thread-safely queued only once.
             if (Interlocked.Exchange(ref state.IsDirty, 1) == 0)
+            {
                 _dirtyQueue.Writer.TryWrite(entity);
+            }
 
             return true;
         }
@@ -132,41 +137,41 @@ namespace FOMServer.Shared.Application.Persistence
         {
             var pendingWaits = new List<WaitRequest>();
 
-            while (!ct.IsCancellationRequested)
+            try
             {
-                try
+                await foreach (var entity in _dirtyQueue.Reader.ReadAllAsync(ct))
                 {
-                    var entity = await _dirtyQueue.Reader.ReadAsync(ct);
+                    // Fixed delay to batch rapid updates (cancellation just skips the wait)
+                    try { await Task.Delay(PersistenceDelayMs, ct); } catch (OperationCanceledException) { }
 
-                    // Fixed delay to batch rapid updates
-                    await Task.Delay(PersistenceDelayMs, ct);
+                    try
+                    {
+                        await PersistAsync(entity);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Letting unhandled exceptions prevent further persistence
+                        // could lead to data loss, so log and continue.
+                        _logger.LogCritical(ex, "Persistence failure");
+                    }
 
-                    await PersistAsync(entity);
-                }
-                catch (OperationCanceledException)
-                {
-                    break;
-                }
-                catch (ChannelClosedException)
-                {
-                    break;
-                }
-                catch (Exception ex)
-                {
-                    // Letting unhandled exceptions prevent further persistence
-                    // could lead to data loss, so log and continue.
-                    _logger.LogCritical(ex, "Persistence failure");
-                }
+                    while (_waitQueue.Reader.TryRead(out var wait))
+                    {
+                        pendingWaits.Add(wait);
+                    }
 
-                while (_waitQueue.Reader.TryRead(out var wait))
-                    pendingWaits.Add(wait);
-
-                ProcessWaits(pendingWaits);
+                    ProcessWaits(pendingWaits);
+                }
+            }
+            catch (OperationCanceledException)
+            {
             }
 
             // Drain and persist remaining entities before shutdown
             while (_dirtyQueue.Reader.TryRead(out var entity))
+            {
                 await PersistAsync(entity);
+            }
         }
 
         /// <summary>
@@ -174,10 +179,12 @@ namespace FOMServer.Shared.Application.Persistence
         /// </summary>
         private void ProcessWaits(List<WaitRequest> pendingWaits)
         {
-            for (int i = pendingWaits.Count - 1; i >= 0; i--)
+            for (var i = pendingWaits.Count - 1; i >= 0; i--)
             {
                 if (!IsWaitComplete(pendingWaits[i]))
+                {
                     continue;
+                }
 
                 // Clear IsWaiting flag for all entities in this wait
                 foreach (var dependency in pendingWaits[i].BlockingDependencies)
@@ -208,10 +215,14 @@ namespace FOMServer.Shared.Application.Persistence
         {
             var state = _entityStates.GetOrCreateValue(entity);
             if (Interlocked.Exchange(ref state.IsDirty, 0) == 0)
+            {
                 return;
+            }
 
             if (!_handlers.TryGetValue(entity.GetType(), out var handler))
+            {
                 throw new InvalidOperationException($"No persistence handler registered for {entity.GetType().Name}");
+            }
 
             try
             {
@@ -232,11 +243,15 @@ namespace FOMServer.Shared.Application.Persistence
             {
                 // If the entity was garbage collected, treat as satisfied
                 if (!dependency.Entity.TryGetTarget(out var entity))
+                {
                     continue;
+                }
 
                 var state = _entityStates.GetOrCreateValue(entity);
                 if (Volatile.Read(in state.Version) <= dependency.Version)
+                {
                     return false;
+                }
             }
             return true;
         }
@@ -259,17 +274,8 @@ namespace FOMServer.Shared.Application.Persistence
             public int IsWaiting;
             public long Version;
 
-            private readonly object _syncRoot;
-            private List<BlockingDependency> _blockingDependencies;
-
-            public EntityState()
-            {
-                IsDirty = 0;
-                IsWaiting = 0;
-                Version = 0;
-                _syncRoot = new();
-                _blockingDependencies = new();
-            }
+            private readonly Lock _syncRoot = new();
+            private List<BlockingDependency> _blockingDependencies = [];
 
             public void AddBlockingDependency(IPersistable entity, long version)
             {
@@ -288,7 +294,7 @@ namespace FOMServer.Shared.Application.Persistence
                 lock (_syncRoot)
                 {
                     var result = _blockingDependencies;
-                    _blockingDependencies = new List<BlockingDependency>();
+                    _blockingDependencies = [];
                     return result;
                 }
             }
@@ -299,7 +305,7 @@ namespace FOMServer.Shared.Application.Persistence
         /// </summary>
         private class WaitRequest
         {
-            public List<BlockingDependency> BlockingDependencies = new();
+            public List<BlockingDependency> BlockingDependencies = [];
             public required Action Callback;
         }
     }

@@ -4,7 +4,7 @@ using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets.RakNet
 {
-    [PacketID(PacketIdentifier.ID_CONNECTION_BANNED)]
+    [PacketId(PacketIdentifier.ID_CONNECTION_BANNED)]
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct ConnectionBanned { }
 }

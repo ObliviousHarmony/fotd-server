@@ -1,4 +1,5 @@
 using FOMServer.Master.Core.Networking;
+using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Packets.RakNet;
 using FOMServer.Shared.Core.Packets.Types;
@@ -7,35 +8,65 @@ using FOMServer.Shared.Metadata;
 namespace FOMServer.Master.Application.Handlers
 {
     [PacketHandler]
-    public class ConnectionLostHandler : PacketHandlerBase<ConnectionLost>
+    internal class ConnectionLostHandler : PacketHandlerBase<ConnectionLost>
     {
         private readonly IWorldServerRegistry _worldServerRegistry;
+        private readonly IClientRegistry _clientRegistry;
+        private readonly IPlayerRegistry _playerRegistry;
         private readonly ILogger<ConnectionLostHandler> _logger;
 
         public ConnectionLostHandler(
             IWorldServerRegistry worldServerRegistry,
+            IClientRegistry clientRegistry,
+            IPlayerRegistry playerRegistry,
             ILogger<ConnectionLostHandler> logger)
         {
             _worldServerRegistry = worldServerRegistry;
+            _clientRegistry = clientRegistry;
+            _playerRegistry = playerRegistry;
             _logger = logger;
         }
 
         public override void Handle(NetworkAddress sender, in ConnectionLost p)
         {
             if (TryWorldServerUnregister(sender))
+            {
                 return;
+            }
+
+            TryClientUnregister(sender);
         }
 
         private bool TryWorldServerUnregister(NetworkAddress sender)
         {
             var unregistered = _worldServerRegistry.Unregister(sender);
             if (unregistered.Length == 0)
+            {
                 return false;
+            }
 
-            foreach (var worldID in unregistered)
-                _logger.LogInformation("World '{WorldID}' Lost Connection", worldID);
+            foreach (var worldId in unregistered)
+            {
+                _logger.LogWarning("World '{WorldId}' lost connection", worldId);
+            }
 
             return true;
+        }
+
+        private void TryClientUnregister(NetworkAddress sender)
+        {
+            var session = _clientRegistry.Get(sender);
+            if (session is null)
+            {
+                return;
+            }
+
+            if (session.Player is not null)
+            {
+                _playerRegistry.Logout(session.Player);
+            }
+
+            _clientRegistry.Unregister(session);
         }
     }
 }

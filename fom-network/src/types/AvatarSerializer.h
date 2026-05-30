@@ -9,75 +9,83 @@ namespace FOMNetwork {
 class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
  public:
   void Write(RakNet::BitStream& bs, const Type::Avatar& data) const {
-    WriteBits(bs, data.sex, 1);
-    WriteBits(bs, data.race, 1);
+    bs.Write(data.sex == 1);
+    bs.Write(data.race == 1);
     WriteBits(bs, data.face, 5);
     WriteBits(bs, data.hair, 5);
 
-    // This is a bug, factionID is 16-bits but that's what the client does.
-    WriteBits(bs, data.factionID, 32);
+    // This is a bug in the game client, factionId is 16-bits but this is what
+    // the client does.
+    WriteBits(bs, data.factionId, 32);
 
-    WriteBits(bs, data.rankID, 5);
-    WriteBits(bs, 0, 6);
-    WriteBits(bs, data.legacyFactionID, 4);
+    WriteBits(bs, data.rankId, 5);
+    WriteBits(bs, data.unknown1, 6);
+    WriteBits(bs, data.legacyFactionId, 4);
 
-    WriteBits(bs, data.shirt, 12);
-    WriteBits(bs, data.bottoms, 12);
-    WriteBits(bs, data.shoes, 12);
+    for (int i = 0; i < Enum::NUM_BASIC_EQUIPMENT_SLOTS; ++i)
+      WriteBits(bs, data.equipmentSlots[i], 12);
 
-    bool hasEquipment = false;
-    for (int i = 0; i < Enum::NUM_EQUIPMENT_SLOTS; ++i) {
+    bool hasExtendedEquipment = false;
+    for (int i = Enum::NUM_BASIC_EQUIPMENT_SLOTS; i < Enum::NUM_EQUIPMENT_SLOTS;
+         ++i) {
       if (data.equipmentSlots[i] != 0) {
-        hasEquipment = true;
+        hasExtendedEquipment = true;
         break;
       }
     }
 
-    if (hasEquipment) {
-      bs.Write1();
-      for (int i = 0; i < Enum::NUM_EQUIPMENT_SLOTS; ++i)
+    bs.Write(hasExtendedEquipment);
+    if (hasExtendedEquipment) {
+      for (int i = Enum::NUM_BASIC_EQUIPMENT_SLOTS;
+           i < Enum::NUM_EQUIPMENT_SLOTS; ++i)
         WriteBits(bs, data.equipmentSlots[i], 12);
-    } else
-      bs.Write0();
+    }
 
-    bs.Write0();
-    bs.Write0();
-    bs.Write0();
-    bs.Write0();
+    bs.Write(data.isCommander == 1);
+    bs.Write(data.unknown2 == 1);
+    bs.Write(data.unknown3 == 1);
+    bs.Write(data.isGroupLeader == 1);
   }
 
   bool Read(RakNet::BitStream& bs, Type::Avatar& data) const {
-    if (!ReadBits(bs, data.sex, 1)) return false;
-    if (!ReadBits(bs, data.race, 1)) return false;
+    bool isFemale, isBlack;
+    if (!bs.Read(isFemale)) return false;
+    if (!bs.Read(isBlack)) return false;
+    data.sex = isFemale ? Enum::FEMALE : Enum::MALE;
+    data.race = isBlack ? Enum::BLACK : Enum::WHITE;
     if (!ReadBits(bs, data.face, 5)) return false;
     if (!ReadBits(bs, data.hair, 5)) return false;
 
-    // This is a bug, factionID is 16-bits but that's what the client does.
-    if (!ReadBits(bs, data.factionID, 32)) return false;
+    // This is a bug in the game client, factionId is 16-bits but this is what
+    // the client does.
+    if (!ReadBits(bs, data.factionId, 32)) return false;
 
-    if (!ReadBits(bs, data.rankID, 5)) return false;
-    bs.IgnoreBits(6);
-    if (!ReadBits(bs, data.legacyFactionID, 4)) return false;
+    if (!ReadBits(bs, data.rankId, 5)) return false;
+    if (!ReadBits(bs, data.unknown1, 6)) return false;
+    if (!ReadBits(bs, data.legacyFactionId, 4)) return false;
 
-    if (!ReadBits(bs, data.shirt, 12)) return false;
-    if (!ReadBits(bs, data.bottoms, 12)) return false;
-    if (!ReadBits(bs, data.shoes, 12)) return false;
-
-    bool hasEquipment = bs.ReadBit();
-
-    if (hasEquipment) {
-      for (int i = 0; i < Enum::NUM_EQUIPMENT_SLOTS; ++i) {
-        if (!ReadBits(bs, data.equipmentSlots[i], 12)) return false;
-      }
-    } else {
-      for (int i = 0; i < Enum::NUM_EQUIPMENT_SLOTS; ++i)
-        data.equipmentSlots[i] = 0;
+    for (int i = 0; i < Enum::NUM_BASIC_EQUIPMENT_SLOTS; ++i) {
+      if (!ReadBits(bs, data.equipmentSlots[i], 12)) return false;
     }
 
-    bs.IgnoreBits(1);
-    bs.IgnoreBits(1);
-    bs.IgnoreBits(1);
-    bs.IgnoreBits(1);
+    bool hasExtendedEquipment;
+    if (!bs.Read(hasExtendedEquipment)) return false;
+    if (hasExtendedEquipment) {
+      for (int i = Enum::NUM_BASIC_EQUIPMENT_SLOTS;
+           i < Enum::NUM_EQUIPMENT_SLOTS; ++i) {
+        if (!ReadBits(bs, data.equipmentSlots[i], 12)) return false;
+      }
+    }
+
+    bool isCommander, unknown2, unknown3, isGroupLeader;
+    if (!bs.Read(isCommander)) return false;
+    if (!bs.Read(unknown2)) return false;
+    if (!bs.Read(unknown3)) return false;
+    if (!bs.Read(isGroupLeader)) return false;
+    data.isCommander = isCommander ? 1 : 0;
+    data.unknown2 = unknown2 ? 1 : 0;
+    data.unknown3 = unknown3 ? 1 : 0;
+    data.isGroupLeader = isGroupLeader ? 1 : 0;
 
     return true;
   }
