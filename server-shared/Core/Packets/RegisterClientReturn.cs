@@ -28,7 +28,7 @@ namespace FOMServer.Shared.Core.Packets
         public ushort AvatarCacheCount;
         public AvatarCacheArray AvatarCache;
         public byte Unknown3;
-        public Position SafezoneCenter;
+        public PositionRotation SafezoneCenter;
         public uint SafezoneRadius;
         public uint NodeId;
         public byte Unknown4;
@@ -36,7 +36,7 @@ namespace FOMServer.Shared.Core.Packets
         public FactionEmblem FactionEmblem;
         public fixed byte RawFactionName[BufferSizes.FactionName];
         public PlayerSkills Skills;
-        public Position SpawnPosition;
+        public PositionRotation SpawnPosition;
         public byte SpawnAtPosition;
         public FactionPerks FactionPerks;
 

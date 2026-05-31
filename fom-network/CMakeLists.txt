@@ -79,6 +79,8 @@ set(FOMNETWORK_INC
   "src/types/ItemListSerializer.h"
   "include/fom-network/types/Position.h"
   "src/types/PositionSerializer.h"
+  "include/fom-network/types/PositionRotation.h"
+  "src/types/PositionRotationSerializer.h"
   "include/fom-network/types/PlayerAttributes.h"
   "src/types/PlayerAttributesSerializer.h"
   "include/fom-network/types/PlayerSkill.h"

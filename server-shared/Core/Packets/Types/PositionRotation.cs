@@ -3,10 +3,9 @@ using System.Runtime.InteropServices;
 namespace FOMServer.Shared.Core.Packets.Types
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public struct Position
+    public struct PositionRotation
     {
-        public short X;
-        public short Y;
-        public short Z;
+        public Position Pos;
+        public ushort Rot;
     }
 }

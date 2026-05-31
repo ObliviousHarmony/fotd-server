@@ -29,8 +29,6 @@ class PositionSerializer : protected TypeSerializer<Type::Position> {
       bs.Write(data.y < 0);
       bs.Write(data.z < 0);
     }
-
-    WriteBits(bs, data.rot, 9);
   }
 
   bool Read(RakNet::BitStream& bs, Type::Position& data) const {
@@ -56,8 +54,6 @@ class PositionSerializer : protected TypeSerializer<Type::Position> {
       if (negY) data.y = -data.y;
       if (negZ) data.z = -data.z;
     }
-
-    if (!ReadBits(bs, data.rot, 9)) return false;
 
     return true;
   }

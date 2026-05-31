@@ -1,19 +1,19 @@
 #pragma once
 
 #include <fom-network/Interop.h>
+#include <fom-network/types/Position.h>
 
 namespace FOMNetwork {
 namespace Type {
 
 #pragma pack(push, 1)
-struct Position {
-  int16_t x;
-  int16_t y;
-  int16_t z;
+struct PositionRotation {
+  Position pos;
+  uint16_t rot;
 };
 #pragma pack(pop)
 
-ASSERT_BLITTABLE(Position);
+ASSERT_BLITTABLE(PositionRotation);
 
 }  // namespace Type
 }  // namespace FOMNetwork
