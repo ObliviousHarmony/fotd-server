@@ -39,8 +39,10 @@ namespace FOMServer.Shared.Core.Enums
         ProtectionBypass = 34,
         EffectiveRange = 35,
         WeaponFireDelay = 36,
-        Blank1 = 37,
-        Blank2 = 38,
+
+        // 37
+        // 38
+
         Weight = 39,
         JumpVelocityMultiplier = 40,
         FallDamageMultiplier = 41,
@@ -54,7 +56,8 @@ namespace FOMServer.Shared.Core.Enums
         EmergencyShield = 49,
         EmergencyShieldCooldown = 50,
         VortexEmitterCountdown = 51,
-        Unknown = 52,
+
+        // 52
 
         NUM_ATTRIBUTE_TYPES = 53,
     }

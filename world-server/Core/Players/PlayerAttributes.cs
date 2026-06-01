@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.World.Core.Exceptions;
@@ -33,20 +34,29 @@ namespace FOMServer.World.Core.Players
 
         static PlayerAttributes()
         {
-            s_metadata = new AttributeMetadata[(int)AttributeType.NUM_ATTRIBUTE_TYPES];
-            for (var i = 0; i < s_metadata.Length; i++)
-            {
-                s_metadata[i] = new() { Max = 1000, Default = 0, LockRequired = false };
-            }
+            s_metadata = new AttributeMetadata[AttributeCount];
 
-            s_metadata[(int)AttributeType.Health] = new() { Max = 1000, Default = 1000, LockRequired = false };
-            s_metadata[(int)AttributeType.Stamina] = new() { Max = 1000, Default = 1000, LockRequired = false };
-            s_metadata[(int)AttributeType.BioEnergy] = new() { Max = 1000, Default = 1000, LockRequired = false };
-            s_metadata[(int)AttributeType.Aura] = new() { Max = 1000, Default = 1000, LockRequired = false };
-            s_metadata[(int)AttributeType.Agility] = new() { Max = 1000, Default = 700, LockRequired = false };
-            s_metadata[(int)AttributeType.UniversalCredits] = new() { Max = int.MaxValue, Default = 0, LockRequired = true };
-            s_metadata[(int)AttributeType.FactionCredits] = new() { Max = int.MaxValue, Default = 0, LockRequired = true };
-            s_metadata[(int)AttributeType.Coins] = new() { Max = int.MaxValue, Default = 0, LockRequired = true };
+            for (var id = 0; id < AttributeCount; id++)
+            {
+                var attribute = (AttributeType)id;
+
+                var lockRequired = false;
+                switch (attribute)
+                {
+                    case AttributeType.FactionCredits:
+                    case AttributeType.UniversalCredits:
+                    case AttributeType.Coins:
+                        lockRequired = true;
+                        break;
+                }
+
+                s_metadata[id] = new()
+                {
+                    Max = PlayerConstants.AttributeMaxValues[id],
+                    Default = PlayerConstants.AttributeDefaultValues[id],
+                    LockRequired = lockRequired,
+                };
+            }
         }
 
         public PlayerAttributes(Player player, int[]? initialValues = null)
