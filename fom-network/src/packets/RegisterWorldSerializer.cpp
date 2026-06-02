@@ -4,10 +4,11 @@
 #include "PacketSerializers.h"
 
 namespace FOMNetwork {
+namespace Packet {
 
 bool RegisterWorldSerializer::Read(RakNet::BitStream& bs,
                                    Packet::RegisterWorld* data) const {
-  NetworkAddressSerializer addressSerializer;
+  Type::NetworkAddressSerializer addressSerializer;
 
   if (!addressSerializer.Read(bs, data->publicAddress)) return false;
   if (!bs.ReadCompressed(data->worldIdCount)) return false;
@@ -21,7 +22,7 @@ bool RegisterWorldSerializer::Read(RakNet::BitStream& bs,
 
 void RegisterWorldSerializer::Write(RakNet::BitStream& bs,
                                     const Packet::RegisterWorld* data) const {
-  NetworkAddressSerializer addressSerializer;
+  Type::NetworkAddressSerializer addressSerializer;
 
   uint8_t worldIdCount = data->worldIdCount;
   if (worldIdCount > Enum::NUM_WORLDS) worldIdCount = Enum::NUM_WORLDS;
@@ -31,4 +32,5 @@ void RegisterWorldSerializer::Write(RakNet::BitStream& bs,
   for (int i = 0; i < worldIdCount; ++i) bs.WriteCompressed(data->worldIds[i]);
 }
 
+}  // namespace Packet
 }  // namespace FOMNetwork

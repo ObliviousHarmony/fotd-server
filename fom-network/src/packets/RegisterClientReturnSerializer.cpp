@@ -13,18 +13,19 @@
 #include "PacketSerializers.h"
 
 namespace FOMNetwork {
+namespace Packet {
 
 void RegisterClientReturnSerializer::Write(
     RakNet::BitStream& bs, const Packet::RegisterClientReturn* data) const {
-  ItemListSerializer itemListSerializer;
-  ItemSerializer itemSerializer;
-  AvatarSerializer avatarSerializer;
-  PlayerAttributesSerializer attributesSerializer;
-  PositionRotationSerializer positionSerializer;
-  PlayerProfileSerializer profileSerializer;
-  FactionEmblemSerializer emblemSerializer;
-  PlayerSkillsSerializer skillsSerializer;
-  FactionPerksSerializer perksSerializer;
+  Type::ItemListSerializer itemListSerializer;
+  Type::ItemSerializer itemSerializer;
+  Type::AvatarSerializer avatarSerializer;
+  Type::PlayerAttributesSerializer attributesSerializer;
+  Type::PositionRotationSerializer positionSerializer;
+  Type::PlayerProfileSerializer profileSerializer;
+  Type::FactionEmblemSerializer emblemSerializer;
+  Type::PlayerSkillsSerializer skillsSerializer;
+  Type::FactionPerksSerializer perksSerializer;
 
   bs.WriteCompressed(data->worldId);
   bs.WriteCompressed(data->playerId);
@@ -84,4 +85,5 @@ void RegisterClientReturnSerializer::Write(
   perksSerializer.Write(bs, data->factionPerks);
 }
 
+}  // namespace Packet
 }  // namespace FOMNetwork

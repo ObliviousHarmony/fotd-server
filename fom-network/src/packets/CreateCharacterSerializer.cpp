@@ -4,10 +4,11 @@
 #include "PacketSerializers.h"
 
 namespace FOMNetwork {
+namespace Packet {
 
 bool CreateCharacterSerializer::Read(RakNet::BitStream& bs,
                                      Packet::CreateCharacter* data) const {
-  AvatarSerializer avatarSerializer;
+  Type::AvatarSerializer avatarSerializer;
 
   if (!bs.ReadCompressed(data->playerId)) return false;
   if (!avatarSerializer.Read(bs, data->avatar)) return false;
@@ -18,4 +19,5 @@ bool CreateCharacterSerializer::Read(RakNet::BitStream& bs,
   return true;
 }
 
+}  // namespace Packet
 }  // namespace FOMNetwork

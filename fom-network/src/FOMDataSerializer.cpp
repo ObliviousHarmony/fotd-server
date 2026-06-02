@@ -14,8 +14,10 @@
 #include <fom-network/packets/RegisterClient.h>
 #include <fom-network/packets/RegisterClientReturn.h>
 #include <fom-network/packets/RegisterWorld.h>
+#include <fom-network/packets/Update.h>
 #include <fom-network/packets/WorldLogin.h>
 #include <fom-network/packets/WorldLoginReturn.h>
+#include <fom-network/packets/WorldUpdate.h>
 #include <fom-network/packets/raknet/AlreadyConnected.h>
 #include <fom-network/packets/raknet/ConnectionAttemptFailed.h>
 #include <fom-network/packets/raknet/ConnectionBanned.h>
@@ -68,6 +70,8 @@ static const std::unordered_map<uint8_t, size_t> packetSizes = {
     {Enum::ID_PLAYER_LEAVING_WORLD, sizeof(Packet::PlayerLeavingWorld)},
     {Enum::ID_REGISTER_CLIENT, sizeof(Packet::RegisterClient)},
     {Enum::ID_REGISTER_CLIENT_RETURN, sizeof(Packet::RegisterClientReturn)},
+    {Enum::ID_UPDATE, sizeof(Packet::Update)},
+    {Enum::ID_WORLD_UPDATE, sizeof(Packet::WorldUpdate)},
 };
 
 /**
@@ -75,20 +79,25 @@ static const std::unordered_map<uint8_t, size_t> packetSizes = {
  * to use.
  */
 static const std::unordered_map<uint32_t, IWriter*> writerMap = {
-    {Enum::ID_REGISTER_WORLD, &RegisterWorldSerializer::GetInstance()},
+    {Enum::ID_REGISTER_WORLD, &Packet::RegisterWorldSerializer::GetInstance()},
     {Enum::ID_LOGIN_REQUEST_RETURN,
-     &LoginRequestReturnSerializer::GetInstance()},
-    {Enum::ID_LOGIN_TOKEN_CHECK, &LoginTokenCheckSerializer::GetInstance()},
-    {Enum::ID_CHECK_NAME_RETURN, &CheckNameReturnSerializer::GetInstance()},
-    {Enum::ID_LOGIN_RETURN, &LoginReturnSerializer::GetInstance()},
-    {Enum::ID_WORLD_LOGIN_RETURN, &WorldLoginReturnSerializer::GetInstance()},
+     &Packet::LoginRequestReturnSerializer::GetInstance()},
+    {Enum::ID_LOGIN_TOKEN_CHECK,
+     &Packet::LoginTokenCheckSerializer::GetInstance()},
+    {Enum::ID_CHECK_NAME_RETURN,
+     &Packet::CheckNameReturnSerializer::GetInstance()},
+    {Enum::ID_LOGIN_RETURN, &Packet::LoginReturnSerializer::GetInstance()},
+    {Enum::ID_WORLD_LOGIN_RETURN,
+     &Packet::WorldLoginReturnSerializer::GetInstance()},
     {Enum::ID_PLAYER_MIGRATE_WORLD,
-     &PlayerMigrateWorldSerializer::GetInstance()},
-    {Enum::ID_PLAYER_WORLD_READY, &PlayerWorldReadySerializer::GetInstance()},
+     &Packet::PlayerMigrateWorldSerializer::GetInstance()},
+    {Enum::ID_PLAYER_WORLD_READY,
+     &Packet::PlayerWorldReadySerializer::GetInstance()},
     {Enum::ID_PLAYER_LEAVING_WORLD,
-     &PlayerLeavingWorldSerializer::GetInstance()},
+     &Packet::PlayerLeavingWorldSerializer::GetInstance()},
     {Enum::ID_REGISTER_CLIENT_RETURN,
-     &RegisterClientReturnSerializer::GetInstance()},
+     &Packet::RegisterClientReturnSerializer::GetInstance()},
+    {Enum::ID_WORLD_UPDATE, &Packet::WorldUpdateSerializer::GetInstance()},
 };
 
 static const std::unordered_map<uint32_t, IReader*> readerMap = {
@@ -106,19 +115,22 @@ static const std::unordered_map<uint32_t, IReader*> readerMap = {
     {ID_RSA_PUBLIC_KEY_MISMATCH, &EmptyPacketSerializer::GetInstance()},
 
     // Game Packets
-    {Enum::ID_REGISTER_WORLD, &RegisterWorldSerializer::GetInstance()},
-    {Enum::ID_LOGIN_REQUEST, &LoginRequestSerializer::GetInstance()},
-    {Enum::ID_LOGIN, &LoginSerializer::GetInstance()},
-    {Enum::ID_LOGIN_TOKEN_CHECK, &LoginTokenCheckSerializer::GetInstance()},
-    {Enum::ID_CHECK_NAME, &CheckNameSerializer::GetInstance()},
-    {Enum::ID_CREATE_CHARACTER, &CreateCharacterSerializer::GetInstance()},
-    {Enum::ID_WORLD_LOGIN, &WorldLoginSerializer::GetInstance()},
+    {Enum::ID_REGISTER_WORLD, &Packet::RegisterWorldSerializer::GetInstance()},
+    {Enum::ID_LOGIN_REQUEST, &Packet::LoginRequestSerializer::GetInstance()},
+    {Enum::ID_LOGIN, &Packet::LoginSerializer::GetInstance()},
+    {Enum::ID_LOGIN_TOKEN_CHECK,
+     &Packet::LoginTokenCheckSerializer::GetInstance()},
+    {Enum::ID_CHECK_NAME, &Packet::CheckNameSerializer::GetInstance()},
+    {Enum::ID_CREATE_CHARACTER, &Packet::CreateCharacterSerializer::GetInstance()},
+    {Enum::ID_WORLD_LOGIN, &Packet::WorldLoginSerializer::GetInstance()},
     {Enum::ID_PLAYER_MIGRATE_WORLD,
-     &PlayerMigrateWorldSerializer::GetInstance()},
-    {Enum::ID_PLAYER_WORLD_READY, &PlayerWorldReadySerializer::GetInstance()},
+     &Packet::PlayerMigrateWorldSerializer::GetInstance()},
+    {Enum::ID_PLAYER_WORLD_READY,
+     &Packet::PlayerWorldReadySerializer::GetInstance()},
     {Enum::ID_PLAYER_LEAVING_WORLD,
-     &PlayerLeavingWorldSerializer::GetInstance()},
-    {Enum::ID_REGISTER_CLIENT, &RegisterClientSerializer::GetInstance()},
+     &Packet::PlayerLeavingWorldSerializer::GetInstance()},
+    {Enum::ID_REGISTER_CLIENT, &Packet::RegisterClientSerializer::GetInstance()},
+    {Enum::ID_UPDATE, &Packet::UpdateSerializer::GetInstance()},
 };
 
 bool FOMDataSerializer::Write(RakNet::BitStream& bs,

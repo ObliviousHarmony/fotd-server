@@ -3,6 +3,7 @@
 #include "PacketSerializers.h"
 
 namespace FOMNetwork {
+namespace Packet {
 
 bool PlayerWorldReadySerializer::Read(RakNet::BitStream& bs,
                                       Packet::PlayerWorldReady* data) const {
@@ -18,4 +19,5 @@ void PlayerWorldReadySerializer::Write(
   bs.WriteCompressed(data->status);
 }
 
+}  // namespace Packet
 }  // namespace FOMNetwork

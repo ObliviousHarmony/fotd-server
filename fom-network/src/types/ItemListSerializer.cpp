@@ -4,6 +4,7 @@
 #include <vector>
 
 namespace FOMNetwork {
+namespace Type {
 
 void ItemListSerializer::Write(RakNet::BitStream& bs,
                                const Type::ItemList& data) const {
@@ -66,4 +67,5 @@ bool ItemListSerializer::Read(RakNet::BitStream& bs,
   return true;
 }
 
+}  // namespace Type
 }  // namespace FOMNetwork

@@ -3,6 +3,7 @@
 #include "PacketSerializers.h"
 
 namespace FOMNetwork {
+namespace Packet {
 
 bool LoginTokenCheckSerializer::Read(RakNet::BitStream& bs,
                                      Packet::LoginTokenCheck* data) const {
@@ -33,4 +34,5 @@ void LoginTokenCheckSerializer::Write(
   }
 }
 
+}  // namespace Packet
 }  // namespace FOMNetwork

@@ -5,6 +5,7 @@
 #include "TypeSerializer.h"
 
 namespace FOMNetwork {
+namespace Type {
 
 class FactionEmblemLayerSerializer
     : protected TypeSerializer<Type::FactionEmblemLayer> {
@@ -47,4 +48,5 @@ class FactionEmblemLayerSerializer
   }
 };
 
+}  // namespace Type
 }  // namespace FOMNetwork

@@ -8,6 +8,7 @@
 #include "TypeSerializer.h"
 
 namespace FOMNetwork {
+namespace Type {
 
 class WorldUpdateSerializer : protected TypeSerializer<Type::WorldUpdate> {
  public:
@@ -23,4 +24,5 @@ class WorldUpdateSerializer : protected TypeSerializer<Type::WorldUpdate> {
   bool ReadCharacter(RakNet::BitStream& bs, Type::WorldUpdate& data) const;
 };
 
+}  // namespace Type
 }  // namespace FOMNetwork

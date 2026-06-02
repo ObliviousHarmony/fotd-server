@@ -3,6 +3,7 @@
 #include "PacketSerializers.h"
 
 namespace FOMNetwork {
+namespace Packet {
 
 void LoginRequestReturnSerializer::Write(
     RakNet::BitStream& bs, const Packet::LoginRequestReturn* data) const {
@@ -10,4 +11,5 @@ void LoginRequestReturnSerializer::Write(
   EncodeString(bs, data->username);
 }
 
+}  // namespace Packet
 }  // namespace FOMNetwork

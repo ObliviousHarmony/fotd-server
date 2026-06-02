@@ -6,6 +6,7 @@
 #include "TypeSerializer.h"
 
 namespace FOMNetwork {
+namespace Type {
 
 class ItemListSerializer : protected TypeSerializer<Type::ItemList> {
  public:
@@ -13,4 +14,5 @@ class ItemListSerializer : protected TypeSerializer<Type::ItemList> {
   bool Read(RakNet::BitStream& bs, Type::ItemList& data) const;
 };
 
+}  // namespace Type
 }  // namespace FOMNetwork

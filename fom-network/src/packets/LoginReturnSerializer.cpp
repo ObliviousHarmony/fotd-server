@@ -4,10 +4,11 @@
 #include "PacketSerializers.h"
 
 namespace FOMNetwork {
+namespace Packet {
 
 void LoginReturnSerializer::Write(RakNet::BitStream &bs,
                                   const Packet::LoginReturn *data) const {
-  ApartmentSerializer apartmentSerializer;
+  Type::ApartmentSerializer apartmentSerializer;
 
   bs.WriteCompressed(data->status);
   bs.WriteCompressed(data->playerId);
@@ -41,4 +42,5 @@ void LoginReturnSerializer::Write(RakNet::BitStream &bs,
   bs.WriteCompressed(data->loginWorldId);
 }
 
+}  // namespace Packet
 }  // namespace FOMNetwork

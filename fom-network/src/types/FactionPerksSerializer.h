@@ -5,6 +5,7 @@
 #include "TypeSerializer.h"
 
 namespace FOMNetwork {
+namespace Type {
 
 class FactionPerksSerializer : protected TypeSerializer<Type::FactionPerks> {
  public:
@@ -41,4 +42,5 @@ class FactionPerksSerializer : protected TypeSerializer<Type::FactionPerks> {
   }
 };
 
+}  // namespace Type
 }  // namespace FOMNetwork

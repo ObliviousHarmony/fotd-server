@@ -3,6 +3,7 @@
 #include "PacketSerializers.h"
 
 namespace FOMNetwork {
+namespace Packet {
 
 bool CheckNameSerializer::Read(RakNet::BitStream& bs,
                                Packet::CheckName* data) const {
@@ -12,4 +13,5 @@ bool CheckNameSerializer::Read(RakNet::BitStream& bs,
   return true;
 }
 
+}  // namespace Packet
 }  // namespace FOMNetwork

@@ -5,6 +5,7 @@
 #include "TypeSerializer.h"
 
 namespace FOMNetwork {
+namespace Type {
 
 class ItemBaseSerializer : protected TypeSerializer<Type::ItemBase> {
  public:
@@ -46,4 +47,5 @@ class ItemBaseSerializer : protected TypeSerializer<Type::ItemBase> {
   }
 };
 
+}  // namespace Type
 }  // namespace FOMNetwork

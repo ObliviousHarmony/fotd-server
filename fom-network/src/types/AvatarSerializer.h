@@ -5,6 +5,7 @@
 #include "TypeSerializer.h"
 
 namespace FOMNetwork {
+namespace Type {
 
 class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
  public:
@@ -98,4 +99,5 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
   }
 };
 
+}  // namespace Type
 }  // namespace FOMNetwork

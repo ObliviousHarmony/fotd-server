@@ -5,6 +5,7 @@
 #include "TypeSerializer.h"
 
 namespace FOMNetwork {
+namespace Type {
 
 class NetworkAddressSerializer
     : protected TypeSerializer<Type::NetworkAddress> {
@@ -21,4 +22,5 @@ class NetworkAddressSerializer
   }
 };
 
+}  // namespace Type
 }  // namespace FOMNetwork

@@ -6,6 +6,7 @@
 #include "TypeSerializer.h"
 
 namespace FOMNetwork {
+namespace Type {
 
 class PositionRotationSerializer
     : protected TypeSerializer<Type::PositionRotation> {
@@ -33,4 +34,5 @@ class PositionRotationSerializer
   uint32_t precision_;
 };
 
+}  // namespace Type
 }  // namespace FOMNetwork

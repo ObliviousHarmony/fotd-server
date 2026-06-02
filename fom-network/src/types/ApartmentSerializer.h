@@ -6,6 +6,7 @@
 #include "TypeSerializer.h"
 
 namespace FOMNetwork {
+namespace Type {
 
 class ApartmentSerializer : protected TypeSerializer<Type::Apartment> {
  public:
@@ -81,4 +82,5 @@ class ApartmentSerializer : protected TypeSerializer<Type::Apartment> {
   }
 };
 
+}  // namespace Type
 }  // namespace FOMNetwork

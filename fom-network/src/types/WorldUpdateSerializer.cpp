@@ -1,6 +1,7 @@
 #include "WorldUpdateSerializer.h"
 
 namespace FOMNetwork {
+namespace Type {
 
 namespace {
 
@@ -285,4 +286,5 @@ bool WorldUpdateSerializer::ReadCharacter(RakNet::BitStream& bs,
   return true;
 }
 
+}  // namespace Type
 }  // namespace FOMNetwork

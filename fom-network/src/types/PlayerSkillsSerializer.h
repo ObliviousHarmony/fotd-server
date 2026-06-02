@@ -5,6 +5,7 @@
 #include "TypeSerializer.h"
 
 namespace FOMNetwork {
+namespace Type {
 
 class PlayerSkillsSerializer : protected TypeSerializer<Type::PlayerSkills> {
  public:
@@ -51,4 +52,5 @@ class PlayerSkillsSerializer : protected TypeSerializer<Type::PlayerSkills> {
   }
 };
 
+}  // namespace Type
 }  // namespace FOMNetwork
