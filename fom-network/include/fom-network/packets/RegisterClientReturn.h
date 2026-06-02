@@ -2,7 +2,7 @@
 
 #include <fom-network/Interop.h>
 #include <fom-network/constants/PlayerConstants.h>
-#include <fom-network/enums/Player.h>
+#include <fom-network/enums/ItemSlot.h>
 #include <fom-network/types/Avatar.h>
 #include <fom-network/types/FactionEmblem.h>
 #include <fom-network/types/FactionPerks.h>
@@ -30,7 +30,8 @@ struct RegisterClientReturn {
   uint32_t playerId;
   RegisterClientReturnStatus status;
   Type::ItemList inventory;
-  Type::Item equipment[Enum::NUM_EQUIPMENT_SLOTS];
+  Type::Item equipment[Enum::ITEM_SLOT_EQUIPMENT_END -
+                       Enum::ITEM_SLOT_EQUIPMENT_START];
   Type::Item weapons[Constants::NUM_WEAPON_SLOTS];
   Type::Item unknownSlots[Constants::NUM_UNKNOWN_ITEM_SLOTS];
   Type::ItemList storage;

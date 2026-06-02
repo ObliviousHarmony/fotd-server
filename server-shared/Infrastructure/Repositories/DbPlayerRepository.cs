@@ -1,5 +1,5 @@
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Dtos;
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Repositories;
 using MySqlConnector;
 
@@ -14,7 +14,7 @@ namespace FOMServer.Shared.Infrastructure.Repositories
             _dbConnectionFactory = dbConnectionFactory;
         }
 
-        public PlayerDto? Create(uint id, string name, string biography, AvatarSex sex, AvatarRace race, ushort face, ushort hair)
+        public PlayerDto? Create(uint id, string name, string biography, AvatarConstants.Sex sex, AvatarConstants.Race race, ushort face, ushort hair)
         {
             try
             {

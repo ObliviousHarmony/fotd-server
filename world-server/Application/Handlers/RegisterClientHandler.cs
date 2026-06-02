@@ -44,14 +44,14 @@ namespace FOMServer.World.Application.Handlers
 
             // Placeholder world-entry state; real values are sourced from the loaded Player
             // once DB-backed attribute/inventory loading lands (out of scope here).
+            rData.Avatar.Face = 5;
+            rData.Avatar.Hair = 2;
+            rData.Avatar.Shirt = 0;
+            rData.Avatar.Bottoms = 0;
+            rData.Avatar.Shoes = 0;
+
             unsafe
             {
-                rData.Avatar.Face = 5;
-                rData.Avatar.Hair = 2;
-                rData.Avatar.EquipmentSlots[(int)EquipmentSlot.Shirt] = 0;
-                rData.Avatar.EquipmentSlots[(int)EquipmentSlot.Bottoms] = 0;
-                rData.Avatar.EquipmentSlots[(int)EquipmentSlot.Shoes] = 0;
-
                 rData.Attributes.Values[(int)AttributeType.Health] = 1000;
                 rData.Attributes.Values[(int)AttributeType.Stamina] = 1000;
                 rData.Attributes.Values[(int)AttributeType.BioEnergy] = 1000;

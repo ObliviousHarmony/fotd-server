@@ -1,11 +1,11 @@
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Dtos;
-using FOMServer.Shared.Core.Enums;
 
 namespace FOMServer.Shared.Core.Repositories
 {
     public interface IPlayerRepository
     {
-        PlayerDto? Create(uint id, string name, string biography, AvatarSex sex, AvatarRace race, ushort face, ushort hair);
+        PlayerDto? Create(uint id, string name, string biography, AvatarConstants.Sex sex, AvatarConstants.Race race, ushort face, ushort hair);
 
         PlayerDto? GetById(uint id);
 

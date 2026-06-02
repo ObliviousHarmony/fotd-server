@@ -11,6 +11,8 @@ namespace FOMServer.Shared.Core.Packets
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct RegisterClientReturn
     {
+        public const int MaxAvatarCache = 300; // MAX_AVATAR_CACHE
+
         public byte WorldId;
         public uint PlayerId;
         public StatusCode Status;
@@ -58,7 +60,7 @@ namespace FOMServer.Shared.Core.Packets
             }
         }
 
-        [InlineArray((int)EquipmentSlot.NUM_EQUIPMENT_SLOTS)]
+        [InlineArray((int)ItemSlot.EquipmentEnd - (int)ItemSlot.EquipmentStart)]
         public struct EquipmentArray
         {
             private Item _element;
@@ -76,7 +78,7 @@ namespace FOMServer.Shared.Core.Packets
             private Item _element;
         }
 
-        [InlineArray(PlayerConstants.MaxAvatarCache)]
+        [InlineArray(MaxAvatarCache)]
         public struct AvatarCacheArray
         {
             private Avatar _element;

@@ -1,3 +1,4 @@
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.World.Core.Exceptions;
 using FOMServer.World.Core.Players;
@@ -11,7 +12,7 @@ namespace FOMServer.World.Tests
         {
             var credits = PlayerAttributes.GetMetadata(AttributeType.UniversalCredits);
             Assert.True(credits.LockRequired);
-            Assert.Equal(int.MaxValue, credits.Max);
+            Assert.Equal(PlayerConstants.AttributeMaxValues[(int)AttributeType.UniversalCredits], credits.Max);
             Assert.Equal(0, credits.Default);
         }
 

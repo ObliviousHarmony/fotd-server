@@ -9,7 +9,7 @@
 #include "../types/PlayerAttributesSerializer.h"
 #include "../types/PlayerProfileSerializer.h"
 #include "../types/PlayerSkillsSerializer.h"
-#include "../types/PositionSerializer.h"
+#include "../types/PositionRotationSerializer.h"
 #include "PacketSerializers.h"
 
 namespace FOMNetwork {
@@ -20,7 +20,7 @@ void RegisterClientReturnSerializer::Write(
   ItemSerializer itemSerializer;
   AvatarSerializer avatarSerializer;
   PlayerAttributesSerializer attributesSerializer;
-  PositionSerializer positionSerializer;
+  PositionRotationSerializer positionSerializer;
   PlayerProfileSerializer profileSerializer;
   FactionEmblemSerializer emblemSerializer;
   PlayerSkillsSerializer skillsSerializer;
@@ -32,7 +32,9 @@ void RegisterClientReturnSerializer::Write(
 
   itemListSerializer.Write(bs, data->inventory);
 
-  for (int i = 0; i < Enum::NUM_EQUIPMENT_SLOTS; ++i) {
+  for (int i = 0;
+       i < Enum::ITEM_SLOT_EQUIPMENT_END - Enum::ITEM_SLOT_EQUIPMENT_START;
+       ++i) {
     bs.Write(data->equipment[i].id != 0);
     if (data->equipment[i].id != 0)
       itemSerializer.Write(bs, data->equipment[i]);

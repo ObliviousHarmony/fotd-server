@@ -1,4 +1,4 @@
-using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Constants;
 
 namespace FOMServer.Shared.Core.Dtos
 {
@@ -10,9 +10,9 @@ namespace FOMServer.Shared.Core.Dtos
 
         public string biography { get; init; } = "";
 
-        public AvatarSex sex { get; init; }
+        public AvatarConstants.Sex sex { get; init; }
 
-        public AvatarRace race { get; init; }
+        public AvatarConstants.Race race { get; init; }
 
         public ushort face { get; init; }
 

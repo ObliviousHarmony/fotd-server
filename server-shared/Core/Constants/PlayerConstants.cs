@@ -8,7 +8,6 @@ namespace FOMServer.Shared.Core.Constants
         public const int NumWeaponSlots = 3; // NUM_WEAPON_SLOTS
         public const int NumQuickSlots = 4; // NUM_QUICK_SLOTS
         public const int NumUnknownItemSlots = 6; // NUM_UNKNOWN_ITEM_SLOTS
-        public const int MaxAvatarCache = 300; // MAX_AVATAR_CACHE
 
         /// <summary>
         /// Default value for each attribute, indexed by type.
