@@ -15,6 +15,7 @@ struct Avatar {
 
   uint16_t factionId;
   uint16_t rankId;
+  uint16_t unknown1;
   uint16_t legacyFactionId;
 
   uint16_t shirt;
@@ -31,6 +32,8 @@ struct Avatar {
   uint16_t hands;
 
   uint8_t isCommander;
+  uint8_t unknown2;
+  uint8_t unknown3;
   uint8_t isGroupLeader;
 };
 #pragma pack(pop)

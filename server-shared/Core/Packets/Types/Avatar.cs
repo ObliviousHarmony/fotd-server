@@ -13,6 +13,7 @@ namespace FOMServer.Shared.Core.Packets.Types
 
         public ushort FactionId;
         public ushort RankId;
+        public ushort Unknown1;
         public ushort LegacyFactionId;
 
         public ushort Shirt;
@@ -29,6 +30,8 @@ namespace FOMServer.Shared.Core.Packets.Types
         public ushort Hands;
 
         public byte IsCommander;
+        public byte Unknown2;
+        public byte Unknown3;
         public byte IsGroupLeader;
     }
 }

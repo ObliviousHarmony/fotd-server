@@ -14,6 +14,7 @@ set(FOMNETWORK_SRC
 
   # Types
   "src/types/ItemListSerializer.cpp"
+  "src/types/WorldUpdateSerializer.cpp"
 
   # Packets
   "src/packets/RegisterWorldSerializer.cpp"
@@ -94,6 +95,8 @@ set(FOMNETWORK_INC
   "include/fom-network/types/FactionPerk.h"
   "include/fom-network/types/FactionPerks.h"
   "src/types/FactionPerksSerializer.h"
+  "include/fom-network/types/WorldUpdate.h"
+  "src/types/WorldUpdateSerializer.h"
 
   # RakNet Packets
   "include/fom-network/packets/raknet/AlreadyConnected.h"

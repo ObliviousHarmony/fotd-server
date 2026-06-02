@@ -19,7 +19,7 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
     WriteBits(bs, data.factionId, 32);
 
     WriteBits(bs, data.rankId, 5);
-    WriteBits(bs, 0, 6);
+    WriteBits(bs, data.unknown1, 6);
     WriteBits(bs, data.legacyFactionId, 4);
 
     WriteBits(bs, data.shirt, 12);
@@ -44,8 +44,8 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
     }
 
     bs.Write(data.isCommander == 1);
-    bs.Write(false);
-    bs.Write(false);
+    bs.Write(data.unknown2 == 1);
+    bs.Write(data.unknown3 == 1);
     bs.Write(data.isGroupLeader == 1);
   }
 
@@ -63,7 +63,7 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
     if (!ReadBits(bs, data.factionId, 32)) return false;
 
     if (!ReadBits(bs, data.rankId, 5)) return false;
-    bs.IgnoreBits(6);
+    if (!ReadBits(bs, data.unknown1, 6)) return false;
     if (!ReadBits(bs, data.legacyFactionId, 4)) return false;
 
     if (!ReadBits(bs, data.shirt, 12)) return false;
@@ -84,12 +84,14 @@ class AvatarSerializer : protected TypeSerializer<Type::Avatar> {
       if (!ReadBits(bs, data.hands, 12)) return false;
     }
 
-    bool isCommander, isGroupLeader;
+    bool isCommander, unknown2, unknown3, isGroupLeader;
     if (!bs.Read(isCommander)) return false;
-    bs.IgnoreBits(1);
-    bs.IgnoreBits(1);
+    if (!bs.Read(unknown2)) return false;
+    if (!bs.Read(unknown3)) return false;
     if (!bs.Read(isGroupLeader)) return false;
     data.isCommander = isCommander ? 1 : 0;
+    data.unknown2 = unknown2 ? 1 : 0;
+    data.unknown3 = unknown3 ? 1 : 0;
     data.isGroupLeader = isGroupLeader ? 1 : 0;
 
     return true;
