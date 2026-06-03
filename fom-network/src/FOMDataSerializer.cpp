@@ -121,7 +121,8 @@ static const std::unordered_map<uint32_t, IReader*> readerMap = {
     {Enum::ID_LOGIN_TOKEN_CHECK,
      &Packet::LoginTokenCheckSerializer::GetInstance()},
     {Enum::ID_CHECK_NAME, &Packet::CheckNameSerializer::GetInstance()},
-    {Enum::ID_CREATE_CHARACTER, &Packet::CreateCharacterSerializer::GetInstance()},
+    {Enum::ID_CREATE_CHARACTER,
+     &Packet::CreateCharacterSerializer::GetInstance()},
     {Enum::ID_WORLD_LOGIN, &Packet::WorldLoginSerializer::GetInstance()},
     {Enum::ID_PLAYER_MIGRATE_WORLD,
      &Packet::PlayerMigrateWorldSerializer::GetInstance()},
@@ -129,7 +130,8 @@ static const std::unordered_map<uint32_t, IReader*> readerMap = {
      &Packet::PlayerWorldReadySerializer::GetInstance()},
     {Enum::ID_PLAYER_LEAVING_WORLD,
      &Packet::PlayerLeavingWorldSerializer::GetInstance()},
-    {Enum::ID_REGISTER_CLIENT, &Packet::RegisterClientSerializer::GetInstance()},
+    {Enum::ID_REGISTER_CLIENT,
+     &Packet::RegisterClientSerializer::GetInstance()},
     {Enum::ID_UPDATE, &Packet::UpdateSerializer::GetInstance()},
 };
 

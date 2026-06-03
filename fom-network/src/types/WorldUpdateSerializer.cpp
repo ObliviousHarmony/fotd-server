@@ -19,7 +19,7 @@ bool ImplantUsesShield(uint16_t /*activeImplants*/) { return false; }
 
 void WorldUpdateSerializer::Write(RakNet::BitStream& bs,
                                   const Type::WorldUpdate& data) const {
-  bs.Write((uint8_t)data.type);
+  bs.WriteCompressed(data.type);
 
   switch (data.type) {
     case Type::WORLD_UPDATE_TYPE_PLAYER:
@@ -33,9 +33,9 @@ void WorldUpdateSerializer::Write(RakNet::BitStream& bs,
 
 bool WorldUpdateSerializer::Read(RakNet::BitStream& bs,
                                  Type::WorldUpdate& data) const {
-  uint8_t type;
-  if (!bs.Read(type)) return false;
-  data.type = (Type::WorldUpdateType)type;
+  Type::WorldUpdateType type;
+  if (!bs.ReadCompressed(type)) return false;
+  data.type = type;
 
   switch (data.type) {
     case Type::WORLD_UPDATE_TYPE_PLAYER:
@@ -99,8 +99,8 @@ bool WorldUpdateSerializer::ReadPlayer(RakNet::BitStream& bs,
   return ReadCharacter(bs, data);
 }
 
-void WorldUpdateSerializer::WriteCharacter(RakNet::BitStream& bs,
-                                           const Type::WorldUpdate& data) const {
+void WorldUpdateSerializer::WriteCharacter(
+    RakNet::BitStream& bs, const Type::WorldUpdate& data) const {
   PositionRotationSerializer positionSerializer;
   AvatarSerializer avatarSerializer;
   PositionSerializer firedPositionSerializer;

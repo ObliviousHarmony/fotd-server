@@ -1,0 +1,57 @@
+using System.Runtime.InteropServices;
+
+namespace FOMServer.Shared.Core.Packets.Types
+{
+    public enum WorldUpdateType : byte
+    {
+        Invalid = 0,  // WORLD_UPDATE_TYPE_INVALID
+        Player = 1,  // WORLD_UPDATE_TYPE_PLAYER
+        Character = 2,  // WORLD_UPDATE_TYPE_CHARACTER
+    }
+
+    [StructLayout(LayoutKind.Sequential, Pack = 1)]
+    public struct WorldUpdate
+    {
+        public WorldUpdateType Type;
+
+        // ====== WORLD_UPDATE_TYPE_PLAYER ======
+        public uint Grid1;
+        public uint Grid2;
+        public byte VisibilityAreaId;
+        public uint TargetingTurretId;
+        public byte ActiveMedicalTreatment;
+        public uint Unknown1;
+
+        // ====== WORLD_UPDATE_TYPE_CHARACTER ======
+        public uint Id;
+        public PositionRotation Position;
+        public Avatar Avatar;
+        public byte IsDead;
+
+        // === !isDead ===
+        public short VerticalLookAngle;
+        public ushort AnimationId;
+        public byte MovementStateId;
+
+        public ushort EquippedWeapon;
+        public byte IsWeaponAimed;
+        public byte ConsumedAmmo;
+        public Position FiredPosition;
+
+        public byte WasHit;
+        public byte HitAnimationId;
+        public byte HitDirection;
+
+        public byte EmoteId;
+
+        public ushort ActiveImplants;
+        public byte ShieldSetting;
+
+        public byte MovementSpeed;
+        public byte Unknown2;
+        public byte Unknown3;
+        public ushort Unknown4;
+        public ushort Unknown5;
+        public byte IsShieldActive;
+    }
+}

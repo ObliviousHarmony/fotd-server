@@ -77,37 +77,32 @@ class EmptyPacketSerializer : public IWriter, public IReader {
  * the packet type, so no packet headers are needed.
  * --------------------------------------------------
  */
-#define SERIALIZER_BOTH(TYPE)                                    \
-  namespace Packet {                                             \
-  struct TYPE;                                                   \
-  class TYPE##Serializer                                         \
-      : public PacketSerializer<TYPE##Serializer, TYPE> {        \
-   public:                                                       \
-    void Write(RakNet::BitStream& bs,                            \
-               const TYPE* data) const override;                 \
-    bool Read(RakNet::BitStream& bs, TYPE* data) const override; \
-  };                                                             \
+#define SERIALIZER_BOTH(TYPE)                                                \
+  namespace Packet {                                                         \
+  struct TYPE;                                                               \
+  class TYPE##Serializer : public PacketSerializer<TYPE##Serializer, TYPE> { \
+   public:                                                                   \
+    void Write(RakNet::BitStream& bs, const TYPE* data) const override;      \
+    bool Read(RakNet::BitStream& bs, TYPE* data) const override;             \
+  };                                                                         \
   }
 
-#define SERIALIZER_WRITE(TYPE)                         \
-  namespace Packet {                                   \
-  struct TYPE;                                         \
-  class TYPE##Serializer                               \
-      : public PacketWriter<TYPE##Serializer, TYPE> {  \
-   public:                                             \
-    void Write(RakNet::BitStream& bs,                  \
-               const TYPE* data) const override;       \
-  };                                                   \
+#define SERIALIZER_WRITE(TYPE)                                           \
+  namespace Packet {                                                     \
+  struct TYPE;                                                           \
+  class TYPE##Serializer : public PacketWriter<TYPE##Serializer, TYPE> { \
+   public:                                                               \
+    void Write(RakNet::BitStream& bs, const TYPE* data) const override;  \
+  };                                                                     \
   }
 
-#define SERIALIZER_READ(TYPE)                                  \
-  namespace Packet {                                           \
-  struct TYPE;                                                 \
-  class TYPE##Serializer                                       \
-      : public PacketReader<TYPE##Serializer, TYPE> {          \
-   public:                                                     \
-    bool Read(RakNet::BitStream& bs, TYPE* data) const override; \
-  };                                                           \
+#define SERIALIZER_READ(TYPE)                                            \
+  namespace Packet {                                                     \
+  struct TYPE;                                                           \
+  class TYPE##Serializer : public PacketReader<TYPE##Serializer, TYPE> { \
+   public:                                                               \
+    bool Read(RakNet::BitStream& bs, TYPE* data) const override;         \
+  };                                                                     \
   }
 
 /**

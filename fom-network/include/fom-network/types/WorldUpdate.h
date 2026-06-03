@@ -38,13 +38,13 @@ struct WorldUpdate {
   uint8_t movementStateId;
 
   uint16_t equippedWeapon;
-  uint8_t isWeaponAimed; // equippedWeapon != 0
-  uint8_t consumedAmmo; // equippedWeapon != 0
-  Position firedPosition; // consumedAmmo != 0
+  uint8_t isWeaponAimed;   // equippedWeapon != 0
+  uint8_t consumedAmmo;    // equippedWeapon != 0
+  Position firedPosition;  // consumedAmmo != 0
 
   uint8_t wasHit;
-  uint8_t hitAnimationId; // wasHit == 1
-  uint8_t hitDirection; // wasHit == 1
+  uint8_t hitAnimationId;  // wasHit == 1
+  uint8_t hitDirection;    // wasHit == 1
 
   uint8_t emoteId;
 

@@ -55,8 +55,9 @@ namespace FOMServer.Shared.Core.Enums
         ID_CHECK_NAME = 124,
         ID_CHECK_NAME_RETURN = 125,
 
-        // ID_UPDATE = 126,
-        // ID_WORLD_UPDATE = 127,
+        ID_UPDATE = 126,
+        ID_WORLD_UPDATE = 127,
+
         // ID_WEATHER = 128,
         // ID_ITEMS_REMOVED = 129,
         // ID_ITEMS_CHANGED = 130,
