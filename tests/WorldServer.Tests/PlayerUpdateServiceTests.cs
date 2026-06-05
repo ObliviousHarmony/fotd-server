@@ -27,8 +27,8 @@ namespace FOMServer.World.Tests
             var capture = Assert.Single(fixture.Sender.Sends);
             Assert.Equal(2u, capture.PlayerId);
             Assert.Equal(1, capture.UpdateCount);
-            Assert.Equal(1u, capture.Entries[0].Id);
-            Assert.Equal(7, capture.Entries[0].AnimationId);
+            Assert.Equal(1u, capture.Entries[0].Character.Id);
+            Assert.Equal(7, capture.Entries[0].Character.AnimationId);
         }
 
         [Fact]
@@ -47,7 +47,7 @@ namespace FOMServer.World.Tests
 
             var capture = Assert.Single(fixture.Sender.Sends);
             Assert.Equal(1, capture.UpdateCount);
-            Assert.Equal(20, capture.Entries[0].AnimationId);
+            Assert.Equal(20, capture.Entries[0].Character.AnimationId);
         }
 
         [Fact]
@@ -67,9 +67,9 @@ namespace FOMServer.World.Tests
 
             Assert.Equal(3, fixture.Sender.Sends.Count);
             var byRecipient = fixture.Sender.Sends.ToDictionary(s => s.PlayerId);
-            Assert.Equal(new uint[] { 3 }, byRecipient[1].Entries.Select(e => e.Id).ToArray());
-            Assert.Equal(new uint[] { 1, 3 }, byRecipient[2].Entries.Select(e => e.Id).ToArray());
-            Assert.Equal(new uint[] { 1 }, byRecipient[3].Entries.Select(e => e.Id).ToArray());
+            Assert.Equal(new uint[] { 3 }, byRecipient[1].Entries.Select(e => e.Character.Id).ToArray());
+            Assert.Equal(new uint[] { 1, 3 }, byRecipient[2].Entries.Select(e => e.Character.Id).ToArray());
+            Assert.Equal(new uint[] { 1 }, byRecipient[3].Entries.Select(e => e.Character.Id).ToArray());
         }
 
         [Fact]
@@ -116,7 +116,7 @@ namespace FOMServer.World.Tests
             await fixture.Service.TickAsync(CancellationToken.None);
 
             Assert.Equal(2, fixture.Sender.Sends.Count);
-            Assert.Equal(20, fixture.Sender.Sends[1].Entries[0].AnimationId);
+            Assert.Equal(20, fixture.Sender.Sends[1].Entries[0].Character.AnimationId);
         }
 
         [Fact]
@@ -142,13 +142,13 @@ namespace FOMServer.World.Tests
             Assert.Equal(2, packets.Count);
             Assert.All(packets, p => Assert.True(p.UpdateCount <= WorldUpdatePacket.MaxWorldUpdates));
             Assert.Equal(moverCount, packets.Sum(p => (int)p.UpdateCount));
-            var received = packets.SelectMany(p => p.Entries.Select(e => e.Id)).ToHashSet();
+            var received = packets.SelectMany(p => p.Entries.Select(e => e.Character.Id)).ToHashSet();
             Assert.True(received.SetEquals(Enumerable.Range(100, moverCount).Select(i => (uint)i)));
         }
 
         private static void Move(Player player, ushort animation)
         {
-            player.ApplyUpdate(new Types.WorldUpdate { AnimationId = animation });
+            player.ApplyUpdate(new Types.WorldUpdate.PlayerUpdate { Character = new() { AnimationId = animation } });
         }
 
         private sealed class Fixture

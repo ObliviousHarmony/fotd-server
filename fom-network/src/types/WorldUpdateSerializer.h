@@ -16,12 +16,15 @@ class WorldUpdateSerializer : protected TypeSerializer<Type::WorldUpdate> {
   bool Read(RakNet::BitStream& bs, Type::WorldUpdate& data) const;
 
  private:
-  void WritePlayer(RakNet::BitStream& bs, const Type::WorldUpdate& data) const;
-  bool ReadPlayer(RakNet::BitStream& bs, Type::WorldUpdate& data) const;
+  void WritePlayer(RakNet::BitStream& bs,
+                   const Type::WorldUpdate::PlayerUpdate& data) const;
+  bool ReadPlayer(RakNet::BitStream& bs,
+                  Type::WorldUpdate::PlayerUpdate& data) const;
 
   void WriteCharacter(RakNet::BitStream& bs,
-                      const Type::WorldUpdate& data) const;
-  bool ReadCharacter(RakNet::BitStream& bs, Type::WorldUpdate& data) const;
+                      const Type::WorldUpdate::CharacterUpdate& data) const;
+  bool ReadCharacter(RakNet::BitStream& bs,
+                     Type::WorldUpdate::CharacterUpdate& data) const;
 };
 
 }  // namespace Type

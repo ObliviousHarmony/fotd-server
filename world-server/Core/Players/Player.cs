@@ -8,7 +8,7 @@ namespace FOMServer.World.Core.Players
         private readonly Lock _syncRoot = new();
 
         private readonly Lock _currentUpdateLock = new();
-        private WorldUpdate _currentUpdate;
+        private WorldUpdate.CharacterUpdate _currentUpdate;
 
         public Player(uint id, int[]? initialAttributes = null)
         {
@@ -16,7 +16,6 @@ namespace FOMServer.World.Core.Players
             Attributes = new PlayerAttributes(this, initialAttributes);
 
             _currentUpdate.Id = id;
-            _currentUpdate.Kind = WorldUpdate.Type.Character;
         }
 
         public event PersistableChangeCallback? OnPersistableChange;
@@ -39,18 +38,16 @@ namespace FOMServer.World.Core.Players
             }
         }
 
-        public void ApplyUpdate(in WorldUpdate update)
+        public void ApplyUpdate(in WorldUpdate.PlayerUpdate update)
         {
             lock (_currentUpdateLock)
             {
-                _currentUpdate = update;
-
+                _currentUpdate = update.Character;
                 _currentUpdate.Id = Id;
-                _currentUpdate.Kind = WorldUpdate.Type.Character;
             }
         }
 
-        public WorldUpdate CaptureUpdate()
+        public WorldUpdate.CharacterUpdate CaptureUpdate()
         {
             lock (_currentUpdateLock)
             {

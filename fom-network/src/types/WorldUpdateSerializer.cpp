@@ -23,10 +23,10 @@ void WorldUpdateSerializer::Write(RakNet::BitStream& bs,
 
   switch (data.kind) {
     case Type::WORLD_UPDATE_TYPE_PLAYER:
-      WritePlayer(bs, data);
+      WritePlayer(bs, data.player);
       break;
     case Type::WORLD_UPDATE_TYPE_CHARACTER:
-      WriteCharacter(bs, data);
+      WriteCharacter(bs, data.character);
       break;
   }
 }
@@ -39,16 +39,16 @@ bool WorldUpdateSerializer::Read(RakNet::BitStream& bs,
 
   switch (data.kind) {
     case Type::WORLD_UPDATE_TYPE_PLAYER:
-      return ReadPlayer(bs, data);
+      return ReadPlayer(bs, data.player);
     case Type::WORLD_UPDATE_TYPE_CHARACTER:
-      return ReadCharacter(bs, data);
+      return ReadCharacter(bs, data.character);
   }
 
   return false;
 }
 
-void WorldUpdateSerializer::WritePlayer(RakNet::BitStream& bs,
-                                        const Type::WorldUpdate& data) const {
+void WorldUpdateSerializer::WritePlayer(
+    RakNet::BitStream& bs, const Type::WorldUpdate::PlayerUpdate& data) const {
   bs.WriteCompressed(data.grid1);
   bs.WriteCompressed(data.grid2);
   bs.WriteCompressed(data.visibilityAreaId);
@@ -69,11 +69,11 @@ void WorldUpdateSerializer::WritePlayer(RakNet::BitStream& bs,
 
   bs.WriteCompressed(data.unknown1);
 
-  WriteCharacter(bs, data);
+  WriteCharacter(bs, data.character);
 }
 
-bool WorldUpdateSerializer::ReadPlayer(RakNet::BitStream& bs,
-                                       Type::WorldUpdate& data) const {
+bool WorldUpdateSerializer::ReadPlayer(
+    RakNet::BitStream& bs, Type::WorldUpdate::PlayerUpdate& data) const {
   if (!bs.ReadCompressed(data.grid1)) return false;
   if (!bs.ReadCompressed(data.grid2)) return false;
   if (!bs.ReadCompressed(data.visibilityAreaId)) return false;
@@ -96,11 +96,12 @@ bool WorldUpdateSerializer::ReadPlayer(RakNet::BitStream& bs,
 
   if (!bs.ReadCompressed(data.unknown1)) return false;
 
-  return ReadCharacter(bs, data);
+  return ReadCharacter(bs, data.character);
 }
 
 void WorldUpdateSerializer::WriteCharacter(
-    RakNet::BitStream& bs, const Type::WorldUpdate& data) const {
+    RakNet::BitStream& bs,
+    const Type::WorldUpdate::CharacterUpdate& data) const {
   PositionRotationSerializer positionSerializer;
   AvatarSerializer avatarSerializer;
   PositionSerializer firedPositionSerializer;
@@ -181,8 +182,8 @@ void WorldUpdateSerializer::WriteCharacter(
   bs.Write(data.isShieldActive == 1);
 }
 
-bool WorldUpdateSerializer::ReadCharacter(RakNet::BitStream& bs,
-                                          Type::WorldUpdate& data) const {
+bool WorldUpdateSerializer::ReadCharacter(
+    RakNet::BitStream& bs, Type::WorldUpdate::CharacterUpdate& data) const {
   PositionRotationSerializer positionSerializer;
   AvatarSerializer avatarSerializer;
   PositionSerializer firedPositionSerializer;

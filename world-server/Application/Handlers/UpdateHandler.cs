@@ -3,6 +3,7 @@ using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Metadata;
 using FOMServer.World.Core.Players;
+using WorldUpdateData = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
 
 namespace FOMServer.World.Application.Handlers
 {
@@ -32,7 +33,13 @@ namespace FOMServer.World.Application.Handlers
                 return;
             }
 
-            player.ApplyUpdate(p.WorldUpdate);
+            if (p.WorldUpdate.Kind != WorldUpdateData.Type.Player)
+            {
+                _logger.LogWarning("Unexpected update of type {updateKind} from player {PlayerId}", p.WorldUpdate.Kind, player.Id);
+                return;
+            }
+
+            player.ApplyUpdate(p.WorldUpdate.Player);
             _playerUpdateService.QueueUpdate(player);
         }
     }

@@ -105,7 +105,7 @@ namespace FOMServer.World.Application.Players
             return ValueTask.CompletedTask;
         }
 
-        private void SendTo(Player recipient, List<Types.WorldUpdate> sendBuffer)
+        private void SendTo(Player recipient, List<Types.WorldUpdate.CharacterUpdate> sendBuffer)
         {
             for (var offset = 0; offset < sendBuffer.Count; offset += WorldUpdatePacket.MaxWorldUpdates)
             {
@@ -118,7 +118,11 @@ namespace FOMServer.World.Application.Players
                 data.UpdateCount = count;
                 for (var i = 0; i < count; i++)
                 {
-                    data.Updates[i] = sendBuffer[offset + i];
+                    data.Updates[i] = new Types.WorldUpdate
+                    {
+                        Kind = Types.WorldUpdate.Type.Character,
+                        Character = sendBuffer[offset + i],
+                    };
                 }
 
                 _clientPacketSender.Send(writer.Build());
@@ -136,7 +140,7 @@ namespace FOMServer.World.Application.Players
 
             public Player Player { get; }
 
-            public List<Types.WorldUpdate> Buffer { get; } = [];
+            public List<Types.WorldUpdate.CharacterUpdate> Buffer { get; } = [];
         }
     }
 }
