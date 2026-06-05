@@ -2,17 +2,10 @@ using System.Runtime.InteropServices;
 
 namespace FOMServer.Shared.Core.Packets.Types
 {
-    public enum WorldUpdateType : byte
-    {
-        Invalid = 0,  // WORLD_UPDATE_TYPE_INVALID
-        Player = 1,  // WORLD_UPDATE_TYPE_PLAYER
-        Character = 2,  // WORLD_UPDATE_TYPE_CHARACTER
-    }
-
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct WorldUpdate
     {
-        public WorldUpdateType Type;
+        public Type Kind;
 
         // ====== WORLD_UPDATE_TYPE_PLAYER ======
         public uint Grid1;
@@ -53,5 +46,12 @@ namespace FOMServer.Shared.Core.Packets.Types
         public ushort Unknown4;
         public ushort Unknown5;
         public byte IsShieldActive;
+
+        public enum Type : byte
+        {
+            Invalid = 0,  // WORLD_UPDATE_TYPE_INVALID
+            Player = 1,  // WORLD_UPDATE_TYPE_PLAYER
+            Character = 2,  // WORLD_UPDATE_TYPE_CHARACTER
+        }
     }
 }

@@ -19,9 +19,9 @@ bool ImplantUsesShield(uint16_t /*activeImplants*/) { return false; }
 
 void WorldUpdateSerializer::Write(RakNet::BitStream& bs,
                                   const Type::WorldUpdate& data) const {
-  bs.WriteCompressed(data.type);
+  bs.WriteCompressed(data.kind);
 
-  switch (data.type) {
+  switch (data.kind) {
     case Type::WORLD_UPDATE_TYPE_PLAYER:
       WritePlayer(bs, data);
       break;
@@ -33,11 +33,11 @@ void WorldUpdateSerializer::Write(RakNet::BitStream& bs,
 
 bool WorldUpdateSerializer::Read(RakNet::BitStream& bs,
                                  Type::WorldUpdate& data) const {
-  Type::WorldUpdateType type;
-  if (!bs.ReadCompressed(type)) return false;
-  data.type = type;
+  Type::WorldUpdateType kind;
+  if (!bs.ReadCompressed(kind)) return false;
+  data.kind = kind;
 
-  switch (data.type) {
+  switch (data.kind) {
     case Type::WORLD_UPDATE_TYPE_PLAYER:
       return ReadPlayer(bs, data);
     case Type::WORLD_UPDATE_TYPE_CHARACTER:

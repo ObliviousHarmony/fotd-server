@@ -16,7 +16,7 @@ enum WorldUpdateType : uint8_t {
 
 #pragma pack(push, 1)
 struct WorldUpdate {
-  WorldUpdateType type;
+  WorldUpdateType kind;
 
   // ====== WORLD_UPDATE_TYPE_PLAYER ======
   uint32_t grid1;
