@@ -8,6 +8,8 @@ namespace FOMServer.World.Core.Players
 
         Player? Get(NetworkAddress address);
 
+        IEnumerable<Player> GetAll();
+
         Player PrepareForClient(uint playerId, uint clientBinaryAddress);
 
         Player? ClaimForClient(uint playerId, NetworkAddress sender);

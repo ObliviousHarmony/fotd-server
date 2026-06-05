@@ -12,7 +12,7 @@ constexpr int MAX_WORLD_UPDATES = 100;
 struct WorldUpdate {
   uint32_t playerId;
   uint32_t unknown1;
-  uint16_t updateCount;
+  uint8_t updateCount;
   Type::WorldUpdate updates[MAX_WORLD_UPDATES];
 };
 #pragma pack(pop)

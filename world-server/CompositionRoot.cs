@@ -1,6 +1,7 @@
 using FOMServer.Shared.Application;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Ticking;
 using FOMServer.Shared.Infrastructure;
 using FOMServer.World.Application;
 using FOMServer.World.Application.Networking;
@@ -34,6 +35,7 @@ namespace FOMServer.World
             services.AddServerShared();
             services.AddWorldServices();
             services.AddRepositories();
+            services.AddTickableServices();
             services.AddPersistenceHandlers();
 
             services.AddSingleton<Server>();
@@ -105,6 +107,14 @@ namespace FOMServer.World
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
 
             services.AddSingleton<IPlayerRegistry, PlayerRegistry>();
+            return services;
+        }
+
+        private static ServiceCollection AddTickableServices(this ServiceCollection services)
+        {
+            services.AddSingleton<PlayerUpdateService>();
+            services.AddSingleton<IPlayerUpdateService>(sp => sp.GetRequiredService<PlayerUpdateService>());
+            services.AddSingleton<ITickable>(sp => sp.GetRequiredService<PlayerUpdateService>());
             return services;
         }
 

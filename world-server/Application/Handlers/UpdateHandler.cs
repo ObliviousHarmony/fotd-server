@@ -1,11 +1,8 @@
 using FOMServer.Shared.Core.Handlers;
-using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Metadata;
-using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
-using WorldUpdate = FOMServer.Shared.Core.Packets.WorldUpdate;
 
 namespace FOMServer.World.Application.Handlers
 {
@@ -13,16 +10,16 @@ namespace FOMServer.World.Application.Handlers
     internal class UpdateHandler : PacketHandlerBase<Update>
     {
         private readonly IPlayerRegistry _playerRegistry;
-        private readonly IClientPacketSender _clientPacketSender;
+        private readonly IPlayerUpdateService _playerUpdateService;
         private readonly ILogger<UpdateHandler> _logger;
 
         public UpdateHandler(
             IPlayerRegistry playerRegistry,
-            IClientPacketSender clientPacketSender,
+            IPlayerUpdateService playerUpdateService,
             ILogger<UpdateHandler> logger)
         {
             _playerRegistry = playerRegistry;
-            _clientPacketSender = clientPacketSender;
+            _playerUpdateService = playerUpdateService;
             _logger = logger;
         }
 
@@ -35,15 +32,8 @@ namespace FOMServer.World.Application.Handlers
                 return;
             }
 
-            using var response = new PacketWriter<WorldUpdate>(sender);
-            ref var data = ref response.Data;
-
-            data.PlayerId = player.Id;
-            data.UpdateCount = 1;
-            data.Updates[0] = p.WorldUpdate;
-            data.Updates[0].Type = WorldUpdateType.Character;
-
-            _clientPacketSender.Send(response.Build());
+            player.ApplyUpdate(p.WorldUpdate);
+            _playerUpdateService.QueueUpdate(player);
         }
     }
 }

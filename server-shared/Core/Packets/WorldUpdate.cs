@@ -13,7 +13,7 @@ namespace FOMServer.Shared.Core.Packets
 
         public uint PlayerId;
         public uint Unknown1;
-        public ushort UpdateCount;
+        public byte UpdateCount;
         public UpdatesArray Updates;
 
         [InlineArray(MaxWorldUpdates)]
