@@ -35,14 +35,14 @@ namespace FOMServer.Master.Application.Players
 
         public bool Unregister(ClientSession session)
         {
-            if (!_sessions.TryRemove(new KeyValuePair<NetworkAddress, ClientSession>(session.Address, session)))
+            if (!_sessions.TryRemove(new(session.Address, session)))
             {
                 return false;
             }
 
             if (session.PlayerId.HasValue)
             {
-                _sessionsByPlayerId.TryRemove(new KeyValuePair<uint, ClientSession>(session.PlayerId.Value, session));
+                _sessionsByPlayerId.TryRemove(new(session.PlayerId.Value, session));
             }
 
             return true;

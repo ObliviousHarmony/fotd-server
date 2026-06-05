@@ -44,7 +44,7 @@ namespace FOMServer.Master.Application.Players
         {
             _persistenceService.WaitForPersistence(
                 player,
-                () => _players.TryRemove(new KeyValuePair<uint, Player>(player.Id, player)));
+                () => _players.TryRemove(new(player.Id, player)));
         }
     }
 }
