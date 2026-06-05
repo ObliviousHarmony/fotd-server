@@ -55,6 +55,12 @@ namespace FOMServer.World.Application.Players
 
         public ValueTask TickAsync(CancellationToken cancellationToken)
         {
+            // We have nothing to do during the final sweep.
+            if (cancellationToken.IsCancellationRequested)
+            {
+                return ValueTask.CompletedTask;
+            }
+
             _recipientSnapshot.Clear();
             foreach (var (_, recipient) in _recipients)
             {
@@ -84,6 +90,11 @@ namespace FOMServer.World.Application.Players
             {
                 foreach (var recipient in _recipientSnapshot)
                 {
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        break;
+                    }
+
                     if (recipient.Buffer.Count > 0)
                     {
                         SendTo(recipient.Player, recipient.Buffer);

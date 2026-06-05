@@ -15,7 +15,10 @@ namespace FOMServer.Shared.Core.Ticking
         /// Runs a single tick. Invoked on the shared tick loop, so heavy work here delays the
         /// other tickables.
         /// </summary>
-        /// <param name="cancellationToken">Cancelled when the server begins shutting down.</param>
+        /// <param name="cancellationToken">
+        /// Cancelled when the server is shutting down. After cancellation every tickable is invoked
+        /// once more as a final shutdown sweep.
+        /// </param>
         ValueTask TickAsync(CancellationToken cancellationToken);
     }
 }

@@ -8,7 +8,9 @@ namespace FOMServer.Shared.Application.Ticking
     /// on a fixed base period (the smallest registered interval) and counts wake-ups to decide
     /// which tickables are due, staggering equal-interval tickables so they don't all fire on the
     /// same wake-up. Tickables run serially, so a heavy tick delays the rest. A tickable is
-    /// expected never to throw; an escaped exception triggers a graceful server shutdown.
+    /// expected never to throw; an escaped exception triggers a graceful server shutdown. On
+    /// shutdown the loop stops and runs every tickable once more with a cancelled token so each
+    /// can flush or release on its own terms.
     /// </summary>
     internal class ServerTickService : IServerStartable
     {
@@ -106,24 +108,36 @@ namespace FOMServer.Shared.Application.Ticking
 
                     foreach (var tickable in due)
                     {
-                        try
+                        if (ct.IsCancellationRequested)
                         {
-                            await tickable.TickAsync(ct);
+                            break;
                         }
-                        catch (Exception ex) when (ex is not OperationCanceledException)
-                        {
-                            // Tickables are expected to handle their own failures; an escaped
-                            // exception is an unexpected, unrecoverable fault, so bring the server
-                            // down gracefully rather than continue in an unknown state.
-                            _logger.LogCritical(ex, "Unhandled exception in {Tickable}; shutting down", tickable.GetType().Name);
-                            _shutdownManager.StartShutdown();
-                            return;
-                        }
+
+                        await tickable.TickAsync(ct);
                     }
                 }
             }
-            catch (OperationCanceledException)
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
             {
+                _logger.LogCritical(ex, "Unhandled exception in tick loop; shutting down");
+                _shutdownManager.StartShutdown();
+            }
+
+            // Give every tickable an opportunity to gracefully shut down.
+            foreach (var scheduled in _scheduled)
+            {
+                try
+                {
+                    await scheduled.Tickable.TickAsync(ct);
+                }
+                catch (OperationCanceledException)
+                {
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Tickable {Tickable} threw during shutdown", scheduled.Tickable.GetType().Name);
+                }
             }
         }
 
