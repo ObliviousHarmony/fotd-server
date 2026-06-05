@@ -180,3 +180,8 @@ namespace FOMServer.<Master|World>.Application.Handlers
 ```csharp
 networkManager.ClaimPacketId(PacketIdentifier.ID_EXAMPLE);
 ```
+
+By default, other network managers log a warning when they receive a claimed packet, which helps
+catch clients spoofing internal packets. For packets legitimately expected on more than one manager
+(such as RakNet connection packets), pass `NetworkManager.PacketClaimBehavior.IgnoreSilently` to
+suppress that warning.

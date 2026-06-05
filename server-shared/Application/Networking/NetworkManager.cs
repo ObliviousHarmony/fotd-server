@@ -17,7 +17,7 @@ namespace FOMServer.Shared.Application.Networking
         /// exclusively handle them. When another network manager receives
         /// a packet with a claimed Id, it will ignore it.
         /// </summary>
-        private static readonly HashSet<PacketIdentifier> s_globalClaimedPacketIds = [];
+        private static readonly Dictionary<PacketIdentifier, PacketClaimBehavior> s_globalClaimedPacketIds = [];
 
         /// <summary>
         /// Packet Id claims are not using a thread-safe collection for
@@ -58,21 +58,33 @@ namespace FOMServer.Shared.Application.Networking
         }
 
         /// <summary>
+        /// Controls what other network managers do when they receive a packet
+        /// whose Id this manager has claimed.
+        /// </summary>
+        public enum PacketClaimBehavior
+        {
+            Warn,
+            IgnoreSilently,
+        }
+
+        /// <summary>
         /// Claims a packet Id for this exclusive handling by this network manager.
         /// </summary>
-        public void ClaimPacketId(PacketIdentifier id)
+        public void ClaimPacketId(
+            PacketIdentifier id,
+            PacketClaimBehavior behavior = PacketClaimBehavior.Warn)
         {
             if (!s_canClaimPacketIds)
             {
                 throw new InvalidOperationException("Cannot claim packet Ids after a network manager has started");
             }
 
-            if (s_globalClaimedPacketIds.Contains(id))
+            if (s_globalClaimedPacketIds.ContainsKey(id))
             {
                 throw new InvalidOperationException($"Packet Id '{id}' is already claimed by another network manager");
             }
 
-            s_globalClaimedPacketIds.Add(id);
+            s_globalClaimedPacketIds.Add(id, behavior);
             _claimedPacketIds.Add(id);
         }
 
@@ -191,9 +203,13 @@ namespace FOMServer.Shared.Application.Networking
                         }
 
                         // Packet Ids that have been claimed by another network manager should be ignored.
-                        if (s_globalClaimedPacketIds.Contains(packet.Id) && !_claimedPacketIds.Contains(packet.Id))
+                        if (s_globalClaimedPacketIds.TryGetValue(packet.Id, out var claimBehavior) && !_claimedPacketIds.Contains(packet.Id))
                         {
-                            LogClaimedPacketId(packet.Sender, packet.Id);
+                            if (claimBehavior == PacketClaimBehavior.Warn)
+                            {
+                                LogClaimedPacketId(packet.Sender, packet.Id);
+                            }
+
                             packet.Dispose();
                             continue;
                         }

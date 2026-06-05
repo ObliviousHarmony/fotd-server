@@ -199,7 +199,9 @@ new packet types and handlers.
 Multiple `NetworkManager` instances can coexist (e.g., one for client connections, one for
 server-to-server communication). To prevent clients from spoofing internal packets, network
 managers can "claim" packet IDs using `ClaimPacketId()`. When a packet with a claimed ID
-is received by a different network manager, it is ignored and logged.
+is received by a different network manager, it is ignored and logged. A claim can opt out of the
+warning by passing `PacketClaimBehavior.IgnoreSilently` — used for IDs (such as RakNet connection
+packets) that are legitimately expected to arrive on more than one manager.
 
 ### Database Persistence
 

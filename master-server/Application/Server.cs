@@ -164,7 +164,10 @@ namespace FOMServer.Master.Application
 
             // Clients connecting produce NewIncomingConnection. Claim it on the client network
             // so world-server connections (on the other manager) don't get registered as client sessions.
-            networkManager.ClaimPacketId(PacketIdentifier.ID_NEW_INCOMING_CONNECTION);
+            networkManager.ClaimPacketId(
+                PacketIdentifier.ID_NEW_INCOMING_CONNECTION,
+                NetworkManager.PacketClaimBehavior.IgnoreSilently
+            );
 
             // Initialize the packet sender for communication with clients.
             var packetSender = _serviceProvider.GetRequiredService<ClientPacketSender>();
