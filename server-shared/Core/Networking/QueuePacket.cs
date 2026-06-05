@@ -1,5 +1,6 @@
 using System.Buffers;
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.Buffers;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.Types;
@@ -28,14 +29,14 @@ namespace FOMServer.Shared.Core.Networking
         public readonly byte OrderingChannel;
         public readonly bool Broadcast;
 
-        private readonly byte[] _packetData;
+        private readonly PinnedBuffer _packetData;
         private readonly NetworkAddress _networkAddress;
         private readonly NetworkAddress[]? _networkAddresses;
         private readonly int _addressCount;
 
         public QueuePacket(
             PacketIdentifier id,
-            byte[] packetData,
+            in PinnedBuffer packetData,
             NetworkAddress networkAddress,
             NetworkAddress[]? networkAddresses,
             int addressCount,
@@ -56,7 +57,13 @@ namespace FOMServer.Shared.Core.Networking
             Broadcast = broadcast;
         }
 
-        public ReadOnlySpan<byte> Data => _packetData.AsSpan(0, PacketHelpers.GetPacketSize(Id));
+        public ReadOnlySpan<byte> Data => _packetData.Array.AsSpan(0, PacketHelpers.GetPacketSize(Id));
+
+        /// <summary>
+        /// A stable pointer to the packet data, valid for the lifetime of the
+        /// rented buffer. 
+        /// </summary>
+        public IntPtr DataPointer => _packetData.Pointer;
 
         public ReadOnlySpan<NetworkAddress> NetworkAddresses => _networkAddresses is not null
                     ? _networkAddresses.AsSpan(0, _addressCount)
@@ -71,7 +78,7 @@ namespace FOMServer.Shared.Core.Networking
         /// </remarks>
         public void Release()
         {
-            ArrayPool<byte>.Shared.Return(_packetData);
+            PinnedArrayPool.Shared.Return(in _packetData);
 
             if (_networkAddresses is not null)
             {

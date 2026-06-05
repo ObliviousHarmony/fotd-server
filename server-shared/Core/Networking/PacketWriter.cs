@@ -1,6 +1,7 @@
 using System.Buffers;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.Buffers;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.Types;
@@ -24,7 +25,7 @@ namespace FOMServer.Shared.Core.Networking
         /// raw buffer that is sized to hold the packet type. This allows us to
         /// avoid unnecessary allocations and copying when building packets.
         /// </summary>
-        private readonly byte[] _packetData;
+        private readonly PinnedBuffer _packetData;
 
         /// <summary>
         /// Once the writer has been used to build a packet, this flag
@@ -55,11 +56,11 @@ namespace FOMServer.Shared.Core.Networking
             // Since packets are generally small and very short-lived, we will
             // use the shared array pool to avoid excessive allocations.
             _packetSize = PacketHelpers.GetPacketSize<TPacket>();
-            _packetData = ArrayPool<byte>.Shared.Rent(_packetSize);
+            _packetData = PinnedArrayPool.Shared.Rent(_packetSize);
             _ownsBuffer = true;
 
             // Make sure there's no junk data in the buffer.
-            Unsafe.InitBlock(ref _packetData[0], 0, (uint)_packetSize);
+            Unsafe.InitBlock(ref _packetData.Array[0], 0, (uint)_packetSize);
         }
 
         public PacketWriter(in NetworkAddress destination) : this()
@@ -219,7 +220,7 @@ namespace FOMServer.Shared.Core.Networking
             }
 
             _ownsBuffer = false;
-            ArrayPool<byte>.Shared.Return(_packetData);
+            PinnedArrayPool.Shared.Return(in _packetData);
 
             if (_networkAddresses is not null)
             {

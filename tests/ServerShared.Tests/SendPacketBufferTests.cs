@@ -1,5 +1,6 @@
 using System.Buffers;
 using FOMServer.Shared.Application.Networking;
+using FOMServer.Shared.Core.Buffers;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
@@ -25,6 +26,8 @@ namespace FOMServer.Shared.Tests
             var batch = buffer.GetBatch();
 
             Assert.Equal(2, batch.Length);
+
+            buffer.ReleasePending();
         }
 
         [Fact]
@@ -49,6 +52,8 @@ namespace FOMServer.Shared.Tests
             Assert.Equal(5, batch[0].OrderingChannel);
             Assert.Equal(0, batch[0].Broadcast);
             Assert.Equal(1, batch[0].NumNetworkAddresses);
+
+            buffer.ReleasePending();
         }
 
         [Fact]
@@ -67,6 +72,8 @@ namespace FOMServer.Shared.Tests
             var batch = buffer.GetBatch();
 
             Assert.Equal(3, batch[0].NumNetworkAddresses);
+
+            buffer.ReleasePending();
         }
 
         [Fact]
@@ -89,6 +96,41 @@ namespace FOMServer.Shared.Tests
 
             // Clean up the overflow packet since it wasn't added
             overflowPacket.Release();
+
+            // Release the packets that were added to the buffer.
+            buffer.ReleasePending();
+        }
+
+        [Fact]
+        public void Add_ReferencesPacketBufferWithoutCopying()
+        {
+            var buffer = new SendPacketBuffer();
+            var packet = CreateTestPacket();
+
+            buffer.Add(in packet);
+            var batch = buffer.GetBatch();
+
+            // The send packet points at the packet's own pinned buffer rather than a copy.
+            Assert.Equal(packet.DataPointer, batch[0].Data);
+
+            buffer.ReleasePending();
+        }
+
+        [Fact]
+        public void ReleasePending_ClearsBatchForReuse()
+        {
+            var buffer = new SendPacketBuffer();
+            var packet1 = CreateTestPacket();
+            var packet2 = CreateTestPacket();
+
+            buffer.Add(in packet1);
+            buffer.Add(in packet2);
+            Assert.True(buffer.HasBatch);
+
+            buffer.ReleasePending();
+
+            Assert.False(buffer.HasBatch);
+            Assert.True(buffer.CanAdd);
         }
 
         private static QueuePacket CreateTestPacket(
@@ -99,7 +141,7 @@ namespace FOMServer.Shared.Tests
             bool broadcast = false
         )
         {
-            var packetData = ArrayPool<byte>.Shared.Rent(s_testPacketSize);
+            var packetData = PinnedArrayPool.Shared.Rent(s_testPacketSize);
             var networkAddress = address ?? new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             return new QueuePacket(
@@ -117,7 +159,7 @@ namespace FOMServer.Shared.Tests
 
         private static QueuePacket CreateTestPacketWithMultipleAddresses(NetworkAddress[] addresses)
         {
-            var packetData = ArrayPool<byte>.Shared.Rent(s_testPacketSize);
+            var packetData = PinnedArrayPool.Shared.Rent(s_testPacketSize);
             var rentedAddresses = ArrayPool<NetworkAddress>.Shared.Rent(addresses.Length);
             addresses.CopyTo(rentedAddresses, 0);
 

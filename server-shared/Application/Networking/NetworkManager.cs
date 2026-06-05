@@ -172,7 +172,9 @@ namespace FOMServer.Shared.Application.Networking
                     if (sendBuffer.HasBatch)
                     {
                         _packetService.Send(_peer, sendBuffer.GetBatch());
-                        sendBuffer.Reset();
+
+                        sendBuffer.ReleasePending();
+
                         shouldBackoff = false;
                     }
 

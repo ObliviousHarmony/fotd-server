@@ -1,35 +1,28 @@
-using System.Runtime.CompilerServices;
 using FOMServer.Shared.Core.Networking;
-using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Shared.Application.Networking
 {
     /// <summary>
-    /// Manages the lifetime of packet data waiting to be sent over the network.
+    /// Collects a batch of packets to hand to native code in a single send.
     /// </summary>
-    /// <remarks>
-    /// This class pre-allocates buffers on the Pinned Object Heap (POH) to avoid
-    /// per-batch pinning overhead. Packet data and network addresses are copied
-    /// into these buffers, allowing the original packet buffers to be released
-    /// immediately.
-    /// </remarks>
     internal class SendPacketBuffer
     {
         private readonly SendPacket[] _sendPackets;
-        private readonly byte[] _packetData;
         private readonly NetworkAddress[] _networkAddresses;
+        private readonly QueuePacket[] _pendingRelease;
 
-        private int _packetDataOffset;
         private int _networkAddressOffset;
         private int _packetCount;
 
         public SendPacketBuffer()
         {
-            // Allocate to the pinned object heap so that we don't need to pin the buffer when sending it to native code.
-            _sendPackets = GC.AllocateArray<SendPacket>(IPacketService.MaxBufferedPackets, pinned: true);
-            _packetData = GC.AllocateArray<byte>(IPacketService.MaxBufferedPackets * PacketHelpers.MaxPacketSize, pinned: true);
+            _sendPackets = new SendPacket[IPacketService.MaxBufferedPackets];
+            _pendingRelease = new QueuePacket[IPacketService.MaxBufferedPackets];
+
+            // Stage addresses on the pinned object heap so native receives a stable
+            // pointer without us pinning per send.
             _networkAddresses = GC.AllocateArray<NetworkAddress>(IPacketService.MaxBufferedPackets * QueuePacket.MaxNetworkAddressesPerPacket, pinned: true);
         }
 
@@ -38,11 +31,13 @@ namespace FOMServer.Shared.Application.Networking
         public bool HasBatch => _packetCount > 0;
 
         /// <summary>
-        /// Adds a packet to the send buffer, copying its data and addresses.
+        /// Adds a packet to the send buffer, referencing its pinned data in place
+        /// and staging its addresses.
         /// </summary>
         /// <remarks>
-        /// The packet is released after its data is copied. Do not use the packet
-        /// after calling this method.
+        /// The packet is NOT released here. Native reads its buffer in place during
+        /// the send, so packets are released via <see cref="ReleasePending"/> only
+        /// after the batch has been sent.
         /// </remarks>
         public unsafe bool Add(in QueuePacket packet)
         {
@@ -51,30 +46,21 @@ namespace FOMServer.Shared.Application.Networking
                 throw new InvalidOperationException("Cannot add more packets to the buffer");
             }
 
-            var packetSize = PacketHelpers.GetPacketSize(packet.Id);
-
-            // Copy packet data into the POH buffer.
-            fixed (byte* destPtr = &_packetData[_packetDataOffset])
-            fixed (byte* srcPtr = packet.Data)
-            {
-                Unsafe.CopyBlockUnaligned(destPtr, srcPtr, (uint)packetSize);
-            }
-
-            // Copy network addresses into the POH buffer.
+            // Stage the addresses into the pinned buffer so native has a stable pointer.
             var addresses = packet.NetworkAddresses;
             for (var i = 0; i < addresses.Length; i++)
             {
                 _networkAddresses[_networkAddressOffset + i] = addresses[i];
             }
 
-            // Build the SendPacket struct with pointers into the POH buffers.
-            fixed (byte* dataPtr = &_packetData[_packetDataOffset])
+            // Reference the packet's pinned data buffer directly (no copy), plus the
+            // staged addresses.
             fixed (NetworkAddress* addrPtr = &_networkAddresses[_networkAddressOffset])
             {
                 _sendPackets[_packetCount] = new SendPacket
                 {
                     Id = packet.Id,
-                    Data = (IntPtr)dataPtr,
+                    Data = packet.DataPointer,
                     NumNetworkAddresses = addresses.Length,
                     NetworkAddresses = (IntPtr)addrPtr,
                     Priority = packet.Priority,
@@ -84,12 +70,11 @@ namespace FOMServer.Shared.Application.Networking
                 };
             }
 
-            _packetDataOffset += packetSize;
+            // Hold the packet so its buffer stays rented until the batch is sent.
+            _pendingRelease[_packetCount] = packet;
+
             _networkAddressOffset += addresses.Length;
             _packetCount++;
-
-            // Release the original packet's buffers back to the pool.
-            packet.Release();
 
             return true;
         }
@@ -99,9 +84,21 @@ namespace FOMServer.Shared.Application.Networking
             return _sendPackets.AsSpan(0, _packetCount);
         }
 
-        public void Reset()
+        /// <summary>
+        /// Releases the buffers of every packet in the current batch. Call after the
+        /// batch has been sent, once native no longer references the data.
+        /// </summary>
+        public void ReleasePending()
         {
-            _packetDataOffset = 0;
+            for (var i = 0; i < _packetCount; i++)
+            {
+                _pendingRelease[i].Release();
+
+                // Drop the reference to the returned buffer so
+                // that it can be released if necessary.
+                _pendingRelease[i] = default;
+            }
+
             _networkAddressOffset = 0;
             _packetCount = 0;
         }

@@ -1,5 +1,7 @@
+using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.Buffers;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.Shared.Metadata;
@@ -49,6 +51,14 @@ namespace FOMServer.Shared.Core.Packets
                 s_idByPacketType[type] = idAttr.Id;
                 s_packetSizes[idAttr.Id] = size;
             }
+
+            // The send path rents packet buffers from PinnedArrayPool, whose largest
+            // bucket is MaximumBufferLength. A larger packet still works but falls back
+            // to uncached pinned allocations, so flag it loudly during development.
+            Debug.Assert(
+                MaxPacketSize <= PinnedArrayPool.MaximumBufferLength,
+                $"Largest packet ({MaxPacketSize} bytes) exceeds the pinned pool's largest bucket "
+                    + $"({PinnedArrayPool.MaximumBufferLength} bytes).");
         }
 
         /// <summary>
