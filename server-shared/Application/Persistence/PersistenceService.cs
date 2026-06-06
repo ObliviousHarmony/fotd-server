@@ -219,13 +219,13 @@ namespace FOMServer.Shared.Application.Persistence
                 return;
             }
 
-            if (!_handlers.TryGetValue(entity.GetType(), out var handler))
-            {
-                throw new InvalidOperationException($"No persistence handler registered for {entity.GetType().Name}");
-            }
-
             try
             {
+                if (!_handlers.TryGetValue(entity.GetType(), out var handler))
+                {
+                    throw new InvalidOperationException($"No persistence handler registered for {entity.GetType().Name}");
+                }
+
                 await handler.PersistAsync(entity);
             }
             finally
