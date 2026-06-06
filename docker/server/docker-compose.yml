@@ -1,7 +1,7 @@
 name: fom-server
 
 x-world-server: &world-server-base
-  image: mcr.microsoft.com/dotnet/runtime:9.0
+  image: mcr.microsoft.com/dotnet/runtime:10.0
   platform: linux/amd64
   depends_on:
     - db
@@ -31,7 +31,7 @@ services:
       - fom-server-database:/var/lib/mysql
 
   master-server:
-    image: mcr.microsoft.com/dotnet/runtime:9.0
+    image: mcr.microsoft.com/dotnet/runtime:10.0
     platform: linux/amd64
     container_name: master-server
     depends_on:

@@ -167,11 +167,11 @@ ms-down:
 
 [group("server")]
 ws-up:
-  docker-compose -f docker/server/docker-compose.yml up -d world-server
+  docker-compose -f docker/server/docker-compose.yml up -d world-server-1
 
 [group("server")]
 ws-down:
-  docker-compose -f docker/server/docker-compose.yml down world-server
+  docker-compose -f docker/server/docker-compose.yml down world-server-1
 
 [group("server")]
 server-up: db-up ms-up ws-up
