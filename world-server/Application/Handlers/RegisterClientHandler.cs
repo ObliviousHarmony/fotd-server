@@ -53,10 +53,13 @@ namespace FOMServer.World.Application.Handlers
             unsafe
             {
                 rData.Attributes.Values[(int)AttributeType.Health] = 1000;
-                rData.Attributes.Values[(int)AttributeType.Stamina] = 1000;
-                rData.Attributes.Values[(int)AttributeType.BioEnergy] = 1000;
+                rData.Attributes.Values[(int)AttributeType.Stamina] = 10000;
+                rData.Attributes.Values[(int)AttributeType.MaxStamina] = 10000;
+                rData.Attributes.Values[(int)AttributeType.StaminaRegeneration] = 600;
+                rData.Attributes.Values[(int)AttributeType.JumpVelocityMultiplier] = 2000;
                 rData.Attributes.Values[(int)AttributeType.Aura] = 1000;
-                rData.Attributes.Values[(int)AttributeType.Agility] = 700;
+                rData.Attributes.Values[(int)AttributeType.Agility] = 1200;
+                rData.Attributes.Values[(int)AttributeType.SprintSpeedMultiplier] = 4000;
             }
 
             rData.Profile.PlayerName = "Naruto Uzumaki";
