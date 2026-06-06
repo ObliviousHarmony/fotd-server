@@ -1,5 +1,6 @@
 using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Core.Players;
+using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
@@ -80,6 +81,8 @@ namespace FOMServer.Master.Application.Handlers
             _playerRegistry.Login(session);
 
             rData.Status = LoginReturn.StatusCode.Success;
+            rData.AccountType = AccountType.Prepaid;
+            rData.LoginWorldId = WorldId.Manhattan;
             _clientPacketSender.Send(response.Build());
         }
     }
