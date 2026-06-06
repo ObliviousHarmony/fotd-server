@@ -12,6 +12,8 @@ Thumbs.db
 # User Files
 CMakeUserPresets.json
 .claude/**/*.local.json
+/local.just
 
 # Build Artifacts
 /out
+/build

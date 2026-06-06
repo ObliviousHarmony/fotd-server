@@ -1,6 +1,5 @@
 set windows-shell := ["powershell.exe", "-NoLogo", "-Command"]
 
-BUILD_CONFIG := "debug"
 CPP_CACHE_IMAGE := "fom/build-cpp"
 DOTNET_CACHE_IMAGE := "fom/build-dotnet"
 BUILD_VOLUME := "fom-server-build"
@@ -19,6 +18,10 @@ NUGET_CACHE_MOUNT := if NUGET_CACHE_BIND == "" {
 } else {
   '--mount type=bind,src="' + NUGET_CACHE_BIND + '",dst="/root/.nuget/packages"'
 }
+
+# Optional per-machine recipes (e.g. a deploy script). Copy local.just.example to
+# local.just (gitignored) to add your own. Absent on a machine, nothing breaks.
+import? 'local.just'
 
 [group("format")]
 [unix]
@@ -53,11 +56,10 @@ format-dotnet:
   dotnet format ManagedOnly.slnf
 
 [group("docker")]
-[doc('Creates the Docker images used for building the project.')]
-docker-build: _docker-build-cpp _docker-build-dotnet
+docker-images: _docker-images-cpp _docker-images-dotnet
 
 [group("docker")]
-_docker-build-cpp:
+_docker-images-cpp:
   docker build \
     --platform=linux/amd64 \
     -f docker/build/cpp.Dockerfile \
@@ -65,7 +67,7 @@ _docker-build-cpp:
     docker/build
 
 [group("docker")]
-_docker-build-dotnet:
+_docker-images-dotnet:
   docker build \
     --platform=linux/amd64 \
     -f docker/build/dotnet.Dockerfile \
@@ -73,24 +75,65 @@ _docker-build-dotnet:
     docker/build
 
 [group("build")]
-build:
+[doc('Builds C++/C# in Docker and publishes to out/publish/{master,world} in the build volume (run by `just server-up`). Pass a config (default Release).')]
+docker-build config="Release": docker-images
   docker run --rm \
     --platform=linux/amd64 \
+    -e FOMSERVER_BUILD_PRESET={{config}} \
     --mount type=bind,src="{{justfile_directory()}}",dst="/workspace" \
     {{BUILD_VOLUME_MOUNT}} \
     {{CPP_CACHE_IMAGE}} build
   docker run --rm \
     --platform=linux/amd64 \
+    -e FOMSERVER_BUILD_CONFIG={{config}} \
     {{NUGET_CACHE_MOUNT}} \
     --mount type=bind,src="{{justfile_directory()}}",dst="/workspace" \
     {{BUILD_VOLUME_MOUNT}} \
     {{DOTNET_CACHE_IMAGE}} build
 
+[group("build")]
+[doc('Publishes both servers to build/win/{master,world}. Requires a Visual Studio developer environment (cmake + dotnet on PATH). Pass a config (default Release).')]
+[windows]
+publish config="Release":
+    cmake --preset {{config}}-Windows
+    cmake --build --preset {{config}}-Windows
+    if (Test-Path "build/win") { Remove-Item -Recurse -Force "build/win" }
+    dotnet publish master-server\MasterServer.csproj -c {{config}} -o build\win\master
+    dotnet publish world-server\WorldServer.csproj -c {{config}} -o build\win\world
+    Write-Host "Published servers into build/win/master and build/win/world"
+
+[group("build")]
+[doc('Publishes both servers to build/linux/{master,world} via Docker (alias of publish-docker on Unix).')]
+[unix]
+publish config="Release": (publish-docker config)
+
+[group("build")]
+[doc('Publishes both servers to build/linux/{master,world} via Docker. Runs from any host (use on Windows to cross-build the Linux copy). Pass a config (default Release).')]
+publish-docker config="Release": docker-images
+  docker run --rm \
+    --platform=linux/amd64 \
+    -e FOMSERVER_BUILD_PRESET={{config}} \
+    --mount type=bind,src="{{justfile_directory()}}",dst="/workspace" \
+    {{BUILD_VOLUME_MOUNT}} \
+    {{CPP_CACHE_IMAGE}} build
+  docker run --rm \
+    --platform=linux/amd64 \
+    -e FOMSERVER_BUILD_CONFIG={{config}} \
+    {{NUGET_CACHE_MOUNT}} \
+    --mount type=bind,src="{{justfile_directory()}}",dst="/workspace" \
+    {{BUILD_VOLUME_MOUNT}} \
+    {{DOTNET_CACHE_IMAGE}} publish
+
+[group("build")]
+[doc('Windows: publishes both the native (build/win) and Docker/Linux (build/linux) copies. Requires Docker. Pass a config (default Release).')]
+[windows]
+publish-all config="Release": (publish config) (publish-docker config)
+
 [group("test")]
 test: test-cpp test-dotnet
 
 [group("test")]
-test-cpp:
+test-cpp: docker-images
   docker run --rm \
     --platform=linux/amd64 \
     --mount type=bind,src="{{justfile_directory()}}",dst="/workspace" \
@@ -98,7 +141,7 @@ test-cpp:
     {{CPP_CACHE_IMAGE}} test
 
 [group("test")]
-test-dotnet:
+test-dotnet: docker-images
   docker run --rm \
     --platform=linux/amd64 \
     {{NUGET_CACHE_MOUNT}} \

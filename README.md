@@ -29,8 +29,8 @@ you will be able to step through both C++ and C# code using the Visual Studio de
 #### macOS / Linux
 
 One of the caveats is that building the C++ components requires GCC 4.8, which is ancient and not supported on modern operating systems.
-To address this, a Docker container is provided that handles building the project. `just build` will generate both the C++ and C#
-components for you.
+To address this, a Docker container is provided that handles building the project. `just docker-build` will build both the C++ and
+C# components and publish the servers for you. `just publish` additionally drops a host-visible copy in `build/linux/{master,world}`.
 
 ### Testing
 

@@ -49,20 +49,31 @@ This repository contains a server emulator for the discontinued MMOFPS, "Face of
 - **C++ Format**: `just format-cpp`
 - **C# Format**: `just format-dotnet`
 
+### Output Layout
+
+- `out/build/<config>/…` — all compilation output (native via CMake, managed via MSBuild). In Docker this lives in the `fom-server-build` volume and is hidden from the host.
+- `out/publish/{master,world}` — the Docker deployment artifact, in the `fom-server-build` volume. `docker-compose` mounts that volume and runs the servers from here.
+- `build/{win,linux}/{master,world}` — host-visible "grab it" copies produced by `just publish` (gitignored).
+
 ### Windows
 
-- **C++ Debug Build**: `cmake --preset Debug-Windows && cmake --build --preset Debug-Windows`
-- **C++ Debug Test**: `ctest --test-dir out/build/Debug`
-- **C# Build**: `dotnet build ManagedOnly.slnf`
+`just publish` requires a Visual Studio developer environment (`cmake` + `dotnet` on `PATH`); it runs the CMake `<config>-Windows` build for the native lib, then `dotnet publish` for the managed servers. Day-to-day building/debugging is done in Visual Studio.
+
+- **Build (C++ & C#)**: Build Solution in Visual Studio, or `cmake --preset Debug-Windows && cmake --build --preset Debug-Windows` then `dotnet build ManagedOnly.slnf`
+- **Publish servers (native)**: `just publish` → `build/win/{master,world}` (no Docker)
+- **Publish servers (Linux via Docker)**: `just publish-docker` → `build/linux/{master,world}`
+- **Publish both at once**: `just publish-all` → `build/win` + `build/linux` (requires Docker)
+- **C++ Test**: `ctest --test-dir out/build/Debug`
 - **C# Test**: `dotnet test ManagedOnly.slnf`
 
 ### Docker
 
-Docker is required for Linux/macOS since RakNet 3.611 requires GCC 4.8.
+Docker is required for Linux/macOS since RakNet 3.611 requires GCC 4.8. These recipes also run from Windows to produce Linux artifacts; all depend on `docker-images`, which is (re)built automatically.
 
-- **C++ Build**: `just build-cpp`
+- **Build the build images**: `just docker-images`
+- **Build & publish for deployment**: `just docker-build` → `out/publish/{master,world}` (volume) → `just server-up`
+- **Publish servers (host copy)**: `just publish-docker` (or `just publish` on Linux) → `build/linux/{master,world}`
 - **C++ Test**: `just test-cpp`
-- **C# Build**: `just build-dotnet`
 - **C# Test**: `just test-dotnet`
 
 ## Git Workflow
