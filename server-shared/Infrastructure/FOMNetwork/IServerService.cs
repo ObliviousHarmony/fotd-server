@@ -6,7 +6,7 @@ namespace FOMServer.Shared.Infrastructure.FOMNetwork
         /// Starts a server interface on the specified port.
         /// </summary>
         /// <returns>A pointer to the server interface, 0 if there was an error.</returns>
-        IntPtr Startup(ushort port);
+        IntPtr Startup(ushort port, uint maxClients);
 
         /// <summary>
         /// Shuts down the server interface.

@@ -118,7 +118,7 @@ namespace FOMServer.Master.Application
 
         private NetworkManager? CreateWorldServerNetwork(PacketProcessor packetProcessor)
         {
-            var peer = _serverService.Startup(ServerConstants.MasterWorldPort);
+            var peer = _serverService.Startup(ServerConstants.MasterWorldPort, (uint)WorldId.NUM_WORLDS - 1);
             if (peer == IntPtr.Zero)
             {
                 return null;
@@ -149,7 +149,7 @@ namespace FOMServer.Master.Application
 
         private NetworkManager? CreateClientNetwork(PacketProcessor packetProcessor)
         {
-            var peer = _serverService.Startup(ServerConstants.MasterClientPort);
+            var peer = _serverService.Startup(ServerConstants.MasterClientPort, 100);
             if (peer == IntPtr.Zero)
             {
                 return null;

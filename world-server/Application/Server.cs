@@ -156,7 +156,7 @@ namespace FOMServer.World.Application
 
         private NetworkManager? CreateClientNetwork(PacketProcessor packetProcessor)
         {
-            var peer = _serverService.Startup(_clientPort);
+            var peer = _serverService.Startup(_clientPort, 100);
             if (peer == IntPtr.Zero)
             {
                 _logger.LogCritical("Failed to create the client network");
