@@ -13,7 +13,7 @@ FOMNetworkPeer* FOMNetwork_Server_Startup(uint16_t port) {
   }
 
   SocketDescriptor sd(port, 0);
-  if (!server->Startup(1, 0, &sd, 1)) {
+  if (!server->Startup(100, 0, &sd, 1)) {
     RakNetworkFactory::DestroyRakPeerInterface(server);
     return NULL;
   }
