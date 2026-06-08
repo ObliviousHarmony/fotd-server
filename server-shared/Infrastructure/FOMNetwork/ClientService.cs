@@ -7,7 +7,7 @@ namespace FOMServer.Shared.Services.FOMNetwork
     {
         public IntPtr Connect(string hostAddress, ushort port)
         {
-            return FOMNetwork_Client_Connect(hostAddress, port);
+            return FOMNetwork_Client_Connect(hostAddress, port, 0);
         }
 
         public void Disconnect(IntPtr client)
@@ -16,7 +16,7 @@ namespace FOMServer.Shared.Services.FOMNetwork
         }
 
         [LibraryImport("FOMNetwork", StringMarshalling = StringMarshalling.Utf8)]
-        private static partial IntPtr FOMNetwork_Client_Connect(string hostAddress, ushort port);
+        private static partial IntPtr FOMNetwork_Client_Connect(string hostAddress, ushort port, int threadSleepMs);
 
         [LibraryImport("FOMNetwork")]
         private static partial void FOMNetwork_Client_Disconnect(IntPtr client);

@@ -3,7 +3,8 @@
 #include "RakNetIncludes.h"
 
 FOMNetworkPeer* FOMNetwork_Client_Connect(const char* hostAddress,
-                                          uint16_t port) {
+                                          uint16_t port,
+                                          int32_t threadSleepMs) {
   if (!hostAddress || port == 0) {
     return NULL;
   }
@@ -14,7 +15,7 @@ FOMNetworkPeer* FOMNetwork_Client_Connect(const char* hostAddress,
   }
 
   SocketDescriptor sd{};
-  if (!client->Startup(1, 0, &sd, 1)) {
+  if (!client->Startup(1, threadSleepMs, &sd, 1)) {
     RakNetworkFactory::DestroyRakPeerInterface(client);
     return NULL;
   }
