@@ -5,9 +5,9 @@ namespace FOMServer.Shared.Services.FOMNetwork
 {
     internal partial class ServerService : IServerService
     {
-        public IntPtr Startup(ushort port, uint maxClients)
+        public IntPtr Startup(ushort port, uint maxClients, int threadSleepMs)
         {
-            return FOMNetwork_Server_Startup(port, maxClients, 0);
+            return FOMNetwork_Server_Startup(port, maxClients, threadSleepMs);
         }
 
         public void Shutdown(IntPtr server)

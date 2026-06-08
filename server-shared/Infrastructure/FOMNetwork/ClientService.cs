@@ -5,9 +5,9 @@ namespace FOMServer.Shared.Services.FOMNetwork
 {
     internal partial class ClientService : IClientService
     {
-        public IntPtr Connect(string hostAddress, ushort port)
+        public IntPtr Connect(string hostAddress, ushort port, int threadSleepMs)
         {
-            return FOMNetwork_Client_Connect(hostAddress, port, 0);
+            return FOMNetwork_Client_Connect(hostAddress, port, threadSleepMs);
         }
 
         public void Disconnect(IntPtr client)
