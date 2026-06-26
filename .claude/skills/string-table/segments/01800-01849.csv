@@ -1,0 +1,53 @@
+ID,String
+1800,The world server for this part of Face of Mankind is currently down. Please try again later!
+1801,The Administration is watching you. You will be disconnected from the game now.
+1802,Your character has permanently died and can not be cloned anymore! You can now login and create a new character.
+1803,Connection with the Face of Mankind server was lost! %1!s!
+1804,Connection with the world server was lost! %1!s!
+1805,Disconnecting ...
+1806,In accordance with the crime prevention laws your vortex access has been limited due to your recent aggressive acts. Please wait another %1!u! seconds before accessing the vortex system again.
+1807,You have to move a few steps from the wall to throw this explosive.
+1808,You can't sit down here!
+1809,You can't lay down here!
+1810,Please do not spam!
+1811,Are you sure you want to quit?
+1812,"For your first three hours of gameplay you will not be able to be killed by other players unless you fire your weapon. After firing your weapon, you must wait five minutes to become invincible again. Please note that aliens and turrets will still be able to kill you. Are you sure you are ready to leave the training grounds?"
+1813,Are you sure you want to destroy this '%1!s!' ?
+1814,How many items do you want to destroy of this stack of '%1!s!'?
+1815,Are you sure you want to delete all your Inbox messages?
+1816,Are you sure you want to delete all your Outbox messages?
+1817,Are you sure you want to delete all your Saved Inbox messages?
+1818,Are you sure you want to delete all your Saved Outbox messages?
+1819,"Are you sure you'd like to reset your hint progress? Once reset, you will have to either disable them, or view all of the hints again."
+1820,Reinitializing Renderer
+1821,Rebinding textures
+1822,Rebinding Lightmaps
+1823,"Your notepad is currently full, you will need to remove some notes before new notes can be added."
+1824,"Your inbox is currently full, you will need to remove some messages before new messages can be received."
+1825,"Your outbox is currently full, you will need to remove some messages before new messages can be received."
+1826,"Your save inbox is currently full, you will need to remove some messages before new messages can be received."
+1827,"Your save outbox is currently full, you will need to remove some messages before new messages can be received."
+1828,Add  [x+y]
+1829,Subtract  [x-y]
+1830,Multiply  [x*y]
+1831,Divide  [x/y]
+1832,Left Brace  [(...]
+1833,Right Brace  [...)]
+1834,Square Root  [sqrt(x)]
+1835,Logarithm  [log(x)]
+1836,Power  [x^y]
+1837,"Usage: Enter an expression containing numbers, variables and/or operators.
+Example: 5*5+2 (Result: 27) or 5*(5+2) (Result: 35)
+You can also define variables, which have to be separated by semicolons (Example: x=5;y=6). These can then be used in your expression (Example: 3*sqrt(x)+sin(y)). Available operators are listed below."
+1838,Operators:
+1839,Error: Couldn't request backpack content!
+1840,Someone else is already examining this backpack.
+1841,"Not all backpack items have been moved to your inventory, because there is not enough space left."
+1842,Error: Couldn't get backpack items!
+1843,Error: Couldn't get backpack item!
+1844,Error: Your inventory is full!
+1845,Backpack is empty!
+1846,Mail sent successfully.
+1847,Could not deliver mail! User not found!
+1848,Could not deliver mail!
+1849,Error: Failed to move the item to the new position!

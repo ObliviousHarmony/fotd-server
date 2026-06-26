@@ -1,0 +1,51 @@
+ID,String
+4400,Cycle Upkeep: %1!u! UC (Due: %2!s!)
+4401,Overdue Cycle Upkeep: %1!u! UC (Due: %2!s!)
+4402,Successfully changed payout factor!
+4403,Successfully paid members!
+4404,Successfully updated taxes!
+4405,(%1!u!g / %2!u!g)
+4406,Successfully deployed item!
+4407,Successfully picked up item!
+4408,Successfully changed object!
+4409,Healing stopped!
+4410,%1!s! was repaired.
+4411,%1!s! was recycled.
+4412,Price: %1!d! UC
+4413,%1!d! UC
+4414,%1!d! Coins
+4415,No. %1!u! (%2!s! - %3!s!)
+4416,Successfully purchased apartment!
+4417,Successfully applied changes!
+4418,The apartment you are in has been deleted!
+4419,Successfully transfered apartment ownership!
+4420,You must have a %1!s! in your inventory to hack this object!
+4421,Successfully purchased vortex ticket!
+4422,Successfully obtained apartment identification!
+4423,Unnamed
+4424,You must have a %1!s! to hack this object!
+4425,Successfully created bounty!
+4426,Successfully deleted bounty!
+4427,Successfully applied for bounty!
+4428,Successfully approved hunter!
+4429,Successfully rejected hunter!
+4430,Successfully abandoned bounty!
+4431,Successfully rated hunter!
+4432,%1!u! PP
+4433,You have successfully unloaded your Mineral Rocks and %1!u! PP has been removed!
+4434,Faction HQ - No. %1!u! (%2!s! - %3!s!)
+4435,Object information is not available for safezones!
+4436,Target is currently logged in at: %1!s!
+4437,You have received %1!u! UC for logging in once per 24 hours!
+4438,Trade has been cancelled!
+4439,Trade has been completed successfully.
+4440,You are unable to hack objects while sitting or laying down!
+4441,You have won %1!u! UC!
+4442,You have lost %1!u! UC!
+4443,You have been transfered %1!u! UC! successfully!
+4444,Successfully set transfer target!
+4445,%1!s! has rolled two dice and landed on %2!u! and %3!u!
+4446,Successully paid the target's bail!
+4447,You are now free to leave the prison!
+4448,Successfully freed the target from prison!
+4449,You have escaped from prison!

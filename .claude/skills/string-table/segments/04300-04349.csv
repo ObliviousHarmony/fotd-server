@@ -1,0 +1,51 @@
+ID,String
+4300,"The use of weaponry is forbidden in this area. Due to security restrictions, your weapon has automatically triggered its safety feature."
+4301,Connection Failed!
+4302,Connection OK
+4303,Successfully Logged In
+4304,1st Person View
+4305,3rd Person View
+4306,Cinematic Camera
+4307, Arrest in progress 
+4308,%1!u! Player(s) Online
+4309,This world is currently occupied by: %1!s!
+4310,Logging In ...
+4311,Initializing Connection ...
+4312,%1!s! activated
+4313,%1!s! deactivated
+4314,Face of Mankind will shut down in %1!u! seconds!
+4315,Face of Mankind will now shut down!
+4316,%1!s! has been destroyed.
+4317,%1!u! / %2!u! Items
+4318,%1!u! channels available  %2!s!
+4319,This design requires a full account and a character designer token in your inventory to activate. Full accounts can be purchased on the Face of Mankind website.
+4320,To activate this design you will require a character designer token in your inventory. Tokens can be purchased in the Face of Mankind marketplace.
+4321,Weapon reloaded.
+4322,%1!u! Member(s)
+4323,The player has been added to your friend list.
+4324,The player has been removed from your friend list.
+4325,%1!u! / %2!u! Items
+4326,"The items have been successfully transported! If you do not move them to proper storage within %1!u! minutes, they will be deleted!"
+4327,<font type='0' size='9'>Distance: %1!u! ly</font>
+4328,The items have been successfully transferred to the recipient.
+4329,You have a received a shipment of new items in your storage from %1!s!!
+4330,Market offer created successfully.
+4331,Transaction successful.
+4332,%1!u! UC
+4333,%1!u! - %2!u! UC
+4334,<font type='0' size='10'>by </font><font type='16' size='11'>%1!s!</font>
+4335,%1!u! Items
+4336,Page %1!u! / %2!u!
+4337,Market offer has been deleted.
+4338,Your faction has changed!
+4339,Your faction has been disbanded!
+4340,Successfully removed member!
+4341,Successfully invited member!
+4342,Faction has been successfully founded!
+4343,Successfully saved emblem!
+4344,Successfully added relation!
+4345,Successfully changed relation!
+4346,Successfully changed description!
+4347,Successfully created application!
+4348,Successfully updated rank!
+4349,Successfully updated faction message!

@@ -1,0 +1,21 @@
+ID,String
+4200,<i>[System] </i>%1!s!
+4201,<i>[Private] </i><font color=%1!s!>%2!s!<font color=%3!s!>: %4!s!
+4203,To [<font color=%1!s!>%2!s!<font color=%3!s!>]: %4!s!
+4205,<font color=%1!s!>%2!s!<font color=%3!s!>: %4!s!
+4206,<font color=%1!s!>*%2!s!<font color=%3!s!> %4!s!*
+4209,You have entered %1!s!
+4210,You are leaving %1!s!
+4211,You Say
+4212,You have entered Apartment No. %1!u!
+4213,You are being transferred to the Dominion Cloning Facility.
+4214,You are entering %1!s! - Squad Headquarters
+4215,You are entering %1!s! - %2!s! No. %3!u!
+4216,You are entering %1!s! - Mission Meeting Zone
+4217,You are leaving %1!s! - Squad Headquarters
+4218,You are leaving %1!s! - %2!s! No. %3!u!
+4219,You are leaving %1!s! - Mission Meeting Zone
+4220,<i>[System] </i>%1!s! gained %2!d! health points (%3!u! / %4!u!)
+4221,<i>[System] </i>%1!s! lost %2!d! health points (%3!u! / %4!u!)
+4222,<i>[System] </i>security level of %1!s! increased by %2!d! points (%3!u! / %4!u!)
+4223,<i>[System] </i>security level of %1!s! dropped by %2!d! points (%3!u! / %4!u!)

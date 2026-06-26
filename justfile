@@ -19,6 +19,11 @@ NUGET_CACHE_MOUNT := if NUGET_CACHE_BIND == "" {
   '--mount type=bind,src="' + NUGET_CACHE_BIND + '",dst="/root/.nuget/packages"'
 }
 
+GHIDRA_PROJECT := "FOTD"
+GHIDRA_DEFAULT := if os_family() == "windows" { 'C:\Program Files (x86)\Ghidra' } else { "/opt/ghidra" }
+GHIDRA_HOME := env("GHIDRA_INSTALL_DIR", GHIDRA_DEFAULT)
+GAME_DIR := env("FOTD_GAME_DIR", parent_directory(justfile_directory()) / "client")
+
 # Optional per-machine recipes (e.g. a deploy script). Copy local.just.example to
 # local.just (gitignored) to add your own. Absent on a machine, nothing breaks.
 import? 'local.just'
@@ -178,3 +183,57 @@ server-up: db-up ms-up ws-up
 
 [group("server")]
 server-down: db-down ms-down ws-down
+
+[group("ghidra")]
+[doc('Rebuild the labeled Ghidra project at disassembly/ from the committed JSON onto a fresh import of your game binaries.')]
+[windows]
+ghidra-gen:
+    $launcher = "{{GHIDRA_HOME}}\Ghidra\Features\PyGhidra\support\pyghidra_launcher.py"; \
+    if (-not (Test-Path $launcher)) { throw "Ghidra not found at {{GHIDRA_HOME}}. Set GHIDRA_INSTALL_DIR." }; \
+    $proj = "{{justfile_directory()}}\disassembly"; \
+    Remove-Item -Recurse -Force -ErrorAction SilentlyContinue "$proj\{{GHIDRA_PROJECT}}.*"; \
+    if (Test-Path "$proj\{{GHIDRA_PROJECT}}.lock") { throw "{{GHIDRA_PROJECT}} is open in Ghidra (couldn't clear its lock) - close the project and re-run." }; \
+    foreach ($b in "CShell.dll", "Object.lto", "fom_client.exe") { \
+        $f = Get-ChildItem "{{GAME_DIR}}" -Recurse -Filter $b -ErrorAction SilentlyContinue | Select-Object -First 1; \
+        if ($f) { py $launcher "{{GHIDRA_HOME}}" --headless $proj {{GHIDRA_PROJECT}} -import $f.FullName -scriptPath "$proj\scripts" -postScript build_program.py } \
+        else { Write-Warning "skipping $b (not found under {{GAME_DIR}})" } \
+    }
+
+[group("ghidra")]
+[doc('Rebuild the labeled Ghidra project at disassembly/ from the committed JSON onto a fresh import of your game binaries.')]
+[unix]
+ghidra-gen:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    launcher="{{GHIDRA_HOME}}/Ghidra/Features/PyGhidra/support/pyghidra_launcher.py"
+    [ -f "$launcher" ] || { echo "Ghidra not found at {{GHIDRA_HOME}}. Set GHIDRA_INSTALL_DIR." >&2; exit 1; }
+    proj="{{justfile_directory()}}/disassembly"
+    rm -rf "$proj/{{GHIDRA_PROJECT}}".{gpr,rep,lock,lock~}
+    [ -e "$proj/{{GHIDRA_PROJECT}}.lock" ] && { echo "{{GHIDRA_PROJECT}} is open in Ghidra (couldn't clear its lock) - close the project and re-run." >&2; exit 1; } || true
+    for b in CShell.dll Object.lto fom_client.exe; do
+        bin="$(find "{{GAME_DIR}}" -name "$b" -type f -print -quit 2>/dev/null || true)"
+        if [ -n "$bin" ]; then python3 "$launcher" "{{GHIDRA_HOME}}" --headless "$proj" {{GHIDRA_PROJECT}} -import "$bin" -scriptPath "$proj/scripts" -postScript build_program.py
+        else echo "skipping $b (not found under {{GAME_DIR}})"; fi
+    done
+
+[group("ghidra")]
+[doc('Dump the labeled Ghidra project at disassembly/ back to JSON (run with the project closed in the GUI).')]
+[windows]
+ghidra-dump:
+    $launcher = "{{GHIDRA_HOME}}\Ghidra\Features\PyGhidra\support\pyghidra_launcher.py"; \
+    if (-not (Test-Path $launcher)) { throw "Ghidra not found at {{GHIDRA_HOME}}. Set GHIDRA_INSTALL_DIR." }; \
+    $proj = "{{justfile_directory()}}\disassembly"; \
+    if (Test-Path "$proj\{{GHIDRA_PROJECT}}.lock") { throw "{{GHIDRA_PROJECT}} is locked (open in Ghidra, or a stale lock) - close it in Ghidra, or delete $proj\{{GHIDRA_PROJECT}}.lock, then re-run." }; \
+    py $launcher "{{GHIDRA_HOME}}" --headless $proj {{GHIDRA_PROJECT}} -process -noanalysis -scriptPath "$proj\scripts" -postScript export_program.py
+
+[group("ghidra")]
+[doc('Dump the labeled Ghidra project at disassembly/ back to JSON (run with the project closed in the GUI).')]
+[unix]
+ghidra-dump:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    launcher="{{GHIDRA_HOME}}/Ghidra/Features/PyGhidra/support/pyghidra_launcher.py"
+    [ -f "$launcher" ] || { echo "Ghidra not found at {{GHIDRA_HOME}}. Set GHIDRA_INSTALL_DIR." >&2; exit 1; }
+    proj="{{justfile_directory()}}/disassembly"
+    [ -e "$proj/{{GHIDRA_PROJECT}}.lock" ] && { echo "{{GHIDRA_PROJECT}} is locked (open in Ghidra, or a stale lock) - close it in Ghidra, or delete $proj/{{GHIDRA_PROJECT}}.lock, then re-run." >&2; exit 1; } || true
+    python3 "$launcher" "{{GHIDRA_HOME}}" --headless "$proj" {{GHIDRA_PROJECT}} -process -noanalysis -scriptPath "$proj/scripts" -postScript export_program.py

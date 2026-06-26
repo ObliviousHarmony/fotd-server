@@ -1,0 +1,9 @@
+{
+  "weight": 6500,
+  "weaponFireDelay": 700,
+  "effectiveRange": 2200,
+  "destruction": 56,
+  "xenoDamage": 70,
+  "ballisticDamage": 124,
+  "weaponRecoil": 900
+}

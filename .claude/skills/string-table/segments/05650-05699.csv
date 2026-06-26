@@ -1,0 +1,39 @@
+ID,String
+5650,Error: You have reached the maximum number of apartments you may purchase! Please delete or transfer an apartment to purchase another!
+5651,Error: You have reached the maximum number of apartments you may purchase! Please upgrade to a premium account to purchase another!
+5652,Error: You must place a murder idenficiation card into the terminal first!
+5653,Error: Only murder identification cards may be placed in the security pad!
+5654,Error: Failed to register murder!
+5655,Error: You must be in a faction to call for backup!
+5656,Error: You must wait %1!u! seconds before calling for backup again!
+5657,Error: Your faction's perks do not allow you to capture more territory on this world!
+5658,Error: Your faction's perks do not allow you to capture services of this type!
+5659,Error: You must activate the prerequisite perk before activating this one!
+5660,Error: You must de-activate depending perks before de-activating this one!
+5661,Portable Vortex Particle Emitter is currently in cooldown and will be available again in %1!u! seconds.
+5662,Error: You must train %1!s! %2!s! to hack objects of this security level!
+5663,Error: You cannot deploy aliens on this world!
+5664,Error: You must remove bound items from your safe before transferring the apartment!
+5665,Error: You must purchase the game to found a faction!
+5666,Error: Safezones have a maximum of %1!u! UC from raw materials per day! Upgrade to a Premium account to enjoy an increased maximum of %2!u! UC!
+5667,Error: Safezones have a maximum of %1!u! UC from raw materials per day!
+5668,Error: Prisoners are not able to use this item!
+5669,Error: Failed to create department!
+5670,Error: Failed to delete department!
+5671,Error: Failed to add member to department!
+5672,Error: Failed to remove member from department!
+5673,Error: Failed to set member to department leader!
+5674,Error: Failed to find player!
+5675,Error: Players of different factions cannot be added to departments!
+5676,Error: This is not a valid target for this action!
+5677,Error: An error has occurred
+5678,Error: This player is already in a department!
+5679,Error: There is already an item in this slot!
+5680,Error: This world must have a World Market service to deploy objects of this type!
+5681,Error: As a prisoner you may only access %1!s!!
+5682,Error: Target is offline!
+5683,Error: Turret is initializing! It will become active in %1!u! seconds!
+5684,Error: This location is too close to another turret of the same type!
+5685,Error: Turret is offline due to insufficient electricity!
+5686,Error: You cannot place more than 3 personal turrets per world!
+5687,"Error: Opening this box requires a Keycard of the same color! Keycards can be purchased from the marketplace at http://www.faceofmankind.com/marketplace/store, or purchased from other players either through trades or the marketing system."

@@ -1,0 +1,51 @@
+ID,String
+5600,Error: Your rank does not allow you to arrest others!
+5601,Error: You must have a valid target to search!
+5602,Failed to locate target!
+5603,Error: Failed to unlock perk!
+5604,Error: An NPC error has occured!
+5605,Error: Cannot edit published NPCs!
+5606,Error: Cannot add any more NPCs to the world!
+5607,Error: Cannot create any more objectives!
+5608,Error: Cannot modify NPCs that are not on the same world!
+5609,Error: Cannot find objective!
+5610,Error: You have accepted the maximum number of objectives!
+5611,Failed: There is not enough space left in your transport storage!
+5612,Error: There is not enough space in your inventory for this!
+5613,Error: There is not enough space left in the destination to do this!
+5614,Error: Players of a different faction cannot join missions which reward faction credits!
+5615,Error: Player could not be removed from your block list!
+5616,Error: Player could not be added to your block list!
+5617,Error: Cannot trade players that have blocked you!
+5618,Error: Mission is full!
+5619,Error: Cannot edit NPCs that are locked to the last editor!
+5620,Error: Items of this class cannot be produced on worlds of this class!
+5621,Error: Items of this class cannot be sold on this world!
+5622,Error: Only owners may place secure items into storage!
+5623,Error: Only owners may removed secure items from storage!
+5624,Error: Items of this type must be deployed in a capturable territory!
+5625,Error: Items of this type can only be deployed in territory owned by your faction!
+5626,Error: You must be in a faction and have the correct rank permission to deploy items of this type!
+5627,Error: This territory is unowned!
+5628,Error: Items of this type cannot be deployed in territory that is already owned!
+5629,Error: This territory is not generating enough electricity to power this object and it is offline!
+5630,Error: This access point has not been configured!
+5631,Error: You do not have permission to do this!
+5632,Error: The incline is too steep to deploy this here!
+5633,Error: You must wait before sending another trade request to this player!
+5634,Error: Failed to activate perk!
+5635,Error: Failed to deactivate perk!
+5636,Error: Your faction's perks do not allow capturing more territory on this world!
+5637,Error: Your faction does not own enough territory on this world to deploy more objects!
+5638,Error: You must wait before using this item again!
+5639,Error: Cannot install multiple augmentations of the same type!
+5640,Error: Cannot create faction on an offline player!
+5641,Your access to help chat has been revoked for %1!u! hour(s)!
+5642,Error: You cannot buy tickets to worlds that aren't connected to this one!
+5643,Error: You may not drag items of this type into your inventory from loot! Please locate a storage or transport storage service and deposit them there!
+5644,Error: You must wait %1!u! second(s) before sending another message in help chat!
+5645,Error: This object is currently initializing and will be inaccessible for %1!u! second(s).
+5646,Error: Failed to lock object down!
+5647,Error: Cannot deploy objects in a territory that has been locked down!
+5648,Error: This territory is currently locked down and cannot be accessed until %1!s!!
+5649,Error: Your faction does not have enough credits to lock this territory down!

@@ -1,0 +1,32 @@
+ID,String
+22700,Hack a <font color='FFE6BF00'>%1!s!</font> in <font color='FFE6BF00'>%2!s!</font>.
+22701,Transport an item to <font color='FFE6BF00'>%1!s!</font> in <font color='FFE6BF00'>%2!s!</font>.
+22702,Navigate to <font color='FFE6BF00'>%1!s!</font> using the in-game browser in <font color='FFE6BF00'>%2!s!</font>.
+22703,Die on <font color='FFE6BF00'>%1!s!</font>.
+22704,Equip an item in <font color='FFE6BF00'>%1!s!</font>.
+22712,Military
+22713,Economic
+22714,Infiltration
+22720,White
+22721,Yellow
+22722,Light Green
+22723,Blue Green
+22724,Light Red
+22725,Yellow
+22726,Orange
+22727,Volunteer
+22728,Gamemaster
+22731,Items of type %1!s! only
+22732,%1!s! only
+22733,Class %1!s!
+22734,Objective Progress
+22735,Completed
+22736,Reward
+22741,Any Activity
+22742,Last 24 Hours
+22743,Last week
+22744,Last 2 Weeks
+22745,Last 4 Weeks
+22746,Over week
+22747,Over 2 weeks
+22748,Over 4 weeks

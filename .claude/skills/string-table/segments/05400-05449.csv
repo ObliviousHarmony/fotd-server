@@ -1,0 +1,51 @@
+ID,String
+5400,Error: Failed to accept invitation!
+5401,Error: Failed to reject invitation!
+5402,Error: Cannot invite blacklisted members to the faction!
+5403,Error: Failed to create application!
+5404,Error: You cannot apply to a faction if you are blacklisted from it!
+5405,Error: Failed to delete application!
+5406,Error: Your faction already has the maximum number of ranks allowed!
+5407,Error: You do not have permission to perform this action!
+5408,Error: Failed to create rank!
+5409,Error: Failed to delete rank!
+5410,Error: Failed to update rank!
+5411,Error: Failed to retrieve player details!
+5412,Error: Failed to move rank!
+5413,Error: Failed to create goal!
+5414,Error: Failed to delete goal!
+5415,Target not found!
+5416,Target already has a warrant placed upon them by your faction!
+5417,Error: Failed to create warrant!
+5418,Please enter an identifier for this warrant.
+5419,Please enter the details of this warrant.
+5420,Please enter the length for this warrant.
+5421,The maximum length for a warrant is 720 hours.
+5422,Chosen identifier is not allowed!
+5423,Error: Failed to delete warrant!
+5424,Error: Only schematics can be placed here!
+5425,Error: This ingredient does not fit here!
+5426,Error: Only production mods fit here!
+5427,Error: This production mod cannot be used with this schematic!
+5428,Error: Maximum number of concurrent processes reached! Please wait until a process finishes!
+5429,Error: You must enter a quantity first!
+5430,Error: Failed to start production!
+5431,Error: You do not have enough space left in your transport storage to start this production! Items on the market and currently in-production are included in this limitataion!
+5432,Error: Failed to split container!
+5433,Error: Failed to move queued skill!
+5434,Error: Failed to add skill to queue!
+5435,Error: Failed to remove skill from queue!
+5436,Using the item has failed!
+5437,This item can be used by premium accounts only!
+5438,You are already using an item of this kind!
+5439,You have to wait %1!d! seconds before you can use this item!
+5440,Currently there is no free slot available to use this item. You can only use 3 items at a time.
+5441,Failed: This item is not usable!
+5442,Healing is not required.
+5443,Aura recharge is not required.
+5444,Bioenergy recharge is not required.
+5445,Error: You do not have the necessary skills to use this item!
+5446,Error: You need the prerequisite skill %1!s! to use this skill book!
+5447,Error: Failed to open terminal!
+5448,Access denied! You require at least one hacking interface to be able to hack this object.
+5449,The hacking interface is still blocked due to an aborted hacking attempt.

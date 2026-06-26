@@ -1,0 +1,51 @@
+ID,String
+5300,You cannot use your weapon in the cinematic camera mode. Please switch to combat or 3rd person camera!
+5301,You have to stand up to do emotes!
+5302,Too many modified packets detected!
+5303,"You can not use this item! (Check for faction, gender or account restrictions)"
+5304,Error: The name you have entered is the same as your current name.
+5305,Your character name must have a length of at least 4 letters!
+5306,Your character name may not begin or end with spaces!
+5307,The entered name is invalid!
+5308,This name is already in use. Please choose another one!
+5309,Connecting to the world server has timed out. The server might be currently unavailable.
+5310,Not enough bioenergy!
+5311,"%1!s! still active, you must deactivate this before you can activate another implant."
+5312,Your character name must have a nelgnth of at least 4 letters!
+5313,The system is currently checking for new mail. Please try to use a vortex gate at a later time!
+5314,Could not load level.
+5315,This weapon can only be fired in scope mode!
+5316,Failed: Using this item requires a full biocell in your inventory!
+5317,You already have this item type on an item slot!
+5318,This action is not yet available!
+5319,This item can not be placed on Quickslots!
+5320,"You can not use this item! (Check for faction, gender or account restrictions)"
+5321,You can't equip this armor. Make sure you haven't equipped anything on your back slot!
+5322,You can't equip this implant because you are wearing torso armor!
+5323,You can only put weapons on your weapon slots!
+5324,Failed: There is not enough space left in your inventory!
+5325,You already have a weapon of this type on one of your weapon slots!
+5326,Clothes can't be unequipped!
+5327,Failed! You currently have no faction privileges. Please contact your superiors!
+5328,As a prisoner you are not allowed to move weapons from storage to your inventory!
+5329,Note: The 4th quickslot is available for full accounts only. You can upgrade your account to a full account at the Face of Mankind website in your account settings (http://account.faceofmankind.com).
+5330,Note: The 3rd weapon slots are available for full accounts only. You can upgrade your account to a full account at the Face of Mankind website in your account settings (http://account.faceofmankind.com).
+5331,Failed: There is no free weapon slot available!
+5332,This action is unavailable from this terminal! Please locate a Storage Access or World Market to perform this action.
+5333,"Error: Failed to unload weapon, weapon is empty!"
+5334,"Error: Failed to unload weapon, inventory is full!"
+5335,You can't reload your weapon while being stunned!
+5336,Reload failed!
+5337,Reload failed: No weapon selected!
+5338,Reload failed: You don't have ammunition for this weapon!
+5339,Error: Failed to unload weapon!
+5340,Failed to change character! Item not found!
+5341,Error: Failed to change name!
+5342,Error: That name is taken!
+5343,Error: You do not have a name change interface!
+5344,Error: You must be the leader of a faction to use this item!
+5345,You can't do that while reloading your weapon!
+5346,Clothes can't be unequipped!
+5347,Failed to transmit chat message!
+5348,Error: Player could not be removed from your friend list!
+5349,Error: Player could not be added to your friend list!

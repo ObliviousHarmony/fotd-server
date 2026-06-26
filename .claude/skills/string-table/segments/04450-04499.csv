@@ -1,0 +1,42 @@
+ID,String
+4450,Successfully unlocked faction perk!
+4451,"<font size='30' color='FFFFFF00'>You received %1!u! UC and %2!u! Items<font size='12' color='88888800'>
+Press Escape to access your loot!</font>"
+4452,<font size='30' color='FFFFFF00'>You received %1!u!</font>
+4453,Successfully created NPC!
+4454,Successfully edited NPC!
+4455,Successfully created NPC objective!
+4456,Successfully edited NPC objective!
+4457,Successfully deleted NPC and all related objectives!
+4458,Successfully deleted objective!
+4459,Successfully changed NPC status
+4460,Successfully changed objective status
+4461,The player has been removed from your block list!
+4462,The player has been added to your block list!
+4463,The items have been successfully transported!
+4464,The player has been kicked from the game!
+4465,The player has been kicked from the game and banned!
+4466,Full account Only
+4467,The territory control object in %1!s! will become active in %2!u! minute(s)!
+4468,The territory control object in %1!s! will lose shielding in %2!u! minute(s)!
+4469,Successfully removed item!
+4470,Successfully updated information!
+4471,Successfully activated perk!
+4472,Successfully deactivated perk!
+4473,"If you require help, you may use this channel. If you need help from a Gamemaster, please open a support ticket at http://support.faceofmankind.com."
+4474,Your access to help-chat has been restored!
+4475,Successfully set player's help mute status!
+4476,Successfully locked object down!
+4477,%1!s! has been given %2!u! PP for this murder!
+4478,%1!s! has called for backup at %2!s! - %3!s!!
+4479,"The game is still being tweaked and tested based on community feedback. Please note that parts of the game are subject to change and that some bugs are expected. We welcome you to join our forums and give us your feedback - we listen!
+Let's shape this game together."
+4480,Developer Notice
+4481,Upgrade to Premium today to enjoy a %1!u! UC daily login bonus!
+4482,You have successfully added a player to the department!
+4483,You have successfully removed a player from the department!
+4484,You have successfully set a new department leader!
+4485,Your department has been disbanded!
+4486,You have been added to a department!
+4487,You have been removed from your department!
+4488,You have escaped from prison!

@@ -1,0 +1,51 @@
+ID,String
+5550,"Error: You have already created the maximum number of bounties! To place another bounty, please delete an existing one!"
+5551,Error: You do not have enough credits to create this bounty!
+5552,Error: The target you have entered does not exist!
+5553,Error: Failed to create bounty!
+5554,Error: You cannot place a bounty on yourself!
+5555,Error: The entered target name is not valid!
+5556,Error: Failed to delete bounty!
+5557,Error: Failed to apply for bounty!
+5558,Error: You must have the %1!s! skill to take more bounties!
+5559,Error: You have applied to the maximum number of bounties!
+5560,Error: Failed to approve hunter!
+5561,Error: Failed to reject hunter!
+5562,Error: Failed to abandon bounty!
+5563,Error: Failed to rate hunter!
+5564,Error: Failed to arrest target!
+5565,Error: The arrest target is invalid!
+5566,Error: The target does not have any penalty points and cannot be arrested!
+5567,Error: Your faction must own a prison world service to arrest citizens!
+5568,Error: Your faction's prison is full and cannot hold more prisoners!
+5569,Error: You must have mineral rocks in your inventory to perform this action!
+5570,Error: An unknown trade error has occured!
+5571,Error: Failed to move items! They do not have enough items in their inventory for this!
+5572,Error: Failed to complete trade! The number of items traded cannot exceed the available inventory space!
+5573,Error: Failed to move Items!
+5574,Error: You do not have the amount of credits you want to trade!
+5575,Error: The minimum bounty is %1!u! UC!
+5576,Error: You cannot place stolen items here!
+5577,Error: You must have the %1!s! skill to take bounties of this value!
+5578,Error: You cannot purchase apartments above tier 1 in safezones!
+5579,Error: World Services in safezones can only be used with class 1 items!
+5580,Error: You cannot deploy items in a safezone!
+5581,Error: Target is unknown or offline!
+5582,Error:
+5583,No items of this type left!
+5584,Error: Cannot recycle raw materials over class 2!
+5585,Hack Detected!
+5586,Error: You do not have enough credits!
+5587,Error: The owning faction does not have enough funds to supply this territory object!
+5588,Error: This territory object cannot be used as there is no owner!
+5589,Access Denied: Your faction has not given you permission to use this!
+5590,You must wait %1!u! seconds to roll the dice again.
+5591,Error: This object cannot be placed on this type of surface!
+5592,Error: You must have the %1!s! skill to deploy mining rigs!
+5593,Error: You must increase the level of your %1!s! skill to deploy more mining rigs!
+5594,Error: You cannot place any more mining rigs!
+5595,Error: You do not have enough inventory space!
+5596,Error: Enemies cannot be spawned on this world!
+5597,Error: Player is not a prisoner!
+5598,Error: You do not have enough credits to do this!
+5599,Error: Prisoners cannot trade!

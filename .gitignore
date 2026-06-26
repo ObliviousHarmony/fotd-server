@@ -17,3 +17,11 @@ CMakeUserPresets.json
 # Build Artifacts
 /out
 /build
+
+# Ghidra Project
+__pycache__/
+*.pyc
+*.gpr
+*.rep/
+*.lock
+*.lock~

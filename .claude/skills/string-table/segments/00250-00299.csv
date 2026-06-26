@@ -1,0 +1,47 @@
+ID,String
+250,Play Sound
+251,Force Follow
+252,Cancel Follow
+253,Activate Clone (Credits)
+254,Activate Clone (Coins)
+255,Unlock Perk
+256,New Task
+257,Tasks on World
+258,Selected Task
+263,Warrant List
+264,Create Faction
+265,Apply For Faction
+266,Pending Applications
+267,Pending Faction
+268,Create Faction
+269,Pending Invitations
+270,Select Prev Layer
+271,Select Next Layer
+272,Discard Layer
+273,Add Layer
+274,Save Emblem
+275,Up
+276,Down
+277,Duplicate Layer
+278,Leave Faction
+279,Add Rank
+280,Pay
+281,Perk Tree
+282,Add Account
+283,Transaction Log
+284,+100
+285,-100
+286,Install
+287,Search Missions
+288,Review Missions
+289,Current Mission
+290,Add Faction
+291,Create New Mission
+292,View Mission Log
+293,Disband Mission
+294,Add Event
+295,Link Generator
+296,Pickup
+297,Change Target
+298,Heal
+299,Stop

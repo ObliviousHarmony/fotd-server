@@ -1,0 +1,5 @@
+ID,String
+1900,Are you sure you would like to navigate to '<font color='BFC7FF00'>%1!s!</font>'? This website is not hosted nor maintained by us and we are not responsible for the content that it directs to.
+1901,"This will prevent anyone from hacking any object in the territory for %1!u! hours. After that, there will be a %2!u! hour cooldown before the lockdown may be used again. Are you sure you would like to spend %3!u! UC to do this?"
+1902,Please enter your new name. Once you submit the change the item will be destroyed and you will not be able to change it again without another item.
+1903,Please enter your faction's new name. Once you submit the change the item will be destroyed and you will not be able to change it again without another item.

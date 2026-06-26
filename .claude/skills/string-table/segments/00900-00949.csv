@@ -1,0 +1,51 @@
+ID,String
+900,Filter Presets
+901,Pending Only
+902,Date Range
+903,Type Filter
+904,Value Filter
+905,World Filter
+906,World Service Filter
+907,Greater than
+908,Less than
+909,Equal to
+910,Any
+911,Storage Rental
+912,Renewal Date
+913,Renewal Cost
+914,Level %1!u!
+915,(%1!u!h %2!u!m %3!u!s)
+916,Owned for: %1!u!h %2!u!m %3!u!s
+917,Hacked By
+918,Influence
+919,COINS
+920,After Tax:
+921,Treatment in progress
+922,Install Augmentation
+923,Manage Augmentations
+924,%1!u! Clone(s) Remaining
+925,Additional Components
+926,Select World Service:
+927,Select Type:
+928,Allowed Factions
+929,Mission Configuration
+930,Mission Type
+931,World Service Type
+932,Payment Method
+933,Payment Amount
+934,Number of minutes
+935,Maximum Members
+936,Projected Cost
+937,Completion Time
+938,Review Queue
+939,Invite Member
+940,%1!s!
+941,Allow Factionless
+942,Reward per member
+943,Leader
+944,Members
+945,Statistics
+946,Events
+947,UC
+948,FC
+949,Taxes

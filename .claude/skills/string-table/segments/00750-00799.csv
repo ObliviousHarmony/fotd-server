@@ -1,0 +1,53 @@
+ID,String
+750,GLASSES
+751,Show Private Chat in General Chat
+752,"For a small fee of %1!u! Credits or %2!u! Coins, you will be able to bypass the clone initialization phase and immediately be released from your cloning tube."
+753,Transport Storage Contents
+754,Production Cost
+755,Quantity
+756,Subtotal
+757,Tax
+758,Total Cost
+759,Completion Time
+760,ITEM CUSTOMIZATION
+761,"Item: %1!s!
+Quantity: %2!u! Total Cost: %3!u!
+Completion Time: %4!s!"
+762,Filter Options
+763,Min. Price
+764,Max. Price
+765,Min. Durability
+766,Max. Durability
+767,Selected Item
+768,Amount:
+769,Sort by:
+770,Search Results
+771,Min. Value
+772,Max. Value
+773,Item Name
+774,Hide items w/ attributes
+775,Name
+776,Message
+777,Leader: 
+778,Members:
+779,Name: %1!s!
+780,<font color='BFC7FF00'>Leader:</font> %1!s!
+781,Members to found: %1!s! - Deadline: %2!s!
+782,Invite Member:
+783,Pending Invitations
+784,%1!s! - Status: %2!s! - Invited By: %3!s! - Ends: %4!s!
+785,<font color='FF000000'>Rejected</font>
+786,Pending
+787,<font color='BFC7FF00'>Leader:</font> %1!s!
+788,<font color='BFC7FF00'>Members:</font> %1!u!
+789,<font color='BFC7FF00'>Founding Time:</font> %1!s!
+790,Faction Message
+791,Horizontal Offset
+792,Vertical Offset
+793,Rotation
+794,Width Scale
+795,Height Scale
+796,Opacity
+797,Red Color
+798,Green Color
+799,Blue Color

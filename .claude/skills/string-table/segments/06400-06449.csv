@@ -1,0 +1,53 @@
+ID,String
+6400,"Your health. When it drops to 0%%, your character dies. If you have clones available upon death, you will be transferred to the Cloning Facility. However, if you have no more clones left, your character will die permanently.
+
+Furthermore, upon each death your character will lose the items in your inventory. Equipment will remain on your character's body, but armor will be damaged and dropped."
+6401,"Your current stamina. When this runs out you'll no longer be able to jump or sprint. You may replenish stamina quickly at a medical terminal, by resting briefly."
+6402,"Your bio energy level. This is your body's excess natural energy that can be used to power mechanical augmentations.  When you run out of bio energy these augmentations will no longer function, you may replenish it with bio cell items or at a medical terminal."
+6403,"Your aura. This is your body's combined state of perception. All your senses form an invisible aura around your body. It defines your body's ability to execute control over your body and understand information. Vision blurs when Aura is below 30%%.
+
+Stun weaponry can negatively affect your aura.
+
+When your aura is reduced to it's lowest point you will be 'stunned' and vulnerable to arrest by law enforcement officers."
+6404,"Your Universal Credits (UC) can be used to pay on the market for items, for mining, for production, or to aid you with whatever your goals may be. You may earn Universal Credits through work within a faction, by completing contracts, by production and selling through markets, or through various other methods."
+6405,Your Faction Credits (FC) are credits that you receive from your faction for your work by completing objectives. You can not pay on the market or trade with them. Faction Credits will be evaluated daily and converted into Universal Credits at around the time 00:00.
+6406,"Your Penalty Points (PP). These points are calculated based on how much crime you have committed against another being. The higher this amount, the more likely law enforcement will want to arrest you, and the longer you can stay imprisoned for if arrested."
+6407,"Prisoner Status. You are currently a prisoner in DeMorgan's Castle after being arrested. When your Penalty Point amount reaches zero you will no longer be a prisoner and will be free to leave. Reduce the amount through various tasks, including using your given mining gun and submitting the minerals you collect from in the mines."
+6408,The highest penalty point value you've earned without being freed or working off your penalty.
+6409,Most-Wanted Status. This marks you as one of the top ten individuals with the most Bounty and Penalty Points in the universe.
+6410,Wanted Status. This marks you as one of the top ten individuals with the most Bounty or Penalty Points in the universe.
+6411,The Agility attribute defines how fast your character is able to run.
+6412,"Ballistic damage reduces your health and is caused by ballistic weapons, knifes, and grenades. Fall damage and xenomorph attacks are also ballistic damage."
+6413,Energy damage reduces your health and is caused by energy weaponry.
+6414,"Bio damage reduces your bio energy level and is caused by various weapons, explosives (such as EMP's), or illegal substances."
+6415,"Aura damage reduces your aura level and is caused by stun weapons, explosives, or illegal substances."
+6416,"Destruction is a damage measurement that defines damage on machinery, such as turrets. Destruction is caused by various weapons or explosives."
+6417,The weapon recoil attribute changes the ease of aiming your weapon when you're moving.
+6418,Armor is the sum of the body's protection from all equipped items against ballistic damage.
+6419,Shielding is the sum of the body's protection from all equipped items against energy damage.
+6420,Resistance is a measurement of the body's protection against bio damage.
+6421,Reflection is a measurement of the body's protection against aura damage.
+6422,"Health Regeneration is the factor that increases the regeneration of health. It can be increased by using various medikits, injectors, illegal substances, or even certain equipment."
+6423,"Stamina Regeneration is the factor that increases the regeneration of stamina. It can be increased by using various medikits, injectors, illegal substances, or even certain equipment. Stamina regeneration is also increased when your character is resting (standing still, sitting or lying down)."
+6424,"Bio Regeneration is the factor that increases the regeneration of the body's bio energy level. It can be increased by using bio cells, injectors or illegal substances."
+6425,Aura Regeneration is the factor that increases the regeneration of aura. It can be increased by using various foods or illegal substances.
+6426,Current number of tokens available to buy items at the Face of Mankind Marketplace.
+6427,Healing Cooldown
+6428,Food Cooldown
+6429,"Xeno damage reduces health of Xenomorphs and is caused by weapons, knifes, and grenades."
+6430,Health Drain is a measurement of health reduction caused by equipment or booster effects.
+6431,Stamina Drain is a measurement of stamina reduction caused by equipment or booster effects.
+6432,Bio Energy Drain is a measurement of bio energy reduction caused by equipment or booster effects.
+6433,Aura Loss is a measurement of aura reduction caused by equipment or booster effects.
+6434,"Protection Bypass will allow your weapon to bypass the armor protection of others, based on the percentage displayed."
+6435,The range at which your weapon begins to loses effectiveness.
+6436,The rate at which your weapon fires.
+6439,The weight of all the items you are carrying.
+6440,The number of seconds that will be added onto the duration of any medikit used on yourself or others.
+6441,This multiplier effects the height and speed at which you can jump
+6442,This multiplier effects the amount of damage you receive from falling long distances.
+6443,"If enabled, your vision will be nightvision."
+6444,"If enabled, your movement will make no sound."
+6445,The distance at which you are able to interact with objects in the world.
+6446,This multiplier effects the speed of sprinting.
+6447,Your maximum stamina.

@@ -1,0 +1,13 @@
+ID,String
+22201,Pending
+22202,Approved
+22203,Rejected
+22204,Failed
+22205,Completed
+22206,Successful Kill
+22207,Successful Kill / Failed
+22216,Combatant
+22217,Entrepreneur
+22218,Infiltrator
+22219,Medical Technician
+22220,Bounty Hunter

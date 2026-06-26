@@ -1,0 +1,51 @@
+ID,String
+6300,Health
+6301,Stamina
+6302,Bio Energy
+6303,Aura
+6304,Universal Credits
+6305,Faction Credits
+6306,Penalty
+6307,Prisoner Status
+6308,Highest Penalty
+6309,Most-Wanted Status
+6310,Wanted Status
+6311,Agility
+6312,Ballistic Damage
+6313,Energy Damage
+6314,Bio Damage
+6315,Aura Damage
+6316,Destruction
+6317,Weapon Recoil
+6318,Armor
+6319,Shielding
+6320,Resistance
+6321,Reflection
+6322,Health Regeneration
+6323,Stamina Regeneration
+6324,Bio Regeneration
+6325,Aura Regeneration
+6326,Coins
+6327,Healing Cooldown
+6328,Food Cooldown
+6329,Xeno Damage
+6330,Health Drain
+6331,Stamina Drain
+6332,Bio Energy Drain
+6333,Aura Drain
+6334,Protection Bypass
+6335,Effective Range
+6336,Weapon Fire Delay
+6337,Blank 1
+6338,Blank 2
+6339,Weight
+6340,Jump Velocity Multiplier
+6341,Fall Damage Multiplier
+6342,Nightvision
+6343,Soundless Movement
+6344,Activation Distance
+6345,Sprint Speed Multiplier
+6346,Max Stamina
+6347,Bio Energy Replenishing Cooldown
+6348,Aura Healing Cooldown
+6349,Emergency Shield

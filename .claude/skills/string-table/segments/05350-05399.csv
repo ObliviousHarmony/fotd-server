@@ -1,0 +1,51 @@
+ID,String
+5350,Clothes can't be unequipped!
+5351,Item transfer failed: Please enter a valid recipient name!
+5352,You don't have enough credits left!
+5353,This item is bound to you and can not be traded or sold!
+5354,This action is unavailable from this terminal! Please locate a Storage Access to perform this action.
+5355,Item transfer failed!
+5356,Item transfer failed: There is not enough space left in your storage at this destination (only %1!u! left)!
+5357,Error: Buying the item failed!
+5358,Items can only be dragged back into the section they were dragged from!
+5359,This action is not yet available!
+5360,Items cannot be placed in transport storage! transport storage is a buffer used to hold items after being transported from other worlds!
+5361,Item transfer failed: Recipient is unknown!
+5362,Item transfer failed: Recipient has not enough space left in storage (only %1!u! left)!
+5363,Items can only be transferred to other players on worlds that have a storage world service!
+5364,Error: Schematic does not have enough uses for this quantity!
+5365,Error: You do not have enough funds for this production!
+5366,Error: You do not have the ingredients for this production!
+5367,Successfully created production task!
+5368,Failed: There is not enough space left in your storage!
+5369,No market offers found for your search criteria!
+5370,The market offer could not be posted!
+5371,Failed! Free accounts are limited to 200 items offered on the market for sale. You can upgrade your account to a premium account to lift this limitation.
+5372,You can't offer the same item twice on the market!
+5373,Note: This option will consume one (1) Advanced Market Sale Token from your inventory.
+5374,You must have Premium game time to be able to put items for sale for longer than %1!u! game days!
+5375,You can purchase Advanced Market Sale Tokens in the Face of Mankind Marketplace to be able to put items for sale for 1 game month.
+5376,You can't offer the same item twice on the market!
+5377,There has been a market error (%1!u!). Please try again later!
+5378,Your faction name must be a minimum of five characters!
+5379,Your faction name cannot begin or end with a space!
+5380,Consecutive spaces are not allowed in your faction name!
+5381,An unknown faction error has occured!
+5382,Players who are already part of a faction cannot create a faction!
+5383,The faction name chosen is already in use!
+5384,You must type the word 'DELETE' exactly as written!
+5385,Failed to remove member!
+5386,Please enter a player name!
+5387,Error: Player not found!
+5388,Error: Player is already a member of another faction!
+5389,Error: Player already has a pending invitation to this faction!
+5390,Error: Faction does not need to be founded!
+5391,Error: Faction does not have enough members to be founded!
+5392,An error has occured saving the emblem!
+5393,Error: Failed to add faction relation!
+5394,Error: Target faction not found!
+5395,Error: Cannot change relation with own faction!
+5396,Error: Faction is already on the list!
+5397,Error: Failed to reject application!
+5398,Error: Failed to accept application!
+5399,Error: Failed to delete invitation!

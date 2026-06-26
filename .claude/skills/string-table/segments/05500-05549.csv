@@ -1,0 +1,50 @@
+ID,String
+5500,You have been removed from the mission!
+5501,Error: You cannot join a mission again after you have been kicked from it! The leader must invite you!
+5502,Error: This goal cannot be created for a world service you own!
+5503,Error: Your faction does not have the funds to create this goal!
+5504,Error: Your faction cannot have duplicate occupation goals!
+5505,You must choose a world service to create a takeover mission!
+5506,"To create a takeover mission, you must either have a goal on the world service, or a mutual ally with a goal on the world service."
+5507,Error: You cannot decrease the upkeep fund account below the required upkeep costs of %1!u! UC!
+5508,Error: Failed to deposit faction funds!
+5509,Error: Failed to change payout factor!
+5510,Error: Cannot make payments of 0 UC!
+5511,Error: Failed to perform rank payment!
+5512,Error: You do not have the funds necessary to pay this many members! %1!u! UC is required for %2!u! members!
+5513,Error: The select rank(s) have no members!
+5514,Error: The target is not online!
+5515,Error: The target is not an accepted friend! You can only send private messages to accepted friends.
+5516,Failed: There is not enough space left in your inventory!
+5517,Error: You do not have enough credits for this purchase!
+5518,Error: You do not have room in your inventory!
+5519,Error: You must have the '%1!s!' skill to create a faction!
+5520,Error: The leader's skills do not allow for any more members to be added to the faction!
+5521,Error: The faction's perks do not allow for any more world services to be owned!
+5522,Error: You must move further away from the entrance node to do this!
+5523,Error: You are too close to something else to do this!
+5524,Error: Failed to deploy item!
+5525,Error: No world service within range!
+5526,Error: There is insufficient space in your inventory to withdraw any minerals!
+5527,Error: Only mining tools may be placed here!
+5528,Error: Mining tools of this class cannot be placed into a mining rig!
+5529,Error: You cannot repair items of this type!
+5530,Error: Failed to repair item!
+5531,Error: You do not have the funds to perform this repair!
+5532,Error: Failed to recycle item!
+5533,Error: Failed to purchase apartment!
+5534,Error: The apartment ID you have entered is invalid!
+5535,Error: The apartment entrance code you have entered is incorrect!
+5536,Error: Failed to get apartment information!
+5537,You do not have access to this information!
+5538,Error: Your entry code must be at least 1 character!
+5539,Error: Invalid recipient entered!
+5540,Error: Cannot transfer apartment to yourself!
+5542,Error: The specified faction does not exist!
+5543,You must have a valid %1!s! in your inventory to use the Vortex Gate!
+5544,"Error: Cannot use Vortex Gate, target world is offline!"
+5545,Error: Failed to purchase vortex ticket!
+5546,Error: Failed to scan target!
+5547,Error: You cannot hack into a private apartment that you do not have a voucher for!
+5548,You can only use this feature at an apartment world service!
+5549,Error: You cannot place items of this type on the market!

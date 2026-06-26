@@ -1,0 +1,63 @@
+ID,String
+13300,Text
+13301,"<font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font> has awarded you <font color='FFFFFF00'>%2!u! UC</font>!
+
+Reason:
+ <font color='BFC7FF00'>%3!s!</font>"
+13302,Your rank has been changed to <font color='FFFFFF00'>%1!s!</font> by <font type='2' size='11' space='1' color='BFC7FF00'>%2!s!</font>
+13303,You have been removed from your faction by <font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font>!
+13304,You have been been added to the faction: <font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font>!
+13305,You have been blacklisted from <font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font> by <font type='2' size='11' space='1' color='BFC7FF00'>%2!s!</font>!
+13306,<font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font> has transfered you <font color='FFFFFF00'>%2!u! UC</font> from <font type='2' size='11' space='1' color='BFC7FF00'>%3!s!</font>'s capital!
+13307,"Your storage rental on <font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font> has been renewed. <font color='FFFFFF00'>%2!u! UC</font> has automatically been deducted from your account. If you would like to prevent this from happening in the future, reduce the rental slots on the world to 0."
+13308,"Your storage rental on <font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font> has failed to renew. <font color='FFFFFF00'>%2!u! UC</font> is needed to maintain your current storage value. Your storage value on the world has been set to 0, and your items will be moved to transport storage if the value is not increased."
+13309,"Your storage items on <font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font> have been moved to transport storage. <font color='FFFFFF00'>%2!u! items</font> are now flagged for deletion, and must be moved off the world, placed into rented storage, or removed to inventory."
+13310,"You have made a sale at <font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font>.
+<font color='FFFFFF00'>%2!s!</font> has bought the following items from you:
+
+Item: %3!s!
+Number of Items: <font color='FFFFFF00'>%4!u!</font>
+Item Price: <font color='FFFFFF00'>%5!u!</font>
+Taxes : <font color='FFFFFF00'>%6!d!</font>
+_____________________________________ 
+Your Income: <font color='FFFFFF00'>%7!u!</font>
+"
+13311,You have received <font type='2' size='11' space='1' color='BFC7FF00'>%1!u! %2!s!</font> for your participation in the mission <font type='2' size='11' space='1' color='BFC7FF00'>'%3!s!'</font>
+13312,"Your faction has been disbanded! All headquarters, settings, and world services have been erased! Items within the faction storage however have been put into the leader's apartment safe."
+13313,"You have received <font type='2' size='11' space='1' color='BFC7FF00'>%1!u! UC</font> from your faction disbanding! All headquarters, settings, and world services have been erased! Items within the faction storage however have been put into the leader's apartment safe."
+13314,"Yor faction has been automatically disbanded by the system due to insufficient funds! Factions are given one chance to recover from a missed upkeep payment. If they miss their upkeep payment a second time, the faction will be disbanded. All headquarters, settings, and world services have been erased! Items within the faction storage however have been put into the leader's apartment safe."
+13315,"<font type='1' size='16'><ul>DAILY PAYOUT REPORT - %1!s!</ul></font>
+
+Earned by Faction  -  <font color='FFFFFF00'>%2!u! UC</font>
+Dividend @ %3!u! %%  -   <font color='FFFFFF00'>%4!u! UC</font>
+
+Today's Faction Credits earned by %5!s!  -  <font color='FFFFFF00'>%6!u! FC</font>
+Today's Total Faction Credits earned in Faction  -  <font color='FFFFFF00'>%7!u! FC</font>
+Percentage of dividend taken by %5!s!  -  <font color='FFFFFF00'>%8!s! %%</font>
+
+<font type='1' size='16'>Dividend taken by %5!s!  -  <font color='FFFFFF00'>%9!u! UC</font>
+"
+13316,<font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font> has initiated a rank payment which includes yours. <font color='FFFFFF00'>%2!u! UC</font> has been added to your account!
+13317,"The following offer has expired in <font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font>:
+
+Item: %2!s!
+Number of Items: <font color='FFFFFF00'>%3!u!</font>
+Item Price: <font color='FFFFFF00'>%4!u! UC</font>
+
+Your items have been transferred back to your storage."
+13318,A bounty of <font color='FFFFFF00'>%1!u! UC</font> has been placed on you by <font type='2' size='11' space='1' color='BFC7FF00'>%2!s!</font>!
+13319,The bounty of <font color='FFFFFF00'>%1!u! UC</font> which was created by <font type='2' size='11' space='1' color='BFC7FF00'>%2!s!</font> has been removed!
+13320,A bounty of <font color='FFFFFF00'>%1!u! UC</font> has been added to your account for killing <font type='2' size='11' space='1' color='BFC7FF00'>%2!s!</font>!
+13321,<font color='FFFFFF00'>%1!u! UC</font> has been added to your account for killing <font type='2' size='11' space='1' color='BFC7FF00'>%2!s!</font>! Defending yourself against a bounty hunter with your bounty will reward you with a portion of the credits.
+13322,The bounty you created for <font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font> has been successfully completed by <font type='2' size='11' space='1' color='BFC7FF00'>%2!s!</font>!
+13323,<font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font> has collected the bounty from <font type='2' size='11' space='1' color='BFC7FF00'>%2!s!</font> for killing you. <font color='FFFFFF00'>%3!u! PP</font> has been added because of this.
+13324,You have been been invited to the faction: <font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font>!
+13325,Your prison bail has been paid by <font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font>! You are free to leave!
+13326,You have been freed from prison by <font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font>! You are free to leave!
+13327,"You have received the following items from your marketplace purchase:
+
+<font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font>"
+13329,"Your account level has been changed from <font type='2' size='11' space='1' color='BFC7FF00'>%1!s!</font> to <font type='2' size='11' space='1' color='BFC7FF00'>%2!s!</font>
+
+Please note that a downgrade of your account may result in feature restrictions and/or items being removed, effective immediately. Note: if you become a premium subscriber again before thirty days have passed, all of the items that have been removed by this action will be returned."
+13330,The <font color='FFFFFF00'>%1!u! UC</font> bounty you have placed on <font type='2' size='11' space='1' color='BFC7FF00'>%2!s!</font> has a new application!

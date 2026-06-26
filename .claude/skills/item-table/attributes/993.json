@@ -1,0 +1,6 @@
+{
+  "weight": 5000,
+  "effectiveRange": 512,
+  "ballisticDamage": 1000,
+  "destruction": 70000
+}

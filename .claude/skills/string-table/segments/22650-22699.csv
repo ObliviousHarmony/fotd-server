@@ -1,0 +1,25 @@
+ID,String
+22650,INVALID
+22651,Talk to <font color='FFE6BF00'>%1!s!</font>
+22652,Complete Quest Chain
+22653,Defeat <font color='FFE6BF00'>%1!s!</font>
+22654,Reach level <font color='FFE6BF00'>%1!s!</font> in <font color='FFE6BF00'>%2!s!</font>
+22655,Use an item
+22656,Use a <font color='FFE6BF00'>%1!s!</font> world service
+22657,Deploy an item.
+22658,Produce an item.
+22659,Mine an item.
+22660,Hack a <font color='FFE6BF00'>%1!s!</font>.
+22661,Transport an item to <font color='FFE6BF00'>%1!s!</font>.
+22662,Navigate to <font color='FFE6BF00'>%1!s!</font> using the in-game browser.
+22663,Die.
+22664,Equip an item.
+22690,INVALID
+22691,Talk to <font color='FFE6BF00'>%1!s!</font> in <font color='FFE6BF00'>%2!s!</font>.
+22693,Defeat <font color='FFE6BF00'>%1!s!</font> in <font color='FFE6BF00'>%2!s!</font>.
+22694,Reach level <font color='FFE6BF00'>%1!s!</font> in <font color='FFE6BF00'>%2!s!</font> in <font color='FFE6BF00'>%3!s!</font>.
+22695,Use an item in <font color='FFE6BF00'>%1!s!</font>.
+22696,Use a <font color='FFE6BF00'>%1!s!</font> world service in <font color='FFE6BF00'>%2!s!</font>.
+22697,Deploy an item in <font color='FFE6BF00'>%1!s!</font>.
+22698,Produce an item in <font color='FFE6BF00'>%1!s!</font>.
+22699,Mine an item in <font color='FFE6BF00'>%1!s!</font>.

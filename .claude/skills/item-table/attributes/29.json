@@ -1,0 +1,12 @@
+{
+  "weight": 1000,
+  "weaponFireDelay": 335,
+  "effectiveRange": 750,
+  "health": 26,
+  "aura": 26,
+  "armor": 25,
+  "shielding": 25,
+  "resistance": 25,
+  "reflection": 25,
+  "weaponRecoil": 400
+}

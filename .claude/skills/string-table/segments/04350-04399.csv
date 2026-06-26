@@ -1,0 +1,51 @@
+ID,String
+4350,Successfully performed action!
+4351,Successfully moved rank!
+4352,%1!u! faction members found
+4353,Current Funds: %1!u! UC
+4354,Day Income: %1!u! UC
+4355,Day Expenses: %1!u! UC
+4356,Day Profit: %1!u! UC
+4357,Min: %1!u! UC
+4358,Max: %1!u! UC
+4359,Successfully created goal!
+4360,Successfully deleted goal!
+4361,Successfully created warrant!
+4362,Successfully deleted warrant!
+4363,%1!s! was used.
+4364,Device connected...
+4365,Hacking Failed!
+4366,ALARM! An attempt of unauthorized manipulation of the security system was detected!
+4367,Hacking attempt was successful. Security system override activated.
+4368,Successfully edited account!
+4369,Successfully changed storage rental units!
+4370,The owner of the '%1!s!' world service on this world has changed the relation taxes!
+4371,"Nanoscale artificial devices (Nanites) in the human bloodstream are able to do fast and efficient repairs. New Nanite technologies also provide repairs of bones, muscles and tissue. Heals Health, Stamina, Aura and Bio-Energy 5%% per second."
+4372,"By using standard medical treatment methods the healing process will be slower, but cost-efficient. Heals Health and Aura 5%% per second."
+4373,"Method to regain lost stamina very quickly. Heals Stamina, Aura and Bio-Energy 5%% per second."
+4374,%1!u! UC/sec
+4375,Treatment has been cancelled.
+4376,Treatment finished.
+4377,%1!u! %2!s! available
+4378,"Production in progress, please do not leave the area."
+4379,Please enter a number of units you want to produce!
+4380,Production finished successfully...
+4381,Production failed... %1!s!
+4382,Production Yield: 1 >> %1!u!
+4383,"Select the number of units you would like to produce. Once completed, they will be added to your storage."
+4384,The mission has been successfully created!
+4385,Successfully invited target to mission!
+4386,You have denied the invitation.
+4387,You have accepted the invitation.
+4388,%1!s! has accepted your mission invitation
+4389,Your mission has been disbanded!
+4390,Your mission has been started!
+4391,Your mission has been completed!
+4392,Successfully removed member!
+4393,Successfully joined mission!
+4394,Successfully added event!
+4395,Successfully filed review!
+4396,A takeover battle for the %1!s! world service of %2!s! between %3!s! and %4!s! will begin at %5!s!.
+4397,A takeover battle for the %1!s! world service of %2!s! between %3!s! and %4!s! has begun! It will end at %5!s!.
+4398,The takeover battle for the %1!s! world service of %2!s! has concluded. %3!s! has control of the world service.
+4399,Successfully deposited faction funds!

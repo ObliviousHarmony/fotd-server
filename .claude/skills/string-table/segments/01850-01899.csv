@@ -1,0 +1,51 @@
+ID,String
+1850,Error: Failed to merge the two items!
+1851,The two items have been merged successfully.
+1852,You have looted the backpack.
+1853,Please enter the name of the recipient! Please note that this transfer will cost %1!u! UC.
+1854,This item may not be transfered to your storage.
+1855,How many items do you want to move from this stack of '%1!s!'?
+1856,Are you sure you want to delete this market offer?
+1857,"The deletion of a faction cannot be undone. If you are sure you would like to delete your faction, enter the word 'DELETE' exactly as written here."
+1858,"This is the last warning, the deletion of a faction CANNOT be undone. Are you ABSOLUTELY SURE that you want to do this?"
+1859,Please enter why you are blacklisting this person.
+1860,"Are you sure you would like to leave the faction? If you leave, you will not be able to rejoin unless you are invited ot accepted."
+1861,Are you sure you would like to perform this action?
+1862,How much do you want to split from this '%1!s!'?
+1863,Do you want to attempt to hack this object?
+1864,Increasing your storage rental to %1!u! units will cost you %2!u! UC. Are you sure you would like to proceed?
+1865,Decreasing your storage won't take effect until the next cycle. Are you sure you would like to proceed?
+1866,Success.
+1867,Not enough chemical substances left!
+1868,Unknown error!
+1869,This backpack's lockout timer is currently active! You must wait %1!u! seconds or hack it to access the contents!
+1870,This backpack is locked!
+1871,You have received a group invitation from %1!s!. Press Escape to enter window mode and accept this invitation!
+1872,"Are you sure you would like to disband the mission? If disbanded, no one will receive any rewards and it will not be marked for review!"
+1873,Please enter the text for the new log event. (Maximum of %1!u! characters)
+1874,This goal will cost your faction %1!u! credits. Are you sure you want to create it?
+1875,How many credits would you like to deposit into the faction funds? (Max %1!u!)
+1876,"This rank payment will cost a total of %1!u! UC, and will pay %2!u! member(s). Are you sure you would like to pay this?"
+1877,"This rank payment will cost a total of %1!u! UC, and will pay %2!u! member(s). Please note that the system account has insufficient funds, and the capital account will be used as well. Are you sure you would like to pay this?"
+1878,How many minerals would youl ike to withdraw from this rig?
+1879,"Are you sure you would like to pay %1!u! credits to repair this item? Note: Repairing an item with credits will increase the durability loss factor, which will make the item decay faster!"
+1880,Are you sure you would like to pay %1!u! coins to repair this item?
+1881,Are you sure you would like to recycle this %1!s!?
+1882,"Are you sure you would like to delete this apartment? All of the safe items will be put into your inventory, and you will be immediately ejected!"
+1883,Please enter the name of the recipient!
+1884,Entering apartment...
+1885,How many times should the target be killed? (%1!u! UC per kill)
+1886,Enter a target for this bounty!
+1887,Are you sure you would like to delete this bounty?
+1888,You have been officially arrested and will now be transferred to the prison world service of the arresting faction!
+1889,%1!s! wants to trade with you. Would you like to trade now?
+1890,You have received a trade request from %1!s!. Press Escape to enter window mode and accept this request!
+1891,"Are you sure you would like to create a bounty on %1!s! for %2!u! kills? This will cost %3!u! UC, and an additional %4!u! UC will be deducted as an administrative fee."
+1892,"Increasing your storage rental to %1!u! units will cost you %2!u! UC. Please note that as this is a safezone, only class 1 items may be stored in this storage. Are you sure you would like to proceed?"
+1893,Are you sure you would like to remove this member?
+1894,Are you sure you would like to purchase a %1!s! for %2!u! UC?
+1895,Are you sure you would like to purchase a %1!s! for %2!u! Coins?
+1896,Warning: This is a fully-functional web browser and we are not responsible for the content of the pages that you visit. Do you want to continue?
+1897,Are you sure that you would like to keep this resolution?
+1898,Warning: Changing the type will destroy any minerals that will not fit into your inventory. Are you sure you would like to change the type?
+1899,"This mail could not be sent, as the target has blocked you!"

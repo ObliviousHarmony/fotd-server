@@ -1,0 +1,38 @@
+ID,String
+300,Withdraw
+301,Recycle
+302,Private
+303,Public
+304,Transfer Ownership
+305,Search Apartments
+306,Purchase
+307,Bounties
+308,Wanted List
+309,Current
+310,Created
+311,Search Bounties
+312,Create Bounty
+313,Reset
+314,Logout
+315,Spin
+316,Manage
+317,Owner Withdrawal
+318,Personal Withdrawal
+319,Lock
+320,Add Reward
+321,Add Depending ID
+322,Browser
+323,Transport Buyback
+324,Buyback
+325,Arm
+326,Disarm
+327,Activate Perk
+328,Deactivate Perk
+329,Take Ownership
+330,Assign Ownership
+331,Submit Rental
+332,Initiate Territory Lockdown
+333,Play Game
+334,Departments
+335,Add Department
+336,Add Member

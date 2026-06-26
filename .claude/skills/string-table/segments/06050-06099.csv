@@ -1,0 +1,32 @@
+ID,String
+6050,Friends
+6051,Taunts
+6052,Emotes
+6053,Click to enter a new message!
+6054,Faction Manager
+6055,"Cost:
+%1!u! Credits
+%2!u! Coins"
+6056,"The UC capital for this faction over time, the entry on the right side is the most recent"
+6057,Durability Loss Factor: x%1!s!
+6058,Restricted To: %1!s!
+6059,Skill Manager
+6060,Prerequisite Skills
+6061,"PRESS [%1!s!] TO USE
+PRESS [%2!s!] TO MANAGE"
+6062,Secured
+6063,Your augmentations may only be changed at a Medical Service Terminal
+6064,Mission Manager
+6065,Class %1!s!
+6066,Required Skill: %1!s! %2!s!
+6067,Required Production Skill: %1!s! %2!s!
+6068,"If your faction fails to pay the upkeep at the end of the cycle, it will be disbanded!"
+6069,Contains: %1!u! units
+6070,Deployable
+6071,Bounty Manager
+6072,Blocked
+6073,Special Bound
+6074,Emergency Shield is active
+6075,Emergency Shield is cooling down and available again in %1!u! seconds
+6076,Character
+6077,Development

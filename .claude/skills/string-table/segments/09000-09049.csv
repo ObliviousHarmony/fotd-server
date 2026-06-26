@@ -1,0 +1,51 @@
+ID,String
+9000,Use
+9001,Equip
+9002,Unload Weapon
+9003,Destroy
+9004,Drop
+9005,Repair
+9006,Edit
+9007,Delete
+9008,Adjust Shield Settings
+9009,Reply
+9010,Forward
+9011,Save Mail
+9012,Activate / Deactivate
+9013,Un-equip
+9014,Remove Item From Quickslot
+9015,Remove Friend
+9016,Send Private Message
+9017,Delete Offer
+9018,Remove Member
+9019,Edit Emblem
+9020,Change faction relation to %1!s!
+9021,Accept Member
+9022,Reject Member
+9023,Blacklist Member
+9024,Accept Invitation
+9025,Reject Invitation
+9026,Delete Invitation
+9027,Remove Rank
+9028,Load Player Details
+9029,Move Up
+9030,Move Down
+9031,Split Canister
+9032,Remove from queue
+9033,Add to queue
+9034,Move up
+9035,Move down
+9036,Manage Account
+9037,Delete Account
+9038,Uninstall
+9039,Remove Faction
+9040,Approve Mission
+9041,Disapprove Mission
+9042,Deposit Funds
+9043,Merge
+9044,Deploy
+9045,Hack Entrance
+9046,Infiltrate Apartments
+9047,Apply
+9048,Approve
+9049,Reject

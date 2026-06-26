@@ -1,0 +1,51 @@
+ID,String
+950,Locked until %1!s!
+951,Starts: %1!s!
+952,Ends: %1!s!
+953,%1!u! (+%2!u!) Clone(s) Remaining
+954,Paid %1!u! UC to %2!u! members (Total: %3!u! UC)
+955,Item Class:
+956,Faction Relation
+957,Base Type
+958,Item Type
+959,Item Class
+960,Only items I can produce
+961,Only skills I can learn
+962,Only skills I haven't learned
+963,Generates:
+964,%1!u!/s
+965,Remaining Health
+966,Minerals:
+967,Select A Target
+968,Credits
+969,Coins
+970,Apartment Information
+971,Entry Code
+972,Default Apartment
+973,Allowed Faction Ranks
+974,Personal Information
+975,Open
+976,Featured
+977,Cost
+978,Apartment Name
+979,Owner Name
+980,Apartment Type
+981,New York City
+982,Berlin
+983,Tokyo
+984,Paris
+985,World Service Control
+986,Node Selection
+987,Show Public
+988,Sort Options
+989,Issuer Name
+990,Target Name
+991,Sort By
+992,Bounties
+993,My Bounties
+994,Bounty Hunters
+995,Hunter Profile
+996,Successful Bounties
+997,Failed Bounties
+998,Relation To Target
+999,Rating

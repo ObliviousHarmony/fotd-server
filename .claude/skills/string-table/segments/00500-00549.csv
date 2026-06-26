@@ -1,0 +1,20 @@
+ID,String
+500,Sound Volume
+501,Max Sounds
+502,Music Volume
+503,Resolution
+504,Gamma Correction
+505,Texture Detail
+506,Trilinear Filtering
+507,Triple Buffering
+508,Shadows
+509,Environment Mapping°
+510,Normal Mapping°
+511,Dynamic Lights
+512,Weather Effects
+513,Specular Highlights on Models
+514,Detail Textures°
+515,Wait for V-Synch
+516,Model Lighting Complexity
+517,Model Detail
+520,° - Requires world to be reloaded for the change to take effect

@@ -1,0 +1,53 @@
+ID,String
+6000,PRESS [%1!s!] TO USE
+6001,PRESS [%1!s!] TO TALK
+6002,PRESS [%1!s!] TO TRADE
+6003,%1!s!
+6004,Hat
+6005,Head
+6006,Eyes
+6007,Shoulders
+6008,Shirt
+6010,Back
+6011,Arms
+6012,Hands
+6013,Pants
+6014,Legs
+6015,Shoes
+6016,"You currently have %1!u! Penalty Points (in short PP). You will recieve Penalty Points for illegal behavior such as killing neutral/allied faction members or members of your own faction, and for carrying illegal items if scanned by a member of the Law Enforcement Department. To avoid gaining Penalty Points communicate regularly with you faction leadership for guidance and always make sure to know who your enemies are. 
+
+The top ten citizens with PP are considered 'Most Wanted'. As a Most Wanted you will be hunted by the Law Enforcement Department as a high profile criminal. To reduce your Penalty Points find your nearest Law Enforcement Officer and surrender to be transported to DeMorgan's Castle Prison Colony. Once there, use the provided Mining Tool to work off your Penalty Points."
+6017,Game Options
+6018,Character Designer
+6019,Communicator
+6020,Health: %1!s!
+6021,Stamina: %1!s!
+6022,Bio Energy: %1!s!
+6023,Aura: %1!s!
+6024,Current GST (Galactic Standard Time)
+6025,Current Date
+6026,"Latency: %1!d! ms
+%2!s!"
+6027,Your latency is excellent.
+6028,Your latency is critical. You should expect severe lag during combat.
+6029,Your latency is insufficient. You should expect regular lag during combat.
+6030,Your latency could be better. You should expect minor lag during combat.
+6031,Your latency is sufficient.
+6032,Your latency is good.
+6033,This item is illegal (%1!u! PP)
+6034,Effect Duration: %1!s!
+6035,Durability: %1!s!
+6036,Damage Radius: %1!u! m
+6037,Attack Delay: %1!s! s
+6038,Range: %1!u! m
+6039,Ammo Count: %1!u!/%2!u!
+6040,Required Ammo: %1!s!
+6041,%1!u!/%2!u! Bullets
+6042,%1!u!/%2!u! Charges
+6043,Full account Only
+6044,Bound
+6045,%1!u!
+6046,Usage Restrictions:
+6047,"You currently have %1!u! Experience Points. To achieve the next level, you must reach %2!u! Experience Points."
+6048,Skill Tree
+6049,This player has not yet added you to his friend list and will not receive your private messages. You will also not see the player's online status.

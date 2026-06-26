@@ -1,0 +1,36 @@
+ID,String
+1700,Please make sure to run the game client with admin privileges!
+1701,"A movement speed hack has been detected. You have been disconnected from the game. Be warned, after a certain number of retries your game account will be locked."
+1706,"We're sorry, but an error occurred while trying to create your avatar. Please try again later!"
+1707,Integrity check failed! You are using a wrong client version.
+1708,This username is unknown. Please try again!
+1709,Incorrect password. Please try again!
+1710,You are already logged in. Please try again in a few minutes.
+1711,You have entered invalid login information. Please check your username and try again!
+1713,Area full - please try again!
+1718,"Your account has been temporarily banned, %1!s! hours remaining."
+1719,Your account has been permanently banned.
+1720,Your client version is outdated. Please make sure it is patched properly to the newest version. Please try again later!
+1721,"Your world file is invalid or damaged, please run a complete check in the launcher!"
+1722,World login failed: Unknown error!
+1723,World login failed: Server unavailable!
+1724,World login failed: World is full!
+1725,Logging into World...
+1726,Connection to server failed. Trying to re-connect ...
+1727,Connecting to server failed. No free incoming connections!
+1728,Connecting to server failed. Your IP address has been banned!
+1729,Connecting to server failed. Invalid server password!
+1730,Connecting to server failed. Public key does not match!
+1731,Connecting to server failed. Incompatible network protocol!
+1732,<font type='0' size='10'>Your account has been locked as our systems have detected multiple accounts originating from your IP address. Please contact Face of Mankind Support (http://support.faceofmankind.com) if you believe this is a mistake.</font>
+1733,Connecting to server failed. This IP address just connected recently. Please wait a moment!
+1734,This world is not available to your faction!
+1735,"As your faction privileges have been revoked, access to this world is not granted to you at this moment!"
+1736,Connection to world server failed. Please try again later!
+1737,"Your account has been temporarily banned, %1!s! hours remaining.
+Reason: %2!s!"
+1738,"Your account has been permanently banned.
+Reason: %1!s!"
+1739,World outside the range of this world's Vortex Gate connection!
+1740,Logging out...
+1741,Please visit https://www.faceofmankind.com/account/detail and purchase the game to log in!

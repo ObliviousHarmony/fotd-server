@@ -1,0 +1,51 @@
+ID,String
+5450,Hacking attempt failed! Another person was able to hack the object before you.
+5451,This object has been infiltrated recently and cannot be accessed by your faction yet (remaining delay %1!s!)!
+5452,The security system of this object is currently rebooting.
+5453,Your hacking attempt has failed!
+5454,Access Denied!
+5455,Error: Failed to edit account!
+5456,Error: Failed to delete account!
+5457,Error: You must enter a valid date to search from!
+5458,Error: Failed to find target!
+5459,Error: Failed to transfer funds!
+5460,You must have a premium account to rent more than %1!u! units per world!
+5461,You need %1!u! credits to increase your storage!
+5462,Error: Failed to change storage rental units!
+5463,You must use coins to be able to put items for sale longer than %1!u! game days!
+5464,Failed! You must be a premium member to place items for sale longer than %1!u! game days!
+5465,Failed! You must use coins to place items for sale longer than %1!u! game days!
+5466,Failed! You do not have enough coins to do this!
+5467,Failed! You do not have enough credits to do this!
+5468,Error: Your duration is invalid.
+5469,You don't require treatment.
+5470,Mechanical augmentations can only be equipped and removed using the Medical Service Terminals!
+5471,Only mechanical and nanomachine augmentations can be placed in this slot!
+5472,You must uninstall your implant before armor can be equipped to this slot!
+5473,No resources available!
+5474,No more than %1!u! may be produced with the Chemical Lab!
+5475,Your resources do not allow you to produce more than %1!u! units!
+5476,Your chemical lab process has been cancelled!
+5477,You must be at a Chemical Refinery to perform this action!
+5478,Raw materials cannot be placed here!
+5479,You must enter a title to create the mission!
+5480,You must enter a description to create the mission!
+5481,The projected cost of this mission is larger than available credit accounts!
+5482,Error: The mission could not be created!
+5483,Error: Invalid target!
+5484,Error: Invalid Mission!
+5485,Error: Target not found!
+5486,Error: Target is offline!
+5487,Error: Target is already in a mission!
+5488,%1!s! has denied your mission invitation
+5489,Error: You must enter a target name!
+5490,Error: You cannot invite yourself!
+5491,Error: You must enter a faction to allow!
+5492,Error: You cannot edit this value. You must recreate the mission with different settings!
+5493,Error: This entry is already in the list!
+5494,Error: Cannot create a mission for 0 credits!
+5495,Error: Cannot create a mission for less than %1!u! members!
+5496,Error: You must be the mission leader to do this!
+5497,Error: Failed to disband the mission!
+5498,Error: You must have at least %1!u! members to start the mission!
+5499,Error: Failed to remove member!

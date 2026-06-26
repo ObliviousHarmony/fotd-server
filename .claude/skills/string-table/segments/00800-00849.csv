@@ -1,0 +1,50 @@
+ID,String
+800,Emblem Cost
+801,Swap Layer
+802,Finances Overview
+803,World Ownership Information
+804,Faction Relations
+805,Rank Demographics
+806,Current Funds:
+807,Day Income:
+808,Day Expenses:
+809,Day Profit:
+810,Add Relation
+811,Faction Member Database
+812,Min. Level
+813,Max. Level
+814,Min Penalty
+815,Max. Penalty
+816,Full Name
+817,Online Only
+818,Membership Blacklist
+819,%1!s! - By: %2!s! Reason: %3!s!
+820,Invite New Members
+821,Applications
+822,Public Description
+823,Pending Applications
+824,Application
+825,PP: %1!u!
+826,Allow Applications
+827,Applicable Factions
+828,Description
+829,Application Text
+830,Leader: %1!s! - Members: %2!u!
+831,Pending Applications
+832,Rank List
+833,Rank Permissions
+834,Title
+835,Ability to change faction message
+836,Ability to change faction relations
+837,Ability to change faction goals
+838,Ability to change faction warrants
+839,Ability to change faction emblem
+840,Ability to change world service relation taxes
+841,Can change ranks of
+842,Ability to remove members from faction
+843,Ability to invite members to the faction
+844,Ability to accept applications
+845,Ability to reject applications
+846,Ability to blacklist members and applications
+847,Ability to create missions
+848,Ability to approve mission rewards

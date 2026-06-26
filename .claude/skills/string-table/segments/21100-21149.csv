@@ -1,0 +1,9 @@
+ID,String
+21100,%1!s! (%2!u!/%3!u! Skills)
+21101,%1!s! %2!s!
+21102,%1!u!/%2!u! Levels
+21103,%1!u!/%2!u!
+21104,%1!s! to level %2!u!
+21105,Skill Progress
+21106,<font size='30' color='FFFFFF00'>%1!s! %2!s!</font>
+21107,<font size='30' color='FFFFFF00'>+%1!u!</font>

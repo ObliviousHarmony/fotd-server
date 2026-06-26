@@ -1,0 +1,8 @@
+{
+  "weight": 2000,
+  "weaponFireDelay": 300,
+  "effectiveRange": 1000,
+  "destruction": 125,
+  "bioDamage": 57,
+  "weaponRecoil": 500
+}

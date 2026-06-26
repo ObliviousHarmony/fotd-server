@@ -1,0 +1,85 @@
+ID,String
+22550,NPC Reward
+22551,Transport Timeout
+22561,Invalid
+22562,"Welcome to Face of Mankind. These hints will help you learn more about the game. 
+
+Important Keybinds:
+Run/Walk Toggle: <font color='FFE6BF00'>%1!s!</font>
+Lay down: <font color='FFE6BF00'>%2!s!</font>
+Sit: <font color='FFE6BF00'>%3!s!</font>
+Fullscreen Map: <font color='FFE6BF00'>%4!s!</font>
+Switch Chat: <font color='FFE6BF00'>%5!s!</font>
+
+For the rest of the keybinds in the game, please review the controls section of the options.
+Please press <font color='FFE6BF00'>ESC</font> and hit next for a short interface introduction."
+22563,"Pressing this button will open the skill manager. These skills will allow you to gain access to new equipment and tools, in addition to enhancing your abilities."
+22564,"Pressing this button will open the faction manager. Through this, you will be able to apply for a faction and become part of something far greater than yourself.
+
+By default, you are a member of Dolly Incorporated. This is a faction comprised of new players and volunteers, so feel free to use the 'Dolly Inc' chat tab to ask for assistance or to meet other players.
+We recommend after you get a grasp of the game's mechanics you join a different faction, as Dolly Inc does not participate in typical game activities.
+
+If being a follower does not suit you, then you will be able to create your own faction after training the 'Badge of Valor' skill."
+22565,"Pressing this button will open the mission manager. Utilizing this interface, you will be able to lead and join groups of clones in missions to complete goals defined by the leader."
+22566,"Pressing this button will open the communicator. Through this, you will be able to send messages to other clones, in addition to accessing the in-game browser, calculator, and various other tools."
+22567,"Pressing this button will open the bounty manager. This manager will allow you to create, manage, and accept bounties. Bounties are created by clones, and will call for the assassination of another individual."
+22568,"Pressing this button will open the options menu. This will allow you to make changes to your graphics, sound, interface, and control settings."
+22569,"You have died!
+
+Death in Face of Mankind is a common occurance, and should not be too discouraging. On death, you will drop any items on your person that are not secured or bound to you. They will be dropped into a loot pack, which by default, has a 3 minute timer to reclaim the items. After the timer has ended, or the lootpack has been hacked, the items are free for anyone to steal.
+
+Each time you die, your death timer will increase. You may either wait until the timer has completed, or alternatively spend credits/coins to immediately complete the cloning process."
+22570,"This is your skill manager. Once you have used a skill book, the skill will be available here to train. In the bottom right is your active queue, and contains all of the skills currently progressing.
+
+To queue a skill, it must be yellow in the interface. Right click on it and add it to your queue. Once queued, a skill will be marked to progress once it reaches the top of the queue. Skills progress while offline."
+22571,"This is the storage interface. There are two types of Storage in Face of Mankind; Item Storage and Transport Storage.
+
+Item storage is only available on certain worlds, but offers a safe place to store your good at a relatively low cost. In the bottom left of item storages you will find the rental management panel. Here, you will be able to decide how many rental units you wish to purchase. Each in-game week, you will be charged the rental fee for your storage. If your account does not have sufficient funds, your items will be given another week. If you cannot pay the fee by the end of the week, the items will be sent to transport storage.
+
+Transport storage is a temporary form of storage meant to allow users a way to transport items from worlds that do not have storage. Each item has a timeout, after which it will be removed. To retrieve the item after it has timed out, you must use the transport buyback option, available at the bottom of the interface."
+22572,"This is the apartment safe interface. You may drag items into the interface to store them here, and they will remain after you have left. Each apartment has a safe, which is accessible both to the owner, and to hackers who have managed to infiltrate the apartment. Any items taken from the safe are logged, and can be viewed by scanning the safe with a Hunter augmentation."
+22573,"This is the production manager. Using this, you will be able to create almost any item in the game. To produce an item, you must place a production schematic into the top left, and then fill in all of the items for the recipe.
+
+At an additional cost, you may alternatively place the ingredients into storage. Pressing the 'Fill from storage' option at the bottom of the interface will cause the system to auto-fill the recipe with items in your item storage or transport storage, depending on what the world has available. Please note however that this does cost additional.
+
+Refining may be done without a schematic, at an additional cost. Simple press the dropdown in the bottom left and select the item that you wish to refine.
+
+Once a process has started, you may check on its progress through the second tab at the top of the production interface."
+22574,"This is a market. Using this, you will be able to purchase goods from other clones, or sell them if you desire.
+
+To purchase, simple apply any appropriate search filters, and find the item that you would like to purchase. After selecting the item and an offer, use the bottom left to select quantity and preview cost.
+
+To sell, press the storage button in the bottom left to open a special version of the storage interface. This special version contains a market offer section, and will allow you to place items on the market from your transport storage."
+22575,"This is a schematic market. These markets allow you to purchase production schematics. After selecting the type of schematic you wish to purchase, use the buttons in the bottom left to decide how many items the resulting schematic can produce. Once you have produced that many items with the schematic, it will be depleted, and you will have to purchase another."
+22576,"This is a medical station. Using this, you are able to install augmentations and receive basic medical treatment. To install an augmentation, simply drag it into the install section and press the button.
+
+To remove an already installed augmentation, right click it in the list and remove it."
+22577,"This is the chemical lab. Using this, you will be able to create chemicals, food, and drugs. Food and drugs are created using special formulas, which can only be utilized once you have the necessary skill trained.
+
+To use, simply bring your chemical substances to the world service. Once here, enter the formula that you wish to produce and begin. Please note that during the process you may not leave the area, as doing so will cause it to fail."
+22578,"This is the mission manager. Using this, you will be able to create and join missions.
+
+To create a mission, you must have funds. You may enter in a name and description for it, along with adding access restrictions to the mission. You will be able to define the rewards, and manage the members from here. Once the mission begins, you will also be able to view the log, which contains information about what has happened in the mission.
+
+Once a mission has completed, it must be reviewed before the reward is delivered. Through the mission review tab, you may view and approve/disapprove the rewards of a mission based on whether or not it completed the goals that you defined for it."
+22579,"This is the repair station. Using this, you are able to repair any items that has lost durability. Please note that when you repair an item using credits, the durability loss factor will increase, causing the item to lose durability faster."
+22580,"This is the apartment manager. Using this, you will be able to purchase and enter private apartments, as well as view and enter public apartments. Once purchased, these apartments will be accessible from anywhere in the game world. Public apartments are apartments that have been opened to everyone, and do not require a password to enter.
+
+Please be warned! When entering an apartment or logging off, you are susceptible to infiltration scanners. If a scan is successfully completed, hackers will be able to enter your apartment and potentially steal your items from the apartment safe inside!"
+22581,"This is the bounty manager. Using this, you will be able to place, manage, and take bounties.
+
+Once you have created a bounty, hunters will be able to apply to complete it. You will be able to review their bounty history and decide whether or not you want them to take the bounty. Once approved, they will be able to hunt down your target and kill them. If they successfully kill the target, they will have their reward delivered. If they are killed by the target however, a portion will be given to the target."
+22582,"You have been arrested!
+
+While you are here, your penalty points will statically decrease until you reach 10% of the value that you had when you were arrested. You have two choices when it comes to leaving. You may either pay the bail and leave immediately, or you may mine rocks to work off your debt.
+
+Bail may be paid by finding one of the designated bail terminals. Rocks may be mined using the prison-sanctioned mining tool, and depositing the rocks into a nearby mineral collector. The more rocks that you mine, the more penalty points that will be removed by the collector."
+22583,"Filled with xenomorphs, this world is a dangerous wasteland. Xenomorphs may be killed to earn universal credits, but it is an activity not advised for the weak of heart."
+22584,"This is the multicom. From here, you will be able to change information about your character, and give access to others. If you have the correct faction rank permission, you may make it into a faction HQ, and allow anyone of the appropriate rank inside. You may also make it public, and allow anyone who desires access. Perhaps you want to open a bar; anything is possible through public apartments."
+22585,"Your Emergency Shield has been triggered!
+
+This special shield will automatically activate when charged, protection you from damage for five seconds. After the shield has activated it will be unavailable for five minutes or until your death, whichever comes first. You may view the current status of your Emergency Shield in the top-left of your HUD, next to the stamina bar. When active, it will be a green shield, and when recharging, it will be red.
+
+Be warned: after your first 24 hours of online time, the Emergency Shield will only trigger under specific circumstances. These include being unarmed (only carrying a mining gun, alien gun, or medical weapon), and while viewing a world service or territory deployable. If attacked without meeting this criteria, your shield will not activate!"
+22586,"This button will open your character sheet. From here, you can view information about your character and access your inventory."
+22587,"This button will open the forum in the in-game browser. After logging in using your game account, you will be able to view the bug tracker and community-driven development. From here, you will be able to contribute to the development of the game by making suggestions and voting on the suggestions of other players, helping carve out future patches to the game."

@@ -1,0 +1,36 @@
+ID,String
+1600,<unassigned>
+1601,Move Forward
+1602,Move Backward
+1603,Strafe Left
+1604,Strafe Right
+1605,Sprint
+1606,Run/Walk Toggle
+1607,Jump
+1608,Crouch/Stand Quick Switch
+1609,Crouch/Stand Toggle
+1610,Sit Down/Stand Up Toggle
+1611,Lay Down/Stand Up Toggle
+1614,Aiming Mode Switch
+1615,Fire
+1616,Alt-Fire
+1617,Use Weapon 1
+1618,Use Weapon 2
+1619,Use Weapon 3
+1620,Use Item on Slot 1
+1621,Use Item on Slot 2
+1622,Use Item on Slot 3
+1623,Use Item on Slot 4
+1624,Activate Head Implant
+1625,Activate Eye Implant
+1626,Activate Shoulder Implant
+1627,Activate Torso Implant
+1628,Activate Hand Implant
+1629,Activate Arm Implant
+1630,Activate Leg Implant
+1631,Activate Back Implant
+1632,Reload Weapon
+1640,Switch Camera Mode
+1641,Unlock Camera (+Mouse Movement)
+1642,Reduce Camera Distance
+1643,Increase Camera Distance
