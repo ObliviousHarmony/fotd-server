@@ -126,5 +126,6 @@ SERIALIZER_READ(RegisterClient)
 SERIALIZER_WRITE(RegisterClientReturn)
 SERIALIZER_READ(Update)
 SERIALIZER_WRITE(WorldUpdate)
+SERIALIZER_BOTH(Chat)
 
 }  // namespace FOMNetwork

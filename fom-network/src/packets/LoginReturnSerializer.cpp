@@ -6,8 +6,8 @@
 namespace FOMNetwork {
 namespace Packet {
 
-void LoginReturnSerializer::Write(RakNet::BitStream &bs,
-                                  const Packet::LoginReturn *data) const {
+void LoginReturnSerializer::Write(RakNet::BitStream& bs,
+                                  const Packet::LoginReturn* data) const {
   Type::ApartmentSerializer apartmentSerializer;
 
   bs.WriteCompressed(data->status);

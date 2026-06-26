@@ -69,7 +69,7 @@ enum PacketIdentifier : uint8_t {
   // ID_BACKPACK_CONTENTS = 146,
   // ID_ITEMS_ADDED = 147,
   // ID_AVATAR_CHANGE = 148,
-  // ID_CHAT = 149,
+  ID_CHAT = 149,
   // ID_TAUNT = 150,
   // ID_FRIENDS = 151,
   // ID_TRANSFER_ITEMS = 152,

@@ -12,7 +12,7 @@ enum ItemQuality : uint8_t {
   ITEM_QUALITY_RARE = 3,
   ITEM_QUALITY_SPECIAL_RARE = 4,
 
-  NUM_ITEM_QUALITIES = 4
+  NUM_ITEM_QUALITIES = 5
 };
 
 }  // namespace Enum

@@ -35,6 +35,7 @@ set(FOMNETWORK_SRC
   "src/packets/RegisterClientReturnSerializer.cpp"
   "src/packets/UpdateSerializer.cpp"
   "src/packets/WorldUpdateSerializer.cpp"
+  "src/packets/ChatSerializer.cpp"
 )
 set(FOMNETWORK_INC
   # Core API
@@ -61,6 +62,7 @@ set(FOMNETWORK_INC
   "include/fom-network/enums/ApartmentType.h"
   "include/fom-network/enums/SkillType.h"
   "include/fom-network/enums/AttributeType.h"
+  "include/fom-network/enums/ChatChannel.h"
 
   # Constants
   "include/fom-network/constants/BufferSizes.h"
@@ -133,6 +135,7 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/RegisterClientReturn.h"
   "include/fom-network/packets/Update.h"
   "include/fom-network/packets/WorldUpdate.h"
+  "include/fom-network/packets/Chat.h"
 )
 set(FOMNETWORK_TEST
     "tests/FOMDataSerializer_test.cpp"
