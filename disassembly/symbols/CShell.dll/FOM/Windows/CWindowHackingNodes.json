@@ -1,0 +1,77 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100f2c10",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowHackingNodes",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowHackingNodes *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100f2e00",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowHackingNodes",
+   "namespace": "FOM::Windows::CWindowHackingNodes",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowHackingNodes *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "100f3290",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowHackingNodes",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100f4330",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowHackingNodes",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowHackingNodes *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

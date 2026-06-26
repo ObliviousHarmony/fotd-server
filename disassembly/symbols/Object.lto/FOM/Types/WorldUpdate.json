@@ -1,0 +1,82 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1004c620",
+   "callingConvention": "__thiscall",
+   "name": "Reset",
+   "namespace": "FOM::Types::WorldUpdate",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/WorldUpdate *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1004de10",
+   "callingConvention": "__thiscall",
+   "name": "WorldUpdate",
+   "namespace": "FOM::Types::WorldUpdate",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/WorldUpdate *"
+    }
+   ],
+   "returnType": "/FOM/Types/WorldUpdate *"
+  },
+  {
+   "addr": "1004ec50",
+   "callingConvention": "__thiscall",
+   "name": "ReadCharacter",
+   "namespace": "FOM::Types::WorldUpdate",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/WorldUpdate *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "100518c0",
+   "callingConvention": "__thiscall",
+   "name": "ReadPlayer",
+   "namespace": "FOM::Types::WorldUpdate",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/WorldUpdate *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10051950",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Types::WorldUpdate",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/WorldUpdate *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

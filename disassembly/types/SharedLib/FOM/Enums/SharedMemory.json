@@ -1,0 +1,133 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_WORLD_ID",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_IS_LOGGED_IN",
+   "value": 84
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_IS_LOGGED_INTO_WORLD",
+   "value": 85
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_PLAYER_ID",
+   "value": 91
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_WORLD_LOGIN_ERROR",
+   "value": 92
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_APARTMENT_ID",
+   "value": 119
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_APARTMENT_TYPE",
+   "value": 120
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_IS_CONNECTED_TO_WORLD",
+   "value": 140
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_WORLD_LOADING_STATE",
+   "value": 144
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_IS_CLONING_COMPLETE",
+   "value": 148
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_ACTIVE_MEDICAL_TREATMENT",
+   "value": 167
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_PLAYER_NAME",
+   "value": 11219
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_PLAYER_FACTION",
+   "value": 11224
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_ACTIVE_WEAPON",
+   "value": 12350
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_LOADING_WORLD",
+   "value": 118466
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_ACTIVE_IMPLANTS",
+   "value": 120479
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_SAFEZONE_POSITION",
+   "value": 125503
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_SAFEZONE_RADIUS",
+   "value": 125506
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_SPAWN_NODE_ID",
+   "value": 125508
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_CLONING_DURATION_SECONDS",
+   "value": 126514
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_FACTION_EMBLEM",
+   "value": 126515
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_PLAYER_RANK",
+   "value": 126546
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_ENTERING_WORLD_STATE",
+   "value": 126656
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_ENTERING_WORLD_ID",
+   "value": 126657
+  },
+  {
+   "comment": null,
+   "name": "SHAREDMEMORY_ENTERING_NODE_ID",
+   "value": 126658
+  }
+ ],
+ "kind": "enum",
+ "len": 4,
+ "path": "/FOM/Enums/SharedMemory"
+}

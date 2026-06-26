@@ -1,0 +1,43 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "101a2390",
+   "callingConvention": "__thiscall",
+   "name": "FillUpdate",
+   "namespace": "FOM::Player",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "update",
+     "type": "/FOM/Types/WorldUpdate *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "101a27a0",
+   "callingConvention": "__thiscall",
+   "name": "SendUpdate",
+   "namespace": "FOM::Player",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

@@ -1,0 +1,186 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 2,
+   "name": "sex",
+   "offset": 0,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "skinColor",
+   "offset": 2,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "face",
+   "offset": 4,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "hair",
+   "offset": 6,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "factionId",
+   "offset": 8,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "rankId",
+   "offset": 10,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": null,
+   "offset": 12,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "legacyFaction",
+   "offset": 14,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "slotShirt",
+   "offset": 16,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "slotBottoms",
+   "offset": 18,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "slotShoes",
+   "offset": 20,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "slotHat",
+   "offset": 22,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "slotHead",
+   "offset": 24,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "slotEyes",
+   "offset": 26,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "slotShoulder",
+   "offset": 28,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "slotArms",
+   "offset": 30,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "slotTorso",
+   "offset": 32,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "slotBack",
+   "offset": 34,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "slotLegs",
+   "offset": 36,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "slotHands",
+   "offset": 38,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "isCommander",
+   "offset": 40,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": null,
+   "offset": 42,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": null,
+   "offset": 44,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "isGroupLeader",
+   "offset": 46,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "isCached",
+   "offset": 48,
+   "type": "/stdint.h/uint8_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 50,
+ "packed": true,
+ "path": "/FOM/Types/Player/Avatar"
+}

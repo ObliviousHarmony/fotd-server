@@ -1,0 +1,105 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 2,
+   "name": "type",
+   "offset": 0,
+   "type": "/FOM/Types/Item/ItemType"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "value",
+   "offset": 2,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "maxDurability",
+   "offset": 4,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "durability",
+   "offset": 6,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "durabilityLossFactor",
+   "offset": 8,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "security",
+   "offset": 9,
+   "type": "/FOM/Types/Item/ItemSecurity"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "creatorPlayerId",
+   "offset": 12,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "timeout",
+   "offset": 16,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "stolenFromPlayerId",
+   "offset": 20,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "attributeBonus",
+   "offset": 24,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "quality",
+   "offset": 25,
+   "type": "/FOM/Types/Item/ItemQuality"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "classification",
+   "offset": 26,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "balanceValues",
+   "offset": 27,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 4
+   }
+  }
+ ],
+ "kind": "struct",
+ "len": 32,
+ "packed": true,
+ "path": "/FOM/Types/Item/ItemBase"
+}

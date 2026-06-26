@@ -1,0 +1,45 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 1,
+   "name": "allocator",
+   "offset": 0,
+   "type": "/undefined1"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "data",
+   "offset": 4,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "end",
+   "offset": 8,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "capacity",
+   "offset": 12,
+   "type": {
+    "ptr": "/void"
+   }
+  }
+ ],
+ "kind": "struct",
+ "len": 16,
+ "packed": true,
+ "path": "/std/vector"
+}

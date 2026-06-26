@@ -1,0 +1,208 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_INVALID",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_MEDIKIT",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_INJECTOR",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_LIGHT_BALLISTIC",
+   "value": 3
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_HEAVY_BALLISTIC",
+   "value": 4
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_LIGHT_ENERGY",
+   "value": 5
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_HEAVY_ENERGY",
+   "value": 6
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_HACKING",
+   "value": 7
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_INFLUENCE_GENERATOR",
+   "value": 8
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_BALLISTIC_HANDGUN",
+   "value": 9
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_BALLISTIC_KNIVE",
+   "value": 10
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_BALLISTIC_RIFLE",
+   "value": 11
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_BALLISTIC_SMG",
+   "value": 12
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_BALLISTIC_PRECISION_RIFLE",
+   "value": 13
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_GRENADE",
+   "value": 14
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_TURRET",
+   "value": 15
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_ENERGY_HANDGUN",
+   "value": 16
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_ENERGY_RIFLE",
+   "value": 17
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_MEDICAL",
+   "value": 18
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_TAZER",
+   "value": 19
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_ENERGY_ANTI_ALIEN",
+   "value": 20
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_ENERGY_PRECISION_RIFLE",
+   "value": 21
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_MINING_TOOL",
+   "value": 22
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_BALLISTIC",
+   "value": 23
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_ENERGY",
+   "value": 24
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_MINERAL_COLLECTOR",
+   "value": 25
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_CARBON_MATERIAL",
+   "value": 26
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_METAL_COMPONENT",
+   "value": 27
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_GLASS_MATERIAL",
+   "value": 28
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_PLASTIC_MATERIAL",
+   "value": 29
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_SYNTACTIC_FOAM",
+   "value": 30
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_ELECTRONIC",
+   "value": 31
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_ADVANCED_ELECTRONIC",
+   "value": 32
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_CARBON_COMPONENT",
+   "value": 33
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_CHEMICAL_COMPONENT",
+   "value": 34
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_ALIEN_COMPONENT",
+   "value": 35
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_DATACUBE",
+   "value": 36
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_STANDARD",
+   "value": 37
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SUBTYPE_BALLISTIC_ANTI_ALIEN",
+   "value": 38
+  },
+  {
+   "comment": null,
+   "name": "NUM_ITEM_SUBTYPES",
+   "value": 39
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Types/Item/ItemSubtype"
+}

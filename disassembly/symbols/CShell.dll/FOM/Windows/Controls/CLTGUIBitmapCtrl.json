@@ -1,0 +1,31 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10066de0",
+   "callingConvention": "__fastcall",
+   "name": "CLTGUIBitmapCtrl",
+   "namespace": "FOM::Windows::Controls::CLTGUIBitmapCtrl",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/undefined4 *"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10066ed0",
+   "callingConvention": "__fastcall",
+   "name": "CLTGUIBlinker",
+   "namespace": "FOM::Windows::Controls::CLTGUIBitmapCtrl",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/undefined4 *"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  }
+ ]
+}

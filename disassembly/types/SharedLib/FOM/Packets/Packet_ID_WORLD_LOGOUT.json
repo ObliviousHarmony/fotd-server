@@ -1,0 +1,32 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 1072,
+   "name": "base",
+   "offset": 0,
+   "type": "/FOM/Packets/VariableSizedPacket"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "playerId",
+   "offset": 1072,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "isChangingWorlds",
+   "offset": 1076,
+   "type": "/stdint.h/uint8_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 1080,
+ "packed": true,
+ "path": "/FOM/Packets/Packet_ID_WORLD_LOGOUT"
+}

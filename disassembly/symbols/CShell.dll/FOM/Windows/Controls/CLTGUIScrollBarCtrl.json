@@ -1,0 +1,69 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100725a0",
+   "callingConvention": "__fastcall",
+   "name": "CLTGUIScrollBarCtrl",
+   "namespace": "FOM::Windows::Controls::CLTGUIScrollBarCtrl",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/undefined4 *"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10072690",
+   "callingConvention": "__thiscall",
+   "name": "SetScrollPos",
+   "namespace": "FOM::Windows::Controls::CLTGUIScrollBarCtrl",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/Controls/CLTGUIScrollBarCtrl *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10072810",
+   "callingConvention": "__thiscall",
+   "name": "ScrollDown",
+   "namespace": "FOM::Windows::Controls::CLTGUIScrollBarCtrl",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/Controls/CLTGUIScrollBarCtrl *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10072b50",
+   "callingConvention": "__thiscall",
+   "name": "SyncScrollPosition",
+   "namespace": "FOM::Windows::Controls::CLTGUIScrollBarCtrl",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/Controls/CLTGUIScrollBarCtrl *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

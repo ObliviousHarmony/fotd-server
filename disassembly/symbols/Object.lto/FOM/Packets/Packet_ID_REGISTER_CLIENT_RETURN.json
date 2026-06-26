@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10078d80",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_REGISTER_CLIENT_RETURN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_REGISTER_CLIENT_RETURN *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "1007a850",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_REGISTER_CLIENT_RETURN",
+   "namespace": "FOM::Packets::Packet_ID_REGISTER_CLIENT_RETURN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_REGISTER_CLIENT_RETURN *"
+    }
+   ],
+   "returnType": "/FOM/Packets/Packet_ID_REGISTER_CLIENT_RETURN *"
+  },
+  {
+   "addr": "1007ab00",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_REGISTER_CLIENT_RETURN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_REGISTER_CLIENT_RETURN *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1007ad60",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_REGISTER_CLIENT_RETURN",
+   "namespace": "FOM::Packets::Packet_ID_REGISTER_CLIENT_RETURN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_REGISTER_CLIENT_RETURN *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  }
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 1072,
+   "name": "base",
+   "offset": 0,
+   "type": "/FOM/Packets/VariableSizedPacket"
+  }
+ ],
+ "kind": "struct",
+ "len": 1072,
+ "packed": true,
+ "path": "/FOM/Packets/Packet_ID_WORLD_UPDATE"
+}

@@ -1,0 +1,125 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 1072,
+   "name": "base",
+   "offset": 0,
+   "type": "/FOM/Packets/VariableSizedPacket"
+  },
+  {
+   "comment": null,
+   "len": 64,
+   "name": "username",
+   "offset": 1072,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 64
+   }
+  },
+  {
+   "comment": null,
+   "len": 64,
+   "name": "passwordHash",
+   "offset": 1136,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 64
+   }
+  },
+  {
+   "comment": "Only 3, in order: fom_client.exe, cshell.dll, and object.lto",
+   "len": 16,
+   "name": "fileCRCs",
+   "offset": 1200,
+   "type": "/std/vector"
+  },
+  {
+   "comment": null,
+   "len": 32,
+   "name": "macAddress",
+   "offset": 1216,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 32
+   }
+  },
+  {
+   "comment": null,
+   "len": 256,
+   "name": "driveModels",
+   "offset": 1248,
+   "type": {
+    "arr": {
+     "arr": "/stdint.h/uint8_t",
+     "n": 64
+    },
+    "n": 4
+   }
+  },
+  {
+   "comment": null,
+   "len": 128,
+   "name": "driveSerialNumbers",
+   "offset": 1504,
+   "type": {
+    "arr": {
+     "arr": "/stdint.h/uint8_t",
+     "n": 32
+    },
+    "n": 4
+   }
+  },
+  {
+   "comment": null,
+   "len": 64,
+   "name": "loginToken",
+   "offset": 1632,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 64
+   }
+  },
+  {
+   "comment": null,
+   "len": 32,
+   "name": "computerName",
+   "offset": 1696,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 32
+   }
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "hasSteamTicket",
+   "offset": 1728,
+   "type": "/bool"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "steamTicketLength",
+   "offset": 1732,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1024,
+   "name": "steamTicket",
+   "offset": 1736,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 1024
+   }
+  }
+ ],
+ "kind": "struct",
+ "len": 2760,
+ "packed": true,
+ "path": "/FOM/Packets/Packet_ID_LOGIN"
+}

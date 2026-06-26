@@ -1,0 +1,25 @@
+{
+ "desc": "PlaceHolder Class Structure",
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 1072,
+   "name": "base",
+   "offset": 0,
+   "type": "/FOM/Packets/VariableSizedPacket"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "ownerPlayerId",
+   "offset": 1072,
+   "type": "/stdint.h/uint32_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 1080,
+ "packed": true,
+ "path": "/FOM/Packets/Packet_ID_CHECK_NAME_RETURN"
+}

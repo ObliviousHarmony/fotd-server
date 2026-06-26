@@ -1,0 +1,65 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": "playerId",
+   "offset": 0,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 4,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 20,
+   "name": "name",
+   "offset": 5,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 20
+   }
+  },
+  {
+   "comment": null,
+   "len": 32,
+   "name": "factionName",
+   "offset": 25,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 32
+   }
+  },
+  {
+   "comment": null,
+   "len": 512,
+   "name": "biography",
+   "offset": 57,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 512
+   }
+  },
+  {
+   "comment": null,
+   "len": 32,
+   "name": "rankName",
+   "offset": 569,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 32
+   }
+  }
+ ],
+ "kind": "struct",
+ "len": 604,
+ "packed": true,
+ "path": "/FOM/Types/Player/PlayerProfile"
+}

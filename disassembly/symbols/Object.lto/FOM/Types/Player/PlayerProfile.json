@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10078b80",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Types::Player::PlayerProfile",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/PlayerProfile *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "1007aa30",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::Player::PlayerProfile",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/PlayerProfile *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100eb9f0",
+   "callingConvention": "__thiscall",
+   "name": "Reset",
+   "namespace": "FOM::Types::Player::PlayerProfile",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/PlayerProfile *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100eba50",
+   "callingConvention": "__thiscall",
+   "name": "PlayerProfile",
+   "namespace": "FOM::Types::Player::PlayerProfile",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/PlayerProfile *"
+    }
+   ],
+   "returnType": "/FOM/Types/Player/PlayerProfile *"
+  }
+ ]
+}

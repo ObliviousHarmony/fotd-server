@@ -1,0 +1,77 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10124190",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowNPC",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowNPC *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10124450",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowNPC",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "101259e0",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowNPC",
+   "namespace": "FOM::Windows::CWindowNPC",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowNPC *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10126ed0",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowNPC",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowNPC *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

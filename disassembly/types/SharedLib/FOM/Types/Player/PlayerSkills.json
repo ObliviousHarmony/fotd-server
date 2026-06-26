@@ -1,0 +1,74 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": "vector<PlayerSkill>",
+   "len": 16,
+   "name": "skills",
+   "offset": 0,
+   "type": "/std/vector"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": null,
+   "offset": 16,
+   "type": "/std/vector"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 32,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "trainingMultiplier",
+   "offset": 36,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "combatTrainingMultiplier",
+   "offset": 37,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "ecoTrainingMultiplier",
+   "offset": 38,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "techTrainingMultiplier",
+   "offset": 39,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 40,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 44,
+   "type": "/stdint.h/uint32_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 48,
+ "packed": true,
+ "path": "/FOM/Types/Player/PlayerSkills"
+}

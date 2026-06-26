@@ -1,0 +1,236 @@
+[
+ {
+  "kind": "namespace",
+  "name": "FOM",
+  "parent": "",
+  "path": "FOM"
+ },
+ {
+  "kind": "namespace",
+  "name": "RakNet",
+  "parent": "",
+  "path": "RakNet"
+ },
+ {
+  "kind": "class",
+  "name": "BitStream",
+  "parent": "RakNet",
+  "path": "RakNet::BitStream"
+ },
+ {
+  "kind": "class",
+  "name": "StringCompressor",
+  "parent": "RakNet",
+  "path": "RakNet::StringCompressor"
+ },
+ {
+  "kind": "namespace",
+  "name": "Packets",
+  "parent": "FOM",
+  "path": "FOM::Packets"
+ },
+ {
+  "kind": "namespace",
+  "name": "Types",
+  "parent": "FOM",
+  "path": "FOM::Types"
+ },
+ {
+  "kind": "namespace",
+  "name": "SharedMemory",
+  "parent": "FOM",
+  "path": "FOM::SharedMemory"
+ },
+ {
+  "kind": "namespace",
+  "name": "World",
+  "parent": "FOM",
+  "path": "FOM::World"
+ },
+ {
+  "kind": "namespace",
+  "name": "Game",
+  "parent": "FOM",
+  "path": "FOM::Game"
+ },
+ {
+  "kind": "class",
+  "name": "VariableSizedPacket",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::VariableSizedPacket"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_WORLD_UPDATE",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_WORLD_UPDATE"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_CHAT",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_CHAT"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_WORLD_OBJECTS",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_WORLD_OBJECTS"
+ },
+ {
+  "kind": "class",
+  "name": "CPlayerObj",
+  "parent": "FOM::Game",
+  "path": "FOM::Game::CPlayerObj"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_WORLD_LOGOUT",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_WORLD_LOGOUT"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_REGISTER_CLIENT",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_REGISTER_CLIENT"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_REGISTER_CLIENT_RETURN",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_REGISTER_CLIENT_RETURN"
+ },
+ {
+  "kind": "class",
+  "name": "Apartment",
+  "parent": "FOM::Types",
+  "path": "FOM::Types::Apartment"
+ },
+ {
+  "kind": "class",
+  "name": "PositionRotation",
+  "parent": "FOM::Types",
+  "path": "FOM::Types::PositionRotation"
+ },
+ {
+  "kind": "namespace",
+  "name": "Item",
+  "parent": "FOM::Types",
+  "path": "FOM::Types::Item"
+ },
+ {
+  "kind": "namespace",
+  "name": "Player",
+  "parent": "FOM::Types",
+  "path": "FOM::Types::Player"
+ },
+ {
+  "kind": "namespace",
+  "name": "Faction",
+  "parent": "FOM::Types",
+  "path": "FOM::Types::Faction"
+ },
+ {
+  "kind": "class",
+  "name": "WorldUpdate",
+  "parent": "FOM::Types",
+  "path": "FOM::Types::WorldUpdate"
+ },
+ {
+  "kind": "class",
+  "name": "ItemStack",
+  "parent": "FOM::Types::Item",
+  "path": "FOM::Types::Item::ItemStack"
+ },
+ {
+  "kind": "class",
+  "name": "ItemBase",
+  "parent": "FOM::Types::Item",
+  "path": "FOM::Types::Item::ItemBase"
+ },
+ {
+  "kind": "class",
+  "name": "ItemList",
+  "parent": "FOM::Types::Item",
+  "path": "FOM::Types::Item::ItemList"
+ },
+ {
+  "kind": "class",
+  "name": "Item",
+  "parent": "FOM::Types::Item",
+  "path": "FOM::Types::Item::Item"
+ },
+ {
+  "kind": "class",
+  "name": "EquipmentSlots",
+  "parent": "FOM::Types::Player",
+  "path": "FOM::Types::Player::EquipmentSlots"
+ },
+ {
+  "kind": "class",
+  "name": "WeaponSlots",
+  "parent": "FOM::Types::Player",
+  "path": "FOM::Types::Player::WeaponSlots"
+ },
+ {
+  "kind": "class",
+  "name": "NanomachineSlots",
+  "parent": "FOM::Types::Player",
+  "path": "FOM::Types::Player::NanomachineSlots"
+ },
+ {
+  "kind": "class",
+  "name": "Inventory",
+  "parent": "FOM::Types::Player",
+  "path": "FOM::Types::Player::Inventory"
+ },
+ {
+  "kind": "class",
+  "name": "QuickSlots",
+  "parent": "FOM::Types::Player",
+  "path": "FOM::Types::Player::QuickSlots"
+ },
+ {
+  "kind": "class",
+  "name": "Avatar",
+  "parent": "FOM::Types::Player",
+  "path": "FOM::Types::Player::Avatar"
+ },
+ {
+  "kind": "class",
+  "name": "PlayerAttributes",
+  "parent": "FOM::Types::Player",
+  "path": "FOM::Types::Player::PlayerAttributes"
+ },
+ {
+  "kind": "class",
+  "name": "PlayerProfile",
+  "parent": "FOM::Types::Player",
+  "path": "FOM::Types::Player::PlayerProfile"
+ },
+ {
+  "kind": "class",
+  "name": "PlayerSkills",
+  "parent": "FOM::Types::Player",
+  "path": "FOM::Types::Player::PlayerSkills"
+ },
+ {
+  "kind": "class",
+  "name": "FactionEmblem",
+  "parent": "FOM::Types::Faction",
+  "path": "FOM::Types::Faction::FactionEmblem"
+ },
+ {
+  "kind": "class",
+  "name": "FactionEmblemLayer",
+  "parent": "FOM::Types::Faction",
+  "path": "FOM::Types::Faction::FactionEmblemLayer"
+ },
+ {
+  "kind": "class",
+  "name": "FactionPerks",
+  "parent": "FOM::Types::Faction",
+  "path": "FOM::Types::Faction::FactionPerks"
+ }
+]

@@ -1,0 +1,7 @@
+{
+ "base": "/char",
+ "desc": "Character",
+ "kind": "typedef",
+ "len": 1,
+ "path": "/stdint.h/int8_t"
+}

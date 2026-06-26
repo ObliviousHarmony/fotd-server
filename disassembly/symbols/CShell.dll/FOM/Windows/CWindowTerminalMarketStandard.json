@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10156050",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowTerminalMarketStandard",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTerminalMarketStandard *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10156670",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowTerminalMarketStandard",
+   "namespace": "FOM::Windows::CWindowTerminalMarketStandard",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTerminalMarketStandard *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "101567e0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowTerminalMarketStandard",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10157500",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowTerminalMarketStandard",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTerminalMarketStandard *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

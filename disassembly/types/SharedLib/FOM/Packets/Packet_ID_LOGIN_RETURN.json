@@ -1,0 +1,125 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 1072,
+   "name": "base",
+   "offset": 0,
+   "type": "/FOM/Packets/VariableSizedPacket"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "status",
+   "offset": 1072,
+   "type": "/FOM/Enums/Packets/LoginReturnStatus"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "playerId",
+   "offset": 1076,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "accountType",
+   "offset": 1080,
+   "type": "/FOM/Enums/AccountType"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "isVolunteer",
+   "offset": 1081,
+   "type": "/bool"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "isNewPlayer",
+   "offset": 1082,
+   "type": "/bool"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "clientVersion",
+   "offset": 1084,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "isBanned",
+   "offset": 1086,
+   "type": "/bool"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "banLength",
+   "offset": 1087,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 16
+   }
+  },
+  {
+   "comment": null,
+   "len": 129,
+   "name": "banReason",
+   "offset": 1103,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 129
+   }
+  },
+  {
+   "comment": "vector<uint32_t>",
+   "len": 16,
+   "name": "processBlacklist",
+   "offset": 1232,
+   "type": "/std/vector"
+  },
+  {
+   "comment": null,
+   "len": 1024,
+   "name": "factionMOTD",
+   "offset": 1248,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 1024
+   }
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "defaultApartmentWorldId",
+   "offset": 2272,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 664,
+   "name": "defaultApartment",
+   "offset": 2276,
+   "type": "/FOM/Types/Apartment"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "loginWorldId",
+   "offset": 2940,
+   "type": "/stdint.h/uint8_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 2944,
+ "packed": true,
+ "path": "/FOM/Packets/Packet_ID_LOGIN_RETURN"
+}

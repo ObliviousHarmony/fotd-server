@@ -1,0 +1,26 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1004c2a0",
+   "callingConvention": "__thiscall",
+   "name": "TabContext",
+   "namespace": "FOM::TabContext",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  }
+ ]
+}

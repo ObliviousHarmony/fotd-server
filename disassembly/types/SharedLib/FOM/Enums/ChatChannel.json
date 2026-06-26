@@ -1,0 +1,73 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "CHAT_GENERAL",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "CHAT_PRIVATE",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "CHAT_FACTION",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "CHAT_DOLLYINC",
+   "value": 3
+  },
+  {
+   "comment": null,
+   "name": "CHAT_DEPARTMENT",
+   "value": 4
+  },
+  {
+   "comment": null,
+   "name": "CHAT_MISSION",
+   "value": 5
+  },
+  {
+   "comment": null,
+   "name": "CHAT_GLOBAL",
+   "value": 6
+  },
+  {
+   "comment": null,
+   "name": "CHAT_HELP",
+   "value": 7
+  },
+  {
+   "comment": null,
+   "name": "CHAT_STAFF",
+   "value": 8
+  },
+  {
+   "comment": null,
+   "name": "CHAT_TRADE",
+   "value": 9
+  },
+  {
+   "comment": null,
+   "name": "CHAT_SYSTEM",
+   "value": 10
+  },
+  {
+   "comment": null,
+   "name": "CHAT_LOCAL",
+   "value": 11
+  },
+  {
+   "comment": null,
+   "name": "CHAT_GM",
+   "value": 12
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Enums/ChatChannel"
+}

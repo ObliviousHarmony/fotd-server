@@ -1,0 +1,14 @@
+[
+ {
+  "addr": "10143278",
+  "name": "g_PlayerAttributeDefaults",
+  "namespace": "",
+  "type": "/uint[53]"
+ },
+ {
+  "addr": "101431a0",
+  "name": "g_PlayerAttributeMaxes",
+  "namespace": "",
+  "type": "/uint[53]"
+ }
+]

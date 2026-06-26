@@ -1,0 +1,1043 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10046600",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "10046db0",
+   "callingConvention": "__thiscall",
+   "name": "CreateTab",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/FOM/Windows/CTabID"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "10046e70",
+   "callingConvention": "__thiscall",
+   "name": "SwitchTab",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/FOM/Windows/CTabID"
+    }
+   ],
+   "returnType": "/uint"
+  },
+  {
+   "addr": "100488d0",
+   "callingConvention": "__stdcall",
+   "name": "CreateLayoutCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10048950",
+   "callingConvention": "__thiscall",
+   "name": "CreateTextCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_6",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_7",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_8",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_9",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_10",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_11",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_12",
+     "type": "/int"
+    },
+    {
+     "name": "param_13",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_14",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_15",
+     "type": "/char"
+    }
+   ],
+   "returnType": "/int *"
+  },
+  {
+   "addr": "100489f0",
+   "callingConvention": "__thiscall",
+   "name": "CreateScrollBarCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_6",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10048a50",
+   "callingConvention": "__thiscall",
+   "name": "CreateButton",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/int"
+    },
+    {
+     "name": "param_5",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/FOM/Windows/Controls/CLTGUIButtonCtrl *"
+  },
+  {
+   "addr": "10048ab0",
+   "callingConvention": "__thiscall",
+   "name": "CreateImageMapCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/undefined4 *"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10048b10",
+   "callingConvention": "__thiscall",
+   "name": "CreateListCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4 *"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/int *"
+    },
+    {
+     "name": "param_6",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10048b70",
+   "callingConvention": "__thiscall",
+   "name": "CreateTreeCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4 *"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/int"
+    },
+    {
+     "name": "param_6",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10048bd0",
+   "callingConvention": "__thiscall",
+   "name": "CreateBitmapCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_6",
+     "type": "/char"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10048c30",
+   "callingConvention": "__thiscall",
+   "name": "CreateSwitchCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10048c90",
+   "callingConvention": "__thiscall",
+   "name": "CreateSelectorCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/uint"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10048cf0",
+   "callingConvention": "__thiscall",
+   "name": "CreateBlinkerCtrl_v1",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10048d50",
+   "callingConvention": "__thiscall",
+   "name": "CreateBlinkerCtrl_v2",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10048db0",
+   "callingConvention": "__thiscall",
+   "name": "CreateSliderCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10048e00",
+   "callingConvention": "__thiscall",
+   "name": "CreateVotingBarCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10048e60",
+   "callingConvention": "__thiscall",
+   "name": "CreateProgressBar",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined1"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_6",
+     "type": "/int"
+    },
+    {
+     "name": "param_7",
+     "type": "/int"
+    },
+    {
+     "name": "param_8",
+     "type": "/char"
+    },
+    {
+     "name": "param_9",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_10",
+     "type": "/int"
+    },
+    {
+     "name": "param_11",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10048ed0",
+   "callingConvention": "__thiscall",
+   "name": "CreateDummyCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/undefined4 *"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10048f30",
+   "callingConvention": "__thiscall",
+   "name": "CreateUnitListCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4 *"
+    },
+    {
+     "name": "param_5",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_6",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_7",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10048ff0",
+   "callingConvention": "__thiscall",
+   "name": "CreatePolyButton",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/int *"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10049040",
+   "callingConvention": "__thiscall",
+   "name": "CreateTabCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10049090",
+   "callingConvention": "__thiscall",
+   "name": "CreateBackground",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_6",
+     "type": "/char"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10049100",
+   "callingConvention": "__thiscall",
+   "name": "CreateLayoutImage",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/int"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/char"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10049160",
+   "callingConvention": "__thiscall",
+   "name": "CreatePlayerCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/int *"
+    },
+    {
+     "name": "param_4",
+     "type": "/float"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "100491c0",
+   "callingConvention": "__thiscall",
+   "name": "CreateItemStackCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_6",
+     "type": "/short *"
+    },
+    {
+     "name": "param_7",
+     "type": "/undefined1"
+    },
+    {
+     "name": "param_8",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_9",
+     "type": "/int"
+    },
+    {
+     "name": "param_10",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10049290",
+   "callingConvention": "__thiscall",
+   "name": "CreateItemListCtrl",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_6",
+     "type": "/ushort *"
+    },
+    {
+     "name": "param_7",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_8",
+     "type": "/char"
+    },
+    {
+     "name": "param_9",
+     "type": "/uint"
+    },
+    {
+     "name": "param_10",
+     "type": "/char"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "1004a2d0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "100c4470",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined4",
+   "thunk": "1004a2d0"
+  },
+  {
+   "addr": "100c4480",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/uint"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "100cff50",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined4",
+   "thunk": "1004a2d0"
+  },
+  {
+   "addr": "100cff60",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CBaseWindow",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CBaseWindow *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4"
+  }
+ ]
+}

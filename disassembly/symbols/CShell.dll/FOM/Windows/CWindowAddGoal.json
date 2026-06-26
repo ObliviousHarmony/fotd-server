@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10093710",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowAddGoal",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowAddGoal *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10095da0",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowAddGoal",
+   "namespace": "FOM::Windows::CWindowAddGoal",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowAddGoal *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "1009a6d0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowAddGoal",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100aa630",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowAddGoal",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowAddGoal *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

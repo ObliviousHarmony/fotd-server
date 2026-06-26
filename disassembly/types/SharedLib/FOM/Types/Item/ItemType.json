@@ -1,0 +1,5558 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INVALID",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ZANATHID_5_INFLEX",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RYX_7_STREAMLINE",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RGI_9",
+   "value": 3
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ORBIT_XB_INFINEON",
+   "value": 4
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARMALITE_SURVIVAL",
+   "value": 5
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ENFIELD_LIFE_PROTECTOR",
+   "value": 6
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FGZ_78",
+   "value": 7
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MILITEK_EMP",
+   "value": 8
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TECHTRONIC_6X6",
+   "value": 9
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HR420",
+   "value": 10
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LINNER_PP7",
+   "value": 11
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DOA_187",
+   "value": 12
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SALVOTEC_HP220",
+   "value": 13
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EMP_RV3",
+   "value": 14
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GAKK_MG6",
+   "value": 15
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HALLEM_TAR7_TACTICAL_ASSAULT_RIFLE",
+   "value": 16
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PROTONIX_BARRACUDA",
+   "value": 17
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CHRONO_ENERVON_PISTOL_EP24",
+   "value": 18
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_AURELIAN_TECHNOLOGIES_DOMINATOR",
+   "value": 19
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ENFIELD_INCAPACITATOR_RIFLE_ER_X",
+   "value": 20
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CRYOTECH_MEDIGUN_CM2",
+   "value": 21
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PERSONAL_TURRET",
+   "value": 22
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXPERIMENTAL_X_01_GUN",
+   "value": 23
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RK_2A7_MINING_TOOL",
+   "value": 24
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RX_ZEPHYR_ADVANCED_MINING_TOOL",
+   "value": 25
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CUCURBITA_GRENADE",
+   "value": 26
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARACHNID_EXPLOSIVE",
+   "value": 27
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HALLEM_IX_78_PRECISION_ENERGY_RIFLE",
+   "value": 28
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CRYOTECH_MEDIGUN_CM1",
+   "value": 29
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FROSTBITE",
+   "value": 30
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_U_V890_HYPER_ADVANCED_MINING_TOOL",
+   "value": 31
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LINNER_PP_X",
+   "value": 32
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HAWK_72",
+   "value": 33
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ZANATHID_55_COPKILLER",
+   "value": 34
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BACKER_RIFLE",
+   "value": 35
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TERRITORY_TURRET",
+   "value": 36
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GOLDEN_ZANATHID_5_INFLEX",
+   "value": 37
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_9MM_STANDARD_ROUNDS",
+   "value": 50
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ENERGY_CELL",
+   "value": 51
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_762MM_STANDARD_ROUNDS",
+   "value": 52
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HIGH_CAPACITY_ENERGY_CELL",
+   "value": 53
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PLUTONIUM_CELL",
+   "value": 54
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_554MM_STANDARD_ROUNDS",
+   "value": 55
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_762MM_TITANIUM_ROUNDS",
+   "value": 56
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_9MM_RUBBER_ROUNDS",
+   "value": 57
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_762MM_RUBBER_ROUNDS",
+   "value": 58
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_762MM_ELECTROMAGNETIC_ROUNDS",
+   "value": 59
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BIOCELL",
+   "value": 80
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SMALL_MEDIKIT",
+   "value": 81
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STANDARD_MEDIKIT",
+   "value": 82
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BATTLE_MEDIKIT",
+   "value": 83
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EMERGENCY_MEDIKIT",
+   "value": 84
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOMACHINE_AUTOINJECTOR",
+   "value": 85
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOMACHINE_AUTOINJECTOR_MK2",
+   "value": 86
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ADRENALINE_AUTOINJECTOR",
+   "value": 87
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ELECTROLYTE_AUTOINJECTOR",
+   "value": 88
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NIGHT_VISION_AUGMENTATION",
+   "value": 100
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STAMINA_AMPLIFICATION",
+   "value": 101
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SHOULDER_LAMP",
+   "value": 102
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RESISTANCE_AMP",
+   "value": 103
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SHIELD_AUGMENTATION",
+   "value": 104
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFILTRATION_SCANNER_AUGMENTATION",
+   "value": 105
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PORTABLE_VORTEX_PARTICLE_EMITTER",
+   "value": 106
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MINERAL_SCANNER",
+   "value": 107
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HUNTER_VX270",
+   "value": 108
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ADVANCED_CIVILIAN_HELMET",
+   "value": 110
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MT_27_BALLISTICS_HELMET",
+   "value": 111
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TACTICAL_SYSTEMS_HELMET",
+   "value": 112
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_DEFENSE_HELMET",
+   "value": 113
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_ETHEREAL_HELMET",
+   "value": 114
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_PATROL_HELMET_115",
+   "value": 115
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_PRESSURED_HELMET",
+   "value": 116
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_SPECIAL_OPERATIONS_HELMET",
+   "value": 117
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_MOBILE_INFANTRY_HELMET",
+   "value": 118
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_S1_HELMET",
+   "value": 119
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_SUSTAINED_BATTLE_HELMET",
+   "value": 120
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_TRAUMA_HELMET",
+   "value": 121
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_SCOUT_HELMET",
+   "value": 122
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_VOLTAIC_HELMET",
+   "value": 123
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_COGNIZANT_HELMET",
+   "value": 124
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HYPOBARIC_HELMET",
+   "value": 125
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_METABOLIC_HELMET",
+   "value": 126
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_VENOM_HELMET_127",
+   "value": 127
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DETOX_COMBAT_HELMET",
+   "value": 128
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DELTA_POWERED_HELMET",
+   "value": 129
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HAVOC_POWERED_HELMET",
+   "value": 130
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FIRSTBORN_POWERED_HELMET_131",
+   "value": 131
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LEGIONNAIRE_POWERED_HELMET",
+   "value": 132
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_BUFFER_HELMET",
+   "value": 133
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_CONTACT_HELMET",
+   "value": 134
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_COLLISION_HELMET_135",
+   "value": 135
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_IMPACT_HELMET",
+   "value": 136
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DILATANT_46B_HELMET",
+   "value": 137
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_MODIFIED_HELMET",
+   "value": 138
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DILATANT_50B_HELMET_139",
+   "value": 139
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_BASIC_HELMET",
+   "value": 140
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_MINIMALIST_HELMET",
+   "value": 141
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_SHOCK_HELMET",
+   "value": 142
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_X1_ASSAULT_HELMET",
+   "value": 143
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_HEAVY_HELMET",
+   "value": 144
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_PATROL_HELMET_145",
+   "value": 145
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_S2_HELMET",
+   "value": 146
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_VOLTAIC_ASSAULT_HELMET",
+   "value": 147
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_VENOM_HELMET_148",
+   "value": 148
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FIRSTBORN_POWERED_HELMET_149",
+   "value": 149
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_COLLISION_HELMET_150",
+   "value": 150
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DILATANT_50B_HELMET_151",
+   "value": 151
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_X2_ASSAULT_HELMET",
+   "value": 152
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_XENOTECH_EXPEDITIONARY_HELMET",
+   "value": 153
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXILE_HELMET",
+   "value": 154
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLACK_SHUCK_HELMET",
+   "value": 155
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ECHION_HELMET",
+   "value": 156
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_STABILIZED_HELMET",
+   "value": 157
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_DURABLE_BATTLE_HELMET",
+   "value": 158
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_VITALITY_HELMET",
+   "value": 159
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LINTEMS_GLASSES",
+   "value": 160
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DESINS_GLASSES",
+   "value": 161
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_IMAXIL_INCORPORATED_GLASSES",
+   "value": 162
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ALM_DESIGNS_GLASSES_BLUE",
+   "value": 163
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NOLOGY_GLASSES_BLUE",
+   "value": 164
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ZIVCE6_GLASSES_BLUE",
+   "value": 165
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MICA_166",
+   "value": 166
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ALM_DESIGNS_GLASSES_BLACK",
+   "value": 167
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_URBAN_DREAMS_GLASSES",
+   "value": 168
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ZIVCE6_GLASSES_GREY",
+   "value": 169
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MICA_170",
+   "value": 170
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ALM_DESIGNS_GLASSES_GREEN_171",
+   "value": 171
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NOLOGY_GLASSES_YELLOW",
+   "value": 172
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ZIVCE6_GLASSES_YELLOW_173",
+   "value": 173
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MICA_174",
+   "value": 174
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ALM_DESIGNS_GLASSES_RED",
+   "value": 175
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NOLOGY_GLASSES_RED",
+   "value": 176
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ZIVCE6_GLASSES_RED",
+   "value": 177
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MICA_178",
+   "value": 178
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ALM_DESIGNS_GLASSES_GREY",
+   "value": 179
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NOLOGY_GLASSES_GREY",
+   "value": 180
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ZIVCE6_GLASSES_OLIVE_GREEN",
+   "value": 181
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MICA_182",
+   "value": 182
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ALM_DESIGNS_GLASSES_YELLOW",
+   "value": 183
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NOLOGY_GLASSES_BROWN",
+   "value": 184
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ZIVCE6_GLASSES_YELLOW_185",
+   "value": 185
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MICA_186",
+   "value": 186
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ALM_DESIGNS_GLASSES_SILVER",
+   "value": 187
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NOLOGY_GLASSES_SILVER",
+   "value": 188
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ZIVCE6_GLASSES_SILVER",
+   "value": 189
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MICA_190",
+   "value": 190
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ALM_DESIGNS_GLASSES_GREEN_191",
+   "value": 191
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NOLOGY_GLASSES_GREEN",
+   "value": 192
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ZIVCE6_GLASSES_GREEN",
+   "value": 193
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MICA_194",
+   "value": 194
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GIS_SHADES",
+   "value": 195
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FIRE_ORANGE_GLASSES",
+   "value": 196
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INCOGNITO_SHADES",
+   "value": 197
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LEECH_HELMET",
+   "value": 200
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JUSTICAR_POWERED_HELMET",
+   "value": 201
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_TREMOR_HELMET",
+   "value": 202
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_ALTERED_HELMET",
+   "value": 203
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_ESSENTIALS_HELMET",
+   "value": 204
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JACK_O_LANTERN_HELMET",
+   "value": 205
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SKELETON_HELMET",
+   "value": 206
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BACKER_HELMET",
+   "value": 207
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ADVANCED_CIVILIAN_SHOULDER_PADS",
+   "value": 210
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MT_27_BALLISTICS_SHOULDER_PADS",
+   "value": 211
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TACTICAL_SYSTEMS_SHOULDER_PADS",
+   "value": 212
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_DEFENSE_SHOULDER_PADS",
+   "value": 213
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_ETHEREAL_SHOULDER_PADS",
+   "value": 214
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_PATROL_SHOULDER_PADS",
+   "value": 215
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_PRESSURED_SHOULDER_PADS",
+   "value": 216
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_SPECIAL_OPERATIONS_SHOULDER_PADS",
+   "value": 217
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_MOBILE_INFANTRY_SHOULDER_PADS",
+   "value": 218
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_S1_SHOULDER_PADS",
+   "value": 219
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_SUSTAINED_BATTLE_SHOULDER_PADS",
+   "value": 220
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_TRAUMA_SHOULDER_PADS",
+   "value": 221
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_SCOUT_SHOULDER_PADS",
+   "value": 222
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_VOLTAIC_SHOULDER_PADS",
+   "value": 223
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_COGNIZANT_SHOULDER_PADS",
+   "value": 224
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HYPOBARIC_SHOULDER_PADS",
+   "value": 225
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_METABOLIC_SHOULDER_PADS",
+   "value": 226
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_VENOM_SHOULDER_PADS",
+   "value": 227
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DETOX_COMBAT_SHOULDER_PADS",
+   "value": 228
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DELTA_POWERED_SHOULDER_PADS",
+   "value": 229
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HAVOC_POWERED_SHOULDER_PADS",
+   "value": 230
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FIRSTBORN_POWERED_SHOULDER_PADS",
+   "value": 231
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LEGIONNAIRE_POWERED_SHOULDER_PADS",
+   "value": 232
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_BUFFER_SHOULDER_PADS",
+   "value": 233
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_CONTACT_SHOULDER_PADS",
+   "value": 234
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_COLLISION_SHOULDER_PADS",
+   "value": 235
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_IMPACT_SHOULDER_PADS",
+   "value": 236
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DILATANT_46B_SHOULDER_PADS",
+   "value": 237
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_MODIFIED_SHOULDER_PADS",
+   "value": 238
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DILATANT_50B_SHOULDER_PADS",
+   "value": 239
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_BASIC_SHOULDER_PADS",
+   "value": 240
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_MINIMALIST_SHOULDER_PADS",
+   "value": 241
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_SHOCK_SHOULDER_PADS",
+   "value": 242
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_X1_ASSAULT_SHOULDER_PADS",
+   "value": 243
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_HEAVY_SHOULDER_PADS",
+   "value": 244
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_XENOTECH_EXPEDITIONARY_SHOULDER_PADS",
+   "value": 245
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXILE_SHOULDER_PADS",
+   "value": 246
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_STABILIZED_SHOULDER_PADS",
+   "value": 247
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_DURABLE_BATTLE_SHOULDER_PADS",
+   "value": 248
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_VITALITY_SHOULDER_PADS",
+   "value": 249
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LEECH_SHOULDER_PADS",
+   "value": 250
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JUSTICAR_POWERED_SHOULDER_PADS",
+   "value": 251
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_TREMOR_SHOULDER_PADS",
+   "value": 252
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_ALTERED_SHOULDER_PADS",
+   "value": 253
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_ESSENTIALS_SHOULDER_PADS",
+   "value": 254
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JACK_O_LANTERN_SHOULDER_PADS",
+   "value": 255
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SKELETON_SHOULDER_PADS",
+   "value": 256
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BACKER_SHOULDER_PADS",
+   "value": 257
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ADVANCED_CIVILIAN_ARM_PADS",
+   "value": 260
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MT_27_BALLISTICS_ARM_PADS",
+   "value": 261
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TACTICAL_SYSTEMS_ARM_PADS",
+   "value": 262
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_DEFENSE_ARM_PADS",
+   "value": 263
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_ETHEREAL_ARM_PADS",
+   "value": 264
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_PATROL_ARM_PADS",
+   "value": 265
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_PRESSURED_ARM_PADS",
+   "value": 266
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_SPECIAL_OPERATIONS_ARM_PADS",
+   "value": 267
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_MOBILE_INFANTRY_ARM_PADS",
+   "value": 268
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_S1_ARM_PADS",
+   "value": 269
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_SUSTAINED_BATTLE_ARM_PADS",
+   "value": 270
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_TRAUMA_ARM_PADS",
+   "value": 271
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_SCOUT_ARM_PADS",
+   "value": 272
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_VOLTAIC_ARM_PADS",
+   "value": 273
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_COGNIZANT_ARM_PADS",
+   "value": 274
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HYPOBARIC_ARM_PADS",
+   "value": 275
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_METABOLIC_ARM_PADS",
+   "value": 276
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_VENOM_ARM_PADS",
+   "value": 277
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DETOX_COMBAT_ARM_PADS",
+   "value": 278
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DELTA_POWERED_ARM_PADS",
+   "value": 279
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HAVOC_POWERED_ARM_PADS",
+   "value": 280
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FIRSTBORN_POWERED_ARM_PADS",
+   "value": 281
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LEGIONNAIRE_POWERED_ARM_PADS",
+   "value": 282
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_BUFFER_ARM_PADS",
+   "value": 283
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_CONTACT_ARM_PADS",
+   "value": 284
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_COLLISION_ARM_PADS",
+   "value": 285
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_IMPACT_ARM_PADS",
+   "value": 286
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DILATANT_46B_ARM_PADS",
+   "value": 287
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_MODIFIED_ARM_PADS",
+   "value": 288
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DILATANT_50B_ARM_PADS",
+   "value": 289
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_BASIC_ARM_PADS",
+   "value": 290
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_MINIMALIST_ARM_PADS",
+   "value": 291
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_SHOCK_ARM_PADS",
+   "value": 292
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_X1_ASSAULT_ARM_PADS",
+   "value": 293
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_HEAVY_ARM_PADS",
+   "value": 294
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_XENOTECH_EXPEDITIONARY_ARM_PADS",
+   "value": 295
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXILE_ARM_PADS",
+   "value": 296
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_STABILIZED_ARM_PADS",
+   "value": 297
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_DURABLE_BATTLE_ARM_PADS",
+   "value": 298
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_VITALITY_ARM_PADS",
+   "value": 299
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LEECH_ARM_PADS",
+   "value": 300
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JUSTICAR_POWERED_ARM_PADS",
+   "value": 301
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_TREMOR_ARM_PADS",
+   "value": 302
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_ALTERED_ARM_PADS",
+   "value": 303
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_ESSENTIALS_ARM_PADS",
+   "value": 304
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JACK_O_LANTERN_ARM_PADS",
+   "value": 305
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SKELETON_ARM_PADS",
+   "value": 306
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BACKER_ARM_PADS",
+   "value": 307
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ADVANCED_CIVILIAN_TORSO_ARMOR",
+   "value": 310
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MT_27_BALLISTICS_TORSO_ARMOR",
+   "value": 311
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TACTICAL_SYSTEMS_TORSO_ARMOR",
+   "value": 312
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_DEFENSE_TORSO_ARMOR",
+   "value": 313
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_ETHEREAL_TORSO_ARMOR",
+   "value": 314
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_PATROL_TORSO_ARMOR",
+   "value": 315
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_PRESSURED_TORSO_ARMOR",
+   "value": 316
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_SPECIAL_OPERATIONS_TORSO_ARMOR",
+   "value": 317
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_MOBILE_INFANTRY_TORSO_ARMOR",
+   "value": 318
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_S1_TORSO_ARMOR",
+   "value": 319
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_SUSTAINED_BATTLE_TORSO_ARMOR",
+   "value": 320
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_TRAUMA_TORSO_ARMOR",
+   "value": 321
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_SCOUT_TORSO_ARMOR",
+   "value": 322
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_VOLTAIC_TORSO_ARMOR",
+   "value": 323
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_COGNIZANT_TORSO_ARMOR",
+   "value": 324
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HYPOBARIC_TORSO_ARMOR",
+   "value": 325
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_METABOLIC_TORSO_ARMOR",
+   "value": 326
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_VENOM_TORSO_ARMOR",
+   "value": 327
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DETOX_COMBAT_TORSO_ARMOR",
+   "value": 328
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DELTA_POWERED_TORSO_ARMOR",
+   "value": 329
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HAVOC_POWERED_TORSO_ARMOR",
+   "value": 330
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FIRSTBORN_POWERED_TORSO_ARMOR",
+   "value": 331
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LEGIONNAIRE_POWERED_TORSO_ARMOR",
+   "value": 332
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_BUFFER_TORSO_ARMOR",
+   "value": 333
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_CONTACT_TORSO_ARMOR",
+   "value": 334
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_COLLISION_TORSO_ARMOR",
+   "value": 335
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_IMPACT_TORSO_ARMOR",
+   "value": 336
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DILATANT_46B_TORSO_ARMOR",
+   "value": 337
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_MODIFIED_TORSO_ARMOR",
+   "value": 338
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DILATANT_50B_TORSO_ARMOR",
+   "value": 339
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_BASIC_TORSO_ARMOR",
+   "value": 340
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_MINIMALIST_TORSO_ARMOR",
+   "value": 341
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_SHOCK_TORSO_ARMOR",
+   "value": 342
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_X1_ASSAULT_TORSO_ARMOR",
+   "value": 343
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_HEAVY_TORSO_ARMOR",
+   "value": 344
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_XENOTECH_EXPEDITIONARY_TORSO_ARMOR",
+   "value": 345
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXILE_TORSO_ARMOR",
+   "value": 346
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_STABILIZED_TORSO_ARMOR",
+   "value": 347
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_DURABLE_BATTLE_TORSO_ARMOR",
+   "value": 348
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_VITALITY_TORSO_ARMOR",
+   "value": 349
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LEECH_TORSO_ARMOR",
+   "value": 350
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JUSTICAR_POWERED_TORSO_ARMOR",
+   "value": 351
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_TREMOR_TORSO_ARMOR",
+   "value": 352
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_ALTERED_TORSO_ARMOR",
+   "value": 353
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_ESSENTIALS_TORSO_ARMOR",
+   "value": 354
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JACK_O_LANTERN_TORSO_ARMOR",
+   "value": 355
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SKELETON_TORSO_ARMOR",
+   "value": 356
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BACKER_TORSO_ARMOR",
+   "value": 357
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ADVANCED_CIVILIAN_LEG_PADS",
+   "value": 360
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MT_27_BALLISTICS_LEG_PADS",
+   "value": 361
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TACTICAL_SYSTEMS_LEG_PADS",
+   "value": 362
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_DEFENSE_LEG_PADS",
+   "value": 363
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_ETHEREAL_LEG_PADS",
+   "value": 364
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_PATROL_LEG_PADS",
+   "value": 365
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_PRESSURED_LEG_PADS",
+   "value": 366
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_SPECIAL_OPERATIONS_LEG_PADS",
+   "value": 367
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_MOBILE_INFANTRY_LEG_PADS",
+   "value": 368
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_S1_LEG_PADS",
+   "value": 369
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_SUSTAINED_BATTLE_LEG_PADS",
+   "value": 370
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_TRAUMA_LEG_PADS",
+   "value": 371
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_SCOUT_LEG_PADS",
+   "value": 372
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_VOLTAIC_LEG_PADS",
+   "value": 373
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_COGNIZANT_LEG_PADS",
+   "value": 374
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HYPOBARIC_LEG_PADS",
+   "value": 375
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_METABOLIC_LEG_PADS",
+   "value": 376
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_VENOM_LEG_PADS",
+   "value": 377
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DETOX_COMBAT_LEG_PADS",
+   "value": 378
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DELTA_POWERED_LEG_PADS",
+   "value": 379
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HAVOC_POWERED_LEG_PADS",
+   "value": 380
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FIRSTBORN_POWERED_LEG_PADS",
+   "value": 381
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LEGIONNAIRE_POWERED_LEG_PADS",
+   "value": 382
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_BUFFER_LEG_PADS",
+   "value": 383
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_CONTACT_LEG_PADS",
+   "value": 384
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_COLLISION_LEG_PADS",
+   "value": 385
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_IMPACT_LEG_PADS",
+   "value": 386
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DILATANT_46B_LEG_PADS",
+   "value": 387
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_MODIFIED_LEG_PADS",
+   "value": 388
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DILATANT_50B_ASSAULT_LEG_PADS",
+   "value": 389
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_BASIC_LEG_PADS",
+   "value": 390
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_MINIMALIST_LEG_PADS",
+   "value": 391
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_SHOCK_LEG_PADS",
+   "value": 392
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_X1_ASSAULT_LEG_PADS",
+   "value": 393
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_HEAVY_LEG_PADS",
+   "value": 394
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_XENOTECH_EXPEDITIONARY_LEG_PADS",
+   "value": 395
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXILE_LEG_PADS",
+   "value": 396
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_STABILIZED_LEG_PADS",
+   "value": 397
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_DURABLE_BATTLE_LEG_PADS",
+   "value": 398
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_VITALITY_LEG_PADS",
+   "value": 399
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LEECH_LEG_PADS",
+   "value": 400
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JUSTICAR_POWERED_LEG_PADS",
+   "value": 401
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_TREMOR_LEG_PADS",
+   "value": 402
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_ALTERED_LEG_PADS",
+   "value": 403
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_ESSENTIALS_LEG_PADS",
+   "value": 404
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JACK_O_LANTERN_LEG_PADS",
+   "value": 405
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SKELETON_LEG_PADS",
+   "value": 406
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BACKER_LEG_PADS",
+   "value": 407
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ENVIROTECH_GLOVES_MALE",
+   "value": 410
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFUSION_GLOVES_MALE",
+   "value": 411
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFOSTYLE_GLOVES_MALE",
+   "value": 412
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_DEFENSE_GLOVES_MALE",
+   "value": 413
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_ETHEREAL_GLOVES_MALE",
+   "value": 414
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_PATROL_GLOVES_MALE",
+   "value": 415
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_PRESSURED_GLOVES_MALE",
+   "value": 416
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_SPECIAL_OPERATIONS_GLOVES_MALE",
+   "value": 417
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_MOBILE_INFANTRY_GLOVES_MALE",
+   "value": 418
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_S1_GLOVES_MALE",
+   "value": 419
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_SUSTAINED_BATTLE_GLOVES_MALE",
+   "value": 420
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_TRAUMA_GLOVES_MALE",
+   "value": 421
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_SCOUT_GLOVES_MALE",
+   "value": 422
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_VOLTAIC_GLOVES_MALE",
+   "value": 423
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_COGNIZANT_GLOVES_MALE",
+   "value": 424
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HYPOBARIC_GLOVES_MALE",
+   "value": 425
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_METABOLIC_GLOVES_MALE",
+   "value": 426
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_VENOM_GLOVES_MALE",
+   "value": 427
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DETOX_COMBAT_GLOVES_MALE",
+   "value": 428
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DELTA_POWERED_GLOVES_MALE",
+   "value": 429
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HAVOC_POWERED_GLOVES_MALE",
+   "value": 430
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FIRSTBORN_POWERED_GLOVES_MALE",
+   "value": 431
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LEGIONNAIRE_POWERED_GLOVES_MALE",
+   "value": 432
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_BUFFER_GLOVES_MALE",
+   "value": 433
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_CONTACT_GLOVES_MALE",
+   "value": 434
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_COLLISION_GLOVES_MALE",
+   "value": 435
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_IMPACT_GLOVES_MALE",
+   "value": 436
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DILATANT_46B_GLOVES_MALE",
+   "value": 437
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_MODIFIED_GLOVES_MALE",
+   "value": 438
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DILATANT_50B_GLOVES_MALE",
+   "value": 439
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_BASIC_GLOVES_MALE",
+   "value": 440
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_MINIMALIST_GLOVES_MALE",
+   "value": 441
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_SHOCK_GLOVES_MALE",
+   "value": 442
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_X1_ASSAULT_GLOVES_MALE",
+   "value": 443
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_HEAVY_GLOVES_MALE",
+   "value": 444
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HOCKEY_GLOVES_FEMALE",
+   "value": 445
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EGYPTIAN_KNIGHT_FEMALE",
+   "value": 446
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CRYSTAL_GLOVES_FEMALE",
+   "value": 447
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_DEFENSE_GLOVESFEMALE",
+   "value": 448
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_ETHEREAL_GLOVES_FEMALE",
+   "value": 449
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_PATROL_GLOVES_FEMALE",
+   "value": 450
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_PRESSURED_GLOVES_FEMALE",
+   "value": 451
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_SPECIAL_OPERATIONS_GLOVES_FEMALE",
+   "value": 452
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_MOBILE_INFANTRY_GLOVES_FEMALE",
+   "value": 453
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_S1_GLOVES_FEMALE",
+   "value": 454
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_SUSTAINED_BATTLE_GLOVES_FEMALE",
+   "value": 455
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_TRAUMA_GLOVES_FEMALE",
+   "value": 456
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_SCOUT_GLOVES_FEMALE",
+   "value": 457
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_VOLTAIC_GLOVES_FEMALE",
+   "value": 458
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_COGNIZANT_GLOVES_FEMALE",
+   "value": 459
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HYPOBARIC_GLOVES_FEMALE",
+   "value": 460
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_METABOLIC_GLOVES_FEMALE",
+   "value": 461
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_VENOM_GLOVES_FEMALE",
+   "value": 462
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DETOX_COMBAT_GLOVES_FEMALE",
+   "value": 463
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DELTA_POWERED_GLOVES_FEMALE",
+   "value": 464
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HAVOC_POWERED_GLOVES_FEMALE",
+   "value": 465
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FIRSTBORN_POWERED_GLOVES_FEMALE",
+   "value": 466
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LEGIONNAIRE_POWERED_GLOVES_FEMALE",
+   "value": 467
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_BUFFER_GLOVES_FEMALE",
+   "value": 468
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_CONTACT_GLOVES_FEMALE",
+   "value": 469
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_COLLISION_GLOVES_FEMALE",
+   "value": 470
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_IMPACT_GLOVES_FEMALE",
+   "value": 471
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DILATANT_46B_GLOVES_FEMALE",
+   "value": 472
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_MODIFIED_GLOVES_FEMALE",
+   "value": 473
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DILATANT_50B_GLOVES_FEMALE",
+   "value": 474
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_BASIC_GLOVES_FEMALE",
+   "value": 475
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_MINIMALIST_GLOVES_FEMALE",
+   "value": 476
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_SHOCK_GLOVES_FEMALE",
+   "value": 477
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_X1_ASSAULT_GLOVES_FEMALE",
+   "value": 478
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_HEAVY_GLOVES_FEMALE",
+   "value": 479
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INCOGNITO_GLOVES_MALE",
+   "value": 480
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_XENOTECH_EXPEDITIONARY_GLOVES_MALE",
+   "value": 481
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INCOGNITO_GLOVES_FEMALE",
+   "value": 482
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SKELETON_GLOVES_MALE",
+   "value": 483
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SKELETON_GLOVES_FEMALE",
+   "value": 484
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JACK_O_LANTERN_GLOVES_MALE",
+   "value": 485
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JACK_O_LANTERN_GLOVES_FEMALE",
+   "value": 486
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_STABILIZED_GLOVES_FEMALE",
+   "value": 487
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOCANS_STABILIZED_GLOVES_MALE",
+   "value": 488
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_DURABLE_BATTLE_GLOVES_FEMALE",
+   "value": 489
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PYTHICA_DURABLE_BATTLE_GLOVES_MALE",
+   "value": 490
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_VITALITY_GLOVES_FEMALE",
+   "value": 491
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANOTECH_VITALITY_GLOVES_MALE",
+   "value": 492
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LEECH_GLOVES_FEMALE",
+   "value": 493
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LEECH_GLOVES_MALE",
+   "value": 494
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JUSTICAR_POWERED_GLOVES_FEMALE",
+   "value": 495
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JUSTICAR_POWERED_GLOVES_MALE",
+   "value": 496
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_TREMOR_GLOVES_FEMALE",
+   "value": 497
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREMET_TREMOR_GLOVES_MALE",
+   "value": 498
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_ALTERED_GLOVES_FEMALE",
+   "value": 499
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLACK_DRESS_SHOES_MALE",
+   "value": 500
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BROWN_DRESS_SHOES_MALE",
+   "value": 501
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_WHITE_DRESS_SHOES_MALE",
+   "value": 502
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INDIRECT_DESIGN_SHOES_MALE",
+   "value": 503
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SILENT_WHISPER_SHOES_MALE",
+   "value": 504
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FEAR_TO_TREAD_SHOES_MALE",
+   "value": 505
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PERFECT_STEP_SHOES_MALE",
+   "value": 506
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MILATECH_SHOES_MALE",
+   "value": 507
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DISCREET_DRESS_SHOES_MALE",
+   "value": 508
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FINE_LINE_SHOES_MALE",
+   "value": 509
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LIZARD_TECH_BLUE_SHOESFEMALE",
+   "value": 510
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LIZARD_TECH_BLACK_SHOES_FEMALE",
+   "value": 511
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SCARPA_RUNNER_SHOES_FEMALE",
+   "value": 512
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SCARPA_SOLID_SHOES_FEMALE",
+   "value": 513
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SCARPA_FUNK_SHOES_FEMALE",
+   "value": 514
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ZAPATO_DICHROMATIC_BOOTS_FEMALE",
+   "value": 515
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ZAPATO_CLASSIC_BOOTS_FEMALE",
+   "value": 516
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ZAPATO_STUDDED_BOOTS_FEMALE",
+   "value": 517
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ZAPATO_LIGHT_ANKLE_BOOTS_FEMALE",
+   "value": 518
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ZAPATO_DARK_ANKLE_BOOTS_FEMALE",
+   "value": 519
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ESPORTE_ALL_TERRAIN_SHOES_MALE",
+   "value": 520
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ESPORTE_COMFORT_SHOES_MALE",
+   "value": 521
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ESPORTE_HIKING_X_SHOES_MALE",
+   "value": 522
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ESPORTE_WATERPROOF_SHOES_MALE",
+   "value": 523
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_KLASSE_ARROW_ANKLE_BOOTS_FEMALE",
+   "value": 524
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ESPORTE_RUNNER_SHOESFEMALE",
+   "value": 525
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_KLASSE_AVENIR_HIGH_BOOTS_FEMALE",
+   "value": 526
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_KLASSE_STREAMLINE_ANKLE_BOOTS_FEMALE",
+   "value": 527
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GIS_SHOES_MALE",
+   "value": 528
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GIS_SHOES_FEMALE",
+   "value": 529
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_AQUATICAN_BREW",
+   "value": 530
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANO_BITE_BURGER",
+   "value": 531
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PULSE_MINERAL_WATER",
+   "value": 532
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MYSTICAL_COLA",
+   "value": 533
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GINNAN_SUSHI",
+   "value": 534
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FLYING_ORANGE",
+   "value": 535
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DOUBLECHEESE_MYSTIQUE",
+   "value": 536
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ORANGE_EASTER_EGG",
+   "value": 537
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RED_EASTER_EGG",
+   "value": 538
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FAKE_EASTER_EGG",
+   "value": 539
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_YELLOW_EASTER_EGG",
+   "value": 540
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_COLONIAL_EASTER_EGG",
+   "value": 541
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_LOCK_BOX",
+   "value": 542
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GREEN_LOCK_BOX",
+   "value": 543
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RED_LOCK_BOX",
+   "value": 544
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_LOCK_SPHERE",
+   "value": 545
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TEAL_LOCK_BOX",
+   "value": 546
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_YELLOW_LOCK_BOX",
+   "value": 547
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOTTERY_TICKET",
+   "value": 548
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SQUIGLYPIG_MILK",
+   "value": 549
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GENERAL_CAOS_CHICKEN",
+   "value": 550
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_VIVO_BURRITO",
+   "value": 551
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_KEYCARD",
+   "value": 552
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GREEN_KEYCARD",
+   "value": 553
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RED_KEYCARD",
+   "value": 554
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_KEYCARD",
+   "value": 555
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TEAL_KEYCARD",
+   "value": 556
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_YELLOW_KEYCARD",
+   "value": 557
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TETRAHYDROCANNABINOL",
+   "value": 580
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_AMYL_NITRITE",
+   "value": 581
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BUTYL_NITRITE",
+   "value": 582
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DEXEDRINE",
+   "value": 583
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BIPHETAMIN",
+   "value": 584
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEUROTONIN",
+   "value": 585
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_POLYCODEINE",
+   "value": 586
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_METHEDRINE",
+   "value": 587
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_POLYDICHLORIC_EUTHEMAL",
+   "value": 588
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_OXAZOLINE",
+   "value": 589
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_OPIATECH",
+   "value": 590
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PHENCYCLIDINE",
+   "value": 591
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MDMA",
+   "value": 592
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEOAMPHETAMINE",
+   "value": 593
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BENZEDRINE",
+   "value": 594
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DESOXYN",
+   "value": 595
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RITALIN",
+   "value": 596
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_X_DOPAMINE",
+   "value": 597
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_COCABOLINE",
+   "value": 598
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ANABOLICA",
+   "value": 599
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_WORKOUT_T_SHIRT_MALE",
+   "value": 610
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXERCISE_T_SHIRT_MALE",
+   "value": 611
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DAY_T_SHIRT_MALE",
+   "value": 612
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SHADOWS_T_SHIRT_MALE",
+   "value": 613
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLOOD_T_SHIRT_MALE",
+   "value": 614
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INITIATION_T_SHIRT_MALE",
+   "value": 615
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HIRING_T_SHIRT_MALE",
+   "value": 616
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GOLD_BRAND_T_SHIRT_MALE",
+   "value": 617
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_BRAND_T_SHIRT_MALE",
+   "value": 618
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEON_BRAND_T_SHIRT_MALE",
+   "value": 619
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ALL_WEATHER_T_SHIRT_MALE",
+   "value": 620
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SQUAD_T_SHIRT_MALE",
+   "value": 621
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NATURE_T_SHIRT_MALE",
+   "value": 622
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STYLE_T_SHIRT_MALE",
+   "value": 623
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GATEWAY_T_SHIRT_MALE",
+   "value": 624
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CONTRACT_T_SHIRT_MALE",
+   "value": 625
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CELEBRATION_T_SHIRT_MALE",
+   "value": 626
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_NEOPUNK_SHIRT_MALE",
+   "value": 627
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_SPACE_GOLF_ATTIRE_MALE",
+   "value": 628
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_OFFICE_CASUAL_MALE",
+   "value": 629
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TRAINEE_JACKET_MALE",
+   "value": 630
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PATROLMANS_JACKET_MALE",
+   "value": 631
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STREET_JUDGE_JACKET_MALE",
+   "value": 632
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DOMINION_FATIGUE_MALE",
+   "value": 633
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_VIPER_ASSAULT_JACKET_MALE",
+   "value": 634
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RYUBUSA_JACKET_MALE",
+   "value": 635
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TURTLE_DOVE_JACKET_MALE",
+   "value": 636
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EMERALD_DOVE_JACKET_MALE",
+   "value": 637
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PENANCE_JACKET_MALE",
+   "value": 638
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LEADERS_47_SPECIAL_MALE",
+   "value": 639
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_COMMANDO_JACKET_MALE",
+   "value": 640
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SAND_BURN_JACKET_MALE",
+   "value": 641
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANARY_JACKET_MALE",
+   "value": 642
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PROSPECTORS_ROCK_MALE",
+   "value": 643
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ALM_JACKET_MALE",
+   "value": 644
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ZIVCE6_JACKET_MALE",
+   "value": 645
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFINITY_JACKET_MALE",
+   "value": 646
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_AMPLITUDE_JACKET_MALE",
+   "value": 647
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_PATROL_JACKET_MALE",
+   "value": 648
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GREEN_PATROL_JACKET_MALE",
+   "value": 649
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PROTESTER_JACKET_MALE",
+   "value": 650
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SHADOW_WRAP_MALE",
+   "value": 651
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STYLIZED_JACKET_MALE",
+   "value": 652
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_DEFENSE_JACKET_MALE",
+   "value": 653
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEON_DEFENSE_JACKET_MALE",
+   "value": 654
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_ADAMA_JACKET_MALE",
+   "value": 655
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_MENASCO_SPORTS_JACKET_MALE",
+   "value": 656
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_MIDNIGHT_BLACK_JACKET_MALE",
+   "value": 657
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_GENTLEMANS_JACKET_MALE",
+   "value": 658
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PATROLMAN_TRENCHCOAT_MALE",
+   "value": 670
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SOLDIER_TRENCHCOAT_MALE",
+   "value": 671
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ANARCHY_TRENCHCOAT_MALE",
+   "value": 672
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RIOT_TRENCHCOAT_MALE",
+   "value": 673
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ASSASSIN_TRENCHCOAT_MALE",
+   "value": 674
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MINER_TRENCHCOAT_MALE",
+   "value": 675
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PRODUCTION_TRENCHCOAT_MALE",
+   "value": 676
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXPLORERS_TRENCHCOAT_MALE",
+   "value": 677
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TECHNICIAN_TRENCHCOAT_MALE",
+   "value": 678
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PROTECTOR_TRENCHCOAT_MALE",
+   "value": 679
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ASSAULT_TRENCHCOAT_MALE",
+   "value": 680
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MANKIND_TRENCHCOAT_MALE",
+   "value": 681
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TRENCHCOAT_OF_THE_SHADOWS_MALE",
+   "value": 682
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_UTILITY_TRENCHCOAT_MALE",
+   "value": 683
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_COLONIZATION_TRENCHCOAT_MALE",
+   "value": 684
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEON_TECHNICIAN_TRENCHCOAT_MALE",
+   "value": 685
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_ENFIELD_OVERCOAT_MALE",
+   "value": 686
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DEFENDER_ROBE_MALE",
+   "value": 690
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ELDER_ROBE_MALE",
+   "value": 691
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LUXURY_ROBE_MALE",
+   "value": 692
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ROBE_OF_SHADOWS_MALE",
+   "value": 693
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DEEP_MINES_DUSTER_MALE",
+   "value": 694
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_ROBE_MALE",
+   "value": 695
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PATROL_TROUSERS_MALE",
+   "value": 700
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LIBERATION_TROUSERS_MALE",
+   "value": 701
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DIPLOMATIC_TROUSERS_MALE",
+   "value": 702
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RIOT_PANTS_MALE",
+   "value": 703
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CHAOTIC_PANTS_MALE",
+   "value": 704
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HITMAN_TROUSERS_MALE",
+   "value": 705
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BATTLE_TROUSERS_MALE",
+   "value": 706
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MINING_TROUSERS_MALE",
+   "value": 707
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PRODUCER_PANTS_MALE",
+   "value": 708
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TECHNICIAN_TROUSERS_MALE",
+   "value": 709
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STANDARD_PATROL_TROUSERS_MALE",
+   "value": 710
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CASUAL_TROUSERS_MALE_711",
+   "value": 711
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PROTECTOR_JEANS_MALE",
+   "value": 712
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RED_SPANDEX_PANTS_MALE",
+   "value": 713
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ASSAULT_PANTS_MALE",
+   "value": 714
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXECUTIVE_TROUSERS_MALE",
+   "value": 715
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_WORKERS_PANTS_MALE",
+   "value": 716
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ANALYTICAL_TROUSERS_MALE",
+   "value": 717
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_PERMALAST_T5_ENHANCED_TROUSERS_MALE",
+   "value": 718
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_THICK_ANTI_FREEZE_TROUSERS_MALE",
+   "value": 719
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CASUAL_TROUSERS_MALE_720",
+   "value": 720
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RUGGED_TROUSERS_MALE",
+   "value": 721
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ANTI_RIOT_PANTS_MALE",
+   "value": 722
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TACTICAL_TROUSERS_MALE",
+   "value": 723
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ASSAULT_TROUSERS_MALE",
+   "value": 724
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RAID_TROUSERS_MALE",
+   "value": 725
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SENTINEL_PANTS_MALE",
+   "value": 726
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LIGHT_DEFENDER_TROUSERS_MALE",
+   "value": 727
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ANARCHY_TROUSERS_MALE",
+   "value": 728
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXECUTIONER_TROUSERS_MALE",
+   "value": 729
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PREDATOR_TROUSERS_MALE",
+   "value": 730
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HIKING_TROUSERS_MALE",
+   "value": 731
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MINERS_PANTS_MALE",
+   "value": 732
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_AURELIAN_COMBAT_TROUSERS_MALE",
+   "value": 733
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_EXECUTIVE_TROUSERS_MALE",
+   "value": 734
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MANAGEMENT_TROUSERS_MALE",
+   "value": 735
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MAINTENANCE_TROUSERS_MALE",
+   "value": 736
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INNOVATOR_TROUSERS_MALE",
+   "value": 737
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SERVICE_TROUSERS_MALE",
+   "value": 738
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RECONNAISSANCE_TROUSERS_MALE",
+   "value": 739
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARBRE_TROUSERS_MALE",
+   "value": 740
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HAVOC_TROUSERS_MALE",
+   "value": 741
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LEGIONNAIRE_TROUSERS_MALE",
+   "value": 742
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MIJNWERKER_TROUSERSMALE",
+   "value": 743
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SECRETARIAL_TROUSERS_MALE",
+   "value": 744
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEON_RESEARCH_TROUSERS_MALE",
+   "value": 745
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_SIERRA_17_TROUSERS_MALE",
+   "value": 746
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_KEPLERS_LUXURIOUS_TROUSERS_MALE",
+   "value": 747
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_TACTICAL_TROUSERS_MALE",
+   "value": 760
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STAFF_TROUSERS_MALE",
+   "value": 761
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MOJO_TROUSERS_MALE",
+   "value": 762
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PHARMACEUTICAL_TROUSERS_MALE",
+   "value": 763
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SOLDNER_TROUSERS_MALE",
+   "value": 764
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BERGMANN_TROUSERS_MALE",
+   "value": 765
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NUCLEO_TROUSERS_MALE",
+   "value": 766
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MARKETERS_TROUSERS_MALE",
+   "value": 767
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MOLECULAR_TROUSERS_MALE",
+   "value": 768
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LIBERTY_TROUSERS_MALE",
+   "value": 780
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HARMONY_TROUSERS_MALE",
+   "value": 781
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CASUAL_TROUSERS_MALE_782",
+   "value": 782
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_DEVIATES_TROUSERS_MALE",
+   "value": 783
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_LL_CARGO_PANTS_MALE",
+   "value": 784
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_ULTRA_SECURE_TROUSERS_MALE",
+   "value": 785
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_TANK_TOP_FEMALE",
+   "value": 790
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ADVOCATE_T_SHIRT_FEMALE",
+   "value": 791
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARMED_FORCES_T_SHIRT_FEMALE",
+   "value": 792
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MILITANT_T_SHIRT_FEMALE",
+   "value": 793
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PURITY_T_SHIRT_FEMALE",
+   "value": 794
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FRENZIED_T_SHIRT_FEMALE",
+   "value": 795
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SINISTER_T_SHIRT_FEMALE",
+   "value": 796
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DEATH_DEALER_T_SHIRT_FEMALE",
+   "value": 797
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ERADICATOR_T_SHIRT_FEMALE",
+   "value": 798
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXCAVATOR_T_SHIRT_FEMALE",
+   "value": 799
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CASUAL_LEATHER_JACKET_FEMALE",
+   "value": 800
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CASUAL_T_SHIRT_FEMALE",
+   "value": 801
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PATROLWOMAN_T_SHIRT_FEMALE",
+   "value": 802
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FREEDOM_FATIGUE_TOP_FEMALE",
+   "value": 803
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HARMONY_TOP_FEMALE",
+   "value": 804
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_POWER_TOP_FEMALE",
+   "value": 805
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DIGGER_TOP_FEMALE",
+   "value": 806
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CASUAL_FRIDAYS_TOP_FEMALE",
+   "value": 807
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TRAVEL_TOP_FEMALE",
+   "value": 808
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_UNLIMITED_SECRET_BLOUSE_FEMALE",
+   "value": 809
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PEACE_KEEPER_JACKET_FEMALE",
+   "value": 810
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_KNIGHT_JACKET_FEMALE",
+   "value": 811
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CADET_JACKET_FEMALE",
+   "value": 812
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PARADE_JACKET_FEMALE",
+   "value": 813
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HARMONY_JACKET_FEMALE",
+   "value": 814
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CELESTIAL_JACKET_FEMALE",
+   "value": 815
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JACKAL_JACKET_FEMALE",
+   "value": 816
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MUSCLE_JACKET_FEMALE",
+   "value": 817
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FURY_JACKETFEMALE",
+   "value": 818
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TUNNEL_JACKET_FEMALE",
+   "value": 819
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SCRUBBER_JACKET_FEMALE",
+   "value": 820
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LUNA_JACKET_FEMALE",
+   "value": 821
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_DEFENSE_JACKET_FEMALE",
+   "value": 822
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_ASSAULT_JACKET_FEMALE",
+   "value": 823
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEON_DEFENSE_JACKET_FEMALE",
+   "value": 824
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEON_ASSAULT_JACKET_FEMALE",
+   "value": 825
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_DEFENSE_JACKET_FEMALE",
+   "value": 826
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARMY_GREEN_DEFENSE_JACKET_FEMALE",
+   "value": 827
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PROTESTERS_JACKET_FEMALE",
+   "value": 828
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ANARCHY_JACKET_FEMALE",
+   "value": 829
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ASSASSIN_JACKET_FEMALE",
+   "value": 830
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_MINING_JACKET_FEMALE",
+   "value": 831
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEON_MINING_JACKET_FEMALE",
+   "value": 832
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_AERODYNAMIC_DELUXE_SHIRT_FEMALE",
+   "value": 833
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_PERMALAST_PRIMARY_JACKET_FEMALE",
+   "value": 834
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_GUN_METAL_JACKET_FEMALE",
+   "value": 835
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_ORIENTAL_DESIGNS_JACKET_FEMALE",
+   "value": 836
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_RUNNING_JACKET_FEMALE",
+   "value": 837
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_PATROL_TRENCHCOAT_FEMALE",
+   "value": 850
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARMY_GREEN_PATROL_TRENCHCOAT_FEMALE",
+   "value": 851
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CHAOS_TRENCHCOAT_FEMALE",
+   "value": 852
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ANARCHY_TRENCHCOAT_FEMALE",
+   "value": 853
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ASSASSIN_TRENCHCOAT_FEMALE",
+   "value": 854
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_DEFENSE_TRENCHCOAT_FEMALE",
+   "value": 855
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_MINING_TRENCHCOAT_FEMALE",
+   "value": 856
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PRODUCTION_TRENCHCOAT_FEMALE",
+   "value": 857
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEON_MINING_TRENCHCOAT_FEMALE",
+   "value": 858
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PROTECTOR_TRENCHCOAT_FEMALE",
+   "value": 859
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ASSAULT_TRENCHCOAT_FEMALE",
+   "value": 860
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PHOENIX_TRENCHCOAT_FEMALE",
+   "value": 861
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DARK_TRENCH_FEMALE",
+   "value": 862
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_WIDOW_TRENCHCOAT_FEMALE",
+   "value": 863
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DISCOVERY_TRENCHCOAT_FEMALE",
+   "value": 864
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEON_DEFENSE_TRENCHCOAT_FEMALE",
+   "value": 865
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_HELLSTORM_TRENCHCOAT_FEMALE",
+   "value": 866
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_AURELIAN_DESIGNER_TRENCHCOAT_FEMALE",
+   "value": 867
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PROTECTOR_ROBE_FEMALE",
+   "value": 870
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LIGHT_VETERAN_ROBE_FEMALE",
+   "value": 871
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STYLIZED_ROBE_FEMALE",
+   "value": 872
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DARK_VETERAN_ROBE_FEMALE",
+   "value": 873
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GOLD_ROBE_FEMALE",
+   "value": 874
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_ROBE_FEMALE",
+   "value": 875
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PATROL_SKIRT_FEMALE",
+   "value": 880
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DEFENSE_SKIRT_FEMALE",
+   "value": 881
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SOLDIER_SKIRT_FEMALE",
+   "value": 882
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DEFENDER_SKIRT_FEMALE",
+   "value": 883
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LIGHT_SKIRT_FEMALE",
+   "value": 884
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SHADOW_SKIRT_FEMALE",
+   "value": 885
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DARK_SKIRT_FEMALE",
+   "value": 886
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ASSASSIN_SKIRT_FEMALE",
+   "value": 887
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CONTRACT_SKIRT_FEMALE",
+   "value": 888
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GOLD_SKIRT_FEMALE",
+   "value": 889
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_SKIRT_FEMALE",
+   "value": 890
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEON_SKIRT_FEMALE",
+   "value": 891
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_CASUAL_MINISKIRT_FEMALE",
+   "value": 892
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_WOVEN_DESIGN_MINISKIRT_FEMALE",
+   "value": 893
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_DARK_ABYSS_SKIRT_FEMALE",
+   "value": 894
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_PLAID_SKIRT_FEMALE",
+   "value": 895
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PATROLMAN_TROUSERS_FEMALE",
+   "value": 900
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_DEFENDER_TROUSERS_FEMALE",
+   "value": 901
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DEFENSE_TROUSERS_FEMALE",
+   "value": 902
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ASSAULT_TROUSERS_FEMALE_903",
+   "value": 903
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PROTESTER_TROUSERS_FEMALE",
+   "value": 904
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LIGHT_DEFENDER_TROUSERS_FEMALE",
+   "value": 905
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SHADOW_TROUSERS_FEMALE",
+   "value": 906
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ASSASSIN_TROUSERS_FEMALE_907",
+   "value": 907
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ASSAULT_TROUSERS_FEMALE_908",
+   "value": 908
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MINER_TROUSERS_FEMALE_909",
+   "value": 909
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PRODUCTION_TROUSERS_FEMALE",
+   "value": 910
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GOLD_DEFENSE_TROUSERS_FEMALE",
+   "value": 911
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MINER_TROUSERS_FEMALE_912",
+   "value": 912
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_DEFENSE_TROUSERS_FEMALE",
+   "value": 913
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TECHNICIAN_TROUSERS_FEMALE",
+   "value": 914
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEON_DEFENSE_TROUSERS_FEMALE",
+   "value": 915
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_PROTECTOR_TROUSERS_FEMALE",
+   "value": 916
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_VETERAN_TROUSERS_FEMALE",
+   "value": 917
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PHOENIX_TROUSERS_FEMALE",
+   "value": 918
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ANARCHY_TROUSERS_FEMALE",
+   "value": 919
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ASSASSIN_TROUSERS_FEMALE_920",
+   "value": 920
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BROWN_COLONIST_TROUSERS_FEMALE",
+   "value": 921
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_COLONIST_TROUSERS_FEMALE",
+   "value": 922
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEON_COLONIST_TROUSERS_FEMALE",
+   "value": 923
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_FADED_BEAUTY_HIP_HUGGERS_FEMALE",
+   "value": 924
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_WARDEN_TROUSERS_FEMALE",
+   "value": 940
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GREEN_SOLDIER_TROUSERS_FEMALE",
+   "value": 941
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DEALER_TROUSERS_FEMALE",
+   "value": 942
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_REBEL_TROUSERS_FEMALE",
+   "value": 943
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DEFENDER_TROUSERS_FEMALE",
+   "value": 944
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BROWN_ASSAULT_TROUSERS_FEMALE",
+   "value": 945
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_ASSAULT_TROUSERS_FEMALE",
+   "value": 946
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_TRAVELER_TROUSERS_FEMALE",
+   "value": 947
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEON_ASSAULT_TROUSERS_FEMALE",
+   "value": 948
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_DOMINION_TROUSERS_FEMALE",
+   "value": 949
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GREEN_DOMINION_TROUSERS_FEMALE",
+   "value": 950
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_WHITE_TRAVELER_TROUSERS_FEMALE",
+   "value": 951
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LOYALTY_TROUSERS_FEMALE",
+   "value": 952
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CONTRACT_TROUSERS_FEMALE",
+   "value": 953
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BROWN_TRAVELER_TROUSERS_FEMALE",
+   "value": 954
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GRAY_TROUSERS_FEMALE",
+   "value": 955
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEON_TROUSERS_FEMALE",
+   "value": 956
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_WHITE_TROUSERS_FEMALE",
+   "value": 960
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DIPLOMATIC_TROUSERS_FEMALE",
+   "value": 961
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MINER_TROUSERS_FEMALE_962",
+   "value": 962
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STUNNING_BELL_BOTTOM_PANTS_FEMALE_963",
+   "value": 963
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXECUTIVE_TROUSERS_FEMALE_964",
+   "value": 964
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MINERAL_ROCK_973",
+   "value": 973
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MINERAL_ROCK_974",
+   "value": 974
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MINERAL_ROCK_975",
+   "value": 975
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BACKPACK_976",
+   "value": 976
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BACKPACK_977",
+   "value": 977
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BACKPACK_978",
+   "value": 978
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ALIEN_EGG",
+   "value": 979
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MURDER_ID_CARD",
+   "value": 980
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BRONZE_TOKEN",
+   "value": 981
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SILVER_TOKEN",
+   "value": 982
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GOLDEN_TOKEN",
+   "value": 983
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DEPLOYABLE_SHIELD",
+   "value": 984
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_VORTEX_TICKET",
+   "value": 985
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFLUENCE_GENERATOR",
+   "value": 986
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MEDICAL_UNIT",
+   "value": 987
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MINING_RIG",
+   "value": 988
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFILTRATION_HACKING_INTERFACE",
+   "value": 989
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BYPASS_HACKING_INTERFACE",
+   "value": 990
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_APARTMENT_IDENTIFIER",
+   "value": 991
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TERRITORY_CONTROLLER",
+   "value": 992
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SALVOTECH_CX_90_EXPLOSIVE_CHARGE",
+   "value": 993
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_VORTEX_REACTOR",
+   "value": 994
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PRODUCTION_MANAGER",
+   "value": 995
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MULTICOM_ACCESS_POINT",
+   "value": 996
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MARKET_VENDOR",
+   "value": 997
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SLOT_MACHINE",
+   "value": 998
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TRANSPORT_STORAGE",
+   "value": 999
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NEOPUNK_SHIRT_MALE",
+   "value": 1000
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FUSION_SPIDER_MALE",
+   "value": 1001
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SNAKESKIN_SHIRT_MALE",
+   "value": 1002
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ADAMA_JACKET_MALE",
+   "value": 1003
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_VON_NEUMANN_JACKET_MALE",
+   "value": 1004
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MENASCO_SPORTS_JACKET_MALE",
+   "value": 1005
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GUN_METAL_OVERCOAT_MALE",
+   "value": 1006
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DIRT_TRENCHCOAT_MALE",
+   "value": 1007
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STS_TRENCHCOAT_MALE",
+   "value": 1008
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MEGACORP_SHIRT_MALE",
+   "value": 1009
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SPACE_GOLF_ATTIRE_MALE",
+   "value": 1010
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_OFFICE_CASUAL_MALE",
+   "value": 1011
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_REFINED_JACKET_MALE",
+   "value": 1012
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GENTLEMANS_JACKET_MALE",
+   "value": 1013
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HGWILLAMS_JACKET_MALE",
+   "value": 1014
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DOBERMAN_TRENCHCOAT_MALE",
+   "value": 1015
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ENFIELD_OVERCOAT_MALE",
+   "value": 1016
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EMPIRE_TRENCHCOAT_MALE",
+   "value": 1017
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SANTA_COAT_MALE",
+   "value": 1018
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GIS_COAT_MALE",
+   "value": 1019
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXILE_OVERCOAT_MALE",
+   "value": 1020
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STAFF_SHIRT_CASUAL_MALE",
+   "value": 1021
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STAFF_SHIRT_FORMAL_MALE",
+   "value": 1022
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SWAMP_TRENCHCOAT_1_MALE",
+   "value": 1023
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SWAMP_TRENCHCOAT_2_MALE",
+   "value": 1024
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JACK_O_LANTERN_SHIRT_MALE",
+   "value": 1025
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FLAMING_SKULL_SHIRT_MALE",
+   "value": 1026
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLACK_SHUCK_JACKET_MALE",
+   "value": 1027
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ECHION_JACKET_MALE",
+   "value": 1028
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MIDNIGHT_BLACK_JACKET_MALE",
+   "value": 1029
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_WHITE_LIGHTNING_JACKET_MALE",
+   "value": 1030
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NIGHTWALKER_TRENCHCOAT_MALE",
+   "value": 1031
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLACK_SHADOW_TRENCHOAT_MALE",
+   "value": 1032
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_VAMPIRE_ROBE_MALE",
+   "value": 1033
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NUB_SHIRT_MALE",
+   "value": 1034
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GINGERBREAD_SHIRT_MALE",
+   "value": 1035
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CYBER_BLACK_MALE",
+   "value": 1036
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SHADOWS_SHIRT_MALE",
+   "value": 1037
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLACK_BUSINESSMANS_JACKET_MALE",
+   "value": 1038
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_BUSINESSMANS_JACKET_MALE",
+   "value": 1039
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_UNLIMITED_SECRET_BLOUSE_FEMALE",
+   "value": 1040
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CHROMIAN_DESIGNS_BLOUSE_FEMALE",
+   "value": 1041
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RAINING_THUNDER_FEMALE",
+   "value": 1042
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ORIENTAL_DESIGNS_JACKET_FEMALE",
+   "value": 1043
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RUNNING_JACKET_FEMALE",
+   "value": 1044
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_AUTHORITARIAN_JACKET_FEMALE",
+   "value": 1045
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_AURELIAN_DESIGN_TRENCHCOAT_FEMALE",
+   "value": 1046
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_WHITE_TRENCHCOAT_OF_PURITY_FEMALE",
+   "value": 1047
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LIGHTNING_COAT_FEMALE",
+   "value": 1048
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BEJIFFY_TRENDY_SHIRT_FEMALE",
+   "value": 1049
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_AERODYNAMIC_DELUXE_SHIRT_FEMALE",
+   "value": 1050
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BEJIFFY_EXQUISITE_SHIRT_FEMALE",
+   "value": 1051
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PERMALAST_PRIMARY_JACKET_FEMALE",
+   "value": 1052
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PERMALAST_LUXURY_JACKET_FEMALE",
+   "value": 1053
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_AIRLIGHT_JACKET_FEMALE",
+   "value": 1054
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_AURELIAN_DESIGNER_TRENCHCOAT_FEMALE",
+   "value": 1055
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FREEDOM_NATIONALIST_TRENCHCOAT_FEMALE",
+   "value": 1056
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TERMOSECURE_TRENCHCOAT_FEMALE",
+   "value": 1057
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SANTA_COAT_FEMALE",
+   "value": 1058
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GIS_OVERCOAT_FEMALE",
+   "value": 1059
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXILE_OVERCOAT_FEMALE",
+   "value": 1060
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STAFF_SHIRT_CASUAL_FEMALE",
+   "value": 1061
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JACK_O_LANTERN_SHIRT_FEMALE",
+   "value": 1062
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FLAMING_SKULL_SHIRT_FEMALE",
+   "value": 1063
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLACK_SHUCK_JACKET_FEMALE",
+   "value": 1064
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ECHION_JACKET_FEMALE",
+   "value": 1065
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STYLIZED_BLACK_BLOUSE_FEMALE",
+   "value": 1066
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ALTERNATE_UNIVERSAL_BLOUSE_FEMALE",
+   "value": 1067
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GUN_METAL_JACKET_FEMALE",
+   "value": 1068
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HELLSTORM_TRENCHCOAT_FEMALE",
+   "value": 1069
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NURSE_BLOUSE_FEMALE",
+   "value": 1070
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GINGERBREAD_SHIRT_FEMALE",
+   "value": 1071
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CYBER_BLACK_FEMALE",
+   "value": 1072
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SHADOWS_SHIRT_FEMALE",
+   "value": 1073
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_BUSINESSWOMANS_JACKET_FEMALE",
+   "value": 1074
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLACK_BUSINESSWOMANS_JACKET_FEMALE",
+   "value": 1075
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BROWN_BUSINESSWOMANS_JACKET_FEMALE",
+   "value": 1076
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GREY_BUSINESSWOMANS_JACKET_FEMALE",
+   "value": 1077
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PINK_BUSINESSWOMANS_JACKET_FEMALE",
+   "value": 1078
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PURPLE_BUSINESSWOMANS_JACKET_FEMALE",
+   "value": 1079
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PERMALAST_T5_ENHANCED_TROUSERS_MALE",
+   "value": 1080
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PERMALAST_ALL_TERRAIN_TROUSERS_MALE",
+   "value": 1081
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_THICK_ANTI_FREEZE_TROUSERS_MALE",
+   "value": 1082
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_KEPLERS_LUXURIOUS_TROUSERS_MALE",
+   "value": 1083
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PROSPEROUS_CIVILIAN_TROUSERS_MALE",
+   "value": 1084
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_COMMONERS_TROUSERS_MALE",
+   "value": 1085
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DEVIATES_TROUSERS_MALE",
+   "value": 1086
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ULTRA_SECURE_TROUSERS_MALE",
+   "value": 1087
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFINITE_MULTI_PURPOSE_TROUSERS_MALE",
+   "value": 1088
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SIERRA_17_TROUSERS_MALE",
+   "value": 1089
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CIVILIAN_OLD_WAR_ISSUED_TROUSERS_MALE",
+   "value": 1090
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NYC_URBAN_TROUSERS_MALE",
+   "value": 1091
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_KHAKI_TROUSERS_MALE",
+   "value": 1092
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GREEN_LINEN_PANTS_MALE",
+   "value": 1093
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MUD_TROUSERSMALE",
+   "value": 1094
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LL_CARGO_PANTS_MALE",
+   "value": 1095
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_AKA_TROUSERS_MALE",
+   "value": 1096
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RELAXED_TROUSERS_MALE",
+   "value": 1097
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SANTA_TROUSERS_MALE",
+   "value": 1098
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GIS_TROUSERS_MALE",
+   "value": 1099
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXILE_TROUSERS_MALE",
+   "value": 1100
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLACK_SHUCK_TROUSERS_MALE",
+   "value": 1101
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ECHION_TROUSERS_MALE",
+   "value": 1102
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MIDNIGHT_BLACK_TROUSERS_MALE",
+   "value": 1103
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SHADOWS_TROUSERS_MALE",
+   "value": 1104
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLACK_SLACKS_MALE",
+   "value": 1105
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_SLACKS_MALE",
+   "value": 1106
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BROWN_SLACKS_MALE",
+   "value": 1107
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GREY_SLACKS_MALE",
+   "value": 1108
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PINK_SLACKS_MALE",
+   "value": 1109
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_WHITE_SLACKS_MALE",
+   "value": 1110
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CASUAL_MINISKIRT_FEMALE",
+   "value": 1120
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_WOVEN_DESIGN_MINISKIRT_FEMALE",
+   "value": 1121
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PLAID_SKIRT_FEMALE",
+   "value": 1122
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DARK_BOOT_CUT_JEANS_FEMALE",
+   "value": 1123
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NECARIAN_ADVENTURE_TROUSERS_FEMALE",
+   "value": 1124
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SLIM_WORK_PANTS_FEMALE",
+   "value": 1125
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TEAL_SLIM_PANTS_FEMALE",
+   "value": 1126
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STUNNING_BELL_BOTTOM_PANTS_FEMALE_1127",
+   "value": 1127
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HIP_HUGGING_JEANS_FEMALE",
+   "value": 1128
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FADED_BEAUTY_JEANS_FEMALE",
+   "value": 1129
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TRAVELING_PANTS_FEMALE",
+   "value": 1130
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GREY_RELAXED_PANTS_FEMALE",
+   "value": 1131
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SLIM_FIT_JEANS_FEMALE",
+   "value": 1132
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_WHITE_WASHED_JEANS_FEMALE",
+   "value": 1133
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FITTED_PANTS_FEMALE",
+   "value": 1134
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXECUTIVE_TROUSERS_FEMALE_1135",
+   "value": 1135
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FADED_BEAUTY_HIP_HUGGERS_FEMALE",
+   "value": 1136
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FLARE_JEANS_FEMALE",
+   "value": 1137
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SANTA_TROUSERS_FEMALE",
+   "value": 1138
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GIS_TROUSERS_FEMALE",
+   "value": 1139
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EXILE_TROUSERS_FEMALE",
+   "value": 1140
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLACK_SHUCK_TROUSERS_FEMALE",
+   "value": 1141
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ECHION_TROUSERS_FEMALE",
+   "value": 1142
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DARK_ABYSS_SKIRT_FEMALE",
+   "value": 1143
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NURSE_SKIRT_FEMALE",
+   "value": 1144
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SHADOWS_TROUSERS_FEMALE",
+   "value": 1145
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_BUSINESSWOMANS_TROUSERS_FEMALE",
+   "value": 1146
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLUE_BUSINESSWOMANS_SKIRT_FEMALE",
+   "value": 1147
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLACK_BUSINESSWOMANS_TROUSERS_FEMALE",
+   "value": 1148
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLACK_BUSINESSWOMANS_SKIRT_FEMALE",
+   "value": 1149
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_ANTHRACITE",
+   "value": 1151
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_BAUXITE",
+   "value": 1152
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_BERYLLIUM",
+   "value": 1153
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_CAOUTCHOUC",
+   "value": 1154
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_CHEMICAL_SUBSTANCES",
+   "value": 1155
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_CHROME",
+   "value": 1156
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_COAL",
+   "value": 1157
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_COBALT",
+   "value": 1158
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_COPPER",
+   "value": 1159
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_DIAMONDS",
+   "value": 1160
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_GOLD",
+   "value": 1161
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_IRIDIUM",
+   "value": 1162
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_IRON",
+   "value": 1163
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_MANGANESE",
+   "value": 1164
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_CRUDE_OIL",
+   "value": 1165
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_NICKEL",
+   "value": 1166
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_ORGANIC_MATERIAL",
+   "value": 1167
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_PLASMA",
+   "value": 1168
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_PLATINUM",
+   "value": 1169
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_SILICON",
+   "value": 1170
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_SILVER",
+   "value": 1171
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_TITANIUM",
+   "value": 1172
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_VANADIUM",
+   "value": 1173
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_WATER",
+   "value": 1174
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_TUNGSTEN",
+   "value": 1175
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_URANINITE",
+   "value": 1176
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CANISTER_LITHIUM",
+   "value": 1177
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ALUMINIUM",
+   "value": 1194
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TITANIUM_ALLOY",
+   "value": 1195
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_METAL_ALLOY",
+   "value": 1196
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SPECIAL_STEEL_ALLOY",
+   "value": 1197
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CHEMICALS",
+   "value": 1198
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CARBON",
+   "value": 1199
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_RUBBER",
+   "value": 1200
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BIOPLASMA",
+   "value": 1201
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PLASTICS",
+   "value": 1202
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ELECTRONIC_COMPONENTS",
+   "value": 1203
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CPU",
+   "value": 1204
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GLASS",
+   "value": 1205
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CARBON_FIBER",
+   "value": 1206
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PROFESSIONAL_ELECTRONICS",
+   "value": 1207
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HIGH_PERFORMANCE_CONDUCTOR",
+   "value": 1208
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CONDUCTOR",
+   "value": 1209
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PLASTIC_SYNTACTIC_FOAM",
+   "value": 1210
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TITANIUM_SYNTACTIC_FOAM",
+   "value": 1211
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TEXTILES",
+   "value": 1212
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CARCINUS_FORELIMBS",
+   "value": 1213
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CARCINUS_CRANIUM",
+   "value": 1214
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CARCINUS_DORSAL_CARAPACE",
+   "value": 1215
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BEHEMOTH_FORELIMBS",
+   "value": 1216
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BEHEMOTH_CRANIUM",
+   "value": 1217
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BEHEMOTH_TAIL",
+   "value": 1218
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STURDY_CARAPACE",
+   "value": 1219
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PIERCING_OCULI",
+   "value": 1220
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PULSATING_CEREBRUM",
+   "value": 1221
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SERRATED_CLAWS",
+   "value": 1222
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MANTIS_CRANIUM",
+   "value": 1223
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MANTIS_METATHORAX",
+   "value": 1224
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MANTIS_MESOTHORAX",
+   "value": 1225
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STICKY_XENOMORPHIC_FLUID",
+   "value": 1226
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SOLID_CARBONITE_SHELL",
+   "value": 1227
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_XENOMORPH_PROTEINS",
+   "value": 1228
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ULTRA_RESILIENT_MINERAL",
+   "value": 1229
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DEUTERIUM_WATER",
+   "value": 1230
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_XENOMORPH_HEMOLYMPH",
+   "value": 1231
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BLOODY_XENOMORPH_SLIME",
+   "value": 1232
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_XENOMORPH_ENDOCRINE_GLANDS",
+   "value": 1233
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PLUTONIUM",
+   "value": 1234
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ALUMINIUM_ALLOY",
+   "value": 1235
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CERAMIC",
+   "value": 1236
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARTIFICIAL_LOGIC_DEVICE",
+   "value": 1237
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BATTERY_CELL",
+   "value": 1238
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PRODUCTION_SCHEMATIC",
+   "value": 1280
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PRODUCTION_MOD",
+   "value": 1281
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PNS_DATA_CUBE",
+   "value": 1300
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DATA_CUBE",
+   "value": 1301
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_JACK_O_LANTERN_HAT",
+   "value": 1600
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SNOWMAN_HAT",
+   "value": 1601
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CAMOUFLAGE_HAT",
+   "value": 1602
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BUNNY_EARS",
+   "value": 1603
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TOP_HAT",
+   "value": 1604
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FEDORA",
+   "value": 1605
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HALO",
+   "value": 1606
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HORNS",
+   "value": 1607
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_XABINIUS_CROWN",
+   "value": 1608
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FIELD_CAP",
+   "value": 1609
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CHARACTER_DESIGNER",
+   "value": 1800
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NAME_CHANGE_CONTRACT",
+   "value": 1801
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FACTION_OWNERSHIP_CONTRACT",
+   "value": 1802
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_FACTION_NAME_CHANGE_CONTRACT",
+   "value": 1803
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ELEMENTUM",
+   "value": 1804
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_DICE",
+   "value": 1805
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SKILL_TIMER",
+   "value": 1806
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SKILL_RESPEC",
+   "value": 1807
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_COIN_VOUCHER",
+   "value": 1808
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_SKILL_BOOK",
+   "value": 1809
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BROWN_BUSINESSMANS_JACKET_MALE",
+   "value": 1820
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GREY_BUSINESSMANS_JACKET_MALE",
+   "value": 1821
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PINK_BUSINESSMANS_JACKET_MALE",
+   "value": 1822
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_WHITE_BUSINESSMANS_JACKET_MALE",
+   "value": 1823
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PEACE_T_SHIRT_MALE",
+   "value": 1824
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STREET_GANG_JACKET_MALE",
+   "value": 1825
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INVESTIGATORS_TRENCHCOAT_MALE",
+   "value": 1826
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_AMERICAN_ENTERPRISES_TRENCH_MALE",
+   "value": 1827
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HORSE_COMICS_T_SHIRT_MALE",
+   "value": 1828
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ROBE_OF_MULTI_RELIGIONS_MALE",
+   "value": 1829
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CLUB_TRENCH_MALE",
+   "value": 1830
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LAB_COAT_MALE",
+   "value": 1831
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BACKER_T_SHIRT_MALE",
+   "value": 1832
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PEACE_T_SHIRT_FEMALE",
+   "value": 1960
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STREET_GANG_SHIRT_FEMALE",
+   "value": 1961
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INSPECTORS_TRENCHCOAT_FEMALE",
+   "value": 1962
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_AMERICAN_ENTERPRISES_TRENCH_FEMALE",
+   "value": 1963
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_HORSE_COMICS_T_SHIRT_FEMALE",
+   "value": 1964
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ROBE_OF_MULTI_RELIGIONS_FEMALE",
+   "value": 1965
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CLUB_SHIRT_FEMALE",
+   "value": 1966
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_LAB_COAT_FEMALE",
+   "value": 1967
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BACKER_T_SHIRT_FEMALE",
+   "value": 1968
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STREET_GANG_PANTS_MALE",
+   "value": 2060
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INVESTIGATORS_TROUSERS_MALE",
+   "value": 2061
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CLUB_PANTS_MALE",
+   "value": 2062
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BACKER_PANTS_MALE",
+   "value": 2063
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INCOGNITO_SHOES_MALE",
+   "value": 2064
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BROWN_BUSINESSWOMANS_TROUSERS_FEMALE",
+   "value": 2160
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BROWN_BUSINESSWOMANS_SKIRT_FEMALE",
+   "value": 2161
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GREY_BUSINESSWOMANS_TROUSERS_FEMALE",
+   "value": 2162
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_GREY_BUSINESSWOMANS_SKIRT_FEMALE",
+   "value": 2163
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PINK_BUSINESSWOMANS_TROUSERS_FEMALE",
+   "value": 2164
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PINK_BUSINESSWOMANS_SKIRT_FEMALE",
+   "value": 2165
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PURPLE_BUSINESSWOMANS_TROUSERS_FEMALE",
+   "value": 2166
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_PURPLE_BUSINESSWOMANS_SKIRT_FEMALE",
+   "value": 2167
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STREET_GANG_SHORTS_FEMALE",
+   "value": 2168
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INSPECTORS_PANTS_FEMALE",
+   "value": 2169
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CLUB_SKIRT_FEMALE",
+   "value": 2170
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BACKER_SKIRT_FEMALE",
+   "value": 2171
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INCOGNITO_SHOES_FEMALE",
+   "value": 2172
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ARAMID_ALTERED_GLOVES_MALE",
+   "value": 2980
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_ESSENTIALS_GLOVES_FEMALE",
+   "value": 2981
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_INFENSUS_ESSENTIALS_GLOVES_MALE",
+   "value": 2982
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BACKER_GLOVES_FEMALE",
+   "value": 2983
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_BACKER_GLOVES_MALE",
+   "value": 2984
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_EMERGENCY_LOCKOUT",
+   "value": 3000
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_MODERATE_LOCKOUT",
+   "value": 3001
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_STANDARD_LOCKOUT",
+   "value": 3002
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NOCTURNAL_VISION",
+   "value": 3003
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ELECTROMYOGRAPHIC_REGULATOR",
+   "value": 3004
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_NANO_SKELETAL_INHIBITOR",
+   "value": 3005
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_CALCANEUS_BOOSTER",
+   "value": 3006
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_ULTRASONIC_OBSTRUCTOR",
+   "value": 3007
+  },
+  {
+   "comment": null,
+   "name": "ITEM_TYPE_TELESCOPIC_INTERACTOR",
+   "value": 3008
+  }
+ ],
+ "kind": "enum",
+ "len": 2,
+ "path": "/FOM/Types/Item/ItemType"
+}

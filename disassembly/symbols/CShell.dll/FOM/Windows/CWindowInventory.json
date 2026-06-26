@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10100230",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowInventory",
+   "namespace": "FOM::Windows::CWindowInventory",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowInventory *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10100cc0",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowInventory",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowInventory *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10101640",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowInventory",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowInventory *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "10101cf0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowInventory",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

@@ -1,0 +1,74 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 2,
+   "name": "shape",
+   "offset": 0,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "offsetX",
+   "offset": 2,
+   "type": "/stdint.h/int8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "offsetY",
+   "offset": 3,
+   "type": "/stdint.h/int8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "scaleWidth",
+   "offset": 4,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "scaleHeight",
+   "offset": 5,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "rotation",
+   "offset": 6,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "red",
+   "offset": 8,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "green",
+   "offset": 9,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "blue",
+   "offset": 10,
+   "type": "/stdint.h/uint8_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 12,
+ "packed": true,
+ "path": "/FOM/Types/Faction/FactionEmblemLayer"
+}

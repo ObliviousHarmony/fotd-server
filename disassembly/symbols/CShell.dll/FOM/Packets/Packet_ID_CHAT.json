@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100f8680",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_CHAT",
+   "namespace": "FOM::Packets::Packet_ID_CHAT",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_CHAT *"
+    }
+   ],
+   "returnType": "/FOM/Packets/Packet_ID_CHAT *"
+  },
+  {
+   "addr": "100f93c0",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_CHAT",
+   "namespace": "FOM::Packets::Packet_ID_CHAT",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_CHAT *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  },
+  {
+   "addr": "100f9cb0",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_CHAT",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_CHAT *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "100f9d80",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_CHAT",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_CHAT *"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

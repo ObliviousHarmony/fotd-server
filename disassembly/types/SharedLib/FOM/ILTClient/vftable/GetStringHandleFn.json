@@ -1,0 +1,21 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "client",
+   "type": {
+    "ptr": "/FOM/ILTClient/ILTClient"
+   }
+  },
+  {
+   "name": "id",
+   "type": "/stdint.h/uint32_t"
+  }
+ ],
+ "path": "/FOM/ILTClient/vftable/GetStringHandleFn",
+ "return": {
+  "ptr": "/void"
+ }
+}

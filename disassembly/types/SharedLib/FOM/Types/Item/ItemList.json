@@ -1,0 +1,53 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 2,
+   "name": null,
+   "offset": 0,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": "vector<ItemStack>",
+   "len": 16,
+   "name": "stacks",
+   "offset": 4,
+   "type": "/std/vector"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 20,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 24,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 28,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 32,
+   "type": "/undefined4"
+  }
+ ],
+ "kind": "struct",
+ "len": 36,
+ "packed": true,
+ "path": "/FOM/Types/Item/ItemList"
+}

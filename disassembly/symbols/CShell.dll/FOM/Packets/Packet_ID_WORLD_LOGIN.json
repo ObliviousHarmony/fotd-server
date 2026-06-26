@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "101bfe00",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_WORLD_LOGIN",
+   "namespace": "FOM::Packets::Packet_ID_WORLD_LOGIN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_WORLD_LOGIN *"
+    }
+   ],
+   "returnType": "/FOM/Packets/Packet_ID_WORLD_LOGIN *"
+  },
+  {
+   "addr": "101c0480",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_WORLD_LOGIN",
+   "namespace": "FOM::Packets::Packet_ID_WORLD_LOGIN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_WORLD_LOGIN *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  },
+  {
+   "addr": "101c0980",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_WORLD_LOGIN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_WORLD_LOGIN *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "101c09f0",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_WORLD_LOGIN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_WORLD_LOGIN *"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

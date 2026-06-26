@@ -1,0 +1,7 @@
+{
+ "base": "/uint",
+ "desc": "Unsigned Integer (compiler-specific size)",
+ "kind": "typedef",
+ "len": 4,
+ "path": "/crtdefs.h/size_t"
+}

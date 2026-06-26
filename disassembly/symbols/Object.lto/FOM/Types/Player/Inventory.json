@@ -1,0 +1,52 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1007a7a0",
+   "callingConvention": "__thiscall",
+   "name": "Inventory",
+   "namespace": "FOM::Types::Player::Inventory",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/Inventory *"
+    }
+   ],
+   "returnType": "/FOM/Types/Player/Inventory *"
+  },
+  {
+   "addr": "100eaaf0",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::Player::Inventory",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/Inventory *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100eab40",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Types::Player::Inventory",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/Inventory *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

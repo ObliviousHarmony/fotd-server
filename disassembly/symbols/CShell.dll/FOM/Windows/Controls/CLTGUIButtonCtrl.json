@@ -1,0 +1,47 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1006c240",
+   "callingConvention": "__fastcall",
+   "name": "ClearDropdownItems",
+   "namespace": "FOM::Windows::Controls::CLTGUIButtonCtrl",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10099cb0",
+   "callingConvention": "__thiscall",
+   "name": "AddDropdownItem",
+   "namespace": "FOM::Windows::Controls::CLTGUIButtonCtrl",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/Controls/CLTGUIButtonCtrl *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

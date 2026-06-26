@@ -1,0 +1,69 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100bba20",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowCharacterUpdate",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100bca80",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowCharacterUpdate",
+   "namespace": "FOM::Windows::CWindowCharacterUpdate",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowCharacterUpdate *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "100bcab0",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowCharacterUpdate",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowCharacterUpdate *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100bd8c0",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowCharacterUpdate",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowCharacterUpdate *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

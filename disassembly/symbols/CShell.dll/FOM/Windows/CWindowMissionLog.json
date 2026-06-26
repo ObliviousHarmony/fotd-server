@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10111fd0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowMissionLog",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10112e00",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowMissionLog",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowMissionLog *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "101162e0",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowMissionLog",
+   "namespace": "FOM::Windows::CWindowMissionLog",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowMissionLog *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "1011a720",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowMissionLog",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowMissionLog *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4"
+  }
+ ]
+}

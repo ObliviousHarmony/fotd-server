@@ -1,0 +1,38 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": "dtor",
+   "offset": 0,
+   "type": {
+    "ptr": "/FOM/Packets/_internal/VariableSizedPacket_dtor"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "Read",
+   "offset": 4,
+   "type": {
+    "ptr": "/FOM/Packets/_internal/VariableSizedPacket_Read"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "Write",
+   "offset": 8,
+   "type": {
+    "ptr": "/FOM/Packets/_internal/VariableSizedPacket_Write"
+   }
+  }
+ ],
+ "kind": "struct",
+ "len": 12,
+ "packed": false,
+ "path": "/FOM/Packets/_internal/VariableSizedPacket_vftbl"
+}

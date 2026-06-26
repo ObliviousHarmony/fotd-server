@@ -1,0 +1,43 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": "mapKeys",
+   "offset": 0,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "mapValues",
+   "offset": 4,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "mapSize",
+   "offset": 8,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "initialized",
+   "offset": 12,
+   "type": "/stdint.h/uint8_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 16,
+ "packed": true,
+ "path": "/RakNet/StringCompressor"
+}

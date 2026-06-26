@@ -1,0 +1,39 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100d0040",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowDropUp",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowDropUp *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100d07d0",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowDropUp",
+   "namespace": "FOM::Windows::CWindowDropUp",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowDropUp *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  }
+ ]
+}

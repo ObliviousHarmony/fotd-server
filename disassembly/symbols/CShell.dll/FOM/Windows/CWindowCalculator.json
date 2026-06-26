@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100b88f0",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowCalculator",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowCalculator *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100b91d0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowCalculator",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100bad50",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowCalculator",
+   "namespace": "FOM::Windows::CWindowCalculator",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowCalculator *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "100bb820",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowCalculator",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowCalculator *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

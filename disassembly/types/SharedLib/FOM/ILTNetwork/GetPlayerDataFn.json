@@ -1,0 +1,13 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "type",
+   "type": "/FOM/Enums/PlayerData"
+  }
+ ],
+ "path": "/FOM/ILTNetwork/GetPlayerDataFn",
+ "return": "/void"
+}

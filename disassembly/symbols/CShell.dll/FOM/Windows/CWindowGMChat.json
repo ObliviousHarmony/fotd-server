@@ -1,0 +1,69 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100f07b0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowGMChat",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100f0870",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowGMChat",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowGMChat *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "100f0d70",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowGMChat",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowGMChat *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100f0db0",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowGMChat",
+   "namespace": "FOM::Windows::CWindowGMChat",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowGMChat *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  }
+ ]
+}

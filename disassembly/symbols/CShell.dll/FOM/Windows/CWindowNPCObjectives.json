@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "101329e0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowNPCObjectives",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10133960",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowNPCObjectives",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowNPCObjectives *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "10134520",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowNPCObjectives",
+   "namespace": "FOM::Windows::CWindowNPCObjectives",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowNPCObjectives *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "101346b0",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowNPCObjectives",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowNPCObjectives *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

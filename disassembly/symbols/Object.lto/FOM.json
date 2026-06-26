@@ -1,0 +1,142 @@
+{
+ "data": [
+  {
+   "addr": "101b47e8",
+   "name": "g_pLTNetwork",
+   "namespace": "FOM",
+   "type": "/FOM/ILTNetwork/ILTNetwork * *"
+  }
+ ],
+ "functions": [
+  {
+   "addr": "1004e930",
+   "callingConvention": "__stdcall",
+   "name": "SendPacket",
+   "namespace": "FOM",
+   "params": [
+    {
+     "name": "packet",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    },
+    {
+     "name": "destination",
+     "type": "/FOM/Enums/PacketDestination"
+    },
+    {
+     "name": "priority",
+     "type": "/int"
+    },
+    {
+     "name": "reliability",
+     "type": "/int"
+    },
+    {
+     "name": "orderingChannel",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10056f20",
+   "callingConvention": "__thiscall",
+   "name": "HandlePacket",
+   "namespace": "FOM",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "packetID",
+     "type": "/FOM/Enums/PacketIdentifier"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "1008ea00",
+   "callingConvention": "__cdecl",
+   "name": "WriteRawString",
+   "namespace": "FOM",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/byte *"
+    },
+    {
+     "name": "param_2",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1008ea70",
+   "callingConvention": "__cdecl",
+   "name": "EncodeString",
+   "namespace": "FOM",
+   "params": [
+    {
+     "name": "input",
+     "type": "/char *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "languageID",
+     "type": "/int"
+    },
+    {
+     "name": "writeLanguageID",
+     "type": "/bool"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1008eb40",
+   "callingConvention": "__cdecl",
+   "name": "ReadRawString",
+   "namespace": "FOM",
+   "params": [
+    {
+     "name": "output",
+     "type": "/char *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "1008ebf0",
+   "callingConvention": "__cdecl",
+   "name": "DecodeString",
+   "namespace": "FOM",
+   "params": [
+    {
+     "name": "output",
+     "type": "/char *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "hasLanguageID",
+     "type": "/bool"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

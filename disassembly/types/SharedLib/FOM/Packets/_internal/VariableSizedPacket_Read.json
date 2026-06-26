@@ -1,0 +1,21 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "this",
+   "type": {
+    "ptr": "/FOM/Packets/VariableSizedPacket"
+   }
+  },
+  {
+   "name": "p",
+   "type": {
+    "ptr": "/RakNet/Packet"
+   }
+  }
+ ],
+ "path": "/FOM/Packets/_internal/VariableSizedPacket_Read",
+ "return": "/bool"
+}

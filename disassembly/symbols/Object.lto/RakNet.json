@@ -1,0 +1,330 @@
+{
+ "data": [
+  {
+   "addr": "101afe88",
+   "name": "rakFree_Ex",
+   "namespace": "RakNet",
+   "type": "/RakNet/Functions/RakFreeExFn *"
+  },
+  {
+   "addr": "101afe84",
+   "name": "rakRealloc_Ex",
+   "namespace": "RakNet",
+   "type": "/RakNet/Functions/RakReallocExFn *"
+  },
+  {
+   "addr": "101afe80",
+   "name": "rakMalloc_Ex",
+   "namespace": "RakNet",
+   "type": "/RakNet/Functions/RakMallocExFn *"
+  },
+  {
+   "addr": "101afe7c",
+   "name": "rakFree",
+   "namespace": "RakNet",
+   "type": "/RakNet/Functions/RakFreeFn *"
+  },
+  {
+   "addr": "101afe78",
+   "name": "rakRealloc",
+   "namespace": "RakNet",
+   "type": "/RakNet/Functions/RakReallocFn *"
+  },
+  {
+   "addr": "101afe74",
+   "name": "rakMalloc",
+   "namespace": "RakNet",
+   "type": "/RakNet/Functions/RakMallocFn *"
+  },
+  {
+   "addr": "101afe8c",
+   "name": "notifyOutOfMemory",
+   "namespace": "RakNet",
+   "type": "/RakNet/Functions/NotifyOutOfMemoryFn *"
+  }
+ ],
+ "functions": [
+  {
+   "addr": "10016250",
+   "callingConvention": "__thiscall",
+   "name": "Read_T_bool",
+   "namespace": "RakNet",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "outValue",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "1008c4f0",
+   "callingConvention": "__stdcall",
+   "name": "GetTime",
+   "namespace": "RakNet",
+   "params": [],
+   "returnType": "/RakNet/RakNetTime"
+  },
+  {
+   "addr": "1008c510",
+   "callingConvention": "__stdcall",
+   "name": "GetTimeUS",
+   "namespace": "RakNet",
+   "params": [],
+   "returnType": "/RakNet/RakNetTime"
+  },
+  {
+   "addr": "1008d110",
+   "callingConvention": "__cdecl",
+   "name": "SetMalloc",
+   "namespace": "RakNet",
+   "params": [
+    {
+     "name": "userFunction",
+     "type": "/RakNet/Functions/RakMallocFn *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1008d120",
+   "callingConvention": "__cdecl",
+   "name": "SetRealloc",
+   "namespace": "RakNet",
+   "params": [
+    {
+     "name": "userFunction",
+     "type": "/RakNet/Functions/RakMallocFn *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1008d130",
+   "callingConvention": "__cdecl",
+   "name": "SetFree",
+   "namespace": "RakNet",
+   "params": [
+    {
+     "name": "userFunction",
+     "type": "/RakNet/Functions/RakFreeFn *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1008d140",
+   "callingConvention": "__cdecl",
+   "name": "SetMalloc_Ex",
+   "namespace": "RakNet",
+   "params": [
+    {
+     "name": "userFunction",
+     "type": "/RakNet/Functions/RakMallocExFn *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1008d150",
+   "callingConvention": "__cdecl",
+   "name": "SetRealloc_Ex",
+   "namespace": "RakNet",
+   "params": [
+    {
+     "name": "userFunction",
+     "type": "/RakNet/Functions/RakReallocExFn *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1008d160",
+   "callingConvention": "__cdecl",
+   "name": "SetFree_Ex",
+   "namespace": "RakNet",
+   "params": [
+    {
+     "name": "userFunction",
+     "type": "/RakNet/Functions/RakFreeExFn *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1008d170",
+   "callingConvention": "__cdecl",
+   "name": "SetNotifyOutOfMemory",
+   "namespace": "RakNet",
+   "params": [
+    {
+     "name": "userFunction",
+     "type": "/RakNet/Functions/NotifyOutOfMemoryFn *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1008d180",
+   "callingConvention": "__stdcall",
+   "name": "GetMalloc",
+   "namespace": "RakNet",
+   "params": [],
+   "returnType": "/RakNet/Functions/RakMallocFn *"
+  },
+  {
+   "addr": "1008d190",
+   "callingConvention": "__stdcall",
+   "name": "GetRealloc",
+   "namespace": "RakNet",
+   "params": [],
+   "returnType": "/RakNet/Functions/RakReallocFn *"
+  },
+  {
+   "addr": "1008d1a0",
+   "callingConvention": "__stdcall",
+   "name": "GetFree",
+   "namespace": "RakNet",
+   "params": [],
+   "returnType": "/RakNet/Functions/RakFreeFn *"
+  },
+  {
+   "addr": "1008d1b0",
+   "callingConvention": "__stdcall",
+   "name": "GetMalloc_Ex",
+   "namespace": "RakNet",
+   "params": [],
+   "returnType": "/RakNet/Functions/RakMallocExFn *"
+  },
+  {
+   "addr": "1008d1c0",
+   "callingConvention": "__stdcall",
+   "name": "GetRealloc_Ex",
+   "namespace": "RakNet",
+   "params": [],
+   "returnType": "/RakNet/Functions/RakReallocExFn *"
+  },
+  {
+   "addr": "1008d1d0",
+   "callingConvention": "__stdcall",
+   "name": "GetFree_Ex",
+   "namespace": "RakNet",
+   "params": [],
+   "returnType": "/RakNet/Functions/RakFreeExFn *"
+  },
+  {
+   "addr": "1008d1e0",
+   "callingConvention": "__cdecl",
+   "name": "_RakMalloc",
+   "namespace": "RakNet",
+   "params": [
+    {
+     "name": "size",
+     "type": "/crtdefs.h/size_t"
+    }
+   ],
+   "returnType": "/void *"
+  },
+  {
+   "addr": "1008d200",
+   "callingConvention": "__cdecl",
+   "name": "_RakRealloc",
+   "namespace": "RakNet",
+   "params": [
+    {
+     "name": "p",
+     "type": "/void *"
+    },
+    {
+     "name": "size",
+     "type": "/crtdefs.h/size_t"
+    }
+   ],
+   "returnType": "/void *"
+  },
+  {
+   "addr": "1008d220",
+   "callingConvention": "__cdecl",
+   "name": "_RakFree",
+   "namespace": "RakNet",
+   "params": [
+    {
+     "name": "p",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1008d240",
+   "callingConvention": "__cdecl",
+   "name": "_RakMalloc_Ex",
+   "namespace": "RakNet",
+   "params": [
+    {
+     "name": "size",
+     "type": "/crtdefs.h/size_t"
+    },
+    {
+     "name": "file",
+     "type": "/char *"
+    },
+    {
+     "name": "line",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1008d260",
+   "callingConvention": "__cdecl",
+   "name": "_RakRealloc_Ex",
+   "namespace": "RakNet",
+   "params": [
+    {
+     "name": "p",
+     "type": "/void *"
+    },
+    {
+     "name": "size",
+     "type": "/crtdefs.h/size_t"
+    },
+    {
+     "name": "file",
+     "type": "/char *"
+    },
+    {
+     "name": "line",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1008d280",
+   "callingConvention": "__cdecl",
+   "name": "_RakFree_Ex",
+   "namespace": "RakNet",
+   "params": [
+    {
+     "name": "p",
+     "type": "/void *"
+    },
+    {
+     "name": "file",
+     "type": "/char *"
+    },
+    {
+     "name": "line",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

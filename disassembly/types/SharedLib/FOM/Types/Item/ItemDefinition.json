@@ -1,0 +1,299 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 2,
+   "name": "type",
+   "offset": 0,
+   "type": "/FOM/Types/Item/ItemType"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": null,
+   "offset": 2,
+   "type": "/ushort"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 4,
+   "type": "/uint"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "category",
+   "offset": 8,
+   "type": "/FOM/Types/Item/ItemCategory"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "subtype",
+   "offset": 9,
+   "type": "/FOM/Types/Item/ItemSubtype"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "slot",
+   "offset": 10,
+   "type": "/FOM/Types/Item/ItemSlot"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 11,
+   "type": "/byte"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "icon",
+   "offset": 12,
+   "type": {
+    "ptr": "/char"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "model",
+   "offset": 16,
+   "type": {
+    "ptr": "/char"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "skin",
+   "offset": 20,
+   "type": {
+    "ptr": "/char"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 24,
+   "type": {
+    "ptr": "/char"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 28,
+   "type": {
+    "ptr": "/char"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "renderStyle",
+   "offset": 32,
+   "type": {
+    "ptr": "/char"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 36,
+   "type": "/float"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 40,
+   "type": "/uint"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 44,
+   "type": "/uint"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 48,
+   "type": "/uint"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 52,
+   "type": "/uint"
+  },
+  {
+   "comment": null,
+   "len": 24,
+   "name": null,
+   "offset": 56,
+   "type": {
+    "arr": {
+     "arr": "/byte",
+     "n": 8
+    },
+    "n": 3
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 80,
+   "type": "/uint"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 84,
+   "type": "/uint"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 88,
+   "type": "/uint"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 92,
+   "type": {
+    "ptr": "/char"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 96,
+   "type": {
+    "ptr": "/char"
+   }
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "ammoType",
+   "offset": 100,
+   "type": "/FOM/Types/Item/ItemType"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": null,
+   "offset": 102,
+   "type": "/ushort"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 104,
+   "type": "/uint"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 108,
+   "type": "/float"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": null,
+   "offset": 112,
+   "type": "/ushort"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": null,
+   "offset": 114,
+   "type": "/ushort"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": null,
+   "offset": 116,
+   "type": "/ushort"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": null,
+   "offset": 118,
+   "type": "/ushort"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 120,
+   "type": "/uint"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 124,
+   "type": "/uint"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 128,
+   "type": "/uint"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 132,
+   "type": "/float"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 136,
+   "type": "/float"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 140,
+   "type": "/float"
+  }
+ ],
+ "kind": "struct",
+ "len": 144,
+ "packed": true,
+ "path": "/FOM/Types/Item/ItemDefinition"
+}

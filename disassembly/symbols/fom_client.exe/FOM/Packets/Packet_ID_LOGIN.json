@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "0049b820",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_LOGIN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_LOGIN *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "0049c090",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_LOGIN",
+   "namespace": "FOM::Packets::Packet_ID_LOGIN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_LOGIN *"
+    }
+   ],
+   "returnType": "/FOM/Packets/Packet_ID_LOGIN *"
+  },
+  {
+   "addr": "0049c3b0",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_LOGIN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_LOGIN *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "0049c810",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_Login",
+   "namespace": "FOM::Packets::Packet_ID_LOGIN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_LOGIN *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  }
+ ]
+}

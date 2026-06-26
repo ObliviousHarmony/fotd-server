@@ -1,0 +1,35 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 1072,
+   "name": "base",
+   "offset": 0,
+   "type": "/FOM/Packets/VariableSizedPacket"
+  },
+  {
+   "comment": null,
+   "len": 64,
+   "name": "username",
+   "offset": 1072,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 64
+   }
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "clientVersion",
+   "offset": 1136,
+   "type": "/stdint.h/uint16_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 1144,
+ "packed": true,
+ "path": "/FOM/Packets/Packet_ID_LOGIN_REQUEST"
+}

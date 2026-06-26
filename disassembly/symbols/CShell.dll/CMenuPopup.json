@@ -1,0 +1,69 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1008c090",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "CMenuPopup",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1008c330",
+   "callingConvention": "__thiscall",
+   "name": "~CMenuPopup",
+   "namespace": "CMenuPopup",
+   "params": [
+    {
+     "name": "this",
+     "type": "/CMenuPopup *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "1008c3c0",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "CMenuPopup",
+   "params": [
+    {
+     "name": "this",
+     "type": "/CMenuPopup *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "1008c450",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "CMenuPopup",
+   "params": [
+    {
+     "name": "this",
+     "type": "/CMenuPopup *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "SECURITY_NORMAL",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "SECURITY_SECURED",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "SECURITY_BOUND",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "SECURITY_SPECIAL_BOUND",
+   "value": 3
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Types/Item/ItemSecurity"
+}

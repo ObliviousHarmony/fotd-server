@@ -1,0 +1,55 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": "vftable",
+   "offset": 0,
+   "type": {
+    "ptr": "/FOM/Packets/_internal/VariableSizedPacket_vftbl"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 4,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "timestampType",
+   "offset": 8,
+   "type": "/FOM/Enums/PacketIdentifier"
+  },
+  {
+   "comment": null,
+   "len": 1044,
+   "name": "bitStream",
+   "offset": 12,
+   "type": "/RakNet/BitStream"
+  },
+  {
+   "comment": null,
+   "len": 8,
+   "name": "timestamp",
+   "offset": 1056,
+   "type": "/RakNet/RakNetTime"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "messageType",
+   "offset": 1064,
+   "type": "/FOM/Enums/PacketIdentifier"
+  }
+ ],
+ "kind": "struct",
+ "len": 1072,
+ "packed": true,
+ "path": "/FOM/Packets/VariableSizedPacket"
+}

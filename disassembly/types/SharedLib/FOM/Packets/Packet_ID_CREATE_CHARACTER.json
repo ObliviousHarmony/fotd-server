@@ -1,0 +1,52 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 1072,
+   "name": "base",
+   "offset": 0,
+   "type": "/FOM/Packets/VariableSizedPacket"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "playerId",
+   "offset": 1072,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 50,
+   "name": "avatar",
+   "offset": 1076,
+   "type": "/FOM/Types/Player/Avatar"
+  },
+  {
+   "comment": null,
+   "len": 20,
+   "name": "name",
+   "offset": 1126,
+   "type": {
+    "arr": "/char",
+    "n": 20
+   }
+  },
+  {
+   "comment": null,
+   "len": 512,
+   "name": "biography",
+   "offset": 1146,
+   "type": {
+    "arr": "/char",
+    "n": 512
+   }
+  }
+ ],
+ "kind": "struct",
+ "len": 1664,
+ "packed": true,
+ "path": "/FOM/Packets/Packet_ID_CREATE_CHARACTER"
+}

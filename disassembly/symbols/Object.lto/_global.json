@@ -1,0 +1,70 @@
+{
+ "data": [
+  {
+   "addr": "1016e060",
+   "name": "ItemDef_106",
+   "namespace": "",
+   "type": null
+  },
+  {
+   "addr": "1016dfd4",
+   "name": "ItemDef_200",
+   "namespace": "",
+   "type": null
+  },
+  {
+   "addr": "1016de20",
+   "name": "ItemDef_102",
+   "namespace": "",
+   "type": null
+  },
+  {
+   "addr": "1016dd94",
+   "name": "ItemDef_300",
+   "namespace": "",
+   "type": null
+  },
+  {
+   "addr": "101bd058",
+   "name": "g_ItemAttributeVectors",
+   "namespace": "",
+   "type": null
+  }
+ ],
+ "functions": [
+  {
+   "addr": "10006f50",
+   "callingConvention": "__cdecl",
+   "name": "FUN_10006f50",
+   "namespace": "",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "avatar",
+     "type": "/FOM/Types/Player/Avatar *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100077b0",
+   "callingConvention": "__cdecl",
+   "name": "FUN_100077b0",
+   "namespace": "",
+   "params": [
+    {
+     "name": "avatar",
+     "type": "/FOM/Types/Player/Avatar *"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

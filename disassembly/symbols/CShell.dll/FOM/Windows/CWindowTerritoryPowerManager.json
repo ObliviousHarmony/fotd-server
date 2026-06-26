@@ -1,0 +1,69 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1017aa90",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowTerritoryPowerManager",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTerritoryPowerManager *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1017aae0",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowTerritoryPowerManager",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTerritoryPowerManager *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1017aaf0",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowTerritoryPowerManager",
+   "namespace": "FOM::Windows::CWindowTerritoryPowerManager",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTerritoryPowerManager *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "1017ab20",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowTerritoryPowerManager",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

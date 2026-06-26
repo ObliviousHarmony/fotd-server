@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1008fd40",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_MOVE_ITEMS",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_MOVE_ITEMS *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10090870",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_MOVE_ITEMS",
+   "namespace": "FOM::Packets::Packet_ID_MOVE_ITEMS",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_MOVE_ITEMS *"
+    }
+   ],
+   "returnType": "/FOM/Packets/Packet_ID_MOVE_ITEMS *"
+  },
+  {
+   "addr": "10090910",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_MOVE_ITEMS",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_MOVE_ITEMS *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10091320",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_MOVE_ITEMS",
+   "namespace": "FOM::Packets::Packet_ID_MOVE_ITEMS",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_MOVE_ITEMS *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  }
+ ]
+}

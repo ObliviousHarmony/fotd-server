@@ -1,0 +1,18 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1006c6e0",
+   "callingConvention": "__fastcall",
+   "name": "CLTGUILayoutCtrl",
+   "namespace": "FOM::Windows::Controls::CLTGUILayoutCtrl",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/undefined4 *"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  }
+ ]
+}

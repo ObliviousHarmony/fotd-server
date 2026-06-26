@@ -1,0 +1,167 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10106f70",
+   "callingConvention": "__fastcall",
+   "name": "CWindowMgr",
+   "namespace": "FOM::Windows::CWindowMgr",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/undefined4 *"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10106fe0",
+   "callingConvention": "__fastcall",
+   "name": "DestroyAll",
+   "namespace": "FOM::Windows::CWindowMgr",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10107040",
+   "callingConvention": "__fastcall",
+   "name": "RenderAll",
+   "namespace": "FOM::Windows::CWindowMgr",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10107380",
+   "callingConvention": "__thiscall",
+   "name": "SetModalCapture",
+   "namespace": "FOM::Windows::CWindowMgr",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowMgr *"
+    },
+    {
+     "name": "param_1",
+     "type": "/void *"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10107540",
+   "callingConvention": "__thiscall",
+   "name": "GetWindow",
+   "namespace": "FOM::Windows::CWindowMgr",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowMgr *"
+    },
+    {
+     "name": "id",
+     "type": "/FOM/Windows/CWindowId"
+    }
+   ],
+   "returnType": "/FOM/Windows/CBaseWindow *"
+  },
+  {
+   "addr": "10107560",
+   "callingConvention": "__thiscall",
+   "name": "HitTest",
+   "namespace": "FOM::Windows::CWindowMgr",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowMgr *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "10107a00",
+   "callingConvention": "__thiscall",
+   "name": "CreateWindow",
+   "namespace": "FOM::Windows::CWindowMgr",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowMgr *"
+    },
+    {
+     "name": "param_1",
+     "type": "/FOM/Windows/CWindowId"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10109540",
+   "callingConvention": "__fastcall",
+   "name": "InitAllWindows",
+   "namespace": "FOM::Windows::CWindowMgr",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/int"
+  },
+  {
+   "addr": "10109c80",
+   "callingConvention": "__thiscall",
+   "name": "ShowWindow",
+   "namespace": "FOM::Windows::CWindowMgr",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowMgr *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1010ab50",
+   "callingConvention": "__thiscall",
+   "name": "OpenWindow",
+   "namespace": "FOM::Windows::CWindowMgr",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowMgr *"
+    },
+    {
+     "name": "param_1",
+     "type": "/FOM/Windows/CWindowId"
+    }
+   ],
+   "returnType": "/undefined4"
+  }
+ ]
+}

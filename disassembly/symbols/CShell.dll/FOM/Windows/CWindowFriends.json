@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100efbd0",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowFriends",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowFriends *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100efca0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowFriends",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100effd0",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowFriends",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowFriends *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100f0390",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowFriends",
+   "namespace": "FOM::Windows::CWindowFriends",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowFriends *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  }
+ ]
+}

@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1026be40",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::PositionRotation",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/PositionRotation *"
+    },
+    {
+     "name": "param_1",
+     "type": "/uint *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1026be70",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Types::PositionRotation",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/PositionRotation *"
+    },
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10272420",
+   "callingConvention": "__thiscall",
+   "name": "WritePosition",
+   "namespace": "FOM::Types::PositionRotation",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/PositionRotation *"
+    },
+    {
+     "name": "param_1",
+     "type": "/uint *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10272500",
+   "callingConvention": "__thiscall",
+   "name": "ReadPosition",
+   "namespace": "FOM::Types::PositionRotation",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/PositionRotation *"
+    },
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

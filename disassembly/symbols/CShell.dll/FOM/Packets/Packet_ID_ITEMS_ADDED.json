@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1018dfd0",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_ITEMS_ADDED",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_ITEMS_ADDED *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10196600",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_ITEMS_ADDED",
+   "namespace": "FOM::Packets::Packet_ID_ITEMS_ADDED",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_ITEMS_ADDED *"
+    }
+   ],
+   "returnType": "/FOM/Packets/Packet_ID_ITEMS_ADDED *"
+  },
+  {
+   "addr": "101966b0",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_ITEMS_ADDED",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_ITEMS_ADDED *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10197cf0",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_ITEMS_ADDED",
+   "namespace": "FOM::Packets::Packet_ID_ITEMS_ADDED",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_ITEMS_ADDED *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  }
+ ]
+}

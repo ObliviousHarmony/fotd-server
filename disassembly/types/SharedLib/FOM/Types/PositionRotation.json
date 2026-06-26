@@ -1,0 +1,25 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 12,
+   "name": "pos",
+   "offset": 0,
+   "type": "/FOM/Types/Position"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "rot",
+   "offset": 12,
+   "type": "/stdint.h/uint16_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 16,
+ "packed": true,
+ "path": "/FOM/Types/PositionRotation"
+}

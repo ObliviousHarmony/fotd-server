@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100acd90",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowBlocked",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowBlocked *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100ace80",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowBlocked",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100ad420",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowBlocked",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowBlocked *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100ad7a0",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowBlocked",
+   "namespace": "FOM::Windows::CWindowBlocked",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowBlocked *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  }
+ ]
+}

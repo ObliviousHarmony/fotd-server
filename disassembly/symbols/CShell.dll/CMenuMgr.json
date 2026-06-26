@@ -1,0 +1,22 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1008bc40",
+   "callingConvention": "__thiscall",
+   "name": "CreateMenu",
+   "namespace": "CMenuMgr",
+   "params": [
+    {
+     "name": "this",
+     "type": "/CMenuMgr *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

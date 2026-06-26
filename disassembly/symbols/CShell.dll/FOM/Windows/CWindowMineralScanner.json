@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1010eb30",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowMineralScanner",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowMineralScanner *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1010ed80",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowMineralScanner",
+   "namespace": "FOM::Windows::CWindowMineralScanner",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowMineralScanner *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "1010eec0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowMineralScanner",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1010fe70",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowMineralScanner",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowMineralScanner *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

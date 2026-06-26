@@ -1,0 +1,52 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10078810",
+   "callingConvention": "__thiscall",
+   "name": "NanomachineSlots",
+   "namespace": "FOM::Types::Player::NanomachineSlots",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/NanomachineSlots *"
+    }
+   ],
+   "returnType": "/FOM/Types/Player/QuickSlots *"
+  },
+  {
+   "addr": "10101d60",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Types::Player::NanomachineSlots",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/NanomachineSlots *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10101e20",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::Player::NanomachineSlots",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/NanomachineSlots *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

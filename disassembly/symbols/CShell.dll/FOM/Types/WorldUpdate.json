@@ -1,0 +1,82 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1019e270",
+   "callingConvention": "__thiscall",
+   "name": "Reset",
+   "namespace": "FOM::Types::WorldUpdate",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/WorldUpdate *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1019f2f0",
+   "callingConvention": "__thiscall",
+   "name": "WorldUpdate",
+   "namespace": "FOM::Types::WorldUpdate",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/WorldUpdate *"
+    }
+   ],
+   "returnType": "/FOM/Types/WorldUpdate *"
+  },
+  {
+   "addr": "101a00b0",
+   "callingConvention": "__thiscall",
+   "name": "WriteCharacter",
+   "namespace": "FOM::Types::WorldUpdate",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/WorldUpdate *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "101a1310",
+   "callingConvention": "__thiscall",
+   "name": "WritePlayer",
+   "namespace": "FOM::Types::WorldUpdate",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/WorldUpdate *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "101a1440",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::WorldUpdate",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/WorldUpdate *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

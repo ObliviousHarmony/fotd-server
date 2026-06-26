@@ -1,0 +1,102 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1006cf80",
+   "callingConvention": "__fastcall",
+   "name": "CLTGUIListCtrl",
+   "namespace": "FOM::Windows::Controls::CLTGUIListCtrl",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/undefined4 *"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "1006d0a0",
+   "callingConvention": "__thiscall",
+   "name": "AddColumn",
+   "namespace": "FOM::Windows::Controls::CLTGUIListCtrl",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/Controls/CLTGUIListCtrl *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1006d0f0",
+   "callingConvention": "__cdecl",
+   "name": "AddItem",
+   "namespace": "FOM::Windows::Controls::CLTGUIListCtrl",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_5",
+     "type": "/int *"
+    },
+    {
+     "name": "param_6",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "1006d1d0",
+   "callingConvention": "__fastcall",
+   "name": "ResetScroll",
+   "namespace": "FOM::Windows::Controls::CLTGUIListCtrl",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1006d9c0",
+   "callingConvention": "__fastcall",
+   "name": "ClearItems",
+   "namespace": "FOM::Windows::Controls::CLTGUIListCtrl",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

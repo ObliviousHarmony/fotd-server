@@ -1,0 +1,1053 @@
+{
+ "data": [
+  {
+   "addr": "1035a6fc",
+   "name": "g_pSharedMemory",
+   "namespace": "FOM::SharedMemory",
+   "type": "/undefined4"
+  }
+ ],
+ "functions": [
+  {
+   "addr": "10007720",
+   "callingConvention": "__fastcall",
+   "name": "Initialize",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "10007900",
+   "callingConvention": "__stdcall",
+   "name": "Lock",
+   "namespace": "FOM::SharedMemory",
+   "params": [],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10007910",
+   "callingConvention": "__stdcall",
+   "name": "Unlock",
+   "namespace": "FOM::SharedMemory",
+   "params": [],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10007930",
+   "callingConvention": "__stdcall",
+   "name": "ReadByte",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "index",
+     "type": "/FOM/Enums/SharedMemory"
+    }
+   ],
+   "returnType": "/byte"
+  },
+  {
+   "addr": "10007970",
+   "callingConvention": "__stdcall",
+   "name": "ReadUShort",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "index",
+     "type": "/FOM/Enums/SharedMemory"
+    }
+   ],
+   "returnType": "/ushort"
+  },
+  {
+   "addr": "100079b0",
+   "callingConvention": "__stdcall",
+   "name": "ReadUInt",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "index",
+     "type": "/FOM/Enums/SharedMemory"
+    }
+   ],
+   "returnType": "/uint"
+  },
+  {
+   "addr": "100079f0",
+   "callingConvention": "__stdcall",
+   "name": "ReadULongLong",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    }
+   ],
+   "returnType": "/ulonglong"
+  },
+  {
+   "addr": "10007a40",
+   "callingConvention": "__stdcall",
+   "name": "ReadByteArray",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "outBuffer",
+     "type": "/byte *"
+    },
+    {
+     "name": "count",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10007aa0",
+   "callingConvention": "__stdcall",
+   "name": "ReadUShortArray",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startIndex",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "outBuffer",
+     "type": "/ushort *"
+    },
+    {
+     "name": "count",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10007b10",
+   "callingConvention": "__stdcall",
+   "name": "ReadUIntArray",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startIndex",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "outBuffer",
+     "type": "/uint *"
+    },
+    {
+     "name": "count",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10007b70",
+   "callingConvention": "__stdcall",
+   "name": "ReadULongLongArray",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startIndex",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "outBuffer",
+     "type": "/ulonglong *"
+    },
+    {
+     "name": "count",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10007be0",
+   "callingConvention": "__stdcall",
+   "name": "ReadByte",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    }
+   ],
+   "returnType": "/byte"
+  },
+  {
+   "addr": "10007c20",
+   "callingConvention": "__stdcall",
+   "name": "ReadUShort",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    }
+   ],
+   "returnType": "/ushort"
+  },
+  {
+   "addr": "10007c60",
+   "callingConvention": "__stdcall",
+   "name": "ReadUInt",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    }
+   ],
+   "returnType": "/uint"
+  },
+  {
+   "addr": "10007ca0",
+   "callingConvention": "__stdcall",
+   "name": "ReadULongLong",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    }
+   ],
+   "returnType": "/ulonglong"
+  },
+  {
+   "addr": "10007cf0",
+   "callingConvention": "__stdcall",
+   "name": "ReadByteArray",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "outBuffer",
+     "type": "/byte *"
+    },
+    {
+     "name": "count",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10007d50",
+   "callingConvention": "__stdcall",
+   "name": "ReadShortArray",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "outBuffer",
+     "type": "/ushort *"
+    },
+    {
+     "name": "count",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10007dc0",
+   "callingConvention": "__stdcall",
+   "name": "ReadUIntArray",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "outBuffer",
+     "type": "/uint *"
+    },
+    {
+     "name": "count",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10007e20",
+   "callingConvention": "__stdcall",
+   "name": "ReadULongLongArray",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "outBuffer",
+     "type": "/ulonglong *"
+    },
+    {
+     "name": "count",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10007e90",
+   "callingConvention": "__stdcall",
+   "name": "ReadBool",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10007ed0",
+   "callingConvention": "__stdcall",
+   "name": "ReadFloat",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    }
+   ],
+   "returnType": "/float"
+  },
+  {
+   "addr": "10007f10",
+   "callingConvention": "__stdcall",
+   "name": "ReadDouble",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    }
+   ],
+   "returnType": "/double"
+  },
+  {
+   "addr": "10007f60",
+   "callingConvention": "__stdcall",
+   "name": "ReadUInt",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    }
+   ],
+   "returnType": "/uint"
+  },
+  {
+   "addr": "10007fa0",
+   "callingConvention": "__stdcall",
+   "name": "GetPtr",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    }
+   ],
+   "returnType": "/void *"
+  },
+  {
+   "addr": "10007fe0",
+   "callingConvention": "__stdcall",
+   "name": "MemSet",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "value",
+     "type": "/byte"
+    },
+    {
+     "name": "size",
+     "type": "/crtdefs.h/size_t"
+    }
+   ],
+   "returnType": "/void *"
+  },
+  {
+   "addr": "10008030",
+   "callingConvention": "__stdcall",
+   "name": "Read",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "outBuffer",
+     "type": "/void *"
+    },
+    {
+     "name": "size",
+     "type": "/crtdefs.h/size_t"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008070",
+   "callingConvention": "__stdcall",
+   "name": "ReadRange",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "outBuffer",
+     "type": "/void *"
+    },
+    {
+     "name": "count",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100080c0",
+   "callingConvention": "__stdcall",
+   "name": "FindIndex",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "value",
+     "type": "/int"
+    },
+    {
+     "name": "count",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/uint"
+  },
+  {
+   "addr": "10008110",
+   "callingConvention": "__stdcall",
+   "name": "ReadString",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "outBuffer",
+     "type": "/char *"
+    },
+    {
+     "name": "maxLength",
+     "type": "/crtdefs.h/size_t"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008210",
+   "callingConvention": "__stdcall",
+   "name": "Read",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "outBuffer",
+     "type": "/void *"
+    },
+    {
+     "name": "size",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008260",
+   "callingConvention": "__stdcall",
+   "name": "ReadVector",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "outVec",
+     "type": "/float *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100082c0",
+   "callingConvention": "__stdcall",
+   "name": "ReadQuaternion",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "outQuat",
+     "type": "/float *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008320",
+   "callingConvention": "__stdcall",
+   "name": "WriteByte",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "value",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008360",
+   "callingConvention": "__stdcall",
+   "name": "WriteUShort",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "value",
+     "type": "/ushort"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100083a0",
+   "callingConvention": "__stdcall",
+   "name": "WriteUInt",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "value",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100083d0",
+   "callingConvention": "__stdcall",
+   "name": "WriteULongLong",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "low",
+     "type": "/uint"
+    },
+    {
+     "name": "high",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008410",
+   "callingConvention": "__stdcall",
+   "name": "WriteByteArray",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "data",
+     "type": "/byte *"
+    },
+    {
+     "name": "count",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008470",
+   "callingConvention": "__stdcall",
+   "name": "WriteUShortArray",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "data",
+     "type": "/ushort *"
+    },
+    {
+     "name": "count",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100084d0",
+   "callingConvention": "__stdcall",
+   "name": "WriteUIntArray",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "data",
+     "type": "/uint *"
+    },
+    {
+     "name": "count",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008530",
+   "callingConvention": "__stdcall",
+   "name": "WriteULongLongArray",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "data",
+     "type": "/ulonglong *"
+    },
+    {
+     "name": "count",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100085b0",
+   "callingConvention": "__stdcall",
+   "name": "WriteChar",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "value",
+     "type": "/char"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100085f0",
+   "callingConvention": "__stdcall",
+   "name": "WriteShort",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "value",
+     "type": "/short"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008630",
+   "callingConvention": "__stdcall",
+   "name": "WriteUInt",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "value",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008660",
+   "callingConvention": "__stdcall",
+   "name": "WriteULongLong",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "low",
+     "type": "/uint"
+    },
+    {
+     "name": "high",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100086a0",
+   "callingConvention": "__stdcall",
+   "name": "WriteCharArray",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "data",
+     "type": "/char *"
+    },
+    {
+     "name": "count",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008700",
+   "callingConvention": "__stdcall",
+   "name": "WriteShortArray",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "data",
+     "type": "/short *"
+    },
+    {
+     "name": "count",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008760",
+   "callingConvention": "__stdcall",
+   "name": "WriteIntArray",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "data",
+     "type": "/int *"
+    },
+    {
+     "name": "count",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100087c0",
+   "callingConvention": "__stdcall",
+   "name": "WriteULongLongArray",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "data",
+     "type": "/ulonglong *"
+    },
+    {
+     "name": "count",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008840",
+   "callingConvention": "__stdcall",
+   "name": "WriteByte",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "value",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008880",
+   "callingConvention": "__stdcall",
+   "name": "WriteUInt",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "value",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100088b0",
+   "callingConvention": "__stdcall",
+   "name": "WriteULongLong",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "value",
+     "type": "/ulonglong"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100088f0",
+   "callingConvention": "__stdcall",
+   "name": "WriteUInt",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "value",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008920",
+   "callingConvention": "__stdcall",
+   "name": "Write",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "data",
+     "type": "/void *"
+    },
+    {
+     "name": "size",
+     "type": "/crtdefs.h/size_t"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008960",
+   "callingConvention": "__stdcall",
+   "name": "WriteRange",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "data",
+     "type": "/void *"
+    },
+    {
+     "name": "count",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100089b0",
+   "callingConvention": "__stdcall",
+   "name": "FillUInt",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "startId",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "value",
+     "type": "/uint"
+    },
+    {
+     "name": "count",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008a00",
+   "callingConvention": "__stdcall",
+   "name": "WriteString",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "str",
+     "type": "/char *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008a70",
+   "callingConvention": "__stdcall",
+   "name": "Write",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "data",
+     "type": "/void *"
+    },
+    {
+     "name": "size",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008ac0",
+   "callingConvention": "__stdcall",
+   "name": "WriteVector",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "vec",
+     "type": "/float *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10008b20",
+   "callingConvention": "__stdcall",
+   "name": "WriteQuaternion",
+   "namespace": "FOM::SharedMemory",
+   "params": [
+    {
+     "name": "id",
+     "type": "/FOM/Enums/SharedMemory"
+    },
+    {
+     "name": "quat",
+     "type": "/float *"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

@@ -1,0 +1,39 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1023d2c0",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::Item::ItemList",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Item/ItemList *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "102404e0",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Types::Item::ItemList",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Item/ItemList *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

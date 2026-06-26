@@ -1,0 +1,55 @@
+{
+ "data": [
+  {
+   "addr": "1030dff0",
+   "name": "ItemDef_106",
+   "namespace": "",
+   "type": null
+  },
+  {
+   "addr": "1030df64",
+   "name": "ItemDef_200",
+   "namespace": "",
+   "type": null
+  },
+  {
+   "addr": "1030ddb0",
+   "name": "ItemDef_102",
+   "namespace": "",
+   "type": null
+  },
+  {
+   "addr": "1030dd24",
+   "name": "ItemDef_300",
+   "namespace": "",
+   "type": null
+  }
+ ],
+ "functions": [
+  {
+   "addr": "101c0d60",
+   "callingConvention": "__thiscall",
+   "name": "FUN_101c0d60",
+   "namespace": "",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "unknown",
+     "type": "/stdint.h/uint8_t"
+    },
+    {
+     "name": "serverIP",
+     "type": "/stdint.h/uint32_t"
+    },
+    {
+     "name": "serverPort",
+     "type": "/stdint.h/uint16_t"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

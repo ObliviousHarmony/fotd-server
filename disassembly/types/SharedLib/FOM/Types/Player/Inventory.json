@@ -1,0 +1,46 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 36,
+   "name": "inventory",
+   "offset": 0,
+   "type": "/FOM/Types/Item/ItemList"
+  },
+  {
+   "comment": null,
+   "len": 576,
+   "name": "equipment",
+   "offset": 36,
+   "type": "/FOM/Types/Player/EquipmentSlots"
+  },
+  {
+   "comment": null,
+   "len": 148,
+   "name": "weapons",
+   "offset": 612,
+   "type": "/FOM/Types/Player/WeaponSlots"
+  },
+  {
+   "comment": null,
+   "len": 288,
+   "name": "nanomachines",
+   "offset": 760,
+   "type": "/FOM/Types/Player/NanomachineSlots"
+  },
+  {
+   "comment": null,
+   "len": 36,
+   "name": "storage",
+   "offset": 1048,
+   "type": "/FOM/Types/Item/ItemList"
+  }
+ ],
+ "kind": "struct",
+ "len": 1084,
+ "packed": true,
+ "path": "/FOM/Types/Player/Inventory"
+}

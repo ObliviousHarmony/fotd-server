@@ -1,0 +1,22 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "0049ca70",
+   "callingConvention": "__thiscall",
+   "name": "HandlePacket_ID_LOGIN_REQUEST_RETURN",
+   "namespace": "FOM::Packets",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

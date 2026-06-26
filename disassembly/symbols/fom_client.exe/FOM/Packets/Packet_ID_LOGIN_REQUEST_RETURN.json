@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "00499790",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_LOGIN_REQUEST_RETURN",
+   "namespace": "FOM::Packets::Packet_ID_LOGIN_REQUEST_RETURN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_LOGIN_REQUEST_RETURN *"
+    }
+   ],
+   "returnType": "/FOM/Packets/Packet_ID_LOGIN_REQUEST_RETURN *"
+  },
+  {
+   "addr": "0049a960",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_LOGIN_REQUEST_RETURN",
+   "namespace": "FOM::Packets::Packet_ID_LOGIN_REQUEST_RETURN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_LOGIN_REQUEST_RETURN *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  },
+  {
+   "addr": "0049b760",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_LOGIN_REQUEST_RETURN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_LOGIN_REQUEST_RETURN *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "0049b7c0",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_LOGIN_REQUEST_RETURN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_LOGIN_REQUEST_RETURN *"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

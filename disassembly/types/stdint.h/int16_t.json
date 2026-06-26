@@ -1,0 +1,7 @@
+{
+ "base": "/short",
+ "desc": "Signed Short Integer (compiler-specific size)",
+ "kind": "typedef",
+ "len": 2,
+ "path": "/stdint.h/int16_t"
+}

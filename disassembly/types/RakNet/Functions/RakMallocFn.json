@@ -1,0 +1,15 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "size",
+   "type": "/crtdefs.h/size_t"
+  }
+ ],
+ "path": "/RakNet/Functions/RakMallocFn",
+ "return": {
+  "ptr": "/void"
+ }
+}

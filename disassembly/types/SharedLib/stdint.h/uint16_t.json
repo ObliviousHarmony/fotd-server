@@ -1,0 +1,7 @@
+{
+ "base": "/ushort",
+ "desc": "Unsigned Short Integer (compiler-specific size)",
+ "kind": "typedef",
+ "len": 2,
+ "path": "/stdint.h/uint16_t"
+}

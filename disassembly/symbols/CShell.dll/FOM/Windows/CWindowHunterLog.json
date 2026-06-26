@@ -1,0 +1,69 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100f6110",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowHunterLog",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowHunterLog *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100f6210",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowHunterLog",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100f6690",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowHunterLog",
+   "namespace": "FOM::Windows::CWindowHunterLog",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowHunterLog *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "100f6b60",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowHunterLog",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowHunterLog *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

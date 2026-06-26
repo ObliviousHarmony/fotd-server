@@ -1,0 +1,69 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10166870",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowTerminalRecycle",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTerminalRecycle *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10166af0",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowTerminalRecycle",
+   "namespace": "FOM::Windows::CWindowTerminalRecycle",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTerminalRecycle *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10166e80",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowTerminalRecycle",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTerminalRecycle *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10167040",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowTerminalRecycle",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

@@ -1,0 +1,69 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1017b920",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowToolTip",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowToolTip *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1017b950",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowToolTip",
+   "namespace": "FOM::Windows::CWindowToolTip",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowToolTip *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "1017b980",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowToolTip",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowToolTip *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1017bfd0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowToolTip",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

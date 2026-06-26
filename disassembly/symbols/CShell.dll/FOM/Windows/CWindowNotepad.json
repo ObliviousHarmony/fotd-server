@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10123530",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowNotepad",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowNotepad *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10123ad0",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowNotepad",
+   "namespace": "FOM::Windows::CWindowNotepad",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowNotepad *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10123b00",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowNotepad",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10123ee0",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowNotepad",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowNotepad *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/undefined4"
+  }
+ ]
+}

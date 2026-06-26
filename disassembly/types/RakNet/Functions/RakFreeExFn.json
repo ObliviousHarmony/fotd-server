@@ -1,0 +1,25 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "p",
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "name": "file",
+   "type": {
+    "ptr": "/char"
+   }
+  },
+  {
+   "name": "line",
+   "type": "/uint"
+  }
+ ],
+ "path": "/RakNet/Functions/RakFreeExFn",
+ "return": "/void"
+}

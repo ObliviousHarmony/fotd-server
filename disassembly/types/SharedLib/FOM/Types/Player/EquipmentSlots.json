@@ -1,0 +1,21 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 576,
+   "name": "slots",
+   "offset": 0,
+   "type": {
+    "arr": "/FOM/Types/Item/Item",
+    "n": 12
+   }
+  }
+ ],
+ "kind": "struct",
+ "len": 576,
+ "packed": true,
+ "path": "/FOM/Types/Player/EquipmentSlots"
+}

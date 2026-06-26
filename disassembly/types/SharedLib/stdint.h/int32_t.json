@@ -1,0 +1,7 @@
+{
+ "base": "/int",
+ "desc": "Signed Integer (compiler-specific size)",
+ "kind": "typedef",
+ "len": 4,
+ "path": "/stdint.h/int32_t"
+}

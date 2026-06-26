@@ -1,0 +1,69 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100ce6f0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowDropDownBig",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100ce720",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowDropDownBig",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowDropDownBig *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100ce9d0",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowDropDownBig",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowDropDownBig *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "100cf6d0",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowDropDownBig",
+   "namespace": "FOM::Windows::CWindowDropDownBig",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowDropDownBig *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  }
+ ]
+}

@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1015ebe0",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowTerminalPrisonManager",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTerminalPrisonManager *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1015ec40",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowTerminalPrisonManager",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1015ee00",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowTerminalPrisonManager",
+   "namespace": "FOM::Windows::CWindowTerminalPrisonManager",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTerminalPrisonManager *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "1015f2c0",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowTerminalPrisonManager",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTerminalPrisonManager *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

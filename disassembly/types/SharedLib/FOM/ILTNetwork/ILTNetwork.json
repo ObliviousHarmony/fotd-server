@@ -1,0 +1,227 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": "GetClassName",
+   "offset": 0,
+   "type": {
+    "ptr": "/FOM/ILTNetwork/GetClassNameFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "IsConnectedToMaster",
+   "offset": 4,
+   "type": {
+    "ptr": "/FOM/ILTNetwork/IsConnectedToMasterFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "IsConnectedToWorld",
+   "offset": 8,
+   "type": {
+    "ptr": "/FOM/ILTNetwork/IsConnectedToWorldFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "ConnectToMaster",
+   "offset": 12,
+   "type": {
+    "ptr": "/FOM/ILTNetwork/ConnectToMasterFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "Disconnect",
+   "offset": 16,
+   "type": {
+    "ptr": "/FOM/ILTNetwork/DisconnectFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 20,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "ConnectToWorld",
+   "offset": 24,
+   "type": {
+    "ptr": "/FOM/ILTNetwork/ConnectToWorldFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 28,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "CheckConnectionTimeout",
+   "offset": 32,
+   "type": {
+    "ptr": "/FOM/ILTNetwork/CheckConnectionTimeoutFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "Login",
+   "offset": 36,
+   "type": {
+    "ptr": "/FOM/ILTNetwork/LoginFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "SendPacket",
+   "offset": 40,
+   "type": {
+    "ptr": "/FOM/ILTNetwork/SendPacketFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 44,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 48,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "EncodeString",
+   "offset": 52,
+   "type": {
+    "ptr": "/FOM/Functions/EncodeStringFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "DecodeString",
+   "offset": 56,
+   "type": {
+    "ptr": "/FOM/Functions/DecodeStringFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "GetWorldPing",
+   "offset": 60,
+   "type": {
+    "ptr": "/FOM/ILTNetwork/GetWorldPingFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "PrintNetworkStats",
+   "offset": 64,
+   "type": {
+    "ptr": "/FOM/ILTNetwork/PrintNetworkStatsFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 68,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 72,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 76,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 80,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 84,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "GetPlayerData",
+   "offset": 88,
+   "type": {
+    "ptr": "/FOM/ILTNetwork/GetPlayerDataFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "SetPlayerData",
+   "offset": 92,
+   "type": {
+    "ptr": "/FOM/ILTNetwork/SetPlayerDataFn"
+   }
+  }
+ ],
+ "kind": "struct",
+ "len": 96,
+ "packed": false,
+ "path": "/FOM/ILTNetwork/ILTNetwork"
+}

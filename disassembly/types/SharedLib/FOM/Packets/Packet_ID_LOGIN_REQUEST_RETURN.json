@@ -1,0 +1,35 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 1072,
+   "name": "base",
+   "offset": 0,
+   "type": "/FOM/Packets/VariableSizedPacket"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "status",
+   "offset": 1072,
+   "type": "/FOM/Enums/Packets/LoginRequestReturnStatus"
+  },
+  {
+   "comment": null,
+   "len": 64,
+   "name": "username",
+   "offset": 1073,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 64
+   }
+  }
+ ],
+ "kind": "struct",
+ "len": 1144,
+ "packed": true,
+ "path": "/FOM/Packets/Packet_ID_LOGIN_REQUEST_RETURN"
+}

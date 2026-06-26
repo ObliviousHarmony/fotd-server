@@ -1,0 +1,78 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "LOGIN_RETURN_INVALID_LOGIN",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "LOGIN_RETURN_SUCCESS",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "LOGIN_RETURN_UNKNOWN_USERNAME",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "LOGIN_RETURN_3",
+   "value": 3
+  },
+  {
+   "comment": null,
+   "name": "LOGIN_RETURN_INCORRECT_PASSWORD",
+   "value": 4
+  },
+  {
+   "comment": null,
+   "name": "LOGIN_RETURN_CREATE_CHARACTER",
+   "value": 5
+  },
+  {
+   "comment": null,
+   "name": "LOGIN_RETURN_CREATE_CHARACTER_ERROR",
+   "value": 6
+  },
+  {
+   "comment": null,
+   "name": "LOGIN_RETURN_TEMP_BANNED",
+   "value": 7
+  },
+  {
+   "comment": null,
+   "name": "LOGIN_RETURN_PERM_BANNED",
+   "value": 8
+  },
+  {
+   "comment": null,
+   "name": "LOGIN_RETURN_DUPLICATE_IP",
+   "value": 9
+  },
+  {
+   "comment": null,
+   "name": "LOGIN_RETURN_INTEGRITY_CHECK_FAILED",
+   "value": 10
+  },
+  {
+   "comment": null,
+   "name": "LOGIN_RETURN_RUN_AS_ADMIN",
+   "value": 11
+  },
+  {
+   "comment": null,
+   "name": "LOGIN_RETURN_ACCOUNT_LOCKED",
+   "value": 12
+  },
+  {
+   "comment": null,
+   "name": "LOGIN_RETURN_NOT_PURCHASED",
+   "value": 13
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Enums/Packets/LoginReturnStatus"
+}

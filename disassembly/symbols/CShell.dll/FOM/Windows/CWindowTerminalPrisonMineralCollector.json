@@ -1,0 +1,52 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1015f4b0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowTerminalPrisonMineralCollector",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1015f5b0",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowTerminalPrisonMineralCollector",
+   "namespace": "FOM::Windows::CWindowTerminalPrisonMineralCollector",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTerminalPrisonMineralCollector *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "1015f5e0",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowTerminalPrisonMineralCollector",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTerminalPrisonMineralCollector *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

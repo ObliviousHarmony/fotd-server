@@ -1,0 +1,7 @@
+{
+ "base": "/uchar",
+ "desc": "Unsigned Character (ASCII)",
+ "kind": "typedef",
+ "len": 1,
+ "path": "/stdint.h/uint8_t"
+}

@@ -1,0 +1,58 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": "numberOfBitsUsed",
+   "offset": 0,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "numberOfBitsAllocated",
+   "offset": 4,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "readOffset",
+   "offset": 8,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "data",
+   "offset": 12,
+   "type": {
+    "ptr": "/stdint.h/uint8_t"
+   }
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "copyData",
+   "offset": 16,
+   "type": "/bool"
+  },
+  {
+   "comment": null,
+   "len": 1024,
+   "name": "stackData",
+   "offset": 17,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 1024
+   }
+  }
+ ],
+ "kind": "struct",
+ "len": 1044,
+ "packed": true,
+ "path": "/RakNet/BitStream"
+}

@@ -1,0 +1,32 @@
+{
+ "desc": "Row of DAT_10143388: per-item attribute delta (8 bytes)",
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 2,
+   "name": "itemType",
+   "offset": 0,
+   "type": "/FOM/Types/Item/ItemType"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "attributeId",
+   "offset": 2,
+   "type": "/ushort"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "value",
+   "offset": 4,
+   "type": "/uint"
+  }
+ ],
+ "kind": "struct",
+ "len": 8,
+ "packed": false,
+ "path": "/FOM/Types/Item/ItemAttributeDefinition"
+}

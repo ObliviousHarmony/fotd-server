@@ -1,0 +1,46 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": "itemId",
+   "offset": 0,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 32,
+   "name": "item",
+   "offset": 4,
+   "type": "/FOM/Types/Item/ItemBase"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 36,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 40,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 44,
+   "type": "/undefined4"
+  }
+ ],
+ "kind": "struct",
+ "len": 48,
+ "packed": true,
+ "path": "/FOM/Types/Item/Item"
+}

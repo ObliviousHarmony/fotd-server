@@ -1,0 +1,52 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10078870",
+   "callingConvention": "__thiscall",
+   "name": "EquipmentSlots",
+   "namespace": "FOM::Types::Player::EquipmentSlots",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/EquipmentSlots *"
+    }
+   ],
+   "returnType": "/FOM/Types/Player/EquipmentSlots *"
+  },
+  {
+   "addr": "100eba60",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Types::Player::EquipmentSlots",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/EquipmentSlots *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "100ebb30",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::Player::EquipmentSlots",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/EquipmentSlots *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

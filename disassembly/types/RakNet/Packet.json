@@ -1,0 +1,62 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 2,
+   "name": "systemIndex",
+   "offset": 0,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 8,
+   "name": "systemAddress",
+   "offset": 4,
+   "type": "/RakNet/SystemAddress"
+  },
+  {
+   "comment": null,
+   "len": 24,
+   "name": "guid",
+   "offset": 12,
+   "type": "/RakNet/RakNetGUID"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "length",
+   "offset": 36,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "bitSize",
+   "offset": 40,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "data",
+   "offset": 44,
+   "type": {
+    "ptr": "/stdint.h/uint8_t"
+   }
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "deleteData",
+   "offset": 48,
+   "type": "/bool"
+  }
+ ],
+ "kind": "struct",
+ "len": 52,
+ "packed": true,
+ "path": "/RakNet/Packet"
+}

@@ -1,0 +1,291 @@
+{
+ "desc": "PlaceHolder Class Structure",
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 1,
+   "name": "type",
+   "offset": 0,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "id",
+   "offset": 4,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "position",
+   "offset": 8,
+   "type": "/FOM/Types/PositionRotation"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "grid1",
+   "offset": 24,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "grid2",
+   "offset": 28,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "visibilityAreaId",
+   "offset": 32,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 50,
+   "name": "avatar",
+   "offset": 34,
+   "type": "/FOM/Types/Player/Avatar"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 84,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 88,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 92,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": null,
+   "offset": 96,
+   "type": "/undefined2"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "verticalLookAngle",
+   "offset": 100,
+   "type": "/stdint.h/int32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "animationId",
+   "offset": 104,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "movementStateId",
+   "offset": 108,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 112,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "isWeaponAimed",
+   "offset": 116,
+   "type": "/bool"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "consumedAmmo",
+   "offset": 120,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "wasHit",
+   "offset": 124,
+   "type": "/bool"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "emoteId",
+   "offset": 128,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "isDead",
+   "offset": 132,
+   "type": "/bool"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "equippedWeapon",
+   "offset": 134,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 12,
+   "name": "firedPosition",
+   "offset": 136,
+   "type": "/FOM/Types/Position"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "hitAnimationId",
+   "offset": 148,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "hitDirection",
+   "offset": 149,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "activeImplants",
+   "offset": 150,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "activeMedicalTreatment",
+   "offset": 152,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "targetingTurretId",
+   "offset": 156,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 160,
+   "type": "/undefined1"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 161,
+   "type": "/undefined1"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "movementSpeed",
+   "offset": 162,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "shieldSetting",
+   "offset": 163,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "isShieldActive",
+   "offset": 164,
+   "type": "/bool"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 168,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 172,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 176,
+   "type": "/undefined1"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 180,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 184,
+   "type": "/undefined1"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 188,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 192,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 196,
+   "type": "/undefined1"
+  }
+ ],
+ "kind": "struct",
+ "len": 200,
+ "packed": true,
+ "path": "/FOM/Types/WorldUpdate"
+}

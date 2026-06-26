@@ -1,0 +1,69 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100d3970",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowExplosiveCharge",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowExplosiveCharge *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100d3ca0",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowExplosiveCharge",
+   "namespace": "FOM::Windows::CWindowExplosiveCharge",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowExplosiveCharge *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "100d3cd0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowExplosiveCharge",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100d4750",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowExplosiveCharge",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowExplosiveCharge *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

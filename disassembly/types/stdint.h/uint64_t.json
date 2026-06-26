@@ -1,0 +1,7 @@
+{
+ "base": "/ulonglong",
+ "desc": "Unsigned Long Long Integer (compiler-specific size)",
+ "kind": "typedef",
+ "len": 8,
+ "path": "/stdint.h/uint64_t"
+}

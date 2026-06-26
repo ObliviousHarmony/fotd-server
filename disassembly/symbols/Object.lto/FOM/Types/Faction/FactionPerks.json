@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1007a320",
+   "callingConvention": "__fastcall",
+   "name": "Reset",
+   "namespace": "FOM::Types::Faction::FactionPerks",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/undefined4 *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1007a4b0",
+   "callingConvention": "__thiscall",
+   "name": "FactionPerks",
+   "namespace": "FOM::Types::Faction::FactionPerks",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Faction/FactionPerks *"
+    }
+   ],
+   "returnType": "/FOM/Types/Faction/FactionPerks *"
+  },
+  {
+   "addr": "100e63c0",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::Faction::FactionPerks",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Faction/FactionPerks *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100e9090",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Types::Faction::FactionPerks",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Faction/FactionPerks *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

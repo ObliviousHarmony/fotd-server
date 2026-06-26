@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10089880",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "CMenuMain",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10089f90",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "CMenuMain",
+   "params": [
+    {
+     "name": "this",
+     "type": "/CMenuMain *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1008b6a0",
+   "callingConvention": "__thiscall",
+   "name": "~CMenuMain",
+   "namespace": "CMenuMain",
+   "params": [
+    {
+     "name": "this",
+     "type": "/CMenuMain *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "1008b6d0",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "CMenuMain",
+   "params": [
+    {
+     "name": "this",
+     "type": "/CMenuMain *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

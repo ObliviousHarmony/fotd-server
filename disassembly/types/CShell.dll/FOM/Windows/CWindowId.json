@@ -1,0 +1,473 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "CWINDOW_STATUS_BAR",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_STATUS_BAR_TOP",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_BOOSTERS",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_MAP_HUD",
+   "value": 3
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_INTERFACES",
+   "value": 4
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_INVENTORY",
+   "value": 5
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_OPTIONS",
+   "value": 6
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_BACK_PACK",
+   "value": 7
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_CALCULATOR",
+   "value": 8
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_CHARACTER_UPDATE",
+   "value": 9
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_COMMUNICATOR",
+   "value": 10
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_NEW_NOTE",
+   "value": 11
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_NOTEPAD",
+   "value": 12
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_SEND_MAIL",
+   "value": 13
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_SHIELD_FACTOR",
+   "value": 14
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_CLONING",
+   "value": 15
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_CHAT",
+   "value": 16
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_FRIENDS",
+   "value": 17
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_BLOCKED",
+   "value": 18
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_STORAGE",
+   "value": 19
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_DESTINATION",
+   "value": 20
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_PRODUCTION",
+   "value": 21
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_MARKET",
+   "value": 22
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_CREATE_MARKET_OFFER",
+   "value": 23
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_FACTION",
+   "value": 24
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_EMBLEM_EDITOR",
+   "value": 25
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_PLAYER_FILE",
+   "value": 26
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_ADD_GOAL",
+   "value": 27
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_NEW_WARRANT",
+   "value": 28
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_SKILLS",
+   "value": 29
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_HACKING_MASTERMIND",
+   "value": 30
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_HACKING_NODES",
+   "value": 31
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_WORLD_SERVICE_MANAGER",
+   "value": 32
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_FACTION_FUND_MANAGER",
+   "value": 33
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_MEDICAL",
+   "value": 34
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_CHEMICAL_LAB",
+   "value": 35
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_MISSION_MANAGER",
+   "value": 36
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_MISSION_LOG",
+   "value": 37
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_MARKET_TAXES",
+   "value": 38
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_MARKET_SCHEMATIC",
+   "value": 39
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_MINERAL_SCANNER",
+   "value": 40
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_INFLUENCE_GENERATOR",
+   "value": 41
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_MEDICAL_UNIT",
+   "value": 42
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_MINING_RIG",
+   "value": 43
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_REPAIR",
+   "value": 44
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_RECYCLE",
+   "value": 45
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_APARTMENTS",
+   "value": 46
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_NODE_SELECTION",
+   "value": 47
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_MULTICOM",
+   "value": 48
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_VORTEX",
+   "value": 49
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_APARTMENT_INFILTRATION",
+   "value": 50
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_BOUNTY_MANAGER",
+   "value": 51
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_PRISON_MINERAL_COLLECTOR",
+   "value": 52
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_DIALOG",
+   "value": 53
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_MARKET_STANDARD",
+   "value": 54
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_CASINO_SLOTS",
+   "value": 55
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_CASINO",
+   "value": 56
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_PRISON_BAIL",
+   "value": 57
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_PRISON_MANAGER",
+   "value": 58
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_HUNTER",
+   "value": 59
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_HUNTER_LOG",
+   "value": 60
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_LOOT",
+   "value": 61
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_NPC_EDITOR",
+   "value": 62
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_NPC_EDITOR_REWARD",
+   "value": 63
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_NPC_OBJECTIVES",
+   "value": 64
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_NPC",
+   "value": 65
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_BROWSER",
+   "value": 66
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_TRANSPORT_BUYBACK",
+   "value": 67
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_EXPLOSIVE_CHARGE",
+   "value": 68
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERRITORY_OBJECT_MANAGER",
+   "value": 69
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_TERRITORY_VENDOR",
+   "value": 70
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERRITORY_POWER_MANAGER",
+   "value": 71
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_FACTION_OWNERSHIP_CONTROL",
+   "value": 72
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_MARKET_CLOTHING",
+   "value": 73
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_HINT",
+   "value": 74
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERRITORY_MANAGER",
+   "value": 75
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TERMINAL_SECURITY",
+   "value": 76
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_GM_CHAT",
+   "value": 77
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_VORTEX_IMP",
+   "value": 78
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TURRET",
+   "value": 79
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_EDIT",
+   "value": 80
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_DROP_DOWN_SMALL",
+   "value": 81
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_DROP_DOWN_BIG",
+   "value": 82
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_DROP_UP_1",
+   "value": 83
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_DROP_UP_2",
+   "value": 84
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_DROP_UP_3",
+   "value": 85
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_CONTEXT",
+   "value": 86
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TOOL_TIP",
+   "value": 87
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_INPUT_LINE_1",
+   "value": 88
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_INPUT_LINE_2",
+   "value": 89
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_INPUT_LINE_3",
+   "value": 90
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_MESSAGE_BOX",
+   "value": 91
+  },
+  {
+   "comment": null,
+   "name": "CWINDOW_TEXT_ENTRY_BOX",
+   "value": 92
+  }
+ ],
+ "kind": "enum",
+ "len": 4,
+ "path": "/FOM/Windows/CWindowId"
+}

@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10092c80",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowStatusBarTop",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowStatusBarTop *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "10092e70",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowStatusBarTop",
+   "namespace": "FOM::Windows::CWindowStatusBarTop",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowStatusBarTop *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "100931d0",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowStatusBarTop",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowStatusBarTop *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "10093260",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowStatusBarTop",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

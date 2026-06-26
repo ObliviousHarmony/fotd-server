@@ -1,0 +1,33 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "QUALITY_STANDARD",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "QUALITY_CUSTOM",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "QUALITY_SPECIAL",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "QUALITY_RARE",
+   "value": 3
+  },
+  {
+   "comment": null,
+   "name": "QUALITY_SPECIAL_RARE",
+   "value": 4
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Types/Item/ItemQuality"
+}

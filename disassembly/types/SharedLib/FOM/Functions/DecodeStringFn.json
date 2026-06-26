@@ -1,0 +1,25 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "output",
+   "type": {
+    "ptr": "/char"
+   }
+  },
+  {
+   "name": "maxLen",
+   "type": "/int"
+  },
+  {
+   "name": "bs",
+   "type": {
+    "ptr": "/RakNet/BitStream"
+   }
+  }
+ ],
+ "path": "/FOM/Functions/DecodeStringFn",
+ "return": "/bool"
+}

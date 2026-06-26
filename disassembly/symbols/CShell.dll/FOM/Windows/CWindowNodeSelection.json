@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "101228c0",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowNodeSelection",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowNodeSelection *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10122940",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowNodeSelection",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10122b50",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowNodeSelection",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowNodeSelection *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined1"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "10123180",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowNodeSelection",
+   "namespace": "FOM::Windows::CWindowNodeSelection",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowNodeSelection *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  }
+ ]
+}

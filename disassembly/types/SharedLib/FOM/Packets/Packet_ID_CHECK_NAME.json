@@ -1,0 +1,35 @@
+{
+ "desc": "PlaceHolder Class Structure",
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 1072,
+   "name": "base",
+   "offset": 0,
+   "type": "/FOM/Packets/VariableSizedPacket"
+  },
+  {
+   "comment": null,
+   "len": 20,
+   "name": "name",
+   "offset": 1072,
+   "type": {
+    "arr": "/char",
+    "n": 20
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "playerId",
+   "offset": 1092,
+   "type": "/stdint.h/uint32_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 1096,
+ "packed": true,
+ "path": "/FOM/Packets/Packet_ID_CHECK_NAME"
+}

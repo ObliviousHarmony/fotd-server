@@ -1,0 +1,929 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 0,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 4,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 8,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 12,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 16,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 20,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 24,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 28,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 32,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 36,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 40,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 44,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 48,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 52,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 56,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 60,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "GetStringHandle",
+   "offset": 64,
+   "type": {
+    "ptr": "/FOM/ILTClient/vftable/GetStringHandleFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 68,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 72,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "ReleaseStringHandle",
+   "offset": 76,
+   "type": {
+    "ptr": "/FOM/ILTClient/vftable/ReleaseStringHandleFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 80,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 84,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "GetStringText",
+   "offset": 88,
+   "type": {
+    "ptr": "/FOM/ILTClient/vftable/GetStringTextFn"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 92,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 96,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 100,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 104,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 108,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 112,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 116,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 120,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 124,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 128,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 132,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 136,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 140,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 144,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 148,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 152,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 156,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 160,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 164,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 168,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 172,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 176,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 180,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 184,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 188,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 192,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 196,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 200,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 204,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 208,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 212,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 216,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 220,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 224,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 228,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 232,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 236,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 240,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 244,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 248,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 252,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 256,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 260,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 264,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 268,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 272,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 276,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 280,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 284,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 288,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 292,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 296,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 300,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 304,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 308,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 312,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 316,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 320,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 324,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 328,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 332,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 336,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 340,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 344,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 348,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 352,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 356,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 360,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 364,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 368,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 372,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 376,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 380,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 384,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 388,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 392,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 396,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 400,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 404,
+   "type": {
+    "ptr": "/void"
+   }
+  }
+ ],
+ "kind": "struct",
+ "len": 408,
+ "packed": false,
+ "path": "/FOM/ILTClient/vftable/ILTClient_vftable"
+}

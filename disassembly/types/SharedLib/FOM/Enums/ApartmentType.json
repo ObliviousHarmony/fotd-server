@@ -1,0 +1,133 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "APARTMENT_INVALID",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_CITY_FLAT",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_RATHOLE",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_COLONIAL_FLAT",
+   "value": 3
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_FRENCH_FLAT",
+   "value": 4
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_JAPANESE_FLAT",
+   "value": 5
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_UNDERWATER_FLAT",
+   "value": 6
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_CITY_APARTMENT",
+   "value": 7
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_CELLAR",
+   "value": 8
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_COLONIAL_APARTMENT",
+   "value": 9
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_FRENCH_APARTMENT",
+   "value": 10
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_JAPANESE_APARTMENT",
+   "value": 11
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_UNDERWATER_APARTMENT",
+   "value": 12
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_CITY_SUITE",
+   "value": 13
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_RAMSHACKLE_HUT",
+   "value": 14
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_COLONIAL_SUITE",
+   "value": 15
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_FRENCH_PENTHOUSE",
+   "value": 16
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_JAPANESE_PENTHOUSE",
+   "value": 17
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_UNDERWATER_SUITE",
+   "value": 18
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_UNDERGROUND_HQ",
+   "value": 19
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_TACTICAL_HQ",
+   "value": 20
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_CITY_TOWER_OFFICES",
+   "value": 21
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_ARCTURUS_FREIGHTER",
+   "value": 22
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_PRISON_DUEL_ARENA",
+   "value": 23
+  },
+  {
+   "comment": null,
+   "name": "APARTMENT_BACKER_SAFEHOUSE",
+   "value": 24
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Enums/ApartmentType"
+}

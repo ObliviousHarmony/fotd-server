@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100852f0",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_CHECK_NAME",
+   "namespace": "FOM::Packets::Packet_ID_CHECK_NAME",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_CHECK_NAME *"
+    }
+   ],
+   "returnType": "/FOM/Packets/Packet_ID_CHECK_NAME *"
+  },
+  {
+   "addr": "10085b30",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_CHECK_NAME",
+   "namespace": "FOM::Packets::Packet_ID_CHECK_NAME",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_CHECK_NAME *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  },
+  {
+   "addr": "10086690",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_CHECK_NAME",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_CHECK_NAME *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "100866f0",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_CHECK_NAME",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_CHECK_NAME *"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

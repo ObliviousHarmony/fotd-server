@@ -1,0 +1,69 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10050840",
+   "callingConvention": "__stdcall",
+   "name": "HandlePacket_ID_CHAT",
+   "namespace": "FOM::Packets",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10051ca0",
+   "callingConvention": "__thiscall",
+   "name": "HandlePacket_ID_WORLD_UPDATE",
+   "namespace": "FOM::Packets",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10056ac0",
+   "callingConvention": "__thiscall",
+   "name": "HandlePacket_ID_WORLD_OBJECTS",
+   "namespace": "FOM::Packets",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "1007ad90",
+   "callingConvention": "__thiscall",
+   "name": "HandlePacket_ID_REGISTER_CLIENT_RETURN",
+   "namespace": "FOM::Packets",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

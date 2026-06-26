@@ -1,0 +1,358 @@
+{
+ "desc": "The message IDs for FoM packets.",
+ "entries": [
+  {
+   "comment": null,
+   "name": "ID_TIMESTAMP",
+   "value": 25
+  },
+  {
+   "comment": null,
+   "name": "ID_FOM_PACKET_START",
+   "value": 104
+  },
+  {
+   "comment": null,
+   "name": "ID_NOTIFY",
+   "value": 107
+  },
+  {
+   "comment": null,
+   "name": "ID_LOGIN_REQUEST",
+   "value": 108
+  },
+  {
+   "comment": null,
+   "name": "ID_LOGIN_REQUEST_RETURN",
+   "value": 109
+  },
+  {
+   "comment": null,
+   "name": "ID_LOGIN",
+   "value": 110
+  },
+  {
+   "comment": null,
+   "name": "ID_LOGIN_RETURN",
+   "value": 111
+  },
+  {
+   "comment": null,
+   "name": "ID_LOGIN_TOKEN_CHECK",
+   "value": 112
+  },
+  {
+   "comment": null,
+   "name": "ID_LOGOUT",
+   "value": 113
+  },
+  {
+   "comment": null,
+   "name": "ID_WORLD_LOGIN",
+   "value": 114
+  },
+  {
+   "comment": null,
+   "name": "ID_WORLD_LOGIN_RETURN",
+   "value": 115
+  },
+  {
+   "comment": null,
+   "name": "ID_WORLD_LOGOUT",
+   "value": 116
+  },
+  {
+   "comment": null,
+   "name": "ID_REGISTER_CLIENT",
+   "value": 120
+  },
+  {
+   "comment": null,
+   "name": "ID_REGISTER_CLIENT_RETURN",
+   "value": 121
+  },
+  {
+   "comment": null,
+   "name": "ID_CREATE_CHARACTER",
+   "value": 122
+  },
+  {
+   "comment": null,
+   "name": "ID_VORTEX_GATE",
+   "value": 123
+  },
+  {
+   "comment": null,
+   "name": "ID_CHECK_NAME",
+   "value": 124
+  },
+  {
+   "comment": null,
+   "name": "ID_CHECK_NAME_RETURN",
+   "value": 125
+  },
+  {
+   "comment": null,
+   "name": "ID_UPDATE",
+   "value": 126
+  },
+  {
+   "comment": null,
+   "name": "ID_WORLD_UPDATE",
+   "value": 127
+  },
+  {
+   "comment": null,
+   "name": "ID_WEATHER",
+   "value": 128
+  },
+  {
+   "comment": null,
+   "name": "ID_ITEMS_REMOVED",
+   "value": 129
+  },
+  {
+   "comment": null,
+   "name": "ID_ITEMS_CHANGED",
+   "value": 130
+  },
+  {
+   "comment": null,
+   "name": "ID_ATTRIBUTE_CHANGE",
+   "value": 131
+  },
+  {
+   "comment": null,
+   "name": "ID_HIT",
+   "value": 132
+  },
+  {
+   "comment": null,
+   "name": "ID_WORLD_OBJECTS",
+   "value": 133
+  },
+  {
+   "comment": null,
+   "name": "ID_ATTACK",
+   "value": 134
+  },
+  {
+   "comment": null,
+   "name": "ID_WEAPONFIRE",
+   "value": 135
+  },
+  {
+   "comment": null,
+   "name": "ID_ITEM_REMOVED",
+   "value": 136
+  },
+  {
+   "comment": null,
+   "name": "ID_EXPLOSIVE",
+   "value": 137
+  },
+  {
+   "comment": null,
+   "name": "ID_MOVE_ITEMS",
+   "value": 138
+  },
+  {
+   "comment": null,
+   "name": "ID_CHECK_MAIL",
+   "value": 139
+  },
+  {
+   "comment": null,
+   "name": "ID_MAIL",
+   "value": 140
+  },
+  {
+   "comment": null,
+   "name": "ID_CHARACTER_UPDATE",
+   "value": 141
+  },
+  {
+   "comment": null,
+   "name": "ID_NAME_CHANGE",
+   "value": 142
+  },
+  {
+   "comment": null,
+   "name": "ID_UNLOAD_WEAPON",
+   "value": 143
+  },
+  {
+   "comment": null,
+   "name": "ID_MERGE_ITEMS",
+   "value": 144
+  },
+  {
+   "comment": null,
+   "name": "ID_RELOAD",
+   "value": 145
+  },
+  {
+   "comment": null,
+   "name": "ID_BACKPACK_CONTENTS",
+   "value": 146
+  },
+  {
+   "comment": null,
+   "name": "ID_ITEMS_ADDED",
+   "value": 147
+  },
+  {
+   "comment": null,
+   "name": "ID_AVATAR_CHANGE",
+   "value": 148
+  },
+  {
+   "comment": null,
+   "name": "ID_CHAT",
+   "value": 149
+  },
+  {
+   "comment": null,
+   "name": "ID_TAUNT",
+   "value": 150
+  },
+  {
+   "comment": null,
+   "name": "ID_FRIENDS",
+   "value": 151
+  },
+  {
+   "comment": null,
+   "name": "ID_TRANSFER_ITEMS",
+   "value": 152
+  },
+  {
+   "comment": null,
+   "name": "ID_STORAGE",
+   "value": 153
+  },
+  {
+   "comment": null,
+   "name": "ID_MINING",
+   "value": 154
+  },
+  {
+   "comment": null,
+   "name": "ID_PRODUCTION",
+   "value": 155
+  },
+  {
+   "comment": null,
+   "name": "ID_MARKET",
+   "value": 156
+  },
+  {
+   "comment": null,
+   "name": "ID_FACTION",
+   "value": 157
+  },
+  {
+   "comment": null,
+   "name": "ID_PLAYERFILE",
+   "value": 159
+  },
+  {
+   "comment": null,
+   "name": "ID_OBJECT_DETAILS",
+   "value": 161
+  },
+  {
+   "comment": null,
+   "name": "ID_SPLIT_CONTAINER",
+   "value": 162
+  },
+  {
+   "comment": null,
+   "name": "ID_SKILLS",
+   "value": 163
+  },
+  {
+   "comment": null,
+   "name": "ID_USE_ITEM",
+   "value": 164
+  },
+  {
+   "comment": null,
+   "name": "ID_WORLDSERVICE",
+   "value": 165
+  },
+  {
+   "comment": null,
+   "name": "ID_HACKING",
+   "value": 166
+  },
+  {
+   "comment": null,
+   "name": "ID_CHEMICAL_LAB",
+   "value": 168
+  },
+  {
+   "comment": null,
+   "name": "ID_MISSION",
+   "value": 169
+  },
+  {
+   "comment": null,
+   "name": "ID_PLAYER2PLAYER",
+   "value": 170
+  },
+  {
+   "comment": null,
+   "name": "ID_DEPLOY_ITEM",
+   "value": 172
+  },
+  {
+   "comment": null,
+   "name": "ID_REPAIR_ITEM",
+   "value": 173
+  },
+  {
+   "comment": null,
+   "name": "ID_RECYCLE_ITEM",
+   "value": 174
+  },
+  {
+   "comment": null,
+   "name": "ID_APARTMENTS",
+   "value": 175
+  },
+  {
+   "comment": null,
+   "name": "ID_SCAN",
+   "value": 176
+  },
+  {
+   "comment": null,
+   "name": "ID_BOUNTY",
+   "value": 177
+  },
+  {
+   "comment": null,
+   "name": "ID_ARREST",
+   "value": 178
+  },
+  {
+   "comment": null,
+   "name": "ID_GAMEMASTER",
+   "value": 179
+  },
+  {
+   "comment": null,
+   "name": "ID_NPC",
+   "value": 181
+  },
+  {
+   "comment": null,
+   "name": "ID_TERRITORY",
+   "value": 182
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Enums/PacketIdentifier"
+}

@@ -1,0 +1,18 @@
+{
+ "desc": "The destination for a packet being sent.",
+ "entries": [
+  {
+   "comment": null,
+   "name": "MASTER",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "WORLD",
+   "value": 2
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Enums/PacketDestination"
+}

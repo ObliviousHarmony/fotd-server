@@ -1,0 +1,21 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "p",
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "name": "size",
+   "type": "/crtdefs.h/size_t"
+  }
+ ],
+ "path": "/RakNet/Functions/RakReallocFn",
+ "return": {
+  "ptr": "/void"
+ }
+}

@@ -1,0 +1,52 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 1072,
+   "name": "base",
+   "offset": 0,
+   "type": "/FOM/Packets/VariableSizedPacket"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "fromServer",
+   "offset": 1072,
+   "type": "/bool"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "success",
+   "offset": 1073,
+   "type": "/bool"
+  },
+  {
+   "comment": null,
+   "len": 32,
+   "name": "requestToken",
+   "offset": 1074,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 32
+   }
+  },
+  {
+   "comment": null,
+   "len": 32,
+   "name": "username",
+   "offset": 1106,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 32
+   }
+  }
+ ],
+ "kind": "struct",
+ "len": 1144,
+ "packed": true,
+ "path": "/FOM/Packets/Packet_ID_LOGIN_TOKEN_CHECK"
+}

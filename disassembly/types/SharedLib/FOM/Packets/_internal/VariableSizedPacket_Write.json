@@ -1,0 +1,15 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "this",
+   "type": {
+    "ptr": "/FOM/Packets/VariableSizedPacket"
+   }
+  }
+ ],
+ "path": "/FOM/Packets/_internal/VariableSizedPacket_Write",
+ "return": "/void"
+}

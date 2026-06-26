@@ -1,0 +1,122 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "004e37e0",
+   "callingConvention": "__stdcall",
+   "name": "Instance",
+   "namespace": "RakNet::StringCompressor",
+   "params": [],
+   "returnType": "/RakNet/Functions/RakMallocFn *"
+  },
+  {
+   "addr": "004e37f0",
+   "callingConvention": "__thiscall",
+   "name": "StringCompressor",
+   "namespace": "RakNet::StringCompressor",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/StringCompressor *"
+    }
+   ],
+   "returnType": "/RakNet/StringCompressor *"
+  },
+  {
+   "addr": "004e3880",
+   "callingConvention": "__thiscall",
+   "name": "GenerateTreeFromStrings",
+   "namespace": "RakNet::StringCompressor",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/StringCompressor *"
+    },
+    {
+     "name": "input",
+     "type": "/uchar *"
+    },
+    {
+     "name": "inputLength",
+     "type": "/uint"
+    },
+    {
+     "name": "languageID",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e3980",
+   "callingConvention": "__thiscall",
+   "name": "~StringCompressor",
+   "namespace": "RakNet::StringCompressor",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/StringCompressor *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e3a10",
+   "callingConvention": "__thiscall",
+   "name": "EncodeString",
+   "namespace": "RakNet::StringCompressor",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/StringCompressor *"
+    },
+    {
+     "name": "input",
+     "type": "/char *"
+    },
+    {
+     "name": "maxCharsToWrite",
+     "type": "/int"
+    },
+    {
+     "name": "output",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "languageID",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e3b30",
+   "callingConvention": "__thiscall",
+   "name": "DecodeString",
+   "namespace": "RakNet::StringCompressor",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/StringCompressor *"
+    },
+    {
+     "name": "output",
+     "type": "/char *"
+    },
+    {
+     "name": "maxCharsToWrite",
+     "type": "/int"
+    },
+    {
+     "name": "input",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "languageID",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

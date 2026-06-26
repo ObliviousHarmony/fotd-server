@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1013ac70",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowPlayerFile",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowPlayerFile *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1013ad50",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowPlayerFile",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1013b540",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowPlayerFile",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowPlayerFile *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "1013c4b0",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowPlayerFile",
+   "namespace": "FOM::Windows::CWindowPlayerFile",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowPlayerFile *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  }
+ ]
+}

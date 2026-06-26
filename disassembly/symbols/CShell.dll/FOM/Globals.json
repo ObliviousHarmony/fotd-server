@@ -1,0 +1,29 @@
+{
+ "data": [
+  {
+   "addr": "1035aa4c",
+   "name": "g_pLTNetwork",
+   "namespace": "FOM::Globals",
+   "type": "/FOM/ILTNetwork/ILTNetwork * *"
+  },
+  {
+   "addr": "1035c108",
+   "name": "g_pLTClient",
+   "namespace": "FOM::Globals",
+   "type": "/FOM/ILTClient/ILTClient *"
+  },
+  {
+   "addr": "1035aaf8",
+   "name": "g_szResourceStringBuffer",
+   "namespace": "FOM::Globals",
+   "type": "/char[2048]"
+  },
+  {
+   "addr": "103bf708",
+   "name": "g_pWindowMgr",
+   "namespace": "FOM::Globals",
+   "type": "/undefined4"
+  }
+ ],
+ "functions": []
+}

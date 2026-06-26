@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1017b560",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowTextEntryBox",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTextEntryBox *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "1017b650",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowTextEntryBox",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTextEntryBox *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1017b6b0",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowTextEntryBox",
+   "namespace": "FOM::Windows::CWindowTextEntryBox",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowTextEntryBox *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "1017b6e0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowTextEntryBox",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

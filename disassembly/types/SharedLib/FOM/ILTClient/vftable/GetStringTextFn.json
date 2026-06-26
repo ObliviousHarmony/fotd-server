@@ -1,0 +1,17 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "handle",
+   "type": {
+    "ptr": "/void"
+   }
+  }
+ ],
+ "path": "/FOM/ILTClient/vftable/GetStringTextFn",
+ "return": {
+  "ptr": "/char"
+ }
+}

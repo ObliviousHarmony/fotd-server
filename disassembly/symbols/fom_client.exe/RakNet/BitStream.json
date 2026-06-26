@@ -1,0 +1,1102 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "0049a0d0",
+   "callingConvention": "__thiscall",
+   "name": "Read_T_byte",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "inValue",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "0049a0f0",
+   "callingConvention": "__thiscall",
+   "name": "Read_T_uint64",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "outValue",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "0049a180",
+   "callingConvention": "__thiscall",
+   "name": "Write_T_byte",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "inValue",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "0049a1a0",
+   "callingConvention": "__thiscall",
+   "name": "Write_T_uint64",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "inValue",
+     "type": "/stdint.h/uint64_t"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "0049a330",
+   "callingConvention": "__thiscall",
+   "name": "ReadCompressed_T_ushort",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "outValue",
+     "type": "/ushort *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "0049a390",
+   "callingConvention": "__thiscall",
+   "name": "WriteCompressed_T_ushort",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "inValue",
+     "type": "/ushort"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "0049a420",
+   "callingConvention": "__thiscall",
+   "name": "WriteCompressed_T_uint",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "inValue",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "0049c280",
+   "callingConvention": "__thiscall",
+   "name": "ReadCompressed_T_uint",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "outValue",
+     "type": "/uint *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "004e21e0",
+   "callingConvention": "__thiscall",
+   "name": "BitStream",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/RakNet/BitStream *"
+  },
+  {
+   "addr": "004e2220",
+   "callingConvention": "__thiscall",
+   "name": "BitStream",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "initialBytesToAllocate",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/RakNet/BitStream *"
+  },
+  {
+   "addr": "004e22a0",
+   "callingConvention": "__thiscall",
+   "name": "BitStream",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "data",
+     "type": "/uchar *"
+    },
+    {
+     "name": "lengthInBytes",
+     "type": "/uint"
+    },
+    {
+     "name": "copyData",
+     "type": "/bool"
+    }
+   ],
+   "returnType": "/RakNet/BitStream *"
+  },
+  {
+   "addr": "004e2360",
+   "callingConvention": "__thiscall",
+   "name": "SetNumberOfBitsAllocated",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "lengthInBits",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e2380",
+   "callingConvention": "__thiscall",
+   "name": "~BitStream",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e23c0",
+   "callingConvention": "__thiscall",
+   "name": "Reset",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e23e0",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "input",
+     "type": "/stdint.h/uint8_t *"
+    },
+    {
+     "name": "numberOfBytes",
+     "type": "/crtdefs.h/size_t"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e2460",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "bitStream",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e2490",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "bitStream",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "numberOfBits",
+     "type": "/stdint.h/uint32_t"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e2630",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "bitStream",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "numberOfBits",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e2650",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "bitStream",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e2670",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "bitStream",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "numberOfBits",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "004e26a0",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "bitStream",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "004e2710",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "output",
+     "type": "/char *"
+    },
+    {
+     "name": "numberOfBytes",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "004e2790",
+   "callingConvention": "__thiscall",
+   "name": "ResetReadPointer",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e27b0",
+   "callingConvention": "__thiscall",
+   "name": "ResetWritePointer",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e27d0",
+   "callingConvention": "__thiscall",
+   "name": "Write0",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e2810",
+   "callingConvention": "__thiscall",
+   "name": "Write1",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e2890",
+   "callingConvention": "__thiscall",
+   "name": "ReadBit",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "004e28e0",
+   "callingConvention": "__thiscall",
+   "name": "WriteAlignedBytes",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "input",
+     "type": "/stdint.h/uint8_t *"
+    },
+    {
+     "name": "numberOfBitsToWrite",
+     "type": "/crtdefs.h/size_t"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e2910",
+   "callingConvention": "__thiscall",
+   "name": "WriteAlignedBytesSafe",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "input",
+     "type": "/stdint.h/uint8_t *"
+    },
+    {
+     "name": "inputLength",
+     "type": "/stdint.h/uint32_t"
+    },
+    {
+     "name": "maxBytesToWrite",
+     "type": "/stdint.h/uint32_t"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e2970",
+   "callingConvention": "__thiscall",
+   "name": "ReadAlignedBytes",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "output",
+     "type": "/stdint.h/uint8_t *"
+    },
+    {
+     "name": "numberOfBytesToRead",
+     "type": "/crtdefs.h/size_t"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "004e29e0",
+   "callingConvention": "__thiscall",
+   "name": "ReadAlignedBytesSafe",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "input",
+     "type": "/char *"
+    },
+    {
+     "name": "inputLength",
+     "type": "/int *"
+    },
+    {
+     "name": "maxBytesToRead3",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "004e2a10",
+   "callingConvention": "__thiscall",
+   "name": "ReadAlignedBytesSafe",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "input",
+     "type": "/char *"
+    },
+    {
+     "name": "inputLength",
+     "type": "/uint *"
+    },
+    {
+     "name": "maxBytesToRead",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "004e2aa0",
+   "callingConvention": "__thiscall",
+   "name": "ReadAlignedBytesSafeAlloc",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "input",
+     "type": "/char * *"
+    },
+    {
+     "name": "inputLength",
+     "type": "/uint *"
+    },
+    {
+     "name": "maxBytesToRead",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "004e2b40",
+   "callingConvention": "__thiscall",
+   "name": "AlignWriteToByteBoundary",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e2b80",
+   "callingConvention": "__thiscall",
+   "name": "AlignReadToByteBoundary",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e2bc0",
+   "callingConvention": "__thiscall",
+   "name": "WriteBits",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "input",
+     "type": "/uchar *"
+    },
+    {
+     "name": "numberOfBitsToWrite",
+     "type": "/uint"
+    },
+    {
+     "name": "rightAlignedBits",
+     "type": "/bool"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e2cf0",
+   "callingConvention": "__thiscall",
+   "name": "SetData",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "input",
+     "type": "/uchar *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e2d10",
+   "callingConvention": "__thiscall",
+   "name": "WriteCompressed",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "input",
+     "type": "/uchar *"
+    },
+    {
+     "name": "size",
+     "type": "/uint"
+    },
+    {
+     "name": "unsignedData",
+     "type": "/bool"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e2e30",
+   "callingConvention": "__thiscall",
+   "name": "ReadBits",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "output",
+     "type": "/uchar *"
+    },
+    {
+     "name": "numberOfBitsToRead",
+     "type": "/uint"
+    },
+    {
+     "name": "alignBitsToRight",
+     "type": "/bool"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "004e2fa0",
+   "callingConvention": "__thiscall",
+   "name": "ReadCompressed",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "output",
+     "type": "/uchar *"
+    },
+    {
+     "name": "size",
+     "type": "/uint"
+    },
+    {
+     "name": "unsignedData",
+     "type": "/bool"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "004e30d0",
+   "callingConvention": "__thiscall",
+   "name": "AddBitsAndReallocate",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "numberOfBitsToWrite",
+     "type": "/stdint.h/uint32_t"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e3200",
+   "callingConvention": "__thiscall",
+   "name": "GetNumberOfBitsAllocated",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/uint"
+  },
+  {
+   "addr": "004e3220",
+   "callingConvention": "__thiscall",
+   "name": "AssertStreamEmpty",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e3230",
+   "callingConvention": "__thiscall",
+   "name": "PrintBits",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "out",
+     "type": "/char *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e3360",
+   "callingConvention": "__thiscall",
+   "name": "PrintBits",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e33a0",
+   "callingConvention": "__thiscall",
+   "name": "PrintHex",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "out",
+     "type": "/char *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e3400",
+   "callingConvention": "__thiscall",
+   "name": "PrintHex",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e34a0",
+   "callingConvention": "__thiscall",
+   "name": "IgnoreBits",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "numberOfBits",
+     "type": "/crtdefs.h/size_t"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e34c0",
+   "callingConvention": "__thiscall",
+   "name": "IgnoreBytes",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "numberOfBytes",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e34e0",
+   "callingConvention": "__thiscall",
+   "name": "SetWriteOffset",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "offset",
+     "type": "/crtdefs.h/size_t"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e3500",
+   "callingConvention": "__thiscall",
+   "name": "AssertCopyData",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e3580",
+   "callingConvention": "__cdecl",
+   "name": "ReverseBytes",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "input",
+     "type": "/uchar *"
+    },
+    {
+     "name": "output",
+     "type": "/uchar *"
+    },
+    {
+     "name": "length",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e35c0",
+   "callingConvention": "__cdecl",
+   "name": "ReverseBytesInPlace",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "data",
+     "type": "/uchar *"
+    },
+    {
+     "name": "length",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e3620",
+   "callingConvention": "__stdcall",
+   "name": "DoEndianSwap",
+   "namespace": "RakNet::BitStream",
+   "params": [],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "004e3640",
+   "callingConvention": "__stdcall",
+   "name": "IsBigEndian",
+   "namespace": "RakNet::BitStream",
+   "params": [],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "004e3650",
+   "callingConvention": "__stdcall",
+   "name": "IsNetworkOrder",
+   "namespace": "RakNet::BitStream",
+   "params": [],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "004e3690",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "var",
+     "type": "/char *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "004e36d0",
+   "callingConvention": "__thiscall",
+   "name": "GetReadOffset",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/uint"
+  },
+  {
+   "addr": "004e36f0",
+   "callingConvention": "__thiscall",
+   "name": "SetReadOffset",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "newReadOffset",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e3710",
+   "callingConvention": "__thiscall",
+   "name": "GetData",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/uchar *"
+  },
+  {
+   "addr": "004e3730",
+   "callingConvention": "__thiscall",
+   "name": "GetNumberOfUnreadBits",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int *"
+    }
+   ],
+   "returnType": "/int"
+  },
+  {
+   "addr": "004e3750",
+   "callingConvention": "__thiscall",
+   "name": "GetNumberOfBytesUsed",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/uint"
+  },
+  {
+   "addr": "004e8630",
+   "callingConvention": "__thiscall",
+   "name": "Write_T_ushort",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "inValue",
+     "type": "/ushort"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "004e86a0",
+   "callingConvention": "__thiscall",
+   "name": "Read_T_ushort",
+   "namespace": "RakNet::BitStream",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "outValue",
+     "type": "/ushort *"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

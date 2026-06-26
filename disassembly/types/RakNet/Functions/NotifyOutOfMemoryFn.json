@@ -1,0 +1,19 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "file",
+   "type": {
+    "ptr": "/char"
+   }
+  },
+  {
+   "name": "line",
+   "type": "/long"
+  }
+ ],
+ "path": "/RakNet/Functions/NotifyOutOfMemoryFn",
+ "return": "/void"
+}

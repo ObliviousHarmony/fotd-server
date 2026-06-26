@@ -1,0 +1,192 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "00499610",
+   "callingConvention": "__thiscall",
+   "name": "VariableSizedPacket",
+   "namespace": "FOM::Packets::VariableSizedPacket",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    },
+    {
+     "name": "messageType",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/FOM/Packets/VariableSizedPacket *"
+  },
+  {
+   "addr": "00499650",
+   "callingConvention": "__thiscall",
+   "name": "~VariableSizedPacket",
+   "namespace": "FOM::Packets::VariableSizedPacket",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "00499700",
+   "callingConvention": "__thiscall",
+   "name": "~VariableSizedPacket",
+   "namespace": "FOM::Packets::VariableSizedPacket",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  },
+  {
+   "addr": "0049a740",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::VariableSizedPacket",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "0049a7f0",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::VariableSizedPacket",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "0049a860",
+   "callingConvention": "__thiscall",
+   "name": "WriteString",
+   "namespace": "FOM::Packets::VariableSizedPacket",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    },
+    {
+     "name": "input",
+     "type": "/stdint.h/uint8_t *"
+    },
+    {
+     "name": "size",
+     "type": "/stdint.h/uint8_t"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "0049b390",
+   "callingConvention": "__thiscall",
+   "name": "ReadCompressed_ushort",
+   "namespace": "FOM::Packets::VariableSizedPacket",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    },
+    {
+     "name": "outValue",
+     "type": "/ushort *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "0049b3a0",
+   "callingConvention": "__thiscall",
+   "name": "WriteCompressed_ushort",
+   "namespace": "FOM::Packets::VariableSizedPacket",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    },
+    {
+     "name": "inValue",
+     "type": "/ushort"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "0049b440",
+   "callingConvention": "__thiscall",
+   "name": "WriteCompressed_uint",
+   "namespace": "FOM::Packets::VariableSizedPacket",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    },
+    {
+     "name": "inValue",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "0049c230",
+   "callingConvention": "__thiscall",
+   "name": "ReadBit",
+   "namespace": "FOM::Packets::VariableSizedPacket",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    },
+    {
+     "name": "outValue",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "0049c2e0",
+   "callingConvention": "__thiscall",
+   "name": "ReadString",
+   "namespace": "FOM::Packets::VariableSizedPacket",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    },
+    {
+     "name": "output",
+     "type": "/stdint.h/uint8_t *"
+    },
+    {
+     "name": "size",
+     "type": "/stdint.h/uint8_t"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

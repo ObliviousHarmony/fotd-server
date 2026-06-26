@@ -1,0 +1,138 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_INVALID",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_MEDICATION",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_AMMUNITION",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_WEAPON",
+   "value": 3
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_EXPLOSIVE",
+   "value": 4
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_ARMOR",
+   "value": 5
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_MECHANICAL_AUGMENTATION",
+   "value": 6
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_GLASSES",
+   "value": 7
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_FOOD",
+   "value": 8
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_BOOSTER",
+   "value": 9
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_MISCELLANEOUS",
+   "value": 10
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_TORSO_CLOTHES",
+   "value": 11
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_LEG_CLOTHES",
+   "value": 12
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_PREMIUM_TORSO_CLOTHES",
+   "value": 13
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_PREMIUM_LEG_CLOTHES",
+   "value": 14
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_SHOES",
+   "value": 15
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_RAW_MATERIAL",
+   "value": 16
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_PRODUCTION_ELEMENT",
+   "value": 17
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_LOOT",
+   "value": 18
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_PRODUCTION_TOOL",
+   "value": 19
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_NANO_AUGMENTATION",
+   "value": 20
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_DEPLOYABLE",
+   "value": 21
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_TERRITORY_DEPLOYABLE",
+   "value": 22
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_HAT",
+   "value": 23
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CATEGORY_MARKETPLACE",
+   "value": 24
+  },
+  {
+   "comment": null,
+   "name": "NUM_ITEM_CATEGORIES",
+   "value": 25
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Types/Item/ItemCategory"
+}

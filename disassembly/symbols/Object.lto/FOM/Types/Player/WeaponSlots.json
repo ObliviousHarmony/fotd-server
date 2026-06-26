@@ -1,0 +1,52 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100788d0",
+   "callingConvention": "__thiscall",
+   "name": "WeaponSlots",
+   "namespace": "FOM::Types::Player::WeaponSlots",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/WeaponSlots *"
+    }
+   ],
+   "returnType": "/FOM/Types/Player/WeaponSlots *"
+  },
+  {
+   "addr": "10101ab0",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Types::Player::WeaponSlots",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/WeaponSlots *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10101bf0",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::Player::WeaponSlots",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/WeaponSlots *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

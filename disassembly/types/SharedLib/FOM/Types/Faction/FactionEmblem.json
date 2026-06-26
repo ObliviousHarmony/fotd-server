@@ -1,0 +1,28 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": "staticEmblemId",
+   "offset": 0,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 120,
+   "name": "layers",
+   "offset": 4,
+   "type": {
+    "arr": "/FOM/Types/Faction/FactionEmblemLayer",
+    "n": 10
+   }
+  }
+ ],
+ "kind": "struct",
+ "len": 124,
+ "packed": true,
+ "path": "/FOM/Types/Faction/FactionEmblem"
+}

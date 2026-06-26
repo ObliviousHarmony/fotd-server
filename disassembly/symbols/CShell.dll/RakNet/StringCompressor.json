@@ -1,0 +1,151 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "101ce290",
+   "callingConvention": "__stdcall",
+   "name": "Instance",
+   "namespace": "RakNet::StringCompressor",
+   "params": [],
+   "returnType": "/RakNet/StringCompressor *"
+  },
+  {
+   "addr": "101ce2a0",
+   "callingConvention": "__thiscall",
+   "name": "StringCompressor",
+   "namespace": "RakNet::StringCompressor",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/StringCompressor *"
+    }
+   ],
+   "returnType": "/RakNet/StringCompressor *"
+  },
+  {
+   "addr": "101ce330",
+   "callingConvention": "__thiscall",
+   "name": "GenerateTreeFromStrings",
+   "namespace": "RakNet::StringCompressor",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/StringCompressor *"
+    },
+    {
+     "name": "input",
+     "type": "/uchar *"
+    },
+    {
+     "name": "inputLength",
+     "type": "/uint"
+    },
+    {
+     "name": "languageID",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "101ce430",
+   "callingConvention": "__thiscall",
+   "name": "~StringCompressor",
+   "namespace": "RakNet::StringCompressor",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/StringCompressor *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "101ce4c0",
+   "callingConvention": "__thiscall",
+   "name": "EncodeString",
+   "namespace": "RakNet::StringCompressor",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/StringCompressor *"
+    },
+    {
+     "name": "input",
+     "type": "/char *"
+    },
+    {
+     "name": "maxCharsToWrite",
+     "type": "/int"
+    },
+    {
+     "name": "output",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "languageID",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "101ce5e0",
+   "callingConvention": "__thiscall",
+   "name": "DecodeString",
+   "namespace": "RakNet::StringCompressor",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/StringCompressor *"
+    },
+    {
+     "name": "output",
+     "type": "/char *"
+    },
+    {
+     "name": "maxCharsToWrite",
+     "type": "/int"
+    },
+    {
+     "name": "input",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "languageID",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "101ce6c0",
+   "callingConvention": "__thiscall",
+   "name": "DecodeString",
+   "namespace": "RakNet::StringCompressor",
+   "params": [
+    {
+     "name": "this",
+     "type": "/RakNet/StringCompressor *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int *"
+    },
+    {
+     "name": "param_2",
+     "type": "/uint"
+    },
+    {
+     "name": "param_3",
+     "type": "/int *"
+    },
+    {
+     "name": "param_4",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined1"
+  }
+ ]
+}

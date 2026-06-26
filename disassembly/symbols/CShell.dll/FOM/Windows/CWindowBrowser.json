@@ -1,0 +1,77 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100b7f40",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowBrowser",
+   "namespace": "FOM::Windows::CWindowBrowser",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowBrowser *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "100b7f70",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowBrowser",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100b8170",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowBrowser",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowBrowser *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100b83d0",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowBrowser",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowBrowser *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    },
+    {
+     "name": "param_3",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined4"
+  }
+ ]
+}

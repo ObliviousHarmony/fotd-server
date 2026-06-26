@@ -1,0 +1,28 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "LOGIN_REQUEST_RETURN_INVALID_INFO",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "LOGIN_REQUEST_RETURN_SUCCESS",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "LOGIN_REQUEST_RETURN_OUTDATED_CLIENT",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "LOGIN_REQUEST_RETURN_ALREADY_LOGGED_IN",
+   "value": 3
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Enums/Packets/LoginRequestReturnStatus"
+}

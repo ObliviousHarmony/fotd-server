@@ -1,0 +1,39 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": "precision",
+   "offset": 0,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "x",
+   "offset": 4,
+   "type": "/stdint.h/int16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "y",
+   "offset": 6,
+   "type": "/stdint.h/int16_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "z",
+   "offset": 8,
+   "type": "/stdint.h/int16_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 12,
+ "packed": true,
+ "path": "/FOM/Types/Position"
+}

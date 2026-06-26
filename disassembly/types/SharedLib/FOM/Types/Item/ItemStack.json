@@ -1,0 +1,25 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 32,
+   "name": "item",
+   "offset": 0,
+   "type": "/FOM/Types/Item/ItemBase"
+  },
+  {
+   "comment": "set<uint32_t>",
+   "len": 12,
+   "name": "ids",
+   "offset": 32,
+   "type": "/std/set"
+  }
+ ],
+ "kind": "struct",
+ "len": 44,
+ "packed": true,
+ "path": "/FOM/Types/Item/ItemStack"
+}

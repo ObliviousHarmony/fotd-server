@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10180690",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_CHECK_NAME_RETURN",
+   "namespace": "FOM::Packets::Packet_ID_CHECK_NAME_RETURN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_CHECK_NAME_RETURN *"
+    }
+   ],
+   "returnType": "/FOM/Packets/Packet_ID_CHECK_NAME_RETURN *"
+  },
+  {
+   "addr": "10180bc0",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_CHECK_NAME_RETURN",
+   "namespace": "FOM::Packets::Packet_ID_CHECK_NAME_RETURN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_CHECK_NAME_RETURN *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  },
+  {
+   "addr": "101810f0",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_CHECK_NAME_RETURN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_CHECK_NAME_RETURN *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10181120",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_CHECK_NAME_RETURN",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_CHECK_NAME_RETURN *"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

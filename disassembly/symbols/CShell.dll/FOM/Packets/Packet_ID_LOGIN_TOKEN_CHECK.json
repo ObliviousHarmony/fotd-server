@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100897e0",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_LOGIN_TOKEN_CHECK",
+   "namespace": "FOM::Packets::Packet_ID_LOGIN_TOKEN_CHECK",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_LOGIN_TOKEN_CHECK *"
+    }
+   ],
+   "returnType": "/FOM/Packets/Packet_ID_LOGIN_TOKEN_CHECK *"
+  },
+  {
+   "addr": "1008aa10",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_LOGIN_TOKEN_CHECK",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_LOGIN_TOKEN_CHECK *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "1008aaa0",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_LOGIN_TOKEN_CHECK",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_LOGIN_TOKEN_CHECK *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1008ab30",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_LOGIN_TOKEN_CHECK",
+   "namespace": "FOM::Packets::Packet_ID_LOGIN_TOKEN_CHECK",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_LOGIN_TOKEN_CHECK *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  }
+ ]
+}

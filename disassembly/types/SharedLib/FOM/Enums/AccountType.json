@@ -1,0 +1,28 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "ACCOUNT_TYPE_INVALID",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "ACCOUNT_TYPE_FREE",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "ACCOUNT_TYPE_PREPAID",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "ACCOUNT_TYPE_SUBSCRIPTION",
+   "value": 3
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Enums/AccountType"
+}

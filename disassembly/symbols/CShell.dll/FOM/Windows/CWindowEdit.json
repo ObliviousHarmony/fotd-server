@@ -1,0 +1,77 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100d0a20",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowEdit",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowEdit *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined4"
+  },
+  {
+   "addr": "100d0f30",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowEdit",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowEdit *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100d10d0",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowEdit",
+   "namespace": "FOM::Windows::CWindowEdit",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowEdit *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "100d1100",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowEdit",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

@@ -1,0 +1,53 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "WORLD_LOGIN_RETURN_INVALID",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "WORLD_LOGIN_RETURN_SUCCESS",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "WORLD_LOGIN_RETURN_SERVER_OFFLINE",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "WORLD_LOGIN_RETURN_WRONG_FACTION",
+   "value": 3
+  },
+  {
+   "comment": null,
+   "name": "WORLD_LOGIN_RETURN_WORLD_FULL",
+   "value": 4
+  },
+  {
+   "comment": null,
+   "name": "WORLD_LOGIN_RETURN_UNKNOWN_ERROR",
+   "value": 5
+  },
+  {
+   "comment": null,
+   "name": "WORLD_LOGIN_RETURN_NO_FACTION_PRIVILEGES",
+   "value": 6
+  },
+  {
+   "comment": null,
+   "name": "WORLD_LOGIN_RETURN_OUT_OF_RANGE",
+   "value": 7
+  },
+  {
+   "comment": null,
+   "name": "WORLD_LOGIN_RETURN_RETRY",
+   "value": 8
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Enums/Packets/WorldLoginReturnStatus"
+}

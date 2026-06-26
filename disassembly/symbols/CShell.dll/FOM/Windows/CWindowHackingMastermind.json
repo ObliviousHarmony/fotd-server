@@ -1,0 +1,69 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100f1570",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowHackingMastermind",
+   "namespace": "FOM::Windows::CWindowHackingMastermind",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowHackingMastermind *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "100f15a0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowHackingMastermind",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100f2070",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowHackingMastermind",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowHackingMastermind *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100f2500",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowHackingMastermind",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowHackingMastermind *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

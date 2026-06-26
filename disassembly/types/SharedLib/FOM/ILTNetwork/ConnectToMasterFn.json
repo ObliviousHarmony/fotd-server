@@ -1,0 +1,13 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "port",
+   "type": "/short"
+  }
+ ],
+ "path": "/FOM/ILTNetwork/ConnectToMasterFn",
+ "return": "/void"
+}

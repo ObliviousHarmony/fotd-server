@@ -1,0 +1,31 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "packet",
+   "type": {
+    "ptr": "/FOM/Packets/VariableSizedPacket"
+   }
+  },
+  {
+   "name": "priority",
+   "type": "/int"
+  },
+  {
+   "name": "reliability",
+   "type": "/int"
+  },
+  {
+   "name": "channel",
+   "type": "/int"
+  },
+  {
+   "name": "destination",
+   "type": "/FOM/Enums/PacketDestination"
+  }
+ ],
+ "path": "/FOM/ILTNetwork/SendPacketFn",
+ "return": "/bool"
+}

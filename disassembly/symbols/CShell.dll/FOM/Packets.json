@@ -1,0 +1,116 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10181a00",
+   "callingConvention": "__stdcall",
+   "name": "HandlePacket_ID_CHECK_NAME_RETURN",
+   "namespace": "FOM::Packets",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1018da20",
+   "callingConvention": "__thiscall",
+   "name": "HandlePacket_ID_LOGIN_TOKEN_CHECK",
+   "namespace": "FOM::Packets",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "1018e340",
+   "callingConvention": "__thiscall",
+   "name": "HandlePacket_ID_WORLD_LOGIN_RETURN",
+   "namespace": "FOM::Packets",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10190d70",
+   "callingConvention": "__thiscall",
+   "name": "HandlePacket_ID_MOVE_ITEMS",
+   "namespace": "FOM::Packets",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10196900",
+   "callingConvention": "__thiscall",
+   "name": "HandePacket_ID_LOGIN_RETURN",
+   "namespace": "FOM::Packets",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10197030",
+   "callingConvention": "__thiscall",
+   "name": "HandlePacket_ID_ITEMS_ADDED",
+   "namespace": "FOM::Packets",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "101994b0",
+   "callingConvention": "__stdcall",
+   "name": "HandlePacket_ID_APARTMENTS",
+   "namespace": "FOM::Packets",
+   "params": [
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

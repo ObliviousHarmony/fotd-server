@@ -1,0 +1,38 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "PLAYERDATA_INVENTORY",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "PLAYERDATA_QUICKSLOTS",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "PLAYERDATA_AVATAR",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "PLAYERDATA_STORAGE",
+   "value": 3
+  },
+  {
+   "comment": null,
+   "name": "PLAYERDATA_SKILLS",
+   "value": 4
+  },
+  {
+   "comment": null,
+   "name": "PLAYERDATA_FACTION_PERKS",
+   "value": 5
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Enums/PlayerData"
+}

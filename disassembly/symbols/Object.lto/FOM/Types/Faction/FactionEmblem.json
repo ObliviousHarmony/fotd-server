@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100143a0",
+   "callingConvention": "__thiscall",
+   "name": "Reset",
+   "namespace": "FOM::Types::Faction::FactionEmblem",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Faction/FactionEmblem *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10015dc0",
+   "callingConvention": "__thiscall",
+   "name": "FactionEmblem",
+   "namespace": "FOM::Types::Faction::FactionEmblem",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Faction/FactionEmblem *"
+    }
+   ],
+   "returnType": "/FOM/Types/Faction/FactionEmblem *"
+  },
+  {
+   "addr": "10017390",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::Faction::FactionEmblem",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Faction/FactionEmblem *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10017400",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Types::Faction::FactionEmblem",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Faction/FactionEmblem *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

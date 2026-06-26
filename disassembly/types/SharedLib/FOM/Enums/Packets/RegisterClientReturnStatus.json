@@ -1,0 +1,23 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "REGISTER_CLIENT_RETURN_SUCCESS",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "REGISTER_CLIENT_RETURN_WORLD_FULL",
+   "value": 4
+  },
+  {
+   "comment": null,
+   "name": "REGISTER_CLIENT_RETURN_INTEGRITY_CHECK",
+   "value": 5
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Enums/Packets/RegisterClientReturnStatus"
+}

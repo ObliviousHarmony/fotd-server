@@ -1,0 +1,142 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": "id",
+   "offset": 0,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "type",
+   "offset": 4,
+   "type": "/FOM/Enums/ApartmentType"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "ownerPlayerId",
+   "offset": 8,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "ownerFactionId",
+   "offset": 12,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": "vector<{uint8_t, bool}>",
+   "len": 16,
+   "name": "allowedRanks",
+   "offset": 16,
+   "type": "/std/vector"
+  },
+  {
+   "comment": null,
+   "len": 20,
+   "name": "ownerName",
+   "offset": 32,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 20
+   }
+  },
+  {
+   "comment": null,
+   "len": 36,
+   "name": "storage",
+   "offset": 52,
+   "type": "/FOM/Types/Item/ItemList"
+  },
+  {
+   "comment": null,
+   "len": 8,
+   "name": "entryCode",
+   "offset": 88,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 8
+   }
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "isOpen",
+   "offset": 96,
+   "type": "/bool"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "isPublic",
+   "offset": 97,
+   "type": "/bool"
+  },
+  {
+   "comment": null,
+   "len": 24,
+   "name": "publicName",
+   "offset": 98,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 24
+   }
+  },
+  {
+   "comment": null,
+   "len": 512,
+   "name": "publicDescription",
+   "offset": 122,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 512
+   }
+  },
+  {
+   "comment": "map<uint8_t,string>",
+   "len": 16,
+   "name": "allowedFactions",
+   "offset": 636,
+   "type": "/std/map"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "isDefault",
+   "offset": 652,
+   "type": "/bool"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "isFeatured",
+   "offset": 653,
+   "type": "/bool"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "occupancy",
+   "offset": 656,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "entryPrice",
+   "offset": 660,
+   "type": "/stdint.h/uint32_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 664,
+ "packed": true,
+ "path": "/FOM/Types/Apartment"
+}

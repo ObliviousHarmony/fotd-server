@@ -1,0 +1,52 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100ea990",
+   "callingConvention": "__thiscall",
+   "name": "QuickSlots",
+   "namespace": "FOM::Types::Player::QuickSlots",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/QuickSlots *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100ea9e0",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::Player::QuickSlots",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/QuickSlots *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100eaa40",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Types::Player::QuickSlots",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/QuickSlots *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

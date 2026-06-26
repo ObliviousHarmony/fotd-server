@@ -1,0 +1,21 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "name",
+   "type": {
+    "ptr": "/char"
+   }
+  },
+  {
+   "name": "out",
+   "type": {
+    "ptr": "/void"
+   }
+  }
+ ],
+ "path": "/FOM/ILTClient/GetResourceFn",
+ "return": "/void"
+}

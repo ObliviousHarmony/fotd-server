@@ -1,0 +1,145 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 212,
+   "name": "currentValues",
+   "offset": 0,
+   "type": {
+    "arr": "/stdint.h/uint32_t",
+    "n": 53
+   }
+  },
+  {
+   "comment": null,
+   "len": 212,
+   "name": "defaultValues",
+   "offset": 212,
+   "type": {
+    "arr": "/stdint.h/uint32_t",
+    "n": 53
+   }
+  },
+  {
+   "comment": null,
+   "len": 212,
+   "name": "maxValues",
+   "offset": 424,
+   "type": {
+    "arr": "/stdint.h/uint32_t",
+    "n": 53
+   }
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "isDirty",
+   "offset": 636,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 53,
+   "name": "dirtyFlags",
+   "offset": 637,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 53
+   }
+  },
+  {
+   "comment": null,
+   "len": 212,
+   "name": "oldValues",
+   "offset": 692,
+   "type": {
+    "arr": "/stdint.h/uint32_t",
+    "n": 53
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 904,
+   "type": "/float"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 908,
+   "type": "/float"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 912,
+   "type": "/float"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 916,
+   "type": "/float"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 920,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 924,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 928,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 932,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 936,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 940,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 941,
+   "type": "/stdint.h/uint8_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 944,
+ "packed": true,
+ "path": "/FOM/Types/Player/PlayerAttributes"
+}

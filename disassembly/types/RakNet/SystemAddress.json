@@ -1,0 +1,25 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": "binaryAddress",
+   "offset": 0,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "port",
+   "offset": 4,
+   "type": "/stdint.h/uint16_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 8,
+ "packed": true,
+ "path": "/RakNet/SystemAddress"
+}

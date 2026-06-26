@@ -1,0 +1,69 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10013d90",
+   "callingConvention": "__thiscall",
+   "name": "RemoveAttachment",
+   "namespace": "FOM::Game::CPlayerObj",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Game/CPlayerObj *"
+    },
+    {
+     "name": "param_1",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10013dc0",
+   "callingConvention": "__thiscall",
+   "name": "UpdateAttachment",
+   "namespace": "FOM::Game::CPlayerObj",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Game/CPlayerObj *"
+    },
+    {
+     "name": "param_1",
+     "type": "/uint"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10017de0",
+   "callingConvention": "__thiscall",
+   "name": "UpdateAvatar",
+   "namespace": "FOM::Game::CPlayerObj",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Game/CPlayerObj *"
+    },
+    {
+     "name": "avatar",
+     "type": "/FOM/Types/Player/Avatar *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1001a600",
+   "callingConvention": "__fastcall",
+   "name": "Update",
+   "namespace": "FOM::Game::CPlayerObj",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/int *"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

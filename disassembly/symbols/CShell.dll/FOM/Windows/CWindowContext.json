@@ -1,0 +1,39 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100c44e0",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowContext",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowContext *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "100c5010",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowContext",
+   "namespace": "FOM::Windows::CWindowContext",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowContext *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  }
+ ]
+}

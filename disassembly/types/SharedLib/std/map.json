@@ -1,0 +1,41 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 1,
+   "name": "allocator",
+   "offset": 0,
+   "type": "/undefined1"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "head",
+   "offset": 4,
+   "type": {
+    "ptr": "/void"
+   }
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "size",
+   "offset": 8,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "comparator",
+   "offset": 12,
+   "type": "/undefined4"
+  }
+ ],
+ "kind": "struct",
+ "len": 16,
+ "packed": true,
+ "path": "/std/map"
+}

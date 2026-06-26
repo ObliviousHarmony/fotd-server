@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10085a50",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_CREATE_CHARACTER",
+   "namespace": "FOM::Packets::Packet_ID_CREATE_CHARACTER",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_CREATE_CHARACTER *"
+    }
+   ],
+   "returnType": "/FOM/Packets/Packet_ID_CREATE_CHARACTER *"
+  },
+  {
+   "addr": "10085b00",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_CREATE_CHARACTER",
+   "namespace": "FOM::Packets::Packet_ID_CREATE_CHARACTER",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_CREATE_CHARACTER *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  },
+  {
+   "addr": "100865a0",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_CREATE_CHARACTER",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_CREATE_CHARACTER *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10086620",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_CREATE_CHARACTER",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_CREATE_CHARACTER *"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

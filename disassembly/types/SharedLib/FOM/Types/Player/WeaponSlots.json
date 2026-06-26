@@ -1,0 +1,28 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 144,
+   "name": "slots",
+   "offset": 0,
+   "type": {
+    "arr": "/FOM/Types/Item/Item",
+    "n": 3
+   }
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "activeWeapon",
+   "offset": 144,
+   "type": "/stdint.h/uint8_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 148,
+ "packed": true,
+ "path": "/FOM/Types/Player/WeaponSlots"
+}

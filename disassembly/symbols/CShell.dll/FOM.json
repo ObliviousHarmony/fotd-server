@@ -1,0 +1,184 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10180d40",
+   "callingConvention": "__stdcall",
+   "name": "DisplayChatMessage",
+   "namespace": "FOM",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/char *"
+    },
+    {
+     "name": "param_2",
+     "type": "/undefined1"
+    },
+    {
+     "name": "param_3",
+     "type": "/undefined * *"
+    },
+    {
+     "name": "param_4",
+     "type": "/char"
+    },
+    {
+     "name": "param_5",
+     "type": "/char *"
+    },
+    {
+     "name": "param_6",
+     "type": "/char *"
+    },
+    {
+     "name": "param_7",
+     "type": "/undefined1"
+    },
+    {
+     "name": "param_8",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_9",
+     "type": "/undefined1"
+    },
+    {
+     "name": "param_10",
+     "type": "/char"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1018d9c0",
+   "callingConvention": "__stdcall",
+   "name": "SendPacket",
+   "namespace": "FOM",
+   "params": [
+    {
+     "name": "packet",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    },
+    {
+     "name": "destination",
+     "type": "/FOM/Enums/PacketDestination"
+    },
+    {
+     "name": "priority",
+     "type": "/int"
+    },
+    {
+     "name": "reliability",
+     "type": "/int"
+    },
+    {
+     "name": "orderingChannel",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10199a40",
+   "callingConvention": "__thiscall",
+   "name": "HandlePacket",
+   "namespace": "FOM",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "packetID",
+     "type": "/FOM/Enums/PacketIdentifier"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "101cc780",
+   "callingConvention": "__cdecl",
+   "name": "WriteRawString",
+   "namespace": "FOM",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/byte *"
+    },
+    {
+     "name": "param_2",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "101cc7f0",
+   "callingConvention": "__cdecl",
+   "name": "EncodeString",
+   "namespace": "FOM",
+   "params": [
+    {
+     "name": "input",
+     "type": "/char *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "languageID",
+     "type": "/int"
+    },
+    {
+     "name": "writeLanguageID",
+     "type": "/bool"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "101cc8c0",
+   "callingConvention": "__cdecl",
+   "name": "ReadRawString",
+   "namespace": "FOM",
+   "params": [
+    {
+     "name": "output",
+     "type": "/char *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "101cc970",
+   "callingConvention": "__cdecl",
+   "name": "DecodeString",
+   "namespace": "FOM",
+   "params": [
+    {
+     "name": "output",
+     "type": "/char *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    },
+    {
+     "name": "hasLanguageID",
+     "type": "/bool"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

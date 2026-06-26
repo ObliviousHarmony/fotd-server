@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100dde70",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::Player::PlayerSkills",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/PlayerSkills *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100de480",
+   "callingConvention": "__thiscall",
+   "name": "Reset",
+   "namespace": "FOM::Types::Player::PlayerSkills",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/PlayerSkills *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100de7c0",
+   "callingConvention": "__thiscall",
+   "name": "PlayerSkills",
+   "namespace": "FOM::Types::Player::PlayerSkills",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/PlayerSkills *"
+    }
+   ],
+   "returnType": "/FOM/Types/Player/PlayerSkills *"
+  },
+  {
+   "addr": "100dec50",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Types::Player::PlayerSkills",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/Player/PlayerSkills *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

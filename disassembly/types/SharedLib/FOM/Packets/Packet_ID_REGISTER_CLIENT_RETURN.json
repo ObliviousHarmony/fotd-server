@@ -1,0 +1,192 @@
+{
+ "desc": "PlaceHolder Class Structure",
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 1072,
+   "name": "base",
+   "offset": 0,
+   "type": "/FOM/Packets/VariableSizedPacket"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "worldId",
+   "offset": 1072,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "playerId",
+   "offset": 1076,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "status",
+   "offset": 1080,
+   "type": "/FOM/Enums/Packets/RegisterClientReturnStatus"
+  },
+  {
+   "comment": null,
+   "len": 1084,
+   "name": "inventory",
+   "offset": 1084,
+   "type": "/FOM/Types/Player/Inventory"
+  },
+  {
+   "comment": null,
+   "len": 64,
+   "name": "quickslots",
+   "offset": 2168,
+   "type": "/FOM/Types/Player/QuickSlots"
+  },
+  {
+   "comment": null,
+   "len": 50,
+   "name": "avatar",
+   "offset": 2232,
+   "type": "/FOM/Types/Player/Avatar"
+  },
+  {
+   "comment": null,
+   "len": 944,
+   "name": "attributes",
+   "offset": 2284,
+   "type": "/FOM/Types/Player/PlayerAttributes"
+  },
+  {
+   "comment": null,
+   "len": 48,
+   "name": "skills",
+   "offset": 3228,
+   "type": "/FOM/Types/Player/PlayerSkills"
+  },
+  {
+   "comment": null,
+   "len": 604,
+   "name": "profile",
+   "offset": 3276,
+   "type": "/FOM/Types/Player/PlayerProfile"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 3880,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 3881,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "avatarCacheCount",
+   "offset": 3882,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 15000,
+   "name": "avatarCache",
+   "offset": 3884,
+   "type": {
+    "arr": "/FOM/Types/Player/Avatar",
+    "n": 300
+   }
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 18884,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "safezoneCenter",
+   "offset": 18888,
+   "type": "/FOM/Types/PositionRotation"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "safezoneRadius",
+   "offset": 18904,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "nodeId",
+   "offset": 18908,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 18912,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "cloningDuration",
+   "offset": 18914,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 124,
+   "name": "factionEmblem",
+   "offset": 18916,
+   "type": "/FOM/Types/Faction/FactionEmblem"
+  },
+  {
+   "comment": null,
+   "len": 32,
+   "name": "factionName",
+   "offset": 19040,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 32
+   }
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "spawnPosition",
+   "offset": 19072,
+   "type": "/FOM/Types/PositionRotation"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "spawnAtPosition",
+   "offset": 19088,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 40,
+   "name": "factionPerks",
+   "offset": 19092,
+   "type": "/FOM/Types/Faction/FactionPerks"
+  }
+ ],
+ "kind": "struct",
+ "len": 19136,
+ "packed": true,
+ "path": "/FOM/Packets/Packet_ID_REGISTER_CLIENT_RETURN"
+}

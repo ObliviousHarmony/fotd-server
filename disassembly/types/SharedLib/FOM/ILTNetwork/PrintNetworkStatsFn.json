@@ -1,0 +1,13 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "serverType",
+   "type": "/int"
+  }
+ ],
+ "path": "/FOM/ILTNetwork/PrintNetworkStatsFn",
+ "return": "/void"
+}

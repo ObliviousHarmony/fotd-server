@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10055d50",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_WORLD_OBJECTS",
+   "namespace": "FOM::Packets::Packet_ID_WORLD_OBJECTS",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_WORLD_OBJECTS *"
+    }
+   ],
+   "returnType": "/FOM/Packets/Packet_ID_WORLD_OBJECTS *"
+  },
+  {
+   "addr": "10056530",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_WORLD_OBJECTS",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_WORLD_OBJECTS *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10056720",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_WORLD_OBJECTS",
+   "namespace": "FOM::Packets::Packet_ID_WORLD_OBJECTS",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_WORLD_OBJECTS *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  },
+  {
+   "addr": "100568d0",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_WORLD_OBJECTS",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_WORLD_OBJECTS *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

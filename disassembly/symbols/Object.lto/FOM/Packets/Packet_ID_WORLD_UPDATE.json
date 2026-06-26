@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1004c740",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_WORLD_UPDATE",
+   "namespace": "FOM::Packets::Packet_ID_WORLD_UPDATE",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_WORLD_UPDATE *"
+    }
+   ],
+   "returnType": "/FOM/Packets/Packet_ID_WORLD_UPDATE *"
+  },
+  {
+   "addr": "1004dea0",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_WORLD_UPDATE",
+   "namespace": "FOM::Packets::Packet_ID_WORLD_UPDATE",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_WORLD_UPDATE *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  },
+  {
+   "addr": "1004f120",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_WORLD_UPDATE",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_WORLD_UPDATE *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "1004f160",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_WORLD_UPDATE",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_WORLD_UPDATE *"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

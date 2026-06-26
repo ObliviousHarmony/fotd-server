@@ -1,0 +1,6428 @@
+[
+ {
+  "addr": "10179fa0",
+  "name": "ItemDef_1600",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179610",
+  "name": "ItemDef_985",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178f50",
+  "name": "ItemDef_973",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178fe0",
+  "name": "ItemDef_974",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179070",
+  "name": "ItemDef_975",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c440",
+  "name": "ItemDef_534",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c560",
+  "name": "ItemDef_536",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016bf30",
+  "name": "ItemDef_84",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f660",
+  "name": "ItemDef_52",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f8a0",
+  "name": "ItemDef_56",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f9c0",
+  "name": "ItemDef_58",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015fa50",
+  "name": "ItemDef_59",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d370",
+  "name": "ItemDef_583",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d400",
+  "name": "ItemDef_584",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d520",
+  "name": "ItemDef_586",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d7f0",
+  "name": "ItemDef_591",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d9a0",
+  "name": "ItemDef_594",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016dc70",
+  "name": "ItemDef_599",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d5b0",
+  "name": "ItemDef_587",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d640",
+  "name": "ItemDef_588",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d910",
+  "name": "ItemDef_593",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016dac0",
+  "name": "ItemDef_596",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016dbe0",
+  "name": "ItemDef_598",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d250",
+  "name": "ItemDef_581",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d2e0",
+  "name": "ItemDef_582",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d490",
+  "name": "ItemDef_585",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d6d0",
+  "name": "ItemDef_589",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015ed60",
+  "name": "ItemDef_24",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015edf0",
+  "name": "ItemDef_25",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f150",
+  "name": "ItemDef_31",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c050",
+  "name": "ItemDef_86",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ccb0",
+  "name": "ItemDef_549",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016cd40",
+  "name": "ItemDef_550",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016cdd0",
+  "name": "ItemDef_551",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179340",
+  "name": "ItemDef_980",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101793d0",
+  "name": "ItemDef_981",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179460",
+  "name": "ItemDef_982",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101794f0",
+  "name": "ItemDef_983",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179e80",
+  "name": "ItemDef_1300",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179f10",
+  "name": "ItemDef_1301",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101839c0",
+  "name": "ItemDef_3003",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10183a50",
+  "name": "ItemDef_3004",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10183ae0",
+  "name": "ItemDef_3005",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10183b70",
+  "name": "ItemDef_3006",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10183c00",
+  "name": "ItemDef_3007",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10183c90",
+  "name": "ItemDef_3008",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f030",
+  "name": "ItemDef_29",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015efa0",
+  "name": "ItemDef_28",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015ef10",
+  "name": "ItemDef_27",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015ee80",
+  "name": "ItemDef_26",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e8e0",
+  "name": "ItemDef_16",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e850",
+  "name": "ItemDef_15",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e7c0",
+  "name": "ItemDef_14",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e730",
+  "name": "ItemDef_13",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e6a0",
+  "name": "ItemDef_12",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e610",
+  "name": "ItemDef_11",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e580",
+  "name": "ItemDef_10",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e4f0",
+  "name": "ItemDef_9",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e460",
+  "name": "ItemDef_8",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e3d0",
+  "name": "ItemDef_7",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e340",
+  "name": "ItemDef_6",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e2b0",
+  "name": "ItemDef_5",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e220",
+  "name": "ItemDef_4",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e190",
+  "name": "ItemDef_3",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e100",
+  "name": "ItemDef_2",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e070",
+  "name": "ItemDef_1",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015ecd0",
+  "name": "ItemDef_23",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f0c0",
+  "name": "ItemDef_30",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015ebb0",
+  "name": "ItemDef_21",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015ea90",
+  "name": "ItemDef_19",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015eb20",
+  "name": "ItemDef_20",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f1e0",
+  "name": "ItemDef_32",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f390",
+  "name": "ItemDef_35",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015ea00",
+  "name": "ItemDef_18",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015e970",
+  "name": "ItemDef_17",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f300",
+  "name": "ItemDef_34",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f4b0",
+  "name": "ItemDef_37",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10183930",
+  "name": "ItemDef_1281",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101838a0",
+  "name": "ItemDef_1280",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10183810",
+  "name": "ItemDef_1238",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10183780",
+  "name": "ItemDef_1237",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101836f0",
+  "name": "ItemDef_1236",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10183660",
+  "name": "ItemDef_1235",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101835d0",
+  "name": "ItemDef_1234",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10183540",
+  "name": "ItemDef_1233",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101834b0",
+  "name": "ItemDef_1232",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10183420",
+  "name": "ItemDef_1231",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10183390",
+  "name": "ItemDef_1230",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10183300",
+  "name": "ItemDef_1229",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10183270",
+  "name": "ItemDef_1228",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101831e0",
+  "name": "ItemDef_1227",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10183150",
+  "name": "ItemDef_1226",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101830c0",
+  "name": "ItemDef_1225",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10183030",
+  "name": "ItemDef_1224",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182fa0",
+  "name": "ItemDef_1223",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182f10",
+  "name": "ItemDef_1222",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182e80",
+  "name": "ItemDef_1221",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182df0",
+  "name": "ItemDef_1220",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182d60",
+  "name": "ItemDef_1219",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182cd0",
+  "name": "ItemDef_1218",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182c40",
+  "name": "ItemDef_1217",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182bb0",
+  "name": "ItemDef_1216",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182b20",
+  "name": "ItemDef_1215",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182a90",
+  "name": "ItemDef_1214",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182a00",
+  "name": "ItemDef_1213",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182970",
+  "name": "ItemDef_1212",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101828e0",
+  "name": "ItemDef_1211",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182850",
+  "name": "ItemDef_1210",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101827c0",
+  "name": "ItemDef_1209",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182730",
+  "name": "ItemDef_1208",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101826a0",
+  "name": "ItemDef_1207",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182610",
+  "name": "ItemDef_1206",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182580",
+  "name": "ItemDef_1205",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101824f0",
+  "name": "ItemDef_1204",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182460",
+  "name": "ItemDef_1203",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101823d0",
+  "name": "ItemDef_1202",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182340",
+  "name": "ItemDef_1201",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101822b0",
+  "name": "ItemDef_1200",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182220",
+  "name": "ItemDef_1199",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182190",
+  "name": "ItemDef_1198",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182100",
+  "name": "ItemDef_1197",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10182070",
+  "name": "ItemDef_1196",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181fe0",
+  "name": "ItemDef_1195",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181f50",
+  "name": "ItemDef_1194",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181ec0",
+  "name": "ItemDef_1177",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181e30",
+  "name": "ItemDef_1176",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181da0",
+  "name": "ItemDef_1175",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181d10",
+  "name": "ItemDef_1174",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181c80",
+  "name": "ItemDef_1173",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181bf0",
+  "name": "ItemDef_1172",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181b60",
+  "name": "ItemDef_1171",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181ad0",
+  "name": "ItemDef_1170",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181a40",
+  "name": "ItemDef_1169",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101819b0",
+  "name": "ItemDef_1168",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181920",
+  "name": "ItemDef_1167",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181890",
+  "name": "ItemDef_1166",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181800",
+  "name": "ItemDef_1165",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181770",
+  "name": "ItemDef_1164",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101816e0",
+  "name": "ItemDef_1163",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181650",
+  "name": "ItemDef_1162",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101815c0",
+  "name": "ItemDef_1161",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181530",
+  "name": "ItemDef_1160",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101814a0",
+  "name": "ItemDef_1159",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181410",
+  "name": "ItemDef_1158",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181380",
+  "name": "ItemDef_1157",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101812f0",
+  "name": "ItemDef_1156",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181260",
+  "name": "ItemDef_1155",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101811d0",
+  "name": "ItemDef_1154",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181140",
+  "name": "ItemDef_1153",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101810b0",
+  "name": "ItemDef_1152",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10181020",
+  "name": "ItemDef_1151",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180f00",
+  "name": "ItemDef_2063",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180e70",
+  "name": "ItemDef_2062",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180de0",
+  "name": "ItemDef_2061",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180d50",
+  "name": "ItemDef_2060",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180cc0",
+  "name": "ItemDef_1832",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180c30",
+  "name": "ItemDef_1831",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180ba0",
+  "name": "ItemDef_1830",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180b10",
+  "name": "ItemDef_1829",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180a80",
+  "name": "ItemDef_1828",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101809f0",
+  "name": "ItemDef_1827",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180960",
+  "name": "ItemDef_1826",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101808d0",
+  "name": "ItemDef_1825",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180840",
+  "name": "ItemDef_1824",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101807b0",
+  "name": "ItemDef_1823",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180720",
+  "name": "ItemDef_1822",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180690",
+  "name": "ItemDef_1821",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180600",
+  "name": "ItemDef_1820",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101804e0",
+  "name": "ItemDef_2171",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180450",
+  "name": "ItemDef_2170",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101803c0",
+  "name": "ItemDef_2169",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180330",
+  "name": "ItemDef_2168",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101802a0",
+  "name": "ItemDef_2167",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180210",
+  "name": "ItemDef_2166",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180180",
+  "name": "ItemDef_2165",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101800f0",
+  "name": "ItemDef_2164",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180060",
+  "name": "ItemDef_2163",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017ffd0",
+  "name": "ItemDef_2162",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017ff40",
+  "name": "ItemDef_2161",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017feb0",
+  "name": "ItemDef_2160",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017fe20",
+  "name": "ItemDef_1968",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017fd90",
+  "name": "ItemDef_1967",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017fd00",
+  "name": "ItemDef_1966",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017fc70",
+  "name": "ItemDef_1965",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017fbe0",
+  "name": "ItemDef_1964",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017fb50",
+  "name": "ItemDef_1963",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017fac0",
+  "name": "ItemDef_1962",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017fa30",
+  "name": "ItemDef_1961",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f9a0",
+  "name": "ItemDef_1960",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f910",
+  "name": "ItemDef_1149",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f880",
+  "name": "ItemDef_1148",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f7f0",
+  "name": "ItemDef_1147",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f760",
+  "name": "ItemDef_1146",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f6d0",
+  "name": "ItemDef_1145",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f640",
+  "name": "ItemDef_1144",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f5b0",
+  "name": "ItemDef_1143",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f520",
+  "name": "ItemDef_1142",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f490",
+  "name": "ItemDef_1141",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f400",
+  "name": "ItemDef_1140",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f370",
+  "name": "ItemDef_1139",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f250",
+  "name": "ItemDef_1137",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f1c0",
+  "name": "ItemDef_1136",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f130",
+  "name": "ItemDef_1135",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f0a0",
+  "name": "ItemDef_1134",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f010",
+  "name": "ItemDef_1133",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017ef80",
+  "name": "ItemDef_1132",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017eef0",
+  "name": "ItemDef_1131",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017ee60",
+  "name": "ItemDef_1130",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017edd0",
+  "name": "ItemDef_1129",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017ed40",
+  "name": "ItemDef_1128",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017ecb0",
+  "name": "ItemDef_1127",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017ec20",
+  "name": "ItemDef_1126",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017eb90",
+  "name": "ItemDef_1125",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017eb00",
+  "name": "ItemDef_1124",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017ea70",
+  "name": "ItemDef_1123",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e9e0",
+  "name": "ItemDef_1122",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e950",
+  "name": "ItemDef_1121",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e8c0",
+  "name": "ItemDef_1120",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e830",
+  "name": "ItemDef_1110",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e7a0",
+  "name": "ItemDef_1109",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e710",
+  "name": "ItemDef_1108",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e680",
+  "name": "ItemDef_1107",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e5f0",
+  "name": "ItemDef_1106",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e560",
+  "name": "ItemDef_1105",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e4d0",
+  "name": "ItemDef_1104",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e440",
+  "name": "ItemDef_1103",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e3b0",
+  "name": "ItemDef_1102",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e320",
+  "name": "ItemDef_1101",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e290",
+  "name": "ItemDef_1100",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e200",
+  "name": "ItemDef_1099",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e0e0",
+  "name": "ItemDef_1097",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e050",
+  "name": "ItemDef_1096",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017dfc0",
+  "name": "ItemDef_1095",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017df30",
+  "name": "ItemDef_1094",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017dea0",
+  "name": "ItemDef_1093",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017de10",
+  "name": "ItemDef_1092",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017dd80",
+  "name": "ItemDef_1091",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017dcf0",
+  "name": "ItemDef_1090",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017dc60",
+  "name": "ItemDef_1089",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017dbd0",
+  "name": "ItemDef_1088",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017db40",
+  "name": "ItemDef_1087",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017dab0",
+  "name": "ItemDef_1086",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017da20",
+  "name": "ItemDef_1085",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d990",
+  "name": "ItemDef_1084",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d900",
+  "name": "ItemDef_1083",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d870",
+  "name": "ItemDef_1082",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d7e0",
+  "name": "ItemDef_1081",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d750",
+  "name": "ItemDef_1080",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d6c0",
+  "name": "ItemDef_1079",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d630",
+  "name": "ItemDef_1078",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d5a0",
+  "name": "ItemDef_1077",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d510",
+  "name": "ItemDef_1076",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d480",
+  "name": "ItemDef_1075",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d3f0",
+  "name": "ItemDef_1074",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d360",
+  "name": "ItemDef_1073",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d2d0",
+  "name": "ItemDef_1072",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d240",
+  "name": "ItemDef_1071",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d1b0",
+  "name": "ItemDef_1070",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d120",
+  "name": "ItemDef_1069",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d090",
+  "name": "ItemDef_1068",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017d000",
+  "name": "ItemDef_1067",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017cf70",
+  "name": "ItemDef_1066",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017cee0",
+  "name": "ItemDef_1065",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017ce50",
+  "name": "ItemDef_1064",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017cdc0",
+  "name": "ItemDef_1063",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017cd30",
+  "name": "ItemDef_1062",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017cca0",
+  "name": "ItemDef_1061",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017cc10",
+  "name": "ItemDef_1060",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017cb80",
+  "name": "ItemDef_1059",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017ca60",
+  "name": "ItemDef_1057",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c9d0",
+  "name": "ItemDef_1056",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c940",
+  "name": "ItemDef_1055",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c8b0",
+  "name": "ItemDef_1054",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c820",
+  "name": "ItemDef_1053",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c790",
+  "name": "ItemDef_1052",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c700",
+  "name": "ItemDef_1051",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c670",
+  "name": "ItemDef_1050",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c5e0",
+  "name": "ItemDef_1049",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c550",
+  "name": "ItemDef_1048",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c4c0",
+  "name": "ItemDef_1047",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c430",
+  "name": "ItemDef_1046",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c3a0",
+  "name": "ItemDef_1045",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c310",
+  "name": "ItemDef_1044",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c280",
+  "name": "ItemDef_1043",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c1f0",
+  "name": "ItemDef_1042",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c160",
+  "name": "ItemDef_1041",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c0d0",
+  "name": "ItemDef_1040",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017c040",
+  "name": "ItemDef_1039",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017bfb0",
+  "name": "ItemDef_1038",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017bf20",
+  "name": "ItemDef_1037",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017be90",
+  "name": "ItemDef_1036",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017be00",
+  "name": "ItemDef_1035",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017bd70",
+  "name": "ItemDef_1034",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017bce0",
+  "name": "ItemDef_1033",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017bc50",
+  "name": "ItemDef_1032",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017bbc0",
+  "name": "ItemDef_1031",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017bb30",
+  "name": "ItemDef_1030",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017baa0",
+  "name": "ItemDef_1029",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017ba10",
+  "name": "ItemDef_1028",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b980",
+  "name": "ItemDef_1027",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b8f0",
+  "name": "ItemDef_1026",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b860",
+  "name": "ItemDef_1025",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b7d0",
+  "name": "ItemDef_1024",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b740",
+  "name": "ItemDef_1023",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b6b0",
+  "name": "ItemDef_1022",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b620",
+  "name": "ItemDef_1021",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b590",
+  "name": "ItemDef_1020",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b500",
+  "name": "ItemDef_1019",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b470",
+  "name": "ItemDef_1018",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017caf0",
+  "name": "ItemDef_1058",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017e170",
+  "name": "ItemDef_1098",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017f2e0",
+  "name": "ItemDef_1138",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b3e0",
+  "name": "ItemDef_1017",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b350",
+  "name": "ItemDef_1016",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b2c0",
+  "name": "ItemDef_1015",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b230",
+  "name": "ItemDef_1014",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b1a0",
+  "name": "ItemDef_1013",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b110",
+  "name": "ItemDef_1012",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017b080",
+  "name": "ItemDef_1011",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017aff0",
+  "name": "ItemDef_1010",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017af60",
+  "name": "ItemDef_1009",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017aed0",
+  "name": "ItemDef_1008",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017ae40",
+  "name": "ItemDef_1007",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017adb0",
+  "name": "ItemDef_1006",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017ad20",
+  "name": "ItemDef_1005",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017ac90",
+  "name": "ItemDef_1004",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017ac00",
+  "name": "ItemDef_1003",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017ab70",
+  "name": "ItemDef_1002",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017aae0",
+  "name": "ItemDef_1001",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017aa50",
+  "name": "ItemDef_1000",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a9c0",
+  "name": "ItemDef_1808",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a930",
+  "name": "ItemDef_1807",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a8a0",
+  "name": "ItemDef_1806",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a810",
+  "name": "ItemDef_1805",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a780",
+  "name": "ItemDef_1804",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a6f0",
+  "name": "ItemDef_1803",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a660",
+  "name": "ItemDef_1802",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a5d0",
+  "name": "ItemDef_1801",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a540",
+  "name": "ItemDef_1800",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a4b0",
+  "name": "ItemDef_1609",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a420",
+  "name": "ItemDef_1608",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a390",
+  "name": "ItemDef_1607",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a300",
+  "name": "ItemDef_1606",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a270",
+  "name": "ItemDef_1605",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a1e0",
+  "name": "ItemDef_1604",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a150",
+  "name": "ItemDef_1603",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a0c0",
+  "name": "ItemDef_1602",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1017a030",
+  "name": "ItemDef_1601",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179df0",
+  "name": "ItemDef_999",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179d60",
+  "name": "ItemDef_998",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179cd0",
+  "name": "ItemDef_997",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179c40",
+  "name": "ItemDef_996",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179bb0",
+  "name": "ItemDef_995",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179b20",
+  "name": "ItemDef_994",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179a90",
+  "name": "ItemDef_993",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179a00",
+  "name": "ItemDef_992",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179970",
+  "name": "ItemDef_991",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179850",
+  "name": "ItemDef_989",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101798e0",
+  "name": "ItemDef_990",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101797c0",
+  "name": "ItemDef_988",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179730",
+  "name": "ItemDef_987",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101796a0",
+  "name": "ItemDef_986",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179580",
+  "name": "ItemDef_984",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179220",
+  "name": "ItemDef_978",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179190",
+  "name": "ItemDef_977",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10179100",
+  "name": "ItemDef_976",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178ec0",
+  "name": "ItemDef_962",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178e30",
+  "name": "ItemDef_961",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178da0",
+  "name": "ItemDef_960",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178d10",
+  "name": "ItemDef_956",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178c80",
+  "name": "ItemDef_955",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178bf0",
+  "name": "ItemDef_954",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178b60",
+  "name": "ItemDef_953",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178ad0",
+  "name": "ItemDef_952",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178a40",
+  "name": "ItemDef_951",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101789b0",
+  "name": "ItemDef_950",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178920",
+  "name": "ItemDef_949",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178890",
+  "name": "ItemDef_948",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178800",
+  "name": "ItemDef_947",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178770",
+  "name": "ItemDef_946",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101786e0",
+  "name": "ItemDef_945",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178650",
+  "name": "ItemDef_944",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101785c0",
+  "name": "ItemDef_943",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178530",
+  "name": "ItemDef_942",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101784a0",
+  "name": "ItemDef_941",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178410",
+  "name": "ItemDef_940",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178380",
+  "name": "ItemDef_923",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101782f0",
+  "name": "ItemDef_922",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178260",
+  "name": "ItemDef_921",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101781d0",
+  "name": "ItemDef_920",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178140",
+  "name": "ItemDef_919",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101780b0",
+  "name": "ItemDef_918",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10178020",
+  "name": "ItemDef_917",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177f90",
+  "name": "ItemDef_916",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177f00",
+  "name": "ItemDef_915",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177e70",
+  "name": "ItemDef_914",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177de0",
+  "name": "ItemDef_913",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177d50",
+  "name": "ItemDef_912",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177cc0",
+  "name": "ItemDef_911",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177c30",
+  "name": "ItemDef_910",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177ba0",
+  "name": "ItemDef_909",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177b10",
+  "name": "ItemDef_908",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177a80",
+  "name": "ItemDef_907",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101779f0",
+  "name": "ItemDef_906",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177960",
+  "name": "ItemDef_905",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101778d0",
+  "name": "ItemDef_904",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177840",
+  "name": "ItemDef_903",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101777b0",
+  "name": "ItemDef_902",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177720",
+  "name": "ItemDef_901",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177690",
+  "name": "ItemDef_900",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177600",
+  "name": "ItemDef_891",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177570",
+  "name": "ItemDef_890",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101774e0",
+  "name": "ItemDef_889",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177450",
+  "name": "ItemDef_888",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101773c0",
+  "name": "ItemDef_887",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177330",
+  "name": "ItemDef_886",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101772a0",
+  "name": "ItemDef_885",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177210",
+  "name": "ItemDef_884",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177180",
+  "name": "ItemDef_883",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101770f0",
+  "name": "ItemDef_882",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10177060",
+  "name": "ItemDef_881",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176fd0",
+  "name": "ItemDef_880",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176f40",
+  "name": "ItemDef_875",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176eb0",
+  "name": "ItemDef_874",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176e20",
+  "name": "ItemDef_873",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176d90",
+  "name": "ItemDef_872",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176d00",
+  "name": "ItemDef_871",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176c70",
+  "name": "ItemDef_870",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176be0",
+  "name": "ItemDef_865",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176b50",
+  "name": "ItemDef_864",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176ac0",
+  "name": "ItemDef_863",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176a30",
+  "name": "ItemDef_862",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101769a0",
+  "name": "ItemDef_861",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176910",
+  "name": "ItemDef_860",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176880",
+  "name": "ItemDef_859",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101767f0",
+  "name": "ItemDef_858",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176760",
+  "name": "ItemDef_857",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101766d0",
+  "name": "ItemDef_856",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176640",
+  "name": "ItemDef_855",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101765b0",
+  "name": "ItemDef_854",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176520",
+  "name": "ItemDef_853",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176490",
+  "name": "ItemDef_852",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176400",
+  "name": "ItemDef_851",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176370",
+  "name": "ItemDef_850",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101762e0",
+  "name": "ItemDef_832",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176250",
+  "name": "ItemDef_831",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101761c0",
+  "name": "ItemDef_830",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176130",
+  "name": "ItemDef_829",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101760a0",
+  "name": "ItemDef_828",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10176010",
+  "name": "ItemDef_827",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175f80",
+  "name": "ItemDef_826",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175ef0",
+  "name": "ItemDef_825",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175e60",
+  "name": "ItemDef_824",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175dd0",
+  "name": "ItemDef_823",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175d40",
+  "name": "ItemDef_822",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175cb0",
+  "name": "ItemDef_821",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175c20",
+  "name": "ItemDef_820",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175b90",
+  "name": "ItemDef_819",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175b00",
+  "name": "ItemDef_818",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175a70",
+  "name": "ItemDef_817",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101759e0",
+  "name": "ItemDef_816",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175950",
+  "name": "ItemDef_815",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101758c0",
+  "name": "ItemDef_814",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175830",
+  "name": "ItemDef_813",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101757a0",
+  "name": "ItemDef_812",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175710",
+  "name": "ItemDef_811",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175680",
+  "name": "ItemDef_810",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101755f0",
+  "name": "ItemDef_808",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175560",
+  "name": "ItemDef_807",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101754d0",
+  "name": "ItemDef_806",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175440",
+  "name": "ItemDef_805",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101753b0",
+  "name": "ItemDef_804",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175320",
+  "name": "ItemDef_803",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175290",
+  "name": "ItemDef_802",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175200",
+  "name": "ItemDef_801",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175170",
+  "name": "ItemDef_800",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101750e0",
+  "name": "ItemDef_799",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10175050",
+  "name": "ItemDef_798",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174fc0",
+  "name": "ItemDef_797",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174f30",
+  "name": "ItemDef_796",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174ea0",
+  "name": "ItemDef_795",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174e10",
+  "name": "ItemDef_794",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174d80",
+  "name": "ItemDef_793",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174cf0",
+  "name": "ItemDef_792",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174c60",
+  "name": "ItemDef_791",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174bd0",
+  "name": "ItemDef_790",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174b40",
+  "name": "ItemDef_782",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174ab0",
+  "name": "ItemDef_781",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174a20",
+  "name": "ItemDef_780",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174990",
+  "name": "ItemDef_768",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174900",
+  "name": "ItemDef_767",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174870",
+  "name": "ItemDef_766",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101747e0",
+  "name": "ItemDef_765",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174750",
+  "name": "ItemDef_764",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101746c0",
+  "name": "ItemDef_763",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174630",
+  "name": "ItemDef_762",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101745a0",
+  "name": "ItemDef_761",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174510",
+  "name": "ItemDef_760",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174480",
+  "name": "ItemDef_745",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101743f0",
+  "name": "ItemDef_744",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174360",
+  "name": "ItemDef_743",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101742d0",
+  "name": "ItemDef_742",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174240",
+  "name": "ItemDef_741",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101741b0",
+  "name": "ItemDef_740",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174120",
+  "name": "ItemDef_739",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174090",
+  "name": "ItemDef_738",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10174000",
+  "name": "ItemDef_737",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173f70",
+  "name": "ItemDef_736",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173ee0",
+  "name": "ItemDef_735",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173e50",
+  "name": "ItemDef_734",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173dc0",
+  "name": "ItemDef_733",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173d30",
+  "name": "ItemDef_732",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173ca0",
+  "name": "ItemDef_731",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173c10",
+  "name": "ItemDef_730",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173b80",
+  "name": "ItemDef_729",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173af0",
+  "name": "ItemDef_728",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173a60",
+  "name": "ItemDef_727",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101739d0",
+  "name": "ItemDef_726",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173940",
+  "name": "ItemDef_725",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101738b0",
+  "name": "ItemDef_724",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173820",
+  "name": "ItemDef_723",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173790",
+  "name": "ItemDef_722",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173700",
+  "name": "ItemDef_721",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173670",
+  "name": "ItemDef_720",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101735e0",
+  "name": "ItemDef_717",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173550",
+  "name": "ItemDef_716",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101734c0",
+  "name": "ItemDef_715",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173430",
+  "name": "ItemDef_714",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101733a0",
+  "name": "ItemDef_713",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173310",
+  "name": "ItemDef_712",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173280",
+  "name": "ItemDef_711",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101731f0",
+  "name": "ItemDef_710",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173160",
+  "name": "ItemDef_709",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101730d0",
+  "name": "ItemDef_708",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10173040",
+  "name": "ItemDef_707",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172fb0",
+  "name": "ItemDef_706",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172f20",
+  "name": "ItemDef_705",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172e90",
+  "name": "ItemDef_704",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172e00",
+  "name": "ItemDef_703",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172d70",
+  "name": "ItemDef_702",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172ce0",
+  "name": "ItemDef_701",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172c50",
+  "name": "ItemDef_700",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172bc0",
+  "name": "ItemDef_695",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172b30",
+  "name": "ItemDef_694",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172aa0",
+  "name": "ItemDef_693",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172a10",
+  "name": "ItemDef_692",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172980",
+  "name": "ItemDef_691",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101728f0",
+  "name": "ItemDef_690",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172860",
+  "name": "ItemDef_685",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101727d0",
+  "name": "ItemDef_684",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172740",
+  "name": "ItemDef_683",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101726b0",
+  "name": "ItemDef_682",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172620",
+  "name": "ItemDef_681",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172590",
+  "name": "ItemDef_680",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172500",
+  "name": "ItemDef_679",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172470",
+  "name": "ItemDef_678",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101723e0",
+  "name": "ItemDef_677",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172350",
+  "name": "ItemDef_676",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101722c0",
+  "name": "ItemDef_675",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172230",
+  "name": "ItemDef_674",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101721a0",
+  "name": "ItemDef_673",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172110",
+  "name": "ItemDef_672",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10172080",
+  "name": "ItemDef_671",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171ff0",
+  "name": "ItemDef_670",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171f60",
+  "name": "ItemDef_654",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171ed0",
+  "name": "ItemDef_653",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171e40",
+  "name": "ItemDef_652",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171db0",
+  "name": "ItemDef_651",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171d20",
+  "name": "ItemDef_650",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171c90",
+  "name": "ItemDef_649",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171c00",
+  "name": "ItemDef_648",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171b70",
+  "name": "ItemDef_647",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171ae0",
+  "name": "ItemDef_646",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171a50",
+  "name": "ItemDef_645",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101719c0",
+  "name": "ItemDef_644",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171930",
+  "name": "ItemDef_643",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101718a0",
+  "name": "ItemDef_642",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171810",
+  "name": "ItemDef_641",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171780",
+  "name": "ItemDef_640",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101716f0",
+  "name": "ItemDef_639",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171660",
+  "name": "ItemDef_638",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101715d0",
+  "name": "ItemDef_637",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171540",
+  "name": "ItemDef_636",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101714b0",
+  "name": "ItemDef_635",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171420",
+  "name": "ItemDef_634",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171390",
+  "name": "ItemDef_633",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171300",
+  "name": "ItemDef_632",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171270",
+  "name": "ItemDef_631",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101711e0",
+  "name": "ItemDef_630",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171150",
+  "name": "ItemDef_626",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101710c0",
+  "name": "ItemDef_625",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10171030",
+  "name": "ItemDef_624",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170fa0",
+  "name": "ItemDef_623",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170f10",
+  "name": "ItemDef_622",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170e80",
+  "name": "ItemDef_621",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170df0",
+  "name": "ItemDef_620",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170d60",
+  "name": "ItemDef_619",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170cd0",
+  "name": "ItemDef_618",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170c40",
+  "name": "ItemDef_617",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170bb0",
+  "name": "ItemDef_616",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170b20",
+  "name": "ItemDef_615",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170a90",
+  "name": "ItemDef_614",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170a00",
+  "name": "ItemDef_613",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170970",
+  "name": "ItemDef_612",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101708e0",
+  "name": "ItemDef_611",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170850",
+  "name": "ItemDef_610",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101707c0",
+  "name": "ItemDef_529",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180570",
+  "name": "ItemDef_2172",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170730",
+  "name": "ItemDef_528",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10180f90",
+  "name": "ItemDef_2064",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101706a0",
+  "name": "ItemDef_527",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170610",
+  "name": "ItemDef_526",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170580",
+  "name": "ItemDef_525",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101704f0",
+  "name": "ItemDef_524",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170460",
+  "name": "ItemDef_523",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101703d0",
+  "name": "ItemDef_522",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170340",
+  "name": "ItemDef_521",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101702b0",
+  "name": "ItemDef_520",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170220",
+  "name": "ItemDef_519",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170190",
+  "name": "ItemDef_518",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170100",
+  "name": "ItemDef_517",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10170070",
+  "name": "ItemDef_516",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ffe0",
+  "name": "ItemDef_515",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ff50",
+  "name": "ItemDef_514",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016fec0",
+  "name": "ItemDef_513",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016fe30",
+  "name": "ItemDef_512",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016fda0",
+  "name": "ItemDef_511",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016fd10",
+  "name": "ItemDef_510",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016fc80",
+  "name": "ItemDef_509",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016fbf0",
+  "name": "ItemDef_508",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016fb60",
+  "name": "ItemDef_507",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016fad0",
+  "name": "ItemDef_506",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016fa40",
+  "name": "ItemDef_505",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f9b0",
+  "name": "ItemDef_504",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f920",
+  "name": "ItemDef_503",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f890",
+  "name": "ItemDef_502",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f800",
+  "name": "ItemDef_501",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f770",
+  "name": "ItemDef_500",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f650",
+  "name": "ItemDef_196",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f5c0",
+  "name": "ItemDef_195",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f6e0",
+  "name": "ItemDef_197",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f530",
+  "name": "ItemDef_194",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f4a0",
+  "name": "ItemDef_193",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f410",
+  "name": "ItemDef_192",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f380",
+  "name": "ItemDef_191",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f2f0",
+  "name": "ItemDef_190",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f260",
+  "name": "ItemDef_189",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f1d0",
+  "name": "ItemDef_188",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f140",
+  "name": "ItemDef_187",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f0b0",
+  "name": "ItemDef_186",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016f020",
+  "name": "ItemDef_185",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ef90",
+  "name": "ItemDef_184",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ef00",
+  "name": "ItemDef_183",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ee70",
+  "name": "ItemDef_182",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ede0",
+  "name": "ItemDef_181",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ed50",
+  "name": "ItemDef_180",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ecc0",
+  "name": "ItemDef_179",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ec30",
+  "name": "ItemDef_178",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016eba0",
+  "name": "ItemDef_177",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016eb10",
+  "name": "ItemDef_176",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ea80",
+  "name": "ItemDef_175",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e9f0",
+  "name": "ItemDef_174",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e960",
+  "name": "ItemDef_173",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e8d0",
+  "name": "ItemDef_172",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e840",
+  "name": "ItemDef_171",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e7b0",
+  "name": "ItemDef_170",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e720",
+  "name": "ItemDef_169",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e690",
+  "name": "ItemDef_168",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e600",
+  "name": "ItemDef_167",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e570",
+  "name": "ItemDef_166",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e4e0",
+  "name": "ItemDef_165",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e450",
+  "name": "ItemDef_164",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e3c0",
+  "name": "ItemDef_163",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e330",
+  "name": "ItemDef_162",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e2a0",
+  "name": "ItemDef_161",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e210",
+  "name": "ItemDef_160",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e180",
+  "name": "ItemDef_108",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016e0f0",
+  "name": "ItemDef_107",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016dfd0",
+  "name": "ItemDef_105",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016df40",
+  "name": "ItemDef_104",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016deb0",
+  "name": "ItemDef_103",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016dd90",
+  "name": "ItemDef_101",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016dd00",
+  "name": "ItemDef_100",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016db50",
+  "name": "ItemDef_597",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016da30",
+  "name": "ItemDef_595",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d880",
+  "name": "ItemDef_592",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d760",
+  "name": "ItemDef_590",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d1c0",
+  "name": "ItemDef_580",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d130",
+  "name": "ItemDef_557",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d0a0",
+  "name": "ItemDef_556",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016d010",
+  "name": "ItemDef_555",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016cf80",
+  "name": "ItemDef_554",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016cef0",
+  "name": "ItemDef_553",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ce60",
+  "name": "ItemDef_552",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016cc20",
+  "name": "ItemDef_548",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016cb90",
+  "name": "ItemDef_547",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016cb00",
+  "name": "ItemDef_546",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ca70",
+  "name": "ItemDef_545",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c9e0",
+  "name": "ItemDef_544",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c950",
+  "name": "ItemDef_543",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c8c0",
+  "name": "ItemDef_542",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c830",
+  "name": "ItemDef_541",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101792b0",
+  "name": "ItemDef_979",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c7a0",
+  "name": "ItemDef_540",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c710",
+  "name": "ItemDef_539",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c680",
+  "name": "ItemDef_538",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c5f0",
+  "name": "ItemDef_537",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c4d0",
+  "name": "ItemDef_535",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c3b0",
+  "name": "ItemDef_533",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c320",
+  "name": "ItemDef_532",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c290",
+  "name": "ItemDef_531",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c200",
+  "name": "ItemDef_530",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c170",
+  "name": "ItemDef_88",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016c0e0",
+  "name": "ItemDef_87",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016bfc0",
+  "name": "ItemDef_85",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016bea0",
+  "name": "ItemDef_83",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016be10",
+  "name": "ItemDef_82",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016bd80",
+  "name": "ItemDef_81",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016bcf0",
+  "name": "ItemDef_80",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016bc60",
+  "name": "ItemDef_2984",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016bbd0",
+  "name": "ItemDef_2983",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ba20",
+  "name": "ItemDef_2980",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016bb40",
+  "name": "ItemDef_2982",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b990",
+  "name": "ItemDef_499",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016bab0",
+  "name": "ItemDef_2981",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b900",
+  "name": "ItemDef_498",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b870",
+  "name": "ItemDef_497",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b7e0",
+  "name": "ItemDef_496",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b750",
+  "name": "ItemDef_495",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b6c0",
+  "name": "ItemDef_494",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b630",
+  "name": "ItemDef_493",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b5a0",
+  "name": "ItemDef_492",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b510",
+  "name": "ItemDef_491",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b480",
+  "name": "ItemDef_490",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b3f0",
+  "name": "ItemDef_489",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b360",
+  "name": "ItemDef_488",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b2d0",
+  "name": "ItemDef_487",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b240",
+  "name": "ItemDef_486",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b1b0",
+  "name": "ItemDef_485",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b120",
+  "name": "ItemDef_484",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b090",
+  "name": "ItemDef_483",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016b000",
+  "name": "ItemDef_482",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016af70",
+  "name": "ItemDef_481",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016aee0",
+  "name": "ItemDef_480",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ae50",
+  "name": "ItemDef_479",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016adc0",
+  "name": "ItemDef_478",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ad30",
+  "name": "ItemDef_477",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016aca0",
+  "name": "ItemDef_476",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ac10",
+  "name": "ItemDef_475",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016ab80",
+  "name": "ItemDef_474",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016aaf0",
+  "name": "ItemDef_473",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016aa60",
+  "name": "ItemDef_472",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a9d0",
+  "name": "ItemDef_471",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a940",
+  "name": "ItemDef_470",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a8b0",
+  "name": "ItemDef_469",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a820",
+  "name": "ItemDef_468",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a790",
+  "name": "ItemDef_467",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a700",
+  "name": "ItemDef_466",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a670",
+  "name": "ItemDef_465",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a5e0",
+  "name": "ItemDef_464",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a550",
+  "name": "ItemDef_463",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a4c0",
+  "name": "ItemDef_462",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a430",
+  "name": "ItemDef_461",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a3a0",
+  "name": "ItemDef_460",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a310",
+  "name": "ItemDef_459",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a280",
+  "name": "ItemDef_458",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a1f0",
+  "name": "ItemDef_457",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a160",
+  "name": "ItemDef_456",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a0d0",
+  "name": "ItemDef_455",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1016a040",
+  "name": "ItemDef_454",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169fb0",
+  "name": "ItemDef_453",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169f20",
+  "name": "ItemDef_452",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169e90",
+  "name": "ItemDef_451",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169e00",
+  "name": "ItemDef_450",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169d70",
+  "name": "ItemDef_449",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169ce0",
+  "name": "ItemDef_448",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169c50",
+  "name": "ItemDef_447",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169bc0",
+  "name": "ItemDef_446",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169b30",
+  "name": "ItemDef_445",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169aa0",
+  "name": "ItemDef_444",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169a10",
+  "name": "ItemDef_443",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169980",
+  "name": "ItemDef_442",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101698f0",
+  "name": "ItemDef_441",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169860",
+  "name": "ItemDef_440",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101697d0",
+  "name": "ItemDef_439",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169740",
+  "name": "ItemDef_438",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101696b0",
+  "name": "ItemDef_437",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169620",
+  "name": "ItemDef_436",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169590",
+  "name": "ItemDef_435",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169500",
+  "name": "ItemDef_434",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169470",
+  "name": "ItemDef_433",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101693e0",
+  "name": "ItemDef_432",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169350",
+  "name": "ItemDef_431",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101692c0",
+  "name": "ItemDef_430",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169230",
+  "name": "ItemDef_429",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101691a0",
+  "name": "ItemDef_428",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169110",
+  "name": "ItemDef_427",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10169080",
+  "name": "ItemDef_426",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168ff0",
+  "name": "ItemDef_425",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168f60",
+  "name": "ItemDef_424",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168ed0",
+  "name": "ItemDef_423",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168e40",
+  "name": "ItemDef_422",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168db0",
+  "name": "ItemDef_421",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168d20",
+  "name": "ItemDef_420",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168c90",
+  "name": "ItemDef_419",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168c00",
+  "name": "ItemDef_418",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168b70",
+  "name": "ItemDef_417",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168ae0",
+  "name": "ItemDef_416",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168a50",
+  "name": "ItemDef_415",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101689c0",
+  "name": "ItemDef_414",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168930",
+  "name": "ItemDef_413",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101688a0",
+  "name": "ItemDef_412",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168810",
+  "name": "ItemDef_411",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168780",
+  "name": "ItemDef_410",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101686f0",
+  "name": "ItemDef_407",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168660",
+  "name": "ItemDef_406",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101685d0",
+  "name": "ItemDef_405",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168540",
+  "name": "ItemDef_404",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101684b0",
+  "name": "ItemDef_403",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168420",
+  "name": "ItemDef_402",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168390",
+  "name": "ItemDef_401",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168300",
+  "name": "ItemDef_400",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168270",
+  "name": "ItemDef_399",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101681e0",
+  "name": "ItemDef_398",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168150",
+  "name": "ItemDef_397",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101680c0",
+  "name": "ItemDef_396",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10168030",
+  "name": "ItemDef_395",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167fa0",
+  "name": "ItemDef_394",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167f10",
+  "name": "ItemDef_393",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167e80",
+  "name": "ItemDef_392",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167df0",
+  "name": "ItemDef_391",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167d60",
+  "name": "ItemDef_390",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167cd0",
+  "name": "ItemDef_389",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167c40",
+  "name": "ItemDef_388",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167bb0",
+  "name": "ItemDef_387",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167b20",
+  "name": "ItemDef_386",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167a90",
+  "name": "ItemDef_385",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167a00",
+  "name": "ItemDef_384",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167970",
+  "name": "ItemDef_383",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101678e0",
+  "name": "ItemDef_382",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167850",
+  "name": "ItemDef_381",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101677c0",
+  "name": "ItemDef_380",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167730",
+  "name": "ItemDef_379",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101676a0",
+  "name": "ItemDef_378",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167610",
+  "name": "ItemDef_377",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167580",
+  "name": "ItemDef_376",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101674f0",
+  "name": "ItemDef_375",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167460",
+  "name": "ItemDef_374",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101673d0",
+  "name": "ItemDef_373",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167340",
+  "name": "ItemDef_372",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101672b0",
+  "name": "ItemDef_371",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167220",
+  "name": "ItemDef_370",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167190",
+  "name": "ItemDef_369",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167100",
+  "name": "ItemDef_368",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10167070",
+  "name": "ItemDef_367",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166fe0",
+  "name": "ItemDef_366",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166f50",
+  "name": "ItemDef_365",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166ec0",
+  "name": "ItemDef_364",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166e30",
+  "name": "ItemDef_363",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166da0",
+  "name": "ItemDef_362",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166d10",
+  "name": "ItemDef_361",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166c80",
+  "name": "ItemDef_360",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166bf0",
+  "name": "ItemDef_357",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166b60",
+  "name": "ItemDef_356",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166ad0",
+  "name": "ItemDef_355",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166a40",
+  "name": "ItemDef_354",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101669b0",
+  "name": "ItemDef_353",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166920",
+  "name": "ItemDef_352",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166890",
+  "name": "ItemDef_351",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166800",
+  "name": "ItemDef_350",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166770",
+  "name": "ItemDef_349",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101666e0",
+  "name": "ItemDef_348",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166650",
+  "name": "ItemDef_347",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101665c0",
+  "name": "ItemDef_346",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166530",
+  "name": "ItemDef_345",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101664a0",
+  "name": "ItemDef_344",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166410",
+  "name": "ItemDef_343",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166380",
+  "name": "ItemDef_342",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101662f0",
+  "name": "ItemDef_341",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166260",
+  "name": "ItemDef_340",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101661d0",
+  "name": "ItemDef_339",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166140",
+  "name": "ItemDef_338",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101660b0",
+  "name": "ItemDef_337",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10166020",
+  "name": "ItemDef_336",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165f90",
+  "name": "ItemDef_335",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165f00",
+  "name": "ItemDef_334",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165e70",
+  "name": "ItemDef_333",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165de0",
+  "name": "ItemDef_332",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165d50",
+  "name": "ItemDef_331",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165cc0",
+  "name": "ItemDef_330",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165c30",
+  "name": "ItemDef_329",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165ba0",
+  "name": "ItemDef_328",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165b10",
+  "name": "ItemDef_327",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165a80",
+  "name": "ItemDef_326",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101659f0",
+  "name": "ItemDef_325",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165960",
+  "name": "ItemDef_324",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101658d0",
+  "name": "ItemDef_323",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165840",
+  "name": "ItemDef_322",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101657b0",
+  "name": "ItemDef_321",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165720",
+  "name": "ItemDef_320",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165690",
+  "name": "ItemDef_319",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165600",
+  "name": "ItemDef_318",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165570",
+  "name": "ItemDef_317",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101654e0",
+  "name": "ItemDef_316",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165450",
+  "name": "ItemDef_315",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101653c0",
+  "name": "ItemDef_314",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165330",
+  "name": "ItemDef_313",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101652a0",
+  "name": "ItemDef_312",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165210",
+  "name": "ItemDef_311",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165180",
+  "name": "ItemDef_310",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101650f0",
+  "name": "ItemDef_307",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10165060",
+  "name": "ItemDef_306",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164fd0",
+  "name": "ItemDef_305",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164f40",
+  "name": "ItemDef_304",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164eb0",
+  "name": "ItemDef_303",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164e20",
+  "name": "ItemDef_302",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164d90",
+  "name": "ItemDef_301",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164c70",
+  "name": "ItemDef_299",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164be0",
+  "name": "ItemDef_298",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164b50",
+  "name": "ItemDef_297",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164ac0",
+  "name": "ItemDef_296",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164a30",
+  "name": "ItemDef_295",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101649a0",
+  "name": "ItemDef_294",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164910",
+  "name": "ItemDef_293",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164880",
+  "name": "ItemDef_292",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101647f0",
+  "name": "ItemDef_291",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164760",
+  "name": "ItemDef_290",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101646d0",
+  "name": "ItemDef_289",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164640",
+  "name": "ItemDef_288",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101645b0",
+  "name": "ItemDef_287",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164520",
+  "name": "ItemDef_286",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164490",
+  "name": "ItemDef_285",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164400",
+  "name": "ItemDef_284",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164370",
+  "name": "ItemDef_283",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101642e0",
+  "name": "ItemDef_282",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164250",
+  "name": "ItemDef_281",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101641c0",
+  "name": "ItemDef_280",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164130",
+  "name": "ItemDef_279",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101640a0",
+  "name": "ItemDef_278",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10164010",
+  "name": "ItemDef_277",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163f80",
+  "name": "ItemDef_276",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163ef0",
+  "name": "ItemDef_275",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163e60",
+  "name": "ItemDef_274",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163dd0",
+  "name": "ItemDef_273",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163d40",
+  "name": "ItemDef_272",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163cb0",
+  "name": "ItemDef_271",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163c20",
+  "name": "ItemDef_270",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163b90",
+  "name": "ItemDef_269",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163b00",
+  "name": "ItemDef_268",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163a70",
+  "name": "ItemDef_267",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101639e0",
+  "name": "ItemDef_266",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163950",
+  "name": "ItemDef_265",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101638c0",
+  "name": "ItemDef_264",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163830",
+  "name": "ItemDef_263",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101637a0",
+  "name": "ItemDef_262",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163710",
+  "name": "ItemDef_261",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163680",
+  "name": "ItemDef_260",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101635f0",
+  "name": "ItemDef_257",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163560",
+  "name": "ItemDef_256",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101634d0",
+  "name": "ItemDef_255",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163440",
+  "name": "ItemDef_254",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101633b0",
+  "name": "ItemDef_253",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163320",
+  "name": "ItemDef_252",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163290",
+  "name": "ItemDef_251",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163200",
+  "name": "ItemDef_250",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163170",
+  "name": "ItemDef_249",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101630e0",
+  "name": "ItemDef_248",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10163050",
+  "name": "ItemDef_247",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162fc0",
+  "name": "ItemDef_246",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162f30",
+  "name": "ItemDef_245",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162ea0",
+  "name": "ItemDef_244",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162e10",
+  "name": "ItemDef_243",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162d80",
+  "name": "ItemDef_242",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162cf0",
+  "name": "ItemDef_241",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162c60",
+  "name": "ItemDef_240",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162bd0",
+  "name": "ItemDef_239",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162b40",
+  "name": "ItemDef_238",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162ab0",
+  "name": "ItemDef_237",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162a20",
+  "name": "ItemDef_236",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162990",
+  "name": "ItemDef_235",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162900",
+  "name": "ItemDef_234",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162870",
+  "name": "ItemDef_233",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101627e0",
+  "name": "ItemDef_232",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162750",
+  "name": "ItemDef_231",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101626c0",
+  "name": "ItemDef_230",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162630",
+  "name": "ItemDef_229",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101625a0",
+  "name": "ItemDef_228",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162510",
+  "name": "ItemDef_227",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162480",
+  "name": "ItemDef_226",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101623f0",
+  "name": "ItemDef_225",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162360",
+  "name": "ItemDef_224",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101622d0",
+  "name": "ItemDef_223",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162240",
+  "name": "ItemDef_222",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101621b0",
+  "name": "ItemDef_221",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162120",
+  "name": "ItemDef_220",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162090",
+  "name": "ItemDef_219",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10162000",
+  "name": "ItemDef_218",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161f70",
+  "name": "ItemDef_217",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161ee0",
+  "name": "ItemDef_216",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161e50",
+  "name": "ItemDef_215",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161dc0",
+  "name": "ItemDef_214",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161d30",
+  "name": "ItemDef_213",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161ca0",
+  "name": "ItemDef_212",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161c10",
+  "name": "ItemDef_211",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161b80",
+  "name": "ItemDef_210",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161af0",
+  "name": "ItemDef_207",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161a60",
+  "name": "ItemDef_206",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101619d0",
+  "name": "ItemDef_205",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161940",
+  "name": "ItemDef_204",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101618b0",
+  "name": "ItemDef_203",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161820",
+  "name": "ItemDef_202",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161790",
+  "name": "ItemDef_201",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161670",
+  "name": "ItemDef_159",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101615e0",
+  "name": "ItemDef_158",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161550",
+  "name": "ItemDef_157",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101614c0",
+  "name": "ItemDef_156",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161430",
+  "name": "ItemDef_155",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101613a0",
+  "name": "ItemDef_154",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161310",
+  "name": "ItemDef_153",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161280",
+  "name": "ItemDef_152",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101611f0",
+  "name": "ItemDef_151",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161160",
+  "name": "ItemDef_150",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101610d0",
+  "name": "ItemDef_149",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10161040",
+  "name": "ItemDef_148",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160fb0",
+  "name": "ItemDef_147",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160f20",
+  "name": "ItemDef_146",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160e90",
+  "name": "ItemDef_145",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160e00",
+  "name": "ItemDef_144",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160d70",
+  "name": "ItemDef_143",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160ce0",
+  "name": "ItemDef_142",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160c50",
+  "name": "ItemDef_141",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160bc0",
+  "name": "ItemDef_140",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160b30",
+  "name": "ItemDef_139",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160aa0",
+  "name": "ItemDef_138",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160a10",
+  "name": "ItemDef_137",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160980",
+  "name": "ItemDef_136",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101608f0",
+  "name": "ItemDef_135",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160860",
+  "name": "ItemDef_134",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101607d0",
+  "name": "ItemDef_133",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160740",
+  "name": "ItemDef_132",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101606b0",
+  "name": "ItemDef_131",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160620",
+  "name": "ItemDef_130",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160590",
+  "name": "ItemDef_129",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160500",
+  "name": "ItemDef_128",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160470",
+  "name": "ItemDef_127",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101603e0",
+  "name": "ItemDef_126",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160350",
+  "name": "ItemDef_125",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101602c0",
+  "name": "ItemDef_124",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160230",
+  "name": "ItemDef_123",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "101601a0",
+  "name": "ItemDef_122",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160110",
+  "name": "ItemDef_121",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "10160080",
+  "name": "ItemDef_120",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015fff0",
+  "name": "ItemDef_119",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015ff60",
+  "name": "ItemDef_118",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015fed0",
+  "name": "ItemDef_117",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015fe40",
+  "name": "ItemDef_116",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015fdb0",
+  "name": "ItemDef_115",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015fd20",
+  "name": "ItemDef_114",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015fc90",
+  "name": "ItemDef_113",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015fc00",
+  "name": "ItemDef_112",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015fb70",
+  "name": "ItemDef_111",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015fae0",
+  "name": "ItemDef_110",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f930",
+  "name": "ItemDef_57",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f810",
+  "name": "ItemDef_55",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f780",
+  "name": "ItemDef_54",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f6f0",
+  "name": "ItemDef_53",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f5d0",
+  "name": "ItemDef_51",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f540",
+  "name": "ItemDef_50",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f420",
+  "name": "ItemDef_36",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015f270",
+  "name": "ItemDef_33",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ },
+ {
+  "addr": "1015ec40",
+  "name": "ItemDef_22",
+  "namespace": "",
+  "type": "/FOM/Types/Item/ItemDefinition"
+ }
+]

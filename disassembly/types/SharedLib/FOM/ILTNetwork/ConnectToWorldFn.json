@@ -1,0 +1,17 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "ip",
+   "type": "/uint"
+  },
+  {
+   "name": "port",
+   "type": "/ushort"
+  }
+ ],
+ "path": "/FOM/ILTNetwork/ConnectToWorldFn",
+ "return": "/void"
+}

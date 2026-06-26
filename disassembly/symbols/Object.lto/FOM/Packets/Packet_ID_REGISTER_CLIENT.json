@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100782b0",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_REGISTER_CLIENT",
+   "namespace": "FOM::Packets::Packet_ID_REGISTER_CLIENT",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_REGISTER_CLIENT *"
+    }
+   ],
+   "returnType": "/FOM/Packets/Packet_ID_REGISTER_CLIENT *"
+  },
+  {
+   "addr": "10078960",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_REGISTER_CLIENT",
+   "namespace": "FOM::Packets::Packet_ID_REGISTER_CLIENT",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_REGISTER_CLIENT *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  },
+  {
+   "addr": "10078cc0",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_REGISTER_CLIENT",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_REGISTER_CLIENT *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10078d20",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_REGISTER_CLIENT",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_REGISTER_CLIENT *"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

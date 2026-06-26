@@ -1,0 +1,43 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "username",
+   "type": {
+    "ptr": "/char"
+   }
+  },
+  {
+   "name": "password",
+   "type": {
+    "ptr": "/char"
+   }
+  },
+  {
+   "name": "version",
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "name": "unknown1",
+   "type": {
+    "ptr": "/char"
+   }
+  },
+  {
+   "name": "steamFlag",
+   "type": "/char"
+  },
+  {
+   "name": "steamData",
+   "type": "/int"
+  },
+  {
+   "name": "steamLength",
+   "type": "/stdint.h/uint32_t"
+  }
+ ],
+ "path": "/FOM/ILTNetwork/LoginFn",
+ "return": "/bool"
+}

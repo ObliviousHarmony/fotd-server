@@ -1,0 +1,69 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "101c7310",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowInterfaces",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "101c7560",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowInterfaces",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowInterfaces *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "101c7590",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowInterfaces",
+   "namespace": "FOM::Windows::CWindowInterfaces",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowInterfaces *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "101c75c0",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowInterfaces",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowInterfaces *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

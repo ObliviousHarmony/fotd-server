@@ -1,0 +1,69 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1017d680",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowVortexImp",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowVortexImp *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1017d6b0",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowVortexImp",
+   "namespace": "FOM::Windows::CWindowVortexImp",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowVortexImp *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "1017d6e0",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowVortexImp",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "1017d720",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowVortexImp",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowVortexImp *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

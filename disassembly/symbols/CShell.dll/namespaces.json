@@ -1,0 +1,896 @@
+[
+ {
+  "kind": "class",
+  "name": "NewClass",
+  "parent": "",
+  "path": "NewClass"
+ },
+ {
+  "kind": "namespace",
+  "name": "RakNet",
+  "parent": "",
+  "path": "RakNet"
+ },
+ {
+  "kind": "namespace",
+  "name": "FOM",
+  "parent": "",
+  "path": "FOM"
+ },
+ {
+  "kind": "class",
+  "name": "BitStream",
+  "parent": "RakNet",
+  "path": "RakNet::BitStream"
+ },
+ {
+  "kind": "class",
+  "name": "StringCompressor",
+  "parent": "RakNet",
+  "path": "RakNet::StringCompressor"
+ },
+ {
+  "kind": "namespace",
+  "name": "Packets",
+  "parent": "FOM",
+  "path": "FOM::Packets"
+ },
+ {
+  "kind": "namespace",
+  "name": "Globals",
+  "parent": "FOM",
+  "path": "FOM::Globals"
+ },
+ {
+  "kind": "namespace",
+  "name": "SharedMemory",
+  "parent": "FOM",
+  "path": "FOM::SharedMemory"
+ },
+ {
+  "kind": "namespace",
+  "name": "Windows",
+  "parent": "FOM",
+  "path": "FOM::Windows"
+ },
+ {
+  "kind": "namespace",
+  "name": "TabContext",
+  "parent": "FOM",
+  "path": "FOM::TabContext"
+ },
+ {
+  "kind": "namespace",
+  "name": "Types",
+  "parent": "FOM",
+  "path": "FOM::Types"
+ },
+ {
+  "kind": "namespace",
+  "name": "Player",
+  "parent": "FOM",
+  "path": "FOM::Player"
+ },
+ {
+  "kind": "class",
+  "name": "VariableSizedPacket",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::VariableSizedPacket"
+ },
+ {
+  "kind": "class",
+  "name": "CBaseWindow",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CBaseWindow"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowMapHUD",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowMapHUD"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_CHECK_NAME",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_CHECK_NAME"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_CREATE_CHARACTER",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_CREATE_CHARACTER"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_LOGIN_TOKEN_CHECK",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_LOGIN_TOKEN_CHECK"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowStatusBar",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowStatusBar"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_MOVE_ITEMS",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_MOVE_ITEMS"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowStatusBarTop",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowStatusBarTop"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowAddGoal",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowAddGoal"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowApartmentInfiltration",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowApartmentInfiltration"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowBackPack",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowBackPack"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowBlocked",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowBlocked"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowBoosters",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowBoosters"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowBountyManager",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowBountyManager"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowBrowser",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowBrowser"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowCalculator",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowCalculator"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowCharacterUpdate",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowCharacterUpdate"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowChat",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowChat"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowCloning",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowCloning"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowCommunicator",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowCommunicator"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowContext",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowContext"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowCreateMarketOffer",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowCreateMarketOffer"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowDestination",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowDestination"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowDialog",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowDialog"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowDropDownBig",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowDropDownBig"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowDropDownSmall",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowDropDownSmall"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowDropUp",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowDropUp"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowEdit",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowEdit"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowEmblemEditor",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowEmblemEditor"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowExplosiveCharge",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowExplosiveCharge"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowFaction",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowFaction"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowFactionFundManager",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowFactionFundManager"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowFactionOwnershipControl",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowFactionOwnershipControl"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowFriends",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowFriends"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowGMChat",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowGMChat"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowHackingMastermind",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowHackingMastermind"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowHackingNodes",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowHackingNodes"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowHint",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowHint"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowHunter",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowHunter"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowHunterLog",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowHunterLog"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowInfluenceGenerator",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowInfluenceGenerator"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowInputLine",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowInputLine"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_CHAT",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_CHAT"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowInventory",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowInventory"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowLoot",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowLoot"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowMedicalUnit",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowMedicalUnit"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowMessageBox",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowMessageBox"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowMgr",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowMgr"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowMineralScanner",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowMineralScanner"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowMiningRig",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowMiningRig"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowMissionLog",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowMissionLog"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowMissionManager",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowMissionManager"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowNewNote",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowNewNote"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowNewWarrant",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowNewWarrant"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowNodeSelection",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowNodeSelection"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowNotepad",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowNotepad"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowNPC",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowNPC"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowNPCEditor",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowNPCEditor"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowNPCEditorReward",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowNPCEditorReward"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowNPCObjectives",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowNPCObjectives"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowOptions",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowOptions"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowPlayerFile",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowPlayerFile"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowSendMail",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowSendMail"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowShieldFactor",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowShieldFactor"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowSkills",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowSkills"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalApartments",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalApartments"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalCasino",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalCasino"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalCasinoSlots",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalCasinoSlots"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalChemicalLab",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalChemicalLab"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalMarket",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalMarket"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalMarketClothing",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalMarketClothing"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalMarketSchematic",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalMarketSchematic"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalMarketStandard",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalMarketStandard"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalMarketTaxes",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalMarketTaxes"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalMedical",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalMedical"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalMulticom",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalMulticom"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalPrisonBail",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalPrisonBail"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalPrisonManager",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalPrisonManager"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalPrisonMineralCollector",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalPrisonMineralCollector"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalProduction",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalProduction"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalRecycle",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalRecycle"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalRepair",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalRepair"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalSecurity",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalSecurity"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalStorage",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalStorage"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalTerritoryVendor",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalTerritoryVendor"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalTransportBuyback",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalTransportBuyback"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerminalVortex",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerminalVortex"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerritoryManager",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerritoryManager"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerritoryObjectManager",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerritoryObjectManager"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTerritoryPowerManager",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTerritoryPowerManager"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTextEntryBox",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTextEntryBox"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowToolTip",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowToolTip"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowTurret",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowTurret"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowVortexImp",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowVortexImp"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowWorldServiceManager",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowWorldServiceManager"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_CHECK_NAME_RETURN",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_CHECK_NAME_RETURN"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_WORLD_LOGIN_RETURN",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_WORLD_LOGIN_RETURN"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_LOGIN_RETURN",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_LOGIN_RETURN"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_ITEMS_ADDED",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_ITEMS_ADDED"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_WORLD_LOGIN",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_WORLD_LOGIN"
+ },
+ {
+  "kind": "class",
+  "name": "CWindowInterfaces",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::CWindowInterfaces"
+ },
+ {
+  "kind": "class",
+  "name": "Apartment",
+  "parent": "FOM::Types",
+  "path": "FOM::Types::Apartment"
+ },
+ {
+  "kind": "namespace",
+  "name": "Controls",
+  "parent": "FOM::Windows",
+  "path": "FOM::Windows::Controls"
+ },
+ {
+  "kind": "namespace",
+  "name": "Player",
+  "parent": "FOM::Types",
+  "path": "FOM::Types::Player"
+ },
+ {
+  "kind": "class",
+  "name": "WorldUpdate",
+  "parent": "FOM::Types",
+  "path": "FOM::Types::WorldUpdate"
+ },
+ {
+  "kind": "class",
+  "name": "PositionRotation",
+  "parent": "FOM::Types",
+  "path": "FOM::Types::PositionRotation"
+ },
+ {
+  "kind": "namespace",
+  "name": "Item",
+  "parent": "FOM::Types",
+  "path": "FOM::Types::Item"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUICommandHandler",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUICommandHandler"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUICtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUICtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUIBitmapCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUIBitmapCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUIBlinker",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUIBlinker"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUIButtonCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUIButtonCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUIClipboard",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUIClipboard"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUIDummyCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUIDummyCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUILayoutCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUILayoutCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUILayoutImage",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUILayoutImage"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUIListCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUIListCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUIMovingArrow",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUIMovingArrow"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUIPolyButton",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUIPolyButton"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUIProgressBar",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUIProgressBar"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUIScrollBarCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUIScrollBarCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUISelectorCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUISelectorCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUISliderCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUISliderCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUISwitchCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUISwitchCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUITabCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUITabCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUITextCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUITextCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUITreeCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUITreeCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUITreeRowCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUITreeRowCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUIUnitBoxCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUIUnitBoxCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUIUnitListCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUIUnitListCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUIVotingBarCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUIVotingBarCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "CLTGUIImageMapCtrl",
+  "parent": "FOM::Windows::Controls",
+  "path": "FOM::Windows::Controls::CLTGUIImageMapCtrl"
+ },
+ {
+  "kind": "class",
+  "name": "ItemBase",
+  "parent": "FOM::Types::Item",
+  "path": "FOM::Types::Item::ItemBase"
+ },
+ {
+  "kind": "class",
+  "name": "ItemStack",
+  "parent": "FOM::Types::Item",
+  "path": "FOM::Types::Item::ItemStack"
+ },
+ {
+  "kind": "class",
+  "name": "ItemList",
+  "parent": "FOM::Types::Item",
+  "path": "FOM::Types::Item::ItemList"
+ },
+ {
+  "kind": "class",
+  "name": "Avatar",
+  "parent": "FOM::Types::Player",
+  "path": "FOM::Types::Player::Avatar"
+ }
+]

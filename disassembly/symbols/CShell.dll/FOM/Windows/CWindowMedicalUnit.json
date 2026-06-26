@@ -1,0 +1,73 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10104dd0",
+   "callingConvention": "__thiscall",
+   "name": "Render",
+   "namespace": "FOM::Windows::CWindowMedicalUnit",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowMedicalUnit *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10105050",
+   "callingConvention": "__thiscall",
+   "name": "~CWindowMedicalUnit",
+   "namespace": "FOM::Windows::CWindowMedicalUnit",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowMedicalUnit *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10105080",
+   "callingConvention": "__fastcall",
+   "name": "SetupControls",
+   "namespace": "FOM::Windows::CWindowMedicalUnit",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/void *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10105200",
+   "callingConvention": "__thiscall",
+   "name": "OnEvent",
+   "namespace": "FOM::Windows::CWindowMedicalUnit",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Windows/CWindowMedicalUnit *"
+    },
+    {
+     "name": "param_1",
+     "type": "/undefined4"
+    },
+    {
+     "name": "param_2",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  }
+ ]
+}

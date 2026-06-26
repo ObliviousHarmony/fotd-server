@@ -1,0 +1,19 @@
+{
+ "desc": null,
+ "kind": "funcdef",
+ "len": -1,
+ "params": [
+  {
+   "name": "this",
+   "type": {
+    "ptr": "/FOM/Packets/VariableSizedPacket"
+   }
+  },
+  {
+   "name": "flags",
+   "type": "/int"
+  }
+ ],
+ "path": "/FOM/Packets/_internal/VariableSizedPacket_dtor",
+ "return": "/void"
+}
