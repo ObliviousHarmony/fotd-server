@@ -35,7 +35,6 @@ namespace FOMServer.World.Application.Handlers
                 return;
             }
 
-
             using var response = new PacketWriter<Chat>(true, sender);
             ref var rData = ref response.Data;
             rData.Channel = p.Channel;
