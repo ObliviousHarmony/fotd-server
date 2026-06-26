@@ -80,6 +80,7 @@ namespace FOMServer.Shared.Core.Enums
         // ID_ITEMS_ADDED = 147,
         // ID_AVATAR_CHANGE = 148,
         ID_CHAT = 149,
+
         // ID_TAUNT = 150,
         // ID_FRIENDS = 151,
         // ID_TRANSFER_ITEMS = 152,
