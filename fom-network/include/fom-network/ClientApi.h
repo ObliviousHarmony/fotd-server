@@ -12,10 +12,13 @@ extern "C" {
  * @param hostAddress The string IP address or domain of the server to connect
  * to.
  * @param port The port number of the server to connect to.
+ * @param threadSleepMs The length of time the network thread should sleep
+ * between cycles.
  * @return A pointer to the initialized interface, or null on failure.
  */
 FOM_API FOMNetworkPeer* FOMNetwork_Client_Connect(const char* hostAddress,
-                                                  uint16_t port);
+                                                  uint16_t port,
+                                                  int32_t threadSleepMs);
 
 /**
  * Disconnects from the server and shuts down the client interface.

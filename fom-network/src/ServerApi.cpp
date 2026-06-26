@@ -2,7 +2,8 @@
 
 #include "RakNetIncludes.h"
 
-FOMNetworkPeer* FOMNetwork_Server_Startup(uint16_t port, uint32_t maxClients) {
+FOMNetworkPeer* FOMNetwork_Server_Startup(uint16_t port, uint32_t maxClients,
+                                          int32_t threadSleepMs) {
   if (!port) {
     return NULL;
   }
@@ -13,7 +14,7 @@ FOMNetworkPeer* FOMNetwork_Server_Startup(uint16_t port, uint32_t maxClients) {
   }
 
   SocketDescriptor sd(port, 0);
-  if (!server->Startup(maxClients, 0, &sd, 1)) {
+  if (!server->Startup(maxClients, threadSleepMs, &sd, 1)) {
     RakNetworkFactory::DestroyRakPeerInterface(server);
     return NULL;
   }

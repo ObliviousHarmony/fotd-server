@@ -12,10 +12,13 @@ extern "C" {
  * @param port The port to listen for incoming connections on.
  * @param maxClients The maximum number of clients that can connect to the
  * server.
+ * @param threadSleepMs The length of time the network thread should sleep
+ * between cycles.
  * @return A pointer to the initialized interface, or null on failure.
  */
 FOM_API FOMNetworkPeer* FOMNetwork_Server_Startup(uint16_t port,
-                                                  uint32_t maxClients);
+                                                  uint32_t maxClients,
+                                                  int32_t threadSleepMs);
 
 /**
  * Shuts down the server interface.

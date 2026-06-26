@@ -118,7 +118,9 @@ namespace FOMServer.Master.Application
 
         private NetworkManager? CreateWorldServerNetwork(PacketProcessor packetProcessor)
         {
-            var peer = _serverService.Startup(ServerConstants.MasterWorldPort, (uint)WorldId.NUM_WORLDS - 1);
+            // Master<->world packets are less sensitive to latency and we can sleep the network thread
+            // longer in order to avoid burning cycles unnecessarily.
+            var peer = _serverService.Startup(ServerConstants.MasterWorldPort, (uint)WorldId.NUM_WORLDS - 1, 50);
             if (peer == IntPtr.Zero)
             {
                 return null;
@@ -149,7 +151,8 @@ namespace FOMServer.Master.Application
 
         private NetworkManager? CreateClientNetwork(PacketProcessor packetProcessor)
         {
-            var peer = _serverService.Startup(ServerConstants.MasterClientPort, 100);
+            // Master<->client packets are only user interface related and aren't latency sensitive.
+            var peer = _serverService.Startup(ServerConstants.MasterClientPort, 100, 50);
             if (peer == IntPtr.Zero)
             {
                 return null;

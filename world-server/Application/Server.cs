@@ -106,7 +106,9 @@ namespace FOMServer.World.Application
             var peer = IntPtr.Zero;
             while (peer == IntPtr.Zero)
             {
-                peer = _clientService.Connect(_serverSettings.MasterServerHost, ServerConstants.MasterWorldPort);
+                // Master<->world packets are less sensitive to latency and we can sleep the network thread
+                // longer in order to avoid burning cycles unnecessarily.
+                peer = _clientService.Connect(_serverSettings.MasterServerHost, ServerConstants.MasterWorldPort, 50);
                 if (peer == IntPtr.Zero)
                 {
                     _logger.LogError("Failed to connect to the master server, retrying in 5 seconds");
@@ -156,7 +158,8 @@ namespace FOMServer.World.Application
 
         private NetworkManager? CreateClientNetwork(PacketProcessor packetProcessor)
         {
-            var peer = _serverService.Startup(_clientPort, 100);
+            // Minimize the time the network thread sleeps because client<->server packets are latency sensitive.
+            var peer = _serverService.Startup(_clientPort, 100, 2);
             if (peer == IntPtr.Zero)
             {
                 _logger.LogCritical("Failed to create the client network");
