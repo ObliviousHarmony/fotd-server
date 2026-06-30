@@ -64,14 +64,14 @@ Reproduce: `python3 tools/re/fomre.py decompile CShell.dll:0x101a1440` (etc.).
 | 8c | ↳ `firedPosition` | `WritePosition` (no yaw) | only if `consumedAmmo != 0` |
 | 9 | `wasHit` | 1 bit; if set → `hitAnimationId` 4 bits + `hitDirection` 4 bits | |
 | 10 | `emoteId` | `0` bit if 0; else `1` + 6 bits | |
-| 11 | *implant block* | gated by a world/feature check `FUN_102575b0` *(unverified)* | |
+| 11 | *implant block* | gated by avatar check `FUN_100c8b60(&avatar)` | see Read-path section |
 | 11a | ↳ `activeImplants` | `0` bit if 0; else `1` + compressed u16 | |
-| 11b | ↳ `shieldSetting` | 7 bits | only if an implant-capability check passes *(unverified)* |
+| 11b | ↳ `shieldSetting` | 7 bits | only if the active implant's `ItemDefinition+0x68` says it supports a shield |
 | 12 | `movementSpeed` | 8 bits | |
-| 13 | `field@0xb0` | 3 bits | server `field34`; semantics unverified |
-| 14 | `field@0xb8` | 1 bit | flag; unverified |
-| 15 | `field@0xbc` | 10 bits | unverified |
-| 16 | `field@0xc0` | 10 bits | unverified |
+| 13 | `field@0xb0` | 3 bits | server `Unknown2`; semantics unverified |
+| 14 | `field@0xb8` | 1 bit (boolean flag) | server `Unknown3`; semantics unverified |
+| 15 | `field@0xbc` | 10 bits | server `Unknown4`; semantics unverified |
+| 16 | `field@0xc0` | 10 bits | server `Unknown5`; semantics unverified |
 | 17 | `isShieldActive` | 1 bit | last field |
 
 > When `isDead` is true, fields 5–17 are **omitted entirely** — a dead-player
@@ -113,6 +113,60 @@ Finally four 1-bit flags: `isCommander`, `field@0x2a`, `field@0x2c`,
 > `Avatar::Write` references fields beyond what [[Avatar]] currently documents
 > (`slotHands`, `isCommander`, `field@0x2a/0x2c`, `isGroupLeader`) — the in-memory
 > [[Avatar]] note covers the type-DB layout; this section is the serialization order.
+
+## Read path & precision sourcing
+
+The deserializer is symmetric with `Write` and lives in **`Object.lto`** (the
+gameplay object module — so this is how the client decodes *other* entities'
+updates relayed by the world server, not just a server concern):
+
+| Function | rva (Object.lto) | Role |
+| --- | --- | --- |
+| `WorldUpdate::Read` | `0x51950` | reads `type` (compressed 8), switches: 1→ReadPlayer, 2→ReadCharacter, 3→`FUN_1004eef0`, 4→`FUN_1004f000` |
+| `WorldUpdate::ReadPlayer` | `0x518c0` | mirrors `WritePlayer` exactly |
+| `WorldUpdate::ReadCharacter` | `0x4ec50` | mirrors `WriteCharacter` exactly |
+| `PositionRotation::ReadPosition` | `0xe1ff0` | quantized x/y/z |
+
+Decompiling these **confirms the write-side encoding field-for-field** (every
+presence bit, bit width, and order above matches), so the table is verified
+bidirectionally.
+
+### `precision` is NOT on the wire — it is caller-supplied (verified)
+
+`ReadPosition` takes the bit width straight from the destination struct:
+
+```c
+numberOfBitsToRead = this->pos.precision;   // from the Position object, not the stream
+if (precision > 15) { x = ReadCompressed_ushort; y = …; z = …; }   // fallback
+else { ReadBits(x, precision); ReadBits(y, precision); ReadBits(z, precision);
+       if (ReadBit()) x = -x;  if (ReadBit()) y = -y;  if (ReadBit()) z = -z; }  // 3 sign bits
+```
+
+So **`precision` is never serialized** — both peers must have set `pos.precision`
+on the `Position` object *before* (de)serializing. It is an out-of-band,
+caller-supplied bit width derived from world/grid context (consistent with the
+write side). *Unverified:* the exact source that populates `pos.precision` for a
+given world/grid.
+
+### Implant / shield gating (refines the table above)
+
+`ReadCharacter` resolves the two gates row 11 marked unverified:
+- The implant block is gated by `FUN_100c8b60(&this->avatar)` — an **avatar**
+  capability check (not a world check).
+- `shieldSetting` (7 bits) is present only when the *active implant* supports it:
+  `FUN_100c0da0(&g_ItemDefTable, 0x68)` then `FUN_100bfd50(cap, activeImplants)` —
+  i.e. it looks the implant up in [[Item Definitions]] (`g_ItemDefTable`) and
+  checks `ItemDefinition` field `+0x68`. Shield support is thus an
+  item-definition property of the equipped implant.
+
+Reproduce:
+
+```bash
+fomre decompile Object.lto:0x10051950   # Read (dispatch)
+fomre decompile Object.lto:0x100518c0   # ReadPlayer
+fomre decompile Object.lto:0x1004ec50   # ReadCharacter
+fomre decompile Object.lto:0x100e1ff0   # ReadPosition
+```
 
 ## Server side
 

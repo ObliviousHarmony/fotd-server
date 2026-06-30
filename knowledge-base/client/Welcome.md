@@ -21,9 +21,12 @@ are cited so any claim can be re-checked.
 **Protocol**
 - [[Packet Transport]] — the `VariableSizedPacket` envelope and `SendPacket`
 - [[Login Handshake]] — the master-server login + credential hashing
+- [[World Login Handoff]] — master-orchestrated transfer into a world server
+- [[Character Creation]] — the `CREATE_CHARACTER` packet (appearance only)
 
 **Game data**
 - [[Item Definitions]] — the `g_ItemDefTable` item catalog
+- [[Inventory]] — item containers and the inventory wire protocol
 
 ## How these notes were produced
 
