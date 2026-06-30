@@ -237,3 +237,27 @@ ghidra-dump:
     proj="{{justfile_directory()}}/disassembly"
     [ -e "$proj/{{GHIDRA_PROJECT}}.lock" ] && { echo "{{GHIDRA_PROJECT}} is locked (open in Ghidra, or a stale lock) - close it in Ghidra, or delete $proj/{{GHIDRA_PROJECT}}.lock, then re-run." >&2; exit 1; } || true
     python3 "$launcher" "{{GHIDRA_HOME}}" --headless "$proj" {{GHIDRA_PROJECT}} -process -noanalysis -scriptPath "$proj/scripts" -postScript export_program.py
+
+[group("re")]
+[doc('Run the reverse-engineering harness CLI (tools/re/fomre.py). e.g. `just re sym Player`')]
+[unix]
+re *ARGS:
+  python3 tools/re/fomre.py {{ARGS}}
+
+[group("re")]
+[doc('Run the reverse-engineering harness CLI (tools/re/fomre.py). e.g. `just re sym Player`')]
+[windows]
+re *ARGS:
+    py tools/re/fomre.py {{ARGS}}
+
+[group("re")]
+[doc('Run the RE harness unit tests (static, no game/Ghidra needed).')]
+[unix]
+re-test:
+  python3 -m unittest discover -s tools/re/tests
+
+[group("re")]
+[doc('Run the RE harness unit tests (static, no game/Ghidra needed).')]
+[windows]
+re-test:
+    py -m unittest discover -s tools/re/tests
