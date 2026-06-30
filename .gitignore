@@ -31,3 +31,6 @@ tools/re/ghidra.local.json
 
 # Stray top-level Obsidian vault config (real vaults are client/ and server/)
 /knowledge-base/.obsidian/
+# Obsidian per-user UI state (shared config app/appearance/core-plugins stays tracked)
+knowledge-base/*/.obsidian/workspace.json
+knowledge-base/*/.obsidian/graph.json
