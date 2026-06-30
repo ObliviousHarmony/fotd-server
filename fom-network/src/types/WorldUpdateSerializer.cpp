@@ -5,14 +5,21 @@ namespace Type {
 
 namespace {
 
-// TODO: mirror the client's avatar predicate (Ghidra FUN_100c8b60 /
-// FUN_102575b0) that gates the implant block. Returning false skips the block,
-// which round-trips with itself but will desync against a real client whose
-// avatar carries implants.
-bool HasImplantData(const Type::Avatar& /*avatar*/) { return false; }
+// Mirrors the client's write-side gate (Ghidra CShell FUN_102575b0): the implant
+// block is present iff any extended avatar attachment slot (hat..hands) is set —
+// the same predicate AvatarSerializer uses for its attachment block. Getting this
+// wrong shifts every subsequent bit and fails the whole read.
+bool HasImplantData(const Type::Avatar& avatar) {
+  return avatar.hat || avatar.head || avatar.eyes || avatar.shoulder ||
+         avatar.arms || avatar.torso || avatar.back || avatar.legs ||
+         avatar.hands;
+}
 
-// TODO: mirror the client's item-definition lookup (g_ItemDefTable[0x68]) that
-// decides whether the equipped implant exposes a shield setting.
+// Whether the active implant exposes a shield setting. The client looks this up
+// in g_ItemDefTable (field 0x68) for the equipped implant; with no active implant
+// (activeImplants == 0) it is always false, which is the only case we can resolve
+// without a server-side item-definition table.
+// TODO: mirror the item-def lookup for players with a shield-capable implant.
 bool ImplantUsesShield(uint16_t /*activeImplants*/) { return false; }
 
 }  // namespace
@@ -104,7 +111,7 @@ void WorldUpdateSerializer::WriteCharacter(
     const Type::WorldUpdate::CharacterUpdate& data) const {
   PositionRotationSerializer positionSerializer;
   AvatarSerializer avatarSerializer;
-  PositionSerializer firedPositionSerializer;
+  PositionSerializer firedPositionSerializer(9);  // client sets firedPosition.precision = 9
 
   bs.WriteCompressed(data.id);
   positionSerializer.Write(bs, data.position);
@@ -186,7 +193,7 @@ bool WorldUpdateSerializer::ReadCharacter(
     RakNet::BitStream& bs, Type::WorldUpdate::CharacterUpdate& data) const {
   PositionRotationSerializer positionSerializer;
   AvatarSerializer avatarSerializer;
-  PositionSerializer firedPositionSerializer;
+  PositionSerializer firedPositionSerializer(9);  // client sets firedPosition.precision = 9
 
   if (!bs.ReadCompressed(data.id)) return false;
   if (!positionSerializer.Read(bs, data.position)) return false;
