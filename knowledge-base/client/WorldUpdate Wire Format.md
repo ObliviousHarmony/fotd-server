@@ -64,7 +64,7 @@ Reproduce: `python3 tools/re/fomre.py decompile CShell.dll:0x101a1440` (etc.).
 | 8c | ↳ `firedPosition` | `WritePosition` (no yaw) | only if `consumedAmmo != 0` |
 | 9 | `wasHit` | 1 bit; if set → `hitAnimationId` 4 bits + `hitDirection` 4 bits | |
 | 10 | `emoteId` | `0` bit if 0; else `1` + 6 bits | |
-| 11 | *implant block* | gated by avatar check `FUN_100c8b60(&avatar)` | see Read-path section |
+| 11 | *implant block* | present iff avatar has any extended attachment (`slotHat`..`slotHands`) | see Read-path section |
 | 11a | ↳ `activeImplants` | `0` bit if 0; else `1` + compressed u16 | |
 | 11b | ↳ `shieldSetting` | 7 bits | only if the active implant's `ItemDefinition+0x68` says it supports a shield |
 | 12 | `movementSpeed` | 8 bits | |
@@ -142,22 +142,42 @@ else { ReadBits(x, precision); ReadBits(y, precision); ReadBits(z, precision);
        if (ReadBit()) x = -x;  if (ReadBit()) y = -y;  if (ReadBit()) z = -z; }  // 3 sign bits
 ```
 
-So **`precision` is never serialized** — both peers must have set `pos.precision`
-on the `Position` object *before* (de)serializing. It is an out-of-band,
-caller-supplied bit width derived from world/grid context (consistent with the
-write side). *Unverified:* the exact source that populates `pos.precision` for a
-given world/grid.
+So **`precision` is never serialized** — both peers must set `pos.precision` on
+the `Position` object *before* (de)serializing. The values are fixed by the
+`WorldUpdate` constructor (verified):
+
+- **main `position` → precision 16.** `PositionRotation`'s default ctor
+  (`FUN_1026c0f0`) sets `pos.precision = 0x10`; nothing in `FillUpdate`/`Reset`
+  changes it. So `position` takes the `> 15` branch — each axis as a compressed
+  16-bit value (`WriteCompressed`/`ReadCompressed`), then 9-bit yaw.
+- **`firedPosition` → precision 9.** The `WorldUpdate` ctor explicitly sets
+  `firedPosition.precision = 9`, so it takes the `<= 15` branch — 9 magnitude
+  bits per axis + 3 sign bits, no yaw.
+
+These look like in-cell offsets (the grid fields locate the cell), which is why 9
+bits suffice for `firedPosition`. The server mirrors these exactly in
+`WorldUpdateSerializer` (position 16, firedPosition 9); a mismatch here (server
+read `firedPosition` at 16) was half of the `ID_UPDATE` ReadError desync, now
+fixed.
 
 ### Implant / shield gating (refines the table above)
 
-`ReadCharacter` resolves the two gates row 11 marked unverified:
-- The implant block is gated by `FUN_100c8b60(&this->avatar)` — an **avatar**
-  capability check (not a world check).
-- `shieldSetting` (7 bits) is present only when the *active implant* supports it:
-  `FUN_100c0da0(&g_ItemDefTable, 0x68)` then `FUN_100bfd50(cap, activeImplants)` —
-  i.e. it looks the implant up in [[Item Definitions]] (`g_ItemDefTable`) and
-  checks `ItemDefinition` field `+0x68`. Shield support is thus an
-  item-definition property of the equipped implant.
+The two gates row 11 marked unverified are now resolved:
+- **Implant block presence** is gated by whether the avatar has any *extended
+  attachment* (slots `slotHat`..`slotHands`). The write side checks this with
+  `FUN_102575b0(&avatar)` (a loop over the 9 extended slots); the read side uses
+  `FUN_100c8b60(&avatar)` — the same predicate, and identical to the
+  attachment-block gate in [[Avatar]]. If any extended slot is set, the block is
+  present: a 1-bit `activeImplants` flag, then the compressed value if non-zero.
+- **`shieldSetting`** (7 bits) is present only when the *active implant* supports
+  a shield: the client looks the implant up in [[Item Definitions]]
+  (`g_ItemDefTable`) and checks `ItemDefinition` field `+0x68`. With no active
+  implant (`activeImplants == 0`) it is absent.
+
+> Getting the implant gate wrong was the other half of the `ID_UPDATE` desync:
+> the server originally stubbed the block to "never present", skipping a bit the
+> client had written, which shifted every following field. The server now mirrors
+> the attachment predicate (`HasImplantData`).
 
 Reproduce:
 
