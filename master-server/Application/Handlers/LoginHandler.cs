@@ -45,6 +45,9 @@ namespace FOMServer.Master.Application.Handlers
                 return;
             }
 
+            // DEV: temporary diagnostic — confirms the login reached this server.
+            _logger.LogInformation("[DEV] Handling ID_LOGIN from {Sender} (hasPlayer={HasPlayer})", sender, session.Player is not null);
+
             using var response = new PacketWriter<LoginReturn>(sender);
             ref var rData = ref response.Data;
 
@@ -52,7 +55,12 @@ namespace FOMServer.Master.Application.Handlers
             {
                 rData.PlayerId = session.Player.Id;
                 rData.Status = LoginReturn.StatusCode.Success;
-                rData.AccountType = AccountType.Prepaid;
+
+                // DEV: the client treats accountType as a numeric staff access level
+                // (>= 22 = top tier), so 22 unlocks GM commands (not the bounded enum).
+                // See knowledge-base/client/Account Access Levels.md.
+                rData.AccountType = (AccountType)22;
+                _logger.LogInformation("[DEV] LoginReturn Success (returning) player={PlayerId} accountType={AccountType}", rData.PlayerId, (byte)rData.AccountType);
                 rData.LoginWorldId = WorldId.Manhattan;
                 _clientPacketSender.Send(response.Build());
                 return;
@@ -84,7 +92,12 @@ namespace FOMServer.Master.Application.Handlers
             _playerRegistry.Login(session);
 
             rData.Status = LoginReturn.StatusCode.Success;
-            rData.AccountType = AccountType.Prepaid;
+
+            // DEV: the client treats accountType as a numeric staff access level
+            // (>= 22 = top tier), so 22 unlocks GM commands (not the bounded enum).
+            // See knowledge-base/client/Account Access Levels.md.
+            rData.AccountType = (AccountType)22;
+            _logger.LogInformation("[DEV] LoginReturn Success (fresh) player={PlayerId} accountType={AccountType}", rData.PlayerId, (byte)rData.AccountType);
             rData.LoginWorldId = WorldId.Manhattan;
             _clientPacketSender.Send(response.Build());
         }
