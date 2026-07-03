@@ -19,6 +19,9 @@ CMakeUserPresets.json
 /out
 /build
 
+# JetBrains IDE config (per-user, not shared)
+.idea/
+
 # Ghidra Project
 __pycache__/
 *.pyc
