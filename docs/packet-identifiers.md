@@ -14,8 +14,10 @@ register (readers = client→server, writers = server→client) — that file is
 source of truth. Beyond the login/world-handoff and `ID_UPDATE`/`ID_WORLD_UPDATE`
 flows, the item/combat packets are now live: `ID_GAMEMASTER` (`/spawn`),
 `ID_ITEMS_ADDED`, `ID_ITEMS_CHANGED`, `ID_ITEMS_REMOVED`, `ID_MOVE_ITEMS`,
-`ID_WEAPONFIRE`, and `ID_RELOAD`. See the **server** knowledge base for how they
-behave.
+`ID_WEAPONFIRE`, and `ID_RELOAD`. `ID_WORLD_LOGOUT` completes the leave-a-world
+flow (the client's logout notification to master; the master forwards it to the
+world, which closes the client's world connection). See the **server** knowledge
+base for how they behave.
 
 | Type                        | ID  |
 | --------------------------- | --- |

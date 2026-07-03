@@ -21,8 +21,26 @@ under it), and an **`ItemList`** (a container's worth of stacks). Each item's
 | `0x418` | `storage` | `ItemList` | apartment/locker storage |
 
 So a player has five logical containers. The `src`/`dest` bytes in the item
-packets (below) select among them (exact enum **unverified** — no named
-`ItemContainer` enum in the symbol DB; the values are small container ids).
+packets (below) select among them. There is no named `ItemContainer` enum in the
+symbol DB, but the container ids the client **sends** in `ID_MOVE_ITEMS` are
+verified from `CWindowInventory::OnEvent` (`CShell.dll` rva `0x100cc0`):
+
+| Container id | Meaning | `slot` semantics |
+| --- | --- | --- |
+| `1` | `inventory` (backpack) | unordered — slot unused |
+| `2` | `equipment` | the `ItemSlot` value (Head `5` … Shoes `16`) |
+| `3` | `weapons` | 1-based weapon slot (`1`…`3`) |
+
+`OnEvent` dropping an item onto a slot sends `src = 1` and picks `dest` by the
+target slot id `bVar3`: slots `5..16` → `dest = 2` (equipment) with `destSlot =
+bVar3`; slots `1..3` → `dest = 3` (weapons). Moves *into* the backpack (e.g. from
+a terminal, `FUN_10101750`) send `dest = 1` with `src` = the source window's
+container id (`window+0x60`). These ids line up 1:1 with the
+`Inventory`/`Equipment[12]`/`Weapons` arrays in
+[[World Login Handoff|RegisterClientReturn]], so the server persists an item's
+`(container, slot)` and, on world entry, drops it into the matching array — which
+is what keeps equipped gear equipped across a logout. `nanomachines`/`storage`
+container ids are still **unverified** (not modelled server-side yet).
 
 The equipment slot element is `Item` (48B) = `{ u32 itemId; ItemBase item; … }` —
 i.e. an instance id paired with the item state.
@@ -74,11 +92,15 @@ quantity from two angles (quantity vs. addressable instances).
 
 `ItemList::Write` (rva `0x23d2c0`) emits:
 
-1. `field@0x0` — compressed 16-bit *(unverified; capacity or container id)*
-2. `field@0x14` — compressed 32-bit *(unverified)*
+1. `field@0x0` — compressed 16-bit: a base/reserved slot count **added to used**
+   in the free-space calc below (send `0`)
+2. `field@0x14` — compressed 32-bit: **capacity** — the total slots the container
+   holds. Free space = `capacity − (used + field@0x0)` (`FUN_1023d120`, where
+   `used` is `FUN_1023cee0` = summed stack instance counts). **Sending `0` here
+   makes the client reject every add with "not enough space"** — the server must
+   report a real capacity.
 3. `field@0x18` — compressed 32-bit *(unverified)*
-4. `field@0x1c` — compressed 32-bit *(unverified — these three may be credits /
-   weight / capacity metadata)*
+4. `field@0x1c` — compressed 32-bit *(unverified — may be credits / weight)*
 5. stack count — compressed 16-bit (= `(stacks.end - stacks.data) / 44`)
 6. for each stack: `ItemStack::Write`
 
