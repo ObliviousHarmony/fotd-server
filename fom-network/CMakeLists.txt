@@ -37,6 +37,12 @@ set(FOMNETWORK_SRC
   "src/packets/WorldUpdateSerializer.cpp"
   "src/packets/ChatSerializer.cpp"
   "src/packets/MoveItemsSerializer.cpp"
+  "src/packets/ItemsAddedSerializer.cpp"
+  "src/packets/ItemsChangedSerializer.cpp"
+  "src/packets/ItemsRemovedSerializer.cpp"
+  "src/packets/GamemasterSerializer.cpp"
+  "src/packets/WeaponFireSerializer.cpp"
+  "src/packets/ReloadSerializer.cpp"
 )
 set(FOMNETWORK_INC
   # Core API
@@ -137,6 +143,12 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/Update.h"
   "include/fom-network/packets/WorldUpdate.h"
   "include/fom-network/packets/Chat.h"
+  "include/fom-network/packets/ItemsAdded.h"
+  "include/fom-network/packets/ItemsChanged.h"
+  "include/fom-network/packets/ItemsRemoved.h"
+  "include/fom-network/packets/Gamemaster.h"
+  "include/fom-network/packets/WeaponFire.h"
+  "include/fom-network/packets/Reload.h"
 )
 set(FOMNETWORK_TEST
     "tests/FOMDataSerializer_test.cpp"

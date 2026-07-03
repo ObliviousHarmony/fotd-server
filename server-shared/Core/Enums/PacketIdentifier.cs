@@ -59,13 +59,16 @@ namespace FOMServer.Shared.Core.Enums
         ID_WORLD_UPDATE = 127,
 
         // ID_WEATHER = 128,
-        // ID_ITEMS_REMOVED = 129,
-        // ID_ITEMS_CHANGED = 130,
+        ID_ITEMS_REMOVED = 129,
+
+        ID_ITEMS_CHANGED = 130,
+
         // ID_ATTRIBUTE_CHANGE = 131,
         // ID_HIT = 132,
         // ID_WORLD_OBJECTS = 133,
         // ID_ATTACK = 134,
-        // ID_WEAPONFIRE = 135,
+        ID_WEAPONFIRE = 135,
+
         // ID_ITEM_REMOVED = 136,
         // ID_EXPLOSIVE = 137,
         ID_MOVE_ITEMS = 138,
@@ -76,9 +79,11 @@ namespace FOMServer.Shared.Core.Enums
         // ID_NAME_CHANGE = 142,
         // ID_UNLOAD_WEAPON = 143,
         // ID_MERGE_ITEMS = 144,
-        // ID_RELOAD = 145,
+        ID_RELOAD = 145,
+
         // ID_BACKPACK_CONTENTS = 146,
-        // ID_ITEMS_ADDED = 147,
+        ID_ITEMS_ADDED = 147,
+
         // ID_AVATAR_CHANGE = 148,
         ID_CHAT = 149,
 
@@ -111,7 +116,8 @@ namespace FOMServer.Shared.Core.Enums
         // ID_SCAN = 176,
         // ID_BOUNTY = 177,
         // ID_ARREST = 178,
-        // ID_GAMEMASTER = 179,
+        ID_GAMEMASTER = 179,
+
         // 180
         // ID_NPC = 181,
         // ID_TERRITORY = 182,

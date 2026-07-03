@@ -4,6 +4,12 @@
 #include <fom-network/packets/CheckName.h>
 #include <fom-network/packets/CheckNameReturn.h>
 #include <fom-network/packets/CreateCharacter.h>
+#include <fom-network/packets/Gamemaster.h>
+#include <fom-network/packets/ItemsAdded.h>
+#include <fom-network/packets/ItemsChanged.h>
+#include <fom-network/packets/ItemsRemoved.h>
+#include <fom-network/packets/Reload.h>
+#include <fom-network/packets/WeaponFire.h>
 #include <fom-network/packets/Login.h>
 #include <fom-network/packets/LoginRequest.h>
 #include <fom-network/packets/LoginRequestReturn.h>
@@ -76,6 +82,12 @@ static const std::unordered_map<uint8_t, size_t> packetSizes = {
     {Enum::ID_WORLD_UPDATE, sizeof(Packet::WorldUpdate)},
     {Enum::ID_CHAT, sizeof(Packet::Chat)},
     {Enum::ID_MOVE_ITEMS, sizeof(Packet::MoveItems)},
+    {Enum::ID_ITEMS_ADDED, sizeof(Packet::ItemsAdded)},
+    {Enum::ID_ITEMS_CHANGED, sizeof(Packet::ItemsChanged)},
+    {Enum::ID_ITEMS_REMOVED, sizeof(Packet::ItemsRemoved)},
+    {Enum::ID_GAMEMASTER, sizeof(Packet::Gamemaster)},
+    {Enum::ID_WEAPONFIRE, sizeof(Packet::WeaponFire)},
+    {Enum::ID_RELOAD, sizeof(Packet::Reload)},
 };
 
 /**
@@ -104,6 +116,9 @@ static const std::unordered_map<uint32_t, IWriter*> writerMap = {
     {Enum::ID_WORLD_UPDATE, &Packet::WorldUpdateSerializer::GetInstance()},
     {Enum::ID_CHAT, &Packet::ChatSerializer::GetInstance()},
     {Enum::ID_MOVE_ITEMS, &Packet::MoveItemsSerializer::GetInstance()},
+    {Enum::ID_ITEMS_ADDED, &Packet::ItemsAddedSerializer::GetInstance()},
+    {Enum::ID_ITEMS_CHANGED, &Packet::ItemsChangedSerializer::GetInstance()},
+    {Enum::ID_ITEMS_REMOVED, &Packet::ItemsRemovedSerializer::GetInstance()},
 };
 
 static const std::unordered_map<uint32_t, IReader*> readerMap = {
@@ -141,6 +156,9 @@ static const std::unordered_map<uint32_t, IReader*> readerMap = {
     {Enum::ID_UPDATE, &Packet::UpdateSerializer::GetInstance()},
     {Enum::ID_CHAT, &Packet::ChatSerializer::GetInstance()},
     {Enum::ID_MOVE_ITEMS, &Packet::MoveItemsSerializer::GetInstance()},
+    {Enum::ID_GAMEMASTER, &Packet::GamemasterSerializer::GetInstance()},
+    {Enum::ID_WEAPONFIRE, &Packet::WeaponFireSerializer::GetInstance()},
+    {Enum::ID_RELOAD, &Packet::ReloadSerializer::GetInstance()},
 };
 
 bool FOMDataSerializer::Write(RakNet::BitStream& bs,
