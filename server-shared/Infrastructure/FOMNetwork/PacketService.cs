@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Application.Networking;
+using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Shared.Services.FOMNetwork
@@ -77,6 +78,14 @@ namespace FOMServer.Shared.Services.FOMNetwork
             }
         }
 
+        public void CloseConnection(IntPtr peer, NetworkAddress address, bool sendDisconnectionNotification)
+        {
+            if (FOMNetwork_CloseConnection(peer, address, (byte)(sendDisconnectionNotification ? 1 : 0)) != 0)
+            {
+                throw new InvalidOperationException("No peer was provided");
+            }
+        }
+
         [LibraryImport("FOMNetwork")]
         private static partial ReceivedPackets FOMNetwork_ReceivePackets(IntPtr peer);
 
@@ -85,5 +94,8 @@ namespace FOMServer.Shared.Services.FOMNetwork
 
         [LibraryImport("FOMNetwork")]
         private static unsafe partial int FOMNetwork_Send(IntPtr peer, SendPacket* packets, int count);
+
+        [LibraryImport("FOMNetwork")]
+        private static unsafe partial int FOMNetwork_CloseConnection(IntPtr peer, NetworkAddress address, byte sendDisconnectionNotification);
     }
 }

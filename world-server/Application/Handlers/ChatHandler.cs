@@ -41,7 +41,7 @@ namespace FOMServer.World.Application.Handlers
             rData.SenderId = p.SenderId;
             rData.SenderName = "Naruto Uzumaki";
             rData.Message = p.Message;
-            _clientPacketSender.Broadcast(response.Build());
+            _clientPacketSender.Send(response.Build());
         }
     }
 }

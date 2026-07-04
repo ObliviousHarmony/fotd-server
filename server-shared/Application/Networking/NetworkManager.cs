@@ -34,6 +34,7 @@ namespace FOMServer.Shared.Application.Networking
         private readonly IPacketService _packetService;
         private readonly PacketProcessor _packetProcessor;
         private readonly Channel<QueuePacket> _sendQueue;
+        private readonly Channel<NetworkAddress> _closeConnectionQueue;
         private readonly HashSet<PacketIdentifier> _claimedPacketIds = [];
         private Task? _networkTask;
         private CancellationTokenSource? _cts;
@@ -50,6 +51,12 @@ namespace FOMServer.Shared.Application.Networking
             _packetService = packetService;
             _packetProcessor = packetProcessor;
             _sendQueue = Channel.CreateUnbounded<QueuePacket>(
+                new UnboundedChannelOptions
+                {
+                    SingleReader = true
+                }
+            );
+            _closeConnectionQueue = Channel.CreateUnbounded<NetworkAddress>(
                 new UnboundedChannelOptions
                 {
                     SingleReader = true
@@ -145,9 +152,20 @@ namespace FOMServer.Shared.Application.Networking
             _sendQueue.Writer.TryWrite(packet);
         }
 
+        public void CloseConnection(in NetworkAddress address)
+        {
+            if (_peer == IntPtr.Zero)
+            {
+                throw new InvalidOperationException("Peer is not configured");
+            }
+
+            _closeConnectionQueue.Writer.TryWrite(address);
+        }
+
         public async ValueTask DisposeAsync()
         {
             _sendQueue.Writer.Complete();
+            _closeConnectionQueue.Writer.Complete();
 
             if (_networkTask is not null)
             {
@@ -173,6 +191,11 @@ namespace FOMServer.Shared.Application.Networking
                 while (!ct.IsCancellationRequested)
                 {
                     var shouldBackoff = true;
+
+                    while (_closeConnectionQueue.Reader.TryRead(out var addressToClose))
+                    {
+                        _packetService.CloseConnection(_peer, addressToClose, true);
+                    }
 
                     // Avoid starving packet receiving with sending by
                     // limiting the number of packets sent per batch.

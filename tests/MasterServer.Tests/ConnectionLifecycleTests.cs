@@ -163,12 +163,6 @@ namespace FOMServer.Master.Tests
                 Sent.Add(packet.Id);
                 packet.Release();
             }
-
-            public void Broadcast(in QueuePacket packet)
-            {
-                Sent.Add(packet.Id);
-                packet.Release();
-            }
         }
     }
 }

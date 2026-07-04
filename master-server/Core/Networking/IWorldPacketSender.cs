@@ -5,7 +5,5 @@ namespace FOMServer.Master.Core.Networking
     internal interface IWorldPacketSender
     {
         void Send(in QueuePacket packet);
-
-        void Broadcast(in QueuePacket packet);
     }
 }

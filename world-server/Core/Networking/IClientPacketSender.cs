@@ -1,4 +1,5 @@
 using FOMServer.Shared.Core.Networking;
+using FOMServer.Shared.Core.Packets.Types;
 
 namespace FOMServer.World.Core.Networking
 {
@@ -6,6 +7,6 @@ namespace FOMServer.World.Core.Networking
     {
         void Send(in QueuePacket packet);
 
-        void Broadcast(in QueuePacket packet);
+        void CloseConnection(in NetworkAddress address);
     }
 }

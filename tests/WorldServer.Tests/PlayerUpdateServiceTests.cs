@@ -191,12 +191,6 @@ namespace FOMServer.World.Tests
                 Sends.Add(new Capture(update.PlayerId, update.UpdateCount, entries));
                 packet.Release();
             }
-
-            public void Broadcast(in QueuePacket packet)
-            {
-                packet.Release();
-                throw new InvalidOperationException("Player updates are sent per-recipient, not broadcast");
-            }
         }
     }
 }
