@@ -153,6 +153,20 @@ FOM_API int32_t FOMNetwork_ProcessPackets(FOMNetworkPeer* peer,
 FOM_API int32_t FOMNetwork_Send(FOMNetworkPeer* peer, const SendPacket* packets,
                                 int32_t count);
 
+/**
+ * Sends a buffer of packet structures through the network interface.
+ *
+ * @param peer A pointer to the network interface.
+ * @param address The network address to close the connection for.
+ * @param notifyClient Whether or not to send a disconnection notification.
+ * @return int32_t The status code.
+ * @retval 0 Success.
+ * @retval -1 An invalid peer was provided.
+ */
+FOM_API int32_t FOMNetwork_CloseConnection(
+    FOMNetworkPeer* peer, FOMNetwork::Type::NetworkAddress address,
+    uint8_t sendDisconnectionNotification);
+
 #ifdef __cplusplus
 }
 #endif

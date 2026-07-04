@@ -211,3 +211,16 @@ int32_t FOMNetwork_Send(FOMNetworkPeer* peer, const SendPacket* packets,
 
   return packetsSent;
 }
+
+int32_t FOMNetwork_CloseConnection(FOMNetworkPeer* peer,
+                                   FOMNetwork::Type::NetworkAddress address,
+                                   uint8_t sendDisconnectionNotification) {
+  auto rakPeer = static_cast<RakPeerInterface*>(peer);
+  if (!rakPeer) {
+    return -1;
+  }
+
+  rakPeer->CloseConnection(SystemAddress(address.binaryAddress, address.port),
+                           sendDisconnectionNotification != 0);
+  return 0;
+}

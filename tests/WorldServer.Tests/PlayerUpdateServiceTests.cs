@@ -192,10 +192,9 @@ namespace FOMServer.World.Tests
                 packet.Release();
             }
 
-            public void Broadcast(in QueuePacket packet)
+            public void CloseConnection(in NetworkAddress address)
             {
-                packet.Release();
-                throw new InvalidOperationException("Player updates are sent per-recipient, not broadcast");
+                throw new NotImplementedException();
             }
         }
     }

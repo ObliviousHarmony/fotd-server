@@ -1,4 +1,5 @@
 using FOMServer.Shared.Application.Networking;
+using FOMServer.Shared.Core.Packets.Types;
 
 namespace FOMServer.Shared.Infrastructure.FOMNetwork
 {
@@ -27,5 +28,10 @@ namespace FOMServer.Shared.Infrastructure.FOMNetwork
         /// Sends packets to the specified destinations.
         /// </summary>
         void Send(IntPtr peer, ReadOnlySpan<SendPacket> packets);
+
+        /// <summary>
+        /// Closes the connection to the destination address.
+        /// </summary>
+        void CloseConnection(IntPtr peer, NetworkAddress address, bool sendDisconnectionNotification);
     }
 }

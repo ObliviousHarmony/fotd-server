@@ -164,10 +164,9 @@ namespace FOMServer.Master.Tests
                 packet.Release();
             }
 
-            public void Broadcast(in QueuePacket packet)
+            public void CloseConnection(in NetworkAddress address)
             {
-                Sent.Add(packet.Id);
-                packet.Release();
+                throw new NotImplementedException();
             }
         }
     }
