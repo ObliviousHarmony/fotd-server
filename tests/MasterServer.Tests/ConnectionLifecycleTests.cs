@@ -163,6 +163,11 @@ namespace FOMServer.Master.Tests
                 Sent.Add(packet.Id);
                 packet.Release();
             }
+
+            public void CloseConnection(in NetworkAddress address)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

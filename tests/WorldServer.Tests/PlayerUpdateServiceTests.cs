@@ -191,6 +191,11 @@ namespace FOMServer.World.Tests
                 Sends.Add(new Capture(update.PlayerId, update.UpdateCount, entries));
                 packet.Release();
             }
+
+            public void CloseConnection(in NetworkAddress address)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
