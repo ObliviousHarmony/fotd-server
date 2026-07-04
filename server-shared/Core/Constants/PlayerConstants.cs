@@ -12,7 +12,7 @@ namespace FOMServer.Shared.Core.Constants
         /// <summary>
         /// Default value for each attribute, indexed by type.
         /// </summary>
-        public static readonly int[] AttributeDefaultValues =
+        public static readonly uint[] AttributeDefaultValues =
         [
             1000,          // Health
             0,             // Stamina
@@ -72,7 +72,7 @@ namespace FOMServer.Shared.Core.Constants
         /// <summary>
         /// Maximum value for each attribute, indexed by type.
         /// </summary>
-        public static readonly int[] AttributeMaxValues =
+        public static readonly uint[] AttributeMaxValues =
         [
             1000,          // Health
             10000,         // Stamina

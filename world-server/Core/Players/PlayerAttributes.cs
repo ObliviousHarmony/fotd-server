@@ -29,7 +29,7 @@ namespace FOMServer.World.Core.Players
         private static readonly AttributeMetadata[] s_metadata;
 
         private readonly Player _player;
-        private readonly int[] _values = new int[AttributeCount];
+        private readonly uint[] _values = new uint[AttributeCount];
         private readonly int[] _locks = new int[AttributeCount];
 
         static PlayerAttributes()
@@ -59,7 +59,7 @@ namespace FOMServer.World.Core.Players
             }
         }
 
-        public PlayerAttributes(Player player, int[]? initialValues = null)
+        public PlayerAttributes(Player player, uint[]? initialValues = null)
         {
             _player = player;
 
@@ -86,18 +86,19 @@ namespace FOMServer.World.Core.Players
         public uint Get(AttributeType attribute)
         {
             var index = (int)attribute;
-            return (uint)Math.Clamp(Volatile.Read(ref _values[index]), 0, s_metadata[index].Max);
+            return Math.Min(Volatile.Read(ref _values[index]), s_metadata[index].Max);
         }
 
         /// <summary>
-        /// Atomically changes an attribute by a delta.
+        /// Atomically changes an attribute by a delta, clamped to [0, Max].
         /// </summary>
         /// <remarks>
-        /// For performance, it's possible for this method to push the value out of bounds.
-        /// This happens invisible since we clamp on Get(),however, you should be aware
-        /// that future changes might need to overcome the underflow/overflow before
-        /// being visible.
-        /// 
+        /// Uses a compare-and-swap loop so the stored value is always kept within
+        /// bounds. A delta that would breach a bound is clamped before it is written,
+        /// so it can never leave phantom under/overflow behind for a later change to
+        /// pay back. A change that clamps to a no-op neither writes nor raises
+        /// <see cref="OnPersistableChange"/>.
+        ///
         /// Throws if the attribute requires locking and spins if it's currently locked.
         /// </remarks>
         /// <param name="attribute">The attribute to modify.</param>
@@ -113,19 +114,28 @@ namespace FOMServer.World.Core.Players
                     $"{attribute} requires locking. Use Lock() to acquire exclusive access");
             }
 
-            // Wait for the attribute to unlock. There is a small window between
-            // this spin completing and the write below where a Lock() could acquire
-            // and write, then be overwritten by our Volatile.Write. This is acceptable
-            // because Set is used for infrequent, derived values (e.g., armor from
-            // equipment).
-            while (Volatile.Read(ref _locks[index]) != 0)
+            uint current, updated;
+            do
             {
-                Thread.SpinWait(1);
-            }
+                // Defer to an active LockedAttribute holder before reading. If a Lock()
+                // acquires and writes after this spin, our CompareExchange below fails
+                // against the new value and we retry, so no update is ever clobbered.
+                while (Volatile.Read(ref _locks[index]) != 0)
+                {
+                    Thread.SpinWait(1);
+                }
 
-            var result = (uint)Math.Clamp(Interlocked.Add(ref _values[index], delta), 0, metadata.Max);
+                current = Volatile.Read(ref _values[index]);
+                updated = (uint)Math.Clamp(current + delta, 0L, metadata.Max);
+
+                if (updated == current)
+                {
+                    return current;
+                }
+            } while (Interlocked.CompareExchange(ref _values[index], updated, current) != current);
+
             OnPersistableChange?.Invoke(this, _player);
-            return result;
+            return updated;
         }
 
         /// <summary>
@@ -179,7 +189,7 @@ namespace FOMServer.World.Core.Players
             public readonly uint Get()
             {
                 var index = (int)_attribute;
-                return (uint)Math.Clamp(_parent._values[index], 0, s_metadata[index].Max);
+                return Math.Min(_parent._values[index], s_metadata[index].Max);
             }
 
             /// <summary>
@@ -188,7 +198,7 @@ namespace FOMServer.World.Core.Players
             public void Set(uint value)
             {
                 var index = (int)_attribute;
-                _parent._values[index] = Math.Min((int)value, s_metadata[index].Max);
+                _parent._values[index] = Math.Min(value, s_metadata[index].Max);
                 _changed = true;
             }
 
@@ -198,10 +208,10 @@ namespace FOMServer.World.Core.Players
             public uint Change(int delta)
             {
                 var index = (int)_attribute;
-                var clamped = Math.Clamp(_parent._values[index] + delta, 0, s_metadata[index].Max);
+                var clamped = (uint)Math.Clamp(_parent._values[index] + delta, 0L, s_metadata[index].Max);
                 _parent._values[index] = clamped;
                 _changed = true;
-                return (uint)clamped;
+                return clamped;
             }
 
             /// <summary>
@@ -226,9 +236,9 @@ namespace FOMServer.World.Core.Players
 
         public readonly struct AttributeMetadata
         {
-            public int Max { get; init; }
+            public uint Max { get; init; }
 
-            public int Default { get; init; }
+            public uint Default { get; init; }
 
             public bool LockRequired { get; init; }
         }

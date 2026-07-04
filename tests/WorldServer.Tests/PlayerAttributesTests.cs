@@ -13,7 +13,7 @@ namespace FOMServer.World.Tests
             var credits = PlayerAttributes.GetMetadata(AttributeType.UniversalCredits);
             Assert.True(credits.LockRequired);
             Assert.Equal(PlayerConstants.AttributeMaxValues[(int)AttributeType.UniversalCredits], credits.Max);
-            Assert.Equal(0, credits.Default);
+            Assert.Equal(0u, credits.Default);
         }
 
         [Fact]
@@ -26,7 +26,7 @@ namespace FOMServer.World.Tests
         [Fact]
         public void Constructor_WithInitialValues_SetsValues()
         {
-            var initial = new int[PlayerAttributes.AttributeCount];
+            var initial = new uint[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.Health] = 500;
             initial[(int)AttributeType.Agility] = 300;
 
@@ -37,20 +37,9 @@ namespace FOMServer.World.Tests
         }
 
         [Fact]
-        public void Get_ClampsNegativeToZero()
-        {
-            var initial = new int[PlayerAttributes.AttributeCount];
-            initial[(int)AttributeType.Health] = -100;
-
-            var attrs = CreateAttributes(initial);
-
-            Assert.Equal(0u, attrs.Get(AttributeType.Health));
-        }
-
-        [Fact]
         public void Get_ClampsAboveMax()
         {
-            var initial = new int[PlayerAttributes.AttributeCount];
+            var initial = new uint[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.Health] = 9999;
 
             var attrs = CreateAttributes(initial);
@@ -62,7 +51,7 @@ namespace FOMServer.World.Tests
         [Fact]
         public void Change_PositiveDelta()
         {
-            var initial = new int[PlayerAttributes.AttributeCount];
+            var initial = new uint[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.Health] = 500;
 
             var attrs = CreateAttributes(initial);
@@ -75,7 +64,7 @@ namespace FOMServer.World.Tests
         [Fact]
         public void Change_NegativeDelta()
         {
-            var initial = new int[PlayerAttributes.AttributeCount];
+            var initial = new uint[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.Health] = 500;
 
             var attrs = CreateAttributes(initial);
@@ -87,7 +76,7 @@ namespace FOMServer.World.Tests
         [Fact]
         public void Change_ClampsAtZero()
         {
-            var initial = new int[PlayerAttributes.AttributeCount];
+            var initial = new uint[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.Health] = 100;
 
             var attrs = CreateAttributes(initial);
@@ -99,7 +88,7 @@ namespace FOMServer.World.Tests
         [Fact]
         public void Change_ClampsAtMax()
         {
-            var initial = new int[PlayerAttributes.AttributeCount];
+            var initial = new uint[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.Health] = 900;
 
             var attrs = CreateAttributes(initial);
@@ -133,7 +122,7 @@ namespace FOMServer.World.Tests
         [Fact]
         public void Lock_GetReturnsCurrentValue()
         {
-            var initial = new int[PlayerAttributes.AttributeCount];
+            var initial = new uint[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.UniversalCredits] = 1000;
 
             var attrs = CreateAttributes(initial);
@@ -185,7 +174,7 @@ namespace FOMServer.World.Tests
         [Fact]
         public void Lock_ChangeUpdatesValue()
         {
-            var initial = new int[PlayerAttributes.AttributeCount];
+            var initial = new uint[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.UniversalCredits] = 1000;
 
             var attrs = CreateAttributes(initial);
@@ -267,7 +256,7 @@ namespace FOMServer.World.Tests
                 () => attrs.Lock(AttributeType.Coins));
         }
 
-        private static PlayerAttributes CreateAttributes(int[]? initial = null)
+        private static PlayerAttributes CreateAttributes(uint[]? initial = null)
         {
             var player = new Player(1, initial);
             return player.Attributes;

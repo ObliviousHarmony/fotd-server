@@ -10,7 +10,7 @@ namespace FOMServer.World.Core.Players
         private readonly Lock _currentUpdateLock = new();
         private WorldUpdate.CharacterUpdate _currentUpdate;
 
-        public Player(uint id, int[]? initialAttributes = null)
+        public Player(uint id, uint[]? initialAttributes = null)
         {
             Id = id;
             Attributes = new PlayerAttributes(this, initialAttributes);
