@@ -23,7 +23,8 @@ class ItemBaseSerializer : protected TypeSerializer<Type::ItemBase> {
     bs.WriteCompressed(data.quality);
     bs.WriteCompressed(data.attributeBonus);
 
-    for (int i = 0; i < 4; ++i) bs.WriteCompressed(data.balanceValues[i]);
+    for (int i = 0; i < BufferSizes::NUM_ITEM_BALANCE_SLIDERS; ++i)
+      bs.WriteCompressed(data.balanceValues[i]);
   }
 
   bool Read(RakNet::BitStream& bs, Type::ItemBase& data) const {
@@ -40,7 +41,7 @@ class ItemBaseSerializer : protected TypeSerializer<Type::ItemBase> {
     if (!bs.ReadCompressed(data.quality)) return false;
     if (!bs.ReadCompressed(data.attributeBonus)) return false;
 
-    for (int i = 0; i < 4; ++i)
+    for (int i = 0; i < BufferSizes::NUM_ITEM_BALANCE_SLIDERS; ++i)
       if (!bs.ReadCompressed(data.balanceValues[i])) return false;
 
     return true;

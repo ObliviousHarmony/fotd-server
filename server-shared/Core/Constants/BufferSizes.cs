@@ -11,5 +11,6 @@ namespace FOMServer.Shared.Core.Constants
         public const int FactionName = 32; // FACTION_NAME
         public const int RankName = 32; // RANK_NAME
         public const int MaxItemListSize = 60000; // MAX_ITEM_LIST_SIZE
+        public const int NumItemBalanceSliders = 4; // NUM_ITEM_BALANCE_SLIDERS
     }
 }
