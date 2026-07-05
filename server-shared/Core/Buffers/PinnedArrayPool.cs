@@ -180,7 +180,7 @@ namespace FOMServer.Shared.Core.Buffers
         {
             private readonly PinnedBuffer[] _buffers;
             private readonly KeyValuePair<string, object?> _metricTag;
-            private SpinLock _lock;
+            private SpinLock _syncRoot;
             private int _count;
 
             internal Bucket(int bufferLength, int capacity)
@@ -188,7 +188,7 @@ namespace FOMServer.Shared.Core.Buffers
                 Length = bufferLength;
                 _buffers = new PinnedBuffer[capacity];
                 _metricTag = new KeyValuePair<string, object?>("bucket_bytes", bufferLength);
-                _lock = new SpinLock(Debugger.IsAttached);
+                _syncRoot = new SpinLock(Debugger.IsAttached);
             }
 
             internal int Length { get; }
@@ -198,7 +198,7 @@ namespace FOMServer.Shared.Core.Buffers
                 var lockTaken = false;
                 try
                 {
-                    _lock.Enter(ref lockTaken);
+                    _syncRoot.Enter(ref lockTaken);
                     if (_count > 0)
                     {
                         var buffer = _buffers[--_count];
@@ -210,7 +210,7 @@ namespace FOMServer.Shared.Core.Buffers
                 {
                     if (lockTaken)
                     {
-                        _lock.Exit(false);
+                        _syncRoot.Exit(false);
                     }
                 }
 
@@ -225,7 +225,7 @@ namespace FOMServer.Shared.Core.Buffers
                 var lockTaken = false;
                 try
                 {
-                    _lock.Enter(ref lockTaken);
+                    _syncRoot.Enter(ref lockTaken);
                     if (_count < _buffers.Length)
                     {
                         _buffers[_count++] = buffer;
@@ -236,7 +236,7 @@ namespace FOMServer.Shared.Core.Buffers
                 {
                     if (lockTaken)
                     {
-                        _lock.Exit(false);
+                        _syncRoot.Exit(false);
                     }
                 }
 
