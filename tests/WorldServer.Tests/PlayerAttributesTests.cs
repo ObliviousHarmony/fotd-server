@@ -112,7 +112,7 @@ namespace FOMServer.World.Tests
         {
             var attrs = CreateAttributes();
             var fired = false;
-            attrs.OnPersistableChange += (_, _, _) => { fired = true; return true; };
+            attrs.OnPersistableChange += (_, _, _) => fired = true;
 
             attrs.Change(AttributeType.Health, 10);
 
@@ -159,7 +159,7 @@ namespace FOMServer.World.Tests
         {
             var attrs = CreateAttributes();
             var fired = false;
-            attrs.OnPersistableChange += (_, _, _) => { fired = true; return true; };
+            attrs.OnPersistableChange += (_, _, _) => fired = true;
 
             var locked = attrs.Lock(AttributeType.Health);
             locked.Set(500);
@@ -205,7 +205,7 @@ namespace FOMServer.World.Tests
         {
             var attrs = CreateAttributes();
             var fired = false;
-            attrs.OnPersistableChange += (_, _, _) => { fired = true; return true; };
+            attrs.OnPersistableChange += (_, _, _) => fired = true;
 
             using (var locked = attrs.Lock(AttributeType.UniversalCredits))
             {
@@ -221,7 +221,7 @@ namespace FOMServer.World.Tests
         {
             var attrs = CreateAttributes();
             var fired = false;
-            attrs.OnPersistableChange += (_, _, _) => { fired = true; return true; };
+            attrs.OnPersistableChange += (_, _, _) => fired = true;
 
             using (var locked = attrs.Lock(AttributeType.UniversalCredits))
             {

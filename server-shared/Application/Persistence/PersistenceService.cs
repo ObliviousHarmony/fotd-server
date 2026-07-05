@@ -90,17 +90,17 @@ namespace FOMServer.Shared.Application.Persistence
             _shutdownManager.TrackTask(_persistenceTask);
         }
 
-        private bool Enqueue(
+        private void Enqueue(
             IPersistable entity,
             IPersistable? association = null,
-            IEnumerable<IPersistable>? additionalAssociations = null)
+            params ReadOnlySpan<IPersistable?> additionalAssociations)
         {
             var state = _entityStates.GetOrCreateValue(entity);
 
             // Reject enqueue if entity is waiting for persistence
             if (Volatile.Read(in state.IsWaiting) == 1)
             {
-                return false;
+                return;
             }
 
             var version = Volatile.Read(in state.Version);
@@ -112,9 +112,9 @@ namespace FOMServer.Shared.Application.Persistence
                 assocState.AddBlockingDependency(entity, version);
             }
 
-            if (additionalAssociations is not null)
+            foreach (var assoc in additionalAssociations)
             {
-                foreach (var assoc in additionalAssociations)
+                if (assoc is not null)
                 {
                     var assocState = _entityStates.GetOrCreateValue(assoc);
                     assocState.AddBlockingDependency(entity, version);
@@ -127,7 +127,7 @@ namespace FOMServer.Shared.Application.Persistence
                 _dirtyQueue.Writer.TryWrite(entity);
             }
 
-            return true;
+            return;
         }
 
         /// <summary>

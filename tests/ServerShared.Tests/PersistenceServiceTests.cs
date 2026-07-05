@@ -101,10 +101,10 @@ namespace FOMServer.Shared.Tests
             service.Register(item2);
 
             // Item1 changes with null primary association but player in additional associations
-            item1.MarkChanged(null, [player]);
+            item1.MarkChanged(null, player);
 
             // Item2 changes with both primary and additional associations
-            item2.MarkChanged(player, [item1]);
+            item2.MarkChanged(player, item1);
 
             service.WaitForPersistence(player, callbackFired.SetResult);
 
@@ -324,11 +324,11 @@ namespace FOMServer.Shared.Tests
         {
             public event PersistableChangeCallback? OnPersistableChange;
 
-            public bool MarkChanged(
+            public void MarkChanged(
                 IPersistable? association = null,
-                IEnumerable<IPersistable>? additionalAssociations = null)
+                params ReadOnlySpan<IPersistable?> additionalAssociations)
             {
-                return OnPersistableChange?.Invoke(this, association, additionalAssociations) ?? true;
+                OnPersistableChange!(this, association, additionalAssociations);
             }
         }
 
