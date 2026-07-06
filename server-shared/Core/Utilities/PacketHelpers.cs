@@ -6,7 +6,7 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.Shared.Metadata;
 
-namespace FOMServer.Shared.Core.Packets
+namespace FOMServer.Shared.Core.Utilities
 {
     public static class PacketHelpers
     {

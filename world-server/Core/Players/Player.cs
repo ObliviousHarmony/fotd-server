@@ -1,5 +1,6 @@
-using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Core.Persistence;
+using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
+using WorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
 
 namespace FOMServer.World.Core.Players
 {

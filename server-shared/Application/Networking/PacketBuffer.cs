@@ -1,7 +1,7 @@
 using System.Buffers;
 using System.Diagnostics.Metrics;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Packets;
+using FOMServer.Shared.Core.Utilities;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 
 namespace FOMServer.Shared.Application.Networking

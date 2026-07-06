@@ -6,10 +6,11 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.RakNet;
-using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Core.Repositories;
+using FOMServer.Shared.Core.Utilities;
 using Microsoft.Extensions.Logging.Abstractions;
+using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.Master.Tests
 {

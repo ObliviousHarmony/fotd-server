@@ -4,8 +4,8 @@ using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Ticking;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
-using Types = FOMServer.Shared.Core.Packets.Types;
 using WorldUpdatePacket = FOMServer.Shared.Core.Packets.WorldUpdate;
+using WorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
 
 namespace FOMServer.World.Application.Players
 {
@@ -105,7 +105,7 @@ namespace FOMServer.World.Application.Players
             return ValueTask.CompletedTask;
         }
 
-        private void SendTo(Player recipient, List<Types.WorldUpdate.CharacterUpdate> sendBuffer)
+        private void SendTo(Player recipient, List<WorldUpdate.CharacterUpdate> sendBuffer)
         {
             for (var offset = 0; offset < sendBuffer.Count; offset += WorldUpdatePacket.MaxWorldUpdates)
             {
@@ -118,9 +118,9 @@ namespace FOMServer.World.Application.Players
                 data.UpdateCount = count;
                 for (var i = 0; i < count; i++)
                 {
-                    data.Updates[i] = new Types.WorldUpdate
+                    data.Updates[i] = new WorldUpdate
                     {
-                        Kind = Types.WorldUpdate.Type.Character,
+                        Kind = WorldUpdate.Type.Character,
                         Character = sendBuffer[offset + i],
                     };
                 }
@@ -140,7 +140,7 @@ namespace FOMServer.World.Application.Players
 
             public Player Player { get; }
 
-            public List<Types.WorldUpdate.CharacterUpdate> Buffer { get; } = [];
+            public List<WorldUpdate.CharacterUpdate> Buffer { get; } = [];
         }
     }
 }

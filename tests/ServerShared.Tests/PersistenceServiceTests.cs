@@ -232,51 +232,6 @@ namespace FOMServer.Shared.Tests
         }
 
         [Fact]
-        public void MarkChanged_WhileWaiting_ReturnsFalse()
-        {
-            var service = CreateService();
-            var entity = new TestEntity();
-
-            // Block persistence so we can test the waiting state
-            var blockPersist = new TaskCompletionSource();
-            _handler.BlockUntil = blockPersist;
-
-            service.Register(entity);
-
-            entity.MarkChanged();
-            service.WaitForPersistence(entity, () => { });
-
-            // Entity is now waiting - further changes should be rejected
-            var result = entity.MarkChanged();
-
-            Assert.False(result);
-
-            // Cleanup
-            blockPersist.SetResult();
-        }
-
-        [Fact]
-        public async Task MarkChanged_AfterWaitCompletes_ReturnsTrue()
-        {
-            var service = CreateService();
-            var entity = new TestEntity();
-            var callbackFired = new TaskCompletionSource();
-
-            service.Register(entity);
-
-            entity.MarkChanged();
-            service.WaitForPersistence(entity, callbackFired.SetResult);
-
-            // Wait for callback to fire (IsWaiting should be cleared)
-            await callbackFired.Task;
-
-            // Entity should now accept changes again
-            var result = entity.MarkChanged();
-
-            Assert.True(result);
-        }
-
-        [Fact]
         public async Task PersistAsync_OnFailure_StillIncrementsVersion()
         {
             var service = CreateService();

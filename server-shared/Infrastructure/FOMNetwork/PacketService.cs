@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Application.Networking;
-using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
+using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.Shared.Services.FOMNetwork
 {
