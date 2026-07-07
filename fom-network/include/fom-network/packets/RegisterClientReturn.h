@@ -32,7 +32,8 @@ struct RegisterClientReturn {
   Type::ItemList inventory;
   Type::Item equipment[Enum::ITEM_SLOT_EQUIPMENT_END -
                        Enum::ITEM_SLOT_EQUIPMENT_START];
-  Type::Item weapons[Constants::NUM_WEAPON_SLOTS];
+  Type::Item
+      weapons[Enum::ITEM_SLOT_WEAPONS_END - Enum::ITEM_SLOT_WEAPONS_START];
   Type::Item unknownSlots[Constants::NUM_UNKNOWN_ITEM_SLOTS];
   Type::ItemList storage;
   uint16_t quickSlots[Constants::NUM_QUICK_SLOTS];

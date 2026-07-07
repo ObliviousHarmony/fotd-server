@@ -41,7 +41,7 @@ void RegisterClientReturnSerializer::Write(
       itemSerializer.Write(bs, data->equipment[i]);
   }
 
-  for (int i = 0; i < Constants::NUM_WEAPON_SLOTS; ++i) {
+  for (int i = 0; i < Enum::ITEM_SLOT_WEAPONS_END - Enum::ITEM_SLOT_ARMS; ++i) {
     bs.Write(data->weapons[i].id != 0);
     if (data->weapons[i].id != 0) itemSerializer.Write(bs, data->weapons[i]);
   }

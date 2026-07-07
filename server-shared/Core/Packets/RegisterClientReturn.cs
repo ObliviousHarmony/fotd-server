@@ -66,7 +66,7 @@ namespace FOMServer.Shared.Core.Packets
             private Item _element;
         }
 
-        [InlineArray(PlayerConstants.NumWeaponSlots)]
+        [InlineArray((int)ItemSlot.WeaponsEnd - (int)ItemSlot.WeaponsStart)]
         public struct WeaponsArray
         {
             private Item _element;

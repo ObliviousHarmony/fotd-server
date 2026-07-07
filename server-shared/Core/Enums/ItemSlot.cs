@@ -3,7 +3,12 @@ namespace FOMServer.Shared.Core.Enums
     public enum ItemSlot : byte
     {
         Inventory = 0, // ITEM_SLOT_INVENTORY
-        Weapon = 1, // ITEM_SLOT_WEAPON
+
+        WeaponsStart = 1, // ITEM_SLOT_WEAPONS_START
+        Weapon1 = WeaponsStart, // ITEM_SLOT_WEAPON_1
+        Weapon2 = 2, // ITEM_SLOT_WEAPON_2
+        Weapon3 = 3, // ITEM_SLOT_WEAPON_3
+        WeaponsEnd = 4, // ITEM_SLOT_WEAPONS_END
 
         EquipmentStart = 5, // ITEM_SLOT_EQUIPMENT_START
         Head = EquipmentStart, // ITEM_SLOT_HEAD
