@@ -4,6 +4,10 @@ namespace FOMServer.Shared.Core.Enums
     {
         None,
         Inventory,
+        Weapons,
+        Equipment,
+        ActiveConsumable,
+        NanomachineAugmentation,
         Storage,
         TransportStorage,
         Backpack,

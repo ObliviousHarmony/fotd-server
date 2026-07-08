@@ -1,3 +1,4 @@
+using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Persistence;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 using PacketWorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
@@ -12,12 +13,17 @@ namespace FOMServer.World.Core.Players
         private readonly Lock _currentUpdateLock = new();
         private PacketWorldUpdate.CharacterUpdate _currentUpdate;
 
+        private readonly Item _tempItem;
+
         public Player(uint id, uint[]? initialAttributes = null)
         {
             Id = id;
             _currentUpdate.Id = id;
             Attributes = new PlayerAttributes(this, initialAttributes);
-            Inventory = new ItemBag(this, Shared.Core.Enums.ItemLocation.Inventory, 0, []);
+
+            Inventory = new ItemBag(this, ItemLocation.Inventory, 0, []);
+
+            _tempItem = new Item(1, ItemType.Fedora, this, ItemLocation.Inventory, 0, 100, 1000, 1000, 100);
         }
 
         public event PersistableChangeCallback? OnPersistableChange;
@@ -77,6 +83,8 @@ namespace FOMServer.World.Core.Players
 
                 Attributes.WriteTo(ref packet.Attributes);
                 Inventory.WriteTo(ref packet.Inventory);
+
+                _tempItem.WriteTo(ref packet.Equipment[(int)EquipmentSlot.Shirt]);
             }
 
             return true;

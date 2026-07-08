@@ -1,8 +1,9 @@
+
 #pragma once
 
 #include <fom-network/Interop.h>
 #include <fom-network/constants/PlayerConstants.h>
-#include <fom-network/enums/ItemSlot.h>
+#include <fom-network/enums/EquipmentSlot.h>
 #include <fom-network/types/Avatar.h>
 #include <fom-network/types/FactionEmblem.h>
 #include <fom-network/types/FactionPerks.h>
@@ -30,11 +31,11 @@ struct RegisterClientReturn {
   uint32_t playerId;
   RegisterClientReturnStatus status;
   Type::ItemList inventory;
-  Type::Item equipment[Enum::ITEM_SLOT_EQUIPMENT_END -
-                       Enum::ITEM_SLOT_EQUIPMENT_START];
+  Type::Item equipment[Enum::NUM_EQUIPMENT_SLOTS];
+  Type::Item weapons[Constants::NUM_WEAPON_SLOTS];
+  Type::Item activeConsumables[Constants::NUM_CONSUMABLE_SLOTS];
   Type::Item
-      weapons[Enum::ITEM_SLOT_WEAPONS_END - Enum::ITEM_SLOT_WEAPONS_START];
-  Type::Item unknownSlots[Constants::NUM_UNKNOWN_ITEM_SLOTS];
+      nanomachineAugmentations[Constants::NUM_NANOMACHINE_AUGMENTATION_SLOTS];
   Type::ItemList storage;
   uint16_t quickSlots[Constants::NUM_QUICK_SLOTS];
   Type::Avatar avatar;
