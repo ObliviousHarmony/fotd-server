@@ -4,8 +4,8 @@ using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Ticking;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
-using WorldUpdatePacket = FOMServer.Shared.Core.Packets.WorldUpdate;
 using WorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
+using WorldUpdatePacket = FOMServer.Shared.Core.Packets.WorldUpdate;
 
 namespace FOMServer.World.Application.Players
 {

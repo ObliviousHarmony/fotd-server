@@ -283,7 +283,7 @@ namespace FOMServer.Shared.Tests
                 IPersistable? association = null,
                 params ReadOnlySpan<IPersistable?> additionalAssociations)
             {
-                OnPersistableChange!(this, association, additionalAssociations);
+                OnPersistableChange?.Invoke(this, association, additionalAssociations);
             }
         }
 

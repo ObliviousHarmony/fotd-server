@@ -4,8 +4,8 @@ using FOMServer.World.Application.Players;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
-using WorldUpdatePacket = FOMServer.Shared.Core.Packets.WorldUpdate;
 using WorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
+using WorldUpdatePacket = FOMServer.Shared.Core.Packets.WorldUpdate;
 
 namespace FOMServer.World.Tests
 {
