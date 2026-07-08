@@ -43,8 +43,7 @@ namespace FOMServer.Shared.Application.Networking
             IShutdownManager shutdownManager,
             ILogger<NetworkManager> logger,
             IPacketService packetService,
-            PacketProcessor packetProcessor
-        )
+            PacketProcessor packetProcessor)
         {
             _shutdownManager = shutdownManager;
             _logger = logger;

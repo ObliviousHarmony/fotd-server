@@ -31,8 +31,7 @@ namespace FOMServer.World.Application
             INetworkService networkService,
             IServerService serverService,
             IClientService clientService,
-            IServiceProvider serviceProvider
-        )
+            IServiceProvider serviceProvider)
         {
             _logger = logger;
             _shutdownManager = shutdownManager;

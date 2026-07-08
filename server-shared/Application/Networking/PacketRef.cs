@@ -27,8 +27,7 @@ namespace FOMServer.Shared.Application.Networking
             PacketIdentifier id,
             NetworkAddress sender,
             in ReadOnlyMemory<byte> data,
-            PacketBuffer parentBuffer
-        )
+            PacketBuffer parentBuffer)
         {
             RefIndex = refIndex;
             BufferVersion = bufferVersion;

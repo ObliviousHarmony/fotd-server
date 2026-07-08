@@ -18,8 +18,7 @@ namespace FOMServer.Shared.Extensions
             this IServiceCollection services,
             IShutdownManager shutdownManager,
             bool writeToConsole = true,
-            string? logFilePath = null
-        )
+            string? logFilePath = null)
         {
             var provider = new BackgroundLoggerProvider(shutdownManager, writeToConsole, logFilePath);
             services.AddLogging(lb => lb.ClearProviders().AddProvider(provider));

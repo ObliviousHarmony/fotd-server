@@ -42,8 +42,7 @@ namespace FOMServer.Shared.Core.Networking
             int addressCount,
             PacketPriority priority,
             PacketReliability reliability,
-            byte orderingChannel
-        )
+            byte orderingChannel)
         {
             Id = id;
             _packetData = packetData;
