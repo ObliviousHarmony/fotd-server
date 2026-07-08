@@ -115,6 +115,16 @@ namespace FOMServer.World.Core.Players
             return true;
         }
 
+        protected void RaiseOnItemAdded(Item item)
+        {
+            OnItemAdded?.Invoke(item);
+        }
+
+        protected void RaiseOnItemRemoved(Item item)
+        {
+            OnItemRemoved?.Invoke(item);
+        }
+
         protected abstract bool Insert(Item item);
 
         protected abstract Item? Extract(uint id);

@@ -11,7 +11,7 @@ namespace FOMServer.World.Core.Players
         private readonly Player _player;
         private readonly Slot[] _equipment;
 
-        public PlayerEquipment(Player player, Dictionary<EquipmentSlot, Item> items)
+        public PlayerEquipment(Player player, IDictionary<EquipmentSlot, Item> items)
         {
             _player = player;
 

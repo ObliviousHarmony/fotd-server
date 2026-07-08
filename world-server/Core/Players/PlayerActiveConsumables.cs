@@ -11,7 +11,7 @@ namespace FOMServer.World.Core.Players
         private readonly Player _player;
         private readonly Slot[] _consumables;
 
-        public PlayerActiveConsumables(Player player, Dictionary<uint, Item> items)
+        public PlayerActiveConsumables(Player player, IDictionary<uint, Item> items)
         {
             _player = player;
 

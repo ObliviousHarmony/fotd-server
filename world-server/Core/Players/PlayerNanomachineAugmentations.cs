@@ -11,7 +11,7 @@ namespace FOMServer.World.Core.Players
         private readonly Player _player;
         private readonly Slot[] _augmentations;
 
-        public PlayerNanomachineAugmentations(Player player, Dictionary<uint, Item> items)
+        public PlayerNanomachineAugmentations(Player player, IDictionary<uint, Item> items)
         {
             _player = player;
 

@@ -1,5 +1,6 @@
 using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Packets.Types;
 using PacketItemList = FOMServer.Shared.Core.Packets.Types.ItemList;
 
 namespace FOMServer.World.Core.Players
@@ -9,23 +10,17 @@ namespace FOMServer.World.Core.Players
         private readonly Dictionary<uint, Item> _items = [];
         private readonly Dictionary<ItemType, Dictionary<uint, Item>> _itemsByType = [];
 
-        public ItemBag(Player? owner, ItemLocation location, uint locationId, ReadOnlySpan<Item> items) : base(owner, location, locationId)
+        public ItemBag(Player? owner, ItemLocation location, uint locationId, IDictionary<uint, Item> items) : base(owner, location, locationId)
         {
-            foreach (var item in items)
+            foreach (var (_, item) in items)
             {
-                if (!item.BelongsIn(owner, Location, LocationId))
-                {
-                    throw new ArgumentException(
-                        $"Item {item} does not match bag (owner={owner?.Id}, location={Location}, locationId={LocationId})",
-                        nameof(items));
-                }
-
                 Insert(item);
             }
         }
 
         public Item? RemoveOfType(ItemType type)
         {
+            Item removed;
             lock (_syncRoot)
             {
                 if (!_itemsByType.TryGetValue(type, out var byType) || byType.Count == 0)
@@ -47,8 +42,12 @@ namespace FOMServer.World.Core.Players
                 item.OnDestroyed -= OnItemDestroyed;
                 item.ChangeOwner(null, ItemLocation.None, 0);
 
-                return item;
+                removed = item;
             }
+
+            RaiseOnItemRemoved(removed);
+
+            return removed;
         }
 
         public bool WriteTo(ref PacketItemList p)
@@ -79,6 +78,13 @@ namespace FOMServer.World.Core.Players
 
         protected override bool Insert(Item item)
         {
+            if (!item.BelongsIn(Owner, Location, LocationId))
+            {
+                throw new ArgumentException(
+                    $"Item {item} does not match bag (owner={Owner?.Id}, location={Location}, locationId={LocationId})",
+                    nameof(item));
+            }
+
             if (!_items.TryAdd(item.Id, item))
             {
                 return false;

@@ -12,42 +12,25 @@ namespace FOMServer.World.Core.Players
 
         private PacketWorldUpdate.CharacterUpdate _currentUpdate;
 
-        public Player(uint id, uint[]? initialAttributes = null)
+        public Player(
+            uint id,
+            uint[] attributes,
+            IDictionary<uint, Item> inventory,
+            IDictionary<EquipmentSlot, Item> equipment,
+            IDictionary<uint, Item> weapons,
+            IDictionary<uint, Item> activeConsumables,
+            IDictionary<uint, Item> nanomachineAugmentations
+        )
         {
             Id = id;
             _currentUpdate.Id = id;
-            Attributes = new PlayerAttributes(this, initialAttributes);
 
-            // ======================================================
-            // DEVELOPMENT TESTING STUFF
-            // ======================================================
-            var itemIdOffset = id * 1000;
-            Attributes.Change(AttributeType.Stamina, 10000);
-            Item[] tempInv = [
-                new Item(itemIdOffset + 1, ItemType.Zanathid5Inflex, this, ItemLocation.Inventory, 0, 100, 1000, 1000, 100)
-            ];
-            var tempEq = new Dictionary<EquipmentSlot, Item>() {
-                {EquipmentSlot.Hat, new Item(itemIdOffset + 2, ItemType.Fedora, this, ItemLocation.Equipment, (uint)EquipmentSlot.Hat, 100, 1000, 1000, 100) },
-                {EquipmentSlot.Back, new Item(itemIdOffset + 3, ItemType.ShieldAugmentation, this, ItemLocation.Equipment, (uint)EquipmentSlot.Back, 100, 1000, 1000, 100) },
-                {EquipmentSlot.Eyes, new Item(itemIdOffset + 4, ItemType.AlmDesignsGlassesBlack, this, ItemLocation.Equipment, (uint)EquipmentSlot.Eyes, 100, 1000, 1000, 100) }
-            };
-            var tempWep = new Dictionary<uint, Item>() {
-                {0, new Item(itemIdOffset + 5, ItemType.DOA187, this, ItemLocation.Weapons, 0, 100, 1000, 1000, 100) }
-            };
-            var tempConsume = new Dictionary<uint, Item>() {
-                {0, new Item(itemIdOffset + 6, ItemType.DoublecheeseMystique, this, ItemLocation.ActiveConsumable, 0, 100, 1000, 1000, 100) }
-            };
-            var tempAug = new Dictionary<uint, Item>() {
-                {0, new Item(itemIdOffset + 7, ItemType.ElectromyographicRegulator, this, ItemLocation.NanomachineAugmentation, 0, 100, 1000, 1000, 100) }
-            };
-
-            // ======================================================
-
-            Inventory = new ItemBag(this, ItemLocation.Inventory, 0, tempInv);
-            Equipment = new PlayerEquipment(this, tempEq);
-            Weapons = new PlayerWeapons(this, tempWep);
-            ActiveConsumables = new PlayerActiveConsumables(this, tempConsume);
-            NanomachineAugmentations = new PlayerNanomachineAugmentations(this, tempAug);
+            Attributes = new PlayerAttributes(this, attributes);
+            Inventory = new ItemBag(this, ItemLocation.Inventory, 0, inventory);
+            Equipment = new PlayerEquipment(this, equipment);
+            Weapons = new PlayerWeapons(this, weapons);
+            ActiveConsumables = new PlayerActiveConsumables(this, activeConsumables);
+            NanomachineAugmentations = new PlayerNanomachineAugmentations(this, nanomachineAugmentations);
         }
 
         public event PersistableChangeCallback? OnPersistableChange;

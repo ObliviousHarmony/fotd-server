@@ -1,4 +1,5 @@
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Packets.Types;
 using PacketItem = FOMServer.Shared.Core.Packets.Types.Item;
 
 namespace FOMServer.World.Core.Players
@@ -9,7 +10,10 @@ namespace FOMServer.World.Core.Players
 
         public ItemSlot(Player owner, ItemLocation location, uint slot, Item? item) : base(owner, location, slot)
         {
-            _item = item;
+            if (item is not null)
+            {
+                Insert(item);
+            }
         }
 
         public bool WriteTo(ref PacketItem p)
@@ -44,6 +48,13 @@ namespace FOMServer.World.Core.Players
             if (_item is not null)
             {
                 return false;
+            }
+
+            if (item is not null && !item.BelongsIn(Owner, Location, LocationId))
+            {
+                throw new ArgumentException(
+                        $"Item {item} does not match slot (owner={Owner?.Id}, location={Location}, locationId={LocationId})",
+                        nameof(item));
             }
 
             _item = item;

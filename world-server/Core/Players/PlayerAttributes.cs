@@ -60,36 +60,26 @@ namespace FOMServer.World.Core.Players
             }
         }
 
-        public PlayerAttributes(Player player, uint[]? initialValues = null)
+        public PlayerAttributes(Player player, uint[] values)
         {
             _player = player;
 
-            if (initialValues != null)
+            if (values.Length != AttributeCount)
             {
-                if (initialValues.Length != AttributeCount)
-                {
-                    throw new ArgumentException(
-                        $"Expected {AttributeCount} values but got {initialValues.Length}",
-                        nameof(initialValues));
-                }
-
-                for (var i = 0; i < AttributeCount; i++)
-                {
-                    var max = s_metadata[i].Max;
-                    if (initialValues[i] > max)
-                    {
-                        throw new ArgumentException($"Value for {(AttributeType)i} is {initialValues[i]}, which exceeds max ({max})", nameof(initialValues));
-                    }
-
-                    _values[i] = initialValues[i];
-                }
+                throw new ArgumentException(
+                    $"Expected {AttributeCount} values but got {values.Length}",
+                    nameof(values));
             }
-            else
+
+            for (var i = 0; i < AttributeCount; i++)
             {
-                for (var i = 0; i < AttributeCount; i++)
+                var max = s_metadata[i].Max;
+                if (values[i] > max)
                 {
-                    _values[i] = s_metadata[i].Default;
+                    throw new ArgumentException($"Value for {(AttributeType)i} is {values[i]}, which exceeds max ({max})", nameof(values));
                 }
+
+                _values[i] = values[i];
             }
         }
 
