@@ -22,8 +22,7 @@ namespace FOMServer.World.Core.Players
         private readonly Lock _syncRoot = new();
 
         private Player? _owner;
-        private ItemLocation _location;
-        private uint _locationId;
+        private uint _ownerId;
         private ushort _value;
         private ushort _durability;
         private bool _destroyed;
@@ -34,21 +33,20 @@ namespace FOMServer.World.Core.Players
         public Item(
             uint id,
             ItemType type,
-            Player? owner,
+            uint ownerId,
             ItemLocation location,
             uint locationId,
             ushort value,
             ushort durability,
             ushort maxDurability,
-            byte durabilityLossFactor
-        )
+            byte durabilityLossFactor)
         {
             Id = id;
             Type = type;
 
-            _owner = owner;
-            _location = location;
-            _locationId = locationId;
+            _ownerId = ownerId;
+            Location = location;
+            LocationId = locationId;
             _value = value;
             _durability = durability;
 
@@ -66,7 +64,40 @@ namespace FOMServer.World.Core.Players
 
         public ItemType Type { get; }
 
-        public bool BelongsIn(Player? player, ItemLocation location, uint? locationId = null)
+        public ItemLocation Location { get; private set; }
+
+        public uint LocationId { get; private set; }
+
+        public void BindOwner(Player owner)
+        {
+            lock (_syncRoot)
+            {
+                if (owner.Id != _ownerId)
+                {
+                    throw new ArgumentException($"Item {Id} cannot bind player {owner.Id}, expected player {_ownerId}", nameof(owner));
+                }
+
+                _owner = owner;
+            }
+        }
+
+        public bool BelongsTo(Player owner)
+        {
+            lock (_syncRoot)
+            {
+                return ReferenceEquals(owner, _owner);
+            }
+        }
+
+        public bool BelongsTo(uint ownerId)
+        {
+            lock (_syncRoot)
+            {
+                return ownerId == _ownerId;
+            }
+        }
+
+        public bool BelongsIn(ItemLocation location, uint? locationId = null)
         {
             lock (_syncRoot)
             {
@@ -75,16 +106,16 @@ namespace FOMServer.World.Core.Players
                     throw new ItemDestroyedException(this);
                 }
 
-                if (locationId is not null && _locationId != locationId)
+                if (locationId is not null && locationId != LocationId)
                 {
                     return false;
                 }
 
-                return ReferenceEquals(_owner, player) && _location == location;
+                return location == Location;
             }
         }
 
-        public void ChangeOwner(Player? newOwner, ItemLocation newLocation, uint newLocationId)
+        public void Move(Player? newOwner, ItemLocation newLocation, uint newLocationId)
         {
             Player? oldOwner;
             lock (_syncRoot)
@@ -93,9 +124,14 @@ namespace FOMServer.World.Core.Players
 
                 oldOwner = _owner;
 
+                if (newOwner is not null)
+                {
+                    _ownerId = newOwner.Id;
+                }
+
                 _owner = newOwner;
-                _location = newLocation;
-                _locationId = newLocationId;
+                Location = newLocation;
+                LocationId = newLocationId;
             }
 
             OnPersistableChange?.Invoke(this, newOwner, oldOwner);
@@ -234,18 +270,18 @@ namespace FOMServer.World.Core.Players
 
         public override string ToString()
         {
-            Player? owner;
+            uint ownerId;
             ItemLocation location;
             uint locationId;
 
             lock (_syncRoot)
             {
-                owner = _owner;
-                location = _location;
-                locationId = _locationId;
+                ownerId = _ownerId;
+                location = Location;
+                locationId = LocationId;
             }
 
-            return $"{Type} - {Id} (owner={owner?.Id.ToString() ?? "none"}, location={location}, locationId={locationId})";
+            return $"{Type} - {Id} (owner={ownerId}, location={location}, locationId={locationId})";
         }
 
         private void Destroy()

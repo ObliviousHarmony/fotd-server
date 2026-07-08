@@ -5,7 +5,7 @@ using FOMServer.Shared.Core.Utilities;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
-namespace FOMServer.Shared.Tests
+namespace FOMServer.Shared.Tests.Packets
 {
     public class PacketBufferTests
     {
@@ -295,8 +295,7 @@ namespace FOMServer.Shared.Tests
         private unsafe ReceivedPackets CreateReceivedPackets(
             byte count,
             PacketIdentifier* identifiers,
-            NetworkAddress* senders
-        )
+            NetworkAddress* senders)
         {
             return new ReceivedPackets
             {

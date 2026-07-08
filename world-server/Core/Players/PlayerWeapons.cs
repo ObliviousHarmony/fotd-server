@@ -16,10 +16,28 @@ namespace FOMServer.World.Core.Players
             _player = player;
 
             _weapons = new Slot[PlayerConstants.NumWeaponSlots];
+            foreach (var (_, item) in items)
+            {
+                var slot = item.LocationId;
+                if (slot >= PlayerConstants.NumWeaponSlots)
+                {
+                    throw new ArgumentException($"Item {item.Id} is an invalid slot ({item.LocationId}");
+                }
+
+                if (_weapons[slot] is not null)
+                {
+                    throw new ArgumentException($"Slot {slot} is already occupied by an item");
+                }
+
+                _weapons[slot] = new Slot(player, slot, item);
+            }
+
             for (uint i = 0; i < PlayerConstants.NumWeaponSlots; ++i)
             {
-                items.TryGetValue(i, out var item);
-                _weapons[i] = new Slot(player, i, item);
+                if (_weapons[i] is null)
+                {
+                    _weapons[i] = new Slot(player, i, null);
+                }
             }
         }
 

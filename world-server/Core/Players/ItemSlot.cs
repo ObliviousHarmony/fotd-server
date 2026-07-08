@@ -50,10 +50,10 @@ namespace FOMServer.World.Core.Players
                 return false;
             }
 
-            if (item is not null && !item.BelongsIn(Owner, Location, LocationId))
+            if (item is not null && !item.BelongsIn(Location, LocationId))
             {
                 throw new ArgumentException(
-                        $"Item {item} does not match slot (owner={Owner?.Id}, location={Location}, locationId={LocationId})",
+                        $"Item {item} does not match slot (location={Location}, locationId={LocationId})",
                         nameof(item));
             }
 

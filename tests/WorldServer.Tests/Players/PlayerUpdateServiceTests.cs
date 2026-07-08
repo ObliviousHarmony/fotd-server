@@ -3,11 +3,12 @@ using FOMServer.Shared.Core.Networking;
 using FOMServer.World.Application.Players;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
+using FOMServer.World.Tests.Factories;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 using PacketWorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
 using WorldUpdatePacket = FOMServer.Shared.Core.Packets.WorldUpdate;
 
-namespace FOMServer.World.Tests
+namespace FOMServer.World.Tests.Players
 {
     public class PlayerUpdateServiceTests
     {
@@ -164,7 +165,8 @@ namespace FOMServer.World.Tests
 
             public Player AddPlayer(uint id, ushort port)
             {
-                var player = new Player(id);
+                var player = TestPlayerBuilder.Create(id).Build();
+
                 player.ClaimForClient(new NetworkAddress { BinaryAddress = 0x0100007F, Port = port });
                 Service.RegisterRecipient(player);
                 return player;

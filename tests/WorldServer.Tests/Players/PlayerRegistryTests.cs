@@ -1,9 +1,10 @@
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.World.Application.Players;
 using FOMServer.World.Core.Players;
+using FOMServer.World.Tests.Factories;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
-namespace FOMServer.World.Tests
+namespace FOMServer.World.Tests.Players
 {
     public class PlayerRegistryTests
     {
@@ -98,7 +99,7 @@ namespace FOMServer.World.Tests
         {
             public Fixture()
             {
-                Registry = new PlayerRegistry(new SynchronousPersistence(), Time, new NoOpPlayerUpdateService());
+                Registry = new PlayerRegistry(new NoOpPlayerLoader(), new SynchronousPersistence(), Time, new NoOpPlayerUpdateService());
             }
 
             public FakeTime Time { get; } = new();
@@ -130,6 +131,15 @@ namespace FOMServer.World.Tests
             public void WaitForPersistence(IPersistable entity, Action callback)
             {
                 callback();
+            }
+        }
+
+        private sealed class NoOpPlayerLoader : IPlayerLoader
+        {
+            public Player? Load(uint id)
+            {
+                var builder = TestPlayerBuilder.Create(id);
+                return builder.Build();
             }
         }
 

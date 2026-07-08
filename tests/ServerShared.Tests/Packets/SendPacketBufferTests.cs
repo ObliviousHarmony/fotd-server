@@ -7,7 +7,7 @@ using FOMServer.Shared.Core.Utilities;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
-namespace FOMServer.Shared.Tests
+namespace FOMServer.Shared.Tests.Packets
 {
     public class SendPacketBufferTests
     {
@@ -138,8 +138,7 @@ namespace FOMServer.Shared.Tests
             PacketPriority priority = PacketPriority.Medium,
             PacketReliability reliability = PacketReliability.ReliableOrdered,
             byte orderingChannel = 0,
-            bool broadcast = false
-        )
+            bool broadcast = false)
         {
             var packetData = PinnedArrayPool.Shared.Rent(s_testPacketSize);
             var networkAddress = address ?? new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };

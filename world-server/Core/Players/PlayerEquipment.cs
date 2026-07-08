@@ -1,5 +1,6 @@
 using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Packets.Types;
 using PacketEquipment = FOMServer.Shared.Core.Packets.RegisterClientReturn.EquipmentArray;
 
 namespace FOMServer.World.Core.Players
@@ -11,15 +12,33 @@ namespace FOMServer.World.Core.Players
         private readonly Player _player;
         private readonly Slot[] _equipment;
 
-        public PlayerEquipment(Player player, IDictionary<EquipmentSlot, Item> items)
+        public PlayerEquipment(Player player, IDictionary<uint, Item> items)
         {
             _player = player;
 
             _equipment = new Slot[(uint)EquipmentSlot.NUM_EQUIPMENT_SLOTS];
-            for (EquipmentSlot i = 0; i < EquipmentSlot.NUM_EQUIPMENT_SLOTS; ++i)
+            foreach (var (_, item) in items)
             {
-                items.TryGetValue(i, out var item);
-                _equipment[(uint)i] = new Slot(player, i, item);
+                var slot = (EquipmentSlot)item.LocationId;
+                if (!Enum.IsDefined(slot))
+                {
+                    throw new ArgumentException($"Item {item.Id} is an invalid slot ({item.LocationId}");
+                }
+
+                if (_equipment[(uint)slot] is not null)
+                {
+                    throw new ArgumentException($"Slot {slot} is already occupied by an item");
+                }
+
+                _equipment[(uint)slot] = new Slot(player, slot, item);
+            }
+
+            for (var i = 0; i < (uint)EquipmentSlot.NUM_EQUIPMENT_SLOTS; ++i)
+            {
+                if (_equipment[i] is null)
+                {
+                    _equipment[i] = new Slot(player, (EquipmentSlot)i, null);
+                }
             }
         }
 

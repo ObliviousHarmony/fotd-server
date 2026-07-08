@@ -40,7 +40,7 @@ namespace FOMServer.World.Core.Players
                 _items.Remove(id);
 
                 item.OnDestroyed -= OnItemDestroyed;
-                item.ChangeOwner(null, ItemLocation.None, 0);
+                item.Move(null, ItemLocation.None, 0);
 
                 removed = item;
             }
@@ -78,10 +78,10 @@ namespace FOMServer.World.Core.Players
 
         protected override bool Insert(Item item)
         {
-            if (!item.BelongsIn(Owner, Location, LocationId))
+            if (!item.BelongsIn(Location, LocationId))
             {
                 throw new ArgumentException(
-                    $"Item {item} does not match bag (owner={Owner?.Id}, location={Location}, locationId={LocationId})",
+                    $"Item {item} does not match bag (location={Location}, locationId={LocationId})",
                     nameof(item));
             }
 
@@ -91,6 +91,7 @@ namespace FOMServer.World.Core.Players
             }
 
             InsertTypeIndex(item);
+
             return true;
         }
 

@@ -1,30 +1,31 @@
 using FOMServer.Shared.Core.Enums;
 using FOMServer.World.Core.Players;
+using FOMServer.World.Tests.Factories;
 
-namespace FOMServer.World.Tests
+namespace FOMServer.World.Tests.Players
 {
     public class ItemContainerTests
     {
         [Fact]
         public void Add_ThenRemove_ReassignsOwnershipBothWays()
         {
-            var owner = new Player(1, null);
+            var owner = TestPlayerBuilder.Create(1).Build();
             var container = new TestItemContainer(owner, ItemLocation.Inventory, 0);
             var item = CreateItem(id: 1);
 
             Assert.True(container.Add(item));
-            Assert.True(item.BelongsIn(owner, ItemLocation.Inventory));
+            Assert.True(item.BelongsIn(ItemLocation.Inventory));
 
             var removed = container.Remove(1);
 
             Assert.Same(item, removed);
-            Assert.True(item.BelongsIn(null, ItemLocation.None));
+            Assert.True(item.BelongsIn(ItemLocation.None));
         }
 
         [Fact]
         public void Add_DuplicateId_ReturnsFalseAndDoesNotReplaceExisting()
         {
-            var owner = new Player(1, null);
+            var owner = TestPlayerBuilder.Create(1).Build();
             var container = new TestItemContainer(owner, ItemLocation.Inventory, 0);
             var first = CreateItem(id: 5);
             var second = CreateItem(id: 5);
@@ -37,8 +38,8 @@ namespace FOMServer.World.Tests
         [Fact]
         public void Transfer_MovesItemAndReassignsOwnershipToDestination()
         {
-            var ownerA = new Player(1, null);
-            var ownerB = new Player(2, null);
+            var ownerA = TestPlayerBuilder.Create(1).Build();
+            var ownerB = TestPlayerBuilder.Create(2).Build();
             var containerA = new TestItemContainer(ownerA, ItemLocation.Inventory, 0);
             var containerB = new TestItemContainer(ownerB, ItemLocation.Inventory, 0);
             var item = CreateItem(id: 7);
@@ -47,7 +48,8 @@ namespace FOMServer.World.Tests
             var transferred = containerA.Transfer(7, containerB);
 
             Assert.True(transferred);
-            Assert.True(item.BelongsIn(ownerB, ItemLocation.Inventory));
+            Assert.True(item.BelongsTo(ownerB));
+            Assert.True(item.BelongsIn(ItemLocation.Inventory));
             Assert.Null(containerA.Remove(7));
             Assert.NotNull(containerB.Remove(7));
         }
@@ -55,8 +57,8 @@ namespace FOMServer.World.Tests
         [Fact]
         public void Transfer_DuplicateIdAtDestination_FailsAndLeavesBothBagsIntact()
         {
-            var ownerA = new Player(1, null);
-            var ownerB = new Player(2, null);
+            var ownerA = TestPlayerBuilder.Create(1).Build();
+            var ownerB = TestPlayerBuilder.Create(2).Build();
             var containerA = new TestItemContainer(ownerA, ItemLocation.Inventory, 0);
             var containerB = new TestItemContainer(ownerB, ItemLocation.Inventory, 0);
             var itemA = CreateItem(id: 9);
@@ -73,8 +75,8 @@ namespace FOMServer.World.Tests
         [Fact]
         public void Transfer_ThenDestroy_RemovesFromDestinationBagNotSource()
         {
-            var ownerA = new Player(1, null);
-            var ownerB = new Player(2, null);
+            var ownerA = TestPlayerBuilder.Create(1).Build();
+            var ownerB = TestPlayerBuilder.Create(2).Build();
             var containerA = new TestItemContainer(ownerA, ItemLocation.Inventory, 0);
             var containerB = new TestItemContainer(ownerB, ItemLocation.Inventory, 0);
             var item = CreateItem(id: 3, durability: 10, durabilityLossFactor: 100);
@@ -89,7 +91,7 @@ namespace FOMServer.World.Tests
         [Fact]
         public void Destroy_AutomaticallyRemovesItemFromBagWithoutExplicitRemove()
         {
-            var owner = new Player(1, null);
+            var owner = TestPlayerBuilder.Create(1).Build();
             var container = new TestItemContainer(owner, ItemLocation.Inventory, 0);
             var item = CreateItem(id: 4, durability: 10, durabilityLossFactor: 100);
             container.Add(item);
@@ -106,12 +108,10 @@ namespace FOMServer.World.Tests
             ushort maxDurability = 100,
             byte durabilityLossFactor = 100)
         {
-            var placeholderOwner = new Player(id, null);
-
             return new Item(
                 id,
                 ItemType.Zanathid5Inflex,
-                placeholderOwner,
+                1,
                 ItemLocation.None,
                 0,
                 value,

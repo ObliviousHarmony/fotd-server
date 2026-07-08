@@ -44,7 +44,7 @@ namespace FOMServer.World.Core.Players
                 }
 
                 item.OnDestroyed += OnItemDestroyed;
-                item.ChangeOwner(Owner, Location, LocationId);
+                item.Move(Owner, Location, LocationId);
             }
 
             OnItemAdded?.Invoke(item);
@@ -64,7 +64,7 @@ namespace FOMServer.World.Core.Players
                 }
 
                 item.OnDestroyed -= OnItemDestroyed;
-                item.ChangeOwner(null, ItemLocation.None, 0);
+                item.Move(null, ItemLocation.None, 0);
             }
 
             OnItemRemoved?.Invoke(item);
@@ -106,7 +106,7 @@ namespace FOMServer.World.Core.Players
 
                     item.OnDestroyed -= OnItemDestroyed;
                     item.OnDestroyed += to.OnItemDestroyed;
-                    item.ChangeOwner(to.Owner, to.Location, to.LocationId);
+                    item.Move(to.Owner, to.Location, to.LocationId);
                 }
             }
 

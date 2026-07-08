@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Buffers;
 
-namespace FOMServer.Shared.Tests
+namespace FOMServer.Shared.Tests.Packets
 {
     public class PinnedArrayPoolTests
     {

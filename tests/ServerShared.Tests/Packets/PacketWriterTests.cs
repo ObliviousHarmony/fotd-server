@@ -2,7 +2,7 @@ using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets.RakNet;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
-namespace FOMServer.Shared.Tests
+namespace FOMServer.Shared.Tests.Packets
 {
     public class PacketWriterTests
     {

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.World.Core.Players;
 
-namespace FOMServer.World.Tests
+namespace FOMServer.World.Tests.Players
 {
     public class ItemTests
     {
@@ -70,11 +70,10 @@ namespace FOMServer.World.Tests
             ushort maxDurability = 100,
             byte durabilityLossFactor = 100)
         {
-            var owner = new Player(1, null);
-
             return new Item(
                 1,
-                ItemType.Zanathid5Inflex, owner,
+                ItemType.Zanathid5Inflex,
+                1,
                 ItemLocation.Inventory,
                 0,
                 value,

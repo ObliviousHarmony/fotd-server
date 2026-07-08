@@ -106,7 +106,9 @@ namespace FOMServer.World
 
             services.AddSingleton<IDbConnectionFactory, DbConnectionFactory>();
 
+            services.AddSingleton<IPlayerLoader, PlayerLoader>();
             services.AddSingleton<IPlayerRegistry, PlayerRegistry>();
+
             return services;
         }
 

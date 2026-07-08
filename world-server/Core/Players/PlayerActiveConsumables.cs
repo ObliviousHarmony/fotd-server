@@ -16,10 +16,28 @@ namespace FOMServer.World.Core.Players
             _player = player;
 
             _consumables = new Slot[PlayerConstants.NumActiveConsumableSlots];
+            foreach (var (_, item) in items)
+            {
+                var slot = item.LocationId;
+                if (slot >= PlayerConstants.NumActiveConsumableSlots)
+                {
+                    throw new ArgumentException($"Item {item.Id} is an invalid slot ({item.LocationId}");
+                }
+
+                if (_consumables[slot] is not null)
+                {
+                    throw new ArgumentException($"Slot {slot} is already occupied by an item");
+                }
+
+                _consumables[slot] = new Slot(player, slot, item);
+            }
+
             for (uint i = 0; i < PlayerConstants.NumActiveConsumableSlots; ++i)
             {
-                items.TryGetValue(i, out var item);
-                _consumables[i] = new Slot(player, i, item);
+                if (_consumables[i] is null)
+                {
+                    _consumables[i] = new Slot(player, i, null);
+                }
             }
         }
 

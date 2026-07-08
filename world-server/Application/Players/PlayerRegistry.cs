@@ -7,6 +7,7 @@ namespace FOMServer.World.Application.Players
 {
     internal class PlayerRegistry : IPlayerRegistry
     {
+        private readonly IPlayerLoader _playerLoader;
         private readonly IPersistenceService _persistenceService;
         private readonly TimeProvider _timeProvider;
         private readonly IPlayerUpdateService _playerUpdateService;
@@ -15,10 +16,12 @@ namespace FOMServer.World.Application.Players
         private readonly ConcurrentDictionary<uint, PendingPlayer> _pendingPlayers = new();
 
         public PlayerRegistry(
+            IPlayerLoader playerLoader,
             IPersistenceService persistenceService,
             TimeProvider timeProvider,
             IPlayerUpdateService playerUpdateService)
         {
+            _playerLoader = playerLoader;
             _persistenceService = persistenceService;
             _timeProvider = timeProvider;
             _playerUpdateService = playerUpdateService;
@@ -41,7 +44,7 @@ namespace FOMServer.World.Application.Players
 
         public Player PrepareForClient(uint playerId, uint clientBinaryAddress)
         {
-            var player = new Player(playerId);
+            var player = _playerLoader.Load(playerId) ?? throw new InvalidOperationException($"Unable to load player {playerId}");
             _pendingPlayers[playerId] = new PendingPlayer(player, clientBinaryAddress, _timeProvider.GetUtcNow());
             return player;
         }
@@ -78,7 +81,6 @@ namespace FOMServer.World.Application.Players
             }
 
             _playersByAddress[sender] = player;
-            _persistenceService.Register(player);
             _playerUpdateService.RegisterRecipient(player);
             return player;
         }
@@ -93,7 +95,8 @@ namespace FOMServer.World.Application.Players
                 {
                     _playersByAddress.TryRemove(new(player.Address, player));
                     _players.TryRemove(new(player.Id, player));
-                });
+                }
+            );
         }
 
         private readonly record struct PendingPlayer

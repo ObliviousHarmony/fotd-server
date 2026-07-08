@@ -16,11 +16,10 @@ namespace FOMServer.World.Core.Players
             uint id,
             uint[] attributes,
             IDictionary<uint, Item> inventory,
-            IDictionary<EquipmentSlot, Item> equipment,
+            IDictionary<uint, Item> equipment,
             IDictionary<uint, Item> weapons,
             IDictionary<uint, Item> activeConsumables,
-            IDictionary<uint, Item> nanomachineAugmentations
-        )
+            IDictionary<uint, Item> nanomachineAugmentations)
         {
             Id = id;
             _currentUpdate.Id = id;

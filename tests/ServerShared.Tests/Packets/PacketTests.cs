@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Metadata;
 
-namespace FOMServer.Shared.Tests
+namespace FOMServer.Shared.Tests.Packets
 {
     public class PacketTests
     {
@@ -31,8 +31,8 @@ namespace FOMServer.Shared.Tests
         {
             var assemblies = new[] {
                 typeof(IPacketHandler).Assembly,
-                typeof(FOMServer.Master.Application.Server).Assembly,
-                typeof(FOMServer.World.Application.Server).Assembly,
+                typeof(Master.Application.Server).Assembly,
+                typeof(World.Application.Server).Assembly,
             };
 
             var handlerInterface = typeof(IPacketHandler);
@@ -60,8 +60,8 @@ namespace FOMServer.Shared.Tests
         {
             var assemblies = new[] {
                 typeof(IPacketHandler).Assembly,
-                typeof(FOMServer.Master.Application.Server).Assembly,
-                typeof(FOMServer.World.Application.Server).Assembly,
+                typeof(Master.Application.Server).Assembly,
+                typeof(World.Application.Server).Assembly,
             };
 
             var attributedTypes = assemblies
