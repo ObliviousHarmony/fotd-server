@@ -20,24 +20,30 @@ namespace FOMServer.World.Core.Players
             _currentUpdate.Id = id;
             Attributes = new PlayerAttributes(this, initialAttributes);
 
-            Attributes.Change(AttributeType.Stamina, 100);
+            // ======================================================
+            // DEVELOPMENT TESTING STUFF
+            // ======================================================
+            var itemIdOffset = id * 1000;
+            Attributes.Change(AttributeType.Stamina, 10000);
             Item[] tempInv = [
-                new Item(1, ItemType.Zanathid5Inflex, this, ItemLocation.Inventory, 0, 100, 1000, 1000, 100)
+                new Item(itemIdOffset + 1, ItemType.Zanathid5Inflex, this, ItemLocation.Inventory, 0, 100, 1000, 1000, 100)
             ];
             var tempEq = new Dictionary<EquipmentSlot, Item>() {
-                {EquipmentSlot.Hat, new Item(2, ItemType.Fedora, this, ItemLocation.Equipment, (uint)EquipmentSlot.Hat, 100, 1000, 1000, 100) },
-                {EquipmentSlot.Back, new Item(3, ItemType.ShieldAugmentation, this, ItemLocation.Equipment, (uint)EquipmentSlot.Back, 100, 1000, 1000, 100) },
-                {EquipmentSlot.Eyes, new Item(4, ItemType.AlmDesignsGlassesBlack, this, ItemLocation.Equipment, (uint)EquipmentSlot.Eyes, 100, 1000, 1000, 100) }
+                {EquipmentSlot.Hat, new Item(itemIdOffset + 2, ItemType.Fedora, this, ItemLocation.Equipment, (uint)EquipmentSlot.Hat, 100, 1000, 1000, 100) },
+                {EquipmentSlot.Back, new Item(itemIdOffset + 3, ItemType.ShieldAugmentation, this, ItemLocation.Equipment, (uint)EquipmentSlot.Back, 100, 1000, 1000, 100) },
+                {EquipmentSlot.Eyes, new Item(itemIdOffset + 4, ItemType.AlmDesignsGlassesBlack, this, ItemLocation.Equipment, (uint)EquipmentSlot.Eyes, 100, 1000, 1000, 100) }
             };
             var tempWep = new Dictionary<uint, Item>() {
-                {0, new Item(5, ItemType.DOA187, this, ItemLocation.Weapons, 0, 100, 1000, 1000, 100) }
+                {0, new Item(itemIdOffset + 5, ItemType.DOA187, this, ItemLocation.Weapons, 0, 100, 1000, 1000, 100) }
             };
             var tempConsume = new Dictionary<uint, Item>() {
-                {0, new Item(6, ItemType.DoublecheeseMystique, this, ItemLocation.ActiveConsumable, 0, 100, 1000, 1000, 100) }
+                {0, new Item(itemIdOffset + 6, ItemType.DoublecheeseMystique, this, ItemLocation.ActiveConsumable, 0, 100, 1000, 1000, 100) }
             };
             var tempAug = new Dictionary<uint, Item>() {
-                {0, new Item(7, ItemType.ElectromyographicRegulator, this, ItemLocation.NanomachineAugmentation, 0, 100, 1000, 1000, 100) }
+                {0, new Item(itemIdOffset + 7, ItemType.ElectromyographicRegulator, this, ItemLocation.NanomachineAugmentation, 0, 100, 1000, 1000, 100) }
             };
+
+            // ======================================================
 
             Inventory = new ItemBag(this, ItemLocation.Inventory, 0, tempInv);
             Equipment = new PlayerEquipment(this, tempEq);

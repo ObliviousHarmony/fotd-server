@@ -212,6 +212,22 @@ namespace FOMServer.World.Core.Players
                 p.Base.Durability = _durability;
                 p.Base.DurabilityLossFactor = _durabilityLossFactor;
 
+                p.Base.Security = ItemSecurity.Normal;
+                p.Base.CreatorPlayerId = _owner?.Id ?? 0;
+                p.Base.Timeout = 0;
+                p.Base.StolenFromPlayerId = 0;
+                p.Base.Classification = 1;
+                p.Base.Quality = ItemQuality.Standard;
+                p.Base.AttributeBonus = 0;
+
+                unsafe
+                {
+                    for (var i = 0; i < BufferSizes.NumItemBalanceSliders; ++i)
+                    {
+                        p.Base.BalanceValues[i] = 0;
+                    }
+                }
+
                 return true;
             }
         }
