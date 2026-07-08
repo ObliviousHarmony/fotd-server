@@ -1,4 +1,3 @@
-using System.Xml.Linq;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Persistence;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
@@ -11,7 +10,6 @@ namespace FOMServer.World.Core.Players
     {
         private readonly Lock _syncRoot = new();
 
-        private readonly Lock _currentUpdateLock = new();
         private PacketWorldUpdate.CharacterUpdate _currentUpdate;
 
         public Player(uint id, uint[]? initialAttributes = null)
@@ -84,7 +82,7 @@ namespace FOMServer.World.Core.Players
 
         public void ApplyUpdate(in PacketWorldUpdate.PlayerUpdate update)
         {
-            lock (_currentUpdateLock)
+            lock (_syncRoot)
             {
                 _currentUpdate = update.Character;
                 _currentUpdate.Id = Id;
@@ -93,7 +91,7 @@ namespace FOMServer.World.Core.Players
 
         public bool WriteTo(ref PacketWorldUpdate p)
         {
-            lock (_currentUpdateLock)
+            lock (_syncRoot)
             {
                 p.Kind = PacketWorldUpdate.Type.Character;
                 p.Character = _currentUpdate;

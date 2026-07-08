@@ -2,6 +2,12 @@ using FOMServer.Shared.Core.Enums;
 
 namespace FOMServer.World.Core.Players
 {
+    internal delegate void ItemAddedCallback(Item item);
+
+    internal delegate void ItemRemovedCallback(Item item);
+
+    internal delegate void ItemTransferredCallback(Item item, Player? owner, ItemLocation location, uint locationId);
+
     internal abstract class ItemContainer
     {
         protected readonly Lock _syncRoot = new();
@@ -15,6 +21,12 @@ namespace FOMServer.World.Core.Players
             Location = location;
             LocationId = locationId;
         }
+
+        public event ItemAddedCallback? OnItemAdded;
+
+        public event ItemRemovedCallback? OnItemRemoved;
+
+        public event ItemTransferredCallback? OnItemTransferred;
 
         public Player? Owner { get; }
 
@@ -35,22 +47,29 @@ namespace FOMServer.World.Core.Players
                 item.ChangeOwner(Owner, Location, LocationId);
             }
 
+            OnItemAdded?.Invoke(item);
+
             return true;
         }
 
         public Item? Remove(uint id)
         {
+            Item? item;
             lock (_syncRoot)
             {
-                var item = Extract(id);
-                if (item is not null)
+                item = Extract(id);
+                if (item is null)
                 {
-                    item.OnDestroyed -= OnItemDestroyed;
-                    item.ChangeOwner(null, ItemLocation.None, 0);
+                    return null;
                 }
 
-                return item;
+                item.OnDestroyed -= OnItemDestroyed;
+                item.ChangeOwner(null, ItemLocation.None, 0);
             }
+
+            OnItemRemoved?.Invoke(item);
+
+            return item;
         }
 
         public bool Transfer(uint id, ItemContainer to)
@@ -64,11 +83,12 @@ namespace FOMServer.World.Core.Players
                 ? (this, to)
                 : (to, this);
 
+            Item? item;
             lock (first._syncRoot)
             {
                 lock (second._syncRoot)
                 {
-                    var item = Extract(id);
+                    item = Extract(id);
                     if (item is null)
                     {
                         return false;
@@ -87,10 +107,12 @@ namespace FOMServer.World.Core.Players
                     item.OnDestroyed -= OnItemDestroyed;
                     item.OnDestroyed += to.OnItemDestroyed;
                     item.ChangeOwner(to.Owner, to.Location, to.LocationId);
-
-                    return true;
                 }
             }
+
+            OnItemTransferred?.Invoke(item, to.Owner, to.Location, to.LocationId);
+
+            return true;
         }
 
         protected abstract bool Insert(Item item);
