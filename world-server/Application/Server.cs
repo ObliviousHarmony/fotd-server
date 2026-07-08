@@ -135,7 +135,7 @@ namespace FOMServer.World.Application
             networkManager.Configure(peer, _clientService.Disconnect);
 
             // Register this world server with the master server.
-            using var registerPacket = new PacketWriter<RegisterWorldPacket>();
+            using var registerPacket = new PacketWriter<RegisterWorldPacket>(NetworkAddress.Unassigned);
             ref var rpData = ref registerPacket.Data;
 
             rpData.WorldIdCount = (byte)_serverSettings.WorldIds.Length;

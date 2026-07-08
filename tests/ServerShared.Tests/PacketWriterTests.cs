@@ -11,15 +11,13 @@ namespace FOMServer.Shared.Tests
         {
             var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
-            using var writer = new PacketWriter<ConnectionRequestAccepted>();
-            writer.AddDestination(address);
+            using var writer = new PacketWriter<ConnectionRequestAccepted>(address);
 
             var packet = writer.Build();
             var addresses = packet.NetworkAddresses;
 
             Assert.Equal(1, addresses.Length);
             Assert.Equal(address, addresses[0]);
-            Assert.False(packet.Broadcast);
 
             packet.Release();
         }
@@ -31,8 +29,7 @@ namespace FOMServer.Shared.Tests
             var address2 = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7778 };
             var address3 = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7779 };
 
-            using var writer = new PacketWriter<ConnectionRequestAccepted>();
-            writer.AddDestination(address1);
+            using var writer = new PacketWriter<ConnectionRequestAccepted>(address1);
             writer.AddDestination(address2);
             writer.AddDestination(address3);
 
@@ -43,65 +40,22 @@ namespace FOMServer.Shared.Tests
             Assert.Equal(address1, addresses[0]);
             Assert.Equal(address2, addresses[1]);
             Assert.Equal(address3, addresses[2]);
-            Assert.False(packet.Broadcast);
 
             packet.Release();
         }
 
         [Fact]
-        public void Build_DefaultsToBroadcastMode()
-        {
-            using var writer = new PacketWriter<ConnectionRequestAccepted>();
-            var packet = writer.Build();
-
-            Assert.True(packet.Broadcast);
-
-            packet.Release();
-        }
-
-        [Fact]
-        public void ExcludeFromBroadcast_SetsExclusionAddress()
-        {
-            var excludeAddress = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
-
-            using var writer = new PacketWriter<ConnectionRequestAccepted>();
-            writer.ExcludeFromBroadcast(excludeAddress);
-
-            var packet = writer.Build();
-            var addresses = packet.NetworkAddresses;
-
-            Assert.True(packet.Broadcast);
-            Assert.Equal(1, addresses.Length);
-            Assert.Equal(excludeAddress, addresses[0]);
-
-            packet.Release();
-        }
-
-        [Fact]
-        public void ExcludeFromBroadcast_ThrowsAfterAddDestination()
+        public void AddDestination_ThrowsInvalidOperation_TooManyPackets()
         {
             var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
-            using var writer = new PacketWriter<ConnectionRequestAccepted>();
-            writer.AddDestination(address);
-
-            try
+            using var writer = new PacketWriter<ConnectionRequestAccepted>(address);
+            for (var i = 1; i < QueuePacket.MaxNetworkAddressesPerPacket; ++i)
             {
-                writer.ExcludeFromBroadcast(address);
-                Assert.Fail("Expected InvalidOperationException");
+                writer.AddDestination(address);
             }
-            catch (InvalidOperationException)
-            {
-            }
-        }
 
-        [Fact]
-        public void AddDestination_ThrowsAfterExcludeFromBroadcast()
-        {
-            var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
-
-            using var writer = new PacketWriter<ConnectionRequestAccepted>();
-            writer.ExcludeFromBroadcast(address);
+            var packet = writer.Build();
 
             try
             {
@@ -111,20 +65,18 @@ namespace FOMServer.Shared.Tests
             catch (InvalidOperationException)
             {
             }
+
+            packet.Release();
         }
 
         [Fact]
-        public void ExcludeFromBroadcast_ThrowsWhenCalledTwice()
+        public void Build_ThrowsInvalidOperation_WhenNotInitialized()
         {
-            var address1 = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
-            var address2 = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7778 };
-
             using var writer = new PacketWriter<ConnectionRequestAccepted>();
-            writer.ExcludeFromBroadcast(address1);
 
             try
             {
-                writer.ExcludeFromBroadcast(address2);
+                writer.Build();
                 Assert.Fail("Expected InvalidOperationException");
             }
             catch (InvalidOperationException)
@@ -135,7 +87,9 @@ namespace FOMServer.Shared.Tests
         [Fact]
         public void Build_ThrowsObjectDisposed_WhenCalledTwice()
         {
-            using var writer = new PacketWriter<ConnectionRequestAccepted>();
+            var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
+
+            using var writer = new PacketWriter<ConnectionRequestAccepted>(address);
             var packet = writer.Build();
 
             try
@@ -151,17 +105,19 @@ namespace FOMServer.Shared.Tests
         }
 
         [Fact]
-        public void Data_ThrowsInvalidOperation_AfterBuild()
+        public void Data_ThrowsObjectDisposed_AfterBuild()
         {
-            using var writer = new PacketWriter<ConnectionRequestAccepted>();
+            var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
+
+            using var writer = new PacketWriter<ConnectionRequestAccepted>(address);
             var packet = writer.Build();
 
             try
             {
                 _ = writer.Data;
-                Assert.Fail("Expected InvalidOperationException");
+                Assert.Fail("Expected ObjectDisposedException");
             }
-            catch (InvalidOperationException)
+            catch (ObjectDisposedException)
             {
             }
 
@@ -169,23 +125,38 @@ namespace FOMServer.Shared.Tests
         }
 
         [Fact]
-        public void AddDestination_ThrowsInvalidOperation_AfterBuild()
+        public void AddDestination_ThrowsObjectDisposed_AfterBuild()
         {
             var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
-            using var writer = new PacketWriter<ConnectionRequestAccepted>();
+            using var writer = new PacketWriter<ConnectionRequestAccepted>(address);
             var packet = writer.Build();
 
             try
             {
                 writer.AddDestination(address);
-                Assert.Fail("Expected InvalidOperationException");
+                Assert.Fail("Expected ObjectDisposedException");
             }
-            catch (InvalidOperationException)
+            catch (ObjectDisposedException)
             {
             }
 
             packet.Release();
+        }
+
+        [Fact]
+        public void QueuePacket_ThrowsInvalidOperation_WhenNotInitialized()
+        {
+            var packet = new QueuePacket();
+
+            try
+            {
+                packet.Release();
+                Assert.Fail("Expected ObjectDisposedException");
+            }
+            catch (InvalidOperationException)
+            {
+            }
         }
     }
 }

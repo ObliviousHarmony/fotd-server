@@ -152,8 +152,7 @@ namespace FOMServer.Shared.Tests
                 addressCount: 1,
                 priority,
                 reliability,
-                orderingChannel,
-                broadcast
+                orderingChannel
             );
         }
 
@@ -171,8 +170,7 @@ namespace FOMServer.Shared.Tests
                 addresses.Length,
                 PacketPriority.Medium,
                 PacketReliability.ReliableOrdered,
-                orderingChannel: 0,
-                broadcast: false
+                orderingChannel: 0
             );
         }
     }

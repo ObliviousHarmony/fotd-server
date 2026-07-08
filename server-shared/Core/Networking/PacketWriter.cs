@@ -1,4 +1,5 @@
 using System.Buffers;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Buffers;
@@ -10,13 +11,13 @@ namespace FOMServer.Shared.Core.Networking
 {
     public ref struct PacketWriter<TPacket> : IDisposable where TPacket : unmanaged
     {
+        private readonly bool _initialized;
         private int _addressCount;
         private NetworkAddress _networkAddress;
         private NetworkAddress[]? _networkAddresses;
         private PacketPriority _priority;
         private PacketReliability _reliability;
         private byte _orderingChannel;
-        private bool _broadcast;
 
         private readonly int _packetSize;
 
@@ -34,24 +35,18 @@ namespace FOMServer.Shared.Core.Networking
         /// </summary>
         private bool _ownsBuffer;
 
-        public PacketWriter()
+        public PacketWriter(in NetworkAddress destination)
         {
             // Since most packets are sent to a single address, we optimize for that case
             // by having a single address field. When more addresses are needed, an
             // array can be set and used in place of the single address.
-            _addressCount = 0;
-            _networkAddress = NetworkAddress.Unassigned;
+            _addressCount = 1;
+            _networkAddress = destination;
             _networkAddresses = null;
 
             _priority = PacketPriority.Medium;
             _reliability = PacketReliability.ReliableOrdered;
             _orderingChannel = 0;
-
-            // In order to keep the packet as a `readonly struct`, we need to declare whether
-            // or not a packet is for broadcast before building. Since direct packets will
-            // always require a call to add a destination, we can default to broadcast
-            // to avoid an extra call for broadcast packets.
-            _broadcast = true;
 
             // Since packets are generally small and very short-lived, we will
             // use the shared array pool to avoid excessive allocations.
@@ -61,31 +56,15 @@ namespace FOMServer.Shared.Core.Networking
 
             // Make sure there's no junk data in the buffer.
             Unsafe.InitBlock(ref _packetData.Array[0], 0, (uint)_packetSize);
-        }
 
-        public PacketWriter(in NetworkAddress destination) : this()
-        {
-            AddDestination(in destination);
-        }
-
-        public PacketWriter(bool broadcast, in NetworkAddress destinationOrExcludeAddress) : this()
-        {
-            _broadcast = broadcast;
-            if (_broadcast)
-            {
-                ExcludeFromBroadcast(in destinationOrExcludeAddress);
-            }
-            else
-            {
-                AddDestination(in destinationOrExcludeAddress);
-            }
+            _initialized = true;
         }
 
         public readonly ref TPacket Data
         {
             get
             {
-                ThrowIfBuilt();
+                ThrowIfInvalid();
                 return ref MemoryMarshal.AsRef<TPacket>(_packetData.AsSpan());
             }
         }
@@ -95,7 +74,7 @@ namespace FOMServer.Shared.Core.Networking
             readonly get => _priority;
             set
             {
-                ThrowIfBuilt();
+                ThrowIfInvalid();
                 _priority = value;
             }
         }
@@ -105,7 +84,7 @@ namespace FOMServer.Shared.Core.Networking
             readonly get => _reliability;
             set
             {
-                ThrowIfBuilt();
+                ThrowIfInvalid();
                 _reliability = value;
             }
         }
@@ -115,7 +94,7 @@ namespace FOMServer.Shared.Core.Networking
             readonly get => _orderingChannel;
             set
             {
-                ThrowIfBuilt();
+                ThrowIfInvalid();
                 _orderingChannel = value;
             }
         }
@@ -131,34 +110,18 @@ namespace FOMServer.Shared.Core.Networking
         /// </remarks>
         public void AddDestination(in NetworkAddress address)
         {
-            ThrowIfBuilt();
-
-            // A broadcast packet is considered explicit if it has an exclusion address.
-            if (_broadcast && _networkAddress != NetworkAddress.Unassigned)
-            {
-                throw new InvalidOperationException("Cannot add destinations after calling ExcludeFromBroadcast");
-            }
+            ThrowIfInvalid();
 
             if (_addressCount >= QueuePacket.MaxNetworkAddressesPerPacket)
             {
                 throw new InvalidOperationException($"Cannot add more than {QueuePacket.MaxNetworkAddressesPerPacket} destinations");
             }
 
-            // Once an address has been added, a packet can no longer be broadcasted.
-            _broadcast = false;
-
             // Just keep adding addresses if we have already added more than one.
             if (_networkAddresses is not null)
             {
                 TryGrowAddressArray();
                 _networkAddresses[_addressCount++] = address;
-                return;
-            }
-
-            if (_networkAddress == NetworkAddress.Unassigned)
-            {
-                _networkAddress = address;
-                _addressCount = 1;
                 return;
             }
 
@@ -169,33 +132,9 @@ namespace FOMServer.Shared.Core.Networking
             _addressCount = 2;
         }
 
-        /// <summary>
-        /// Sets the packet to broadcast mode with an optional exclusion address.
-        /// </summary>
-        public void ExcludeFromBroadcast(in NetworkAddress address)
-        {
-            ThrowIfBuilt();
-
-            if (!_broadcast)
-            {
-                throw new InvalidOperationException("Packet has a destination and cannot be broadcasted");
-            }
-
-            if (_networkAddress != NetworkAddress.Unassigned)
-            {
-                throw new InvalidOperationException("Packet can only exclude a single address from the broadcast");
-            }
-
-            _networkAddress = address;
-            _addressCount = 1;
-        }
-
         public QueuePacket Build()
         {
-            if (!_ownsBuffer)
-            {
-                throw new ObjectDisposedException(nameof(PacketWriter<>));
-            }
+            ThrowIfInvalid();
 
             // Mark that it can't be used anymore.
             _ownsBuffer = false;
@@ -207,8 +146,7 @@ namespace FOMServer.Shared.Core.Networking
                 _addressCount,
                 _priority,
                 _reliability,
-                _orderingChannel,
-                _broadcast
+                _orderingChannel
             );
         }
 
@@ -247,11 +185,16 @@ namespace FOMServer.Shared.Core.Networking
             _networkAddresses = newArray;
         }
 
-        private readonly void ThrowIfBuilt()
+        private readonly void ThrowIfInvalid()
         {
+            if (!_initialized)
+            {
+                throw new InvalidOperationException("The PacketWriter has not been initialized");
+            }
+
             if (!_ownsBuffer)
             {
-                throw new InvalidOperationException("Packet cannot be modified after building");
+                throw new ObjectDisposedException(nameof(PacketWriter<>));
             }
         }
     }

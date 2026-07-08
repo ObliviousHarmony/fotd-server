@@ -36,7 +36,7 @@ namespace FOMServer.Master.Application.Handlers
                 return;
             }
 
-            using var response = new PacketWriter<Chat>(true, sender);
+            using var response = new PacketWriter<Chat>(sender);
             ref var rData = ref response.Data;
             rData.Channel = p.Channel;
             rData.SenderId = p.SenderId;
