@@ -4,7 +4,7 @@ using FOMServer.World.Application.Players;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
-using WorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
+using PacketWorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
 using WorldUpdatePacket = FOMServer.Shared.Core.Packets.WorldUpdate;
 
 namespace FOMServer.World.Tests
@@ -148,7 +148,7 @@ namespace FOMServer.World.Tests
 
         private static void Move(Player player, ushort animation)
         {
-            player.ApplyUpdate(new WorldUpdate.PlayerUpdate { Character = new() { AnimationId = animation } });
+            player.ApplyUpdate(new PacketWorldUpdate.PlayerUpdate { Character = new() { AnimationId = animation } });
         }
 
         private sealed class Fixture
@@ -171,7 +171,7 @@ namespace FOMServer.World.Tests
             }
         }
 
-        private sealed record Capture(uint PlayerId, byte UpdateCount, WorldUpdate[] Entries);
+        private sealed record Capture(uint PlayerId, byte UpdateCount, PacketWorldUpdate[] Entries);
 
         private sealed class CapturingSender : IClientPacketSender
         {
@@ -182,7 +182,7 @@ namespace FOMServer.World.Tests
                 // Decode immediately: the packet's buffer is pooled and released here.
                 var update = MemoryMarshal.Read<WorldUpdatePacket>(packet.Data);
 
-                var entries = new WorldUpdate[update.UpdateCount];
+                var entries = new PacketWorldUpdate[update.UpdateCount];
                 for (var i = 0; i < update.UpdateCount; i++)
                 {
                     entries[i] = update.Updates[i];

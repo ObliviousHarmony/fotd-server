@@ -4,7 +4,7 @@ using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Ticking;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
-using WorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
+using PacketWorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
 using WorldUpdatePacket = FOMServer.Shared.Core.Packets.WorldUpdate;
 
 namespace FOMServer.World.Application.Players
@@ -75,12 +75,13 @@ namespace FOMServer.World.Application.Players
                 // its newer state is picked up next tick rather than lost.
                 Interlocked.Exchange(ref source.IsPending, 0);
 
-                var snapshot = source.Player.CaptureUpdate();
+                var update = new PacketWorldUpdate();
+                source.Player.WriteTo(ref update);
                 foreach (var recipient in _recipientSnapshot)
                 {
                     if (recipient.Player.Id != source.Player.Id)
                     {
-                        recipient.Buffer.Add(snapshot);
+                        recipient.Buffer.Add(update);
                         hasUpdatesToSend = true;
                     }
                 }
@@ -105,7 +106,7 @@ namespace FOMServer.World.Application.Players
             return ValueTask.CompletedTask;
         }
 
-        private void SendTo(Player recipient, List<WorldUpdate.CharacterUpdate> sendBuffer)
+        private void SendTo(Player recipient, List<PacketWorldUpdate> sendBuffer)
         {
             for (var offset = 0; offset < sendBuffer.Count; offset += WorldUpdatePacket.MaxWorldUpdates)
             {
@@ -118,11 +119,7 @@ namespace FOMServer.World.Application.Players
                 data.UpdateCount = count;
                 for (var i = 0; i < count; i++)
                 {
-                    data.Updates[i] = new WorldUpdate
-                    {
-                        Kind = WorldUpdate.Type.Character,
-                        Character = sendBuffer[offset + i],
-                    };
+                    data.Updates[i] = sendBuffer[offset + i];
                 }
 
                 _clientPacketSender.Send(writer.Build());
@@ -140,7 +137,7 @@ namespace FOMServer.World.Application.Players
 
             public Player Player { get; }
 
-            public List<WorldUpdate.CharacterUpdate> Buffer { get; } = [];
+            public List<PacketWorldUpdate> Buffer { get; } = [];
         }
     }
 }

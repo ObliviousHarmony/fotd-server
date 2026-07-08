@@ -3,6 +3,7 @@ using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.World.Core.Exceptions;
+using PacketPlayerAttributes = FOMServer.Shared.Core.Packets.Types.PlayerAttributes;
 
 namespace FOMServer.World.Core.Players
 {
@@ -63,7 +64,33 @@ namespace FOMServer.World.Core.Players
         {
             _player = player;
 
-            initialValues?.CopyTo(_values, 0);
+            if (initialValues != null)
+            {
+                if (initialValues.Length != AttributeCount)
+                {
+                    throw new ArgumentException(
+                        $"Expected {AttributeCount} values but got {initialValues.Length}",
+                        nameof(initialValues));
+                }
+
+                for (var i = 0; i < AttributeCount; i++)
+                {
+                    var max = s_metadata[i].Max;
+                    if (initialValues[i] > max)
+                    {
+                        throw new ArgumentException($"Value for {(AttributeType)i} is {initialValues[i]}, which exceeds max ({max})", nameof(initialValues));
+                    }
+
+                    _values[i] = initialValues[i];
+                }
+            }
+            else
+            {
+                for (var i = 0; i < AttributeCount; i++)
+                {
+                    _values[i] = s_metadata[i].Default;
+                }
+            }
         }
 
         public event PersistableChangeCallback? OnPersistableChange;
@@ -80,29 +107,11 @@ namespace FOMServer.World.Core.Players
             return s_metadata;
         }
 
-        /// <summary>
-        /// Gets the current value of an attribute, clamped to [0, Max].
-        /// </summary>
         public uint Get(AttributeType attribute)
         {
-            var index = (int)attribute;
-            return Math.Min(Volatile.Read(ref _values[index]), s_metadata[index].Max);
+            return Volatile.Read(ref _values[(int)attribute]);
         }
 
-        /// <summary>
-        /// Atomically changes an attribute by a delta, clamped to [0, Max].
-        /// </summary>
-        /// <remarks>
-        /// Uses a compare-and-swap loop so the stored value is always kept within
-        /// bounds. A delta that would breach a bound is clamped before it is written,
-        /// so it can never leave phantom under/overflow behind for a later change to
-        /// pay back. A change that clamps to a no-op neither writes nor raises
-        /// <see cref="OnPersistableChange"/>.
-        ///
-        /// Throws if the attribute requires locking and spins if it's currently locked.
-        /// </remarks>
-        /// <param name="attribute">The attribute to modify.</param>
-        /// <param name="delta">The amount to change (negative to subtract).</param>
         public uint Change(AttributeType attribute, int delta)
         {
             var index = (int)attribute;
@@ -110,8 +119,7 @@ namespace FOMServer.World.Core.Players
 
             if (metadata.LockRequired)
             {
-                throw new InvalidOperationException(
-                    $"{attribute} requires locking. Use Lock() to acquire exclusive access");
+                throw new InvalidOperationException($"Changing {attribute} requires a lock");
             }
 
             uint current, updated;
@@ -138,13 +146,19 @@ namespace FOMServer.World.Core.Players
             return updated;
         }
 
-        /// <summary>
-        /// Acquires an exclusive lock on an attribute.
-        /// </summary>
-        /// <param name="attribute">The attribute to lock.</param>
-        /// <exception cref="AttributeDeadlockException">
-        /// Thrown if the lock cannot be acquired within the timeout period.
-        /// </exception>
+        public bool WriteTo(ref PacketPlayerAttributes packet)
+        {
+            unsafe
+            {
+                for (var i = 0; i < (int)AttributeType.NUM_ATTRIBUTE_TYPES; ++i)
+                {
+                    packet.Values[i] = Volatile.Read(ref _values[i]);
+                }
+            }
+
+            return true;
+        }
+
         public LockedAttribute Lock(AttributeType attribute)
         {
             return new LockedAttribute(this, attribute);
@@ -183,40 +197,41 @@ namespace FOMServer.World.Core.Players
                 }
             }
 
-            /// <summary>
-            /// Gets the current value, clamped to [0, Max].
-            /// </summary>
+            public readonly AttributeMetadata Metadata => s_metadata[(int)_attribute];
+
+            private uint Value
+            {
+                readonly get => _parent._values[(int)_attribute];
+
+                set
+                {
+                    var v = Math.Min(value, Metadata.Max);
+                    if (v == _parent._values[(int)_attribute])
+                    {
+                        return;
+                    }
+
+                    _parent._values[(int)_attribute] = v;
+                    _changed = true;
+                }
+            }
+
             public readonly uint Get()
             {
-                var index = (int)_attribute;
-                return Math.Min(_parent._values[index], s_metadata[index].Max);
+                return Value;
             }
 
-            /// <summary>
-            /// Sets the attribute to an absolute value, clamped to [0, Max].
-            /// </summary>
             public void Set(uint value)
             {
-                var index = (int)_attribute;
-                _parent._values[index] = Math.Min(value, s_metadata[index].Max);
-                _changed = true;
+                Value = value;
             }
 
-            /// <summary>
-            /// Changes the attribute by a delta and clamps the result to [0, Max].
-            /// </summary>
             public uint Change(int delta)
             {
-                var index = (int)_attribute;
-                var clamped = (uint)Math.Clamp(_parent._values[index] + delta, 0L, s_metadata[index].Max);
-                _parent._values[index] = clamped;
-                _changed = true;
-                return clamped;
+                Value = (uint)Math.Max(Value + delta, 0L);
+                return Value;
             }
 
-            /// <summary>
-            /// Releases the lock on the attribute.
-            /// </summary>
             public void Dispose()
             {
                 if (_disposed)

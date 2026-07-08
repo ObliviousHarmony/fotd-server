@@ -120,13 +120,7 @@ namespace FOMServer.World.Tests
                 value,
                 durability,
                 maxDurability,
-                durabilityLossFactor,
-                ItemSecurity.Normal,
-                0,
-                0,
-                ItemQuality.Standard,
-                0,
-                [0, 0, 0, 0]
+                durabilityLossFactor
             );
         }
     }

@@ -37,15 +37,12 @@ namespace FOMServer.World.Tests
         }
 
         [Fact]
-        public void Get_ClampsAboveMax()
+        public void Constructor_WithInitialValues_ThrowsWhenOver()
         {
             var initial = new uint[PlayerAttributes.AttributeCount];
             initial[(int)AttributeType.Health] = 9999;
 
-            var attrs = CreateAttributes(initial);
-
-            var max = PlayerAttributes.GetMetadata(AttributeType.Health).Max;
-            Assert.Equal((uint)max, attrs.Get(AttributeType.Health));
+            Assert.Throws<ArgumentException>(() => CreateAttributes(initial));
         }
 
         [Fact]

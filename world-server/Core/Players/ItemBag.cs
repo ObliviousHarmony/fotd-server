@@ -1,5 +1,7 @@
 using System.Threading;
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
+using PacketItemList = FOMServer.Shared.Core.Packets.Types.ItemList;
 
 namespace FOMServer.World.Core.Players
 {
@@ -140,6 +142,32 @@ namespace FOMServer.World.Core.Players
                     return true;
                 }
             }
+        }
+
+        public bool WriteTo(ref PacketItemList itemList)
+        {
+            Item[] items;
+            lock (_syncRoot)
+            {
+                items = [.. _items.Values];
+            }
+
+            if (items.Length > BufferSizes.MaxItemListSize)
+            {
+                throw new InvalidOperationException($"Bag contains too many items, has {items.Length}");
+            }
+
+            var i = 0;
+            foreach (var item in items)
+            {
+                if (items[i].WriteTo(ref itemList.Items[i]))
+                {
+                    i++;
+                }
+            }
+            itemList.ItemCount = (uint)i;
+
+            return true;
         }
 
         private void AddToTypeIndex(Item item)

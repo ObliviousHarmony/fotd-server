@@ -3,6 +3,7 @@ using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Core.Persistence;
+using PacketItem = FOMServer.Shared.Core.Packets.Types.Item;
 
 namespace FOMServer.World.Core.Players
 {
@@ -29,12 +30,6 @@ namespace FOMServer.World.Core.Players
 
         private readonly ushort _maxDurability;
         private readonly byte _durabilityLossFactor;
-        private readonly ItemSecurity _security;
-        private readonly uint _timeout;
-        private readonly byte _classification;
-        private readonly ItemQuality _quality;
-        private readonly byte _attributeBonus;
-        private readonly byte[] _balanceValues = new byte[BufferSizes.NumItemBalanceSliders];
 
         public Item(
             uint id,
@@ -45,13 +40,7 @@ namespace FOMServer.World.Core.Players
             ushort value,
             ushort durability,
             ushort maxDurability,
-            byte durabilityLossFactor,
-            ItemSecurity security,
-            uint timeout,
-            byte classification,
-            ItemQuality quality,
-            byte attributeBonus,
-            ReadOnlySpan<byte> balanceValues
+            byte durabilityLossFactor
         )
         {
             Id = id;
@@ -65,16 +54,6 @@ namespace FOMServer.World.Core.Players
 
             _maxDurability = maxDurability;
             _durabilityLossFactor = durabilityLossFactor;
-            _security = security;
-            _timeout = timeout;
-            _classification = classification;
-            _quality = quality;
-            _attributeBonus = attributeBonus;
-
-            for (var i = 0; i < balanceValues.Length && i < _balanceValues.Length; i++)
-            {
-                _balanceValues[i] = balanceValues[i];
-            }
 
             _destroyed = false;
         }
@@ -215,6 +194,26 @@ namespace FOMServer.World.Core.Players
             }
 
             return false;
+        }
+
+        public bool WriteTo(ref PacketItem item)
+        {
+            lock (_syncRoot)
+            {
+                if (_destroyed)
+                {
+                    return false;
+                }
+
+                item.Id = Id;
+                item.Base.Type = Type;
+                item.Base.Value = _value;
+                item.Base.MaxDurability = _maxDurability;
+                item.Base.Durability = _durability;
+                item.Base.DurabilityLossFactor = _durabilityLossFactor;
+
+                return true;
+            }
         }
 
         public override string ToString()

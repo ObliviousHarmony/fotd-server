@@ -1,6 +1,7 @@
 using FOMServer.Shared.Core.Persistence;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
-using WorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
+using PacketWorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
+using RegisterClientReturnPacket = FOMServer.Shared.Core.Packets.RegisterClientReturn;
 
 namespace FOMServer.World.Core.Players
 {
@@ -9,14 +10,14 @@ namespace FOMServer.World.Core.Players
         private readonly Lock _syncRoot = new();
 
         private readonly Lock _currentUpdateLock = new();
-        private WorldUpdate.CharacterUpdate _currentUpdate;
+        private PacketWorldUpdate.CharacterUpdate _currentUpdate;
 
         public Player(uint id, uint[]? initialAttributes = null)
         {
             Id = id;
-            Attributes = new PlayerAttributes(this, initialAttributes);
-
             _currentUpdate.Id = id;
+            Attributes = new PlayerAttributes(this, initialAttributes);
+            Inventory = new ItemBag(this, Shared.Core.Enums.ItemLocation.Inventory, 0, []);
         }
 
         public event PersistableChangeCallback? OnPersistableChange;
@@ -26,6 +27,8 @@ namespace FOMServer.World.Core.Players
         public NetworkAddress Address { get; private set; } = NetworkAddress.Unassigned;
 
         public PlayerAttributes Attributes { get; }
+
+        public ItemBag Inventory { get; }
 
         public void ClaimForClient(NetworkAddress address)
         {
@@ -39,7 +42,7 @@ namespace FOMServer.World.Core.Players
             }
         }
 
-        public void ApplyUpdate(in WorldUpdate.PlayerUpdate update)
+        public void ApplyUpdate(in PacketWorldUpdate.PlayerUpdate update)
         {
             lock (_currentUpdateLock)
             {
@@ -48,12 +51,35 @@ namespace FOMServer.World.Core.Players
             }
         }
 
-        public WorldUpdate.CharacterUpdate CaptureUpdate()
+        public bool WriteTo(ref PacketWorldUpdate packet)
         {
             lock (_currentUpdateLock)
             {
-                return _currentUpdate;
+                packet.Kind = PacketWorldUpdate.Type.Character;
+                packet.Character = _currentUpdate;
             }
+
+            return true;
+        }
+
+        public bool WriteTo(ref RegisterClientReturnPacket packet)
+        {
+            lock (_syncRoot)
+            {
+                packet.PlayerId = Id;
+                packet.Profile.PlayerName = "Naruto Uzumaki";
+
+                packet.Avatar.Face = 5;
+                packet.Avatar.Hair = 2;
+                packet.Avatar.Shirt = 0;
+                packet.Avatar.Bottoms = 0;
+                packet.Avatar.Shoes = 0;
+
+                Attributes.WriteTo(ref packet.Attributes);
+                Inventory.WriteTo(ref packet.Inventory);
+            }
+
+            return true;
         }
     }
 }
