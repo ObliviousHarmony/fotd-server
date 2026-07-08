@@ -1,25 +1,16 @@
-using System.Threading;
 using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using PacketItemList = FOMServer.Shared.Core.Packets.Types.ItemList;
 
 namespace FOMServer.World.Core.Players
 {
-    internal class ItemBag
+    internal class ItemBag : ItemContainer
     {
-        private static long s_nextLockId;
-        private readonly long _lockId = Interlocked.Increment(ref s_nextLockId);
-
-        private readonly Lock _syncRoot = new();
         private readonly Dictionary<uint, Item> _items = [];
         private readonly Dictionary<ItemType, Dictionary<uint, Item>> _itemsByType = [];
 
-        public ItemBag(Player? owner, ItemLocation location, uint locationId, ReadOnlySpan<Item> items)
+        public ItemBag(Player? owner, ItemLocation location, uint locationId, ReadOnlySpan<Item> items) : base(owner, location, locationId)
         {
-            Owner = owner;
-            Location = location;
-            LocationId = locationId;
-
             foreach (var item in items)
             {
                 if (!item.BelongsIn(owner, Location, LocationId))
@@ -29,56 +20,7 @@ namespace FOMServer.World.Core.Players
                         nameof(items));
                 }
 
-                if (!_items.TryAdd(item.Id, item))
-                {
-                    throw new ArgumentException($"Duplicate item id {item.Id}", nameof(items));
-                }
-
-                AddToTypeIndex(item);
-
-                item.OnDestroyed += OnItemDestroyed;
-            }
-        }
-
-        public Player? Owner { get; }
-
-        public ItemLocation Location { get; }
-
-        public uint LocationId { get; }
-
-        public bool Add(Item item)
-        {
-            lock (_syncRoot)
-            {
-                if (!_items.TryAdd(item.Id, item))
-                {
-                    return false;
-                }
-
-                AddToTypeIndex(item);
-
-                item.OnDestroyed += OnItemDestroyed;
-                item.ChangeOwner(Owner, Location, LocationId);
-
-                return true;
-            }
-        }
-
-        public Item? Remove(uint id)
-        {
-            lock (_syncRoot)
-            {
-                if (!_items.Remove(id, out var item))
-                {
-                    return null;
-                }
-
-                RemoveFromTypeIndex(item);
-
-                item.OnDestroyed -= OnItemDestroyed;
-                item.ChangeOwner(null, ItemLocation.None, 0);
-
-                return item;
+                Insert(item);
             }
         }
 
@@ -109,42 +51,7 @@ namespace FOMServer.World.Core.Players
             }
         }
 
-        public bool Transfer(uint id, ItemBag toBag)
-        {
-            if (ReferenceEquals(this, toBag))
-            {
-                return true;
-            }
-
-            var (first, second) = _lockId <= toBag._lockId
-                ? (this, toBag)
-                : (toBag, this);
-
-            lock (first._syncRoot)
-            {
-                lock (second._syncRoot)
-                {
-                    if (!_items.TryGetValue(id, out var item) || toBag._items.ContainsKey(id))
-                    {
-                        return false;
-                    }
-
-                    _items.Remove(id);
-                    RemoveFromTypeIndex(item);
-
-                    toBag._items.Add(id, item);
-                    toBag.AddToTypeIndex(item);
-
-                    item.OnDestroyed -= OnItemDestroyed;
-                    item.OnDestroyed += toBag.OnItemDestroyed;
-                    item.ChangeOwner(toBag.Owner, toBag.Location, toBag.LocationId);
-
-                    return true;
-                }
-            }
-        }
-
-        public bool WriteTo(ref PacketItemList itemList)
+        public bool WriteTo(ref PacketItemList p)
         {
             Item[] items;
             lock (_syncRoot)
@@ -160,48 +67,65 @@ namespace FOMServer.World.Core.Players
             var i = 0;
             foreach (var item in items)
             {
-                if (items[i].WriteTo(ref itemList.Items[i]))
+                if (items[i].WriteTo(ref p.Items[i]))
                 {
                     i++;
                 }
             }
-            itemList.ItemCount = (uint)i;
+            p.ItemCount = (uint)i;
 
             return true;
         }
 
-        private void AddToTypeIndex(Item item)
+        protected override bool Insert(Item item)
         {
-            lock (_syncRoot)
+            if (!_items.TryAdd(item.Id, item))
             {
-                if (!_itemsByType.TryGetValue(item.Type, out var byType))
-                {
-                    byType = [];
-                    _itemsByType[item.Type] = byType;
-                }
-
-                byType[item.Id] = item;
+                return false;
             }
+
+            InsertTypeIndex(item);
+            return true;
         }
 
-        private void RemoveFromTypeIndex(Item item)
+        protected override Item? Extract(uint id)
         {
-            lock (_syncRoot)
+            if (!_items.Remove(id, out var item))
             {
-                if (_itemsByType.TryGetValue(item.Type, out var byType))
-                {
-                    byType.Remove(item.Id);
-                }
+                return null;
             }
+
+            ExtractTypeIndex(item);
+
+            return item;
         }
 
-        private void OnItemDestroyed(Item item)
+        protected override void OnItemDestroyed(Item item)
         {
             lock (_syncRoot)
             {
                 item.OnDestroyed -= OnItemDestroyed;
                 _items.Remove(item.Id);
-                RemoveFromTypeIndex(item);
+                ExtractTypeIndex(item);
+            }
+        }
+
+        private void InsertTypeIndex(Item item)
+        {
+            if (!_itemsByType.TryGetValue(item.Type, out var byType))
+            {
+                byType = [];
+                _itemsByType[item.Type] = byType;
+            }
+
+            byType[item.Id] = item;
+        }
+
+        private void ExtractTypeIndex(Item item)
+        {
+            if (_itemsByType.TryGetValue(item.Type, out var byType))
+            {
+                byType.Remove(item.Id);
             }
         }
     }
