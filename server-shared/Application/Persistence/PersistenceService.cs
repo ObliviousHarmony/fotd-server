@@ -92,8 +92,7 @@ namespace FOMServer.Shared.Application.Persistence
 
         private void Enqueue(
             IPersistable entity,
-            IPersistable? association = null,
-            params ReadOnlySpan<IPersistable?> additionalAssociations)
+            params ReadOnlySpan<IPersistable?> associations)
         {
             var state = _entityStates.GetOrCreateValue(entity);
 
@@ -106,13 +105,7 @@ namespace FOMServer.Shared.Application.Persistence
             var version = Volatile.Read(in state.Version);
 
             // Record blocking dependencies on each association
-            if (association is not null)
-            {
-                var assocState = _entityStates.GetOrCreateValue(association);
-                assocState.AddBlockingDependency(entity, version);
-            }
-
-            foreach (var assoc in additionalAssociations)
+            foreach (var assoc in associations)
             {
                 if (assoc is not null)
                 {

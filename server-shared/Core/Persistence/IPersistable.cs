@@ -7,8 +7,8 @@ namespace FOMServer.Shared.Core.Persistence
     /// </summary>
     public delegate void PersistableChangeCallback(
         IPersistable entity,
-        IPersistable? association = null,
-        params ReadOnlySpan<IPersistable?> additionalAssociations);
+        params ReadOnlySpan<IPersistable?> associations
+    );
 
     public interface IPersistable
     {

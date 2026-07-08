@@ -280,10 +280,9 @@ namespace FOMServer.Shared.Tests
             public event PersistableChangeCallback? OnPersistableChange;
 
             public void MarkChanged(
-                IPersistable? association = null,
-                params ReadOnlySpan<IPersistable?> additionalAssociations)
+                params ReadOnlySpan<IPersistable?> associations)
             {
-                OnPersistableChange?.Invoke(this, association, additionalAssociations);
+                OnPersistableChange?.Invoke(this, associations);
             }
         }
 
