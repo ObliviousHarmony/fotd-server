@@ -196,7 +196,7 @@ namespace FOMServer.World.Core.Players
             return false;
         }
 
-        public bool WriteTo(ref PacketItem item)
+        public bool WriteTo(ref PacketItem p)
         {
             lock (_syncRoot)
             {
@@ -205,12 +205,12 @@ namespace FOMServer.World.Core.Players
                     return false;
                 }
 
-                item.Id = Id;
-                item.Base.Type = Type;
-                item.Base.Value = _value;
-                item.Base.MaxDurability = _maxDurability;
-                item.Base.Durability = _durability;
-                item.Base.DurabilityLossFactor = _durabilityLossFactor;
+                p.Id = Id;
+                p.Base.Type = Type;
+                p.Base.Value = _value;
+                p.Base.MaxDurability = _maxDurability;
+                p.Base.Durability = _durability;
+                p.Base.DurabilityLossFactor = _durabilityLossFactor;
 
                 return true;
             }

@@ -146,13 +146,13 @@ namespace FOMServer.World.Core.Players
             return updated;
         }
 
-        public bool WriteTo(ref PacketPlayerAttributes packet)
+        public bool WriteTo(ref PacketPlayerAttributes p)
         {
             unsafe
             {
                 for (var i = 0; i < (int)AttributeType.NUM_ATTRIBUTE_TYPES; ++i)
                 {
-                    packet.Values[i] = Volatile.Read(ref _values[i]);
+                    p.Values[i] = Volatile.Read(ref _values[i]);
                 }
             }
 

@@ -73,7 +73,7 @@ namespace FOMServer.Shared.Core.Packets
             private Item _element;
         }
 
-        [InlineArray(PlayerConstants.NumConsumableSlots)]
+        [InlineArray(PlayerConstants.NumActiveConsumableSlots)]
         public struct ActiveConsumablesArray
         {
             private Item _element;

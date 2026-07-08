@@ -9,7 +9,7 @@ namespace FOMServer.Shared.Core.Constants
     {
         public const int NumWeaponSlots = 3; // NUM_WEAPON_SLOTS
         public const int NumQuickSlots = 4; // NUM_QUICK_SLOTS
-        public const int NumConsumableSlots = 3; // NUM_CONSUMABLE_SLOTS
+        public const int NumActiveConsumableSlots = 3; // NUM_ACTIVE_CONSUMABLE_SLOTS
         public const int NumNanomachineAugmentationSlots = 3; // NUM_NANOMACHINE_AUGMENTATION_SLOTS
 
         /// <summary>

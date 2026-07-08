@@ -17,10 +17,13 @@ namespace FOMServer.World.Tests
         }
 
         [Fact]
-        public void Constructor_WithoutInitialValues_DefaultsToZero()
+        public void Constructor_WithoutInitialValues_UsesDefaults()
         {
             var attrs = CreateAttributes();
-            Assert.Equal(0u, attrs.Get(AttributeType.Health));
+            Assert.Equal(
+                PlayerAttributes.GetMetadata(AttributeType.Health).Default,
+                attrs.Get(AttributeType.Health)
+            );
         }
 
         [Fact]
@@ -111,9 +114,21 @@ namespace FOMServer.World.Tests
             var fired = false;
             attrs.OnPersistableChange += (_, _, _) => fired = true;
 
-            attrs.Change(AttributeType.Health, 10);
+            attrs.Change(AttributeType.Health, -100);
 
             Assert.True(fired);
+        }
+
+        [Fact]
+        public void Change_DoesNotFirePersistableChangeWhenUnchanged()
+        {
+            var attrs = CreateAttributes();
+            var fired = false;
+            attrs.OnPersistableChange += (_, _, _) => fired = true;
+
+            attrs.Change(AttributeType.Health, 100);
+
+            Assert.False(fired);
         }
 
         [Fact]

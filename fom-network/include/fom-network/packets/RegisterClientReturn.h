@@ -33,7 +33,7 @@ struct RegisterClientReturn {
   Type::ItemList inventory;
   Type::Item equipment[Enum::NUM_EQUIPMENT_SLOTS];
   Type::Item weapons[Constants::NUM_WEAPON_SLOTS];
-  Type::Item activeConsumables[Constants::NUM_CONSUMABLE_SLOTS];
+  Type::Item activeConsumables[Constants::NUM_ACTIVE_CONSUMABLE_SLOTS];
   Type::Item
       nanomachineAugmentations[Constants::NUM_NANOMACHINE_AUGMENTATION_SLOTS];
   Type::ItemList storage;

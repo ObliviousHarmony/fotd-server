@@ -45,7 +45,7 @@ void RegisterClientReturnSerializer::Write(
     if (data->weapons[i].id != 0) itemSerializer.Write(bs, data->weapons[i]);
   }
 
-  for (int i = 0; i < Constants::NUM_CONSUMABLE_SLOTS; ++i) {
+  for (int i = 0; i < Constants::NUM_ACTIVE_CONSUMABLE_SLOTS; ++i) {
     bs.Write(data->activeConsumables[i].id != 0);
     if (data->activeConsumables[i].id != 0)
       itemSerializer.Write(bs, data->activeConsumables[i]);
