@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
 
@@ -47,7 +48,7 @@ namespace FOMServer.Shared.Tests.Items
 
             var transferred = containerA.Transfer(7, containerB);
 
-            Assert.True(transferred);
+            Assert.NotNull(transferred);
             Assert.Null(containerA.Remove(7));
             Assert.NotNull(containerB.Remove(7));
         }
@@ -67,7 +68,7 @@ namespace FOMServer.Shared.Tests.Items
 
             var transferred = containerA.Transfer(9, containerB);
 
-            Assert.False(transferred);
+            Assert.Null(transferred);
             Assert.Same(itemA, containerA.Remove(9));
         }
 
@@ -135,6 +136,11 @@ namespace FOMServer.Shared.Tests.Items
             }
 
             public ItemLocationRef Location => new(_type, _id, null);
+
+            public ItemContainer? GetItemContainer(ItemContainerType type, ItemSlotType slotType)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         private sealed class TestItemContainer : ItemContainer
@@ -145,12 +151,22 @@ namespace FOMServer.Shared.Tests.Items
             {
             }
 
-            protected override bool Insert(Item item)
+            protected override Item? GetCore(uint id)
+            {
+                if (!_items.TryGetValue(id, out var item))
+                {
+                    return null;
+                }
+
+                return item;
+            }
+
+            protected override bool InsertCore(Item item)
             {
                 return _items.TryAdd(item.Id, item);
             }
 
-            protected override Item? Extract(uint id)
+            protected override Item? ExtractCore(uint id)
             {
                 _items.Remove(id, out var item);
                 return item;

@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets.Types;
@@ -20,7 +21,7 @@ namespace FOMServer.Shared.Core.Items
             foreach (var (_, item) in items)
             {
                 item.BindLocation(Location, SlotType);
-                Insert(item);
+                InsertCore(item);
             }
         }
 
@@ -80,7 +81,17 @@ namespace FOMServer.Shared.Core.Items
             p.ItemCount = (uint)i;
         }
 
-        protected override bool Insert(Item item)
+        protected override Item? GetCore(uint id)
+        {
+            if (!_items.TryGetValue(id, out var item))
+            {
+                return null;
+            }
+
+            return item;
+        }
+
+        protected override bool InsertCore(Item item)
         {
             if (!_items.TryAdd(item.Id, item))
             {
@@ -92,7 +103,7 @@ namespace FOMServer.Shared.Core.Items
             return true;
         }
 
-        protected override Item? Extract(uint id)
+        protected override Item? ExtractCore(uint id)
         {
             if (!_items.Remove(id, out var item))
             {

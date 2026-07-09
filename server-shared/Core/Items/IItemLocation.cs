@@ -6,6 +6,8 @@ namespace FOMServer.Shared.Core.Items
     public interface IItemLocation
     {
         ItemLocationRef Location { get; }
+
+        ItemContainer? GetItemContainer(ItemContainerType type, ItemSlotType slotType);
     }
 
     public readonly record struct ItemLocationRef(

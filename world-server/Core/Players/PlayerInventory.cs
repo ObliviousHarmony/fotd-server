@@ -60,32 +60,23 @@ namespace FOMServer.World.Core.Players
 
         public ItemLocationRef Location => new(ItemLocationType.Player, _player.Id, _player);
 
-        public bool MoveItems(ReadOnlySpan<uint> ids, ItemContainerType fromType, ItemSlotType fromSlot, ItemContainerType toType, ItemSlotType toSlot)
+        public ItemContainer? GetItemContainer(ItemContainerType type, ItemSlotType slotType)
         {
-            foreach (var id in ids)
+            if (type == ItemContainerType.Inventory)
             {
-                var from = GetContainer(fromType, fromSlot);
-
-                if (toType == ItemContainerType.Destroy)
+                return _backpackItems;
+            }
+            else if (type is ItemContainerType.Weapons or ItemContainerType.Equipment)
+            {
+                if (!_itemSlots.TryGetValue(slotType, out var slot))
                 {
-                    var item = from.Remove(id);
-                    if (item is null)
-                    {
-                        return false;
-                    }
-
-                    item.MarkDestroyed();
-                    continue;
+                    return null;
                 }
 
-                var to = GetContainer(toType, toSlot);
-                if (!from.Transfer(id, to))
-                {
-                    return false;
-                }
+                return slot;
             }
 
-            return true;
+            return null;
         }
 
         public void WriteTo(ref PacketInventory inventory, ref PacketWeapons weapons, ref PacketEquipment equipment)
@@ -100,27 +91,6 @@ namespace FOMServer.World.Core.Players
             for (var slot = ItemSlotType.EquipmentStart; slot < ItemSlotType.EquipmentEnd; ++slot)
             {
                 _itemSlots[slot].WriteTo(ref equipment[slot - ItemSlotType.EquipmentStart]);
-            }
-        }
-
-        private ItemContainer GetContainer(ItemContainerType type, ItemSlotType slotType = ItemSlotType.None)
-        {
-            if (type == ItemContainerType.Inventory)
-            {
-                return _backpackItems;
-            }
-            else if (type is ItemContainerType.Weapons or ItemContainerType.Equipment)
-            {
-                if (!_itemSlots.TryGetValue(slotType, out var slot))
-                {
-                    throw new InvalidOperationException($"Inventory does not have slot {slotType}");
-                }
-
-                return slot;
-            }
-            else
-            {
-                throw new InvalidOperationException($"Container {type} is not a valid source");
             }
         }
     }

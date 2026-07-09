@@ -35,7 +35,7 @@ namespace FOMServer.Shared.Core.Items
         {
             lock (_syncRoot)
             {
-                if (!Insert(item))
+                if (!InsertCore(item))
                 {
                     return false;
                 }
@@ -54,7 +54,7 @@ namespace FOMServer.Shared.Core.Items
             Item? item;
             lock (_syncRoot)
             {
-                item = Extract(id);
+                item = ExtractCore(id);
                 if (item is null)
                 {
                     return null;
@@ -69,11 +69,14 @@ namespace FOMServer.Shared.Core.Items
             return item;
         }
 
-        public bool Transfer(uint id, ItemContainer to)
+        public Item? Transfer(uint id, ItemContainer to)
         {
             if (ReferenceEquals(this, to))
             {
-                return true;
+                lock (_syncRoot)
+                {
+                    return GetCore(id);
+                }
             }
 
             var (first, second) = _lockId <= to._lockId
@@ -85,20 +88,20 @@ namespace FOMServer.Shared.Core.Items
             {
                 lock (second._syncRoot)
                 {
-                    item = Extract(id);
+                    item = ExtractCore(id);
                     if (item is null)
                     {
-                        return false;
+                        return null;
                     }
 
-                    if (!to.Insert(item))
+                    if (!to.InsertCore(item))
                     {
-                        if (!Insert(item))
+                        if (!InsertCore(item))
                         {
                             throw new InvalidOperationException($"Item {item} lost in container transfer");
                         }
 
-                        return false;
+                        return null;
                     }
 
                     item.OnDestroyed -= OnItemDestroyed;
@@ -109,7 +112,7 @@ namespace FOMServer.Shared.Core.Items
 
             OnItemTransferred?.Invoke(item, to.Location);
 
-            return true;
+            return item;
         }
 
         protected void RaiseOnItemAdded(Item item)
@@ -122,9 +125,11 @@ namespace FOMServer.Shared.Core.Items
             OnItemRemoved?.Invoke(item);
         }
 
-        protected abstract bool Insert(Item item);
+        protected abstract Item? GetCore(uint id);
 
-        protected abstract Item? Extract(uint id);
+        protected abstract bool InsertCore(Item item);
+
+        protected abstract Item? ExtractCore(uint id);
 
         protected abstract void OnItemDestroyed(Item item);
     }

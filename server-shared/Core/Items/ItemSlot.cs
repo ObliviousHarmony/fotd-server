@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Packets.Types;
 using PacketItem = FOMServer.Shared.Core.Packets.Types.Item;
 
 namespace FOMServer.Shared.Core.Items
@@ -12,7 +14,7 @@ namespace FOMServer.Shared.Core.Items
             if (item is not null)
             {
                 item.BindLocation(Location, SlotType);
-                Insert(item);
+                InsertCore(item);
             }
         }
 
@@ -29,7 +31,28 @@ namespace FOMServer.Shared.Core.Items
             }
         }
 
-        protected override Item? Extract(uint id)
+        protected override Item? GetCore(uint id)
+        {
+            if (_item?.Id != id)
+            {
+                return null;
+            }
+
+            return _item;
+        }
+
+        protected override bool InsertCore(Item item)
+        {
+            if (_item is not null)
+            {
+                return false;
+            }
+
+            _item = item;
+            return true;
+        }
+
+        protected override Item? ExtractCore(uint id)
         {
             if (_item?.Id != id)
             {
@@ -39,17 +62,6 @@ namespace FOMServer.Shared.Core.Items
             var item = _item;
             _item = null;
             return item;
-        }
-
-        protected override bool Insert(Item item)
-        {
-            if (_item is not null)
-            {
-                return false;
-            }
-
-            _item = item;
-            return true;
         }
 
         protected override void OnItemDestroyed(Item item)
