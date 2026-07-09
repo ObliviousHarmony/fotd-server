@@ -14,7 +14,6 @@ namespace FOMServer.Shared.Tests.Items
             var item = CreateItem(id: 1);
 
             Assert.True(container.Add(item));
-            item.EnsureBelongsIn(location, ItemSlotType.None);
 
             var removed = container.Remove(1);
 
@@ -49,7 +48,6 @@ namespace FOMServer.Shared.Tests.Items
             var transferred = containerA.Transfer(7, containerB);
 
             Assert.True(transferred);
-            item.EnsureBelongsIn(locationB, ItemSlotType.None);
             Assert.Null(containerA.Remove(7));
             Assert.NotNull(containerB.Remove(7));
         }

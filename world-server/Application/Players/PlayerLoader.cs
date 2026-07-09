@@ -1,8 +1,8 @@
 using System.Xml.Linq;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Core.Repositories;
-using FOMServer.Shared.Core.Items;
 using FOMServer.World.Core.Players;
 
 namespace FOMServer.World.Application.Players
@@ -32,10 +32,10 @@ namespace FOMServer.World.Application.Players
             var player = new Player(
                 id,
                 attributes,
-                items[ItemContainerType.Inventory]
+                items
             );
 
-            BindToPlayer(player, items);
+            player.FinishLoading();
 
             _persistenceService.Register(player);
 
@@ -55,58 +55,39 @@ namespace FOMServer.World.Application.Players
             return attributes;
         }
 
-        private Dictionary<ItemContainerType, IDictionary<uint, Item>> LoadItems(uint id)
+        private IDictionary<uint, Item> LoadItems(uint id)
         {
-            var loadedItems = new Dictionary<ItemContainerType, IDictionary<uint, Item>>
-            {
-                [ItemContainerType.Inventory] = new Dictionary<uint, Item>(),
-            };
+            Dictionary<uint, Item> loadedItems = [];
 
             var nextItemId = id * 1000;
-            void addItem(ItemContainerType container, ItemType type, ItemSlotType slot = ItemSlotType.None)
+            void addItem(ItemType type, ItemSlotType slot = ItemSlotType.None)
             {
                 var item = new Item(nextItemId++, type, ItemLocationType.Player, id, slot, 100, 1000, 1000, 100);
-                loadedItems[container][item.Id] = item;
+                loadedItems[item.Id] = item;
 
                 _persistenceService.Register(item);
             }
 
-            addItem(ItemContainerType.Inventory, ItemType._9mmStandardRounds);
+            addItem(ItemType._9mmStandardRounds);
 
-            /*
-             * addItem(ItemType._9mmStandardRounds, ItemContainerType.Inventory, 0);
-            addItem(ItemType.EmergencyMedikit, ItemContainerType.Inventory, 0);
-            addItem(ItemType.ShieldAugmentation, ItemContainerType.Inventory, 0);
-            addItem(ItemType.BackerTShirtMale, ItemContainerType.Inventory, 0);
-            addItem(ItemType.AssaultPantsMale, ItemContainerType.Inventory, 0);
-            addItem(ItemType.EsporteAllTerrainShoesMale, ItemContainerType.Inventory, 0);
+            addItem(ItemType._9mmStandardRounds);
+            addItem(ItemType.EmergencyMedikit);
+            addItem(ItemType.ShieldAugmentation);
+            addItem(ItemType.BackerTShirtMale);
+            addItem(ItemType.AssaultPantsMale);
+            addItem(ItemType.EsporteAllTerrainShoesMale);
 
-            addItem(ItemType.Fedora, ItemContainerType.Equipment, (uint)EquipmentSlot.Hat);
-            addItem(ItemType.AdvancedCivilianHelmet, ItemContainerType.Equipment, (uint)EquipmentSlot.Head);
-            addItem(ItemType.ShieldAugmentation, ItemContainerType.Equipment, (uint)EquipmentSlot.Back);
-            addItem(ItemType.AlmDesignsGlassesBlack, ItemContainerType.Equipment, (uint)EquipmentSlot.Eyes);
-            addItem(ItemType.AllWeatherTShirtMale, ItemContainerType.Equipment, (uint)EquipmentSlot.Shirt);
-            addItem(ItemType.AntiRiotPantsMale, ItemContainerType.Equipment, (uint)EquipmentSlot.Pants);
-            addItem(ItemType.BlackDressShoesMale, ItemContainerType.Equipment, (uint)EquipmentSlot.Shoes);
+            addItem(ItemType.Fedora, ItemSlotType.Hat);
+            addItem(ItemType.AdvancedCivilianHelmet, ItemSlotType.Head);
+            addItem(ItemType.ShieldAugmentation, ItemSlotType.Back);
+            addItem(ItemType.AlmDesignsGlassesBlack, ItemSlotType.Eyes);
+            addItem(ItemType.AllWeatherTShirtMale, ItemSlotType.Shirt);
+            addItem(ItemType.AntiRiotPantsMale, ItemSlotType.Pants);
+            addItem(ItemType.BlackDressShoesMale, ItemSlotType.Shoes);
 
-            addItem(ItemType.DOA187, ItemContainerType.Weapons, 0);
-
-            addItem(ItemType.DoublecheeseMystique, ItemContainerType.ActiveConsumable, 0);
-
-            addItem(ItemType.ElectromyographicRegulator, ItemContainerType.NanomachineAugmentation, 0);*/
+            addItem(ItemType.DOA187, ItemSlotType.Weapon1);
 
             return loadedItems;
-        }
-
-        private void BindToPlayer(Player player, Dictionary<ItemContainerType, IDictionary<uint, Item>> items)
-        {
-            foreach (var (_, itemList) in items)
-            {
-                foreach (var (_, item) in itemList)
-                {
-                    item.BindLocation(player);
-                }
-            }
         }
     }
 }

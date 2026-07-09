@@ -65,28 +65,18 @@ namespace FOMServer.Shared.Core.Items
 
         public ItemType Type { get; }
 
-        public void BindLocation(IItemLocation location)
+        public ItemSlotType Slot
         {
-            lock (_syncRoot)
+            get
             {
-                ThrowIfDestroyed();
-
-                if (_location != null)
+                lock (_syncRoot)
                 {
-                    throw new InvalidOperationException($"Item {Id} is already bound");
+                    return _slot;
                 }
-
-                var bindLoc = location.Location;
-                if (bindLoc.Type != _locationType || bindLoc.Id != _locationId)
-                {
-                    throw new ArgumentException($"Item {Id} cannot bind location {bindLoc.Type} ({bindLoc.Id}), expected {_locationType} ({_locationId})", nameof(location));
-                }
-
-                _location = location;
             }
         }
 
-        public void EnsureBelongsIn(IItemLocation location, ItemSlotType slot)
+        public void BindLocation(IItemLocation location, ItemSlotType slot)
         {
             lock (_syncRoot)
             {
@@ -95,6 +85,7 @@ namespace FOMServer.Shared.Core.Items
                 var loc = location.Location;
                 if (loc.Type == _locationType && loc.Id == _locationId && slot == _slot)
                 {
+                    _location = location;
                     return;
                 }
 
@@ -234,13 +225,13 @@ namespace FOMServer.Shared.Core.Items
             return false;
         }
 
-        public bool WriteTo(ref PacketItem p)
+        public void WriteTo(ref PacketItem p)
         {
             lock (_syncRoot)
             {
                 if (_destroyed)
                 {
-                    return false;
+                    return;
                 }
 
                 p.Id = Id;
@@ -265,8 +256,6 @@ namespace FOMServer.Shared.Core.Items
                         p.Base.BalanceValues[i] = 0;
                     }
                 }
-
-                return true;
             }
         }
 

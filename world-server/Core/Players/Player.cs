@@ -7,7 +7,7 @@ using RegisterClientReturnPacket = FOMServer.Shared.Core.Packets.RegisterClientR
 
 namespace FOMServer.World.Core.Players
 {
-    internal class Player : IPersistable, IItemLocation
+    internal class Player : IPersistable
     {
         private readonly Lock _syncRoot = new();
 
@@ -22,7 +22,7 @@ namespace FOMServer.World.Core.Players
             _currentUpdate.Id = id;
 
             Attributes = new PlayerAttributes(this, attributes);
-            Inventory = new ItemBag(this, inventory);
+            Inventory = new PlayerInventory(this, inventory);
         }
 
         public event PersistableChangeCallback? OnPersistableChange;
@@ -33,9 +33,11 @@ namespace FOMServer.World.Core.Players
 
         public PlayerAttributes Attributes { get; }
 
-        public ItemBag Inventory { get; }
+        public PlayerInventory Inventory { get; }
 
-        public ItemLocationRef Location => new(ItemLocationType.Player, Id, this);
+        public void FinishLoading()
+        {
+        }
 
         public void ClaimForClient(NetworkAddress address)
         {
@@ -58,18 +60,16 @@ namespace FOMServer.World.Core.Players
             }
         }
 
-        public bool WriteTo(ref PacketWorldUpdate p)
+        public void WriteTo(ref PacketWorldUpdate p)
         {
             lock (_syncRoot)
             {
                 p.Kind = PacketWorldUpdate.Type.Character;
                 p.Character = _currentUpdate;
             }
-
-            return true;
         }
 
-        public bool WriteTo(ref RegisterClientReturnPacket p)
+        public void WriteTo(ref RegisterClientReturnPacket p)
         {
             lock (_syncRoot)
             {
@@ -83,10 +83,8 @@ namespace FOMServer.World.Core.Players
                 p.Avatar.Shoes = 0;
 
                 Attributes.WriteTo(ref p.Attributes);
-                Inventory.WriteTo(ref p.Inventory);
+                Inventory.WriteTo(ref p.Inventory, ref p.Weapons, ref p.Equipment);
             }
-
-            return true;
         }
     }
 }

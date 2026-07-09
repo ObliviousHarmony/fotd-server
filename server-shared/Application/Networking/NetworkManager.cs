@@ -176,6 +176,8 @@ namespace FOMServer.Shared.Application.Networking
                 _peerShutdown!(_peer);
                 _peer = IntPtr.Zero;
             }
+
+            _cts?.Dispose();
         }
 
         private async Task NetworkLoopAsync(CancellationToken ct)

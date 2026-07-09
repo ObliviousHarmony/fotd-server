@@ -136,7 +136,7 @@ namespace FOMServer.World.Core.Players
             return updated;
         }
 
-        public bool WriteTo(ref PacketPlayerAttributes p)
+        public void WriteTo(ref PacketPlayerAttributes p)
         {
             unsafe
             {
@@ -145,8 +145,6 @@ namespace FOMServer.World.Core.Players
                     p.Values[i] = Volatile.Read(ref _values[i]);
                 }
             }
-
-            return true;
         }
 
         public LockedAttribute Lock(AttributeType attribute)

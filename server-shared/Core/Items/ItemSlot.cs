@@ -11,24 +11,22 @@ namespace FOMServer.Shared.Core.Items
         {
             if (item is not null)
             {
-                item.EnsureBelongsIn(Location, SlotType);
+                item.BindLocation(Location, SlotType);
                 Insert(item);
             }
         }
 
-        public bool WriteTo(ref PacketItem p)
+        public void WriteTo(ref PacketItem p)
         {
             lock (_syncRoot)
             {
                 if (_item is null)
                 {
-                    return false;
+                    return;
                 }
 
                 _item.WriteTo(ref p);
             }
-
-            return true;
         }
 
         protected override Item? Extract(uint id)

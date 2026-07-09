@@ -65,25 +65,12 @@ namespace FOMServer.World.Tests.Factories
                 _items[ItemContainerType.Inventory]
             );
 
-            BindToPlayer(player);
-
             return player;
         }
 
         public static TestPlayerBuilder Create(uint id)
         {
             return new TestPlayerBuilder(id);
-        }
-
-        private void BindToPlayer(Player player)
-        {
-            foreach (var (_, itemList) in _items)
-            {
-                foreach (var (_, item) in itemList)
-                {
-                    item.BindLocation(player);
-                }
-            }
         }
     }
 }

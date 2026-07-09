@@ -19,8 +19,7 @@ namespace FOMServer.Shared.Core.Items
 
             foreach (var (_, item) in items)
             {
-                item.EnsureBelongsIn(Location, SlotType);
-
+                item.BindLocation(Location, SlotType);
                 Insert(item);
             }
         }
@@ -57,7 +56,7 @@ namespace FOMServer.Shared.Core.Items
             return removed;
         }
 
-        public bool WriteTo(ref PacketItemList p)
+        public void WriteTo(ref PacketItemList p)
         {
             p.MaxSpace = _maxSpace;
             p.ReservedSpace = _reservedSpace;
@@ -76,14 +75,9 @@ namespace FOMServer.Shared.Core.Items
             var i = 0;
             foreach (var item in items)
             {
-                if (items[i].WriteTo(ref p.Items[i]))
-                {
-                    i++;
-                }
+                item.WriteTo(ref p.Items[i++]);
             }
             p.ItemCount = (uint)i;
-
-            return true;
         }
 
         protected override bool Insert(Item item)
