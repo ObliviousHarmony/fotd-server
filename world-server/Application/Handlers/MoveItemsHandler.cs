@@ -1,5 +1,6 @@
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
+using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Metadata;
@@ -40,16 +41,26 @@ namespace FOMServer.World.Application.Handlers
                 return;
             }
 
-            Console.WriteLine($"Player: {player.Id} Items {p.NumIds}");
-            for (var i = 0; i < p.NumIds; ++i)
+            if (p.From is ItemContainerType.Inventory or ItemContainerType.Weapons or ItemContainerType.Equipment)
             {
-                unsafe
+                if (!player.Inventory.MoveItems(p.Ids, p.From, p.FromSlot, p.To, p.ToSlot))
                 {
-                    Console.WriteLine($"ID {p.Ids[i]}");
+                    _logger.LogWarning(
+                        "Failed to move items {Ids} from {From} / {FromSlot} to {To} / {ToSlot}",
+                        p.Ids.ToString(),
+                        p.From,
+                        p.FromSlot,
+                        p.To,
+                        p.ToSlot
+                    );
+                    return;
                 }
             }
-            Console.WriteLine($"From {p.Source} / {p.SourceSlot}");
-            Console.WriteLine($"To {p.Destination} / {p.DestinationSlot}");
+            else
+            {
+                _logger.LogError("Items cannot be moved to {To} / {ToSlot}", p.To, p.ToSlot);
+                return;
+            }
 
             using var response = new PacketWriter<MoveItems>(sender);
             ref var rData = ref response.Data;

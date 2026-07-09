@@ -130,6 +130,26 @@ namespace FOMServer.Shared.Core.Items
             OnPersistableChange?.Invoke(this, newLocationPersistable, oldLocationPersistable);
         }
 
+        public bool MarkDestroyed()
+        {
+            IPersistable? locationPersistable;
+            lock (_syncRoot)
+            {
+                if (_destroyed)
+                {
+                    return false;
+                }
+
+                _destroyed = true;
+
+                locationPersistable = _location?.Location.Persistable;
+            }
+
+            OnPersistableChange?.Invoke(this, locationPersistable);
+
+            return true;
+        }
+
         public void SetValue(ushort newValue)
         {
             IPersistable? locationPersistable;
@@ -178,8 +198,10 @@ namespace FOMServer.Shared.Core.Items
             {
                 Destroy();
             }
-
-            OnPersistableChange?.Invoke(this, locationPersistable);
+            else
+            {
+                OnPersistableChange?.Invoke(this, locationPersistable);
+            }
 
             return uses;
         }
@@ -211,8 +233,10 @@ namespace FOMServer.Shared.Core.Items
             {
                 Destroy();
             }
-
-            OnPersistableChange?.Invoke(this, locationPersistable);
+            else
+            {
+                OnPersistableChange?.Invoke(this, locationPersistable);
+            }
         }
 
         public bool ShouldDropOnDeath()
@@ -269,15 +293,7 @@ namespace FOMServer.Shared.Core.Items
 
         private void Destroy()
         {
-            lock (_syncRoot)
-            {
-                if (_destroyed)
-                {
-                    return;
-                }
-                _destroyed = true;
-            }
-
+            MarkDestroyed();
             OnDestroyed?.Invoke(this);
         }
 

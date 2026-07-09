@@ -12,10 +12,10 @@ struct MoveItems {
   uint32_t playerId;
   uint16_t numIds;
   uint32_t ids[BufferSizes::MAX_ITEM_LIST_SIZE];
-  Enum::ItemContainerType source;
-  Enum::ItemContainerType destination;
-  Enum::ItemSlotType sourceSlot;
-  Enum::ItemSlotType destinationSlot;
+  Enum::ItemContainerType from;
+  Enum::ItemContainerType to;
+  Enum::ItemSlotType fromSlot;
+  Enum::ItemSlotType toSlot;
 };
 #pragma pack(pop)
 

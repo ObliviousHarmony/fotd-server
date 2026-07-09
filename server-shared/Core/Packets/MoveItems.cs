@@ -11,10 +11,21 @@ namespace FOMServer.Shared.Core.Packets
     {
         public uint PlayerId;
         public ushort NumIds;
-        public fixed uint Ids[BufferSizes.MaxItemListSize];
-        public ItemContainerType Source;
-        public ItemContainerType Destination;
-        public ItemSlotType SourceSlot;
-        public ItemSlotType DestinationSlot;
+        public fixed uint RawIds[BufferSizes.MaxItemListSize];
+        public ItemContainerType From;
+        public ItemContainerType To;
+        public ItemSlotType FromSlot;
+        public ItemSlotType ToSlot;
+
+        public ReadOnlySpan<uint> Ids
+        {
+            get
+            {
+                fixed (uint* ptr = RawIds)
+                {
+                    return new Span<uint>(ptr, NumIds);
+                }
+            }
+        }
     }
 }
