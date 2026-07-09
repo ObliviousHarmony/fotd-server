@@ -2,6 +2,7 @@ using System.Xml.Linq;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Core.Repositories;
+using FOMServer.Shared.Core.Items;
 using FOMServer.World.Core.Players;
 
 namespace FOMServer.World.Application.Players
@@ -31,11 +32,7 @@ namespace FOMServer.World.Application.Players
             var player = new Player(
                 id,
                 attributes,
-                items[ItemLocation.Inventory],
-                items[ItemLocation.Equipment],
-                items[ItemLocation.Weapons],
-                items[ItemLocation.ActiveConsumable],
-                items[ItemLocation.NanomachineAugmentation]
+                items[ItemContainerType.Inventory]
             );
 
             BindToPlayer(player, items);
@@ -58,57 +55,56 @@ namespace FOMServer.World.Application.Players
             return attributes;
         }
 
-        private Dictionary<ItemLocation, IDictionary<uint, Item>> LoadItems(uint id)
+        private Dictionary<ItemContainerType, IDictionary<uint, Item>> LoadItems(uint id)
         {
-            var loadedItems = new Dictionary<ItemLocation, IDictionary<uint, Item>>
+            var loadedItems = new Dictionary<ItemContainerType, IDictionary<uint, Item>>
             {
-                [ItemLocation.Inventory] = new Dictionary<uint, Item>(),
-                [ItemLocation.Equipment] = new Dictionary<uint, Item>(),
-                [ItemLocation.Weapons] = new Dictionary<uint, Item>(),
-                [ItemLocation.ActiveConsumable] = new Dictionary<uint, Item>(),
-                [ItemLocation.NanomachineAugmentation] = new Dictionary<uint, Item>()
+                [ItemContainerType.Inventory] = new Dictionary<uint, Item>(),
             };
 
             var nextItemId = id * 1000;
-            void addItem(ItemType type, ItemLocation location, uint locationId)
+            void addItem(ItemContainerType container, ItemType type, ItemSlotType slot = ItemSlotType.None)
             {
-                var item = new Item(nextItemId++, type, id, location, locationId, 100, 1000, 1000, 100);
-                loadedItems[location][item.Id] = item;
+                var item = new Item(nextItemId++, type, ItemLocationType.Player, id, slot, 100, 1000, 1000, 100);
+                loadedItems[container][item.Id] = item;
 
                 _persistenceService.Register(item);
             }
 
-            addItem(ItemType._9mmStandardRounds, ItemLocation.Inventory, 0);
-            addItem(ItemType.EmergencyMedikit, ItemLocation.Inventory, 0);
-            addItem(ItemType.ShieldAugmentation, ItemLocation.Inventory, 0);
-            addItem(ItemType.BackerTShirtMale, ItemLocation.Inventory, 0);
-            addItem(ItemType.AssaultPantsMale, ItemLocation.Inventory, 0);
-            addItem(ItemType.EsporteAllTerrainShoesMale, ItemLocation.Inventory, 0);
+            addItem(ItemContainerType.Inventory, ItemType._9mmStandardRounds);
 
-            addItem(ItemType.Fedora, ItemLocation.Equipment, (uint)EquipmentSlot.Hat);
-            addItem(ItemType.AdvancedCivilianHelmet, ItemLocation.Equipment, (uint)EquipmentSlot.Head);
-            addItem(ItemType.ShieldAugmentation, ItemLocation.Equipment, (uint)EquipmentSlot.Back);
-            addItem(ItemType.AlmDesignsGlassesBlack, ItemLocation.Equipment, (uint)EquipmentSlot.Eyes);
-            addItem(ItemType.AllWeatherTShirtMale, ItemLocation.Equipment, (uint)EquipmentSlot.Shirt);
-            addItem(ItemType.AntiRiotPantsMale, ItemLocation.Equipment, (uint)EquipmentSlot.Pants);
-            addItem(ItemType.BlackDressShoesMale, ItemLocation.Equipment, (uint)EquipmentSlot.Shoes);
+            /*
+             * addItem(ItemType._9mmStandardRounds, ItemContainerType.Inventory, 0);
+            addItem(ItemType.EmergencyMedikit, ItemContainerType.Inventory, 0);
+            addItem(ItemType.ShieldAugmentation, ItemContainerType.Inventory, 0);
+            addItem(ItemType.BackerTShirtMale, ItemContainerType.Inventory, 0);
+            addItem(ItemType.AssaultPantsMale, ItemContainerType.Inventory, 0);
+            addItem(ItemType.EsporteAllTerrainShoesMale, ItemContainerType.Inventory, 0);
 
-            addItem(ItemType.DOA187, ItemLocation.Weapons, 0);
+            addItem(ItemType.Fedora, ItemContainerType.Equipment, (uint)EquipmentSlot.Hat);
+            addItem(ItemType.AdvancedCivilianHelmet, ItemContainerType.Equipment, (uint)EquipmentSlot.Head);
+            addItem(ItemType.ShieldAugmentation, ItemContainerType.Equipment, (uint)EquipmentSlot.Back);
+            addItem(ItemType.AlmDesignsGlassesBlack, ItemContainerType.Equipment, (uint)EquipmentSlot.Eyes);
+            addItem(ItemType.AllWeatherTShirtMale, ItemContainerType.Equipment, (uint)EquipmentSlot.Shirt);
+            addItem(ItemType.AntiRiotPantsMale, ItemContainerType.Equipment, (uint)EquipmentSlot.Pants);
+            addItem(ItemType.BlackDressShoesMale, ItemContainerType.Equipment, (uint)EquipmentSlot.Shoes);
 
-            addItem(ItemType.DoublecheeseMystique, ItemLocation.ActiveConsumable, 0);
+            addItem(ItemType.DOA187, ItemContainerType.Weapons, 0);
 
-            addItem(ItemType.ElectromyographicRegulator, ItemLocation.NanomachineAugmentation, 0);
+            addItem(ItemType.DoublecheeseMystique, ItemContainerType.ActiveConsumable, 0);
+
+            addItem(ItemType.ElectromyographicRegulator, ItemContainerType.NanomachineAugmentation, 0);*/
 
             return loadedItems;
         }
 
-        private void BindToPlayer(Player player, Dictionary<ItemLocation, IDictionary<uint, Item>> items)
+        private void BindToPlayer(Player player, Dictionary<ItemContainerType, IDictionary<uint, Item>> items)
         {
             foreach (var (_, itemList) in items)
             {
                 foreach (var (_, item) in itemList)
                 {
-                    item.BindOwner(player);
+                    item.BindLocation(player);
                 }
             }
         }

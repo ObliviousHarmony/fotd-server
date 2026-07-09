@@ -1,12 +1,13 @@
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Persistence;
+using FOMServer.Shared.Core.Items;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 using PacketWorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
 using RegisterClientReturnPacket = FOMServer.Shared.Core.Packets.RegisterClientReturn;
 
 namespace FOMServer.World.Core.Players
 {
-    internal class Player : IPersistable
+    internal class Player : IPersistable, IItemLocation
     {
         private readonly Lock _syncRoot = new();
 
@@ -15,21 +16,13 @@ namespace FOMServer.World.Core.Players
         public Player(
             uint id,
             uint[] attributes,
-            IDictionary<uint, Item> inventory,
-            IDictionary<uint, Item> equipment,
-            IDictionary<uint, Item> weapons,
-            IDictionary<uint, Item> activeConsumables,
-            IDictionary<uint, Item> nanomachineAugmentations)
+            IDictionary<uint, Item> inventory)
         {
             Id = id;
             _currentUpdate.Id = id;
 
             Attributes = new PlayerAttributes(this, attributes);
-            Inventory = new ItemBag(this, ItemLocation.Inventory, 0, inventory);
-            Equipment = new PlayerEquipment(this, equipment);
-            Weapons = new PlayerWeapons(this, weapons);
-            ActiveConsumables = new PlayerActiveConsumables(this, activeConsumables);
-            NanomachineAugmentations = new PlayerNanomachineAugmentations(this, nanomachineAugmentations);
+            Inventory = new ItemBag(this, inventory);
         }
 
         public event PersistableChangeCallback? OnPersistableChange;
@@ -42,13 +35,7 @@ namespace FOMServer.World.Core.Players
 
         public ItemBag Inventory { get; }
 
-        public PlayerEquipment Equipment { get; }
-
-        public PlayerWeapons Weapons { get; }
-
-        public PlayerActiveConsumables ActiveConsumables { get; }
-
-        public PlayerNanomachineAugmentations NanomachineAugmentations { get; }
+        public ItemLocationRef Location => new(ItemLocationType.Player, Id, this);
 
         public void ClaimForClient(NetworkAddress address)
         {
@@ -97,10 +84,6 @@ namespace FOMServer.World.Core.Players
 
                 Attributes.WriteTo(ref p.Attributes);
                 Inventory.WriteTo(ref p.Inventory);
-                Equipment.WriteTo(ref p.Equipment);
-                Weapons.WriteTo(ref p.Weapons);
-                ActiveConsumables.WriteTo(ref p.ActiveConsumables);
-                NanomachineAugmentations.WriteTo(ref p.NanomachineAugmentations);
             }
 
             return true;

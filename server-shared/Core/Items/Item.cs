@@ -1,15 +1,14 @@
-using System.Text;
 using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Core.Persistence;
 using PacketItem = FOMServer.Shared.Core.Packets.Types.Item;
 
-namespace FOMServer.World.Core.Players
+namespace FOMServer.Shared.Core.Items
 {
-    internal delegate void ItemDestroyedCallback(Item item);
+    public delegate void ItemDestroyedCallback(Item item);
 
-    internal sealed class ItemDestroyedException : InvalidOperationException
+    public sealed class ItemDestroyedException : InvalidOperationException
     {
         public ItemDestroyedException(Item item)
             : base($"Item {item.Id} has been destroyed")
@@ -17,14 +16,17 @@ namespace FOMServer.World.Core.Players
         }
     }
 
-    internal class Item : IPersistable
+    public class Item : IPersistable
     {
         private readonly Lock _syncRoot = new();
 
-        private Player? _owner;
-        private uint _ownerId;
+        private ItemLocationType _locationType;
+        private uint _locationId;
+        private ItemSlotType _slot;
         private ushort _value;
         private ushort _durability;
+
+        private IItemLocation? _location;
         private bool _destroyed;
 
         private readonly ushort _maxDurability;
@@ -33,9 +35,9 @@ namespace FOMServer.World.Core.Players
         public Item(
             uint id,
             ItemType type,
-            uint ownerId,
-            ItemLocation location,
+            ItemLocationType locationType,
             uint locationId,
+            ItemSlotType slot,
             ushort value,
             ushort durability,
             ushort maxDurability,
@@ -44,12 +46,11 @@ namespace FOMServer.World.Core.Players
             Id = id;
             Type = type;
 
-            _ownerId = ownerId;
-            Location = location;
-            LocationId = locationId;
+            _locationType = locationType;
+            _locationId = locationId;
+            _slot = slot;
             _value = value;
             _durability = durability;
-
             _maxDurability = maxDurability;
             _durabilityLossFactor = durabilityLossFactor;
 
@@ -64,97 +65,98 @@ namespace FOMServer.World.Core.Players
 
         public ItemType Type { get; }
 
-        public ItemLocation Location { get; private set; }
-
-        public uint LocationId { get; private set; }
-
-        public void BindOwner(Player owner)
+        public void BindLocation(IItemLocation location)
         {
-            lock (_syncRoot)
-            {
-                if (owner.Id != _ownerId)
-                {
-                    throw new ArgumentException($"Item {Id} cannot bind player {owner.Id}, expected player {_ownerId}", nameof(owner));
-                }
-
-                _owner = owner;
-            }
-        }
-
-        public bool BelongsTo(Player owner)
-        {
-            lock (_syncRoot)
-            {
-                return ReferenceEquals(owner, _owner);
-            }
-        }
-
-        public bool BelongsTo(uint ownerId)
-        {
-            lock (_syncRoot)
-            {
-                return ownerId == _ownerId;
-            }
-        }
-
-        public bool BelongsIn(ItemLocation location, uint? locationId = null)
-        {
-            lock (_syncRoot)
-            {
-                if (_destroyed)
-                {
-                    throw new ItemDestroyedException(this);
-                }
-
-                if (locationId is not null && locationId != LocationId)
-                {
-                    return false;
-                }
-
-                return location == Location;
-            }
-        }
-
-        public void Move(Player? newOwner, ItemLocation newLocation, uint newLocationId)
-        {
-            Player? oldOwner;
             lock (_syncRoot)
             {
                 ThrowIfDestroyed();
 
-                oldOwner = _owner;
-
-                if (newOwner is not null)
+                if (_location != null)
                 {
-                    _ownerId = newOwner.Id;
+                    throw new InvalidOperationException($"Item {Id} is already bound");
                 }
 
-                _owner = newOwner;
-                Location = newLocation;
-                LocationId = newLocationId;
+                var bindLoc = location.Location;
+                if (bindLoc.Type != _locationType || bindLoc.Id != _locationId)
+                {
+                    throw new ArgumentException($"Item {Id} cannot bind location {bindLoc.Type} ({bindLoc.Id}), expected {_locationType} ({_locationId})", nameof(location));
+                }
+
+                _location = location;
+            }
+        }
+
+        public void EnsureBelongsIn(IItemLocation location, ItemSlotType slot)
+        {
+            lock (_syncRoot)
+            {
+                ThrowIfDestroyed();
+
+                var loc = location.Location;
+                if (loc.Type == _locationType && loc.Id == _locationId && slot == _slot)
+                {
+                    return;
+                }
+
+                throw new ArgumentException(
+                    $"Item {this} does not belong (location={loc.Type}, locationId={loc.Id}, slot={slot})",
+                    nameof(location));
+            }
+        }
+
+        public void Move(IItemLocation? newLocation, ItemSlotType newSlot)
+        {
+            IPersistable? oldLocationPersistable;
+            IPersistable? newLocationPersistable;
+            lock (_syncRoot)
+            {
+                ThrowIfDestroyed();
+
+                oldLocationPersistable = _location?.Location.Persistable;
+
+                if (newLocation is not null)
+                {
+                    var newLoc = newLocation.Location;
+
+                    _locationType = newLoc.Type;
+                    _locationId = newLoc.Id;
+                    _location = newLocation;
+
+                    newLocationPersistable = _location?.Location.Persistable;
+                }
+                else
+                {
+                    _locationType = ItemLocationType.None;
+                    _locationId = 0;
+                    _location = null;
+
+                    newLocationPersistable = null;
+                }
+
+                _slot = newSlot;
             }
 
-            OnPersistableChange?.Invoke(this, newOwner, oldOwner);
+            OnPersistableChange?.Invoke(this, newLocationPersistable, oldLocationPersistable);
         }
 
         public void SetValue(ushort newValue)
         {
-            Player? owner;
+            IPersistable? locationPersistable;
             lock (_syncRoot)
             {
                 ThrowIfDestroyed();
 
                 _value = newValue;
 
-                owner = _owner;
+                locationPersistable = _location?.Location.Persistable;
             }
 
-            OnPersistableChange?.Invoke(this, owner);
+            OnPersistableChange?.Invoke(this, locationPersistable);
         }
 
         public int UseValue(ushort numUses, bool decreaseDurability = false)
         {
-            Player? owner;
+            IPersistable? locationPersistable;
             ushort uses;
             var shouldDestroy = false;
             lock (_syncRoot)
@@ -178,7 +180,7 @@ namespace FOMServer.World.Core.Players
                     }
                 }
 
-                owner = _owner;
+                locationPersistable = _location?.Location.Persistable;
             }
 
             if (shouldDestroy)
@@ -186,14 +188,14 @@ namespace FOMServer.World.Core.Players
                 Destroy();
             }
 
-            OnPersistableChange?.Invoke(this, owner);
+            OnPersistableChange?.Invoke(this, locationPersistable);
 
             return uses;
         }
 
         public void ApplyDurabilityLoss(ushort durabilityLoss)
         {
-            Player? owner;
+            IPersistable? locationPersistable;
             var shouldDestroy = false;
             lock (_syncRoot)
             {
@@ -211,7 +213,7 @@ namespace FOMServer.World.Core.Players
                     shouldDestroy = true;
                 }
 
-                owner = _owner;
+                locationPersistable = _location?.Location.Persistable;
             }
 
             if (shouldDestroy)
@@ -219,7 +221,7 @@ namespace FOMServer.World.Core.Players
                 Destroy();
             }
 
-            OnPersistableChange?.Invoke(this, owner);
+            OnPersistableChange?.Invoke(this, locationPersistable);
         }
 
         public bool ShouldDropOnDeath()
@@ -249,7 +251,7 @@ namespace FOMServer.World.Core.Players
                 p.Base.DurabilityLossFactor = _durabilityLossFactor;
 
                 p.Base.Security = ItemSecurity.Normal;
-                p.Base.CreatorPlayerId = _owner?.Id ?? 0;
+                p.Base.CreatorPlayerId = 0;
                 p.Base.Timeout = 0;
                 p.Base.StolenFromPlayerId = 0;
                 p.Base.Classification = 1;
@@ -270,18 +272,10 @@ namespace FOMServer.World.Core.Players
 
         public override string ToString()
         {
-            uint ownerId;
-            ItemLocation location;
-            uint locationId;
-
             lock (_syncRoot)
             {
-                ownerId = _ownerId;
-                location = Location;
-                locationId = LocationId;
+                return $"{Type} - {Id} (location={_locationType}, locationId={_locationId}, slot={_slot})";
             }
-
-            return $"{Type} - {Id} (owner={ownerId}, location={location}, locationId={locationId})";
         }
 
         private void Destroy()

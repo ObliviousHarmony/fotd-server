@@ -1,6 +1,7 @@
 using System.Xml.Linq;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Persistence;
+using FOMServer.Shared.Core.Items;
 using FOMServer.World.Core.Players;
 
 namespace FOMServer.World.Tests.Factories
@@ -10,7 +11,7 @@ namespace FOMServer.World.Tests.Factories
         private readonly uint _id;
         private uint _nextItemId;
         private readonly uint[] _attributes = new uint[(int)AttributeType.NUM_ATTRIBUTE_TYPES];
-        private readonly Dictionary<ItemLocation, Dictionary<uint, Item>> _items;
+        private readonly Dictionary<ItemContainerType, Dictionary<uint, Item>> _items;
 
         public TestPlayerBuilder(uint id)
         {
@@ -22,13 +23,9 @@ namespace FOMServer.World.Tests.Factories
                 _attributes[i] = PlayerAttributes.GetMetadata((AttributeType)i).Default;
             }
 
-            _items = new Dictionary<ItemLocation, Dictionary<uint, Item>>
+            _items = new Dictionary<ItemContainerType, Dictionary<uint, Item>>
             {
-                [ItemLocation.Inventory] = [],
-                [ItemLocation.Equipment] = [],
-                [ItemLocation.Weapons] = [],
-                [ItemLocation.ActiveConsumable] = [],
-                [ItemLocation.NanomachineAugmentation] = []
+                [ItemContainerType.Inventory] = [],
             };
         }
 
@@ -38,28 +35,23 @@ namespace FOMServer.World.Tests.Factories
             return this;
         }
 
-        public TestPlayerBuilder WithInventory(AttributeType type, uint value)
-        {
-            _attributes[(uint)type] = value;
-
-            return this;
-        }
-
         public TestPlayerBuilder WithItem(
+            ItemContainerType container,
             ItemType type,
-            ItemLocation location,
+            ItemLocationType locationType,
             uint locationId,
+            ItemSlotType slot,
             ushort value,
             ushort durability,
             ushort maxDurability,
             byte durabilityLossFactor)
         {
-            if (!_items.TryGetValue(location, out var itemList))
+            if (!_items.TryGetValue(container, out var itemList))
             {
-                throw new InvalidOperationException($"Item location {location} is invalid");
+                throw new InvalidOperationException($"Item container {container} is invalid");
             }
 
-            var item = new Item(_nextItemId++, type, _id, location, locationId, value, durability, maxDurability, durabilityLossFactor);
+            var item = new Item(_nextItemId++, type, locationType, locationId, slot, value, durability, maxDurability, durabilityLossFactor);
             itemList[item.Id] = item;
 
             return this;
@@ -70,11 +62,7 @@ namespace FOMServer.World.Tests.Factories
             var player = new Player(
                 _id,
                 _attributes,
-                _items[ItemLocation.Inventory],
-                _items[ItemLocation.Equipment],
-                _items[ItemLocation.Weapons],
-                _items[ItemLocation.ActiveConsumable],
-                _items[ItemLocation.NanomachineAugmentation]
+                _items[ItemContainerType.Inventory]
             );
 
             BindToPlayer(player);
@@ -93,7 +81,7 @@ namespace FOMServer.World.Tests.Factories
             {
                 foreach (var (_, item) in itemList)
                 {
-                    item.BindOwner(player);
+                    item.BindLocation(player);
                 }
             }
         }

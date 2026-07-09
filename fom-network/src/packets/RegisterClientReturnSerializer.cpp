@@ -58,7 +58,7 @@ void RegisterClientReturnSerializer::Write(
 
   itemListSerializer.Write(bs, data->storage);
 
-  for (int i = 0; i < Constants::NUM_QUICK_SLOTS; ++i)
+  for (int i = 0; i < Constants::NUM_QUICKSLOTS; ++i)
     bs.WriteCompressed(data->quickSlots[i]);
 
   avatarSerializer.Write(bs, data->avatar);

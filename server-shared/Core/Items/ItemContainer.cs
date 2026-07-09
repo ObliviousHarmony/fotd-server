@@ -1,25 +1,24 @@
 using FOMServer.Shared.Core.Enums;
 
-namespace FOMServer.World.Core.Players
+namespace FOMServer.Shared.Core.Items
 {
-    internal delegate void ItemAddedCallback(Item item);
+    public delegate void ItemAddedCallback(Item item);
 
-    internal delegate void ItemRemovedCallback(Item item);
+    public delegate void ItemRemovedCallback(Item item);
 
-    internal delegate void ItemTransferredCallback(Item item, Player? owner, ItemLocation location, uint locationId);
+    public delegate void ItemTransferredCallback(Item item, IItemLocation location);
 
-    internal abstract class ItemContainer
+    public abstract class ItemContainer
     {
         protected readonly Lock _syncRoot = new();
 
         private static long s_nextLockId;
         private readonly long _lockId = Interlocked.Increment(ref s_nextLockId);
 
-        public ItemContainer(Player? owner, ItemLocation location, uint locationId)
+        public ItemContainer(IItemLocation location, ItemSlotType slotType)
         {
-            Owner = owner;
             Location = location;
-            LocationId = locationId;
+            SlotType = slotType;
         }
 
         public event ItemAddedCallback? OnItemAdded;
@@ -28,11 +27,9 @@ namespace FOMServer.World.Core.Players
 
         public event ItemTransferredCallback? OnItemTransferred;
 
-        public Player? Owner { get; }
+        public IItemLocation Location { get; }
 
-        public ItemLocation Location { get; }
-
-        public uint LocationId { get; }
+        public ItemSlotType SlotType { get; }
 
         public bool Add(Item item)
         {
@@ -44,7 +41,7 @@ namespace FOMServer.World.Core.Players
                 }
 
                 item.OnDestroyed += OnItemDestroyed;
-                item.Move(Owner, Location, LocationId);
+                item.Move(Location, SlotType);
             }
 
             OnItemAdded?.Invoke(item);
@@ -64,7 +61,7 @@ namespace FOMServer.World.Core.Players
                 }
 
                 item.OnDestroyed -= OnItemDestroyed;
-                item.Move(null, ItemLocation.None, 0);
+                item.Move(null, ItemSlotType.None);
             }
 
             OnItemRemoved?.Invoke(item);
@@ -106,11 +103,11 @@ namespace FOMServer.World.Core.Players
 
                     item.OnDestroyed -= OnItemDestroyed;
                     item.OnDestroyed += to.OnItemDestroyed;
-                    item.Move(to.Owner, to.Location, to.LocationId);
+                    item.Move(to.Location, to.SlotType);
                 }
             }
 
-            OnItemTransferred?.Invoke(item, to.Owner, to.Location, to.LocationId);
+            OnItemTransferred?.Invoke(item, to.Location);
 
             return true;
         }

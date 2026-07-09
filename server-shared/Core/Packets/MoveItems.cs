@@ -12,9 +12,9 @@ namespace FOMServer.Shared.Core.Packets
         public uint PlayerId;
         public ushort NumIds;
         public fixed uint Ids[BufferSizes.MaxItemListSize];
-        public ItemLocation Source;
-        public ItemLocation Destination;
-        public ItemSlot SourceSlot;
-        public ItemSlot DestinationSlot;
+        public ItemContainerType Source;
+        public ItemContainerType Destination;
+        public ItemSlotType SourceSlot;
+        public ItemSlotType DestinationSlot;
     }
 }

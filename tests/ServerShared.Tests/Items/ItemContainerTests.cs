@@ -1,32 +1,32 @@
 using FOMServer.Shared.Core.Enums;
-using FOMServer.World.Core.Players;
-using FOMServer.World.Tests.Factories;
+using FOMServer.Shared.Core.Items;
 
-namespace FOMServer.World.Tests.Players
+namespace FOMServer.Shared.Tests.Items
 {
     public class ItemContainerTests
     {
         [Fact]
         public void Add_ThenRemove_ReassignsOwnershipBothWays()
         {
-            var owner = TestPlayerBuilder.Create(1).Build();
-            var container = new TestItemContainer(owner, ItemLocation.Inventory, 0);
+            var location = new TestLocation(ItemLocationType.Player, 1);
+            var container = new TestItemContainer(location, ItemSlotType.None);
+
             var item = CreateItem(id: 1);
 
             Assert.True(container.Add(item));
-            Assert.True(item.BelongsIn(ItemLocation.Inventory));
+            item.EnsureBelongsIn(location, ItemSlotType.None);
 
             var removed = container.Remove(1);
 
             Assert.Same(item, removed);
-            Assert.True(item.BelongsIn(ItemLocation.None));
         }
 
         [Fact]
         public void Add_DuplicateId_ReturnsFalseAndDoesNotReplaceExisting()
         {
-            var owner = TestPlayerBuilder.Create(1).Build();
-            var container = new TestItemContainer(owner, ItemLocation.Inventory, 0);
+            var location = new TestLocation(ItemLocationType.Player, 1);
+            var container = new TestItemContainer(location, ItemSlotType.None);
+
             var first = CreateItem(id: 5);
             var second = CreateItem(id: 5);
 
@@ -38,18 +38,18 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void Transfer_MovesItemAndReassignsOwnershipToDestination()
         {
-            var ownerA = TestPlayerBuilder.Create(1).Build();
-            var ownerB = TestPlayerBuilder.Create(2).Build();
-            var containerA = new TestItemContainer(ownerA, ItemLocation.Inventory, 0);
-            var containerB = new TestItemContainer(ownerB, ItemLocation.Inventory, 0);
+            var locationA = new TestLocation(ItemLocationType.Player, 1);
+            var containerA = new TestItemContainer(locationA, ItemSlotType.None);
+            var locationB = new TestLocation(ItemLocationType.Player, 2);
+            var containerB = new TestItemContainer(locationB, ItemSlotType.None);
+
             var item = CreateItem(id: 7);
             containerA.Add(item);
 
             var transferred = containerA.Transfer(7, containerB);
 
             Assert.True(transferred);
-            Assert.True(item.BelongsTo(ownerB));
-            Assert.True(item.BelongsIn(ItemLocation.Inventory));
+            item.EnsureBelongsIn(locationB, ItemSlotType.None);
             Assert.Null(containerA.Remove(7));
             Assert.NotNull(containerB.Remove(7));
         }
@@ -57,13 +57,14 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void Transfer_DuplicateIdAtDestination_FailsAndLeavesBothBagsIntact()
         {
-            var ownerA = TestPlayerBuilder.Create(1).Build();
-            var ownerB = TestPlayerBuilder.Create(2).Build();
-            var containerA = new TestItemContainer(ownerA, ItemLocation.Inventory, 0);
-            var containerB = new TestItemContainer(ownerB, ItemLocation.Inventory, 0);
+            var locationA = new TestLocation(ItemLocationType.Player, 1);
+            var containerA = new TestItemContainer(locationA, ItemSlotType.None);
+            var locationB = new TestLocation(ItemLocationType.Player, 2);
+            var containerB = new TestItemContainer(locationB, ItemSlotType.None);
+
             var itemA = CreateItem(id: 9);
-            var itemB = CreateItem(id: 9);
             containerA.Add(itemA);
+            var itemB = CreateItem(id: 9);
             containerB.Add(itemB);
 
             var transferred = containerA.Transfer(9, containerB);
@@ -75,12 +76,14 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void Transfer_ThenDestroy_RemovesFromDestinationBagNotSource()
         {
-            var ownerA = TestPlayerBuilder.Create(1).Build();
-            var ownerB = TestPlayerBuilder.Create(2).Build();
-            var containerA = new TestItemContainer(ownerA, ItemLocation.Inventory, 0);
-            var containerB = new TestItemContainer(ownerB, ItemLocation.Inventory, 0);
+            var locationA = new TestLocation(ItemLocationType.Player, 1);
+            var containerA = new TestItemContainer(locationA, ItemSlotType.None);
+            var locationB = new TestLocation(ItemLocationType.Player, 2);
+            var containerB = new TestItemContainer(locationB, ItemSlotType.None);
+
             var item = CreateItem(id: 3, durability: 10, durabilityLossFactor: 100);
             containerA.Add(item);
+
             containerA.Transfer(3, containerB);
 
             item.ApplyDurabilityLoss(10);
@@ -91,8 +94,9 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void Destroy_AutomaticallyRemovesItemFromBagWithoutExplicitRemove()
         {
-            var owner = TestPlayerBuilder.Create(1).Build();
-            var container = new TestItemContainer(owner, ItemLocation.Inventory, 0);
+            var location = new TestLocation(ItemLocationType.Player, 1);
+            var container = new TestItemContainer(location, ItemSlotType.None);
+
             var item = CreateItem(id: 4, durability: 10, durabilityLossFactor: 100);
             container.Add(item);
 
@@ -111,9 +115,9 @@ namespace FOMServer.World.Tests.Players
             return new Item(
                 id,
                 ItemType.Zanathid5Inflex,
+                ItemLocationType.Player,
                 1,
-                ItemLocation.None,
-                0,
+                ItemSlotType.None,
                 value,
                 durability,
                 maxDurability,
@@ -121,12 +125,25 @@ namespace FOMServer.World.Tests.Players
             );
         }
 
+        private sealed class TestLocation : IItemLocation
+        {
+            private readonly ItemLocationType _type;
+            private readonly uint _id;
+
+            public TestLocation(ItemLocationType type, uint id)
+            {
+                _type = type;
+                _id = id;
+            }
+
+            public ItemLocationRef Location => new(_type, _id, null);
+        }
+
         private sealed class TestItemContainer : ItemContainer
         {
             private readonly Dictionary<uint, Item> _items = [];
 
-            public TestItemContainer(Player? owner, ItemLocation location, uint locationId)
-                : base(owner, location, locationId)
+            public TestItemContainer(IItemLocation location, ItemSlotType slotType) : base(location, slotType)
             {
             }
 

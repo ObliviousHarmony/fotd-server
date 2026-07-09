@@ -1,9 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.World.Core.Players;
+using FOMServer.Shared.Core.Items;
 
-namespace FOMServer.World.Tests.Players
+namespace FOMServer.Shared.Tests.Items
 {
     public class ItemTests
     {
@@ -73,9 +73,9 @@ namespace FOMServer.World.Tests.Players
             return new Item(
                 1,
                 ItemType.Zanathid5Inflex,
+                ItemLocationType.Player,
                 1,
-                ItemLocation.Inventory,
-                0,
+                ItemSlotType.None,
                 value,
                 durability,
                 maxDurability,

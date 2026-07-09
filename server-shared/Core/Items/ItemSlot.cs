@@ -1,17 +1,17 @@
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Packets.Types;
 using PacketItem = FOMServer.Shared.Core.Packets.Types.Item;
 
-namespace FOMServer.World.Core.Players
+namespace FOMServer.Shared.Core.Items
 {
-    internal class ItemSlot : ItemContainer
+    public class ItemSlot : ItemContainer
     {
         protected Item? _item;
 
-        public ItemSlot(Player owner, ItemLocation location, uint slot, Item? item) : base(owner, location, slot)
+        public ItemSlot(IItemLocation location, ItemSlotType slotType, Item? item) : base(location, slotType)
         {
             if (item is not null)
             {
+                item.EnsureBelongsIn(Location, SlotType);
                 Insert(item);
             }
         }
@@ -48,13 +48,6 @@ namespace FOMServer.World.Core.Players
             if (_item is not null)
             {
                 return false;
-            }
-
-            if (item is not null && !item.BelongsIn(Location, LocationId))
-            {
-                throw new ArgumentException(
-                        $"Item {item} does not match slot (location={Location}, locationId={LocationId})",
-                        nameof(item));
             }
 
             _item = item;

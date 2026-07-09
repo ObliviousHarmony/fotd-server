@@ -3,22 +3,24 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets.Types;
 using PacketItemList = FOMServer.Shared.Core.Packets.Types.ItemList;
 
-namespace FOMServer.World.Core.Players
+namespace FOMServer.Shared.Core.Items
 {
-    internal class ItemBag : ItemContainer
+    public class ItemBag : ItemContainer
     {
         private readonly uint _maxSpace;
         private readonly ushort _reservedSpace;
         private readonly Dictionary<uint, Item> _items = [];
         private readonly Dictionary<ItemType, Dictionary<uint, Item>> _itemsByType = [];
 
-        public ItemBag(Player? owner, ItemLocation location, uint locationId, IDictionary<uint, Item> items) : base(owner, location, locationId)
+        public ItemBag(IItemLocation location, IDictionary<uint, Item> items) : base(location, ItemSlotType.None)
         {
             _maxSpace = 100;
             _reservedSpace = 0;
 
             foreach (var (_, item) in items)
             {
+                item.EnsureBelongsIn(Location, SlotType);
+
                 Insert(item);
             }
         }
@@ -45,7 +47,7 @@ namespace FOMServer.World.Core.Players
                 _items.Remove(id);
 
                 item.OnDestroyed -= OnItemDestroyed;
-                item.Move(null, ItemLocation.None, 0);
+                item.Move(null, ItemSlotType.None);
 
                 removed = item;
             }
@@ -86,13 +88,6 @@ namespace FOMServer.World.Core.Players
 
         protected override bool Insert(Item item)
         {
-            if (!item.BelongsIn(Location, LocationId))
-            {
-                throw new ArgumentException(
-                    $"Item {item} does not match bag (location={Location}, locationId={LocationId})",
-                    nameof(item));
-            }
-
             if (!_items.TryAdd(item.Id, item))
             {
                 return false;

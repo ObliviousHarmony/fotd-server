@@ -48,8 +48,8 @@ namespace FOMServer.World.Application.Handlers
                     Console.WriteLine($"ID {p.Ids[i]}");
                 }
             }
-            Console.WriteLine($"From {p.Source} / {p.SourceIndex}");
-            Console.WriteLine($"To {p.Destination} / {p.DestinationIndex}");
+            Console.WriteLine($"From {p.Source} / {p.SourceSlot}");
+            Console.WriteLine($"To {p.Destination} / {p.DestinationSlot}");
 
             using var response = new PacketWriter<MoveItems>(sender);
             ref var rData = ref response.Data;

@@ -36,7 +36,7 @@ struct RegisterClientReturn {
   Type::Item
       nanomachineAugmentations[Constants::NUM_NANOMACHINE_AUGMENTATION_SLOTS];
   Type::ItemList storage;
-  uint16_t quickSlots[Constants::NUM_QUICK_SLOTS];
+  uint16_t quickSlots[Constants::NUM_QUICKSLOTS];
   Type::Avatar avatar;
   Type::PlayerAttributes attributes;
   Type::PlayerProfile profile;

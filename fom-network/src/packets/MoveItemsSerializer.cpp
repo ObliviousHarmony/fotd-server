@@ -17,8 +17,8 @@ bool MoveItemsSerializer::Read(RakNet::BitStream& bs,
 
   if (!bs.ReadCompressed(data->source)) return false;
   if (!bs.ReadCompressed(data->destination)) return false;
-  if (!bs.ReadCompressed(data->sourceIndex)) return false;
-  if (!bs.ReadCompressed(data->destinationIndex)) return false;
+  if (!bs.ReadCompressed(data->sourceSlot)) return false;
+  if (!bs.ReadCompressed(data->destinationSlot)) return false;
 
   return true;
 }
@@ -37,8 +37,8 @@ void MoveItemsSerializer::Write(RakNet::BitStream& bs,
 
   bs.WriteCompressed(data->source);
   bs.WriteCompressed(data->destination);
-  bs.WriteCompressed(data->sourceIndex);
-  bs.WriteCompressed(data->destinationIndex);
+  bs.WriteCompressed(data->sourceSlot);
+  bs.WriteCompressed(data->destinationSlot);
 }
 
 }  // namespace Packet
