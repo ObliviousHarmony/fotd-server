@@ -44,10 +44,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
                 Timestamp = DateTime.UtcNow
             };
 
-            if (!_writer.TryWrite(message))
-            {
-                throw new InvalidOperationException("Logging channel is closed");
-            }
+            _writer.TryWrite(message);
         }
     }
 }

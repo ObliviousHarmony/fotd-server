@@ -57,6 +57,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
                 await _processingTask;
             }
 
+            _cts?.Dispose();
             _logFileWriter?.Dispose();
         }
 
@@ -80,7 +81,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
             {
                 await foreach (var message in _channel.Reader.ReadAllAsync(ct))
                 {
-                    await WriteMessage(message);
+                    await TryWriteMessage(message);
                 }
             }
             catch (OperationCanceledException)
@@ -90,22 +91,38 @@ namespace FOMServer.Shared.Infrastructure.Logging
             // Drain remaining messages after cancellation
             while (_channel.Reader.TryRead(out var message))
             {
-                await WriteMessage(message);
+                await TryWriteMessage(message);
             }
         }
 
-        private async Task WriteMessage(LogMessage message)
+        private async Task TryWriteMessage(LogMessage message)
         {
-            var formatted = message.Format();
-
-            if (_writeConsole)
+            try
             {
-                Console.WriteLine(formatted);
+                var formatted = message.Format();
+
+                if (_writeConsole)
+                {
+                    var target = message.Level >= LogLevel.Warning ? Console.Error : Console.Out;
+                    await target.WriteLineAsync(formatted);
+                }
+
+                if (_logFileWriter is not null)
+                {
+                    await _logFileWriter.WriteLineAsync(formatted);
+                }
             }
-
-            if (_logFileWriter is not null)
+            catch (Exception ex)
             {
-                await _logFileWriter.WriteLineAsync(formatted);
+                // Don't let exceptions silently crash the entire thread.
+                try
+                {
+                    Console.Error.WriteLine($"[BackgroundLogger] Failed to write log message: {ex.Message}");
+                }
+                catch
+                {
+                    // There is absolutely nothing we can do here.
+                }
             }
         }
     }
