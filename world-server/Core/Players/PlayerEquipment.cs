@@ -16,7 +16,7 @@ namespace FOMServer.World.Core.Players
         {
             _player = player;
 
-            _equipment = new Slot[(uint)EquipmentSlot.NUM_EQUIPMENT_SLOTS];
+            _equipment = new Slot[PlayerConstants.NumEquipmentSlots];
             foreach (var (_, item) in items)
             {
                 var slot = (EquipmentSlot)item.LocationId;
@@ -33,7 +33,7 @@ namespace FOMServer.World.Core.Players
                 _equipment[(uint)slot] = new Slot(player, slot, item);
             }
 
-            for (var i = 0; i < (uint)EquipmentSlot.NUM_EQUIPMENT_SLOTS; ++i)
+            for (var i = 0; i < PlayerConstants.NumEquipmentSlots; ++i)
             {
                 if (_equipment[i] is null)
                 {
@@ -46,7 +46,7 @@ namespace FOMServer.World.Core.Players
         {
             lock (_syncRoot)
             {
-                for (var i = 0; i < (uint)EquipmentSlot.NUM_EQUIPMENT_SLOTS; ++i)
+                for (var i = 0; i < PlayerConstants.NumEquipmentSlots; ++i)
                 {
                     _equipment[i].WriteTo(ref p[i]);
                 }

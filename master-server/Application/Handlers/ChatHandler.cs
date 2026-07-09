@@ -32,7 +32,7 @@ namespace FOMServer.Master.Application.Handlers
             var player = _clientRegistry.Get(sender);
             if (player is null)
             {
-                _logger.LogWarning("Received unexpected chat packet for player {PlayerId}", p.SenderId);
+                _logger.LogWarning("Received unexpected packet for player {PlayerId}", p.SenderId);
                 return;
             }
 

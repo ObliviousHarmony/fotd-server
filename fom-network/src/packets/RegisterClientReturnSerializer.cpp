@@ -1,5 +1,4 @@
 #include <fom-network/constants/PlayerConstants.h>
-#include <fom-network/enums/EquipmentSlot.h>
 #include <fom-network/packets/RegisterClientReturn.h>
 
 #include "../types/AvatarSerializer.h"
@@ -34,7 +33,7 @@ void RegisterClientReturnSerializer::Write(
 
   itemListSerializer.Write(bs, data->inventory);
 
-  for (int i = 0; i < Enum::NUM_EQUIPMENT_SLOTS; ++i) {
+  for (int i = 0; i < Constants::NUM_EQUIPMENT_SLOTS; ++i) {
     bs.Write(data->equipment[i].id != 0);
     if (data->equipment[i].id != 0)
       itemSerializer.Write(bs, data->equipment[i]);

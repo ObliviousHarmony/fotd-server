@@ -7,6 +7,8 @@ namespace FOMServer.Shared.Core.Packets.Types
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct ItemList
     {
+        public ushort ReservedSpace;
+        public uint MaxSpace;
         public uint ItemCount;
         public ItemArray Items;
 

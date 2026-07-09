@@ -79,10 +79,19 @@ namespace FOMServer.World.Application.Players
             }
 
             addItem(ItemType._9mmStandardRounds, ItemLocation.Inventory, 0);
+            addItem(ItemType.EmergencyMedikit, ItemLocation.Inventory, 0);
+            addItem(ItemType.ShieldAugmentation, ItemLocation.Inventory, 0);
+            addItem(ItemType.BackerTShirtMale, ItemLocation.Inventory, 0);
+            addItem(ItemType.AssaultPantsMale, ItemLocation.Inventory, 0);
+            addItem(ItemType.EsporteAllTerrainShoesMale, ItemLocation.Inventory, 0);
 
             addItem(ItemType.Fedora, ItemLocation.Equipment, (uint)EquipmentSlot.Hat);
+            addItem(ItemType.AdvancedCivilianHelmet, ItemLocation.Equipment, (uint)EquipmentSlot.Head);
             addItem(ItemType.ShieldAugmentation, ItemLocation.Equipment, (uint)EquipmentSlot.Back);
             addItem(ItemType.AlmDesignsGlassesBlack, ItemLocation.Equipment, (uint)EquipmentSlot.Eyes);
+            addItem(ItemType.AllWeatherTShirtMale, ItemLocation.Equipment, (uint)EquipmentSlot.Shirt);
+            addItem(ItemType.AntiRiotPantsMale, ItemLocation.Equipment, (uint)EquipmentSlot.Pants);
+            addItem(ItemType.BlackDressShoesMale, ItemLocation.Equipment, (uint)EquipmentSlot.Shoes);
 
             addItem(ItemType.DOA187, ItemLocation.Weapons, 0);
 

@@ -7,11 +7,16 @@ namespace FOMServer.World.Core.Players
 {
     internal class ItemBag : ItemContainer
     {
+        private readonly uint _maxSpace;
+        private readonly ushort _reservedSpace;
         private readonly Dictionary<uint, Item> _items = [];
         private readonly Dictionary<ItemType, Dictionary<uint, Item>> _itemsByType = [];
 
         public ItemBag(Player? owner, ItemLocation location, uint locationId, IDictionary<uint, Item> items) : base(owner, location, locationId)
         {
+            _maxSpace = 100;
+            _reservedSpace = 0;
+
             foreach (var (_, item) in items)
             {
                 Insert(item);
@@ -52,6 +57,9 @@ namespace FOMServer.World.Core.Players
 
         public bool WriteTo(ref PacketItemList p)
         {
+            p.MaxSpace = _maxSpace;
+            p.ReservedSpace = _reservedSpace;
+
             Item[] items;
             lock (_syncRoot)
             {

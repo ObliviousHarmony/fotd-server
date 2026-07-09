@@ -9,6 +9,7 @@
 #include <fom-network/packets/LoginRequestReturn.h>
 #include <fom-network/packets/LoginReturn.h>
 #include <fom-network/packets/LoginTokenCheck.h>
+#include <fom-network/packets/MoveItems.h>
 #include <fom-network/packets/PlayerLeavingWorld.h>
 #include <fom-network/packets/PlayerMigrateWorld.h>
 #include <fom-network/packets/PlayerWorldReady.h>
@@ -74,6 +75,7 @@ static const std::unordered_map<uint8_t, size_t> packetSizes = {
     {Enum::ID_UPDATE, sizeof(Packet::Update)},
     {Enum::ID_WORLD_UPDATE, sizeof(Packet::WorldUpdate)},
     {Enum::ID_CHAT, sizeof(Packet::Chat)},
+    {Enum::ID_MOVE_ITEMS, sizeof(Packet::MoveItems)},
 };
 
 /**
@@ -101,6 +103,7 @@ static const std::unordered_map<uint32_t, IWriter*> writerMap = {
      &Packet::RegisterClientReturnSerializer::GetInstance()},
     {Enum::ID_WORLD_UPDATE, &Packet::WorldUpdateSerializer::GetInstance()},
     {Enum::ID_CHAT, &Packet::ChatSerializer::GetInstance()},
+    {Enum::ID_MOVE_ITEMS, &Packet::MoveItemsSerializer::GetInstance()},
 };
 
 static const std::unordered_map<uint32_t, IReader*> readerMap = {
@@ -137,6 +140,7 @@ static const std::unordered_map<uint32_t, IReader*> readerMap = {
      &Packet::RegisterClientSerializer::GetInstance()},
     {Enum::ID_UPDATE, &Packet::UpdateSerializer::GetInstance()},
     {Enum::ID_CHAT, &Packet::ChatSerializer::GetInstance()},
+    {Enum::ID_MOVE_ITEMS, &Packet::MoveItemsSerializer::GetInstance()},
 };
 
 bool FOMDataSerializer::Write(RakNet::BitStream& bs,

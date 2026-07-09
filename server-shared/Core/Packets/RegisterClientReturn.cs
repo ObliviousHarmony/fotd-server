@@ -61,7 +61,7 @@ namespace FOMServer.Shared.Core.Packets
             }
         }
 
-        [InlineArray((int)EquipmentSlot.NUM_EQUIPMENT_SLOTS)]
+        [InlineArray(PlayerConstants.NumEquipmentSlots)]
         public struct EquipmentArray
         {
             private Item _element;
