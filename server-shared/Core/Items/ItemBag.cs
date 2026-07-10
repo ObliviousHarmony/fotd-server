@@ -25,38 +25,6 @@ namespace FOMServer.Shared.Core.Items
             }
         }
 
-        public Item? RemoveOfType(ItemType type)
-        {
-            Item removed;
-            lock (_syncRoot)
-            {
-                if (!_itemsByType.TryGetValue(type, out var byType) || byType.Count == 0)
-                {
-                    return null;
-                }
-
-                using var e = byType.GetEnumerator();
-                if (!e.MoveNext())
-                {
-                    return null;
-                }
-
-                var (id, item) = e.Current;
-
-                byType.Remove(id);
-                _items.Remove(id);
-
-                item.OnDestroyed -= OnItemDestroyed;
-                item.Move(null, ItemSlotType.None);
-
-                removed = item;
-            }
-
-            RaiseOnItemRemoved(removed);
-
-            return removed;
-        }
-
         public void WriteTo(ref PacketItemList p)
         {
             p.MaxSpace = _maxSpace;

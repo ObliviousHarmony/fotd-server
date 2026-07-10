@@ -6,7 +6,9 @@ namespace FOMServer.Shared.Core.Items
 
     public delegate void ItemRemovedCallback(Item item);
 
-    public delegate void ItemTransferredCallback(Item item, IItemLocation location);
+    public delegate void ItemTransferredFrom(Item item, ItemContainer from);
+
+    public delegate void ItemTransferredTo(Item item, ItemContainer to);
 
     public abstract class ItemContainer
     {
@@ -25,7 +27,9 @@ namespace FOMServer.Shared.Core.Items
 
         public event ItemRemovedCallback? OnItemRemoved;
 
-        public event ItemTransferredCallback? OnItemTransferred;
+        public event ItemTransferredFrom? OnItemTransferredFrom;
+
+        public event ItemTransferredTo? OnItemTransferredTo;
 
         public IItemLocation Location { get; }
 
@@ -44,7 +48,7 @@ namespace FOMServer.Shared.Core.Items
                 item.Move(Location, SlotType);
             }
 
-            OnItemAdded?.Invoke(item);
+            RaiseOnItemAdded(item);
 
             return true;
         }
@@ -64,7 +68,7 @@ namespace FOMServer.Shared.Core.Items
                 item.Move(null, ItemSlotType.None);
             }
 
-            OnItemRemoved?.Invoke(item);
+            RaiseOnItemRemoved(item);
 
             return item;
         }
@@ -110,7 +114,8 @@ namespace FOMServer.Shared.Core.Items
                 }
             }
 
-            OnItemTransferred?.Invoke(item, to.Location);
+            OnItemTransferredTo?.Invoke(item, to);
+            to.OnItemTransferredFrom?.Invoke(item, this);
 
             return item;
         }
