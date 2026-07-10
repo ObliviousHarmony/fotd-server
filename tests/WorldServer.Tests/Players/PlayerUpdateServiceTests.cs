@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Networking;
-using FOMServer.World.Application.Players;
+using FOMServer.World.Application.Ticks;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
 using FOMServer.World.Tests.Factories;
@@ -88,7 +88,7 @@ namespace FOMServer.World.Tests.Players
             Assert.Contains(fixture.Sender.Sends, s => s.PlayerId == 3);
 
             fixture.Sender.Sends.Clear();
-            fixture.Service.UnregisterRecipient(c);
+            fixture.Service.Unregister(c);
 
             // Second tick: after unregistering, the departed C receives nothing while the
             // still-connected B keeps receiving.
@@ -156,19 +156,19 @@ namespace FOMServer.World.Tests.Players
         {
             public Fixture()
             {
-                Service = new PlayerUpdateService(Sender);
+                Service = new PlayerUpdateTick(Sender);
             }
 
             public CapturingSender Sender { get; } = new();
 
-            public PlayerUpdateService Service { get; }
+            public PlayerUpdateTick Service { get; }
 
             public Player AddPlayer(uint id, ushort port)
             {
                 var player = TestPlayerBuilder.Create(id).Build();
 
                 player.ClaimForClient(new NetworkAddress { BinaryAddress = 0x0100007F, Port = port });
-                Service.RegisterRecipient(player);
+                Service.Register(player);
                 return player;
             }
         }

@@ -1,15 +1,16 @@
 using System.Collections.Concurrent;
 using System.Threading.Channels;
 using FOMServer.Shared.Core.Networking;
-using FOMServer.Shared.Core.Ticking;
+using FOMServer.Shared.Core.Ticks;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
+using FOMServer.World.Core.Tick;
 using PacketWorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
 using WorldUpdatePacket = FOMServer.Shared.Core.Packets.WorldUpdate;
 
-namespace FOMServer.World.Application.Players
+namespace FOMServer.World.Application.Ticks
 {
-    internal sealed class PlayerUpdateService : IPlayerUpdateService, ITickable
+    internal sealed class PlayerUpdateTick : IPlayerUpdateTick, ITickable
     {
         private readonly IClientPacketSender _clientPacketSender;
 
@@ -22,19 +23,19 @@ namespace FOMServer.World.Application.Players
 
         private readonly List<Recipient> _recipientSnapshot = [];
 
-        public PlayerUpdateService(IClientPacketSender clientPacketSender)
+        public PlayerUpdateTick(IClientPacketSender clientPacketSender)
         {
             _clientPacketSender = clientPacketSender;
         }
 
         public TimeSpan TickInterval => TimeSpan.FromMilliseconds(25);
 
-        public void RegisterRecipient(Player player)
+        public void Register(Player player)
         {
             _recipients.TryAdd(player, new Recipient(player));
         }
 
-        public void UnregisterRecipient(Player player)
+        public void Unregister(Player player)
         {
             _recipients.TryRemove(player, out _);
         }

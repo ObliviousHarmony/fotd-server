@@ -1,6 +1,6 @@
 using System.Reflection;
 using FOMServer.Shared.Application.Persistence;
-using FOMServer.Shared.Application.Ticking;
+using FOMServer.Shared.Application.Ticks;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Persistence;
@@ -34,6 +34,7 @@ namespace FOMServer.Shared.Extensions
             services.AddSharedServices();
             services.AddSharedRepositories();
             services.AddPacketHandlers();
+
             return services;
         }
 
@@ -43,6 +44,7 @@ namespace FOMServer.Shared.Extensions
             services.AddSingleton<IServerService, ServerService>();
             services.AddSingleton<IClientService, ClientService>();
             services.AddSingleton<IPacketService, PacketService>();
+
             return services;
         }
 
@@ -61,6 +63,7 @@ namespace FOMServer.Shared.Extensions
         {
             services.AddSingleton<IAccountRepository, DbAccountRepository>();
             services.AddSingleton<IPlayerRepository, DbPlayerRepository>();
+
             return services;
         }
 

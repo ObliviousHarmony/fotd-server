@@ -2,17 +2,22 @@ using FOMServer.Shared.Application;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Persistence;
-using FOMServer.Shared.Core.Ticking;
+using FOMServer.Shared.Core.Ticks;
 using FOMServer.Shared.Infrastructure;
 using FOMServer.World.Application;
 using FOMServer.World.Application.Networking;
 using FOMServer.World.Application.Persistence;
 using FOMServer.World.Application.Players;
+using FOMServer.World.Application.Players.Registration;
+using FOMServer.World.Application.Ticks;
 using FOMServer.World.Core;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
+using FOMServer.World.Core.Players.Registration;
+using FOMServer.World.Core.Tick;
 using FOMServer.World.Infrastructure;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace FOMServer.World
 {
@@ -37,7 +42,7 @@ namespace FOMServer.World
             services.AddServerShared();
             services.AddWorldServices();
             services.AddRepositories();
-            services.AddTickableServices();
+            services.AddTicks();
             services.AddPersistenceHandlers();
 
             services.AddSingleton<Server>();
@@ -96,6 +101,7 @@ namespace FOMServer.World
             _ = s_serverSettings.ClientIp ?? throw new InvalidOperationException("Client host could not be resolved");
             services.AddSingleton(s_serverSettings);
             services.AddSingleton(s_dbSettings);
+
             return services;
         }
 
@@ -115,11 +121,12 @@ namespace FOMServer.World
             return services;
         }
 
-        private static ServiceCollection AddTickableServices(this ServiceCollection services)
+        private static ServiceCollection AddTicks(this ServiceCollection services)
         {
-            services.AddSingleton<PlayerUpdateService>();
-            services.AddSingleton<IPlayerUpdateService>(sp => sp.GetRequiredService<PlayerUpdateService>());
-            services.AddSingleton<ITickable>(sp => sp.GetRequiredService<PlayerUpdateService>());
+            services.AddSingleton<PlayerUpdateTick>();
+            services.AddSingleton<IPlayerUpdateTick>(sp => sp.GetRequiredService<PlayerUpdateTick>());
+            services.AddSingleton<ITickable>(sp => sp.GetRequiredService<PlayerUpdateTick>());
+
             return services;
         }
 

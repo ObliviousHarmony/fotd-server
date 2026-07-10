@@ -4,7 +4,7 @@ using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Core.Repositories;
 using FOMServer.World.Core.Players;
 
-namespace FOMServer.World.Application.Players
+namespace FOMServer.World.Application.Players.Registration
 {
     internal class PlayerLoader : IPlayerLoader
     {

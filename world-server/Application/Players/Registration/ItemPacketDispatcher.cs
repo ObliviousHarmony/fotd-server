@@ -1,7 +1,7 @@
 using FOMServer.Shared.Core.Items;
-using FOMServer.World.Core.Players;
+using FOMServer.World.Core.Players.Registration;
 
-namespace FOMServer.World.Application.Players
+namespace FOMServer.World.Application.Players.Registration
 {
     internal class ItemPacketDispatcher : IItemPacketDispatcher
     {

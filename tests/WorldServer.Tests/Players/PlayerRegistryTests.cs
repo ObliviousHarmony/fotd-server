@@ -1,6 +1,7 @@
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.World.Application.Players;
 using FOMServer.World.Core.Players;
+using FOMServer.World.Core.Tick;
 using FOMServer.World.Tests.Factories;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
@@ -143,13 +144,13 @@ namespace FOMServer.World.Tests.Players
             }
         }
 
-        private sealed class NoOpPlayerUpdateService : IPlayerUpdateService
+        private sealed class NoOpPlayerUpdateService : IPlayerUpdateTick
         {
-            public void RegisterRecipient(Player player)
+            public void Register(Player player)
             {
             }
 
-            public void UnregisterRecipient(Player player)
+            public void Unregister(Player player)
             {
             }
 

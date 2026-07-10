@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
 using FOMServer.Shared.Core.Items;
 
-namespace FOMServer.World.Core.Players
+namespace FOMServer.World.Core.Players.Registration
 {
     internal interface IItemPacketDispatcher
     {
