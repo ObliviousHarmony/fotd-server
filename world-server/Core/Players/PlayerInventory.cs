@@ -1,8 +1,8 @@
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
+using PacketEquipment = FOMServer.Shared.Core.Packets.RegisterClientReturn.EquipmentArray;
 using PacketInventory = FOMServer.Shared.Core.Packets.Types.ItemList;
 using PacketWeapons = FOMServer.Shared.Core.Packets.RegisterClientReturn.WeaponsArray;
-using PacketEquipment = FOMServer.Shared.Core.Packets.RegisterClientReturn.EquipmentArray;
 
 namespace FOMServer.World.Core.Players
 {
@@ -77,6 +77,15 @@ namespace FOMServer.World.Core.Players
             }
 
             return null;
+        }
+
+        public IEnumerable<ItemContainer> GetItemContainers()
+        {
+            yield return _backpackItems;
+            foreach (var slot in _itemSlots.Values)
+            {
+                yield return slot;
+            }
         }
 
         public void WriteTo(ref PacketInventory inventory, ref PacketWeapons weapons, ref PacketEquipment equipment)

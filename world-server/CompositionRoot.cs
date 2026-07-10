@@ -110,6 +110,7 @@ namespace FOMServer.World
 
             services.AddSingleton<IPlayerLoader, PlayerLoader>();
             services.AddSingleton<IPlayerRegistry, PlayerRegistry>();
+            services.AddSingleton<IItemPacketDispatcher, ItemPacketDispatcher>();
 
             return services;
         }

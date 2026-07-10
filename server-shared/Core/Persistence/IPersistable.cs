@@ -12,6 +12,6 @@ namespace FOMServer.Shared.Core.Persistence
 
     public interface IPersistable
     {
-        event PersistableChangeCallback? OnPersistableChange;
+        event PersistableChangeCallback? PersistableChange;
     }
 }

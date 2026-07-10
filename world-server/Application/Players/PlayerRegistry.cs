@@ -1,4 +1,5 @@
 using System.Collections.Concurrent;
+using System.Reflection;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.World.Core.Players;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
@@ -9,6 +10,7 @@ namespace FOMServer.World.Application.Players
     {
         private readonly IPlayerLoader _playerLoader;
         private readonly IPersistenceService _persistenceService;
+        private readonly IItemPacketDispatcher _itemPacketDispatcher;
         private readonly TimeProvider _timeProvider;
         private readonly IPlayerUpdateService _playerUpdateService;
         private readonly ConcurrentDictionary<uint, Player> _players = new();
@@ -18,11 +20,13 @@ namespace FOMServer.World.Application.Players
         public PlayerRegistry(
             IPlayerLoader playerLoader,
             IPersistenceService persistenceService,
+            IItemPacketDispatcher itemPacketDispatcher,
             TimeProvider timeProvider,
             IPlayerUpdateService playerUpdateService)
         {
             _playerLoader = playerLoader;
             _persistenceService = persistenceService;
+            _itemPacketDispatcher = itemPacketDispatcher;
             _timeProvider = timeProvider;
             _playerUpdateService = playerUpdateService;
         }
@@ -45,7 +49,9 @@ namespace FOMServer.World.Application.Players
         public Player PrepareForClient(uint playerId, uint clientBinaryAddress)
         {
             var player = _playerLoader.Load(playerId) ?? throw new InvalidOperationException($"Unable to load player {playerId}");
+
             _pendingPlayers[playerId] = new PendingPlayer(player, clientBinaryAddress, _timeProvider.GetUtcNow());
+
             return player;
         }
 
@@ -75,28 +81,65 @@ namespace FOMServer.World.Application.Players
             var player = pending.Player;
             player.ClaimForClient(sender);
 
-            if (!_players.TryAdd(playerId, player))
-            {
-                return null;
-            }
+            RegisterPlayer(player);
 
-            _playersByAddress[sender] = player;
-            _playerUpdateService.RegisterRecipient(player);
             return player;
         }
 
         public void Logout(Player player)
         {
-            _playerUpdateService.UnregisterRecipient(player);
-
             _persistenceService.WaitForPersistence(
                 player,
-                () =>
-                {
-                    _playersByAddress.TryRemove(new(player.Address, player));
-                    _players.TryRemove(new(player.Id, player));
-                }
+                () => UnregisterPlayer(player)
             );
+        }
+
+        private bool RegisterPlayer(Player player)
+        {
+            foreach (var container in player.Inventory.GetItemContainers())
+            {
+                var items = container.GetAll();
+                foreach (var item in items)
+                {
+                    _persistenceService.Register(item);
+                }
+            }
+            _persistenceService.Register(player);
+            _persistenceService.Register(player.Attributes);
+
+            _itemPacketDispatcher.Register(player.Inventory);
+
+            _playerUpdateService.RegisterRecipient(player);
+
+            if (!_players.TryAdd(player.Id, player))
+            {
+                UnregisterPlayer(player);
+                return false;
+            }
+            _playersByAddress[player.Address] = player;
+
+            return true;
+        }
+
+        private void UnregisterPlayer(Player player)
+        {
+            _playersByAddress.TryRemove(new(player.Address, player));
+            _players.TryRemove(new(player.Id, player));
+
+            _playerUpdateService.UnregisterRecipient(player);
+
+            _itemPacketDispatcher.Unregister(player.Inventory);
+
+            _persistenceService.Unregister(player.Attributes);
+            _persistenceService.Unregister(player);
+            foreach (var container in player.Inventory.GetItemContainers())
+            {
+                var items = container.GetAll();
+                foreach (var item in items)
+                {
+                    _persistenceService.Unregister(item);
+                }
+            }
         }
 
         private readonly record struct PendingPlayer

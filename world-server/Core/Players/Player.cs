@@ -1,6 +1,5 @@
-using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Core.Items;
+using FOMServer.Shared.Core.Persistence;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 using PacketWorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
 using RegisterClientReturnPacket = FOMServer.Shared.Core.Packets.RegisterClientReturn;
@@ -25,7 +24,7 @@ namespace FOMServer.World.Core.Players
             Inventory = new PlayerInventory(this, inventory);
         }
 
-        public event PersistableChangeCallback? OnPersistableChange;
+        public event PersistableChangeCallback? PersistableChange;
 
         public uint Id { get; }
 
@@ -34,10 +33,6 @@ namespace FOMServer.World.Core.Players
         public PlayerAttributes Attributes { get; }
 
         public PlayerInventory Inventory { get; }
-
-        public void FinishLoading()
-        {
-        }
 
         public void ClaimForClient(NetworkAddress address)
         {

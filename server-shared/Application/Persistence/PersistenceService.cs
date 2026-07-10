@@ -43,7 +43,12 @@ namespace FOMServer.Shared.Application.Persistence
 
         public void Register(IPersistable entity)
         {
-            entity.OnPersistableChange += Enqueue;
+            entity.PersistableChange += Enqueue;
+        }
+
+        public void Unregister(IPersistable entity)
+        {
+            entity.PersistableChange -= Enqueue;
         }
 
         public void WaitForPersistence(IPersistable entity, Action callback)

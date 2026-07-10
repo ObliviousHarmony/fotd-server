@@ -22,7 +22,7 @@ namespace FOMServer.Shared.Tests.Items
         {
             var item = CreateItem(value: 100, durability: 10, durabilityLossFactor: 100);
             var destroyedCount = 0;
-            item.OnDestroyed += _ => destroyedCount++;
+            item.ItemDestroyed += _ => destroyedCount++;
 
             item.UseValue(10, true);
 
@@ -34,7 +34,7 @@ namespace FOMServer.Shared.Tests.Items
         {
             var item = CreateItem(durability: 20, durabilityLossFactor: 100);
             var destroyedCount = 0;
-            item.OnDestroyed += _ => destroyedCount++;
+            item.ItemDestroyed += _ => destroyedCount++;
 
             item.ApplyDurabilityLoss(20);
 
@@ -46,7 +46,7 @@ namespace FOMServer.Shared.Tests.Items
         {
             var item = CreateItem(durability: 50, durabilityLossFactor: 250);
             var destroyedCount = 0;
-            item.OnDestroyed += _ => destroyedCount++;
+            item.ItemDestroyed += _ => destroyedCount++;
 
             item.ApplyDurabilityLoss(60000);
 

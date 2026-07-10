@@ -175,7 +175,7 @@ namespace FOMServer.Shared.Tests.Items
             protected override void OnItemDestroyed(Item item)
             {
                 _items.Remove(item.Id);
-                item.OnDestroyed -= OnItemDestroyed;
+                item.ItemDestroyed -= OnItemDestroyed;
             }
         }
     }

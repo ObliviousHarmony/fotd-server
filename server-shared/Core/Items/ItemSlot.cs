@@ -18,6 +18,19 @@ namespace FOMServer.Shared.Core.Items
             }
         }
 
+        public override Item[] GetAll()
+        {
+            lock (_syncRoot)
+            {
+                if (_item is null)
+                {
+                    return [];
+                }
+
+                return [_item];
+            }
+        }
+
         public void WriteTo(ref PacketItem p)
         {
             lock (_syncRoot)

@@ -1,4 +1,3 @@
-using System.Xml.Linq;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
@@ -9,12 +8,10 @@ namespace FOMServer.World.Application.Players
 {
     internal class PlayerLoader : IPlayerLoader
     {
-        private readonly IPersistenceService _persistenceService;
         private readonly IPlayerRepository _playerRepository;
-
-        public PlayerLoader(IPersistenceService persistenceService, IPlayerRepository playerRepository)
+        
+        public PlayerLoader(IPlayerRepository playerRepository)
         {
-            _persistenceService = persistenceService;
             _playerRepository = playerRepository;
         }
 
@@ -34,10 +31,6 @@ namespace FOMServer.World.Application.Players
                 attributes,
                 items
             );
-
-            player.FinishLoading();
-
-            _persistenceService.Register(player);
 
             return player;
         }
@@ -64,8 +57,6 @@ namespace FOMServer.World.Application.Players
             {
                 var item = new Item(nextItemId++, type, ItemLocationType.Player, id, slot, 100, 1000, 1000, 100);
                 loadedItems[item.Id] = item;
-
-                _persistenceService.Register(item);
             }
 
             addItem(ItemType._9mmStandardRounds);

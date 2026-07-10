@@ -25,6 +25,14 @@ namespace FOMServer.Shared.Core.Items
             }
         }
 
+        public override Item[] GetAll()
+        {
+            lock (_syncRoot)
+            {
+                return [.. _items.Values];
+            }
+        }
+
         public void WriteTo(ref PacketItemList p)
         {
             p.MaxSpace = _maxSpace;
@@ -87,7 +95,7 @@ namespace FOMServer.Shared.Core.Items
         {
             lock (_syncRoot)
             {
-                item.OnDestroyed -= OnItemDestroyed;
+                item.ItemDestroyed -= OnItemDestroyed;
                 _items.Remove(item.Id);
                 ExtractTypeIndex(item);
             }

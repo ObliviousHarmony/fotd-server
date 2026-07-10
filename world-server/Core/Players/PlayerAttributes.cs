@@ -83,7 +83,7 @@ namespace FOMServer.World.Core.Players
             }
         }
 
-        public event PersistableChangeCallback? OnPersistableChange;
+        public event PersistableChangeCallback? PersistableChange;
 
         public uint PlayerId => _player.Id;
 
@@ -132,7 +132,7 @@ namespace FOMServer.World.Core.Players
                 }
             } while (Interlocked.CompareExchange(ref _values[index], updated, current) != current);
 
-            OnPersistableChange?.Invoke(this, _player);
+            PersistableChange?.Invoke(this, _player);
             return updated;
         }
 
@@ -232,7 +232,7 @@ namespace FOMServer.World.Core.Players
 
                 if (_changed)
                 {
-                    _parent.OnPersistableChange?.Invoke(_parent, _parent._player);
+                    _parent.PersistableChange?.Invoke(_parent, _parent._player);
                 }
             }
         }

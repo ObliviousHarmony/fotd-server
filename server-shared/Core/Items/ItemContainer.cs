@@ -1,14 +1,15 @@
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Packets.Types;
 
 namespace FOMServer.Shared.Core.Items
 {
-    public delegate void ItemAddedCallback(Item item);
+    public delegate void ItemAddedCallback(ItemContainer container, Item item);
 
-    public delegate void ItemRemovedCallback(Item item);
+    public delegate void ItemRemovedCallback(ItemContainer container, Item item);
 
-    public delegate void ItemTransferredFrom(Item item, ItemContainer from);
+    public delegate void ItemTransferredTo(ItemContainer container, Item item, ItemContainer to);
 
-    public delegate void ItemTransferredTo(Item item, ItemContainer to);
+    public delegate void ItemTransferredFrom(ItemContainer container, Item item, ItemContainer from);
 
     public abstract class ItemContainer
     {
@@ -23,17 +24,19 @@ namespace FOMServer.Shared.Core.Items
             SlotType = slotType;
         }
 
-        public event ItemAddedCallback? OnItemAdded;
+        public event ItemAddedCallback? ItemAdded;
 
-        public event ItemRemovedCallback? OnItemRemoved;
+        public event ItemRemovedCallback? ItemRemoved;
 
-        public event ItemTransferredFrom? OnItemTransferredFrom;
+        public event ItemTransferredTo? ItemTransferredTo;
 
-        public event ItemTransferredTo? OnItemTransferredTo;
+        public event ItemTransferredFrom? ItemTransferredFrom;
 
         public IItemLocation Location { get; }
 
         public ItemSlotType SlotType { get; }
+
+        public abstract Item[] GetAll();
 
         public bool Add(Item item)
         {
@@ -44,7 +47,7 @@ namespace FOMServer.Shared.Core.Items
                     return false;
                 }
 
-                item.OnDestroyed += OnItemDestroyed;
+                item.ItemDestroyed += OnItemDestroyed;
                 item.Move(Location, SlotType);
             }
 
@@ -64,7 +67,7 @@ namespace FOMServer.Shared.Core.Items
                     return null;
                 }
 
-                item.OnDestroyed -= OnItemDestroyed;
+                item.ItemDestroyed -= OnItemDestroyed;
                 item.Move(null, ItemSlotType.None);
             }
 
@@ -108,26 +111,26 @@ namespace FOMServer.Shared.Core.Items
                         return null;
                     }
 
-                    item.OnDestroyed -= OnItemDestroyed;
-                    item.OnDestroyed += to.OnItemDestroyed;
+                    item.ItemDestroyed -= OnItemDestroyed;
+                    item.ItemDestroyed += to.OnItemDestroyed;
                     item.Move(to.Location, to.SlotType);
                 }
             }
 
-            OnItemTransferredTo?.Invoke(item, to);
-            to.OnItemTransferredFrom?.Invoke(item, this);
+            ItemTransferredTo?.Invoke(this, item, to);
+            to.ItemTransferredFrom?.Invoke(to, item, this);
 
             return item;
         }
 
         protected void RaiseOnItemAdded(Item item)
         {
-            OnItemAdded?.Invoke(item);
+            ItemAdded?.Invoke(this, item);
         }
 
         protected void RaiseOnItemRemoved(Item item)
         {
-            OnItemRemoved?.Invoke(item);
+            ItemRemoved?.Invoke(this, item);
         }
 
         protected abstract Item? GetCore(uint id);
