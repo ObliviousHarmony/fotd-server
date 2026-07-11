@@ -17,7 +17,6 @@ using FOMServer.World.Core.Players.Registration;
 using FOMServer.World.Core.Tick;
 using FOMServer.World.Infrastructure;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace FOMServer.World
 {
@@ -117,7 +116,6 @@ namespace FOMServer.World
             services.AddSingleton<IPlayerLoader, PlayerLoader>();
             services.AddSingleton<IPlayerRegistry, PlayerRegistry>();
             services.AddSingleton<IPlayerRegistrationFactory, PlayerRegistrationFactory>();
-            services.AddSingleton<IItemPacketDispatcher, ItemPacketDispatcher>();
 
             return services;
         }

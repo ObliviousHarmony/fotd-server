@@ -77,11 +77,6 @@ namespace FOMServer.Shared.Tests.Items
             var locationB = new TestLocation(ItemLocationType.Inventory, 2);
             var containerB = new TestItemContainer(locationB, ItemSlotType.None);
 
-            var raisedA = false;
-            containerA.ItemDestroyed += (container, item) => raisedA = true;
-            var raisedB = false;
-            containerB.ItemDestroyed += (container, item) => raisedB = true;
-
             var item = CreateItem(id: 3, durability: 10, durabilityLossFactor: 100);
             containerA.TryAdd(item);
 
@@ -89,8 +84,6 @@ namespace FOMServer.Shared.Tests.Items
 
             item.ApplyDurabilityLoss(10);
 
-            Assert.False(raisedA);
-            Assert.True(raisedB);
             Assert.False(containerB.TryRemove(out _, item.Id));
         }
 

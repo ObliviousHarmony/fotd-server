@@ -3,16 +3,6 @@ using FOMServer.Shared.Core.Packets.Types;
 
 namespace FOMServer.Shared.Core.Items
 {
-    public delegate void ItemsAddedToContainerHandler(ItemContainer container, IReadOnlyCollection<Item> items);
-
-    public delegate void ItemsRemovedToContainerHandler(ItemContainer container, IReadOnlyCollection<Item> items);
-
-    public delegate void ItemsTransferredOutOfContainerHandler(ItemContainer container, IReadOnlyCollection<Item> items, ItemContainer to);
-
-    public delegate void ItemsTransferredIntoContainerHandler(ItemContainer container, IReadOnlyCollection<Item> items, ItemContainer from);
-
-    public delegate void ItemDestroyedInContainerHandler(ItemContainer container, Item item);
-
     public abstract class ItemContainer
     {
         protected readonly Lock _syncRoot = new();
@@ -25,16 +15,6 @@ namespace FOMServer.Shared.Core.Items
             Location = location;
             SlotType = slotType;
         }
-
-        public event ItemsAddedToContainerHandler? ItemsAdded;
-
-        public event ItemsRemovedToContainerHandler? ItemsRemoved;
-
-        public event ItemsTransferredOutOfContainerHandler? ItemsTransferredOutOf;
-
-        public event ItemsTransferredIntoContainerHandler? ItemsTransferredInto;
-
-        public event ItemDestroyedInContainerHandler? ItemDestroyed;
 
         public IItemLocation Location { get; }
 
@@ -66,12 +46,10 @@ namespace FOMServer.Shared.Core.Items
                         throw new InvalidOperationException($"Item {item.Id} could not be added");
                     }
 
-                    item.ItemDestroyed += OnItemDestroyedCore;
+                    item.ItemDestroyed += OnItemDestroyed;
                     item.ChangeLocation(Location, SlotType);
                 }
             }
-
-            ItemsAdded?.Invoke(this, items);
 
             return true;
         }
@@ -99,14 +77,12 @@ namespace FOMServer.Shared.Core.Items
                 {
                     var item = ExtractCore(id) ?? throw new InvalidOperationException($"Item {id} could not be removed");
  
-                    item.ItemDestroyed -= OnItemDestroyedCore;
+                    item.ItemDestroyed -= OnItemDestroyed;
                     item.ChangeLocation(null, ItemSlotType.None);
 
                     removed.Add(item);
                 }
             }
-
-            ItemsRemoved?.Invoke(this, removed);
 
             return true;
         }
@@ -150,8 +126,8 @@ namespace FOMServer.Shared.Core.Items
                            throw new InvalidOperationException($"Item {item} lost in container transfer");
                         }
 
-                        item.ItemDestroyed -= OnItemDestroyedCore;
-                        item.ItemDestroyed += to.OnItemDestroyedCore;
+                        item.ItemDestroyed -= OnItemDestroyed;
+                        item.ItemDestroyed += to.OnItemDestroyed;
                         item.ChangeLocation(to.Location, to.SlotType);
 
                         transferred.Add(item);
@@ -159,17 +135,7 @@ namespace FOMServer.Shared.Core.Items
                 }
             }
 
-            ItemsTransferredOutOf?.Invoke(this, transferred, to);
-            to.ItemsTransferredInto?.Invoke(to, transferred, this);
-
             return true;
-        }
-
-        protected void OnItemDestroyedCore(Item item)
-        {
-            OnItemDestroyed(item);
-
-            ItemDestroyed?.Invoke(this, item);
         }
 
         protected abstract bool CanInsertCore(uint id);

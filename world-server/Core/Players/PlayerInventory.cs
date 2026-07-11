@@ -91,7 +91,7 @@ namespace FOMServer.World.Core.Players
 
         public ItemContainer? GetItemContainer(ItemSlotType slotType)
         {
-            var containerType = PlayerInventory.GetContainerType(slotType);
+            var containerType = GetContainerType(slotType);
             if (containerType == ItemContainerType.Inventory)
             {
                 return _backpackItems;
