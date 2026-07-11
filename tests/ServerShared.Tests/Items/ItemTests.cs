@@ -73,7 +73,7 @@ namespace FOMServer.Shared.Tests.Items
             return new Item(
                 1,
                 ItemType.Zanathid5Inflex,
-                ItemLocationType.Player,
+                ItemLocationType.Inventory,
                 1,
                 ItemSlotType.None,
                 value,

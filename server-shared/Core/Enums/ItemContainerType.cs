@@ -2,7 +2,7 @@ namespace FOMServer.Shared.Core.Enums
 {
     public enum ItemContainerType : byte
     {
-        Invalid = 0, // ITEM_CONTAINER_INVALID
+        None = 0, // ITEM_CONTAINER_NONE
 
         Inventory = 1, // ITEM_CONTAINER_INVENTORY
         Equipment = 2, // ITEM_CONTAINER_EQUIPMENT

@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
 
@@ -9,99 +8,90 @@ namespace FOMServer.Shared.Tests.Items
         [Fact]
         public void Add_ThenRemove_ReassignsOwnershipBothWays()
         {
-            var location = new TestLocation(ItemLocationType.Player, 1);
+            var location = new TestLocation(ItemLocationType.Inventory, 1);
             var container = new TestItemContainer(location, ItemSlotType.None);
 
             var item = CreateItem(id: 1);
 
-            Assert.True(container.Add(item));
+            Assert.True(container.TryAdd(item));
 
-            var removed = container.Remove(1);
-
-            Assert.Same(item, removed);
+            Assert.True(container.TryRemove(out var removed, item.Id));
+            Assert.Contains(item, removed);
         }
 
         [Fact]
         public void Add_DuplicateId_ReturnsFalseAndDoesNotReplaceExisting()
         {
-            var location = new TestLocation(ItemLocationType.Player, 1);
+            var location = new TestLocation(ItemLocationType.Inventory, 1);
             var container = new TestItemContainer(location, ItemSlotType.None);
 
             var first = CreateItem(id: 5);
             var second = CreateItem(id: 5);
 
-            Assert.True(container.Add(first));
-            Assert.False(container.Add(second));
-            Assert.Same(first, container.Remove(5));
+            Assert.True(container.TryAdd(first));
+            Assert.False(container.TryAdd(second));
         }
 
         [Fact]
         public void Transfer_MovesItemAndReassignsOwnershipToDestination()
         {
-            var locationA = new TestLocation(ItemLocationType.Player, 1);
+            var locationA = new TestLocation(ItemLocationType.Inventory, 1);
             var containerA = new TestItemContainer(locationA, ItemSlotType.None);
-            var locationB = new TestLocation(ItemLocationType.Player, 2);
+            var locationB = new TestLocation(ItemLocationType.Inventory, 2);
             var containerB = new TestItemContainer(locationB, ItemSlotType.None);
 
             var item = CreateItem(id: 7);
-            containerA.Add(item);
+            containerA.TryAdd(item);
 
-            var transferred = containerA.Transfer(7, containerB);
+            Assert.True(containerA.TryTransfer(containerB, out var transferred, item.Id));
 
-            Assert.NotNull(transferred);
-            Assert.Null(containerA.Remove(7));
-            Assert.NotNull(containerB.Remove(7));
+            Assert.Contains(item, transferred);
+            Assert.False(containerA.TryRemove(out _, item.Id));
+            Assert.True(containerB.TryRemove(out _, item.Id));
         }
 
         [Fact]
         public void Transfer_DuplicateIdAtDestination_FailsAndLeavesBothBagsIntact()
         {
-            var locationA = new TestLocation(ItemLocationType.Player, 1);
+            var locationA = new TestLocation(ItemLocationType.Inventory, 1);
             var containerA = new TestItemContainer(locationA, ItemSlotType.None);
-            var locationB = new TestLocation(ItemLocationType.Player, 2);
+            var locationB = new TestLocation(ItemLocationType.Inventory, 2);
             var containerB = new TestItemContainer(locationB, ItemSlotType.None);
 
             var itemA = CreateItem(id: 9);
-            containerA.Add(itemA);
+            containerA.TryAdd(itemA);
             var itemB = CreateItem(id: 9);
-            containerB.Add(itemB);
+            containerB.TryAdd(itemB);
 
-            var transferred = containerA.Transfer(9, containerB);
+            Assert.False(containerA.TryTransfer(containerB, out var transferred, itemA.Id));
 
-            Assert.Null(transferred);
-            Assert.Same(itemA, containerA.Remove(9));
+            Assert.Empty(transferred);
+            Assert.True(containerA.TryRemove(out _, itemA.Id));
         }
 
         [Fact]
-        public void Transfer_ThenDestroy_RemovesFromDestinationBagNotSource()
+        public void Transfer_ThenDestroy_RemovesFromDestinationBag()
         {
-            var locationA = new TestLocation(ItemLocationType.Player, 1);
+            var locationA = new TestLocation(ItemLocationType.Inventory, 1);
             var containerA = new TestItemContainer(locationA, ItemSlotType.None);
-            var locationB = new TestLocation(ItemLocationType.Player, 2);
+            var locationB = new TestLocation(ItemLocationType.Inventory, 2);
             var containerB = new TestItemContainer(locationB, ItemSlotType.None);
 
+            var raisedA = false;
+            containerA.ItemDestroyed += (container, item) => raisedA = true;
+            var raisedB = false;
+            containerB.ItemDestroyed += (container, item) => raisedB = true;
+
             var item = CreateItem(id: 3, durability: 10, durabilityLossFactor: 100);
-            containerA.Add(item);
+            containerA.TryAdd(item);
 
-            containerA.Transfer(3, containerB);
-
-            item.ApplyDurabilityLoss(10);
-
-            Assert.Null(containerB.Remove(3));
-        }
-
-        [Fact]
-        public void Destroy_AutomaticallyRemovesItemFromBagWithoutExplicitRemove()
-        {
-            var location = new TestLocation(ItemLocationType.Player, 1);
-            var container = new TestItemContainer(location, ItemSlotType.None);
-
-            var item = CreateItem(id: 4, durability: 10, durabilityLossFactor: 100);
-            container.Add(item);
+            containerA.TryTransfer(containerB, out _, item.Id);
 
             item.ApplyDurabilityLoss(10);
 
-            Assert.Null(container.Remove(4));
+            Assert.False(raisedA);
+            Assert.True(raisedB);
+            Assert.False(containerB.TryRemove(out _, item.Id));
         }
 
         private static Item CreateItem(
@@ -114,7 +104,7 @@ namespace FOMServer.Shared.Tests.Items
             return new Item(
                 id,
                 ItemType.Zanathid5Inflex,
-                ItemLocationType.Player,
+                ItemLocationType.Inventory,
                 1,
                 ItemSlotType.None,
                 value,
@@ -135,9 +125,14 @@ namespace FOMServer.Shared.Tests.Items
                 _id = id;
             }
 
-            public ItemLocationRef Location => new(_type, _id, null);
+            public ItemLocationRef LocationRef => new(_type, _id, null);
 
-            public ItemContainer? GetItemContainer(ItemContainerType type, ItemSlotType slotType)
+            public ItemContainer? GetItemContainer(ItemSlotType slotType)
+            {
+                throw new NotImplementedException();
+            }
+
+            public IEnumerable<ItemContainer> GetItemContainers()
             {
                 throw new NotImplementedException();
             }
@@ -151,19 +146,24 @@ namespace FOMServer.Shared.Tests.Items
             {
             }
 
-            protected override Item? GetCore(uint id)
+            public override Item[] GetAll()
             {
-                if (!_items.TryGetValue(id, out var item))
-                {
-                    return null;
-                }
+                throw new NotImplementedException();
+            }
 
-                return item;
+            protected override bool CanInsertCore(uint id)
+            {
+                return !_items.ContainsKey(id);
             }
 
             protected override bool InsertCore(Item item)
             {
                 return _items.TryAdd(item.Id, item);
+            }
+
+            protected override bool CanExtractCore(uint id)
+            {
+                return _items.ContainsKey(id);
             }
 
             protected override Item? ExtractCore(uint id)

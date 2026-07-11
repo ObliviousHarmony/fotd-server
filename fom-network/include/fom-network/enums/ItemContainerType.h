@@ -6,7 +6,7 @@ namespace FOMNetwork {
 namespace Enum {
 
 enum ItemContainerType : uint8_t {
-  ITEM_CONTAINER_INVALID = 0,
+  ITEM_CONTAINER_NONE = 0,
 
   ITEM_CONTAINER_INVENTORY = 1,
   ITEM_CONTAINER_EQUIPMENT = 2,

@@ -43,104 +43,103 @@ namespace FOMServer.World.Application.Handlers
                 return;
             }
 
-            var fromLocation = GetLocation(p.From, player);
-            if (fromLocation is null)
-            {
-                _logger.LogError("Items cannot be moved from {From} / {FromSlot}", p.From, p.FromSlot);
-                return;
-            }
+            _logger.LogError("Attempting to move {ItemIds} from {From} / {FromSlot} to {To} / {ToSlot}", string.Join(", ", p.ItemIds.ToArray()), p.From, p.FromSlot, p.To, p.ToSlot);
 
-            var fromContainer = fromLocation.GetItemContainer(p.From, p.FromSlot);
-            if (fromContainer is null)
-            {
-                _logger.LogError($"Location {p.From} does not have container {p.FromSlot} to move from");
-                return;
-            }
+            using var response = new PacketWriter<MoveItems>(sender);
+            response.Data = p;
+            _clientPacketSender.Send(response.Build());
 
-            Dictionary<uint, Item?> movedItems;
-            if (p.To == ItemContainerType.Destroy)
+            bool success;
+            if (p.From == p.To)
             {
-                movedItems = DestroyItems(p.Ids, fromContainer);
+                success = MoveBetweenSlots(player, p.From, p.FromSlot, p.ToSlot);
+            }
+            else if (p.To == ItemContainerType.Destroy)
+            {
+                success = DestroyItem(player, p.From, p.FromSlot, p.ItemIds);
             }
             else
             {
-                var toLocation = GetLocation(p.To, player);
-                if (toLocation is null)
-                {
-                    _logger.LogError("Items cannot be moved to {To} / {ToSlot}", p.To, p.ToSlot);
-                    return;
-                }
-
-                var toContainer = toLocation.GetItemContainer(p.To, p.ToSlot);
-                if (toContainer is null)
-                {
-                    _logger.LogError($"Location {p.To} does not have container {p.ToSlot} to move into");
-                    return;
-                }
-
-                movedItems = MoveItems(p.Ids, fromContainer, toContainer);
+                success = MoveBetweenContainers(player, p.From, p.FromSlot, p.To, p.ToSlot, p.ItemIds);
             }
 
-            using var response = new PacketWriter<MoveItems>(sender);
-            ref var rData = ref response.Data;
-
-            rData.PlayerId = player.Id;
-            rData.From = p.From;
-            rData.FromSlot = p.FromSlot;
-            rData.To = p.To;
-            rData.ToSlot = p.ToSlot;
-
-            var i = 0;
-            foreach (var (id, item) in movedItems)
+            if (!success)
             {
-                if (item is null)
-                {
-                    _logger.LogError("Failed to move item {Id} from {From} / {FromSlot} to {To} / {ToSlot}", id, p.From, p.FromSlot, p.To, p.ToSlot);
-                    continue;
-                }
-
-                unsafe
-                {
-                    rData.RawIds[i++] = id;
-                }
+                _logger.LogError("Failed to move items {ItemIds} from {From} / {FromSlot} to {To} / {ToSlot}", string.Join(", ", p.ItemIds.ToArray()), p.From, p.FromSlot, p.To, p.ToSlot);
+                return;
             }
-            rData.NumIds = (ushort)i;
-
-            _clientPacketSender.Send(response.Build());
         }
 
-        private IItemLocation? GetLocation(ItemContainerType type, Player player)
+        private bool MoveBetweenSlots(Player player, ItemContainerType containerType, ItemSlotType fromSlot, ItemSlotType toSlot)
         {
-            if (type is ItemContainerType.Inventory or ItemContainerType.Weapons or ItemContainerType.Equipment)
+            // Since quickslots don't actually hold any items, we need to handle them differently than we would normal items.
+            if (containerType == ItemContainerType.Quickslots)
+            {
+                // todo: Have the player.Inventory object perform some special thing for these kinds and then send a reply packet.
+                return true;
+            }
+
+            // todo: When an item is moved between slots on the same container, the client expects the server to
+            // infer the item's ID from the slot in question.
+            return true;
+        }
+
+        private bool DestroyItem(Player player, ItemContainerType fromType, ItemSlotType fromSlot, ReadOnlySpan<uint> itemIds)
+        {
+            // Since quickslots don't actually hold any items, we need to handle them differently than we would normal items.
+            if (fromType == ItemContainerType.Quickslots)
+            {
+                // todo: Have the player.Inventory object perform some special thing for these kinds and then send a reply packet.
+                return true;
+            }
+
+            // todo: When an item is destroyed it needs to be removed from the container.
+            // However, unlike a normal removal, instead of sending ID_ITEMS_REMOVED,
+            // we want to send an item moved packet.
+            return true;
+        }
+
+        private bool MoveBetweenContainers(Player player, ItemContainerType fromType, ItemSlotType fromSlot, ItemContainerType toType, ItemSlotType toSlot, ReadOnlySpan<uint> itemIds)
+        {
+            var fromLocation = GetLocation(fromType, player);
+            if (fromLocation is null)
+            {
+                _logger.LogError("Items cannot be moved from {From} / {FromSlot}", fromType, fromSlot);
+                return false;
+            }
+
+            var fromContainer = fromLocation.GetItemContainer(fromSlot);
+            if (fromContainer is null)
+            {
+                _logger.LogError($"Location {fromType} does not have container {fromSlot} to move from");
+                return false;
+            }
+
+            var toLocation = GetLocation(toType, player);
+            if (toLocation is null)
+            {
+                _logger.LogError("Items cannot be moved to {To} / {ToSlot}", toType, toSlot);
+                return false;
+            }
+
+            var toContainer = toLocation.GetItemContainer(toSlot);
+            if (toContainer is null)
+            {
+                _logger.LogError($"Location {toType} does not have container {toSlot} to move into");
+                return false;
+            }
+
+            return fromContainer.TryTransfer(toContainer, out _, itemIds);
+        }
+
+        private IItemLocation? GetLocation(ItemContainerType containerType, Player player)
+        {
+            if (containerType is ItemContainerType.Inventory or ItemContainerType.Weapons or ItemContainerType.Equipment)
             {
                 return player.Inventory;
             }
 
             return null;
-        }
-
-        private Dictionary<uint, Item?> DestroyItems(ReadOnlySpan<uint> ids, ItemContainer from)
-        {
-            var destroyed = new Dictionary<uint, Item?>();
-            foreach (var id in ids)
-            {
-                var item = from.Remove(id);
-                destroyed.Add(id, item);
-            }
-
-            return destroyed;
-        }
-
-        private Dictionary<uint, Item?> MoveItems(ReadOnlySpan<uint> ids, ItemContainer from, ItemContainer to)
-        {
-            var moved = new Dictionary<uint, Item?>();
-            foreach (var id in ids)
-            {
-                var item = from.Transfer(id, to);
-                moved.Add(id, item);
-            }
-
-            return moved;
         }
     }
 }

@@ -8,13 +8,13 @@ namespace FOMServer.Shared.Core.Enums
     ///
     /// For each new packet added:
     ///
-    /// - Core/Packets/<PacketType>.cs: Add a new struct representing the packet data.
+    /// - Core/Packets/<PacketType>.cs: TryAdd a new struct representing the packet data.
     /// - Server-Specific or Shared: Application/Handlers/<PacketType>Handler.cs: Create a packet handler.
     ///
     /// </remarks>
     public enum PacketIdentifier : byte
     {
-        // These are the internal packet Ids that cross the interop boundary.
+        // These are the internal packet ItemIds that cross the interop boundary.
         ID_CONNECTION_REQUEST_ACCEPTED = 14, // Connection request to the server has been accepted.
         ID_CONNECTION_ATTEMPT_FAILED = 15, // Could not connect to the server.
         ID_ALREADY_CONNECTED = 16, // Attempted to connect to a server we're already connected to.

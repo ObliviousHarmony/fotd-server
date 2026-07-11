@@ -2,6 +2,7 @@ using System.Collections.Concurrent;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.World.Application.Players.Registration;
 using FOMServer.World.Core.Players;
+using FOMServer.World.Core.Players.Registration;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.World.Application.Players
@@ -9,20 +10,20 @@ namespace FOMServer.World.Application.Players
     internal class PlayerRegistry : IPlayerRegistry
     {
         private readonly IPlayerLoader _playerLoader;
+        private readonly IPlayerRegistrationFactory _playerRegistrationFactory;
         private readonly TimeProvider _timeProvider;
         private readonly IPersistenceService _persistenceService;
-        private readonly IServiceProvider _serviceProvider;
         private readonly ConcurrentDictionary<uint, Player> _players = new();
         private readonly ConcurrentDictionary<NetworkAddress, Player> _playersByAddress = new();
-        private readonly ConcurrentDictionary<uint, PlayerRegistration> _playerRegistrations = new();
+        private readonly ConcurrentDictionary<uint, IPlayerRegistration> _playerRegistrations = new();
         private readonly ConcurrentDictionary<uint, PendingPlayer> _pendingPlayers = new();
 
-        public PlayerRegistry(IPlayerLoader playerLoader, TimeProvider timeProvider, IPersistenceService persistenceService, IServiceProvider serviceProvider)
+        public PlayerRegistry(IPlayerLoader playerLoader, IPlayerRegistrationFactory playerRegistrationFactory, TimeProvider timeProvider, IPersistenceService persistenceService)
         {
             _playerLoader = playerLoader;
+            _playerRegistrationFactory = playerRegistrationFactory;
             _timeProvider = timeProvider;
             _persistenceService = persistenceService;
-            _serviceProvider = serviceProvider;
         }
 
         public Player? Get(uint playerId)
@@ -75,14 +76,12 @@ namespace FOMServer.World.Application.Players
             var player = pending.Player;
             player.ClaimForClient(sender);
 
-            var registration = ActivatorUtilities.CreateInstance<PlayerRegistration>(_serviceProvider, player);
-
-            registration.Register();
+            var registration = _playerRegistrationFactory.Create(player);
             if (!_players.TryAdd(player.Id, player))
             {
                 registration.Unregister();
                 return null;
-            }
+            } 
             _playersByAddress[player.Address] = player;
             _playerRegistrations[player.Id] = registration;
 

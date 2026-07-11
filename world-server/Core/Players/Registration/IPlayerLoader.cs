@@ -1,4 +1,4 @@
-namespace FOMServer.World.Core.Players
+namespace FOMServer.World.Core.Players.Registration
 {
     internal interface IPlayerLoader
     {

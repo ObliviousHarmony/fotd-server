@@ -10,20 +10,20 @@ namespace FOMServer.Shared.Core.Packets
     public unsafe struct MoveItems
     {
         public uint PlayerId;
-        public ushort NumIds;
-        public fixed uint RawIds[BufferSizes.MaxItemListSize];
+        public ushort NumItemIds;
+        public fixed uint RawItemIds[BufferSizes.MaxItemListSize];
         public ItemContainerType From;
         public ItemContainerType To;
         public ItemSlotType FromSlot;
         public ItemSlotType ToSlot;
 
-        public ReadOnlySpan<uint> Ids
+        public ReadOnlySpan<uint> ItemIds
         {
             get
             {
-                fixed (uint* ptr = RawIds)
+                fixed (uint* ptr = RawItemIds)
                 {
-                    return new Span<uint>(ptr, NumIds);
+                    return new Span<uint>(ptr, NumItemIds);
                 }
             }
         }

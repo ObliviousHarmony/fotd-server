@@ -57,14 +57,9 @@ namespace FOMServer.Shared.Core.Items
             p.ItemCount = (uint)i;
         }
 
-        protected override Item? GetCore(uint id)
+        protected override bool CanInsertCore(uint id)
         {
-            if (!_items.TryGetValue(id, out var item))
-            {
-                return null;
-            }
-
-            return item;
+            return !_items.ContainsKey(id);
         }
 
         protected override bool InsertCore(Item item)
@@ -77,6 +72,11 @@ namespace FOMServer.Shared.Core.Items
             InsertTypeIndex(item);
 
             return true;
+        }
+
+        protected override bool CanExtractCore(uint id)
+        {
+            return _items.ContainsKey(id);
         }
 
         protected override Item? ExtractCore(uint id)

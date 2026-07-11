@@ -15,7 +15,7 @@ namespace FOMServer.World.Application.Persistence
 
         protected override async Task PersistAsync(Player entity)
         {
-            _logger.LogInformation($"Player {entity.Id} persisted");
+            _logger.LogInformation($"Inventory {entity.Id} persisted");
         }
     }
 }

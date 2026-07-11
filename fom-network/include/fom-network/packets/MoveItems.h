@@ -10,8 +10,8 @@ namespace Packet {
 #pragma pack(push, 1)
 struct MoveItems {
   uint32_t playerId;
-  uint16_t numIds;
-  uint32_t ids[BufferSizes::MAX_ITEM_LIST_SIZE];
+  uint16_t numItemIds;
+  uint32_t itemIds[BufferSizes::MAX_ITEM_LIST_SIZE];
   Enum::ItemContainerType from;
   Enum::ItemContainerType to;
   Enum::ItemSlotType fromSlot;

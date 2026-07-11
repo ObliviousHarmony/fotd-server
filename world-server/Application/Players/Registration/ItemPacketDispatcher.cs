@@ -1,14 +1,25 @@
+using System.Numerics;
+using System.Reflection;
+using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
+using FOMServer.Shared.Core.Networking;
+using FOMServer.Shared.Core.Packets;
+using FOMServer.World.Core.Networking;
+using FOMServer.World.Core.Players;
 using FOMServer.World.Core.Players.Registration;
 
 namespace FOMServer.World.Application.Players.Registration
 {
     internal class ItemPacketDispatcher : IItemPacketDispatcher
     {
+        private readonly IPlayerRegistry _playerRegistry;
+        private readonly IClientPacketSender _clientPacketSender;
         private readonly ILogger<ItemPacketDispatcher> _logger;
 
-        public ItemPacketDispatcher(ILogger<ItemPacketDispatcher> logger)
+        public ItemPacketDispatcher(IPlayerRegistry playerRegistry, IClientPacketSender clientPacketSender, ILogger<ItemPacketDispatcher> logger)
         {
+            _playerRegistry = playerRegistry;
+            _clientPacketSender = clientPacketSender;
             _logger = logger;
         }
 
@@ -16,10 +27,11 @@ namespace FOMServer.World.Application.Players.Registration
         {
             foreach (var container in location.GetItemContainers())
             {
-                container.ItemAdded += OnItemAdded;
-                container.ItemRemoved += OnItemRemoved;
-                container.ItemTransferredTo += OnItemTransferredTo;
-                container.ItemTransferredFrom += OnItemTransferredFrom;
+                container.ItemsAdded += OnItemsAdded;
+                container.ItemsRemoved += OnItemsRemoved;
+                container.ItemsTransferredOutOf += OnItemsTransferredOutOf;
+                container.ItemsTransferredInto += OnItemsTransferredInto;
+                container.ItemDestroyed += OnItemDestroyed;
             }
         }
 
@@ -27,47 +39,151 @@ namespace FOMServer.World.Application.Players.Registration
         {
             foreach (var container in location.GetItemContainers())
             {
-                container.ItemAdded -= OnItemAdded;
-                container.ItemRemoved -= OnItemRemoved;
-                container.ItemTransferredTo -= OnItemTransferredTo;
-                container.ItemTransferredFrom -= OnItemTransferredFrom;
+                container.ItemsAdded -= OnItemsAdded;
+                container.ItemsRemoved -= OnItemsRemoved;
+                container.ItemsTransferredOutOf -= OnItemsTransferredOutOf;
+                container.ItemsTransferredInto -= OnItemsTransferredInto;
+                container.ItemDestroyed -= OnItemDestroyed;
             }
         }
 
-        private void OnItemAdded(ItemContainer container, Item item)
+        private void OnItemsAdded(ItemContainer container, IReadOnlyCollection<Item> items)
         {
-            var loc = container.Location.Location;
-            var slot = container.SlotType;
+            var locationRef = container.Location.LocationRef;
+            if (!locationRef.IsPlayer())
+            {
+                return;
+            }
 
-            _logger.LogInformation($"Item {item.Id} Added To {loc.Type} - {loc.Id} Slot {slot}");
+            var player = _playerRegistry.Get(locationRef.Id);
+            if (player is null)
+            {
+                return;
+            }
+
+            foreach (var item in items)
+            {
+                _logger.LogInformation("Player {PlayerId} ID_ITEMS_ADDED - {Type} {ItemId}: {Location} ({LocationId})", player.Id, item.Type, item.Id, locationRef.Type, locationRef.Id);
+            }
         }
 
-        private void OnItemRemoved(ItemContainer container, Item item)
+        private void OnItemsRemoved(ItemContainer container, IReadOnlyCollection<Item> items)
         {
-            var loc = container.Location.Location;
-            var slot = container.SlotType;
+            var locationRef = container.Location.LocationRef;
+            if (!locationRef.IsPlayer())
+            {
+                return;
+            }
 
-            _logger.LogInformation($"Item {item.Id} Removed From {loc.Type} - {loc.Id} Slot {slot}");
+            var player = _playerRegistry.Get(locationRef.Id);
+            if (player is null)
+            {
+                return;
+            }
+
+            foreach (var item in items)
+            {
+                _logger.LogInformation("Player {PlayerId} ID_ITEMS_REMOVED - {Type} {ItemId}: {Location} ({LocationId})", player.Id, item.Type, item.Id, locationRef.Type, locationRef.Id);
+            }
         }
 
-        private void OnItemTransferredTo(ItemContainer container, Item item, ItemContainer to)
+        private void OnItemsTransferredOutOf(ItemContainer container, IReadOnlyCollection<Item> items, ItemContainer to)
         {
-            var loc = container.Location.Location;
-            var locTo = to.Location.Location;
-            var slot = container.SlotType;
-            var slotTo = to.SlotType;
+            var fromRef = container.Location.LocationRef;
+            if (!fromRef.IsPlayer())
+            {
+                return;
+            }
 
-            _logger.LogInformation($"Item {item.Id} Move To {locTo.Type} - {locTo.Id} Slot {slotTo} From {loc.Type} - {loc.Id} Slot {slot}");
+            // When an item is transferred between containers that are controlled by the
+            // same player, the receiving container's event will handle the transfer.
+            var toRef = container.Location.LocationRef;
+            if (toRef.IsPlayer(fromRef.Id))
+            {
+                return;
+            }
+
+            // When an item is transferred from a container that a player controls to
+            // one that they do not, the item needs to be removed from their client.
+            var player = _playerRegistry.Get(fromRef.Id);
+            if (player is null)
+            {
+                return;
+            }
+
+            foreach (var item in items)
+            {
+                _logger.LogInformation("Player {PlayerId} ID_ITEMS_REMOVED - {Type} {ItemId}: {Location} ({LocationId})", player.Id, item.Type, item.Id, fromRef.Type, fromRef.Id);
+            }
         }
 
-        private void OnItemTransferredFrom(ItemContainer container, Item item, ItemContainer from)
+        private void OnItemsTransferredInto(ItemContainer container, IReadOnlyCollection<Item> items, ItemContainer from)
         {
-            var loc = container.Location.Location;
-            var locFrom = from.Location.Location;
-            var slot = container.SlotType;
-            var slotFrom = from.SlotType;
+            var toRef = container.Location.LocationRef;
+            if (!toRef.IsPlayer())
+            {
+                return;
+            }
 
-            _logger.LogInformation($"Item {item.Id} Move From {locFrom.Type} - {locFrom.Id} Slot {slotFrom} To {loc.Type} - {loc.Id} Slot {slot}");
+            var player = _playerRegistry.Get(toRef.Id);
+            if (player is null)
+            {
+                return;
+            }
+
+            // When an item is transferred from a container that a player does not control
+            // to one that they do control, the item needs to be created on their client.
+            var fromRef = container.Location.LocationRef;
+            if (!fromRef.IsPlayer(toRef.Id))
+            {
+                foreach (var item in items)
+                {
+                    _logger.LogInformation("Player {PlayerId} ID_ITEMS_ADDED - {Type} {ItemId}: {Location} ({LocationId})", player.Id, item.Type, item.Id, toRef.Type, toRef.Id);
+                }
+                return;
+            }
+
+            // When an item is transferred between containers that are controlled by
+            // the same player, the item should be moved on the player's client.
+            using var response = new PacketWriter<MoveItems>(player.Address);
+            ref var rData = ref response.Data;
+
+            rData.PlayerId = player.Id;
+            rData.From = PlayerInventory.GetContainerType(from.SlotType);
+            rData.FromSlot = from.SlotType;
+            rData.To = PlayerInventory.GetContainerType(container.SlotType);
+            rData.ToSlot = container.SlotType;
+
+            ushort i = 0;
+            foreach (var item in items)
+            {
+                unsafe
+                {
+                    rData.RawItemIds[i++] = item.Id;
+                }
+            }
+            rData.NumItemIds = i;
+  
+            _clientPacketSender.Send(response.Build());
+        }
+
+        private void OnItemDestroyed(ItemContainer container, Item item)
+        {
+            var locationRef = container.Location.LocationRef;
+            if (!locationRef.IsPlayer())
+            {
+                return;
+            }
+
+            var player = _playerRegistry.Get(locationRef.Id);
+            if (player is null)
+            {
+                return;
+            }
+
+            _logger.LogInformation("ID_ITEM_REMOVED - {Type} {Id}: {Location} ({LocationId})", item.Type, item.Id, locationRef.Type, locationRef.Id);
+
+            // Use that packet for deletions because the last bit will print a destroyed system message to chat.
         }
     }
 }

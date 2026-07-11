@@ -1,8 +1,9 @@
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.World.Application.Players;
 using FOMServer.World.Core.Players;
-using FOMServer.World.Core.Tick;
+using FOMServer.World.Core.Players.Registration;
 using FOMServer.World.Tests.Factories;
+using Microsoft.Extensions.Time.Testing;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.World.Tests.Players
@@ -15,7 +16,7 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void PrepareThenClaim_WithMatchingAddress_RunsTheFullCycle()
         {
-            var fixture = new Fixture();
+            var fixture = new PlayerRegistryFixture();
 
             fixture.Registry.PrepareForClient(PlayerId, ClientBinary);
 
@@ -33,7 +34,7 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void Claim_MatchingBinaryAddressDifferentPort_Activates()
         {
-            var fixture = new Fixture();
+            var fixture = new PlayerRegistryFixture();
             fixture.Registry.PrepareForClient(PlayerId, ClientBinary);
 
             // The world sees the client through a different socket, so only the IP is gated.
@@ -47,7 +48,7 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void Claim_WrongBinaryAddress_ReturnsNullAndLeavesPendingIntact()
         {
-            var fixture = new Fixture();
+            var fixture = new PlayerRegistryFixture();
             fixture.Registry.PrepareForClient(PlayerId, ClientBinary);
 
             Assert.Null(fixture.Registry.ClaimForClient(PlayerId, Address(binary: 0x02000010)));
@@ -60,7 +61,7 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void Claim_AfterTimeout_ReturnsNullAndDropsEntry()
         {
-            var fixture = new Fixture();
+            var fixture = new PlayerRegistryFixture();
             fixture.Registry.PrepareForClient(PlayerId, ClientBinary);
 
             fixture.Time.Advance(TimeSpan.FromHours(1));
@@ -71,7 +72,7 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void Claim_JustBeforeTimeout_StillActivates()
         {
-            var fixture = new Fixture();
+            var fixture = new PlayerRegistryFixture();
             fixture.Registry.PrepareForClient(PlayerId, ClientBinary);
 
             fixture.Time.Advance(TimeSpan.FromSeconds(29));
@@ -82,7 +83,7 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void Prepare_Twice_ReplacesTheTakeoverAddress()
         {
-            var fixture = new Fixture();
+            var fixture = new PlayerRegistryFixture();
             fixture.Registry.PrepareForClient(PlayerId, 0x0100007F);
             fixture.Registry.PrepareForClient(PlayerId, 0x02000010);
 
@@ -96,67 +97,34 @@ namespace FOMServer.World.Tests.Players
             return new NetworkAddress { BinaryAddress = binary, Port = port };
         }
 
-        private sealed class Fixture
+        private sealed class PlayerRegistryFixture
         {
-            public Fixture()
+            public PlayerRegistryFixture()
             {
-                Registry = new PlayerRegistry(new NoOpPlayerLoader(), new SynchronousPersistence(), Time, new NoOpPlayerUpdateService());
+                Loader
+                    .Setup(l => l.Load(It.IsAny<uint>()))
+                    .Returns<uint>(id => TestPlayerBuilder.Create(id).Build());
+
+                RegistrationFactory
+                    .Setup(f => f.Create(It.IsAny<Player>()))
+                    .Returns(new Mock<IPlayerRegistration>().Object);
+
+                Persistence
+                    .Setup(p => p.WaitForPersistence(It.IsAny<IPersistable>(), It.IsAny<Action>()))
+                    .Callback<IPersistable, Action>((_, cb) => cb());
+
+                Registry = new PlayerRegistry(Loader.Object, RegistrationFactory.Object, Time, Persistence.Object);
             }
 
-            public FakeTime Time { get; } = new();
+            public Mock<IPlayerLoader> Loader { get; } = new();
+
+            public Mock<IPlayerRegistrationFactory> RegistrationFactory { get; } = new();
+
+            public Mock<IPersistenceService> Persistence { get; } = new();
+
+            public FakeTimeProvider Time { get; } = new(DateTimeOffset.UnixEpoch);
 
             public PlayerRegistry Registry { get; }
-        }
-
-        private sealed class FakeTime : TimeProvider
-        {
-            private DateTimeOffset _now = DateTimeOffset.UnixEpoch;
-
-            public override DateTimeOffset GetUtcNow()
-            {
-                return _now;
-            }
-
-            public void Advance(TimeSpan delta)
-            {
-                _now += delta;
-            }
-        }
-
-        private sealed class SynchronousPersistence : IPersistenceService
-        {
-            public void Register(IPersistable entity)
-            {
-            }
-
-            public void WaitForPersistence(IPersistable entity, Action callback)
-            {
-                callback();
-            }
-        }
-
-        private sealed class NoOpPlayerLoader : IPlayerLoader
-        {
-            public Player? Load(uint id)
-            {
-                var builder = TestPlayerBuilder.Create(id);
-                return builder.Build();
-            }
-        }
-
-        private sealed class NoOpPlayerUpdateService : IPlayerUpdateTick
-        {
-            public void Register(Player player)
-            {
-            }
-
-            public void Unregister(Player player)
-            {
-            }
-
-            public void QueueUpdate(Player player)
-            {
-            }
         }
     }
 }

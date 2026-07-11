@@ -44,14 +44,14 @@ namespace FOMServer.Shared.Core.Items
             }
         }
 
-        protected override Item? GetCore(uint id)
+        protected override bool CanInsertCore(uint id)
         {
-            if (_item?.Id != id)
+            if (_item is not null)
             {
-                return null;
+                return false;
             }
 
-            return _item;
+            return true;
         }
 
         protected override bool InsertCore(Item item)
@@ -63,6 +63,16 @@ namespace FOMServer.Shared.Core.Items
 
             _item = item;
             return true;
+        }
+
+        protected override bool CanExtractCore(uint id)
+        {
+            if (_item is null)
+            {
+                return false;
+            }
+
+            return _item.Id == id;
         }
 
         protected override Item? ExtractCore(uint id)

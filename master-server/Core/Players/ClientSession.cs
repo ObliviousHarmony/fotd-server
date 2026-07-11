@@ -132,7 +132,7 @@ namespace FOMServer.Master.Core.Players
                 if (player.Id != PlayerId)
                 {
                     throw new InvalidOperationException(
-                        $"Player Id {player.Id} does not match the session's login Id {PlayerId}");
+                        $"Inventory Id {player.Id} does not match the session's login Id {PlayerId}");
                 }
 
                 Player = player;

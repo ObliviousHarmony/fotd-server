@@ -6,7 +6,7 @@ using PacketItem = FOMServer.Shared.Core.Packets.Types.Item;
 
 namespace FOMServer.Shared.Core.Items
 {
-    public delegate void ItemDestroyedCallback(Item item);
+    public delegate void ItemDestroyedHandler(Item item);
 
     public sealed class ItemDestroyedException : InvalidOperationException
     {
@@ -59,7 +59,7 @@ namespace FOMServer.Shared.Core.Items
 
         public event PersistableChangeCallback? PersistableChange;
 
-        public event ItemDestroyedCallback? ItemDestroyed;
+        public event ItemDestroyedHandler? ItemDestroyed;
 
         public uint Id { get; }
 
@@ -82,20 +82,20 @@ namespace FOMServer.Shared.Core.Items
             {
                 ThrowIfDestroyed();
 
-                var loc = location.Location;
-                if (loc.Type == _locationType && loc.Id == _locationId && slot == _slot)
+                var locationRef = location.LocationRef;
+                if (locationRef.Type == _locationType && locationRef.Id == _locationId && slot == _slot)
                 {
                     _location = location;
                     return;
                 }
 
                 throw new ArgumentException(
-                    $"Item {this} does not belong (location={loc.Type}, locationId={loc.Id}, slot={slot})",
+                    $"Item {this} does not belong (location={locationRef.Type}, locationId={locationRef.Id}, slot={slot})",
                     nameof(location));
             }
         }
 
-        public void Move(IItemLocation? newLocation, ItemSlotType newSlot)
+        public void ChangeLocation(IItemLocation? newLocation, ItemSlotType newSlot)
         {
             IPersistable? oldLocationPersistable;
             IPersistable? newLocationPersistable;
@@ -103,17 +103,17 @@ namespace FOMServer.Shared.Core.Items
             {
                 ThrowIfDestroyed();
 
-                oldLocationPersistable = _location?.Location.Persistable;
+                oldLocationPersistable = _location?.LocationRef.Persistable;
 
                 if (newLocation is not null)
                 {
-                    var newLoc = newLocation.Location;
+                    var newLoc = newLocation.LocationRef;
 
                     _locationType = newLoc.Type;
                     _locationId = newLoc.Id;
                     _location = newLocation;
 
-                    newLocationPersistable = _location?.Location.Persistable;
+                    newLocationPersistable = _location?.LocationRef.Persistable;
                 }
                 else
                 {
@@ -139,7 +139,7 @@ namespace FOMServer.Shared.Core.Items
 
                 _value = newValue;
 
-                locationPersistable = _location?.Location.Persistable;
+                locationPersistable = _location?.LocationRef.Persistable;
             }
 
             PersistableChange?.Invoke(this, locationPersistable);
@@ -171,7 +171,7 @@ namespace FOMServer.Shared.Core.Items
                     }
                 }
 
-                locationPersistable = _location?.Location.Persistable;
+                locationPersistable = _location?.LocationRef.Persistable;
             }
 
             if (shouldDestroy)
@@ -206,7 +206,7 @@ namespace FOMServer.Shared.Core.Items
                     shouldDestroy = true;
                 }
 
-                locationPersistable = _location?.Location.Persistable;
+                locationPersistable = _location?.LocationRef.Persistable;
             }
 
             if (shouldDestroy)
@@ -283,7 +283,7 @@ namespace FOMServer.Shared.Core.Items
 
                 _destroyed = true;
 
-                locationPersistable = _location?.Location.Persistable;
+                locationPersistable = _location?.LocationRef.Persistable;
             }
 
             ItemDestroyed?.Invoke(this);

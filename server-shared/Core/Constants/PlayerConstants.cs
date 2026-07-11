@@ -3,7 +3,7 @@ using FOMServer.Shared.Core.Enums;
 namespace FOMServer.Shared.Core.Constants
 {
     /// <summary>
-    /// Player-related constants for slot counts and limits.
+    /// Inventory-related constants for slot counts and limits.
     /// </summary>
     public static class PlayerConstants
     {

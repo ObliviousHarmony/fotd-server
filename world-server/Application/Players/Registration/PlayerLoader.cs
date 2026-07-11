@@ -1,8 +1,8 @@
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
-using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Core.Repositories;
 using FOMServer.World.Core.Players;
+using FOMServer.World.Core.Players.Registration;
 
 namespace FOMServer.World.Application.Players.Registration
 {
@@ -55,7 +55,7 @@ namespace FOMServer.World.Application.Players.Registration
             var nextItemId = id * 1000;
             void addItem(ItemType type, ItemSlotType slot = ItemSlotType.None)
             {
-                var item = new Item(nextItemId++, type, ItemLocationType.Player, id, slot, 100, 1000, 1000, 100);
+                var item = new Item(nextItemId++, type, ItemLocationType.Inventory, id, slot, 100, 1000, 1000, 100);
                 loadedItems[item.Id] = item;
             }
 

@@ -8,7 +8,7 @@ using FOMServer.World.Core.Tick;
 
 namespace FOMServer.World.Application.Players.Registration
 {
-    internal class PlayerRegistration
+    internal class PlayerRegistration : IPlayerRegistration
     {
         private readonly Player _player;
         private readonly IPersistenceService _persistenceService;

@@ -16,24 +16,24 @@ namespace FOMServer.World.Core.Players
         {
             _player = player;
 
-            HashSet<ItemSlotType> validSlots = [];
+            HashSet<ItemSlotType> validSlotTypes = [];
             for (var i = ItemSlotType.WeaponStart; i < ItemSlotType.WeaponEnd; ++i)
             {
-                validSlots.Add(i);
+                validSlotTypes.Add(i);
             }
             for (var i = ItemSlotType.EquipmentStart; i < ItemSlotType.EquipmentEnd; ++i)
             {
-                validSlots.Add(i);
+                validSlotTypes.Add(i);
             }
 
             var inventory = new Dictionary<uint, Item>();
-            var equipment = new Dictionary<ItemSlotType, Item>();
+            var slotItems = new Dictionary<ItemSlotType, Item>();
             foreach (var (_, item) in items)
             {
                 var slot = item.Slot;
-                if (validSlots.Contains(slot))
+                if (validSlotTypes.Contains(slot))
                 {
-                    if (!equipment.TryAdd(slot, item))
+                    if (!slotItems.TryAdd(slot, item))
                     {
                         throw new ArgumentException($"Item {item} cannot be placed in occupied slot {slot}", nameof(items));
                     }
@@ -51,22 +51,52 @@ namespace FOMServer.World.Core.Players
             _backpackItems = new ItemBag(this, inventory);
 
             _itemSlots = [];
-            foreach (var slot in validSlots)
+            foreach (var slotType in validSlotTypes)
             {
-                equipment.TryGetValue(slot, out var item);
-                _itemSlots[slot] = new ItemSlot(this, slot, item);
+                slotItems.TryGetValue(slotType, out var item);
+                _itemSlots[slotType] = new ItemSlot(this, slotType, item);
             }
         }
 
-        public ItemLocationRef Location => new(ItemLocationType.Player, _player.Id, _player);
+        public ItemLocationRef LocationRef => new(ItemLocationType.Inventory, _player.Id, _player);
 
-        public ItemContainer? GetItemContainer(ItemContainerType type, ItemSlotType slotType)
+        public static ItemContainerType GetContainerType(ItemSlotType slotType)
         {
-            if (type == ItemContainerType.Inventory)
+            if (slotType == ItemSlotType.None)
+            {
+                return ItemContainerType.Inventory;
+            }
+
+            if (slotType is >= ItemSlotType.WeaponStart and < ItemSlotType.WeaponEnd)
+            {
+                return ItemContainerType.Weapons;
+            }
+
+            if (slotType is >= ItemSlotType.EquipmentStart and < ItemSlotType.EquipmentEnd)
+            {
+                return ItemContainerType.Equipment;
+            }
+
+            return ItemContainerType.None;
+        }
+
+        public IEnumerable<ItemContainer> GetItemContainers()
+        {
+            yield return _backpackItems;
+            foreach (var slot in _itemSlots.Values)
+            {
+                yield return slot;
+            }
+        }
+
+        public ItemContainer? GetItemContainer(ItemSlotType slotType)
+        {
+            var containerType = PlayerInventory.GetContainerType(slotType);
+            if (containerType == ItemContainerType.Inventory)
             {
                 return _backpackItems;
             }
-            else if (type is ItemContainerType.Weapons or ItemContainerType.Equipment)
+            else if (containerType is ItemContainerType.Weapons or ItemContainerType.Equipment)
             {
                 if (!_itemSlots.TryGetValue(slotType, out var slot))
                 {
@@ -77,15 +107,6 @@ namespace FOMServer.World.Core.Players
             }
 
             return null;
-        }
-
-        public IEnumerable<ItemContainer> GetItemContainers()
-        {
-            yield return _backpackItems;
-            foreach (var slot in _itemSlots.Values)
-            {
-                yield return slot;
-            }
         }
 
         public void WriteTo(ref PacketInventory inventory, ref PacketWeapons weapons, ref PacketEquipment equipment)
