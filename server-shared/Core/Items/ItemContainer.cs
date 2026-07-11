@@ -87,6 +87,62 @@ namespace FOMServer.Shared.Core.Items
             return true;
         }
 
+        public bool TryTransferAll(ItemContainer to, out List<Item> transferred)
+        {
+            var (first, second) = _lockId <= to._lockId
+                ? (this, to)
+                : (to, this);
+
+            lock (first._syncRoot)
+            {
+                lock (second._syncRoot)
+                {
+                    var allItems = GetAll();
+                    transferred = new(allItems.Length);
+
+                    if (allItems.Length == 0)
+                    {
+                        return true;
+                    }
+
+                    foreach (var item in allItems)
+                    {
+                        if (!CanExtractCore(item.Id))
+                        {
+                            return false;
+                        }
+
+                        if (!to.CanInsertCore(item.Id))
+                        {
+                            return false;
+                        }
+                    }
+
+                    foreach (var item in allItems)
+                    {
+                        // We don't need the extracted item because we already have it.
+                        if (ExtractCore(item.Id) == null)
+                        {
+                            throw new InvalidOperationException($"Item {item.Id} could not be extracted");
+                        }
+
+                        if (!to.InsertCore(item))
+                        {
+                            throw new InvalidOperationException($"Item {item} lost in container transfer");
+                        }
+
+                        item.ItemDestroyed -= OnItemDestroyed;
+                        item.ItemDestroyed += to.OnItemDestroyed;
+                        item.ChangeLocation(to.Location, to.SlotType);
+
+                        transferred.Add(item);
+                    }
+                }
+            }
+
+            return true;
+        }
+
         public bool TryTransfer(ItemContainer to, out List<Item> transferred, params ReadOnlySpan<uint> ids)
         {
             transferred = new(ids.Length);

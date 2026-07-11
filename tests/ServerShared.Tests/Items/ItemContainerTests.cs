@@ -33,6 +33,29 @@ namespace FOMServer.Shared.Tests.Items
         }
 
         [Fact]
+        public void TransferAll_MovesItemAndReassignsOwnershipToDestination()
+        {
+            var locationA = new TestLocation(ItemLocationType.Inventory, 1);
+            var containerA = new TestItemContainer(locationA, ItemSlotType.None);
+            var locationB = new TestLocation(ItemLocationType.Inventory, 2);
+            var containerB = new TestItemContainer(locationB, ItemSlotType.None);
+
+            var item = CreateItem(id: 7);
+            var item2 = CreateItem(id: 8);
+            containerA.TryAdd(item);
+            containerA.TryAdd(item2);
+
+            Assert.True(containerA.TryTransferAll(containerB, out var transferred));
+
+            Assert.Contains(item, transferred);
+            Assert.Contains(item2, transferred);
+            Assert.False(containerA.TryRemove(out _, item.Id));
+            Assert.False(containerA.TryRemove(out _, item2.Id));
+            Assert.True(containerB.TryRemove(out _, item.Id));
+            Assert.True(containerB.TryRemove(out _, item2.Id));
+        }
+
+        [Fact]
         public void Transfer_MovesItemAndReassignsOwnershipToDestination()
         {
             var locationA = new TestLocation(ItemLocationType.Inventory, 1);
@@ -141,7 +164,7 @@ namespace FOMServer.Shared.Tests.Items
 
             public override Item[] GetAll()
             {
-                throw new NotImplementedException();
+                return [.. _items.Values];
             }
 
             protected override bool CanInsertCore(uint id)
