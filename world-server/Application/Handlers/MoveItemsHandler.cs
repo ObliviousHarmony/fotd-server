@@ -215,15 +215,18 @@ namespace FOMServer.World.Application.Handlers
 
         private bool MoveQuickslots(Player player, in MoveItems p)
         {
-            // Into quickslots has an Item ID
+            uint? itemId = null;
+            if (p.NumItemIds > 0)
+            {
+                itemId = p.ItemIds[0];
+            }
 
-            // Between quickslots has no item ID
+            if (!player.Inventory.MoveQuickslotItem(p.FromSlot, p.ToSlot, itemId))
+            {
+                return false;
+            }
 
-            // Out of quickslots has no item ID
-
-            // So basically, if an item moves into a quickslot it has an item otherwise it just has a slothe same container, the client expects the server to
-            // infer the item's ID from the slot in question.
-            return false;
+            return true;
         }
 
         private bool DestroyItems(Player player, in MoveItems p)

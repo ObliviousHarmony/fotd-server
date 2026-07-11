@@ -30,7 +30,7 @@ namespace FOMServer.World.Application.Players.Registration
             foreach (var container in _player.Inventory.GetItemContainers())
             {
                 var items = container.GetAll();
-                foreach (var item in items)
+                foreach (var (_, item) in items)
                 {
                     _persistenceService.Register(item);
                 }
@@ -50,7 +50,7 @@ namespace FOMServer.World.Application.Players.Registration
             foreach (var container in _player.Inventory.GetItemContainers())
             {
                 var items = container.GetAll();
-                foreach (var item in items)
+                foreach (var (_, item) in items)
                 {
                     _persistenceService.Unregister(item);
                 }

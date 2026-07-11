@@ -22,7 +22,7 @@ namespace FOMServer.Shared.Core.Packets
         public ActiveConsumablesArray ActiveConsumables;
         public NanomachineAugmentationsArray NanomachineAugmentations;
         public ItemList Storage;
-        public fixed ushort QuickSlots[PlayerConstants.NumQuickSlots];
+        public QuickSlotsArray QuickSlots;
         public Avatar Avatar;
         public PlayerAttributes Attributes;
         public PlayerProfile Profile;
@@ -83,6 +83,12 @@ namespace FOMServer.Shared.Core.Packets
         public struct NanomachineAugmentationsArray
         {
             private Item _element;
+        }
+
+        [InlineArray(PlayerConstants.NumQuickSlots)]
+        public struct QuickSlotsArray
+        {
+            private ItemType _element;
         }
 
         [InlineArray(MaxAvatarCache)]

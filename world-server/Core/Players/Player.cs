@@ -1,3 +1,4 @@
+using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
@@ -15,13 +16,14 @@ namespace FOMServer.World.Core.Players
         public Player(
             uint id,
             uint[] attributes,
-            IDictionary<uint, Item> inventory)
+            IDictionary<uint, Item> inventory,
+            ReadOnlySpan<ItemType> quickslots)
         {
             Id = id;
             _currentUpdate.Id = id;
 
             Attributes = new PlayerAttributes(this, attributes);
-            Inventory = new PlayerInventory(this, inventory);
+            Inventory = new PlayerInventory(this, inventory, quickslots);
         }
 
         public event PersistableChangeCallback? PersistableChange;
@@ -78,7 +80,7 @@ namespace FOMServer.World.Core.Players
                 p.Avatar.Shoes = 0;
 
                 Attributes.WriteTo(ref p.Attributes);
-                Inventory.WriteTo(ref p.Inventory, ref p.Weapons, ref p.Equipment);
+                Inventory.WriteTo(ref p.Inventory, ref p.Weapons, ref p.Equipment, ref p.QuickSlots);
             }
         }
     }

@@ -18,16 +18,18 @@ namespace FOMServer.Shared.Core.Items
             }
         }
 
-        public override Item[] GetAll()
+        public override IReadOnlyDictionary<uint, Item> GetAll()
         {
             lock (_syncRoot)
             {
+                var ret = new Dictionary<uint, Item>();
                 if (_item is null)
                 {
-                    return [];
+                    return ret;
                 }
 
-                return [_item];
+                ret.Add(_item.Id, _item);
+                return ret;
             }
         }
 

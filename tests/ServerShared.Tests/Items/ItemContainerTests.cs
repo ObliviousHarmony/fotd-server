@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
 
@@ -162,9 +163,9 @@ namespace FOMServer.Shared.Tests.Items
             {
             }
 
-            public override Item[] GetAll()
+            public override IReadOnlyDictionary<uint, Item> GetAll()
             {
-                return [.. _items.Values];
+                return new Dictionary<uint, Item>(_items);
             }
 
             protected override bool CanInsertCore(uint id)

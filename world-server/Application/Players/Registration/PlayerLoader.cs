@@ -1,3 +1,4 @@
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Repositories;
@@ -25,11 +26,13 @@ namespace FOMServer.World.Application.Players.Registration
 
             var attributes = LoadAttributes(id);
             var items = LoadItems(id);
+            var quickslots = LoadQuickslots(id);
 
             var player = new Player(
                 id,
                 attributes,
-                items
+                items,
+                quickslots
             );
 
             return player;
@@ -79,6 +82,19 @@ namespace FOMServer.World.Application.Players.Registration
             addItem(ItemType.DOA187, ItemSlotType.Weapon1);
 
             return loadedItems;
+        }
+
+        private ItemType[] LoadQuickslots(uint id)
+        {
+            var quickslots = new ItemType[PlayerConstants.NumQuickSlots];
+            for (var i = 0; i < quickslots.Length; ++i)
+            {
+                quickslots[i] = ItemType.Invalid;
+            }
+
+            quickslots[1] = ItemType.AdrenalineAutoinjector;
+
+            return quickslots;
         }
     }
 }

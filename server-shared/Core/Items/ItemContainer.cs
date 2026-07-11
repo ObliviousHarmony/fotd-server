@@ -20,7 +20,7 @@ namespace FOMServer.Shared.Core.Items
 
         public ItemSlotType SlotType { get; }
 
-        public abstract Item[] GetAll();
+        public abstract IReadOnlyDictionary<uint, Item> GetAll();
 
         public bool TryAdd(params IReadOnlyCollection<Item> items)
         {
@@ -98,27 +98,28 @@ namespace FOMServer.Shared.Core.Items
                 lock (second._syncRoot)
                 {
                     var allItems = GetAll();
-                    transferred = new(allItems.Length);
 
-                    if (allItems.Length == 0)
+                    transferred = new(allItems.Count);
+
+                    if (allItems.Count == 0)
                     {
                         return true;
                     }
 
-                    foreach (var item in allItems)
+                    foreach (var (id, _) in allItems)
                     {
-                        if (!CanExtractCore(item.Id))
+                        if (!CanExtractCore(id))
                         {
                             return false;
                         }
 
-                        if (!to.CanInsertCore(item.Id))
+                        if (!to.CanInsertCore(id))
                         {
                             return false;
                         }
                     }
 
-                    foreach (var item in allItems)
+                    foreach (var (_, item) in allItems)
                     {
                         // We don't need the extracted item because we already have it.
                         if (ExtractCore(item.Id) == null)

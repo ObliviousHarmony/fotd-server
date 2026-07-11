@@ -1,8 +1,10 @@
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
 using PacketEquipment = FOMServer.Shared.Core.Packets.RegisterClientReturn.EquipmentArray;
 using PacketInventory = FOMServer.Shared.Core.Packets.Types.ItemList;
 using PacketWeapons = FOMServer.Shared.Core.Packets.RegisterClientReturn.WeaponsArray;
+using QuickSlotsArray = FOMServer.Shared.Core.Packets.RegisterClientReturn.QuickSlotsArray;
 
 namespace FOMServer.World.Core.Players
 {
@@ -11,8 +13,9 @@ namespace FOMServer.World.Core.Players
         private readonly Player _player;
         private readonly ItemBag _backpackItems;
         private readonly Dictionary<ItemSlotType, ItemSlot> _itemSlots;
+        private readonly ItemType[] _quickslots;
 
-        public PlayerInventory(Player player, IDictionary<uint, Item> items)
+        public PlayerInventory(Player player, IDictionary<uint, Item> items, ReadOnlySpan<ItemType> quickslots)
         {
             _player = player;
 
@@ -56,6 +59,13 @@ namespace FOMServer.World.Core.Players
                 slotItems.TryGetValue(slotType, out var item);
                 _itemSlots[slotType] = new ItemSlot(this, slotType, item);
             }
+
+            if (quickslots.Length != PlayerConstants.NumQuickSlots)
+            {
+                throw new ArgumentException($"There must be exactly {PlayerConstants.NumQuickSlots} quickslots", nameof(quickslots));
+            }
+
+            _quickslots = [.. quickslots];
         }
 
         public ItemLocationRef LocationRef => new(ItemLocationType.Inventory, _player.Id, _player);
@@ -109,7 +119,59 @@ namespace FOMServer.World.Core.Players
             return null;
         }
 
-        public void WriteTo(ref PacketInventory inventory, ref PacketWeapons weapons, ref PacketEquipment equipment)
+        public bool MoveQuickslotItem(ItemSlotType fromSlot, ItemSlotType toSlot, uint? itemId)
+        {
+            // Unlike normal item slots, quickslots only contain the type of the item that
+            // should be used when the quickslot is activated. To that end, when moving
+            // items from/to them, we need to get the item so we can get the type.
+            int toQuickslot = toSlot - ItemSlotType.QuickslotStart;
+            if (fromSlot is >= ItemSlotType.QuickslotStart and < ItemSlotType.QuickslotEnd)
+            {
+                var fromQuickslot = fromSlot - ItemSlotType.QuickslotStart;
+                if (toSlot is >= ItemSlotType.QuickslotStart and < ItemSlotType.QuickslotEnd)
+                {
+                    Console.WriteLine($"Item {_quickslots[fromQuickslot]} from {fromSlot} into {toSlot}");
+
+                    _quickslots[toQuickslot] = _quickslots[fromQuickslot];
+                    _quickslots[fromQuickslot] = ItemType.Invalid;
+                    return true;
+                }
+
+                Console.WriteLine($"Item {_quickslots[fromQuickslot]} removed from {fromQuickslot}");
+
+                _quickslots[fromQuickslot] = ItemType.Invalid;
+                return true;
+            }
+
+            if (toSlot is not (>= ItemSlotType.QuickslotStart and < ItemSlotType.QuickslotEnd))
+            {
+                return false;
+            }
+
+            if (itemId is null)
+            {
+                return false;
+            }
+
+            var fromContainer = GetItemContainer(fromSlot);
+            if (fromContainer is null)
+            {
+                return false;
+            }
+
+            var items = fromContainer.GetAll();
+            if (!items.TryGetValue(itemId.Value, out var item))
+            {
+                return false;
+            }
+
+            Console.WriteLine($"Item {item.Type} into {toQuickslot}");
+
+            _quickslots[toQuickslot] = item.Type;
+            return true;
+        }
+
+        public void WriteTo(ref PacketInventory inventory, ref PacketWeapons weapons, ref PacketEquipment equipment, ref QuickSlotsArray quickslots)
         {
             _backpackItems.WriteTo(ref inventory);
 
@@ -121,6 +183,11 @@ namespace FOMServer.World.Core.Players
             for (var slot = ItemSlotType.EquipmentStart; slot < ItemSlotType.EquipmentEnd; ++slot)
             {
                 _itemSlots[slot].WriteTo(ref equipment[slot - ItemSlotType.EquipmentStart]);
+            }
+
+            for (var i = 0; i < PlayerConstants.NumQuickSlots; ++i)
+            {
+                quickslots[i] = _quickslots[i];
             }
         }
     }

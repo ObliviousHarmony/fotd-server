@@ -3,6 +3,7 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Core.Items;
 using FOMServer.World.Core.Players;
+using FOMServer.Shared.Core.Constants;
 
 namespace FOMServer.World.Tests.Factories
 {
@@ -12,6 +13,7 @@ namespace FOMServer.World.Tests.Factories
         private uint _nextItemId;
         private readonly uint[] _attributes = new uint[(int)AttributeType.NUM_ATTRIBUTE_TYPES];
         private readonly Dictionary<ItemContainerType, Dictionary<uint, Item>> _items;
+        private readonly ItemType[] _quickslots;
 
         public TestPlayerBuilder(uint id)
         {
@@ -27,6 +29,12 @@ namespace FOMServer.World.Tests.Factories
             {
                 [ItemContainerType.Inventory] = [],
             };
+
+            _quickslots = new ItemType[PlayerConstants.NumQuickSlots];
+            for (var i = 0; i < _quickslots.Length; ++i)
+            {
+                _quickslots[i] = ItemType.Invalid;
+            }
         }
 
         public TestPlayerBuilder WithAttribute(AttributeType type, uint value)
@@ -57,12 +65,25 @@ namespace FOMServer.World.Tests.Factories
             return this;
         }
 
+        public TestPlayerBuilder WithQuickslot(ItemSlotType slot, ItemType type)
+        {
+            if (slot is not ( >= ItemSlotType.QuickslotStart and < ItemSlotType.QuickslotEnd))
+            {
+                throw new ArgumentException("The provided slot is not a quickslot", nameof(slot));
+            }
+
+            _quickslots[slot - ItemSlotType.QuickslotStart] = type;
+
+            return this;
+        }
+
         public Player Build()
         {
             var player = new Player(
                 _id,
                 _attributes,
-                _items[ItemContainerType.Inventory]
+                _items[ItemContainerType.Inventory],
+                _quickslots
             );
 
             return player;
