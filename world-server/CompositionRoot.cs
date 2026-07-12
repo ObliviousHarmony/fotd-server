@@ -139,6 +139,7 @@ namespace FOMServer.World
             services.AddSingleton<IPersistenceHandler, ItemPersistenceHandler>();
             services.AddSingleton<IPersistenceHandler, PlayerPersistenceHandler>();
             services.AddSingleton<IPersistenceHandler, PlayerAttributesPersistenceHandler>();
+            services.AddSingleton<IPersistenceHandler, PlayerQuickslotsPersistenceHandler>();
 
             return services;
         }

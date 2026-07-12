@@ -30,7 +30,7 @@ namespace FOMServer.World.Tests.Factories
                 [ItemContainerType.Inventory] = [],
             };
 
-            _quickslots = new ItemType[PlayerConstants.NumQuickSlots];
+            _quickslots = new ItemType[PlayerConstants.NumQuickslots];
             for (var i = 0; i < _quickslots.Length; ++i)
             {
                 _quickslots[i] = ItemType.Invalid;

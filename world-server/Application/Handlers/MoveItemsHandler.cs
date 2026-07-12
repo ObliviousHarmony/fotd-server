@@ -223,7 +223,7 @@ namespace FOMServer.World.Application.Handlers
                 itemId = p.ItemIds[0];
             }
 
-            if (!player.Inventory.MoveQuickslotItem(p.FromSlot, p.ToSlot, itemId))
+            if (!player.Quickslots.PutItemInSlot(p.FromSlot, p.ToSlot, itemId))
             {
                 return false;
             }

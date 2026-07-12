@@ -23,7 +23,8 @@ namespace FOMServer.World.Core.Players
             _currentUpdate.Id = id;
 
             Attributes = new PlayerAttributes(this, attributes);
-            Inventory = new PlayerInventory(this, inventory, quickslots);
+            Inventory = new PlayerInventory(this, inventory);
+            Quickslots = new PlayerQuickslots(this, quickslots);
         }
 
         public event PersistableChangeCallback? PersistableChange;
@@ -35,6 +36,8 @@ namespace FOMServer.World.Core.Players
         public PlayerAttributes Attributes { get; }
 
         public PlayerInventory Inventory { get; }
+
+        public PlayerQuickslots Quickslots { get; }
 
         public void ClaimForClient(NetworkAddress address)
         {
@@ -80,7 +83,8 @@ namespace FOMServer.World.Core.Players
                 p.Avatar.Shoes = 0;
 
                 Attributes.WriteTo(ref p.Attributes);
-                Inventory.WriteTo(ref p.Inventory, ref p.Weapons, ref p.Equipment, ref p.QuickSlots);
+                Inventory.WriteTo(ref p.Inventory, ref p.Weapons, ref p.Equipment);
+                Quickslots.WriteTo(ref p.Quickslots);
             }
         }
     }

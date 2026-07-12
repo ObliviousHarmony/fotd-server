@@ -37,6 +37,7 @@ namespace FOMServer.World.Application.Players.Registration
             }
             _persistenceService.Register(_player);
             _persistenceService.Register(_player.Attributes);
+            _persistenceService.Register(_player.Quickslots);
 
             _playerUpdateService.Register(_player);
         }
@@ -45,6 +46,7 @@ namespace FOMServer.World.Application.Players.Registration
         {
             _playerUpdateService.Unregister(_player);
 
+            _persistenceService.Unregister(_player.Quickslots);
             _persistenceService.Unregister(_player.Attributes);
             _persistenceService.Unregister(_player);
             foreach (var container in _player.Inventory.GetItemContainers())

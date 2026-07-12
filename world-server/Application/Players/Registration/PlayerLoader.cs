@@ -88,7 +88,7 @@ namespace FOMServer.World.Application.Players.Registration
 
         private ItemType[] LoadQuickslots(uint id)
         {
-            var quickslots = new ItemType[PlayerConstants.NumQuickSlots];
+            var quickslots = new ItemType[PlayerConstants.NumQuickslots];
             for (var i = 0; i < quickslots.Length; ++i)
             {
                 quickslots[i] = ItemType.Invalid;
