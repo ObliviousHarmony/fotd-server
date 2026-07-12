@@ -236,8 +236,7 @@ namespace FOMServer.World.Core.Players
             {
                 spinner.SpinOnce();
 
-                if (spinner.NextSpinWillYield &&
-                    Stopwatch.GetTimestamp() > timeoutTimestamp)
+                if (spinner.NextSpinWillYield && Stopwatch.GetTimestamp() > timeoutTimestamp)
                 {
                     throw new AttributeDeadlockException(attribute);
                 }
@@ -320,7 +319,7 @@ namespace FOMServer.World.Core.Players
                 PlayerAttributes parent,
                 scoped ReadOnlySpan<AttributeType> attributes,
                 long lockId
-                )
+            )
             {
                 _parent = parent;
                 _lockId = lockId;
@@ -370,7 +369,6 @@ namespace FOMServer.World.Core.Players
                     EnsureLocked(attribute);
                     return _parent._values[(int)attribute];
                 }
-
                 set
                 {
                     EnsureLocked(attribute);
@@ -393,10 +391,7 @@ namespace FOMServer.World.Core.Players
             {
                 EnsureLocked(attribute);
 
-                var value = (uint)Math.Clamp(
-                    this[attribute] + delta,
-                    0L,
-                    GetMetadata(attribute).Max);
+                var value = (uint)Math.Clamp(this[attribute] + delta, 0L, GetMetadata(attribute).Max);
 
                 this[attribute] = value;
 
@@ -414,16 +409,13 @@ namespace FOMServer.World.Core.Players
 
                     if (!_parent.ReleaseLock((AttributeType)i, _lockId))
                     {
-                        throw new InvalidOperationException(
-                            $"Lost ownership of {(AttributeType)i} lock.");
+                        throw new InvalidOperationException($"Lost ownership of {(AttributeType)i} lock.");
                     }
                 }
 
                 if (_parent.WasDirty())
                 {
-                    _parent.PersistableChange?.Invoke(
-                        _parent,
-                        _parent._player);
+                    _parent.PersistableChange?.Invoke(_parent, _parent._player);
                 }
             }
 
@@ -431,8 +423,7 @@ namespace FOMServer.World.Core.Players
             {
                 if ((_lockedAttributesMask & (1UL << (int)attribute)) == 0)
                 {
-                    throw new InvalidOperationException(
-                        $"{attribute} was not locked.");
+                    throw new InvalidOperationException($"{attribute} was not locked.");
                 }
             }
         }
@@ -442,17 +433,13 @@ namespace FOMServer.World.Core.Players
             public readonly LockedAttribute First;
             public readonly LockedAttribute Second;
 
-            internal LockedAttributePair(
-                LockedAttribute first,
-                LockedAttribute second)
+            internal LockedAttributePair(LockedAttribute first, LockedAttribute second)
             {
                 First = first;
                 Second = second;
             }
 
-            public void Deconstruct(
-                out LockedAttribute first,
-                out LockedAttribute second)
+            public void Deconstruct(out LockedAttribute first, out LockedAttribute second)
             {
                 first = First;
                 second = Second;
@@ -470,17 +457,13 @@ namespace FOMServer.World.Core.Players
             public readonly LockedAttributes First;
             public readonly LockedAttributes Second;
 
-            internal LockedAttributesPair(
-                LockedAttributes first,
-                LockedAttributes second)
+            internal LockedAttributesPair(LockedAttributes first, LockedAttributes second)
             {
                 First = first;
                 Second = second;
             }
 
-            public void Deconstruct(
-                out LockedAttributes first,
-                out LockedAttributes second)
+            public void Deconstruct(out LockedAttributes first, out LockedAttributes second)
             {
                 first = First;
                 second = Second;
