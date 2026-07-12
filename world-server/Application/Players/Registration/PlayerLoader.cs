@@ -10,7 +10,7 @@ namespace FOMServer.World.Application.Players.Registration
     internal class PlayerLoader : IPlayerLoader
     {
         private readonly IPlayerRepository _playerRepository;
-        
+
         public PlayerLoader(IPlayerRepository playerRepository)
         {
             _playerRepository = playerRepository;
@@ -62,7 +62,9 @@ namespace FOMServer.World.Application.Players.Registration
                 loadedItems[item.Id] = item;
             }
 
+            addItem(ItemType.Techtronic6x6);
             addItem(ItemType._9mmStandardRounds);
+            addItem(ItemType.BackerHelmet);
 
             addItem(ItemType._9mmStandardRounds);
             addItem(ItemType.EmergencyMedikit);

@@ -13,23 +13,9 @@ namespace FOMServer.Shared.Core.Items
         {
             if (item is not null)
             {
-                item.BindLocation(Location, SlotType);
                 InsertCore(item);
-            }
-        }
-
-        public override IReadOnlyDictionary<uint, Item> GetAll()
-        {
-            lock (_syncRoot)
-            {
-                var ret = new Dictionary<uint, Item>();
-                if (_item is null)
-                {
-                    return ret;
-                }
-
-                ret.Add(_item.Id, _item);
-                return ret;
+                item.BindLocation(Location, SlotType);
+                item.ItemDestroyed += OnItemDestroyed;
             }
         }
 
@@ -46,54 +32,126 @@ namespace FOMServer.Shared.Core.Items
             }
         }
 
-        protected override bool CanInsertCore(uint id)
+        protected override IReadOnlyCollection<Item> GetAllCore()
         {
+            if (_item is null)
+            {
+                return [];
+            }
+
+            return [_item];
+        }
+
+        protected override IReadOnlyCollection<uint> GetDisplacedIdsFor(params IReadOnlyCollection<uint> idsToInsert)
+        {
+            if (idsToInsert.Count > 1)
+            {
+                return [];
+            }
+
+            // When there's an item, in order to insert it into this container, it
+            // needs to displace the one that is already inside of the container.
+            if (_item is null)
+            {
+                return [];
+            }
+
+            return [_item.Id];
+        }
+
+        protected override bool CanInsertCore(params IReadOnlyCollection<uint> idsToInsert)
+        {
+            return _item is null;
+        }
+
+        protected override bool CanInsertCore(IReadOnlyCollection<uint> idsToInsert, IReadOnlyCollection<uint> idsToExtract)
+        {
+            if (idsToInsert.Count == 0)
+            {
+                return true;
+            }
+
+            if (_item is null)
+            {
+                return true;
+            }
+
+            // When an item already occupies the slot, the only way to insert a new
+            // item is if we're going to be displacing the item already there.
+            if (idsToExtract.Count != 1)
+            {
+                return false;
+            }
+
+            return _item.Id == idsToExtract.First();
+        }
+
+        protected override bool InsertCore(params IReadOnlyCollection<Item> itemsToInsert)
+        {
+            if (itemsToInsert.Count == 0)
+            {
+                return true;
+            }
+
             if (_item is not null)
             {
                 return false;
             }
 
-            return true;
-        }
-
-        protected override bool InsertCore(Item item)
-        {
-            if (_item is not null)
+            if (itemsToInsert.Count != 1)
             {
                 return false;
             }
 
-            _item = item;
+            _item = itemsToInsert.First();
             return true;
         }
 
-        protected override bool CanExtractCore(uint id)
+        protected override bool CanExtractCore(params IReadOnlyCollection<uint> idsToExtract)
         {
+            if (idsToExtract.Count == 0)
+            {
+                return true;
+            }
+
             if (_item is null)
             {
                 return false;
             }
 
-            return _item.Id == id;
+            if (idsToExtract.Count != 1)
+            {
+                return false;
+            }
+
+            return _item.Id == idsToExtract.First();
         }
 
-        protected override Item? ExtractCore(uint id)
+        protected override IReadOnlyCollection<Item> ExtractCore(params IReadOnlyCollection<uint> idsToExtract)
         {
-            if (_item?.Id != id)
+            if (idsToExtract.Count != 1)
             {
-                return null;
+                return [];
+            }
+
+            if (_item is null)
+            {
+                return [];
             }
 
             var item = _item;
             _item = null;
-            return item;
+            return [item];
         }
 
         protected override void OnItemDestroyed(Item item)
         {
-            if (ReferenceEquals(item, _item))
+            lock (_syncRoot)
             {
-                _item = null;
+                if (ReferenceEquals(item, _item))
+                {
+                    _item = null;
+                }
             }
         }
     }

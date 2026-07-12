@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets.Types;
 
@@ -20,7 +21,15 @@ namespace FOMServer.Shared.Core.Items
 
         public ItemSlotType SlotType { get; }
 
-        public abstract IReadOnlyDictionary<uint, Item> GetAll();
+        public IReadOnlyCollection<Item> GetAll()
+        {
+            lock (_syncRoot)
+            {
+                // Always create a new collection so we protect ourselves
+                // from accidentally returning the backing array.
+                return [.. GetAllCore()];
+            }
+        }
 
         public bool TryAdd(params IReadOnlyCollection<Item> items)
         {
@@ -29,23 +38,27 @@ namespace FOMServer.Shared.Core.Items
                 return true;
             }
 
+            var ids = new uint[items.Count];
+            var i = 0;
+            foreach (var item in items)
+            {
+                ids[i++] = item.Id;
+            }
+
             lock (_syncRoot)
             {
-                foreach (var item in items)
+                if (!CanInsertCore(ids))
                 {
-                    if (!CanInsertCore(item.Id))
-                    {
-                        return false;
-                    }
+                    return false;
+                }
+
+                if (!InsertCore(items))
+                {
+                    throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be inserted");
                 }
 
                 foreach (var item in items)
                 {
-                    if (!InsertCore(item))
-                    {
-                        throw new InvalidOperationException($"Item {item.Id} could not be added");
-                    }
-
                     item.ItemDestroyed += OnItemDestroyed;
                     item.ChangeLocation(Location, SlotType);
                 }
@@ -54,29 +67,30 @@ namespace FOMServer.Shared.Core.Items
             return true;
         }
 
-        public bool TryRemove(out List<Item> removed, params ReadOnlySpan<uint> ids)
+        public bool TryRemove(out List<Item> removed, params IReadOnlyCollection<uint> ids)
         {
-            removed = new(ids.Length);
+            removed = new(ids.Count);
 
-            if (ids.Length == 0)
+            if (ids.Count == 0)
             {
                 return true;
             }
 
             lock (_syncRoot)
             {
-                foreach (var id in ids)
+                if (!CanExtractCore(ids))
                 {
-                    if (!CanExtractCore(id))
-                    {
-                        return false;
-                    }
+                    return false;
                 }
 
-                foreach (var id in ids)
+                var extracted = ExtractCore(ids);
+                if (extracted.Count != ids.Count)
                 {
-                    var item = ExtractCore(id) ?? throw new InvalidOperationException($"Item {id} could not be removed");
- 
+                    throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be extracted");
+                }
+
+                foreach (var item in extracted)
+                {
                     item.ItemDestroyed -= OnItemDestroyed;
                     item.ChangeLocation(null, ItemSlotType.None);
 
@@ -87,68 +101,36 @@ namespace FOMServer.Shared.Core.Items
             return true;
         }
 
-        public bool TryTransferAll(ItemContainer to, out List<Item> transferred)
+        public bool TryTransferAll(ItemContainer to, out List<Item> transferred, out List<Item> displaced)
         {
-            var (first, second) = _lockId <= to._lockId
-                ? (this, to)
-                : (to, this);
-
-            lock (first._syncRoot)
+            uint[] ids;
+            lock (_syncRoot)
             {
-                lock (second._syncRoot)
+                var items = GetAllCore();
+                if (items.Count == 0)
                 {
-                    var allItems = GetAll();
+                    transferred = [];
+                    displaced = [];
+                    return true;
+                }
 
-                    transferred = new(allItems.Count);
-
-                    if (allItems.Count == 0)
-                    {
-                        return true;
-                    }
-
-                    foreach (var (id, _) in allItems)
-                    {
-                        if (!CanExtractCore(id))
-                        {
-                            return false;
-                        }
-
-                        if (!to.CanInsertCore(id))
-                        {
-                            return false;
-                        }
-                    }
-
-                    foreach (var (_, item) in allItems)
-                    {
-                        // We don't need the extracted item because we already have it.
-                        if (ExtractCore(item.Id) == null)
-                        {
-                            throw new InvalidOperationException($"Item {item.Id} could not be extracted");
-                        }
-
-                        if (!to.InsertCore(item))
-                        {
-                            throw new InvalidOperationException($"Item {item} lost in container transfer");
-                        }
-
-                        item.ItemDestroyed -= OnItemDestroyed;
-                        item.ItemDestroyed += to.OnItemDestroyed;
-                        item.ChangeLocation(to.Location, to.SlotType);
-
-                        transferred.Add(item);
-                    }
+                ids = new uint[items.Count];
+                var i = 0;
+                foreach (var item in items)
+                {
+                    ids[i++] = item.Id;
                 }
             }
 
-            return true;
+            return TryTransfer(to, out transferred, out displaced, ids);
         }
 
-        public bool TryTransfer(ItemContainer to, out List<Item> transferred, params ReadOnlySpan<uint> ids)
+        public bool TryTransfer(ItemContainer to, out List<Item> transferred, out List<Item> displaced, params IReadOnlyCollection<uint> ids)
         {
-            transferred = new(ids.Length);
+            transferred = new(ids.Count);
+            displaced = [];
 
-            if (ids.Length == 0)
+            if (ids.Count == 0)
             {
                 return true;
             }
@@ -161,33 +143,61 @@ namespace FOMServer.Shared.Core.Items
             {
                 lock (second._syncRoot)
                 {
-                    foreach (var id in ids)
+                    if (!CanExtractCore(ids))
                     {
-                        if (!CanExtractCore(id))
-                        {
-                            return false;
-                        }
-
-                        if (!to.CanInsertCore(id))
-                        {
-                            return false;
-                        }
+                        return false;
                     }
 
-                    foreach (var id in ids)
+                    var idsToDisplace = to.GetDisplacedIdsFor(ids);
+                    if (idsToDisplace.Count > 0 && !CanInsertCore(idsToDisplace, ids))
                     {
-                        var item = ExtractCore(id) ?? throw new InvalidOperationException($"Item {id} could not be extracted");
+                        return false;
+                    }
 
-                        if (!to.InsertCore(item))
-                        {
-                           throw new InvalidOperationException($"Item {item} lost in container transfer");
-                        }
+                    if (!to.CanInsertCore(ids, idsToDisplace))
+                    {
+                        return false;
+                    }
 
+                    var displacedItems = to.ExtractCore(idsToDisplace);
+                    if (displacedItems.Count != idsToDisplace.Count)
+                    {
+                        throw new InvalidOperationException($"Item(s) {string.Join(", ", idsToDisplace)} could not be extracted");
+                    }
+
+                    var extractedItems = ExtractCore(ids);
+                    if (extractedItems.Count != ids.Count)
+                    {
+                        throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be extracted");
+                    }
+
+                    if (!to.InsertCore(extractedItems))
+                    {
+                        throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be inserted");
+                    }
+
+                    foreach (var item in extractedItems)
+                    {
                         item.ItemDestroyed -= OnItemDestroyed;
                         item.ItemDestroyed += to.OnItemDestroyed;
                         item.ChangeLocation(to.Location, to.SlotType);
-
                         transferred.Add(item);
+                    }
+
+                    if (displacedItems.Count > 0)
+                    {
+                        if (!InsertCore(displacedItems))
+                        {
+                            throw new InvalidOperationException($"Item(s) {string.Join(", ", idsToDisplace)} could not be insert");
+                        }
+
+                        foreach (var item in displacedItems)
+                        {
+                            item.ItemDestroyed -= to.OnItemDestroyed;
+                            item.ItemDestroyed += OnItemDestroyed;
+                            item.ChangeLocation(Location, SlotType);
+                            displaced.Add(item);
+                        }
                     }
                 }
             }
@@ -195,13 +205,19 @@ namespace FOMServer.Shared.Core.Items
             return true;
         }
 
-        protected abstract bool CanInsertCore(uint id);
+        protected abstract IReadOnlyCollection<Item> GetAllCore();
 
-        protected abstract bool InsertCore(Item item);
+        protected abstract IReadOnlyCollection<uint> GetDisplacedIdsFor(params IReadOnlyCollection<uint> idsToInsert);
 
-        protected abstract bool CanExtractCore(uint id);
+        protected abstract bool CanInsertCore(params IReadOnlyCollection<uint> idsToInsert);
 
-        protected abstract Item? ExtractCore(uint id);
+        protected abstract bool CanInsertCore(IReadOnlyCollection<uint> idsToInsert, IReadOnlyCollection<uint> idsToExtract);
+
+        protected abstract bool InsertCore(params IReadOnlyCollection<Item> itemsToInsert);
+
+        protected abstract bool CanExtractCore(params IReadOnlyCollection<uint> idsToExtract);
+
+        protected abstract IReadOnlyCollection<Item> ExtractCore(params IReadOnlyCollection<uint> idsToExtract);
 
         protected abstract void OnItemDestroyed(Item item);
     }

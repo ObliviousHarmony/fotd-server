@@ -132,8 +132,7 @@ namespace FOMServer.World.Core.Players
                 {
                     Console.WriteLine($"Item {_quickslots[fromQuickslot]} from {fromSlot} into {toSlot}");
 
-                    _quickslots[toQuickslot] = _quickslots[fromQuickslot];
-                    _quickslots[fromQuickslot] = ItemType.Invalid;
+                    (_quickslots[fromQuickslot], _quickslots[toQuickslot]) = (_quickslots[toQuickslot], _quickslots[fromQuickslot]);
                     return true;
                 }
 
@@ -160,15 +159,19 @@ namespace FOMServer.World.Core.Players
             }
 
             var items = fromContainer.GetAll();
-            if (!items.TryGetValue(itemId.Value, out var item))
+            foreach (var item in items)
             {
-                return false;
+                if (item.Id != itemId)
+                {
+                    continue;
+                }
+
+                Console.WriteLine($"Item {item.Type} into {toQuickslot}");
+
+                _quickslots[toQuickslot] = item.Type;
             }
 
-            Console.WriteLine($"Item {item.Type} into {toQuickslot}");
-
-            _quickslots[toQuickslot] = item.Type;
-            return true;
+            return false;
         }
 
         public void WriteTo(ref PacketInventory inventory, ref PacketWeapons weapons, ref PacketEquipment equipment, ref QuickSlotsArray quickslots)

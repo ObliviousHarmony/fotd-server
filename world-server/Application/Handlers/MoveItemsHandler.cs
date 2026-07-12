@@ -56,7 +56,7 @@ namespace FOMServer.World.Application.Handlers
                 _logger.LogWarning(
                     "Player {PlayerId}'s item(s) {ItemIds} cannot be moved from {From} / {FromSlot} to {To} / {ToSlot}, no rule found",
                     p.PlayerId,
-                    string.Join(", ", p.ItemIds.ToArray()),
+                    string.Join(", ", [.. p.ItemIds]),
                     p.From,
                     p.FromSlot,
                     p.To,
@@ -73,7 +73,7 @@ namespace FOMServer.World.Application.Handlers
                 _logger.LogWarning(
                     "Player {PlayerId}'s item(s) {ItemIds} cannot be moved from {From} / {FromSlot} to {To} / {ToSlot}, {Reason}",
                     p.PlayerId,
-                    string.Join(", ", p.ItemIds.ToArray()),
+                    string.Join(", ", [.. p.ItemIds]),
                     p.From,
                     p.FromSlot,
                     p.To,
@@ -90,7 +90,7 @@ namespace FOMServer.World.Application.Handlers
                 _logger.LogWarning(
                     "Player {PlayerId}'s item(s) {ItemIds} failed to be moved from {From} / {FromSlot} to {To} / {ToSlot}",
                     p.PlayerId,
-                    string.Join(", ", p.ItemIds.ToArray()),
+                    string.Join(", ", [.. p.ItemIds]),
                     p.From,
                     p.FromSlot,
                     p.To,
@@ -193,7 +193,7 @@ namespace FOMServer.World.Application.Handlers
         {
             var fromContainer = GetItemContainer(player, p.From, p.FromSlot);
             var toContainer = GetItemContainer(player, p.To, p.ToSlot);
-            if (!fromContainer.TryTransfer(toContainer, out _, p.ItemIds))
+            if (!fromContainer.TryTransfer(toContainer, out _, out _, [.. p.ItemIds]))
             {
                 return false;
             }
@@ -205,7 +205,7 @@ namespace FOMServer.World.Application.Handlers
         {
             var fromContainer = GetItemContainer(player, p.From, p.FromSlot);
             var toContainer = GetItemContainer(player, p.To, p.ToSlot);
-            if (!fromContainer.TryTransferAll(toContainer, out _))
+            if (!fromContainer.TryTransferAll(toContainer, out _, out _))
             {
                 return false;
             }
@@ -232,7 +232,7 @@ namespace FOMServer.World.Application.Handlers
         private bool DestroyItems(Player player, in MoveItems p)
         {
             var fromContainer = GetItemContainer(player, p.From, p.FromSlot);
-            if (!fromContainer.TryRemove(out _, p.ItemIds))
+            if (!fromContainer.TryRemove(out _, [.. p.ItemIds]))
             {
                 return false;
             }

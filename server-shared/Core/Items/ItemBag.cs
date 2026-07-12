@@ -20,16 +20,9 @@ namespace FOMServer.Shared.Core.Items
 
             foreach (var (_, item) in items)
             {
-                item.BindLocation(Location, SlotType);
                 InsertCore(item);
-            }
-        }
-
-        public override IReadOnlyDictionary<uint, Item> GetAll()
-        {
-            lock (_syncRoot)
-            {
-                return new Dictionary<uint, Item>(_items);
+                item.BindLocation(Location, SlotType);
+                item.ItemDestroyed += OnItemDestroyed;
             }
         }
 
@@ -46,7 +39,7 @@ namespace FOMServer.Shared.Core.Items
 
             if (items.Length > BufferSizes.MaxItemListSize)
             {
-                throw new InvalidOperationException($"Bag contains too many items, has {items.Length}");
+                throw new InvalidOperationException($"Bag contains too many itemsToInsert, has {items.Length}");
             }
 
             var i = 0;
@@ -57,38 +50,136 @@ namespace FOMServer.Shared.Core.Items
             p.ItemCount = (uint)i;
         }
 
-        protected override bool CanInsertCore(uint id)
+        protected override IReadOnlyCollection<Item> GetAllCore()
         {
-            return !_items.ContainsKey(id);
+            return _items.Values;
         }
 
-        protected override bool InsertCore(Item item)
+        protected override IReadOnlyCollection<uint> GetDisplacedIdsFor(params IReadOnlyCollection<uint> idsToInsert)
         {
-            if (!_items.TryAdd(item.Id, item))
-            {
-                return false;
-            }
+            // Bags don't support item displacement during transfer.
+            return [];
+        }
 
-            InsertTypeIndex(item);
+        protected override bool CanInsertCore(params IReadOnlyCollection<uint> idsToInsert)
+        {
+            foreach (var id in idsToInsert)
+            {
+                if (_items.ContainsKey(id))
+                {
+                    return false;
+                }
+            }
 
             return true;
         }
 
-        protected override bool CanExtractCore(uint id)
+        protected override bool CanInsertCore(IReadOnlyCollection<uint> idsToInsert, IReadOnlyCollection<uint> idsToExtract)
         {
-            return _items.ContainsKey(id);
-        }
-
-        protected override Item? ExtractCore(uint id)
-        {
-            if (!_items.Remove(id, out var item))
+            // Bags don't support item displacement during transfer.
+            if (idsToExtract.Count != 0)
             {
-                return null;
+                return false;
             }
 
-            ExtractTypeIndex(item);
+            if (_items.Count + idsToInsert.Count > _maxSpace)
+            {
+                return false;
+            }
 
-            return item;
+            return CanInsertCore(idsToInsert);
+        }
+
+        protected override bool InsertCore(params IReadOnlyCollection<Item> itemsToInsert)
+        {
+            if (itemsToInsert.Count == 0)
+            {
+                return true;
+            }
+
+            if (_items.Count + itemsToInsert.Count > _maxSpace)
+            {
+                return false;
+            }
+
+            var failure = false;
+            List<Item> added = new(itemsToInsert.Count);
+            foreach (var item in itemsToInsert)
+            {
+                if (!_items.TryAdd(item.Id, item))
+                {
+                    failure = true;
+                    break;
+                }
+
+                InsertTypeIndex(item);
+
+                added.Add(item);
+            }
+
+            // Make sure to remove any items we added if the insertion failed.
+            if (failure)
+            {
+                foreach (var item in added)
+                {
+                    if (_items.Remove(item.Id))
+                    {
+                        ExtractTypeIndex(item);
+                    }
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+
+        protected override bool CanExtractCore(params IReadOnlyCollection<uint> idsToExtract)
+        {
+            foreach (var id in idsToExtract)
+            {
+                if (!_items.ContainsKey(id))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        protected override IReadOnlyCollection<Item> ExtractCore(params IReadOnlyCollection<uint> idsToExtract)
+        {
+            List<Item> extracted = [];
+
+            var failure = false;
+            foreach (var id in idsToExtract)
+            {
+                if (!_items.Remove(id, out var item))
+                {
+                    failure = true;
+                    break;
+                }
+
+                ExtractTypeIndex(item);
+
+                extracted.Add(item);
+            }
+
+            // Make sure to add any items we removed back if the extraction fails.
+            if (failure)
+            {
+                foreach (var item in extracted)
+                {
+                    if (_items.TryAdd(item.Id, item))
+                    {
+                        InsertTypeIndex(item);
+                    }
+                }
+
+                return [];
+            }
+
+            return extracted;
         }
 
         protected override void OnItemDestroyed(Item item)

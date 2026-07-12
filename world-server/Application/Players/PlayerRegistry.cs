@@ -81,7 +81,7 @@ namespace FOMServer.World.Application.Players
             {
                 registration.Unregister();
                 return null;
-            } 
+            }
             _playersByAddress[player.Address] = player;
             _playerRegistrations[player.Id] = registration;
 
@@ -92,7 +92,8 @@ namespace FOMServer.World.Application.Players
         {
             _persistenceService.WaitForPersistence(
                 player,
-                () => {
+                () =>
+                {
                     if (_playerRegistrations.TryRemove(player.Id, out var registration))
                     {
                         registration.Unregister();

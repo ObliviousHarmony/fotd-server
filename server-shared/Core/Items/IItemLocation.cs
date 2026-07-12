@@ -23,7 +23,7 @@ namespace FOMServer.Shared.Core.Items
             return Type is ItemLocationType.Inventory;
         }
 
-        public bool IsPlayer(uint id )
+        public bool IsPlayer(uint id)
         {
             return IsPlayer() && id == Id;
         }
