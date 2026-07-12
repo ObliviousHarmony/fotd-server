@@ -427,7 +427,7 @@ namespace FOMServer.World.Core.Players
                 var dirty = _parent.ConsumeDirty();
                 if (dirty != 0)
                 {
-                    _parent.AttributesChanged?.Invoke(_parent, _lockedAttributesMask);
+                    _parent.AttributesChanged?.Invoke(_parent, dirty);
                     _parent.PersistableChange?.Invoke(_parent, _parent._player);
                 }
             }
