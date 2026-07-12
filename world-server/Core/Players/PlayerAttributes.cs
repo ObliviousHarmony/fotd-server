@@ -166,6 +166,56 @@ namespace FOMServer.World.Core.Players
             return new LockedAttributes(this, attributes, Interlocked.Increment(ref _nextLockId));
         }
 
+        public LockedAttributePair LockPair(PlayerAttributes other, AttributeType attribute)
+        {
+            var (first, second) = PlayerId <= other.PlayerId ? (this, other) : (other, this);
+
+            var firstLock = first.Lock(attribute);
+            try
+            {
+                var secondLock = second.Lock(attribute);
+
+                if (PlayerId == first.PlayerId)
+                {
+                    return new LockedAttributePair(firstLock, secondLock);
+                }
+                else
+                {
+                    return new LockedAttributePair(secondLock, firstLock);
+                }
+            }
+            catch
+            {
+                firstLock.Dispose();
+                throw;
+            }
+        }
+
+        public LockedAttributesPair LockPair(PlayerAttributes other, params ReadOnlySpan<AttributeType> attributes)
+        {
+            var (first, second) = PlayerId <= other.PlayerId ? (this, other) : (other, this);
+
+            var firstLock = first.Lock(attributes);
+            try
+            {
+                var secondLock = second.Lock(attributes);
+
+                if (PlayerId == first.PlayerId)
+                {
+                    return new LockedAttributesPair(firstLock, secondLock);
+                }
+                else
+                {
+                    return new LockedAttributesPair(secondLock, firstLock);
+                }
+            }
+            catch
+            {
+                firstLock.Dispose();
+                throw;
+            }
+        }
+
         private void MarkDirty()
         {
             Interlocked.Exchange(ref _dirty, true);
@@ -384,6 +434,62 @@ namespace FOMServer.World.Core.Players
                     throw new InvalidOperationException(
                         $"{attribute} was not locked.");
                 }
+            }
+        }
+
+        internal readonly ref struct LockedAttributePair
+        {
+            public readonly LockedAttribute First;
+            public readonly LockedAttribute Second;
+
+            internal LockedAttributePair(
+                LockedAttribute first,
+                LockedAttribute second)
+            {
+                First = first;
+                Second = second;
+            }
+
+            public void Deconstruct(
+                out LockedAttribute first,
+                out LockedAttribute second)
+            {
+                first = First;
+                second = Second;
+            }
+
+            public void Dispose()
+            {
+                Second.Dispose();
+                First.Dispose();
+            }
+        }
+
+        internal readonly ref struct LockedAttributesPair
+        {
+            public readonly LockedAttributes First;
+            public readonly LockedAttributes Second;
+
+            internal LockedAttributesPair(
+                LockedAttributes first,
+                LockedAttributes second)
+            {
+                First = first;
+                Second = second;
+            }
+
+            public void Deconstruct(
+                out LockedAttributes first,
+                out LockedAttributes second)
+            {
+                first = First;
+                second = Second;
+            }
+
+            public void Dispose()
+            {
+                Second.Dispose();
+                First.Dispose();
             }
         }
 

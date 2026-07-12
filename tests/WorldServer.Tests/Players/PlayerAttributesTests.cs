@@ -1,3 +1,4 @@
+using System.Net.Sockets;
 using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.World.Core.Exceptions;
@@ -295,9 +296,69 @@ namespace FOMServer.World.Tests.Players
             Assert.Throws<AttributeDeadlockException>(() => attrs.Lock(AttributeType.Coins));
         }
 
+        [Fact]
+        public void LockPair_GetReturnsCurrentValue()
+        {
+            var initialA = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 1000 };
+            var attrsA = CreateAttributes(initialA);
+            var initialB = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 5000 };
+            var attrsB = CreateAttributes(initialB);
+
+            using var locks = attrsA.LockPair(attrsB, AttributeType.UniversalCredits);
+            var (lockA, lockB) = locks;
+
+            Assert.Equal(1000u, lockA.Value);
+            Assert.Equal(5000u, lockB.Value);
+        }
+
+        [Fact]
+        public void LockPair_OrdersLocksButReturnsInputOrder()
+        {
+            var initialA = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 1000 };
+            var attrsA = CreateAttributes(initialA);
+            var initialB = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 5000 };
+            var attrsB = CreateAttributes(initialB);
+
+            using var locks = attrsB.LockPair(attrsA, AttributeType.UniversalCredits);
+            var (lockB, lockA) = locks;
+
+            Assert.Equal(1000u, lockA.Value);
+            Assert.Equal(5000u, lockB.Value);
+        }
+
+        [Fact]
+        public void LockPair_Multiple_GetReturnsCurrentValue()
+        {
+            var initialA = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 1000 };
+            var attrsA = CreateAttributes(initialA);
+            var initialB = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 5000 };
+            var attrsB = CreateAttributes(initialB);
+
+            using var locks = attrsA.LockPair(attrsB, AttributeType.UniversalCredits, AttributeType.Coins);
+            var (lockA, lockB) = locks;
+
+            Assert.Equal(1000u, lockA[AttributeType.UniversalCredits]);
+            Assert.Equal(5000u, lockB[AttributeType.UniversalCredits]);
+        }
+
+        [Fact]
+        public void LockPair_Multiple_OrdersLocksButReturnsInputOrder()
+        {
+            var initialA = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 1000 };
+            var attrsA = CreateAttributes(initialA);
+            var initialB = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 5000 };
+            var attrsB = CreateAttributes(initialB);
+
+            using var locks = attrsB.LockPair(attrsA, AttributeType.UniversalCredits, AttributeType.Coins);
+            var (lockB, lockA) = locks;
+
+            Assert.Equal(1000u, lockA[AttributeType.UniversalCredits]);
+            Assert.Equal(5000u, lockB[AttributeType.UniversalCredits]);
+        }
+
         private static PlayerAttributes CreateAttributes(Dictionary<AttributeType, uint>? values = null)
         {
-            var builder = TestPlayerBuilder.Create(1);
+            var builder = TestPlayerBuilder.Create();
 
             if (values is not null)
             {
