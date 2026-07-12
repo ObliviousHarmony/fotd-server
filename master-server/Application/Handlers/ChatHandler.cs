@@ -20,7 +20,8 @@ namespace FOMServer.Master.Application.Handlers
         public ChatHandler(
             IClientRegistry playerRegistry,
             IClientPacketSender clientPacketSender,
-            ILogger<ChatHandler> logger)
+            ILogger<ChatHandler> logger
+        )
         {
             _clientRegistry = playerRegistry;
             _clientPacketSender = clientPacketSender;

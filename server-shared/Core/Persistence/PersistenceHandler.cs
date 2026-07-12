@@ -1,7 +1,7 @@
 namespace FOMServer.Shared.Core.Persistence
 {
     public abstract class PersistenceHandler<T> : IPersistenceHandler
-    where T : class, IPersistable
+        where T : class, IPersistable
     {
         public Type EntityType => typeof(T);
 

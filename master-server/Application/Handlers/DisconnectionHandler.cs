@@ -19,7 +19,8 @@ namespace FOMServer.Master.Application.Handlers
             IWorldServerRegistry worldServerRegistry,
             IClientRegistry clientRegistry,
             IPlayerRegistry playerRegistry,
-            ILogger<DisconnectionHandler> logger)
+            ILogger<DisconnectionHandler> logger
+        )
         {
             _worldServerRegistry = worldServerRegistry;
             _clientRegistry = clientRegistry;

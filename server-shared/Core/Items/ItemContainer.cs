@@ -125,7 +125,12 @@ namespace FOMServer.Shared.Core.Items
             return TryTransfer(to, out transferred, out displaced, ids);
         }
 
-        public bool TryTransfer(ItemContainer to, out List<Item> transferred, out List<Item> displaced, params IReadOnlyCollection<uint> ids)
+        public bool TryTransfer(
+            ItemContainer to,
+            out List<Item> transferred,
+            out List<Item> displaced,
+            params IReadOnlyCollection<uint> ids
+        )
         {
             transferred = new(ids.Count);
             displaced = [];
@@ -135,9 +140,7 @@ namespace FOMServer.Shared.Core.Items
                 return true;
             }
 
-            var (first, second) = _lockId <= to._lockId
-                ? (this, to)
-                : (to, this);
+            var (first, second) = _lockId <= to._lockId ? (this, to) : (to, this);
 
             lock (first._syncRoot)
             {
@@ -162,7 +165,9 @@ namespace FOMServer.Shared.Core.Items
                     var displacedItems = to.ExtractCore(idsToDisplace);
                     if (displacedItems.Count != idsToDisplace.Count)
                     {
-                        throw new InvalidOperationException($"Item(s) {string.Join(", ", idsToDisplace)} could not be extracted");
+                        throw new InvalidOperationException(
+                            $"Item(s) {string.Join(", ", idsToDisplace)} could not be extracted"
+                        );
                     }
 
                     var extractedItems = ExtractCore(ids);
@@ -188,7 +193,9 @@ namespace FOMServer.Shared.Core.Items
                     {
                         if (!InsertCore(displacedItems))
                         {
-                            throw new InvalidOperationException($"Item(s) {string.Join(", ", idsToDisplace)} could not be insert");
+                            throw new InvalidOperationException(
+                                $"Item(s) {string.Join(", ", idsToDisplace)} could not be insert"
+                            );
                         }
 
                         foreach (var item in displacedItems)
@@ -211,7 +218,10 @@ namespace FOMServer.Shared.Core.Items
 
         protected abstract bool CanInsertCore(params IReadOnlyCollection<uint> idsToInsert);
 
-        protected abstract bool CanInsertCore(IReadOnlyCollection<uint> idsToInsert, IReadOnlyCollection<uint> idsToExtract);
+        protected abstract bool CanInsertCore(
+            IReadOnlyCollection<uint> idsToInsert,
+            IReadOnlyCollection<uint> idsToExtract
+        );
 
         protected abstract bool InsertCore(params IReadOnlyCollection<Item> itemsToInsert);
 

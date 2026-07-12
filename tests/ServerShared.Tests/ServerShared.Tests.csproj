@@ -28,5 +28,4 @@
     <ProjectReference Include="..\..\master-server\MasterServer.csproj" />
     <ProjectReference Include="..\..\world-server\WorldServer.csproj" />
   </ItemGroup>
-
 </Project>

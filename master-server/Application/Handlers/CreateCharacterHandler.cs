@@ -24,7 +24,8 @@ namespace FOMServer.Master.Application.Handlers
             IClientRegistry clientRegistry,
             IPlayerRegistry playerRegistry,
             IClientPacketSender clientPacketSender,
-            ILogger<CreateCharacterHandler> logger)
+            ILogger<CreateCharacterHandler> logger
+        )
         {
             _playerRepository = playerRepository;
             _clientRegistry = clientRegistry;
@@ -68,7 +69,8 @@ namespace FOMServer.Master.Application.Handlers
                 p.Avatar.Sex,
                 p.Avatar.Race,
                 p.Avatar.Face,
-                p.Avatar.Hair);
+                p.Avatar.Hair
+            );
 
             if (created is null)
             {

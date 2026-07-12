@@ -15,9 +15,7 @@ namespace FOMServer.Master.Application.Handlers
         private readonly IClientPacketSender _clientPacketSender;
         private readonly IAccountRepository _accountRepository;
 
-        public LoginRequestHandler(
-            IClientPacketSender clientPacketSender,
-            IAccountRepository accountRepository)
+        public LoginRequestHandler(IClientPacketSender clientPacketSender, IAccountRepository accountRepository)
         {
             _clientPacketSender = clientPacketSender;
             _accountRepository = accountRepository;

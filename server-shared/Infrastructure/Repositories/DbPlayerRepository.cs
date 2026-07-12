@@ -14,7 +14,15 @@ namespace FOMServer.Shared.Infrastructure.Repositories
             _dbConnectionFactory = dbConnectionFactory;
         }
 
-        public PlayerDto? Create(uint id, string name, string biography, AvatarConstants.Sex sex, AvatarConstants.Race race, ushort face, ushort hair)
+        public PlayerDto? Create(
+            uint id,
+            string name,
+            string biography,
+            AvatarConstants.Sex sex,
+            AvatarConstants.Race race,
+            ushort face,
+            ushort hair
+        )
         {
             try
             {
@@ -23,7 +31,16 @@ namespace FOMServer.Shared.Infrastructure.Repositories
                 connection.Execute(
                     @"INSERT INTO `player` (`id`, `name`, `biography`, `sex`, `race`, `face`, `hair`)
                       VALUES (@id, @name, @biography, @sex, @race, @face, @hair)",
-                    new { id, name, biography, sex = (byte)sex, race = (byte)race, face, hair }
+                    new
+                    {
+                        id,
+                        name,
+                        biography,
+                        sex = (byte)sex,
+                        race = (byte)race,
+                        face,
+                        hair,
+                    }
                 );
             }
             catch (MySqlException)
@@ -39,9 +56,9 @@ namespace FOMServer.Shared.Infrastructure.Repositories
             using var connection = _dbConnectionFactory.Create();
 
             return connection.QuerySingleOrDefault<PlayerDto?>(
-                 "SELECT `id`, `name`, `sex`, `race`, `face`, `hair`, `created_at`, `updated_at` FROM `player` WHERE `id` = @id",
-                 new { id }
-             );
+                "SELECT `id`, `name`, `sex`, `race`, `face`, `hair`, `created_at`, `updated_at` FROM `player` WHERE `id` = @id",
+                new { id }
+            );
         }
 
         public PlayerDto? GetByName(string name)
@@ -49,9 +66,9 @@ namespace FOMServer.Shared.Infrastructure.Repositories
             using var connection = _dbConnectionFactory.Create();
 
             return connection.QuerySingleOrDefault<PlayerDto?>(
-                 "SELECT `id`, `name`, `sex`, `race`, `face`, `hair`, `created_at`, `updated_at` FROM `player` WHERE `name` = @name",
-                 new { name }
-             );
+                "SELECT `id`, `name`, `sex`, `race`, `face`, `hair`, `created_at`, `updated_at` FROM `player` WHERE `name` = @name",
+                new { name }
+            );
         }
 
         public string? GetBiography(uint id)
@@ -59,9 +76,9 @@ namespace FOMServer.Shared.Infrastructure.Repositories
             using var connection = _dbConnectionFactory.Create();
 
             return connection.QuerySingleOrDefault<string?>(
-                 "SELECT `biography` FROM `player` WHERE `name` = @id",
-                 new { id }
-             );
+                "SELECT `biography` FROM `player` WHERE `name` = @id",
+                new { id }
+            );
         }
     }
 }

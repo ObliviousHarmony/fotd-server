@@ -22,23 +22,17 @@ namespace FOMServer.Shared.Application.Persistence
         private Task? _persistenceTask;
         private CancellationTokenSource? _cts;
 
-        public PersistenceService(IShutdownManager shutdownManager, ILogger<PersistenceService> logger, IEnumerable<IPersistenceHandler> handlers)
+        public PersistenceService(
+            IShutdownManager shutdownManager,
+            ILogger<PersistenceService> logger,
+            IEnumerable<IPersistenceHandler> handlers
+        )
         {
             _shutdownManager = shutdownManager;
             _logger = logger;
             _handlers = handlers.ToDictionary(h => h.EntityType);
-            _dirtyQueue = Channel.CreateUnbounded<IPersistable>(
-                new UnboundedChannelOptions
-                {
-                    SingleReader = true
-                }
-            );
-            _waitQueue = Channel.CreateUnbounded<WaitRequest>(
-                new UnboundedChannelOptions
-                {
-                    SingleReader = true
-                }
-            );
+            _dirtyQueue = Channel.CreateUnbounded<IPersistable>(new UnboundedChannelOptions { SingleReader = true });
+            _waitQueue = Channel.CreateUnbounded<WaitRequest>(new UnboundedChannelOptions { SingleReader = true });
         }
 
         public void Register(IPersistable entity)
@@ -57,17 +51,17 @@ namespace FOMServer.Shared.Application.Persistence
             var blockingDependencies = state.TakeBlockingDependencies();
 
             // Also wait for the entity itself to persist
-            blockingDependencies.Add(new BlockingDependency
-            {
-                Entity = new WeakReference<IPersistable>(entity),
-                Version = Volatile.Read(in state.Version)
-            });
+            blockingDependencies.Add(
+                new BlockingDependency
+                {
+                    Entity = new WeakReference<IPersistable>(entity),
+                    Version = Volatile.Read(in state.Version),
+                }
+            );
 
-            _waitQueue.Writer.TryWrite(new WaitRequest
-            {
-                BlockingDependencies = blockingDependencies,
-                Callback = callback
-            });
+            _waitQueue.Writer.TryWrite(
+                new WaitRequest { BlockingDependencies = blockingDependencies, Callback = callback }
+            );
 
             // Ensure the entity goes through the persistence loop so waits get processed
             Enqueue(entity);
@@ -95,9 +89,7 @@ namespace FOMServer.Shared.Application.Persistence
             _shutdownManager.TrackTask(_persistenceTask);
         }
 
-        private void Enqueue(
-            IPersistable entity,
-            params ReadOnlySpan<IPersistable?> associations)
+        private void Enqueue(IPersistable entity, params ReadOnlySpan<IPersistable?> associations)
         {
             var state = _entityStates.GetOrCreateValue(entity);
 
@@ -140,7 +132,11 @@ namespace FOMServer.Shared.Application.Persistence
                 await foreach (var entity in _dirtyQueue.Reader.ReadAllAsync(ct))
                 {
                     // Fixed delay to batch rapid updates (cancellation just skips the wait)
-                    try { await Task.Delay(PersistenceDelayMs, ct); } catch (OperationCanceledException) { }
+                    try
+                    {
+                        await Task.Delay(PersistenceDelayMs, ct);
+                    }
+                    catch (OperationCanceledException) { }
 
                     try
                     {
@@ -161,9 +157,7 @@ namespace FOMServer.Shared.Application.Persistence
                     ProcessWaits(pendingWaits);
                 }
             }
-            catch (OperationCanceledException)
-            {
-            }
+            catch (OperationCanceledException) { }
 
             // Drain and persist remaining entities before shutdown
             while (_dirtyQueue.Reader.TryRead(out var entity))
@@ -221,7 +215,9 @@ namespace FOMServer.Shared.Application.Persistence
             {
                 if (!_handlers.TryGetValue(entity.GetType(), out var handler))
                 {
-                    throw new InvalidOperationException($"No persistence handler registered for {entity.GetType().Name}");
+                    throw new InvalidOperationException(
+                        $"No persistence handler registered for {entity.GetType().Name}"
+                    );
                 }
 
                 await handler.PersistAsync(entity);
@@ -279,11 +275,9 @@ namespace FOMServer.Shared.Application.Persistence
             {
                 lock (_syncRoot)
                 {
-                    _blockingDependencies.Add(new BlockingDependency
-                    {
-                        Entity = new WeakReference<IPersistable>(entity),
-                        Version = version
-                    });
+                    _blockingDependencies.Add(
+                        new BlockingDependency { Entity = new WeakReference<IPersistable>(entity), Version = version }
+                    );
                 }
             }
 

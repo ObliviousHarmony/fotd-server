@@ -18,7 +18,8 @@ namespace FOMServer.World.Application.Handlers
         public PlayerMigrateWorldHandler(
             IPlayerRegistry playerRegistry,
             IMasterPacketSender masterPacketSender,
-            ILogger<PlayerMigrateWorldHandler> logger)
+            ILogger<PlayerMigrateWorldHandler> logger
+        )
         {
             _playerRegistry = playerRegistry;
             _masterPacketSender = masterPacketSender;

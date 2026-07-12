@@ -6,11 +6,7 @@ namespace FOMServer.Shared.Core.Packets.Types
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public struct NetworkAddress
     {
-        public static readonly NetworkAddress Unassigned = new()
-        {
-            BinaryAddress = 0xFFFFFFFF,
-            Port = 0xFFFF
-        };
+        public static readonly NetworkAddress Unassigned = new() { BinaryAddress = 0xFFFFFFFF, Port = 0xFFFF };
 
         public uint BinaryAddress;
         public ushort Port;
@@ -18,10 +14,8 @@ namespace FOMServer.Shared.Core.Packets.Types
         public string Address
         {
             readonly get =>
-
                 // BinaryAddress stores bytes in network order (same as inet_addr)
                 string.Join(".", BitConverter.GetBytes(BinaryAddress));
-
             set
             {
                 if (!IPAddress.TryParse(value, out var ip))

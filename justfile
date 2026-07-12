@@ -40,7 +40,10 @@ format-check-cpp:
 
 [group("format")]
 format-check-dotnet:
-  dotnet format ManagedOnly.slnf --verify-no-changes
+  dotnet tool restore
+  dotnet format ManagedOnly.slnf style --verify-no-changes
+  dotnet format ManagedOnly.slnf analyzers --verify-no-changes
+  dotnet csharpier check .
 
 [group("format")]
 [parallel]
@@ -58,7 +61,10 @@ format-cpp:
 
 [group("format")]
 format-dotnet:
-  dotnet format ManagedOnly.slnf
+  dotnet tool restore
+  dotnet format ManagedOnly.slnf style
+  dotnet format ManagedOnly.slnf analyzers
+  dotnet csharpier format .
 
 [group("docker")]
 docker-images: _docker-images-cpp _docker-images-dotnet

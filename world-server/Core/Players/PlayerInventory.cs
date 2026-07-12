@@ -37,7 +37,10 @@ namespace FOMServer.World.Core.Players
                 {
                     if (!slotItems.TryAdd(slot, item))
                     {
-                        throw new ArgumentException($"Item {item} cannot be placed in occupied slot {slot}", nameof(items));
+                        throw new ArgumentException(
+                            $"Item {item} cannot be placed in occupied slot {slot}",
+                            nameof(items)
+                        );
                     }
                 }
                 else if (slot == ItemSlotType.None)

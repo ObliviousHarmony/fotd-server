@@ -13,7 +13,8 @@ namespace FOMServer.Shared.Infrastructure.Logging
             _writer = writer;
         }
 
-        public IDisposable? BeginScope<TState>(TState state) where TState : notnull
+        public IDisposable? BeginScope<TState>(TState state)
+            where TState : notnull
         {
             return null;
         }
@@ -28,7 +29,8 @@ namespace FOMServer.Shared.Infrastructure.Logging
             EventId eventId,
             TState state,
             Exception? exception,
-            Func<TState, Exception?, string> formatter)
+            Func<TState, Exception?, string> formatter
+        )
         {
             if (!IsEnabled(logLevel))
             {
@@ -41,7 +43,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
                 Level = logLevel,
                 Message = formatter(state, exception),
                 Exception = exception,
-                Timestamp = DateTime.UtcNow
+                Timestamp = DateTime.UtcNow,
             };
 
             _writer.TryWrite(message);

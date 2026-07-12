@@ -146,7 +146,8 @@ namespace FOMServer.Shared.Tests.Items
             ushort value = 100,
             ushort durability = 100,
             ushort maxDurability = 100,
-            byte durabilityLossFactor = 100)
+            byte durabilityLossFactor = 100
+        )
         {
             return new Item(
                 id,
@@ -190,7 +191,8 @@ namespace FOMServer.Shared.Tests.Items
             private readonly Dictionary<uint, Item> _items = [];
             private readonly uint? _maxItems;
 
-            public TestItemContainer(IItemLocation location, ItemSlotType slotType, uint? maxItems = null) : base(location, slotType)
+            public TestItemContainer(IItemLocation location, ItemSlotType slotType, uint? maxItems = null)
+                : base(location, slotType)
             {
                 _maxItems = maxItems;
             }
@@ -200,7 +202,9 @@ namespace FOMServer.Shared.Tests.Items
                 return _items.Values;
             }
 
-            protected override IReadOnlyCollection<uint> GetDisplacedIdsFor(params IReadOnlyCollection<uint> idsToInsert)
+            protected override IReadOnlyCollection<uint> GetDisplacedIdsFor(
+                params IReadOnlyCollection<uint> idsToInsert
+            )
             {
                 if (_maxItems is null || idsToInsert.Count == 0)
                 {
@@ -235,7 +239,10 @@ namespace FOMServer.Shared.Tests.Items
                 return true;
             }
 
-            protected override bool CanInsertCore(IReadOnlyCollection<uint> idsToInsert, IReadOnlyCollection<uint> idsToExtract)
+            protected override bool CanInsertCore(
+                IReadOnlyCollection<uint> idsToInsert,
+                IReadOnlyCollection<uint> idsToExtract
+            )
             {
                 foreach (var id in idsToInsert)
                 {

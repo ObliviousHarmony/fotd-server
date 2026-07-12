@@ -19,7 +19,8 @@ namespace FOMServer.World.Application.Handlers
         public ChatHandler(
             IPlayerRegistry playerRegistry,
             IClientPacketSender clientPacketSender,
-            ILogger<ChatHandler> logger)
+            ILogger<ChatHandler> logger
+        )
         {
             _playerRegistry = playerRegistry;
             _clientPacketSender = clientPacketSender;

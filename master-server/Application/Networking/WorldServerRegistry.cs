@@ -29,7 +29,7 @@ namespace FOMServer.Master.Application.Networking
                 {
                     Id = id,
                     ServerAddress = serverAddress,
-                    PublicAddress = publicAddress
+                    PublicAddress = publicAddress,
                 };
 
                 if (!_worldServers.TryAdd(id, worldServer))

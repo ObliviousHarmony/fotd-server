@@ -24,7 +24,8 @@ namespace FOMServer.Master.Application
             IMigrationRunner migrationRunner,
             INetworkService networkService,
             IServerService serverService,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider
+        )
         {
             _logger = logger;
             _shutdownManager = shutdownManager;

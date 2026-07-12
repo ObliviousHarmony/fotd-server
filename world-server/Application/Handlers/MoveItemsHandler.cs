@@ -23,7 +23,8 @@ namespace FOMServer.World.Application.Handlers
         public MoveItemsHandler(
             IPlayerRegistry playerRegistry,
             IClientPacketSender clientPacketSender,
-            ILogger<MoveItemsHandler> logger)
+            ILogger<MoveItemsHandler> logger
+        )
         {
             _playerRegistry = playerRegistry;
             _clientPacketSender = clientPacketSender;
@@ -111,7 +112,12 @@ namespace FOMServer.World.Application.Handlers
         {
             var rules = new Dictionary<TransferKey, TransferRule>();
 
-            void Rule(ItemContainerType from, ItemContainerType to, TransferValidator? validate = null, TransferExecutor? execute = null)
+            void Rule(
+                ItemContainerType from,
+                ItemContainerType to,
+                TransferValidator? validate = null,
+                TransferExecutor? execute = null
+            )
             {
                 rules[new TransferKey(from, to)] = new TransferRule(validate, execute);
             }
@@ -172,8 +178,12 @@ namespace FOMServer.World.Application.Handlers
                 {
                     ItemContainerType.Inventory => slotType == ItemSlotType.None,
                     ItemContainerType.Weapons => slotType is >= ItemSlotType.WeaponStart and < ItemSlotType.WeaponEnd,
-                    ItemContainerType.Equipment => slotType is >= ItemSlotType.EquipmentStart and < ItemSlotType.EquipmentEnd,
-                    ItemContainerType.Quickslots => slotType is >= ItemSlotType.QuickslotStart and < ItemSlotType.QuickslotEnd,
+                    ItemContainerType.Equipment => slotType
+                        is >= ItemSlotType.EquipmentStart
+                            and < ItemSlotType.EquipmentEnd,
+                    ItemContainerType.Quickslots => slotType
+                        is >= ItemSlotType.QuickslotStart
+                            and < ItemSlotType.QuickslotEnd,
                     _ => true,
                 };
             }
@@ -245,7 +255,9 @@ namespace FOMServer.World.Application.Handlers
         private ItemContainer GetItemContainer(Player player, ItemContainerType containerType, ItemSlotType slotType)
         {
             IItemLocation? location = null;
-            if (containerType is ItemContainerType.Inventory or ItemContainerType.Weapons or ItemContainerType.Equipment)
+            if (
+                containerType is ItemContainerType.Inventory or ItemContainerType.Weapons or ItemContainerType.Equipment
+            )
             {
                 location = player.Inventory;
             }
@@ -259,7 +271,9 @@ namespace FOMServer.World.Application.Handlers
             if (container is null)
             {
                 var locationRef = location.LocationRef;
-                throw new ArgumentException($"Item container {containerType} does not exist in location {locationRef.Type} / {locationRef.Id}");
+                throw new ArgumentException(
+                    $"Item container {containerType} does not exist in location {locationRef.Type} / {locationRef.Id}"
+                );
             }
 
             return container;

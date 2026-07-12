@@ -22,7 +22,6 @@ namespace FOMServer.Shared.Core.Packets.Types
                     return CStringParser.ToString(ptr, BufferSizes.PlayerName);
                 }
             }
-
             set
             {
                 fixed (byte* ptr = RawPlayerName)
@@ -41,7 +40,6 @@ namespace FOMServer.Shared.Core.Packets.Types
                     return CStringParser.ToString(ptr, BufferSizes.FactionName);
                 }
             }
-
             set
             {
                 fixed (byte* ptr = RawFactionName)
@@ -60,7 +58,6 @@ namespace FOMServer.Shared.Core.Packets.Types
                     return CStringParser.ToString(ptr, BufferSizes.PlayerBiography);
                 }
             }
-
             set
             {
                 fixed (byte* ptr = RawBiography)
@@ -79,7 +76,6 @@ namespace FOMServer.Shared.Core.Packets.Types
                     return CStringParser.ToString(ptr, BufferSizes.RankName);
                 }
             }
-
             set
             {
                 fixed (byte* ptr = RawRankName)

@@ -14,9 +14,7 @@ namespace FOMServer.Master.Application.Handlers
         private readonly IClientPacketSender _clientPacketSender;
         private readonly IPlayerRepository _playerRepository;
 
-        public CheckNameHandler(
-            IClientPacketSender clientPacketSender,
-            IPlayerRepository playerRepository)
+        public CheckNameHandler(IClientPacketSender clientPacketSender, IPlayerRepository playerRepository)
         {
             _clientPacketSender = clientPacketSender;
             _playerRepository = playerRepository;

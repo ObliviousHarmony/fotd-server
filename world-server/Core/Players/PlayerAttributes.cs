@@ -68,7 +68,8 @@ namespace FOMServer.World.Core.Players
             {
                 throw new ArgumentException(
                     $"Expected {AttributeCount} values but got {values.Length}",
-                    nameof(values));
+                    nameof(values)
+                );
             }
 
             for (var i = 0; i < AttributeCount; i++)
@@ -76,7 +77,10 @@ namespace FOMServer.World.Core.Players
                 var max = s_metadata[i].Max;
                 if (values[i] > max)
                 {
-                    throw new ArgumentException($"Value for {(AttributeType)i} is {values[i]}, which exceeds max ({max})", nameof(values));
+                    throw new ArgumentException(
+                        $"Value for {(AttributeType)i} is {values[i]}, which exceeds max ({max})",
+                        nameof(values)
+                    );
                 }
 
                 _values[i] = values[i];
@@ -112,7 +116,8 @@ namespace FOMServer.World.Core.Players
                 throw new InvalidOperationException($"Changing {attribute} requires a lock");
             }
 
-            uint current, updated;
+            uint current,
+                updated;
             do
             {
                 // Defer to an active LockedAttribute holder before reading. If a Lock()
@@ -190,7 +195,6 @@ namespace FOMServer.World.Core.Players
             private uint Value
             {
                 readonly get => _parent._values[(int)_attribute];
-
                 set
                 {
                     var v = Math.Min(value, Metadata.Max);

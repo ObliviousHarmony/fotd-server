@@ -21,7 +21,8 @@ namespace FOMServer.Master.Application.Handlers
             IClientPacketSender clientPacketSender,
             IClientRegistry clientRegistry,
             IWorldServerRegistry worldServerRegistry,
-            ILogger<PlayerWorldReadyHandler> logger)
+            ILogger<PlayerWorldReadyHandler> logger
+        )
         {
             _clientPacketSender = clientPacketSender;
             _clientRegistry = clientRegistry;
@@ -56,7 +57,11 @@ namespace FOMServer.Master.Application.Handlers
             var worldServer = _worldServerRegistry.Get(worldId);
             if (worldServer is null)
             {
-                _logger.LogWarning("World {WorldId} went offline before player {PlayerId} could enter", worldId, p.PlayerId);
+                _logger.LogWarning(
+                    "World {WorldId} went offline before player {PlayerId} could enter",
+                    worldId,
+                    p.PlayerId
+                );
                 SendLoginError(session, worldId, WorldLoginReturn.StatusCode.ServerOffline);
                 return;
             }

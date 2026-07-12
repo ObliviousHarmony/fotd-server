@@ -64,7 +64,7 @@ namespace FOMServer.Shared.Tests.Packets
             {
                 new() { BinaryAddress = 0x0100007F, Port = 7777 },
                 new() { BinaryAddress = 0x0200007F, Port = 7778 },
-                new() { BinaryAddress = 0x0300007F, Port = 7779 }
+                new() { BinaryAddress = 0x0300007F, Port = 7779 },
             };
             var packet = CreateTestPacketWithMultipleAddresses(addresses);
 
@@ -138,7 +138,8 @@ namespace FOMServer.Shared.Tests.Packets
             PacketPriority priority = PacketPriority.Medium,
             PacketReliability reliability = PacketReliability.ReliableOrdered,
             byte orderingChannel = 0,
-            bool broadcast = false)
+            bool broadcast = false
+        )
         {
             var packetData = PinnedArrayPool.Shared.Rent(s_testPacketSize);
             var networkAddress = address ?? new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };

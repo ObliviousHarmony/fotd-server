@@ -87,11 +87,14 @@ namespace FOMServer.Master
 
         private static ServiceCollection AddDatabaseMigrations(this ServiceCollection services)
         {
-            services.AddFluentMigratorCore()
-            .ConfigureRunner(rb => rb.AddMySql8()
-                  .WithGlobalConnectionString(s_dbSettings!.ConnectionString)
-                  .ScanIn(typeof(ServiceCollectionExtensions).Assembly)
-                  .For.Migrations());
+            services
+                .AddFluentMigratorCore()
+                .ConfigureRunner(rb =>
+                    rb.AddMySql8()
+                        .WithGlobalConnectionString(s_dbSettings!.ConnectionString)
+                        .ScanIn(typeof(ServiceCollectionExtensions).Assembly)
+                        .For.Migrations()
+                );
 
             return services;
         }

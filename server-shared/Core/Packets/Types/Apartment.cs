@@ -36,7 +36,6 @@ namespace FOMServer.Shared.Core.Packets.Types
                     return CStringParser.ToString(ptr, BufferSizes.PlayerName);
                 }
             }
-
             set
             {
                 fixed (byte* ptr = RawOwnerName)
@@ -55,7 +54,6 @@ namespace FOMServer.Shared.Core.Packets.Types
                     return CStringParser.ToString(ptr, EntryCodeSize);
                 }
             }
-
             set
             {
                 fixed (byte* ptr = RawEntryCode)
@@ -74,7 +72,6 @@ namespace FOMServer.Shared.Core.Packets.Types
                     return CStringParser.ToString(ptr, PublicNameSize);
                 }
             }
-
             set
             {
                 fixed (byte* ptr = RawPublicName)
@@ -93,7 +90,6 @@ namespace FOMServer.Shared.Core.Packets.Types
                     return CStringParser.ToString(ptr, PublicDescriptionSize);
                 }
             }
-
             set
             {
                 fixed (byte* ptr = RawPublicDescription)

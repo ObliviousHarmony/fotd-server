@@ -42,7 +42,8 @@ namespace FOMServer.Shared.Core.Networking
             int addressCount,
             PacketPriority priority,
             PacketReliability reliability,
-            byte orderingChannel)
+            byte orderingChannel
+        )
         {
             Id = id;
             _packetData = packetData;
@@ -68,7 +69,7 @@ namespace FOMServer.Shared.Core.Networking
 
         /// <summary>
         /// A stable pointer to the packet data, valid for the lifetime of the
-        /// rented buffer. 
+        /// rented buffer.
         /// </summary>
         public IntPtr DataPointer
         {
@@ -91,7 +92,8 @@ namespace FOMServer.Shared.Core.Networking
                     return _networkAddresses.AsSpan(0, _addressCount);
                 }
 
-                return MemoryMarshal.CreateReadOnlySpan(in _networkAddress, 1); ;
+                return MemoryMarshal.CreateReadOnlySpan(in _networkAddress, 1);
+                ;
             }
         }
 

@@ -30,7 +30,8 @@ namespace FOMServer.Shared.Application.Ticks
         public ServerTickService(
             IEnumerable<ITickable> tickables,
             IShutdownManager shutdownManager,
-            ILogger<ServerTickService> logger)
+            ILogger<ServerTickService> logger
+        )
         {
             _shutdownManager = shutdownManager;
             _logger = logger;
@@ -60,12 +61,14 @@ namespace FOMServer.Shared.Application.Ticks
             _cts = CancellationTokenSource.CreateLinkedTokenSource(_shutdownManager.Token);
 
             // A persistent loop wants its own thread rather than tying up a pool thread.
-            _loopTask = Task.Factory.StartNew(
-                async () => await TickLoopAsync(_cts.Token),
-                _cts.Token,
-                TaskCreationOptions.LongRunning,
-                TaskScheduler.Default
-            ).Unwrap();
+            _loopTask = Task
+                .Factory.StartNew(
+                    async () => await TickLoopAsync(_cts.Token),
+                    _cts.Token,
+                    TaskCreationOptions.LongRunning,
+                    TaskScheduler.Default
+                )
+                .Unwrap();
 
             // Make sure that the shutdown manager waits for this task to complete.
             _shutdownManager.TrackTask(_loopTask);
@@ -131,12 +134,14 @@ namespace FOMServer.Shared.Application.Ticks
                 {
                     await scheduled.Tickable.TickAsync(ct);
                 }
-                catch (OperationCanceledException)
-                {
-                }
+                catch (OperationCanceledException) { }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Tickable {Tickable} threw during shutdown", scheduled.Tickable.GetType().Name);
+                    _logger.LogError(
+                        ex,
+                        "Tickable {Tickable} threw during shutdown",
+                        scheduled.Tickable.GetType().Name
+                    );
                 }
             }
         }
@@ -160,7 +165,7 @@ namespace FOMServer.Shared.Application.Ticks
                 {
                     Tickable = tickables[i],
                     TicksPerRun = ticksPerRun,
-                    Countdown = 1 + (groupIndex % ticksPerRun)
+                    Countdown = 1 + (groupIndex % ticksPerRun),
                 };
             }
 

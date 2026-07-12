@@ -26,5 +26,4 @@
   <ItemGroup>
     <ProjectReference Include="..\..\master-server\MasterServer.csproj" />
   </ItemGroup>
-
 </Project>

@@ -12,9 +12,7 @@ namespace FOMServer.World.Application.Handlers
         private readonly IPlayerRegistry _playerRegistry;
         private readonly ILogger<DisconnectionHandler> _logger;
 
-        public DisconnectionHandler(
-            IPlayerRegistry playerRegistry,
-            ILogger<DisconnectionHandler> logger)
+        public DisconnectionHandler(IPlayerRegistry playerRegistry, ILogger<DisconnectionHandler> logger)
         {
             _playerRegistry = playerRegistry;
             _logger = logger;

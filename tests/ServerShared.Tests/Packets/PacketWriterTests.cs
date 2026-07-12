@@ -62,9 +62,7 @@ namespace FOMServer.Shared.Tests.Packets
                 writer.AddDestination(address);
                 Assert.Fail("Expected InvalidOperationException");
             }
-            catch (InvalidOperationException)
-            {
-            }
+            catch (InvalidOperationException) { }
 
             packet.Release();
         }
@@ -79,9 +77,7 @@ namespace FOMServer.Shared.Tests.Packets
                 writer.Build();
                 Assert.Fail("Expected InvalidOperationException");
             }
-            catch (InvalidOperationException)
-            {
-            }
+            catch (InvalidOperationException) { }
         }
 
         [Fact]
@@ -97,9 +93,7 @@ namespace FOMServer.Shared.Tests.Packets
                 writer.Build();
                 Assert.Fail("Expected ObjectDisposedException");
             }
-            catch (ObjectDisposedException)
-            {
-            }
+            catch (ObjectDisposedException) { }
 
             packet.Release();
         }
@@ -117,9 +111,7 @@ namespace FOMServer.Shared.Tests.Packets
                 _ = writer.Data;
                 Assert.Fail("Expected ObjectDisposedException");
             }
-            catch (ObjectDisposedException)
-            {
-            }
+            catch (ObjectDisposedException) { }
 
             packet.Release();
         }
@@ -137,9 +129,7 @@ namespace FOMServer.Shared.Tests.Packets
                 writer.AddDestination(address);
                 Assert.Fail("Expected ObjectDisposedException");
             }
-            catch (ObjectDisposedException)
-            {
-            }
+            catch (ObjectDisposedException) { }
 
             packet.Release();
         }
@@ -154,9 +144,7 @@ namespace FOMServer.Shared.Tests.Packets
                 packet.Release();
                 Assert.Fail("Expected ObjectDisposedException");
             }
-            catch (InvalidOperationException)
-            {
-            }
+            catch (InvalidOperationException) { }
         }
     }
 }

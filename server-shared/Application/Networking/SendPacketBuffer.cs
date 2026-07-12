@@ -23,7 +23,10 @@ namespace FOMServer.Shared.Application.Networking
 
             // Stage addresses on the pinned object heap so native receives a stable
             // pointer without us pinning per send.
-            _networkAddresses = GC.AllocateArray<NetworkAddress>(IPacketService.MaxBufferedPackets * QueuePacket.MaxNetworkAddressesPerPacket, pinned: true);
+            _networkAddresses = GC.AllocateArray<NetworkAddress>(
+                IPacketService.MaxBufferedPackets * QueuePacket.MaxNetworkAddressesPerPacket,
+                pinned: true
+            );
         }
 
         public bool CanAdd => _packetCount < IPacketService.MaxBufferedPackets;
@@ -74,7 +77,7 @@ namespace FOMServer.Shared.Application.Networking
                     Priority = packet.Priority,
                     Reliability = packet.Reliability,
                     OrderingChannel = packet.OrderingChannel,
-                    Broadcast = (byte)(broadcast ? 1 : 0)
+                    Broadcast = (byte)(broadcast ? 1 : 0),
                 };
             }
 

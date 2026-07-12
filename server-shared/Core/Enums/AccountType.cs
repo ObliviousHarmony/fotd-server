@@ -7,6 +7,6 @@ namespace FOMServer.Shared.Core.Enums
         Prepaid = 2, // ACCOUNT_TYPE_PREPAID
         Subscription = 3, // ACCOUNT_TYPE_SUBSCRIPTION
 
-        NUM_ACCOUNT_TYPES // Unknown
+        NUM_ACCOUNT_TYPES, // Unknown
     }
 }

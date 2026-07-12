@@ -205,11 +205,7 @@ namespace FOMServer.Shared.Tests
         public async Task MarkChanged_NoHandler_ThrowsException()
         {
             // Create service with no handlers
-            var service = new PersistenceService(
-                _shutdownManager.Object,
-                _logger.Object,
-                []
-            );
+            var service = new PersistenceService(_shutdownManager.Object, _logger.Object, []);
 
             var entity = new TestEntity();
 
@@ -222,13 +218,18 @@ namespace FOMServer.Shared.Tests
             await Task.Delay(200);
 
             _logger.Verify(
-                l => l.Log(
-                    LogLevel.Critical,
-                    It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("Persistence failure")),
-                    It.Is<InvalidOperationException>(ex => ex.Message.Contains("No persistence handler registered")),
-                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
-                Times.Once);
+                l =>
+                    l.Log(
+                        LogLevel.Critical,
+                        It.IsAny<EventId>(),
+                        It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("Persistence failure")),
+                        It.Is<InvalidOperationException>(ex =>
+                            ex.Message.Contains("No persistence handler registered")
+                        ),
+                        It.IsAny<Func<It.IsAnyType, Exception?, string>>()
+                    ),
+                Times.Once
+            );
         }
 
         [Fact]
@@ -255,22 +256,21 @@ namespace FOMServer.Shared.Tests
 
             // But exception was logged
             _logger.Verify(
-                l => l.Log(
-                    LogLevel.Critical,
-                    It.IsAny<EventId>(),
-                    It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("Persistence failure")),
-                    It.Is<InvalidOperationException>(ex => ex.Message.Contains("Simulated persistence failure")),
-                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()),
-                Times.Once);
+                l =>
+                    l.Log(
+                        LogLevel.Critical,
+                        It.IsAny<EventId>(),
+                        It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("Persistence failure")),
+                        It.Is<InvalidOperationException>(ex => ex.Message.Contains("Simulated persistence failure")),
+                        It.IsAny<Func<It.IsAnyType, Exception?, string>>()
+                    ),
+                Times.Once
+            );
         }
 
         private PersistenceService CreateService()
         {
-            var service = new PersistenceService(
-                _shutdownManager.Object,
-                _logger.Object,
-                [_handler]
-            );
+            var service = new PersistenceService(_shutdownManager.Object, _logger.Object, [_handler]);
             service.Start();
             return service;
         }
@@ -279,8 +279,7 @@ namespace FOMServer.Shared.Tests
         {
             public event PersistableChangeCallback? PersistableChange;
 
-            public void MarkChanged(
-                params ReadOnlySpan<IPersistable?> associations)
+            public void MarkChanged(params ReadOnlySpan<IPersistable?> associations)
             {
                 PersistableChange?.Invoke(this, associations);
             }

@@ -15,25 +15,25 @@ namespace FOMServer.Shared.Infrastructure.Logging
         private Task? _processingTask;
         private CancellationTokenSource? _cts;
 
-        public BackgroundLoggerProvider(IShutdownManager shutdownManager, bool writeConsole = true, string? logFilePath = null)
+        public BackgroundLoggerProvider(
+            IShutdownManager shutdownManager,
+            bool writeConsole = true,
+            string? logFilePath = null
+        )
         {
             _shutdownManager = shutdownManager;
 
-            _channel = Channel.CreateUnbounded<LogMessage>(
-                new UnboundedChannelOptions
-                {
-                    SingleReader = true
-                }
-            );
+            _channel = Channel.CreateUnbounded<LogMessage>(new UnboundedChannelOptions { SingleReader = true });
 
             _writeConsole = writeConsole;
 
             if (logFilePath is not null)
             {
-                _logFileWriter = new StreamWriter(File.Open(
-                   logFilePath, FileMode.Append, FileAccess.Write, FileShare.Read))
+                _logFileWriter = new StreamWriter(
+                    File.Open(logFilePath, FileMode.Append, FileAccess.Write, FileShare.Read)
+                )
                 {
-                    AutoFlush = true
+                    AutoFlush = true,
                 };
             }
         }
@@ -84,9 +84,7 @@ namespace FOMServer.Shared.Infrastructure.Logging
                     await TryWriteMessage(message);
                 }
             }
-            catch (OperationCanceledException)
-            {
-            }
+            catch (OperationCanceledException) { }
 
             // Drain remaining messages after cancellation
             while (_channel.Reader.TryRead(out var message))

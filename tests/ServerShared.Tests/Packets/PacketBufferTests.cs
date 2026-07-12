@@ -69,7 +69,7 @@ namespace FOMServer.Shared.Tests.Packets
             var senders = stackalloc NetworkAddress[2]
             {
                 new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 },
-                new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7778 }
+                new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7778 },
             };
 
             var received = CreateReceivedPackets(2, identifiers, senders);
@@ -107,7 +107,7 @@ namespace FOMServer.Shared.Tests.Packets
             var senders = stackalloc NetworkAddress[2]
             {
                 new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 },
-                new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7778 }
+                new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7778 },
             };
 
             var received = CreateReceivedPackets(2, identifiers, senders);
@@ -295,14 +295,15 @@ namespace FOMServer.Shared.Tests.Packets
         private unsafe ReceivedPackets CreateReceivedPackets(
             byte count,
             PacketIdentifier* identifiers,
-            NetworkAddress* senders)
+            NetworkAddress* senders
+        )
         {
             return new ReceivedPackets
             {
                 Count = count,
                 Packets = IntPtr.Zero, // Not used by PacketBuffer.Rent
                 Identifiers = identifiers,
-                Senders = senders
+                Senders = senders,
             };
         }
     }

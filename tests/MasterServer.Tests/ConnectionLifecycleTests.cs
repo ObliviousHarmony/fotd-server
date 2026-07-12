@@ -105,16 +105,29 @@ namespace FOMServer.Master.Tests
                 var worlds = new EmptyWorldRegistry();
 
                 NewConnection = new NewIncomingConnectionHandler(
-                    ClientRegistry, NullLogger<NewIncomingConnectionHandler>.Instance);
+                    ClientRegistry,
+                    NullLogger<NewIncomingConnectionHandler>.Instance
+                );
                 Login = new LoginHandler(
-                    accounts.Object, players.Object, ClientRegistry, PlayerRegistry, Sender,
-                    NullLogger<LoginHandler>.Instance);
+                    accounts.Object,
+                    players.Object,
+                    ClientRegistry,
+                    PlayerRegistry,
+                    Sender,
+                    NullLogger<LoginHandler>.Instance
+                );
                 Disconnect = new DisconnectionHandler(
-                    worlds, ClientRegistry, PlayerRegistry,
-                    NullLogger<DisconnectionHandler>.Instance);
+                    worlds,
+                    ClientRegistry,
+                    PlayerRegistry,
+                    NullLogger<DisconnectionHandler>.Instance
+                );
                 ConnectionLost = new ConnectionLostHandler(
-                    worlds, ClientRegistry, PlayerRegistry,
-                    NullLogger<ConnectionLostHandler>.Instance);
+                    worlds,
+                    ClientRegistry,
+                    PlayerRegistry,
+                    NullLogger<ConnectionLostHandler>.Instance
+                );
             }
 
             public RecordingPacketSender Sender { get; }
