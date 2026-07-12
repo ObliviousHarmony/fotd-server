@@ -17,7 +17,6 @@ namespace FOMServer.Shared.Core.Items
         uint Id,
         IPersistable? Persistable)
     {
-
         public bool IsPlayer()
         {
             return Type is ItemLocationType.Inventory;
