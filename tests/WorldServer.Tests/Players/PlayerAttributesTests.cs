@@ -127,7 +127,24 @@ namespace FOMServer.World.Tests.Players
         }
 
         [Fact]
-        public void Lock_GetReturnsCurrentValue()
+        public void Change_FiresAttributesChangedWithChangedAttribute()
+        {
+            var attrs = CreateAttributes();
+
+            AttributeType? changed = null;
+            attrs.AttributesChanged += (_, mask) =>
+            {
+                Assert.True(AttributeType.Health.IsMaskSet(mask));
+                changed = AttributeType.Health;
+            };
+
+            attrs.Change(AttributeType.Health, -100);
+
+            Assert.Equal(AttributeType.Health, changed);
+        }
+
+        [Fact]
+        public void Lock_Get_ReturnsCurrentValue()
         {
             var initial = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 1000 };
 
@@ -138,7 +155,7 @@ namespace FOMServer.World.Tests.Players
         }
 
         [Fact]
-        public void Lock_SetUpdatesValue()
+        public void Lock_Set_UpdatesValue()
         {
             var attrs = CreateAttributes();
 
@@ -149,7 +166,7 @@ namespace FOMServer.World.Tests.Players
         }
 
         [Fact]
-        public void Lock_SetClampsToMax()
+        public void Lock_Set_ClampsToMax()
         {
             var attrs = CreateAttributes();
 
@@ -161,7 +178,7 @@ namespace FOMServer.World.Tests.Players
         }
 
         [Fact]
-        public void Lock_SetFiresPersistableChangeOnDispose()
+        public void Lock_Set_FiresPersistableChangeOnDispose()
         {
             var attrs = CreateAttributes();
             var fired = false;
@@ -178,7 +195,7 @@ namespace FOMServer.World.Tests.Players
         }
 
         [Fact]
-        public void Lock_ChangeUpdatesValue()
+        public void Lock_Change_UpdatesValue()
         {
             var initial = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 1000 };
 
@@ -192,7 +209,29 @@ namespace FOMServer.World.Tests.Players
         }
 
         [Fact]
-        public void Lock_DisposeReleasesLock()
+        public void Lock_Change_DoesNotFireAttributesChangedUntilDisposed()
+        {
+            var attrs = CreateAttributes();
+
+            AttributeType? changed = null;
+            attrs.AttributesChanged += (_, mask) =>
+            {
+                Assert.True(AttributeType.Health.IsMaskSet(mask));
+                changed = AttributeType.Health;
+            };
+
+            var locked = attrs.Lock(AttributeType.Health);
+            locked.Value = 500;
+
+            Assert.Null(changed);
+
+            locked.Dispose();
+
+            Assert.Equal(AttributeType.Health, changed);
+        }
+
+        [Fact]
+        public void Lock_Dispose_ReleasesLock()
         {
             var attrs = CreateAttributes();
 
@@ -251,7 +290,7 @@ namespace FOMServer.World.Tests.Players
         }
 
         [Fact]
-        public void Lock_Multiple_SetsIndividualValues()
+        public void Lock_Multiple_Set_IndividualValues()
         {
             var attrs = CreateAttributes();
 
@@ -294,6 +333,46 @@ namespace FOMServer.World.Tests.Players
             using var locked = attrs.Lock(AttributeType.Coins);
 
             Assert.Throws<AttributeDeadlockException>(() => attrs.Lock(AttributeType.Coins));
+        }
+
+        [Fact]
+        public void Lock_Multiple_Change_FiresAllChangedAttributes()
+        {
+            var attrs = CreateAttributes();
+
+            long changedMask = 0;
+            attrs.AttributesChanged += (_, mask) => changedMask = mask;
+
+            using (var locked = attrs.Lock(AttributeType.Health, AttributeType.Coins))
+            {
+                locked[AttributeType.Health] = 500;
+                locked[AttributeType.Coins] = 1000;
+
+                Assert.Equal(0, changedMask);
+            }
+
+            long expectedMask = 0;
+            AttributeType.Health.ApplyToMask(ref expectedMask, true);
+            AttributeType.Coins.ApplyToMask(ref expectedMask, true);
+            Assert.Equal(expectedMask, changedMask);
+        }
+
+        [Fact]
+        public void Lock_Multiple_ChangeFiresOnlyOnce()
+        {
+            var attrs = CreateAttributes();
+
+            var fireCount = 0;
+            attrs.AttributesChanged += (_, _) => fireCount++;
+
+            using (var locked = attrs.Lock(AttributeType.Health, AttributeType.Coins))
+            {
+                locked[AttributeType.Health] = 500;
+                locked[AttributeType.Coins] = 1000;
+                locked[AttributeType.Health] = 600;
+            }
+
+            Assert.Equal(1, fireCount);
         }
 
         [Fact]

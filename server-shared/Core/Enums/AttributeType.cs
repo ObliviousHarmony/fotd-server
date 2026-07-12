@@ -61,4 +61,29 @@ namespace FOMServer.Shared.Core.Enums
 
         NUM_ATTRIBUTE_TYPES = 53,
     }
+
+    public static class AttributeTypeExtensions
+    {
+        public static long ToMask(this AttributeType attribute)
+        {
+            return 1L << (int)attribute;
+        }
+
+        public static void ApplyToMask(this AttributeType attribute, ref long mask, bool isSet)
+        {
+            if (isSet)
+            {
+                mask |= 1L << (int)attribute;
+            }
+            else
+            {
+                mask &= ~(1L << (int)attribute);
+            }
+        }
+
+        public static bool IsMaskSet(this AttributeType attribute, long mask)
+        {
+            return (mask & attribute.ToMask()) != 0;
+        }
+    }
 }

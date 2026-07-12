@@ -2,13 +2,14 @@ using System.Diagnostics;
 using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
+using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.World.Core.Exceptions;
 using PacketPlayerAttributes = FOMServer.Shared.Core.Packets.Types.PlayerAttributes;
 
 namespace FOMServer.World.Core.Players
 {
-    internal delegate void AttributesChangedHandler(PlayerAttributes attributes);
+    internal delegate void AttributesChangedHandler(PlayerAttributes attributes, long changedAttributeMask);
 
     /// <summary>
     /// Thread-safe storage for player attributes.
@@ -36,7 +37,7 @@ namespace FOMServer.World.Core.Players
         private readonly uint[] _values = new uint[AttributeCount];
         private readonly long[] _locks = new long[AttributeCount];
         private long _nextLockId;
-        private bool _dirty;
+        private long _dirty;
 
         static PlayerAttributes()
         {
@@ -69,7 +70,7 @@ namespace FOMServer.World.Core.Players
         {
             _player = player;
             _nextLockId = 0;
-            _dirty = false;
+            _dirty = 0;
 
             if (values.Length != AttributeCount)
             {
@@ -146,7 +147,10 @@ namespace FOMServer.World.Core.Players
                 }
             } while (Interlocked.CompareExchange(ref _values[index], updated, current) != current);
 
-            AttributesChanged?.Invoke(this);
+            MarkDirty(attribute);
+            var dirty = ConsumeDirty();
+
+            AttributesChanged?.Invoke(this, dirty);
             PersistableChange?.Invoke(this, _player);
             return updated;
         }
@@ -222,14 +226,14 @@ namespace FOMServer.World.Core.Players
             }
         }
 
-        private void MarkDirty()
+        private void MarkDirty(AttributeType attribute)
         {
-            Interlocked.Exchange(ref _dirty, true);
+            Interlocked.Or(ref _dirty, (long)attribute.ToMask());
         }
 
-        private bool WasDirty()
+        private long ConsumeDirty()
         {
-            return Interlocked.Exchange(ref _dirty, false);
+            return Interlocked.Exchange(ref _dirty, 0L);
         }
 
         private void AcquireLock(AttributeType attribute, long lockId)
@@ -288,7 +292,7 @@ namespace FOMServer.World.Core.Players
                     }
 
                     current = newValue;
-                    _parent.MarkDirty();
+                    _parent.MarkDirty(_attribute);
                 }
             }
 
@@ -305,9 +309,10 @@ namespace FOMServer.World.Core.Players
                     throw new InvalidOperationException($"Lost ownership of {_attribute} lock {_lockId}");
                 }
 
-                if (_parent.WasDirty())
+                var dirty = _parent.ConsumeDirty();
+                if (dirty != 0)
                 {
-                    _parent.AttributesChanged?.Invoke(_parent);
+                    _parent.AttributesChanged?.Invoke(_parent, dirty);
                     _parent.PersistableChange?.Invoke(_parent, _parent._player);
                 }
             }
@@ -319,7 +324,7 @@ namespace FOMServer.World.Core.Players
         internal readonly ref struct LockedAttributes
         {
             private readonly PlayerAttributes _parent;
-            private readonly ulong _lockedAttributesMask;
+            private readonly long _lockedAttributesMask;
             private readonly long _lockId;
 
             internal LockedAttributes(
@@ -333,36 +338,35 @@ namespace FOMServer.World.Core.Players
 
                 foreach (var attribute in attributes)
                 {
-                    _lockedAttributesMask |= 1UL << (int)attribute;
+                    attribute.ApplyToMask(ref _lockedAttributesMask, true);
                 }
 
-                var acquiredMask = 0UL;
-
+                var acquiredMask = 0L;
                 try
                 {
                     // Always acquire in enum order to prevent deadlocks.
-                    for (var i = 0; i < AttributeCount; i++)
+                    for (var i = AttributeType.Health; i < AttributeType.NUM_ATTRIBUTE_TYPES; ++i)
                     {
-                        if ((_lockedAttributesMask & (1UL << i)) == 0)
+                        if (!i.IsMaskSet(_lockedAttributesMask))
                         {
                             continue;
                         }
 
-                        parent.AcquireLock((AttributeType)i, _lockId);
-                        acquiredMask |= 1UL << i;
+                        parent.AcquireLock(i, _lockId);
+                        i.ApplyToMask(ref acquiredMask, true);
                     }
                 }
                 catch
                 {
                     // Roll back any locks acquired before failure.
-                    for (var i = AttributeCount - 1; i >= 0; i--)
+                    for (var i = AttributeType.Health; i < AttributeType.NUM_ATTRIBUTE_TYPES; ++i)
                     {
-                        if ((acquiredMask & (1UL << i)) == 0)
+                        if (!i.IsMaskSet(acquiredMask))
                         {
                             continue;
                         }
 
-                        parent.ReleaseLock((AttributeType)i, _lockId);
+                        parent.ReleaseLock(i, _lockId);
                     }
 
                     throw;
@@ -390,7 +394,7 @@ namespace FOMServer.World.Core.Players
                     }
 
                     current = newValue;
-                    _parent.MarkDirty();
+                    _parent.MarkDirty(attribute);
                 }
             }
 
@@ -407,29 +411,30 @@ namespace FOMServer.World.Core.Players
 
             public readonly void Dispose()
             {
-                for (var i = AttributeCount - 1; i >= 0; i--)
+                for (var i = AttributeType.Health; i < AttributeType.NUM_ATTRIBUTE_TYPES; ++i)
                 {
-                    if ((_lockedAttributesMask & (1UL << i)) == 0)
+                    if (!i.IsMaskSet(_lockedAttributesMask))
                     {
                         continue;
                     }
 
-                    if (!_parent.ReleaseLock((AttributeType)i, _lockId))
+                    if (!_parent.ReleaseLock(i, _lockId))
                     {
-                        throw new InvalidOperationException($"Lost ownership of {(AttributeType)i} lock.");
+                        throw new InvalidOperationException($"Lost ownership of {i} lock.");
                     }
                 }
 
-                if (_parent.WasDirty())
+                var dirty = _parent.ConsumeDirty();
+                if (dirty != 0)
                 {
-                    _parent.AttributesChanged?.Invoke(_parent);
+                    _parent.AttributesChanged?.Invoke(_parent, _lockedAttributesMask);
                     _parent.PersistableChange?.Invoke(_parent, _parent._player);
                 }
             }
 
             private readonly void EnsureLocked(AttributeType attribute)
             {
-                if ((_lockedAttributesMask & (1UL << (int)attribute)) == 0)
+                if (!attribute.IsMaskSet(_lockedAttributesMask))
                 {
                     throw new InvalidOperationException($"{attribute} was not locked.");
                 }

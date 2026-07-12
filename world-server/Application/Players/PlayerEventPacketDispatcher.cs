@@ -1,4 +1,6 @@
+using System.Text;
 using System.Xml.Linq;
+using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
@@ -31,9 +33,25 @@ namespace FOMServer.World.Application.Players
             player.Inventory.ItemDestroyed += OnInventoryItemDestroyed;
         }
 
-        private void OnAttributesChanged(PlayerAttributes attributes)
+        private void OnAttributesChanged(PlayerAttributes attributes, long changedAttributeMask)
         {
-            _logger.LogInformation("Player {PlayerId}'s attributes updated", attributes.PlayerId);
+            var sb = new StringBuilder();
+            for (var i = AttributeType.Health; i < AttributeType.NUM_ATTRIBUTE_TYPES; ++i)
+            {
+                if (!i.IsMaskSet(changedAttributeMask))
+                {
+                    continue;
+                }
+
+                if (sb.Length > 0)
+                {
+                    sb.Append(", ");
+                }
+
+                sb.Append(i);
+            }
+
+            _logger.LogInformation("Player {PlayerId}'s attributes updated ({Attributes})", attributes.PlayerId, sb);
         }
 
         private void OnInventoryItemDestroyed(PlayerInventory inventory, Item item)
