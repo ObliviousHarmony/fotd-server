@@ -4,6 +4,8 @@ using FOMServer.Shared.Core.Packets.Types;
 
 namespace FOMServer.Shared.Core.Items
 {
+    public delegate void ItemDestroyedInContainerHandler(ItemContainer container, Item item);
+
     public abstract class ItemContainer
     {
         protected readonly Lock _syncRoot = new();
@@ -16,6 +18,8 @@ namespace FOMServer.Shared.Core.Items
             Location = location;
             SlotType = slotType;
         }
+
+        public event ItemDestroyedInContainerHandler? ItemDestroyed;
 
         public IItemLocation Location { get; }
 
@@ -212,6 +216,13 @@ namespace FOMServer.Shared.Core.Items
             return true;
         }
 
+        protected void OnItemDestroyed(Item item)
+        {
+            OnItemDestroyedCore(item);
+
+            ItemDestroyed?.Invoke(this, item);
+        }
+
         protected abstract IReadOnlyCollection<Item> GetAllCore();
 
         protected abstract IReadOnlyCollection<uint> GetDisplacedIdsFor(params IReadOnlyCollection<uint> idsToInsert);
@@ -229,6 +240,6 @@ namespace FOMServer.Shared.Core.Items
 
         protected abstract IReadOnlyCollection<Item> ExtractCore(params IReadOnlyCollection<uint> idsToExtract);
 
-        protected abstract void OnItemDestroyed(Item item);
+        protected abstract void OnItemDestroyedCore(Item item);
     }
 }

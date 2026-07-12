@@ -1,3 +1,4 @@
+using System.Net.Sockets;
 using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.World.Core.Exceptions;
@@ -126,48 +127,65 @@ namespace FOMServer.World.Tests.Players
         }
 
         [Fact]
-        public void Lock_GetReturnsCurrentValue()
+        public void Change_FiresAttributesChangedWithChangedAttribute()
+        {
+            var attrs = CreateAttributes();
+
+            AttributeType? changed = null;
+            attrs.AttributesChanged += (_, mask) =>
+            {
+                Assert.True(AttributeType.Health.IsMaskSet(mask));
+                changed = AttributeType.Health;
+            };
+
+            attrs.Change(AttributeType.Health, -100);
+
+            Assert.Equal(AttributeType.Health, changed);
+        }
+
+        [Fact]
+        public void Lock_Get_ReturnsCurrentValue()
         {
             var initial = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 1000 };
 
             var attrs = CreateAttributes(initial);
 
             using var locked = attrs.Lock(AttributeType.UniversalCredits);
-            Assert.Equal(1000u, locked.Get());
+            Assert.Equal(1000u, locked.Value);
         }
 
         [Fact]
-        public void Lock_SetUpdatesValue()
+        public void Lock_Set_UpdatesValue()
         {
             var attrs = CreateAttributes();
 
             using var locked = attrs.Lock(AttributeType.UniversalCredits);
-            locked.Set(500);
+            locked.Value = 500;
 
-            Assert.Equal(500u, locked.Get());
+            Assert.Equal(500u, locked.Value);
         }
 
         [Fact]
-        public void Lock_SetClampsToMax()
+        public void Lock_Set_ClampsToMax()
         {
             var attrs = CreateAttributes();
 
             using var locked = attrs.Lock(AttributeType.Health);
-            locked.Set(9999);
+            locked.Value = 9999;
 
             var max = PlayerAttributes.GetMetadata(AttributeType.Health).Max;
             Assert.Equal((uint)max, attrs.Get(AttributeType.Health));
         }
 
         [Fact]
-        public void Lock_SetFiresPersistableChangeOnDispose()
+        public void Lock_Set_FiresPersistableChangeOnDispose()
         {
             var attrs = CreateAttributes();
             var fired = false;
             attrs.PersistableChange += (_, _) => fired = true;
 
             var locked = attrs.Lock(AttributeType.Health);
-            locked.Set(500);
+            locked.Value = 500;
 
             Assert.False(fired);
 
@@ -177,7 +195,7 @@ namespace FOMServer.World.Tests.Players
         }
 
         [Fact]
-        public void Lock_ChangeUpdatesValue()
+        public void Lock_Change_UpdatesValue()
         {
             var initial = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 1000 };
 
@@ -187,21 +205,43 @@ namespace FOMServer.World.Tests.Players
             var result = locked.Change(-300);
 
             Assert.Equal(700u, result);
-            Assert.Equal(700u, locked.Get());
+            Assert.Equal(700u, locked.Value);
         }
 
         [Fact]
-        public void Lock_DisposeReleasesLock()
+        public void Lock_Change_DoesNotFireAttributesChangedUntilDisposed()
+        {
+            var attrs = CreateAttributes();
+
+            AttributeType? changed = null;
+            attrs.AttributesChanged += (_, mask) =>
+            {
+                Assert.True(AttributeType.Health.IsMaskSet(mask));
+                changed = AttributeType.Health;
+            };
+
+            var locked = attrs.Lock(AttributeType.Health);
+            locked.Value = 500;
+
+            Assert.Null(changed);
+
+            locked.Dispose();
+
+            Assert.Equal(AttributeType.Health, changed);
+        }
+
+        [Fact]
+        public void Lock_Dispose_ReleasesLock()
         {
             var attrs = CreateAttributes();
 
             var locked = attrs.Lock(AttributeType.Coins);
-            locked.Set(100);
+            locked.Value = 100;
             locked.Dispose();
 
             // Should be able to lock again without deadlock
             using var locked2 = attrs.Lock(AttributeType.Coins);
-            Assert.Equal(100u, locked2.Get());
+            Assert.Equal(100u, locked2.Value);
         }
 
         [Fact]
@@ -213,7 +253,7 @@ namespace FOMServer.World.Tests.Players
 
             using (var locked = attrs.Lock(AttributeType.UniversalCredits))
             {
-                locked.Set(500);
+                locked.Value = 500;
                 Assert.False(fired);
             }
 
@@ -229,24 +269,60 @@ namespace FOMServer.World.Tests.Players
 
             using (var locked = attrs.Lock(AttributeType.UniversalCredits))
             {
-                locked.Get();
+                var _ = locked.Value;
             }
 
             Assert.False(fired);
         }
 
         [Fact]
-        public void Lock_DoubleDisposeIsNoOp()
+        public void Lock_DoubleDisposeThrows()
         {
             var attrs = CreateAttributes();
 
-            var locked = attrs.Lock(AttributeType.Coins);
-            locked.Set(100);
-            locked.Dispose();
-            locked.Dispose();
+            Assert.Throws<InvalidOperationException>(() =>
+            {
+                var locked = attrs.Lock(AttributeType.Coins);
+                locked.Value = 100;
+                locked.Dispose();
+                locked.Dispose();
+            });
+        }
 
-            using var locked2 = attrs.Lock(AttributeType.Coins);
-            Assert.Equal(100u, locked2.Get());
+        [Fact]
+        public void Lock_Multiple_Set_IndividualValues()
+        {
+            var attrs = CreateAttributes();
+
+            using var multiLock = attrs.Lock(AttributeType.Health, AttributeType.Coins);
+
+            multiLock[AttributeType.Health] = 100;
+            multiLock[AttributeType.Coins] = 200;
+
+            Assert.Equal(100u, multiLock[AttributeType.Health]);
+            Assert.Equal(200u, multiLock[AttributeType.Coins]);
+        }
+
+        [Fact]
+        public void Lock_Multiple_SingleLockDoesNotThrowForUnlockedAttribute()
+        {
+            var attrs = CreateAttributes();
+
+            using var multiLock = attrs.Lock(AttributeType.Health, AttributeType.Coins);
+            using var locked = attrs.Lock(AttributeType.Stamina);
+        }
+
+        [Fact]
+        public void Lock_Multiple_SingleLockThrowsWhenHeld()
+        {
+            var attrs = CreateAttributes();
+
+            Assert.Throws<AttributeDeadlockException>(() =>
+            {
+                using var multiLock = attrs.Lock(AttributeType.Health, AttributeType.Coins);
+
+                attrs.Lock(AttributeType.Health);
+            });
         }
 
         [Fact]
@@ -259,9 +335,109 @@ namespace FOMServer.World.Tests.Players
             Assert.Throws<AttributeDeadlockException>(() => attrs.Lock(AttributeType.Coins));
         }
 
+        [Fact]
+        public void Lock_Multiple_Change_FiresAllChangedAttributes()
+        {
+            var attrs = CreateAttributes();
+
+            long changedMask = 0;
+            attrs.AttributesChanged += (_, mask) => changedMask = mask;
+
+            using (var locked = attrs.Lock(AttributeType.Health, AttributeType.Coins))
+            {
+                locked[AttributeType.Health] = 500;
+                locked[AttributeType.Coins] = 1000;
+
+                Assert.Equal(0, changedMask);
+            }
+
+            long expectedMask = 0;
+            AttributeType.Health.ApplyToMask(ref expectedMask, true);
+            AttributeType.Coins.ApplyToMask(ref expectedMask, true);
+            Assert.Equal(expectedMask, changedMask);
+        }
+
+        [Fact]
+        public void Lock_Multiple_ChangeFiresOnlyOnce()
+        {
+            var attrs = CreateAttributes();
+
+            var fireCount = 0;
+            attrs.AttributesChanged += (_, _) => fireCount++;
+
+            using (var locked = attrs.Lock(AttributeType.Health, AttributeType.Coins))
+            {
+                locked[AttributeType.Health] = 500;
+                locked[AttributeType.Coins] = 1000;
+                locked[AttributeType.Health] = 600;
+            }
+
+            Assert.Equal(1, fireCount);
+        }
+
+        [Fact]
+        public void LockPair_GetReturnsCurrentValue()
+        {
+            var initialA = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 1000 };
+            var attrsA = CreateAttributes(initialA);
+            var initialB = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 5000 };
+            var attrsB = CreateAttributes(initialB);
+
+            using var locks = attrsA.LockPair(attrsB, AttributeType.UniversalCredits);
+            var (lockA, lockB) = locks;
+
+            Assert.Equal(1000u, lockA.Value);
+            Assert.Equal(5000u, lockB.Value);
+        }
+
+        [Fact]
+        public void LockPair_OrdersLocksButReturnsInputOrder()
+        {
+            var initialA = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 1000 };
+            var attrsA = CreateAttributes(initialA);
+            var initialB = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 5000 };
+            var attrsB = CreateAttributes(initialB);
+
+            using var locks = attrsB.LockPair(attrsA, AttributeType.UniversalCredits);
+            var (lockB, lockA) = locks;
+
+            Assert.Equal(1000u, lockA.Value);
+            Assert.Equal(5000u, lockB.Value);
+        }
+
+        [Fact]
+        public void LockPair_Multiple_GetReturnsCurrentValue()
+        {
+            var initialA = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 1000 };
+            var attrsA = CreateAttributes(initialA);
+            var initialB = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 5000 };
+            var attrsB = CreateAttributes(initialB);
+
+            using var locks = attrsA.LockPair(attrsB, AttributeType.UniversalCredits, AttributeType.Coins);
+            var (lockA, lockB) = locks;
+
+            Assert.Equal(1000u, lockA[AttributeType.UniversalCredits]);
+            Assert.Equal(5000u, lockB[AttributeType.UniversalCredits]);
+        }
+
+        [Fact]
+        public void LockPair_Multiple_OrdersLocksButReturnsInputOrder()
+        {
+            var initialA = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 1000 };
+            var attrsA = CreateAttributes(initialA);
+            var initialB = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 5000 };
+            var attrsB = CreateAttributes(initialB);
+
+            using var locks = attrsB.LockPair(attrsA, AttributeType.UniversalCredits, AttributeType.Coins);
+            var (lockB, lockA) = locks;
+
+            Assert.Equal(1000u, lockA[AttributeType.UniversalCredits]);
+            Assert.Equal(5000u, lockB[AttributeType.UniversalCredits]);
+        }
+
         private static PlayerAttributes CreateAttributes(Dictionary<AttributeType, uint>? values = null)
         {
-            var builder = TestPlayerBuilder.Create(1);
+            var builder = TestPlayerBuilder.Create();
 
             if (values is not null)
             {

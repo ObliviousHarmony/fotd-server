@@ -12,16 +12,19 @@ namespace FOMServer.World.Application.Players.Registration
     {
         private readonly Player _player;
         private readonly IPersistenceService _persistenceService;
+        private readonly IPlayerEventPacketDispatcher _eventPacketDispatcher;
         private readonly IPlayerUpdateTick _playerUpdateService;
 
         public PlayerRegistration(
             Player player,
             IPersistenceService persistenceService,
+            IPlayerEventPacketDispatcher eventPacketDispatcher,
             IPlayerUpdateTick playerUpdateService
         )
         {
             _player = player;
             _persistenceService = persistenceService;
+            _eventPacketDispatcher = eventPacketDispatcher;
             _playerUpdateService = playerUpdateService;
         }
 
@@ -39,12 +42,14 @@ namespace FOMServer.World.Application.Players.Registration
             _persistenceService.Register(_player.Attributes);
             _persistenceService.Register(_player.Quickslots);
 
+            _eventPacketDispatcher.Register(_player);
             _playerUpdateService.Register(_player);
         }
 
         public void Unregister()
         {
             _playerUpdateService.Unregister(_player);
+            _eventPacketDispatcher.Unregister(_player);
 
             _persistenceService.Unregister(_player.Quickslots);
             _persistenceService.Unregister(_player.Attributes);

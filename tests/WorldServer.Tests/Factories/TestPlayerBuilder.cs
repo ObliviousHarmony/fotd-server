@@ -9,6 +9,8 @@ namespace FOMServer.World.Tests.Factories
 {
     internal class TestPlayerBuilder
     {
+        private static uint s_nextPlayerId;
+
         private readonly uint _id;
         private uint _nextItemId;
         private readonly uint[] _attributes = new uint[(int)AttributeType.NUM_ATTRIBUTE_TYPES];
@@ -92,9 +94,15 @@ namespace FOMServer.World.Tests.Factories
             return player;
         }
 
-        public static TestPlayerBuilder Create(uint id)
+        public static TestPlayerBuilder Create(uint? id = null)
         {
-            return new TestPlayerBuilder(id);
+            // Advance the automatic incrementing ID if necessary to avoid duplicates.
+            if (id is not null && id > s_nextPlayerId)
+            {
+                s_nextPlayerId = id.Value + 1;
+            }
+
+            return new TestPlayerBuilder(id ?? s_nextPlayerId++);
         }
     }
 }

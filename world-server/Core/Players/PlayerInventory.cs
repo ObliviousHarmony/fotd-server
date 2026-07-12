@@ -8,6 +8,8 @@ using PacketWeapons = FOMServer.Shared.Core.Packets.RegisterClientReturn.Weapons
 
 namespace FOMServer.World.Core.Players
 {
+    internal delegate void ItemDestroyedInInventory(PlayerInventory inventory, Item item);
+
     internal class PlayerInventory : IItemLocation
     {
         private readonly Player _player;
@@ -54,14 +56,20 @@ namespace FOMServer.World.Core.Players
             }
 
             _backpackItems = new ItemBag(this, inventory);
+            _backpackItems.ItemDestroyed += OnItemDestroyed;
 
             _itemSlots = [];
             foreach (var slotType in validSlotTypes)
             {
                 slotItems.TryGetValue(slotType, out var item);
                 _itemSlots[slotType] = new ItemSlot(this, slotType, item);
+                _itemSlots[slotType].ItemDestroyed += OnItemDestroyed;
             }
         }
+
+        public event ItemDestroyedInInventory? ItemDestroyed;
+
+        public uint PlayerId => _player.Id;
 
         public ItemLocationRef LocationRef => new(ItemLocationType.Inventory, _player.Id, _player);
 
@@ -127,6 +135,11 @@ namespace FOMServer.World.Core.Players
             {
                 _itemSlots[slot].WriteTo(ref equipment[slot - ItemSlotType.EquipmentStart]);
             }
+        }
+
+        private void OnItemDestroyed(ItemContainer itemContainer, Item item)
+        {
+            ItemDestroyed?.Invoke(this, item);
         }
     }
 }
