@@ -148,7 +148,7 @@ namespace FOMServer.Shared.Core.Items
             return [item];
         }
 
-        protected override void OnItemDestroyed(Item item)
+        protected override void OnItemDestroyedCore(Item item)
         {
             lock (_syncRoot)
             {

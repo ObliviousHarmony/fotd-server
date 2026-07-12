@@ -1,12 +1,15 @@
 using System.Diagnostics;
 using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.World.Core.Exceptions;
 using PacketPlayerAttributes = FOMServer.Shared.Core.Packets.Types.PlayerAttributes;
 
 namespace FOMServer.World.Core.Players
 {
+    internal delegate void AttributesChangedHandler(PlayerAttributes attributes);
+
     /// <summary>
     /// Thread-safe storage for player attributes.
     /// </summary>
@@ -93,6 +96,8 @@ namespace FOMServer.World.Core.Players
 
         public event PersistableChangeCallback? PersistableChange;
 
+        public event AttributesChangedHandler? AttributesChanged;
+
         public uint PlayerId => _player.Id;
 
         public static ref readonly AttributeMetadata GetMetadata(AttributeType attribute)
@@ -141,6 +146,7 @@ namespace FOMServer.World.Core.Players
                 }
             } while (Interlocked.CompareExchange(ref _values[index], updated, current) != current);
 
+            AttributesChanged?.Invoke(this);
             PersistableChange?.Invoke(this, _player);
             return updated;
         }
@@ -301,6 +307,7 @@ namespace FOMServer.World.Core.Players
 
                 if (_parent.WasDirty())
                 {
+                    _parent.AttributesChanged?.Invoke(_parent);
                     _parent.PersistableChange?.Invoke(_parent, _parent._player);
                 }
             }
@@ -415,6 +422,7 @@ namespace FOMServer.World.Core.Players
 
                 if (_parent.WasDirty())
                 {
+                    _parent.AttributesChanged?.Invoke(_parent);
                     _parent.PersistableChange?.Invoke(_parent, _parent._player);
                 }
             }
