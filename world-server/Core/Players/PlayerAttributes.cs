@@ -31,7 +31,9 @@ namespace FOMServer.World.Core.Players
 
         private readonly Player _player;
         private readonly uint[] _values = new uint[AttributeCount];
-        private readonly int[] _locks = new int[AttributeCount];
+        private readonly long[] _locks = new long[AttributeCount];
+        private long _nextLockId;
+        private bool _dirty;
 
         static PlayerAttributes()
         {
@@ -63,6 +65,8 @@ namespace FOMServer.World.Core.Players
         public PlayerAttributes(Player player, uint[] values)
         {
             _player = player;
+            _nextLockId = 0;
+            _dirty = false;
 
             if (values.Length != AttributeCount)
             {
@@ -154,94 +158,236 @@ namespace FOMServer.World.Core.Players
 
         public LockedAttribute Lock(AttributeType attribute)
         {
-            return new LockedAttribute(this, attribute);
+            return new LockedAttribute(this, attribute, Interlocked.Increment(ref _nextLockId));
+        }
+
+        public LockedAttributes Lock(params ReadOnlySpan<AttributeType> attributes)
+        {
+            return new LockedAttributes(this, attributes, Interlocked.Increment(ref _nextLockId));
+        }
+
+        private void MarkDirty()
+        {
+            Interlocked.Exchange(ref _dirty, true);
+        }
+
+        private bool WasDirty()
+        {
+            return Interlocked.Exchange(ref _dirty, false);
+        }
+
+        private void AcquireLock(AttributeType attribute, long lockId)
+        {
+            var index = (int)attribute;
+
+            var spinner = new SpinWait();
+            var timeoutTimestamp = Stopwatch.GetTimestamp() + (Stopwatch.Frequency / 50);
+            while (Interlocked.CompareExchange(ref _locks[index], lockId, 0) != 0)
+            {
+                spinner.SpinOnce();
+
+                if (spinner.NextSpinWillYield &&
+                    Stopwatch.GetTimestamp() > timeoutTimestamp)
+                {
+                    throw new AttributeDeadlockException(attribute);
+                }
+            }
+        }
+
+        private bool ReleaseLock(AttributeType attribute, long lockId)
+        {
+            return Interlocked.CompareExchange(ref _locks[(int)attribute], 0, lockId) == lockId;
         }
 
         /// <summary>
         /// Provides exclusive access to a locked attribute.
         /// </summary>
-        public ref struct LockedAttribute
+        internal readonly ref struct LockedAttribute
         {
             private readonly PlayerAttributes _parent;
             private readonly AttributeType _attribute;
-            private bool _changed;
-            private bool _disposed;
+            private readonly long _lockId;
 
-            public LockedAttribute(PlayerAttributes parent, AttributeType attribute)
+            internal LockedAttribute(PlayerAttributes parent, AttributeType attribute, long lockId)
             {
                 _parent = parent;
                 _attribute = attribute;
-                _changed = false;
-                _disposed = false;
+                _lockId = lockId;
 
-                // Attempt to acquire the lock with a 20ms timeout to avoid deadlocks.
-                var index = (int)attribute;
-                var spinner = new SpinWait();
-                var timeoutTimestamp = Stopwatch.GetTimestamp() + (Stopwatch.Frequency / 50);
-
-                while (Interlocked.CompareExchange(ref _parent._locks[index], 1, 0) != 0)
-                {
-                    spinner.SpinOnce();
-
-                    if (spinner.NextSpinWillYield && Stopwatch.GetTimestamp() > timeoutTimestamp)
-                    {
-                        throw new AttributeDeadlockException(attribute);
-                    }
-                }
+                _parent.AcquireLock(attribute, lockId);
             }
 
-            public readonly AttributeMetadata Metadata => s_metadata[(int)_attribute];
+            public ref readonly AttributeMetadata Metadata => ref GetMetadata(_attribute);
 
-            private uint Value
+            public readonly uint Value
             {
-                readonly get => _parent._values[(int)_attribute];
+                get => _parent._values[(int)_attribute];
                 set
                 {
-                    var v = Math.Min(value, Metadata.Max);
-                    if (v == _parent._values[(int)_attribute])
+                    var newValue = Math.Min(value, Metadata.Max);
+
+                    ref var current = ref _parent._values[(int)_attribute];
+                    if (current == newValue)
                     {
                         return;
                     }
 
-                    _parent._values[(int)_attribute] = v;
-                    _changed = true;
+                    current = newValue;
+                    _parent.MarkDirty();
                 }
             }
 
-            public readonly uint Get()
-            {
-                return Value;
-            }
-
-            public void Set(uint value)
-            {
-                Value = value;
-            }
-
-            public uint Change(int delta)
+            public readonly uint Change(int delta)
             {
                 Value = (uint)Math.Max(Value + delta, 0L);
                 return Value;
             }
 
-            public void Dispose()
+            public readonly void Dispose()
             {
-                if (_disposed)
+                if (!_parent.ReleaseLock(_attribute, _lockId))
                 {
-                    return;
+                    throw new InvalidOperationException($"Lost ownership of {_attribute} lock {_lockId}");
                 }
 
-                _disposed = true;
-                Volatile.Write(ref _parent._locks[(int)_attribute], 0);
-
-                if (_changed)
+                if (_parent.WasDirty())
                 {
                     _parent.PersistableChange?.Invoke(_parent, _parent._player);
                 }
             }
         }
 
-        public readonly struct AttributeMetadata
+        /// <summary>
+        /// Provides exclusive access to multiple locked attributes.
+        /// </summary>
+        internal readonly ref struct LockedAttributes
+        {
+            private readonly PlayerAttributes _parent;
+            private readonly ulong _lockedAttributesMask;
+            private readonly long _lockId;
+
+            internal LockedAttributes(
+                PlayerAttributes parent,
+                scoped ReadOnlySpan<AttributeType> attributes,
+                long lockId
+                )
+            {
+                _parent = parent;
+                _lockId = lockId;
+
+                foreach (var attribute in attributes)
+                {
+                    _lockedAttributesMask |= 1UL << (int)attribute;
+                }
+
+                var acquiredMask = 0UL;
+
+                try
+                {
+                    // Always acquire in enum order to prevent deadlocks.
+                    for (var i = 0; i < AttributeCount; i++)
+                    {
+                        if ((_lockedAttributesMask & (1UL << i)) == 0)
+                        {
+                            continue;
+                        }
+
+                        parent.AcquireLock((AttributeType)i, _lockId);
+                        acquiredMask |= 1UL << i;
+                    }
+                }
+                catch
+                {
+                    // Roll back any locks acquired before failure.
+                    for (var i = AttributeCount - 1; i >= 0; i--)
+                    {
+                        if ((acquiredMask & (1UL << i)) == 0)
+                        {
+                            continue;
+                        }
+
+                        parent.ReleaseLock((AttributeType)i, _lockId);
+                    }
+
+                    throw;
+                }
+            }
+
+            public readonly uint this[AttributeType attribute]
+            {
+                get
+                {
+                    EnsureLocked(attribute);
+                    return _parent._values[(int)attribute];
+                }
+
+                set
+                {
+                    EnsureLocked(attribute);
+
+                    ref readonly var metadata = ref GetMetadata(attribute);
+                    var newValue = Math.Min(value, metadata.Max);
+
+                    ref var current = ref _parent._values[(int)attribute];
+                    if (current == newValue)
+                    {
+                        return;
+                    }
+
+                    current = newValue;
+                    _parent.MarkDirty();
+                }
+            }
+
+            public readonly uint Change(AttributeType attribute, int delta)
+            {
+                EnsureLocked(attribute);
+
+                var value = (uint)Math.Clamp(
+                    this[attribute] + delta,
+                    0L,
+                    GetMetadata(attribute).Max);
+
+                this[attribute] = value;
+
+                return value;
+            }
+
+            public readonly void Dispose()
+            {
+                for (var i = AttributeCount - 1; i >= 0; i--)
+                {
+                    if ((_lockedAttributesMask & (1UL << i)) == 0)
+                    {
+                        continue;
+                    }
+
+                    if (!_parent.ReleaseLock((AttributeType)i, _lockId))
+                    {
+                        throw new InvalidOperationException(
+                            $"Lost ownership of {(AttributeType)i} lock.");
+                    }
+                }
+
+                if (_parent.WasDirty())
+                {
+                    _parent.PersistableChange?.Invoke(
+                        _parent,
+                        _parent._player);
+                }
+            }
+
+            private readonly void EnsureLocked(AttributeType attribute)
+            {
+                if ((_lockedAttributesMask & (1UL << (int)attribute)) == 0)
+                {
+                    throw new InvalidOperationException(
+                        $"{attribute} was not locked.");
+                }
+            }
+        }
+
+        internal readonly struct AttributeMetadata
         {
             public uint Max { get; init; }
 
