@@ -23,7 +23,9 @@ namespace FOMServer.Master.Application.Handlers
         {
             if (p.WorldIdCount <= 0)
             {
-                throw new InvalidOperationException($"World server '{sender}' did not send any world ItemIds to register");
+                throw new InvalidOperationException(
+                    $"World server '{sender}' did not send any world ItemIds to register"
+                );
             }
 
             var worldIds = new WorldId[p.WorldIdCount];
@@ -35,7 +37,12 @@ namespace FOMServer.Master.Application.Handlers
             var registered = _worldServerRegistry.Register(worldIds, sender, p.PublicAddress);
             foreach (var worldId in registered)
             {
-                _logger.LogInformation("World '{WorldId}' ({ServerAddress}) ready for clients at {PublicAddress}", worldId, sender, p.PublicAddress);
+                _logger.LogInformation(
+                    "World '{WorldId}' ({ServerAddress}) ready for clients at {PublicAddress}",
+                    worldId,
+                    sender,
+                    p.PublicAddress
+                );
             }
         }
     }

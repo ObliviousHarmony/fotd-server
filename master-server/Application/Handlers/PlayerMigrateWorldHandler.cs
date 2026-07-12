@@ -22,7 +22,8 @@ namespace FOMServer.Master.Application.Handlers
             IWorldPacketSender worldPacketSender,
             IClientRegistry clientRegistry,
             IWorldServerRegistry worldServerRegistry,
-            ILogger<PlayerMigrateWorldHandler> logger)
+            ILogger<PlayerMigrateWorldHandler> logger
+        )
         {
             _clientPacketSender = clientPacketSender;
             _worldPacketSender = worldPacketSender;

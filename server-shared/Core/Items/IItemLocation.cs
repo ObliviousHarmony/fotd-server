@@ -12,10 +12,7 @@ namespace FOMServer.Shared.Core.Items
         ItemContainer? GetItemContainer(ItemSlotType slotType);
     }
 
-    public readonly record struct ItemLocationRef(
-        ItemLocationType Type,
-        uint Id,
-        IPersistable? Persistable)
+    public readonly record struct ItemLocationRef(ItemLocationType Type, uint Id, IPersistable? Persistable)
     {
         public bool IsPlayer()
         {

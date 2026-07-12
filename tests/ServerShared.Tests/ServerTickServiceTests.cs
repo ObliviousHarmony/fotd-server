@@ -74,7 +74,8 @@ namespace FOMServer.Shared.Tests
 
                 Assert.False(
                     due.Contains(a) && due.Contains(b),
-                    "equal-interval tickables must not fire on the same wake-up");
+                    "equal-interval tickables must not fire on the same wake-up"
+                );
 
                 if (due.Contains(a))
                 {

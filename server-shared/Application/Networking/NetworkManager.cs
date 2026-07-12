@@ -8,9 +8,9 @@ using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 namespace FOMServer.Shared.Application.Networking
 {
     /// <summary>
-	/// Responsible for sending and receiving packets.
-	/// </summary>
-	public partial class NetworkManager : IPacketSender, IAsyncDisposable
+    /// Responsible for sending and receiving packets.
+    /// </summary>
+    public partial class NetworkManager : IPacketSender, IAsyncDisposable
     {
         /// <summary>
         /// Individual network managers can "claim" packet ItemIds so that they
@@ -43,23 +43,16 @@ namespace FOMServer.Shared.Application.Networking
             IShutdownManager shutdownManager,
             ILogger<NetworkManager> logger,
             IPacketService packetService,
-            PacketProcessor packetProcessor)
+            PacketProcessor packetProcessor
+        )
         {
             _shutdownManager = shutdownManager;
             _logger = logger;
             _packetService = packetService;
             _packetProcessor = packetProcessor;
-            _sendQueue = Channel.CreateUnbounded<QueuePacket>(
-                new UnboundedChannelOptions
-                {
-                    SingleReader = true
-                }
-            );
+            _sendQueue = Channel.CreateUnbounded<QueuePacket>(new UnboundedChannelOptions { SingleReader = true });
             _closeConnectionQueue = Channel.CreateUnbounded<NetworkAddress>(
-                new UnboundedChannelOptions
-                {
-                    SingleReader = true
-                }
+                new UnboundedChannelOptions { SingleReader = true }
             );
         }
 
@@ -76,9 +69,7 @@ namespace FOMServer.Shared.Application.Networking
         /// <summary>
         /// Claims a packet Id for this exclusive handling by this network manager.
         /// </summary>
-        public void ClaimPacketId(
-            PacketIdentifier id,
-            PacketClaimBehavior behavior = PacketClaimBehavior.Warn)
+        public void ClaimPacketId(PacketIdentifier id, PacketClaimBehavior behavior = PacketClaimBehavior.Warn)
         {
             if (!s_canClaimPacketIds)
             {
@@ -130,12 +121,14 @@ namespace FOMServer.Shared.Application.Networking
 
             // Use a dedicated thread for this task because we need to
             // keep polling the network library to maximize throughput.
-            _networkTask = Task.Factory.StartNew(
-                async () => await NetworkLoopAsync(_cts.Token),
-                _cts.Token,
-                TaskCreationOptions.LongRunning,
-                TaskScheduler.Default
-            ).Unwrap();
+            _networkTask = Task
+                .Factory.StartNew(
+                    async () => await NetworkLoopAsync(_cts.Token),
+                    _cts.Token,
+                    TaskCreationOptions.LongRunning,
+                    TaskScheduler.Default
+                )
+                .Unwrap();
 
             // Make sure that the shutdown manager waits for this task to complete.
             _shutdownManager.TrackTask(_networkTask);
@@ -227,7 +220,10 @@ namespace FOMServer.Shared.Application.Networking
                         }
 
                         // Packet ItemIds that have been claimed by another network manager should be ignored.
-                        if (s_globalClaimedPacketIds.TryGetValue(packet.Id, out var claimBehavior) && !_claimedPacketIds.Contains(packet.Id))
+                        if (
+                            s_globalClaimedPacketIds.TryGetValue(packet.Id, out var claimBehavior)
+                            && !_claimedPacketIds.Contains(packet.Id)
+                        )
                         {
                             if (claimBehavior == PacketClaimBehavior.Warn)
                             {
@@ -247,9 +243,7 @@ namespace FOMServer.Shared.Application.Networking
                     await Task.Delay(pollingDelayMs, ct);
                 }
             }
-            catch (OperationCanceledException)
-            {
-            }
+            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
                 LogNetworkFailure(ex);
@@ -262,10 +256,20 @@ namespace FOMServer.Shared.Application.Networking
             }
         }
 
-        [LoggerMessage(Level = LogLevel.Warning, Message = "Client '{Sender}' sent malformed packet with Id '{PacketId}': {Status}")]
-        private partial void LogMalformedPacket(NetworkAddress sender, PacketIdentifier packetId, SerializationStatus status);
+        [LoggerMessage(
+            Level = LogLevel.Warning,
+            Message = "Client '{Sender}' sent malformed packet with Id '{PacketId}': {Status}"
+        )]
+        private partial void LogMalformedPacket(
+            NetworkAddress sender,
+            PacketIdentifier packetId,
+            SerializationStatus status
+        );
 
-        [LoggerMessage(Level = LogLevel.Warning, Message = "Ignoring packet with claimed Id '{PacketId}' from '{Sender}'")]
+        [LoggerMessage(
+            Level = LogLevel.Warning,
+            Message = "Ignoring packet with claimed Id '{PacketId}' from '{Sender}'"
+        )]
         private partial void LogClaimedPacketId(NetworkAddress sender, PacketIdentifier packetId);
 
         [LoggerMessage(Level = LogLevel.Critical, Message = "Network failure")]

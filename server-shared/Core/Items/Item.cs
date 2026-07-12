@@ -11,9 +11,7 @@ namespace FOMServer.Shared.Core.Items
     public sealed class ItemDestroyedException : InvalidOperationException
     {
         public ItemDestroyedException(Item item)
-            : base($"Item {item.Id} has been destroyed")
-        {
-        }
+            : base($"Item {item.Id} has been destroyed") { }
     }
 
     public class Item : IPersistable
@@ -41,7 +39,8 @@ namespace FOMServer.Shared.Core.Items
             ushort value,
             ushort durability,
             ushort maxDurability,
-            byte durabilityLossFactor)
+            byte durabilityLossFactor
+        )
         {
             Id = id;
             Type = type;
@@ -91,7 +90,8 @@ namespace FOMServer.Shared.Core.Items
 
                 throw new ArgumentException(
                     $"Item {this} does not belong (location={locationRef.Type}, locationId={locationRef.Id}, slot={slot})",
-                    nameof(location));
+                    nameof(location)
+                );
             }
         }
 

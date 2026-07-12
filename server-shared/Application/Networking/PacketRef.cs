@@ -27,7 +27,8 @@ namespace FOMServer.Shared.Application.Networking
             PacketIdentifier id,
             NetworkAddress sender,
             in ReadOnlyMemory<byte> data,
-            PacketBuffer parentBuffer)
+            PacketBuffer parentBuffer
+        )
         {
             RefIndex = refIndex;
             BufferVersion = bufferVersion;
@@ -37,15 +38,19 @@ namespace FOMServer.Shared.Application.Networking
             _parentBuffer = parentBuffer;
         }
 
-        public readonly PacketIdentifier Id => _parentBuffer.IsPacketDisposed(in this) ? throw new ObjectDisposedException(nameof(PacketRef)) : _id;
+        public readonly PacketIdentifier Id =>
+            _parentBuffer.IsPacketDisposed(in this) ? throw new ObjectDisposedException(nameof(PacketRef)) : _id;
 
-        public readonly NetworkAddress Sender => _parentBuffer.IsPacketDisposed(in this) ? throw new ObjectDisposedException(nameof(PacketRef)) : field;
+        public readonly NetworkAddress Sender =>
+            _parentBuffer.IsPacketDisposed(in this) ? throw new ObjectDisposedException(nameof(PacketRef)) : field;
 
-        public readonly SerializationStatus Status => _parentBuffer.IsPacketDisposed(in this)
-                    ? throw new ObjectDisposedException(nameof(PacketRef))
-                    : (SerializationStatus)_data.Span[0];
+        public readonly SerializationStatus Status =>
+            _parentBuffer.IsPacketDisposed(in this)
+                ? throw new ObjectDisposedException(nameof(PacketRef))
+                : (SerializationStatus)_data.Span[0];
 
-        public readonly ref readonly TPacket Data<TPacket>() where TPacket : unmanaged
+        public readonly ref readonly TPacket Data<TPacket>()
+            where TPacket : unmanaged
         {
             if (_parentBuffer.IsPacketDisposed(in this))
             {

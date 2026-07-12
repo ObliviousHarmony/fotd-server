@@ -18,7 +18,12 @@ namespace FOMServer.World.Application.Players
         private readonly ConcurrentDictionary<uint, IPlayerRegistration> _playerRegistrations = new();
         private readonly ConcurrentDictionary<uint, PendingPlayer> _pendingPlayers = new();
 
-        public PlayerRegistry(IPlayerLoader playerLoader, IPlayerRegistrationFactory playerRegistrationFactory, TimeProvider timeProvider, IPersistenceService persistenceService)
+        public PlayerRegistry(
+            IPlayerLoader playerLoader,
+            IPlayerRegistrationFactory playerRegistrationFactory,
+            TimeProvider timeProvider,
+            IPersistenceService persistenceService
+        )
         {
             _playerLoader = playerLoader;
             _playerRegistrationFactory = playerRegistrationFactory;
@@ -43,7 +48,9 @@ namespace FOMServer.World.Application.Players
 
         public Player PrepareForClient(uint playerId, uint clientBinaryAddress)
         {
-            var player = _playerLoader.Load(playerId) ?? throw new InvalidOperationException($"Unable to load player {playerId}");
+            var player =
+                _playerLoader.Load(playerId)
+                ?? throw new InvalidOperationException($"Unable to load player {playerId}");
 
             _pendingPlayers[playerId] = new PendingPlayer(player, clientBinaryAddress, _timeProvider.GetUtcNow());
 

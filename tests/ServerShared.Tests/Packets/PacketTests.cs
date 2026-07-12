@@ -12,7 +12,8 @@ namespace FOMServer.Shared.Tests.Packets
         {
             // Every packet struct must explicitly define the memory layout to
             // ensure that it matches the C++ layout exactly.
-            var packetTypes = typeof(IPacketHandler).Assembly.GetTypes()
+            var packetTypes = typeof(IPacketHandler)
+                .Assembly.GetTypes()
                 .Where(t => t.GetCustomAttribute<PacketIdAttribute>() is not null)
                 .ToList();
 
@@ -29,7 +30,8 @@ namespace FOMServer.Shared.Tests.Packets
         [Fact]
         public void Packet_PacketHandler_ShouldBeDefinedCorrectly()
         {
-            var assemblies = new[] {
+            var assemblies = new[]
+            {
                 typeof(IPacketHandler).Assembly,
                 typeof(Master.Application.Server).Assembly,
                 typeof(World.Application.Server).Assembly,
@@ -38,9 +40,9 @@ namespace FOMServer.Shared.Tests.Packets
             var handlerInterface = typeof(IPacketHandler);
 
             var handlerTypes = assemblies
-            .SelectMany(a => a.GetTypes())
-            .Where(t => handlerInterface.IsAssignableFrom(t) && !t.IsAbstract)
-            .ToArray();
+                .SelectMany(a => a.GetTypes())
+                .Where(t => handlerInterface.IsAssignableFrom(t) && !t.IsAbstract)
+                .ToArray();
 
             Assert.NotEmpty(handlerTypes);
 
@@ -48,17 +50,15 @@ namespace FOMServer.Shared.Tests.Packets
             {
                 var attr = type.GetCustomAttribute<PacketHandlerAttribute>(inherit: false);
 
-                Assert.True(
-                    attr is not null,
-                    $"Packet handler '{type.FullName}' is missing [PacketHandler] attribute"
-                );
+                Assert.True(attr is not null, $"Packet handler '{type.FullName}' is missing [PacketHandler] attribute");
             }
         }
 
         [Fact]
         public void Packet_PacketHandlerAttribute_ShouldOnlyBeOnHandlers()
         {
-            var assemblies = new[] {
+            var assemblies = new[]
+            {
                 typeof(IPacketHandler).Assembly,
                 typeof(Master.Application.Server).Assembly,
                 typeof(World.Application.Server).Assembly,

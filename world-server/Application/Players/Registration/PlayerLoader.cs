@@ -28,12 +28,7 @@ namespace FOMServer.World.Application.Players.Registration
             var items = LoadItems(id);
             var quickslots = LoadQuickslots(id);
 
-            var player = new Player(
-                id,
-                attributes,
-                items,
-                quickslots
-            );
+            var player = new Player(id, attributes, items, quickslots);
 
             return player;
         }

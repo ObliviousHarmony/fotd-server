@@ -14,7 +14,8 @@ namespace FOMServer.Master.Application.Handlers
 
         public NewIncomingConnectionHandler(
             IClientRegistry clientRegistry,
-            ILogger<NewIncomingConnectionHandler> logger)
+            ILogger<NewIncomingConnectionHandler> logger
+        )
         {
             _clientRegistry = clientRegistry;
             _logger = logger;

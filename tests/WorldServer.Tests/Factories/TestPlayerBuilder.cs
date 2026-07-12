@@ -25,10 +25,7 @@ namespace FOMServer.World.Tests.Factories
                 _attributes[i] = PlayerAttributes.GetMetadata((AttributeType)i).Default;
             }
 
-            _items = new Dictionary<ItemContainerType, Dictionary<uint, Item>>
-            {
-                [ItemContainerType.Inventory] = [],
-            };
+            _items = new Dictionary<ItemContainerType, Dictionary<uint, Item>> { [ItemContainerType.Inventory] = [] };
 
             _quickslots = new ItemType[PlayerConstants.NumQuickslots];
             for (var i = 0; i < _quickslots.Length; ++i)
@@ -52,14 +49,25 @@ namespace FOMServer.World.Tests.Factories
             ushort value,
             ushort durability,
             ushort maxDurability,
-            byte durabilityLossFactor)
+            byte durabilityLossFactor
+        )
         {
             if (!_items.TryGetValue(container, out var itemList))
             {
                 throw new InvalidOperationException($"Item container {container} is invalid");
             }
 
-            var item = new Item(_nextItemId++, type, locationType, locationId, slot, value, durability, maxDurability, durabilityLossFactor);
+            var item = new Item(
+                _nextItemId++,
+                type,
+                locationType,
+                locationId,
+                slot,
+                value,
+                durability,
+                maxDurability,
+                durabilityLossFactor
+            );
             itemList[item.Id] = item;
 
             return this;
@@ -79,12 +87,7 @@ namespace FOMServer.World.Tests.Factories
 
         public Player Build()
         {
-            var player = new Player(
-                _id,
-                _attributes,
-                _items[ItemContainerType.Inventory],
-                _quickslots
-            );
+            var player = new Player(_id, _attributes, _items[ItemContainerType.Inventory], _quickslots);
 
             return player;
         }

@@ -27,7 +27,6 @@ namespace FOMServer.Shared.Core.Packets
                     return CStringParser.ToString(ptr, BufferSizes.PlayerName);
                 }
             }
-
             set
             {
                 fixed (byte* ptr = RawSenderName)
@@ -46,7 +45,6 @@ namespace FOMServer.Shared.Core.Packets
                     return CStringParser.ToString(ptr, MessageSize);
                 }
             }
-
             set
             {
                 fixed (byte* ptr = RawMessage)

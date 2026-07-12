@@ -114,15 +114,19 @@ namespace FOMServer.Shared.Tests.Packets
         {
             var pool = new PinnedArrayPool();
 
-            Parallel.For(0, 8, _ =>
-            {
-                for (var i = 0; i < 5000; i++)
+            Parallel.For(
+                0,
+                8,
+                _ =>
                 {
-                    var buffer = pool.Rent(1024);
-                    Assert.True(buffer.Array.Length >= 1024);
-                    pool.Return(in buffer);
+                    for (var i = 0; i < 5000; i++)
+                    {
+                        var buffer = pool.Rent(1024);
+                        Assert.True(buffer.Array.Length >= 1024);
+                        pool.Return(in buffer);
+                    }
                 }
-            });
+            );
         }
     }
 }

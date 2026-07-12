@@ -16,10 +16,8 @@ namespace FOMServer.World.Application.Ticks
 
         private readonly ConcurrentDictionary<Player, Recipient> _recipients = new();
         private readonly Channel<Recipient> _changed = Channel.CreateUnbounded<Recipient>(
-            new UnboundedChannelOptions
-            {
-                SingleReader = true
-            });
+            new UnboundedChannelOptions { SingleReader = true }
+        );
 
         private readonly List<Recipient> _recipientSnapshot = [];
 

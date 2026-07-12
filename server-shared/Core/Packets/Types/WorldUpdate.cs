@@ -5,16 +5,20 @@ namespace FOMServer.Shared.Core.Packets.Types
     [StructLayout(LayoutKind.Explicit, Pack = 1)]
     public struct WorldUpdate
     {
-        [FieldOffset(0)] public Type Kind;
+        [FieldOffset(0)]
+        public Type Kind;
 
-        [FieldOffset(1)] public PlayerUpdate Player;
-        [FieldOffset(1)] public CharacterUpdate Character;
+        [FieldOffset(1)]
+        public PlayerUpdate Player;
+
+        [FieldOffset(1)]
+        public CharacterUpdate Character;
 
         public enum Type : byte
         {
-            Invalid = 0,  // WORLD_UPDATE_TYPE_INVALID
-            Player = 1,  // WORLD_UPDATE_TYPE_PLAYER
-            Character = 2,  // WORLD_UPDATE_TYPE_CHARACTER
+            Invalid = 0, // WORLD_UPDATE_TYPE_INVALID
+            Player = 1, // WORLD_UPDATE_TYPE_PLAYER
+            Character = 2, // WORLD_UPDATE_TYPE_CHARACTER
         }
 
         [StructLayout(LayoutKind.Sequential, Pack = 1)]

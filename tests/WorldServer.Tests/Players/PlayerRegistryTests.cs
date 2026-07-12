@@ -101,9 +101,7 @@ namespace FOMServer.World.Tests.Players
         {
             public PlayerRegistryFixture()
             {
-                Loader
-                    .Setup(l => l.Load(It.IsAny<uint>()))
-                    .Returns<uint>(id => TestPlayerBuilder.Create(id).Build());
+                Loader.Setup(l => l.Load(It.IsAny<uint>())).Returns<uint>(id => TestPlayerBuilder.Create(id).Build());
 
                 RegistrationFactory
                     .Setup(f => f.Create(It.IsAny<Player>()))

@@ -308,13 +308,6 @@ dotnet_analyzer_diagnostic.category-StyleCop.CSharp.SpacingRules.severity = none
 dotnet_diagnostic.SA0001.severity = none  # XML comment analysis notice (not enforcing docs)
 dotnet_diagnostic.SA1201.severity = error # Members ordered by kind (fields, ctors, properties, methods)
 dotnet_diagnostic.SA1202.severity = error # Members ordered by accessibility (public before private)
-dotnet_diagnostic.SA1505.severity = error # No blank line after an opening brace
-dotnet_diagnostic.SA1507.severity = error  # No multiple consecutive blank lines
-dotnet_diagnostic.SA1508.severity = error # No blank line before a closing brace
-dotnet_diagnostic.SA1515.severity = error # Single-line comment must be preceded by a blank line
-dotnet_diagnostic.SA1516.severity = error # Members separated by a blank line
-dotnet_diagnostic.SA1517.severity = error # No blank lines at the start of a file
-dotnet_diagnostic.SA1518.severity = error  # No blank lines at end of file
 
 # Dapper DTO exceptions
 [*Dto.cs]

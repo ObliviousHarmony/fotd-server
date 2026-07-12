@@ -12,9 +12,7 @@ namespace FOMServer.World.Application.Handlers
         private readonly IPlayerRegistry _playerRegistry;
         private readonly ILogger<ConnectionLostHandler> _logger;
 
-        public ConnectionLostHandler(
-            IPlayerRegistry playerRegistry,
-            ILogger<ConnectionLostHandler> logger)
+        public ConnectionLostHandler(IPlayerRegistry playerRegistry, ILogger<ConnectionLostHandler> logger)
         {
             _playerRegistry = playerRegistry;
             _logger = logger;

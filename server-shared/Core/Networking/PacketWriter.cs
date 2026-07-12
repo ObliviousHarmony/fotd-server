@@ -9,7 +9,8 @@ using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.Shared.Core.Networking
 {
-    public ref struct PacketWriter<TPacket> : IDisposable where TPacket : unmanaged
+    public ref struct PacketWriter<TPacket> : IDisposable
+        where TPacket : unmanaged
     {
         private readonly bool _initialized;
         private int _addressCount;
@@ -114,7 +115,9 @@ namespace FOMServer.Shared.Core.Networking
 
             if (_addressCount >= QueuePacket.MaxNetworkAddressesPerPacket)
             {
-                throw new InvalidOperationException($"Cannot add more than {QueuePacket.MaxNetworkAddressesPerPacket} destinations");
+                throw new InvalidOperationException(
+                    $"Cannot add more than {QueuePacket.MaxNetworkAddressesPerPacket} destinations"
+                );
             }
 
             // Just keep adding addresses if we have already added more than one.
@@ -175,9 +178,10 @@ namespace FOMServer.Shared.Core.Networking
 
             // Custom bucket jumps to skip intermediate sizes we don't use.
             // After 512, fall back to standard doubling.
-            var newSize = _addressCount < 128 ? 128
-                        : _addressCount < 512 ? 512
-                        : _addressCount * 2;
+            var newSize =
+                _addressCount < 128 ? 128
+                : _addressCount < 512 ? 512
+                : _addressCount * 2;
 
             var newArray = ArrayPool<NetworkAddress>.Shared.Rent(newSize);
             _networkAddresses.AsSpan(0, _addressCount).CopyTo(newArray);

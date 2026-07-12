@@ -75,15 +75,18 @@ namespace FOMServer.Shared.Core.Buffers
 
         private static readonly Counter<long> s_allocations = s_meter.CreateCounter<long>(
             "fomserver.pinned_pool.allocations",
-            description: "Pinned buffers allocated because the bucket was empty (a cache miss). Sustained nonzero values for a bucket mean its retention cap is too small for the working set.");
+            description: "Pinned buffers allocated because the bucket was empty (a cache miss). Sustained nonzero values for a bucket mean its retention cap is too small for the working set."
+        );
 
         private static readonly Counter<long> s_drops = s_meter.CreateCounter<long>(
             "fomserver.pinned_pool.drops",
-            description: "Returned buffers dropped because the bucket was full. Pairs with allocations to confirm a bucket is thrashing.");
+            description: "Returned buffers dropped because the bucket was full. Pairs with allocations to confirm a bucket is thrashing."
+        );
 
         private static readonly Counter<long> s_fallbackAllocations = s_meter.CreateCounter<long>(
             "fomserver.pinned_pool.fallback_allocations",
-            description: "Uncached pinned allocations for rents larger than the largest bucket. Should stay at zero; a nonzero value means a packet outgrew MaximumBufferLength.");
+            description: "Uncached pinned allocations for rents larger than the largest bucket. Should stay at zero; a nonzero value means a packet outgrew MaximumBufferLength."
+        );
 
         private readonly Bucket[] _buckets;
 

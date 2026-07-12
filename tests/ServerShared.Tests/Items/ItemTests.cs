@@ -68,7 +68,8 @@ namespace FOMServer.Shared.Tests.Items
             ushort value = 100,
             ushort durability = 100,
             ushort maxDurability = 100,
-            byte durabilityLossFactor = 100)
+            byte durabilityLossFactor = 100
+        )
         {
             return new Item(
                 1,

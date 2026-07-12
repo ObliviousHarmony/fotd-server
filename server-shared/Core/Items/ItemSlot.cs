@@ -9,7 +9,8 @@ namespace FOMServer.Shared.Core.Items
     {
         protected Item? _item;
 
-        public ItemSlot(IItemLocation location, ItemSlotType slotType, Item? item) : base(location, slotType)
+        public ItemSlot(IItemLocation location, ItemSlotType slotType, Item? item)
+            : base(location, slotType)
         {
             if (item is not null)
             {
@@ -64,7 +65,10 @@ namespace FOMServer.Shared.Core.Items
             return _item is null;
         }
 
-        protected override bool CanInsertCore(IReadOnlyCollection<uint> idsToInsert, IReadOnlyCollection<uint> idsToExtract)
+        protected override bool CanInsertCore(
+            IReadOnlyCollection<uint> idsToInsert,
+            IReadOnlyCollection<uint> idsToExtract
+        )
         {
             if (idsToInsert.Count == 0)
             {

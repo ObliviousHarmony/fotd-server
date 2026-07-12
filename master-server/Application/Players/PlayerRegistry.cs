@@ -42,9 +42,7 @@ namespace FOMServer.Master.Application.Players
 
         public void Logout(Player player)
         {
-            _persistenceService.WaitForPersistence(
-                player,
-                () => _players.TryRemove(new(player.Id, player)));
+            _persistenceService.WaitForPersistence(player, () => _players.TryRemove(new(player.Id, player)));
         }
     }
 }

@@ -13,11 +13,7 @@ namespace FOMServer.World.Core.Players
 
         private PacketWorldUpdate.CharacterUpdate _currentUpdate;
 
-        public Player(
-            uint id,
-            uint[] attributes,
-            IDictionary<uint, Item> inventory,
-            ReadOnlySpan<ItemType> quickslots)
+        public Player(uint id, uint[] attributes, IDictionary<uint, Item> inventory, ReadOnlySpan<ItemType> quickslots)
         {
             Id = id;
             _currentUpdate.Id = id;

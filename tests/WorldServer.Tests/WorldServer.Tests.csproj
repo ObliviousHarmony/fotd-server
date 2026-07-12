@@ -27,5 +27,4 @@
   <ItemGroup>
     <ProjectReference Include="..\..\world-server\WorldServer.csproj" />
   </ItemGroup>
-
 </Project>

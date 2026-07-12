@@ -20,7 +20,8 @@ namespace FOMServer.World.Application.Handlers
         public RegisterClientHandler(
             IPlayerRegistry playerRegistry,
             IClientPacketSender clientPacketSender,
-            ILogger<RegisterClientHandler> logger)
+            ILogger<RegisterClientHandler> logger
+        )
         {
             _playerRegistry = playerRegistry;
             _clientPacketSender = clientPacketSender;
@@ -32,7 +33,11 @@ namespace FOMServer.World.Application.Handlers
             var player = _playerRegistry.ClaimForClient(p.PlayerId, sender);
             if (player is null)
             {
-                _logger.LogWarning("Client '{Sender}' attempted to register unexpected player {PlayerId}", sender, p.PlayerId);
+                _logger.LogWarning(
+                    "Client '{Sender}' attempted to register unexpected player {PlayerId}",
+                    sender,
+                    p.PlayerId
+                );
                 return;
             }
 

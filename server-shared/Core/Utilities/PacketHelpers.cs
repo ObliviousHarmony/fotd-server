@@ -58,7 +58,8 @@ namespace FOMServer.Shared.Core.Utilities
             Debug.Assert(
                 MaxPacketSize <= PinnedArrayPool.MaximumBufferLength,
                 $"Largest packet ({MaxPacketSize} bytes) exceeds the pinned pool's largest bucket "
-                    + $"({PinnedArrayPool.MaximumBufferLength} bytes).");
+                    + $"({PinnedArrayPool.MaximumBufferLength} bytes)."
+            );
         }
 
         /// <summary>
@@ -66,11 +67,7 @@ namespace FOMServer.Shared.Core.Utilities
         /// </summary>
         public static PacketStructure[] GetPacketStructures()
         {
-            return [.. s_packetSizes.Select(kv => new PacketStructure
-            {
-                Id = kv.Key,
-                Size = kv.Value
-            })];
+            return [.. s_packetSizes.Select(kv => new PacketStructure { Id = kv.Key, Size = kv.Value })];
         }
 
         /// <summary>
@@ -78,13 +75,16 @@ namespace FOMServer.Shared.Core.Utilities
         /// </summary>
         public static int GetPacketSize(PacketIdentifier id)
         {
-            return !s_packetSizes.TryGetValue(id, out var size) ? throw new ArgumentException($"No size found for Id '{id}'", nameof(id)) : size;
+            return !s_packetSizes.TryGetValue(id, out var size)
+                ? throw new ArgumentException($"No size found for Id '{id}'", nameof(id))
+                : size;
         }
 
         /// <summary>
         /// Returns the size of the given packet struct.
         /// </summary>
-        public static int GetPacketSize<TPacket>() where TPacket : unmanaged
+        public static int GetPacketSize<TPacket>()
+            where TPacket : unmanaged
         {
             var type = typeof(TPacket);
             return !s_idByPacketType.TryGetValue(type, out var id)
@@ -95,7 +95,8 @@ namespace FOMServer.Shared.Core.Utilities
         /// <summary>
         /// Returns the packet Id of the given packet type
         /// </summary>
-        public static PacketIdentifier GetPacketTypeId<TPacket>() where TPacket : unmanaged
+        public static PacketIdentifier GetPacketTypeId<TPacket>()
+            where TPacket : unmanaged
         {
             var type = typeof(TPacket);
             return !s_idByPacketType.TryGetValue(type, out var expectedId)
@@ -106,7 +107,8 @@ namespace FOMServer.Shared.Core.Utilities
         /// <summary>
         /// Checks to see if a given packet type matches what the Id expects.
         /// </summary>
-        public static bool IsPacketOfType<TPacket>(PacketIdentifier id) where TPacket : unmanaged
+        public static bool IsPacketOfType<TPacket>(PacketIdentifier id)
+            where TPacket : unmanaged
         {
             var type = typeof(TPacket);
             return !s_idByPacketType.TryGetValue(type, out var expectedId)

@@ -20,7 +20,10 @@
     <ProjectReference Include="..\server-shared\ServerShared.csproj" />
     <PackageReference Include="FluentMigrator.Runner.MySql" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="10.0.2" />
+    <PackageReference
+      Include="Microsoft.Extensions.Configuration.EnvironmentVariables"
+      Version="10.0.2"
+    />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.2" />
   </ItemGroup>
@@ -36,7 +39,10 @@
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="appsettings.development.json" Condition="Exists('appsettings.development.json')">
+    <Content
+      Include="appsettings.development.json"
+      Condition="Exists('appsettings.development.json')"
+    >
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

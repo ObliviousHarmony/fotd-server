@@ -18,7 +18,8 @@ namespace FOMServer.World.Application.Handlers
         public PlayerLeavingWorldHandler(
             IPlayerRegistry playerRegistry,
             IMasterPacketSender masterPacketSender,
-            ILogger<PlayerLeavingWorldHandler> logger)
+            ILogger<PlayerLeavingWorldHandler> logger
+        )
         {
             _playerRegistry = playerRegistry;
             _masterPacketSender = masterPacketSender;

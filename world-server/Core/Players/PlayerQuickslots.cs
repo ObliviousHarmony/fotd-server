@@ -19,7 +19,10 @@ namespace FOMServer.World.Core.Players
 
             if (quickslots.Length != PlayerConstants.NumQuickslots)
             {
-                throw new ArgumentException($"There must be exactly {PlayerConstants.NumQuickslots} quickslots", nameof(quickslots));
+                throw new ArgumentException(
+                    $"There must be exactly {PlayerConstants.NumQuickslots} quickslots",
+                    nameof(quickslots)
+                );
             }
 
             _quickslots = [.. quickslots];
@@ -48,7 +51,10 @@ namespace FOMServer.World.Core.Players
                 var fromQuickslot = fromSlot - ItemSlotType.QuickslotStart;
                 if (toSlot is >= ItemSlotType.QuickslotStart and < ItemSlotType.QuickslotEnd)
                 {
-                    (_quickslots[fromQuickslot], _quickslots[toQuickslot]) = (_quickslots[toQuickslot], _quickslots[fromQuickslot]);
+                    (_quickslots[fromQuickslot], _quickslots[toQuickslot]) = (
+                        _quickslots[toQuickslot],
+                        _quickslots[fromQuickslot]
+                    );
                     PersistableChange?.Invoke(this, _player);
                     return true;
                 }

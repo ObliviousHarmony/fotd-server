@@ -18,7 +18,8 @@ namespace FOMServer.Shared.Extensions
             this IServiceCollection services,
             IShutdownManager shutdownManager,
             bool writeToConsole = true,
-            string? logFilePath = null)
+            string? logFilePath = null
+        )
         {
             var provider = new BackgroundLoggerProvider(shutdownManager, writeToConsole, logFilePath);
             services.AddLogging(lb => lb.ClearProviders().AddProvider(provider));
@@ -72,10 +73,7 @@ namespace FOMServer.Shared.Extensions
             // Dynamically register all packet handlers found in
             // the ServerShared and Application assemblies.
             var handlerInterface = typeof(IPacketHandler);
-            var assemblies = new[] {
-                Assembly.GetEntryAssembly(),
-                handlerInterface.Assembly,
-            };
+            var assemblies = new[] { Assembly.GetEntryAssembly(), handlerInterface.Assembly };
 
             var handlerTypes = assemblies
                 .SelectMany(a => a!.GetTypes())

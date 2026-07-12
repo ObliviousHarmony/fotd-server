@@ -24,7 +24,11 @@ namespace FOMServer.Shared.Application.Networking
 
         private CancellationTokenSource? _cts;
 
-        public PacketProcessor(IShutdownManager shutdownManager, ILogger<PacketProcessor> logger, IEnumerable<IPacketHandler> handlers)
+        public PacketProcessor(
+            IShutdownManager shutdownManager,
+            ILogger<PacketProcessor> logger,
+            IEnumerable<IPacketHandler> handlers
+        )
         {
             _shutdownManager = shutdownManager;
             _logger = logger;
@@ -43,7 +47,9 @@ namespace FOMServer.Shared.Application.Networking
                 var baseType = handlerType.BaseType;
                 if (baseType is null || !baseType.IsGenericType)
                 {
-                    throw new InvalidOperationException($"Handler {handlerType.Name} does not derive from BasePacketHandler<T>");
+                    throw new InvalidOperationException(
+                        $"Handler {handlerType.Name} does not derive from BasePacketHandler<T>"
+                    );
                 }
 
                 var packetType = baseType.GetGenericArguments()[0];
@@ -78,12 +84,14 @@ namespace FOMServer.Shared.Application.Networking
             {
                 // Use a dedicated thread for each worker because new packets
                 // will consistently be arriving and needing to be handled.
-                var task = Task.Factory.StartNew(
-                    async () => await WorkerLoopAsync(_cts.Token),
-                    _cts.Token,
-                    TaskCreationOptions.LongRunning,
-                    TaskScheduler.Default
-                ).Unwrap();
+                var task = Task
+                    .Factory.StartNew(
+                        async () => await WorkerLoopAsync(_cts.Token),
+                        _cts.Token,
+                        TaskCreationOptions.LongRunning,
+                        TaskScheduler.Default
+                    )
+                    .Unwrap();
 
                 _workers.Add(task);
             }
@@ -127,9 +135,7 @@ namespace FOMServer.Shared.Application.Networking
                     }
                 }
             }
-            catch (OperationCanceledException)
-            {
-            }
+            catch (OperationCanceledException) { }
 
             // We intentionally do not drain the queue here because it
             // might cause race conditions with other threads that

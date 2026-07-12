@@ -13,7 +13,8 @@ namespace FOMServer.Shared.Core.Items
         private readonly Dictionary<uint, Item> _items = [];
         private readonly Dictionary<ItemType, Dictionary<uint, Item>> _itemsByType = [];
 
-        public ItemBag(IItemLocation location, IDictionary<uint, Item> items) : base(location, ItemSlotType.None)
+        public ItemBag(IItemLocation location, IDictionary<uint, Item> items)
+            : base(location, ItemSlotType.None)
         {
             _maxSpace = 100;
             _reservedSpace = 0;
@@ -74,7 +75,10 @@ namespace FOMServer.Shared.Core.Items
             return true;
         }
 
-        protected override bool CanInsertCore(IReadOnlyCollection<uint> idsToInsert, IReadOnlyCollection<uint> idsToExtract)
+        protected override bool CanInsertCore(
+            IReadOnlyCollection<uint> idsToInsert,
+            IReadOnlyCollection<uint> idsToExtract
+        )
         {
             // Bags don't support item displacement during transfer.
             if (idsToExtract.Count != 0)

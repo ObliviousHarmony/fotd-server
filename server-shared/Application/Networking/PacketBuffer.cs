@@ -16,11 +16,10 @@ namespace FOMServer.Shared.Application.Networking
     internal class PacketBuffer
     {
         private static readonly Meter s_meter = new("FOMServer.Networking.PacketBuffer");
-        private static readonly ObservableGauge<int> s_buffersInUse =
-            s_meter.CreateObservableGauge(
-                "fomserver.packet_buffers_in_use",
-                () => new Measurement<int>(Volatile.Read(in s_activeBufferCount))
-            );
+        private static readonly ObservableGauge<int> s_buffersInUse = s_meter.CreateObservableGauge(
+            "fomserver.packet_buffers_in_use",
+            () => new Measurement<int>(Volatile.Read(in s_activeBufferCount))
+        );
 
         private static int s_activeBufferCount;
 
@@ -113,7 +112,8 @@ namespace FOMServer.Shared.Application.Networking
         /// </summary>
         public bool IsPacketDisposed(ref readonly PacketRef packet)
         {
-            return Volatile.Read(in _bufferVersion) != packet.BufferVersion || Volatile.Read(in _packetRefDisposalFlags[packet.RefIndex]) != 0;
+            return Volatile.Read(in _bufferVersion) != packet.BufferVersion
+                || Volatile.Read(in _packetRefDisposalFlags[packet.RefIndex]) != 0;
         }
 
         /// <summary>

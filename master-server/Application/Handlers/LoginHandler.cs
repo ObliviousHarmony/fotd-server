@@ -26,7 +26,8 @@ namespace FOMServer.Master.Application.Handlers
             IClientRegistry clientRegistry,
             IPlayerRegistry playerRegistry,
             IClientPacketSender clientPacketSender,
-            ILogger<LoginHandler> logger)
+            ILogger<LoginHandler> logger
+        )
         {
             _accountRepository = accountRepository;
             _playerRepository = playerRepository;

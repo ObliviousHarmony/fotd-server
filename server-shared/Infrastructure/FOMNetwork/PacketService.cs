@@ -90,12 +90,21 @@ namespace FOMServer.Shared.Services.FOMNetwork
         private static partial ReceivedPackets FOMNetwork_ReceivePackets(IntPtr peer);
 
         [LibraryImport("FOMNetwork")]
-        private static unsafe partial int FOMNetwork_ProcessPackets(IntPtr peer, ReceivedPackets received, byte* packetBuffer, int packetBufferLen);
+        private static unsafe partial int FOMNetwork_ProcessPackets(
+            IntPtr peer,
+            ReceivedPackets received,
+            byte* packetBuffer,
+            int packetBufferLen
+        );
 
         [LibraryImport("FOMNetwork")]
         private static unsafe partial int FOMNetwork_Send(IntPtr peer, SendPacket* packets, int count);
 
         [LibraryImport("FOMNetwork")]
-        private static unsafe partial int FOMNetwork_CloseConnection(IntPtr peer, NetworkAddress address, byte sendDisconnectionNotification);
+        private static unsafe partial int FOMNetwork_CloseConnection(
+            IntPtr peer,
+            NetworkAddress address,
+            byte sendDisconnectionNotification
+        );
     }
 }

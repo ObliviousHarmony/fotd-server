@@ -21,10 +21,7 @@ namespace FOMServer.World.Tests.Players
         public void Constructor_WithoutInitialValues_UsesDefaults()
         {
             var attrs = CreateAttributes();
-            Assert.Equal(
-                PlayerAttributes.GetMetadata(AttributeType.Health).Default,
-                attrs.Get(AttributeType.Health)
-            );
+            Assert.Equal(PlayerAttributes.GetMetadata(AttributeType.Health).Default, attrs.Get(AttributeType.Health));
         }
 
         [Fact]
@@ -33,7 +30,7 @@ namespace FOMServer.World.Tests.Players
             var initial = new Dictionary<AttributeType, uint>
             {
                 [AttributeType.Health] = 500,
-                [AttributeType.Agility] = 300
+                [AttributeType.Agility] = 300,
             };
 
             var attrs = CreateAttributes(initial);
@@ -45,10 +42,7 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void Constructor_WithInitialValues_ThrowsWhenOver()
         {
-            var initial = new Dictionary<AttributeType, uint>
-            {
-                [AttributeType.Health] = 9999,
-            };
+            var initial = new Dictionary<AttributeType, uint> { [AttributeType.Health] = 9999 };
 
             Assert.Throws<ArgumentException>(() => CreateAttributes(initial));
         }
@@ -56,10 +50,7 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void Change_PositiveDelta()
         {
-            var initial = new Dictionary<AttributeType, uint>
-            {
-                [AttributeType.Health] = 500,
-            };
+            var initial = new Dictionary<AttributeType, uint> { [AttributeType.Health] = 500 };
 
             var attrs = CreateAttributes(initial);
             var result = attrs.Change(AttributeType.Health, 200);
@@ -71,10 +62,7 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void Change_NegativeDelta()
         {
-            var initial = new Dictionary<AttributeType, uint>
-            {
-                [AttributeType.Health] = 500,
-            };
+            var initial = new Dictionary<AttributeType, uint> { [AttributeType.Health] = 500 };
 
             var attrs = CreateAttributes(initial);
             var result = attrs.Change(AttributeType.Health, -200);
@@ -85,10 +73,7 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void Change_ClampsAtZero()
         {
-            var initial = new Dictionary<AttributeType, uint>
-            {
-                [AttributeType.Health] = 100,
-            };
+            var initial = new Dictionary<AttributeType, uint> { [AttributeType.Health] = 100 };
 
             var attrs = CreateAttributes(initial);
             var result = attrs.Change(AttributeType.Health, -500);
@@ -99,10 +84,7 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void Change_ClampsAtMax()
         {
-            var initial = new Dictionary<AttributeType, uint>
-            {
-                [AttributeType.Health] = 900,
-            };
+            var initial = new Dictionary<AttributeType, uint> { [AttributeType.Health] = 900 };
 
             var attrs = CreateAttributes(initial);
             var result = attrs.Change(AttributeType.Health, 500);
@@ -116,8 +98,7 @@ namespace FOMServer.World.Tests.Players
         {
             var attrs = CreateAttributes();
 
-            Assert.Throws<InvalidOperationException>(
-                () => attrs.Change(AttributeType.Coins, 100));
+            Assert.Throws<InvalidOperationException>(() => attrs.Change(AttributeType.Coins, 100));
         }
 
         [Fact]
@@ -147,10 +128,7 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void Lock_GetReturnsCurrentValue()
         {
-            var initial = new Dictionary<AttributeType, uint>
-            {
-                [AttributeType.UniversalCredits] = 1000,
-            };
+            var initial = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 1000 };
 
             var attrs = CreateAttributes(initial);
 
@@ -201,10 +179,7 @@ namespace FOMServer.World.Tests.Players
         [Fact]
         public void Lock_ChangeUpdatesValue()
         {
-            var initial = new Dictionary<AttributeType, uint>
-            {
-                [AttributeType.UniversalCredits] = 1000,
-            };
+            var initial = new Dictionary<AttributeType, uint> { [AttributeType.UniversalCredits] = 1000 };
 
             var attrs = CreateAttributes(initial);
 
@@ -281,8 +256,7 @@ namespace FOMServer.World.Tests.Players
 
             using var locked = attrs.Lock(AttributeType.Coins);
 
-            Assert.Throws<AttributeDeadlockException>(
-                () => attrs.Lock(AttributeType.Coins));
+            Assert.Throws<AttributeDeadlockException>(() => attrs.Lock(AttributeType.Coins));
         }
 
         private static PlayerAttributes CreateAttributes(Dictionary<AttributeType, uint>? values = null)

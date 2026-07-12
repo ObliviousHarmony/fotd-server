@@ -31,7 +31,8 @@ namespace FOMServer.World.Application
             INetworkService networkService,
             IServerService serverService,
             IClientService clientService,
-            IServiceProvider serviceProvider)
+            IServiceProvider serviceProvider
+        )
         {
             _logger = logger;
             _shutdownManager = shutdownManager;
@@ -143,15 +144,14 @@ namespace FOMServer.World.Application
                 rpData.WorldIds[i] = _serverSettings.WorldIds[i];
             }
 
-            rpData.PublicAddress = new NetworkAddress
-            {
-                Address = _serverSettings.ClientIp!,
-                Port = _clientPort
-            };
+            rpData.PublicAddress = new NetworkAddress { Address = _serverSettings.ClientIp!, Port = _clientPort };
 
             packetSender.Send(registerPacket.Build());
 
-            _logger.LogInformation("Registered with the master server at {MasterServerHost}", _serverSettings.MasterServerHost);
+            _logger.LogInformation(
+                "Registered with the master server at {MasterServerHost}",
+                _serverSettings.MasterServerHost
+            );
 
             return networkManager;
         }

@@ -19,6 +19,6 @@ namespace FOMServer.Shared.Core.Enums
 
         TransportBuyback = 17, // ITEM_CONTAINER_TRANSPORT_BUYBACK
 
-        NUM_ITEM_CONTAINERS = 18
+        NUM_ITEM_CONTAINERS = 18,
     }
 }

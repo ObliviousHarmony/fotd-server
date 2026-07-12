@@ -18,7 +18,8 @@ namespace FOMServer.World.Application.Handlers
         public UpdateHandler(
             IPlayerRegistry playerRegistry,
             IPlayerUpdateTick playerUpdateService,
-            ILogger<UpdateHandler> logger)
+            ILogger<UpdateHandler> logger
+        )
         {
             _playerRegistry = playerRegistry;
             _playerUpdateService = playerUpdateService;
@@ -36,7 +37,11 @@ namespace FOMServer.World.Application.Handlers
 
             if (p.WorldUpdate.Kind != WorldUpdateData.Type.Player)
             {
-                _logger.LogWarning("Unexpected update of type {updateKind} from player {PlayerId}", p.WorldUpdate.Kind, player.Id);
+                _logger.LogWarning(
+                    "Unexpected update of type {updateKind} from player {PlayerId}",
+                    p.WorldUpdate.Kind,
+                    player.Id
+                );
                 return;
             }
 
