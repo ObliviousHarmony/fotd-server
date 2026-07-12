@@ -1,6 +1,6 @@
-using FOMServer.Shared.Application.Ticking;
+using FOMServer.Shared.Application.Ticks;
 using FOMServer.Shared.Core;
-using FOMServer.Shared.Core.Ticking;
+using FOMServer.Shared.Core.Ticks;
 
 namespace FOMServer.Shared.Tests
 {

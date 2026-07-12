@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
@@ -42,28 +43,9 @@ namespace FOMServer.World.Application.Handlers
             rData.PlayerId = p.PlayerId;
             rData.Status = RegisterClientReturn.StatusCode.Success;
 
-            // Placeholder world-entry state; real values are sourced from the loaded Player
-            // once DB-backed attribute/inventory loading lands (out of scope here).
-            rData.Avatar.Face = 5;
-            rData.Avatar.Hair = 2;
-            rData.Avatar.Shirt = 0;
-            rData.Avatar.Bottoms = 0;
-            rData.Avatar.Shoes = 0;
-
-            unsafe
-            {
-                rData.Attributes.Values[(int)AttributeType.Health] = 1000;
-                rData.Attributes.Values[(int)AttributeType.Stamina] = 10000;
-                rData.Attributes.Values[(int)AttributeType.MaxStamina] = 10000;
-                rData.Attributes.Values[(int)AttributeType.StaminaRegeneration] = 600;
-                rData.Attributes.Values[(int)AttributeType.JumpVelocityMultiplier] = 2000;
-                rData.Attributes.Values[(int)AttributeType.Aura] = 1000;
-                rData.Attributes.Values[(int)AttributeType.Agility] = 1200;
-                rData.Attributes.Values[(int)AttributeType.SprintSpeedMultiplier] = 4000;
-            }
-
-            rData.Profile.PlayerName = "Naruto Uzumaki";
             rData.NodeId = 1;
+
+            player.WriteTo(ref rData);
 
             _clientPacketSender.Send(response.Build());
         }

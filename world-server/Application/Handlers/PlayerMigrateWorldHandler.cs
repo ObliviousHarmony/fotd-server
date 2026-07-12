@@ -29,7 +29,7 @@ namespace FOMServer.World.Application.Handlers
         {
             _playerRegistry.PrepareForClient(p.PlayerId, p.ClientBinaryAddress);
 
-            using var response = new PacketWriter<PlayerWorldReady>();
+            using var response = new PacketWriter<PlayerWorldReady>(sender);
             ref var rData = ref response.Data;
 
             rData.PlayerId = p.PlayerId;

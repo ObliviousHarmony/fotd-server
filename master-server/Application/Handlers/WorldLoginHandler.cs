@@ -47,7 +47,7 @@ namespace FOMServer.Master.Application.Handlers
 
             if (session.PlayerId != p.PlayerId)
             {
-                _logger.LogWarning("Player {PlayerId} attempted world login on session belonging to {SessionPlayerId}", p.PlayerId, session.PlayerId);
+                _logger.LogWarning("Inventory {PlayerId} attempted world login on session belonging to {SessionPlayerId}", p.PlayerId, session.PlayerId);
                 SendLoginError(sender, p.WorldId, WorldLoginReturn.StatusCode.UnknownError);
                 return;
             }

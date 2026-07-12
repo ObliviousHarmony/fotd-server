@@ -36,6 +36,7 @@ set(FOMNETWORK_SRC
   "src/packets/UpdateSerializer.cpp"
   "src/packets/WorldUpdateSerializer.cpp"
   "src/packets/ChatSerializer.cpp"
+  "src/packets/MoveItemsSerializer.cpp"
 )
 set(FOMNETWORK_INC
   # Core API
@@ -56,7 +57,8 @@ set(FOMNETWORK_INC
   "include/fom-network/enums/WorldId.h"
   "include/fom-network/enums/Avatar.h"
   "include/fom-network/enums/ItemType.h"
-  "include/fom-network/enums/ItemSlot.h"
+  "include/fom-network/enums/ItemSlotType.h"
+  "include/fom-network/enums/ItemContainerType.h"
   "include/fom-network/enums/ItemSecurity.h"
   "include/fom-network/enums/ItemQuality.h"
   "include/fom-network/enums/ApartmentType.h"
@@ -136,6 +138,7 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/Update.h"
   "include/fom-network/packets/WorldUpdate.h"
   "include/fom-network/packets/Chat.h"
+  "include/fom-network/packets/MoveItems.h"
 )
 set(FOMNETWORK_TEST
     "tests/FOMDataSerializer_test.cpp"

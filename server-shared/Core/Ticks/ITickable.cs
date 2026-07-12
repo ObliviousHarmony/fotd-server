@@ -1,4 +1,4 @@
-namespace FOMServer.Shared.Core.Ticking
+namespace FOMServer.Shared.Core.Ticks
 {
     /// <summary>
     /// A unit of background work that the tick service runs periodically on the shared tick loop.

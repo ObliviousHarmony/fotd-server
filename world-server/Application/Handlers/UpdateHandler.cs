@@ -3,6 +3,7 @@ using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Metadata;
 using FOMServer.World.Core.Players;
+using FOMServer.World.Core.Tick;
 using WorldUpdateData = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
 
 namespace FOMServer.World.Application.Handlers
@@ -11,12 +12,12 @@ namespace FOMServer.World.Application.Handlers
     internal class UpdateHandler : PacketHandlerBase<Update>
     {
         private readonly IPlayerRegistry _playerRegistry;
-        private readonly IPlayerUpdateService _playerUpdateService;
+        private readonly IPlayerUpdateTick _playerUpdateService;
         private readonly ILogger<UpdateHandler> _logger;
 
         public UpdateHandler(
             IPlayerRegistry playerRegistry,
-            IPlayerUpdateService playerUpdateService,
+            IPlayerUpdateTick playerUpdateService,
             ILogger<UpdateHandler> logger)
         {
             _playerRegistry = playerRegistry;

@@ -19,9 +19,10 @@ namespace FOMServer.Shared.Core.Packets
         public ItemList Inventory;
         public EquipmentArray Equipment;
         public WeaponsArray Weapons;
-        public UnknownSlotsArray UnknownSlots;
+        public ActiveConsumablesArray ActiveConsumables;
+        public NanomachineAugmentationsArray NanomachineAugmentations;
         public ItemList Storage;
-        public fixed ushort QuickSlots[PlayerConstants.NumQuickSlots];
+        public QuickSlotsArray Quickslots;
         public Avatar Avatar;
         public PlayerAttributes Attributes;
         public PlayerProfile Profile;
@@ -60,7 +61,7 @@ namespace FOMServer.Shared.Core.Packets
             }
         }
 
-        [InlineArray((int)ItemSlot.EquipmentEnd - (int)ItemSlot.EquipmentStart)]
+        [InlineArray(PlayerConstants.NumEquipmentSlots)]
         public struct EquipmentArray
         {
             private Item _element;
@@ -72,10 +73,22 @@ namespace FOMServer.Shared.Core.Packets
             private Item _element;
         }
 
-        [InlineArray(PlayerConstants.NumUnknownItemSlots)]
-        public struct UnknownSlotsArray
+        [InlineArray(PlayerConstants.NumActiveConsumableSlots)]
+        public struct ActiveConsumablesArray
         {
             private Item _element;
+        }
+
+        [InlineArray(PlayerConstants.NumNanomachineAugmentationSlots)]
+        public struct NanomachineAugmentationsArray
+        {
+            private Item _element;
+        }
+
+        [InlineArray(PlayerConstants.NumQuickslots)]
+        public struct QuickSlotsArray
+        {
+            private ItemType _element;
         }
 
         [InlineArray(MaxAvatarCache)]

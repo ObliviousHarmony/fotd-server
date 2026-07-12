@@ -1,7 +1,7 @@
 using FOMServer.Shared.Core;
-using FOMServer.Shared.Core.Ticking;
+using FOMServer.Shared.Core.Ticks;
 
-namespace FOMServer.Shared.Application.Ticking
+namespace FOMServer.Shared.Application.Ticks
 {
     /// <summary>
     /// Drives every registered <see cref="ITickable"/> from a single shared loop. The loop wakes

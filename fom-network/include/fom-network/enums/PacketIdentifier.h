@@ -58,7 +58,7 @@ enum PacketIdentifier : uint8_t {
   // ID_WEAPONFIRE = 135,
   // ID_ITEM_REMOVED = 136,
   // ID_EXPLOSIVE = 137,
-  // ID_MOVE_ITEMS = 138,
+  ID_MOVE_ITEMS = 138,
   // ID_CHECK_MAIL = 139,
   // ID_MAIL = 140,
   // ID_CHARACTER_UPDATE = 141,

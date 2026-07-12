@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 
 namespace FOMServer.Shared.Core.Packets.Types
@@ -18,6 +19,6 @@ namespace FOMServer.Shared.Core.Packets.Types
         public byte Classification;
         public ItemQuality Quality;
         public byte AttributeBonus;
-        public fixed byte BalanceValues[4];
+        public fixed byte BalanceValues[BufferSizes.NumItemBalanceSliders];
     }
 }

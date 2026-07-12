@@ -1,27 +1,29 @@
 using System.Collections.Concurrent;
-using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Core.Persistence;
+using FOMServer.World.Application.Players.Registration;
 using FOMServer.World.Core.Players;
+using FOMServer.World.Core.Players.Registration;
+using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.World.Application.Players
 {
     internal class PlayerRegistry : IPlayerRegistry
     {
-        private readonly IPersistenceService _persistenceService;
+        private readonly IPlayerLoader _playerLoader;
+        private readonly IPlayerRegistrationFactory _playerRegistrationFactory;
         private readonly TimeProvider _timeProvider;
-        private readonly IPlayerUpdateService _playerUpdateService;
+        private readonly IPersistenceService _persistenceService;
         private readonly ConcurrentDictionary<uint, Player> _players = new();
         private readonly ConcurrentDictionary<NetworkAddress, Player> _playersByAddress = new();
+        private readonly ConcurrentDictionary<uint, IPlayerRegistration> _playerRegistrations = new();
         private readonly ConcurrentDictionary<uint, PendingPlayer> _pendingPlayers = new();
 
-        public PlayerRegistry(
-            IPersistenceService persistenceService,
-            TimeProvider timeProvider,
-            IPlayerUpdateService playerUpdateService)
+        public PlayerRegistry(IPlayerLoader playerLoader, IPlayerRegistrationFactory playerRegistrationFactory, TimeProvider timeProvider, IPersistenceService persistenceService)
         {
-            _persistenceService = persistenceService;
+            _playerLoader = playerLoader;
+            _playerRegistrationFactory = playerRegistrationFactory;
             _timeProvider = timeProvider;
-            _playerUpdateService = playerUpdateService;
+            _persistenceService = persistenceService;
         }
 
         public Player? Get(uint playerId)
@@ -41,8 +43,10 @@ namespace FOMServer.World.Application.Players
 
         public Player PrepareForClient(uint playerId, uint clientBinaryAddress)
         {
-            var player = new Player(playerId);
+            var player = _playerLoader.Load(playerId) ?? throw new InvalidOperationException($"Unable to load player {playerId}");
+
             _pendingPlayers[playerId] = new PendingPlayer(player, clientBinaryAddress, _timeProvider.GetUtcNow());
+
             return player;
         }
 
@@ -72,28 +76,33 @@ namespace FOMServer.World.Application.Players
             var player = pending.Player;
             player.ClaimForClient(sender);
 
-            if (!_players.TryAdd(playerId, player))
+            var registration = _playerRegistrationFactory.Create(player);
+            if (!_players.TryAdd(player.Id, player))
             {
+                registration.Unregister();
                 return null;
             }
+            _playersByAddress[player.Address] = player;
+            _playerRegistrations[player.Id] = registration;
 
-            _playersByAddress[sender] = player;
-            _persistenceService.Register(player);
-            _playerUpdateService.RegisterRecipient(player);
             return player;
         }
 
         public void Logout(Player player)
         {
-            _playerUpdateService.UnregisterRecipient(player);
-
             _persistenceService.WaitForPersistence(
                 player,
                 () =>
                 {
+                    if (_playerRegistrations.TryRemove(player.Id, out var registration))
+                    {
+                        registration.Unregister();
+                    }
+
                     _playersByAddress.TryRemove(new(player.Address, player));
                     _players.TryRemove(new(player.Id, player));
-                });
+                }
+            );
         }
 
         private readonly record struct PendingPlayer

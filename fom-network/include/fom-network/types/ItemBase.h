@@ -24,7 +24,7 @@ struct ItemBase {
   uint8_t classification;
   Enum::ItemQuality quality;
   uint8_t attributeBonus;
-  uint8_t balanceValues[4];
+  uint8_t balanceValues[BufferSizes::NUM_ITEM_BALANCE_SLIDERS];
 };
 #pragma pack(pop)
 

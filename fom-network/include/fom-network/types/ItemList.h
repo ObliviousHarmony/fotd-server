@@ -8,6 +8,8 @@ namespace Type {
 
 #pragma pack(push, 1)
 struct ItemList {
+  uint16_t reservedSpace;
+  uint32_t maxSpace;
   uint32_t itemCount;
   Item items[BufferSizes::MAX_ITEM_LIST_SIZE];
 };

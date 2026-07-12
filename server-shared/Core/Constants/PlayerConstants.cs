@@ -1,18 +1,22 @@
+using FOMServer.Shared.Core.Enums;
+
 namespace FOMServer.Shared.Core.Constants
 {
     /// <summary>
-    /// Player-related constants for slot counts and limits.
+    /// Inventory-related constants for slot counts and limits.
     /// </summary>
     public static class PlayerConstants
     {
-        public const int NumWeaponSlots = 3; // NUM_WEAPON_SLOTS
-        public const int NumQuickSlots = 4; // NUM_QUICK_SLOTS
-        public const int NumUnknownItemSlots = 6; // NUM_UNKNOWN_ITEM_SLOTS
+        public const int NumEquipmentSlots = (int)ItemSlotType.NumEquipmentSlots; // NUM_EQUIPMENT_SLOTS
+        public const int NumWeaponSlots = (int)ItemSlotType.NumWeaponSlots; // NUM_WEAPON_SLOTS
+        public const int NumQuickslots = (int)ItemSlotType.NumQuickslots; // NUM_QUICKSLOTS
+        public const int NumActiveConsumableSlots = 3; // NUM_ACTIVE_CONSUMABLE_SLOTS
+        public const int NumNanomachineAugmentationSlots = 3; // NUM_NANOMACHINE_AUGMENTATION_SLOTS
 
         /// <summary>
         /// Default value for each attribute, indexed by type.
         /// </summary>
-        public static readonly int[] AttributeDefaultValues =
+        public static readonly uint[] AttributeDefaultValues =
         [
             1000,          // Health
             0,             // Stamina
@@ -72,7 +76,7 @@ namespace FOMServer.Shared.Core.Constants
         /// <summary>
         /// Maximum value for each attribute, indexed by type.
         /// </summary>
-        public static readonly int[] AttributeMaxValues =
+        public static readonly uint[] AttributeMaxValues =
         [
             1000,          // Health
             10000,         // Stamina

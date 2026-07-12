@@ -43,7 +43,12 @@ namespace FOMServer.Shared.Application.Persistence
 
         public void Register(IPersistable entity)
         {
-            entity.OnPersistableChange += Enqueue;
+            entity.PersistableChange += Enqueue;
+        }
+
+        public void Unregister(IPersistable entity)
+        {
+            entity.PersistableChange -= Enqueue;
         }
 
         public void WaitForPersistence(IPersistable entity, Action callback)
@@ -90,31 +95,24 @@ namespace FOMServer.Shared.Application.Persistence
             _shutdownManager.TrackTask(_persistenceTask);
         }
 
-        private bool Enqueue(
+        private void Enqueue(
             IPersistable entity,
-            IPersistable? association = null,
-            IEnumerable<IPersistable>? additionalAssociations = null)
+            params ReadOnlySpan<IPersistable?> associations)
         {
             var state = _entityStates.GetOrCreateValue(entity);
 
             // Reject enqueue if entity is waiting for persistence
             if (Volatile.Read(in state.IsWaiting) == 1)
             {
-                return false;
+                return;
             }
 
             var version = Volatile.Read(in state.Version);
 
             // Record blocking dependencies on each association
-            if (association is not null)
+            foreach (var assoc in associations)
             {
-                var assocState = _entityStates.GetOrCreateValue(association);
-                assocState.AddBlockingDependency(entity, version);
-            }
-
-            if (additionalAssociations is not null)
-            {
-                foreach (var assoc in additionalAssociations)
+                if (assoc is not null)
                 {
                     var assocState = _entityStates.GetOrCreateValue(assoc);
                     assocState.AddBlockingDependency(entity, version);
@@ -127,7 +125,7 @@ namespace FOMServer.Shared.Application.Persistence
                 _dirtyQueue.Writer.TryWrite(entity);
             }
 
-            return true;
+            return;
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 using FOMServer.Shared.Core.Networking;
-using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
+using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.Shared.Application.Networking
 {
@@ -46,8 +46,16 @@ namespace FOMServer.Shared.Application.Networking
                 throw new InvalidOperationException("Cannot add more packets to the buffer");
             }
 
-            // Stage the addresses into the pinned buffer so native has a stable pointer.
             var addresses = packet.NetworkAddresses;
+
+            // Packets with no specific destination should be sent to all connected clients.
+            var broadcast = false;
+            if (addresses.Length == 1 && addresses[0] == NetworkAddress.Unassigned)
+            {
+                broadcast = true;
+            }
+
+            // Stage the addresses into the pinned buffer so native has a stable pointer.
             for (var i = 0; i < addresses.Length; i++)
             {
                 _networkAddresses[_networkAddressOffset + i] = addresses[i];
@@ -66,7 +74,7 @@ namespace FOMServer.Shared.Application.Networking
                     Priority = packet.Priority,
                     Reliability = packet.Reliability,
                     OrderingChannel = packet.OrderingChannel,
-                    Broadcast = (byte)(packet.Broadcast ? 1 : 0)
+                    Broadcast = (byte)(broadcast ? 1 : 0)
                 };
             }
 

@@ -2,8 +2,9 @@ using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.World.Core.Exceptions;
 using FOMServer.World.Core.Players;
+using FOMServer.World.Tests.Factories;
 
-namespace FOMServer.World.Tests
+namespace FOMServer.World.Tests.Players
 {
     public class PlayerAttributesTests
     {
@@ -13,22 +14,27 @@ namespace FOMServer.World.Tests
             var credits = PlayerAttributes.GetMetadata(AttributeType.UniversalCredits);
             Assert.True(credits.LockRequired);
             Assert.Equal(PlayerConstants.AttributeMaxValues[(int)AttributeType.UniversalCredits], credits.Max);
-            Assert.Equal(0, credits.Default);
+            Assert.Equal(0u, credits.Default);
         }
 
         [Fact]
-        public void Constructor_WithoutInitialValues_DefaultsToZero()
+        public void Constructor_WithoutInitialValues_UsesDefaults()
         {
             var attrs = CreateAttributes();
-            Assert.Equal(0u, attrs.Get(AttributeType.Health));
+            Assert.Equal(
+                PlayerAttributes.GetMetadata(AttributeType.Health).Default,
+                attrs.Get(AttributeType.Health)
+            );
         }
 
         [Fact]
         public void Constructor_WithInitialValues_SetsValues()
         {
-            var initial = new int[PlayerAttributes.AttributeCount];
-            initial[(int)AttributeType.Health] = 500;
-            initial[(int)AttributeType.Agility] = 300;
+            var initial = new Dictionary<AttributeType, uint>
+            {
+                [AttributeType.Health] = 500,
+                [AttributeType.Agility] = 300
+            };
 
             var attrs = CreateAttributes(initial);
 
@@ -37,33 +43,23 @@ namespace FOMServer.World.Tests
         }
 
         [Fact]
-        public void Get_ClampsNegativeToZero()
+        public void Constructor_WithInitialValues_ThrowsWhenOver()
         {
-            var initial = new int[PlayerAttributes.AttributeCount];
-            initial[(int)AttributeType.Health] = -100;
+            var initial = new Dictionary<AttributeType, uint>
+            {
+                [AttributeType.Health] = 9999,
+            };
 
-            var attrs = CreateAttributes(initial);
-
-            Assert.Equal(0u, attrs.Get(AttributeType.Health));
-        }
-
-        [Fact]
-        public void Get_ClampsAboveMax()
-        {
-            var initial = new int[PlayerAttributes.AttributeCount];
-            initial[(int)AttributeType.Health] = 9999;
-
-            var attrs = CreateAttributes(initial);
-
-            var max = PlayerAttributes.GetMetadata(AttributeType.Health).Max;
-            Assert.Equal((uint)max, attrs.Get(AttributeType.Health));
+            Assert.Throws<ArgumentException>(() => CreateAttributes(initial));
         }
 
         [Fact]
         public void Change_PositiveDelta()
         {
-            var initial = new int[PlayerAttributes.AttributeCount];
-            initial[(int)AttributeType.Health] = 500;
+            var initial = new Dictionary<AttributeType, uint>
+            {
+                [AttributeType.Health] = 500,
+            };
 
             var attrs = CreateAttributes(initial);
             var result = attrs.Change(AttributeType.Health, 200);
@@ -75,8 +71,10 @@ namespace FOMServer.World.Tests
         [Fact]
         public void Change_NegativeDelta()
         {
-            var initial = new int[PlayerAttributes.AttributeCount];
-            initial[(int)AttributeType.Health] = 500;
+            var initial = new Dictionary<AttributeType, uint>
+            {
+                [AttributeType.Health] = 500,
+            };
 
             var attrs = CreateAttributes(initial);
             var result = attrs.Change(AttributeType.Health, -200);
@@ -87,8 +85,10 @@ namespace FOMServer.World.Tests
         [Fact]
         public void Change_ClampsAtZero()
         {
-            var initial = new int[PlayerAttributes.AttributeCount];
-            initial[(int)AttributeType.Health] = 100;
+            var initial = new Dictionary<AttributeType, uint>
+            {
+                [AttributeType.Health] = 100,
+            };
 
             var attrs = CreateAttributes(initial);
             var result = attrs.Change(AttributeType.Health, -500);
@@ -99,8 +99,10 @@ namespace FOMServer.World.Tests
         [Fact]
         public void Change_ClampsAtMax()
         {
-            var initial = new int[PlayerAttributes.AttributeCount];
-            initial[(int)AttributeType.Health] = 900;
+            var initial = new Dictionary<AttributeType, uint>
+            {
+                [AttributeType.Health] = 900,
+            };
 
             var attrs = CreateAttributes(initial);
             var result = attrs.Change(AttributeType.Health, 500);
@@ -123,18 +125,32 @@ namespace FOMServer.World.Tests
         {
             var attrs = CreateAttributes();
             var fired = false;
-            attrs.OnPersistableChange += (_, _, _) => { fired = true; return true; };
+            attrs.PersistableChange += (_, _) => fired = true;
 
-            attrs.Change(AttributeType.Health, 10);
+            attrs.Change(AttributeType.Health, -100);
 
             Assert.True(fired);
         }
 
         [Fact]
+        public void Change_DoesNotFirePersistableChangeWhenUnchanged()
+        {
+            var attrs = CreateAttributes();
+            var fired = false;
+            attrs.PersistableChange += (_, _) => fired = true;
+
+            attrs.Change(AttributeType.Health, 100);
+
+            Assert.False(fired);
+        }
+
+        [Fact]
         public void Lock_GetReturnsCurrentValue()
         {
-            var initial = new int[PlayerAttributes.AttributeCount];
-            initial[(int)AttributeType.UniversalCredits] = 1000;
+            var initial = new Dictionary<AttributeType, uint>
+            {
+                [AttributeType.UniversalCredits] = 1000,
+            };
 
             var attrs = CreateAttributes(initial);
 
@@ -170,7 +186,7 @@ namespace FOMServer.World.Tests
         {
             var attrs = CreateAttributes();
             var fired = false;
-            attrs.OnPersistableChange += (_, _, _) => { fired = true; return true; };
+            attrs.PersistableChange += (_, _) => fired = true;
 
             var locked = attrs.Lock(AttributeType.Health);
             locked.Set(500);
@@ -185,8 +201,10 @@ namespace FOMServer.World.Tests
         [Fact]
         public void Lock_ChangeUpdatesValue()
         {
-            var initial = new int[PlayerAttributes.AttributeCount];
-            initial[(int)AttributeType.UniversalCredits] = 1000;
+            var initial = new Dictionary<AttributeType, uint>
+            {
+                [AttributeType.UniversalCredits] = 1000,
+            };
 
             var attrs = CreateAttributes(initial);
 
@@ -216,7 +234,7 @@ namespace FOMServer.World.Tests
         {
             var attrs = CreateAttributes();
             var fired = false;
-            attrs.OnPersistableChange += (_, _, _) => { fired = true; return true; };
+            attrs.PersistableChange += (_, _) => fired = true;
 
             using (var locked = attrs.Lock(AttributeType.UniversalCredits))
             {
@@ -232,7 +250,7 @@ namespace FOMServer.World.Tests
         {
             var attrs = CreateAttributes();
             var fired = false;
-            attrs.OnPersistableChange += (_, _, _) => { fired = true; return true; };
+            attrs.PersistableChange += (_, _) => fired = true;
 
             using (var locked = attrs.Lock(AttributeType.UniversalCredits))
             {
@@ -267,9 +285,20 @@ namespace FOMServer.World.Tests
                 () => attrs.Lock(AttributeType.Coins));
         }
 
-        private static PlayerAttributes CreateAttributes(int[]? initial = null)
+        private static PlayerAttributes CreateAttributes(Dictionary<AttributeType, uint>? values = null)
         {
-            var player = new Player(1, initial);
+            var builder = TestPlayerBuilder.Create(1);
+
+            if (values is not null)
+            {
+                foreach (var (attr, value) in values)
+                {
+                    builder.WithAttribute(attr, value);
+                }
+            }
+
+            var player = builder.Build();
+
             return player.Attributes;
         }
     }

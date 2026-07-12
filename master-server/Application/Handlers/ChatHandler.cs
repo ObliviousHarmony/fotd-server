@@ -32,11 +32,11 @@ namespace FOMServer.Master.Application.Handlers
             var player = _clientRegistry.Get(sender);
             if (player is null)
             {
-                _logger.LogWarning("Received unexpected chat packet for player {PlayerId}", p.SenderId);
+                _logger.LogWarning("Received unexpected packet for player {PlayerId}", p.SenderId);
                 return;
             }
 
-            using var response = new PacketWriter<Chat>(true, sender);
+            using var response = new PacketWriter<Chat>(sender);
             ref var rData = ref response.Data;
             rData.Channel = p.Channel;
             rData.SenderId = p.SenderId;

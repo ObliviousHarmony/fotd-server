@@ -23,7 +23,7 @@ namespace FOMServer.Master.Application.Handlers
         {
             if (p.WorldIdCount <= 0)
             {
-                throw new InvalidOperationException($"World server '{sender}' did not send any world Ids to register");
+                throw new InvalidOperationException($"World server '{sender}' did not send any world ItemIds to register");
             }
 
             var worldIds = new WorldId[p.WorldIdCount];

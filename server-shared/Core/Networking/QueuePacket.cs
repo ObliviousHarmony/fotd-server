@@ -2,8 +2,8 @@ using System.Buffers;
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Buffers;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Packets;
-using FOMServer.Shared.Core.Packets.Types;
+using FOMServer.Shared.Core.Utilities;
+using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.Shared.Core.Networking
 {
@@ -27,8 +27,8 @@ namespace FOMServer.Shared.Core.Networking
         public readonly PacketPriority Priority;
         public readonly PacketReliability Reliability;
         public readonly byte OrderingChannel;
-        public readonly bool Broadcast;
 
+        private readonly bool _initialized;
         private readonly PinnedBuffer _packetData;
         private readonly NetworkAddress _networkAddress;
         private readonly NetworkAddress[]? _networkAddresses;
@@ -42,9 +42,7 @@ namespace FOMServer.Shared.Core.Networking
             int addressCount,
             PacketPriority priority,
             PacketReliability reliability,
-            byte orderingChannel,
-            bool broadcast
-        )
+            byte orderingChannel)
         {
             Id = id;
             _packetData = packetData;
@@ -54,20 +52,48 @@ namespace FOMServer.Shared.Core.Networking
             Priority = priority;
             Reliability = reliability;
             OrderingChannel = orderingChannel;
-            Broadcast = broadcast;
+
+            _initialized = true;
         }
 
-        public ReadOnlySpan<byte> Data => _packetData.Array.AsSpan(0, PacketHelpers.GetPacketSize(Id));
+        public ReadOnlySpan<byte> Data
+        {
+            get
+            {
+                ThrowIfNotInitialized();
+
+                return _packetData.Array.AsSpan(0, PacketHelpers.GetPacketSize(Id));
+            }
+        }
 
         /// <summary>
         /// A stable pointer to the packet data, valid for the lifetime of the
         /// rented buffer. 
         /// </summary>
-        public IntPtr DataPointer => _packetData.Pointer;
+        public IntPtr DataPointer
+        {
+            get
+            {
+                ThrowIfNotInitialized();
 
-        public ReadOnlySpan<NetworkAddress> NetworkAddresses => _networkAddresses is not null
-                    ? _networkAddresses.AsSpan(0, _addressCount)
-                    : MemoryMarshal.CreateReadOnlySpan(in _networkAddress, 1);
+                return _packetData.Pointer;
+            }
+        }
+
+        public ReadOnlySpan<NetworkAddress> NetworkAddresses
+        {
+            get
+            {
+                ThrowIfNotInitialized();
+
+                if (_networkAddresses is not null)
+                {
+                    return _networkAddresses.AsSpan(0, _addressCount);
+                }
+
+                return MemoryMarshal.CreateReadOnlySpan(in _networkAddress, 1); ;
+            }
+        }
 
         /// <summary>
         /// Returns the packet data buffer and address array to their pools.
@@ -78,11 +104,21 @@ namespace FOMServer.Shared.Core.Networking
         /// </remarks>
         public void Release()
         {
+            ThrowIfNotInitialized();
+
             PinnedArrayPool.Shared.Return(in _packetData);
 
             if (_networkAddresses is not null)
             {
                 ArrayPool<NetworkAddress>.Shared.Return(_networkAddresses);
+            }
+        }
+
+        private readonly void ThrowIfNotInitialized()
+        {
+            if (!_initialized)
+            {
+                throw new InvalidOperationException("The QueuePacket has not been initialized");
             }
         }
     }

@@ -5,13 +5,13 @@ namespace FOMServer.Shared.Core.Persistence
     /// depend on the persistence of the changed entity completing first.
     /// Returns false if the change was rejected (e.g., entity is waiting).
     /// </summary>
-    public delegate bool PersistableChangeCallback(
+    public delegate void PersistableChangeCallback(
         IPersistable entity,
-        IPersistable? association = null,
-        IEnumerable<IPersistable>? additionalAssociations = null);
+        params ReadOnlySpan<IPersistable?> associations
+    );
 
     public interface IPersistable
     {
-        event PersistableChangeCallback? OnPersistableChange;
+        event PersistableChangeCallback? PersistableChange;
     }
 }

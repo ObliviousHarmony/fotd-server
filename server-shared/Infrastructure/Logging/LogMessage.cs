@@ -14,27 +14,30 @@ namespace FOMServer.Shared.Infrastructure.Logging
 
         public string Format()
         {
-            var levelStr = Level switch
+            if (Exception is not null)
             {
-                LogLevel.Trace => "Trace",
-                LogLevel.Debug => "Debug",
-                LogLevel.Information => "Info",
-                LogLevel.Warning => "Warning",
-                LogLevel.Error => "Error",
-                LogLevel.Critical => "Critical",
-                _ => "Info"
-            };
+                return FormatException();
+            }
 
-            var prefix = $"[{Timestamp:O}][{levelStr}]: ";
-
-            return Exception is not null ? $"{prefix}{FormatException(Message, Exception)}" : $"{prefix}{Message}";
+            return FormatMessage();
         }
 
-        private static string FormatException(string message, Exception ex)
+        private string FormatMessage()
         {
-            return string.IsNullOrWhiteSpace(message)
-                ? $"[{ex.GetType().Name}]: {ex.Message}"
-                : $"{message}\n  [{ex.GetType().Name}]: {ex.Message}";
+            return $"[{Timestamp:O}][{Level}]: {Message}";
+        }
+
+        private string FormatException()
+        {
+            // Indent the multi-line string.
+            var exceptionText = Exception!.ToString().Replace(Environment.NewLine, $"{Environment.NewLine}    ");
+
+            if (string.IsNullOrWhiteSpace(Message))
+            {
+                return $"[{Timestamp:O}][{Level}]: {exceptionText}";
+            }
+
+            return $"[{Timestamp:O}][{Level}]: {Message}{Environment.NewLine}    {exceptionText}";
         }
     }
 }

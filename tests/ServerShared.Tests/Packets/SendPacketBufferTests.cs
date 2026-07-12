@@ -3,11 +3,11 @@ using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core.Buffers;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Networking;
-using FOMServer.Shared.Core.Packets;
-using FOMServer.Shared.Core.Packets.Types;
+using FOMServer.Shared.Core.Utilities;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
+using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
-namespace FOMServer.Shared.Tests
+namespace FOMServer.Shared.Tests.Packets
 {
     public class SendPacketBufferTests
     {
@@ -138,8 +138,7 @@ namespace FOMServer.Shared.Tests
             PacketPriority priority = PacketPriority.Medium,
             PacketReliability reliability = PacketReliability.ReliableOrdered,
             byte orderingChannel = 0,
-            bool broadcast = false
-        )
+            bool broadcast = false)
         {
             var packetData = PinnedArrayPool.Shared.Rent(s_testPacketSize);
             var networkAddress = address ?? new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
@@ -152,8 +151,7 @@ namespace FOMServer.Shared.Tests
                 addressCount: 1,
                 priority,
                 reliability,
-                orderingChannel,
-                broadcast
+                orderingChannel
             );
         }
 
@@ -171,8 +169,7 @@ namespace FOMServer.Shared.Tests
                 addresses.Length,
                 PacketPriority.Medium,
                 PacketReliability.ReliableOrdered,
-                orderingChannel: 0,
-                broadcast: false
+                orderingChannel: 0
             );
         }
     }

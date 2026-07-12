@@ -32,7 +32,7 @@ namespace FOMServer.Master.Application.Players
 
             if (!_players.TryAdd(playerId, player))
             {
-                throw new InvalidOperationException($"Player {playerId} is already logged in");
+                throw new InvalidOperationException($"Inventory {playerId} is already logged in");
             }
 
             session.CompleteLogin(player);

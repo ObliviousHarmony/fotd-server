@@ -127,5 +127,6 @@ SERIALIZER_WRITE(RegisterClientReturn)
 SERIALIZER_READ(Update)
 SERIALIZER_WRITE(WorldUpdate)
 SERIALIZER_BOTH(Chat)
+SERIALIZER_BOTH(MoveItems);
 
 }  // namespace FOMNetwork

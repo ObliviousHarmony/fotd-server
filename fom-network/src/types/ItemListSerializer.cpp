@@ -12,10 +12,10 @@ void ItemListSerializer::Write(RakNet::BitStream& bs,
   if (itemCount > BufferSizes::MAX_ITEM_LIST_SIZE)
     itemCount = BufferSizes::MAX_ITEM_LIST_SIZE;
 
-  bs.WriteCompressed((uint16_t)0);
-  bs.WriteCompressed((uint32_t)0);
-  bs.WriteCompressed((uint32_t)0);
-  bs.WriteCompressed((uint32_t)0);
+  bs.WriteCompressed(data.reservedSpace);
+  bs.WriteCompressed(data.maxSpace);
+  bs.WriteCompressed((uint32_t)100);
+  bs.WriteCompressed((uint32_t)100);
 
   std::map<Type::ItemBase, std::vector<uint32_t>> stacks;
   for (uint32_t i = 0; i < itemCount; ++i) {
@@ -36,10 +36,9 @@ void ItemListSerializer::Write(RakNet::BitStream& bs,
 
 bool ItemListSerializer::Read(RakNet::BitStream& bs,
                               Type::ItemList& data) const {
-  uint16_t skip16;
   uint32_t skip32;
-  if (!bs.ReadCompressed(skip16)) return false;
-  if (!bs.ReadCompressed(skip32)) return false;
+  if (!bs.ReadCompressed(data.reservedSpace)) return false;
+  if (!bs.ReadCompressed(data.maxSpace)) return false;
   if (!bs.ReadCompressed(skip32)) return false;
   if (!bs.ReadCompressed(skip32)) return false;
 

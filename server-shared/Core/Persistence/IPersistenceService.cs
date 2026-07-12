@@ -2,10 +2,9 @@ namespace FOMServer.Shared.Core.Persistence
 {
     public interface IPersistenceService
     {
-        /// <summary>
-        /// Registers an entity to be persisted when it changes.
-        /// </summary>
         void Register(IPersistable entity);
+
+        void Unregister(IPersistable entity);
 
         /// <summary>
         /// Queues a callback to be invoked once the entity and all

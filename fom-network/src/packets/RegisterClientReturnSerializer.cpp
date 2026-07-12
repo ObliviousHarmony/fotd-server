@@ -33,9 +33,7 @@ void RegisterClientReturnSerializer::Write(
 
   itemListSerializer.Write(bs, data->inventory);
 
-  for (int i = 0;
-       i < Enum::ITEM_SLOT_EQUIPMENT_END - Enum::ITEM_SLOT_EQUIPMENT_START;
-       ++i) {
+  for (int i = 0; i < Constants::NUM_EQUIPMENT_SLOTS; ++i) {
     bs.Write(data->equipment[i].id != 0);
     if (data->equipment[i].id != 0)
       itemSerializer.Write(bs, data->equipment[i]);
@@ -46,16 +44,22 @@ void RegisterClientReturnSerializer::Write(
     if (data->weapons[i].id != 0) itemSerializer.Write(bs, data->weapons[i]);
   }
 
-  for (int i = 0; i < Constants::NUM_UNKNOWN_ITEM_SLOTS; ++i) {
-    bs.Write(data->unknownSlots[i].id != 0);
-    if (data->unknownSlots[i].id != 0)
-      itemSerializer.Write(bs, data->unknownSlots[i]);
+  for (int i = 0; i < Constants::NUM_ACTIVE_CONSUMABLE_SLOTS; ++i) {
+    bs.Write(data->activeConsumables[i].id != 0);
+    if (data->activeConsumables[i].id != 0)
+      itemSerializer.Write(bs, data->activeConsumables[i]);
+  }
+
+  for (int i = 0; i < Constants::NUM_NANOMACHINE_AUGMENTATION_SLOTS; ++i) {
+    bs.Write(data->nanomachineAugmentations[i].id != 0);
+    if (data->nanomachineAugmentations[i].id != 0)
+      itemSerializer.Write(bs, data->nanomachineAugmentations[i]);
   }
 
   itemListSerializer.Write(bs, data->storage);
 
-  for (int i = 0; i < Constants::NUM_QUICK_SLOTS; ++i)
-    bs.WriteCompressed(data->quickSlots[i]);
+  for (int i = 0; i < Constants::NUM_QUICKSLOTS; ++i)
+    bs.WriteCompressed(data->quickslots[i]);
 
   avatarSerializer.Write(bs, data->avatar);
   attributesSerializer.Write(bs, data->attributes);

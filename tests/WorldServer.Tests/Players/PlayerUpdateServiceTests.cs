@@ -1,13 +1,14 @@
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Networking;
-using FOMServer.World.Application.Players;
+using FOMServer.World.Application.Ticks;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
+using FOMServer.World.Tests.Factories;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
-using Types = FOMServer.Shared.Core.Packets.Types;
+using PacketWorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
 using WorldUpdatePacket = FOMServer.Shared.Core.Packets.WorldUpdate;
 
-namespace FOMServer.World.Tests
+namespace FOMServer.World.Tests.Players
 {
     public class PlayerUpdateServiceTests
     {
@@ -87,7 +88,7 @@ namespace FOMServer.World.Tests
             Assert.Contains(fixture.Sender.Sends, s => s.PlayerId == 3);
 
             fixture.Sender.Sends.Clear();
-            fixture.Service.UnregisterRecipient(c);
+            fixture.Service.Unregister(c);
 
             // Second tick: after unregistering, the departed C receives nothing while the
             // still-connected B keeps receiving.
@@ -148,30 +149,31 @@ namespace FOMServer.World.Tests
 
         private static void Move(Player player, ushort animation)
         {
-            player.ApplyUpdate(new Types.WorldUpdate.PlayerUpdate { Character = new() { AnimationId = animation } });
+            player.ApplyUpdate(new PacketWorldUpdate.PlayerUpdate { Character = new() { AnimationId = animation } });
         }
 
         private sealed class Fixture
         {
             public Fixture()
             {
-                Service = new PlayerUpdateService(Sender);
+                Service = new PlayerUpdateTick(Sender);
             }
 
             public CapturingSender Sender { get; } = new();
 
-            public PlayerUpdateService Service { get; }
+            public PlayerUpdateTick Service { get; }
 
             public Player AddPlayer(uint id, ushort port)
             {
-                var player = new Player(id);
+                var player = TestPlayerBuilder.Create(id).Build();
+
                 player.ClaimForClient(new NetworkAddress { BinaryAddress = 0x0100007F, Port = port });
-                Service.RegisterRecipient(player);
+                Service.Register(player);
                 return player;
             }
         }
 
-        private sealed record Capture(uint PlayerId, byte UpdateCount, Types.WorldUpdate[] Entries);
+        private sealed record Capture(uint PlayerId, byte UpdateCount, PacketWorldUpdate[] Entries);
 
         private sealed class CapturingSender : IClientPacketSender
         {
@@ -182,7 +184,7 @@ namespace FOMServer.World.Tests
                 // Decode immediately: the packet's buffer is pooled and released here.
                 var update = MemoryMarshal.Read<WorldUpdatePacket>(packet.Data);
 
-                var entries = new Types.WorldUpdate[update.UpdateCount];
+                var entries = new PacketWorldUpdate[update.UpdateCount];
                 for (var i = 0; i < update.UpdateCount; i++)
                 {
                     entries[i] = update.Updates[i];

@@ -34,7 +34,7 @@ namespace FOMServer.World.Application.Handlers
                 return;
             }
 
-            using var migrate = new PacketWriter<PlayerMigrateWorld>();
+            using var migrate = new PacketWriter<PlayerMigrateWorld>(sender);
             ref var mData = ref migrate.Data;
 
             mData.PlayerId = p.PlayerId;

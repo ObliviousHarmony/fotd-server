@@ -2,8 +2,8 @@ using System.Threading.Channels;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Networking;
-using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
+using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.Shared.Application.Networking
 {
@@ -13,7 +13,7 @@ namespace FOMServer.Shared.Application.Networking
 	public partial class NetworkManager : IPacketSender, IAsyncDisposable
     {
         /// <summary>
-        /// Individual network managers can "claim" packet Ids so that they
+        /// Individual network managers can "claim" packet ItemIds so that they
         /// exclusively handle them. When another network manager receives
         /// a packet with a claimed Id, it will ignore it.
         /// </summary>
@@ -43,8 +43,7 @@ namespace FOMServer.Shared.Application.Networking
             IShutdownManager shutdownManager,
             ILogger<NetworkManager> logger,
             IPacketService packetService,
-            PacketProcessor packetProcessor
-        )
+            PacketProcessor packetProcessor)
         {
             _shutdownManager = shutdownManager;
             _logger = logger;
@@ -83,7 +82,7 @@ namespace FOMServer.Shared.Application.Networking
         {
             if (!s_canClaimPacketIds)
             {
-                throw new InvalidOperationException("Cannot claim packet Ids after a network manager has started");
+                throw new InvalidOperationException("Cannot claim packet ItemIds after a network manager has started");
             }
 
             if (s_globalClaimedPacketIds.ContainsKey(id))
@@ -177,6 +176,8 @@ namespace FOMServer.Shared.Application.Networking
                 _peerShutdown!(_peer);
                 _peer = IntPtr.Zero;
             }
+
+            _cts?.Dispose();
         }
 
         private async Task NetworkLoopAsync(CancellationToken ct)
@@ -225,7 +226,7 @@ namespace FOMServer.Shared.Application.Networking
                             continue;
                         }
 
-                        // Packet Ids that have been claimed by another network manager should be ignored.
+                        // Packet ItemIds that have been claimed by another network manager should be ignored.
                         if (s_globalClaimedPacketIds.TryGetValue(packet.Id, out var claimBehavior) && !_claimedPacketIds.Contains(packet.Id))
                         {
                             if (claimBehavior == PacketClaimBehavior.Warn)

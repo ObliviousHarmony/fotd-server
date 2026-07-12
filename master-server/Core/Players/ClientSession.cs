@@ -1,5 +1,5 @@
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Packets.Types;
+using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.Master.Core.Players
 {
@@ -132,7 +132,7 @@ namespace FOMServer.Master.Core.Players
                 if (player.Id != PlayerId)
                 {
                     throw new InvalidOperationException(
-                        $"Player Id {player.Id} does not match the session's login Id {PlayerId}");
+                        $"Inventory Id {player.Id} does not match the session's login Id {PlayerId}");
                 }
 
                 Player = player;

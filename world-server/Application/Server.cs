@@ -5,10 +5,11 @@ using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
-using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.World.Application.Networking;
 using FOMServer.World.Core;
+using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
+using RegisterWorldPacket = FOMServer.Shared.Core.Packets.RegisterWorld;
 
 namespace FOMServer.World.Application
 {
@@ -30,8 +31,7 @@ namespace FOMServer.World.Application
             INetworkService networkService,
             IServerService serverService,
             IClientService clientService,
-            IServiceProvider serviceProvider
-        )
+            IServiceProvider serviceProvider)
         {
             _logger = logger;
             _shutdownManager = shutdownManager;
@@ -134,7 +134,7 @@ namespace FOMServer.World.Application
             networkManager.Configure(peer, _clientService.Disconnect);
 
             // Register this world server with the master server.
-            using var registerPacket = new PacketWriter<RegisterWorld>();
+            using var registerPacket = new PacketWriter<RegisterWorldPacket>(NetworkAddress.Unassigned);
             ref var rpData = ref registerPacket.Data;
 
             rpData.WorldIdCount = (byte)_serverSettings.WorldIds.Length;

@@ -1,5 +1,5 @@
 using FOMServer.Shared.Core.Networking;
-using FOMServer.Shared.Core.Packets.Types;
+using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.Master.Core.Networking
 {

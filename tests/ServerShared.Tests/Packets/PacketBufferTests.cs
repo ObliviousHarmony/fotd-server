@@ -1,11 +1,11 @@
 using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.RakNet;
-using FOMServer.Shared.Core.Packets.Types;
+using FOMServer.Shared.Core.Utilities;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
+using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
-namespace FOMServer.Shared.Tests
+namespace FOMServer.Shared.Tests.Packets
 {
     public class PacketBufferTests
     {
@@ -295,8 +295,7 @@ namespace FOMServer.Shared.Tests
         private unsafe ReceivedPackets CreateReceivedPackets(
             byte count,
             PacketIdentifier* identifiers,
-            NetworkAddress* senders
-        )
+            NetworkAddress* senders)
         {
             return new ReceivedPackets
             {
