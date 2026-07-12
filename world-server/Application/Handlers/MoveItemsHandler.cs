@@ -137,7 +137,9 @@ namespace FOMServer.World.Application.Handlers
 
             Rule(ItemContainerType.NanomachineAugmentations, ItemContainerType.Inventory);
 
+            Rule(ItemContainerType.Quickslots, ItemContainerType.Inventory, null, MoveQuickslots);
             Rule(ItemContainerType.Quickslots, ItemContainerType.Quickslots, null, MoveQuickslots);
+            Rule(ItemContainerType.Quickslots, ItemContainerType.Destroy, null, MoveQuickslots);
 
             Rule(ItemContainerType.Storage, ItemContainerType.Inventory);
             Rule(ItemContainerType.Storage, ItemContainerType.Equipment);

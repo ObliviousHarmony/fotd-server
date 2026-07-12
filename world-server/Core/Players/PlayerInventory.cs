@@ -130,13 +130,9 @@ namespace FOMServer.World.Core.Players
                 var fromQuickslot = fromSlot - ItemSlotType.QuickslotStart;
                 if (toSlot is >= ItemSlotType.QuickslotStart and < ItemSlotType.QuickslotEnd)
                 {
-                    Console.WriteLine($"Item {_quickslots[fromQuickslot]} from {fromSlot} into {toSlot}");
-
                     (_quickslots[fromQuickslot], _quickslots[toQuickslot]) = (_quickslots[toQuickslot], _quickslots[fromQuickslot]);
                     return true;
                 }
-
-                Console.WriteLine($"Item {_quickslots[fromQuickslot]} removed from {fromQuickslot}");
 
                 _quickslots[fromQuickslot] = ItemType.Invalid;
                 return true;
@@ -161,14 +157,11 @@ namespace FOMServer.World.Core.Players
             var items = fromContainer.GetAll();
             foreach (var item in items)
             {
-                if (item.Id != itemId)
+                if (item.Id == itemId)
                 {
-                    continue;
+                    _quickslots[toQuickslot] = item.Type;
+                    return true;
                 }
-
-                Console.WriteLine($"Item {item.Type} into {toQuickslot}");
-
-                _quickslots[toQuickslot] = item.Type;
             }
 
             return false;
