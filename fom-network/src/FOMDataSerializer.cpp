@@ -19,6 +19,7 @@
 #include <fom-network/packets/Update.h>
 #include <fom-network/packets/WorldLogin.h>
 #include <fom-network/packets/WorldLoginReturn.h>
+#include <fom-network/packets/WorldObjects.h>
 #include <fom-network/packets/WorldUpdate.h>
 #include <fom-network/packets/raknet/AlreadyConnected.h>
 #include <fom-network/packets/raknet/ConnectionAttemptFailed.h>
@@ -76,6 +77,7 @@ static const std::unordered_map<uint8_t, size_t> packetSizes = {
     {Enum::ID_WORLD_UPDATE, sizeof(Packet::WorldUpdate)},
     {Enum::ID_CHAT, sizeof(Packet::Chat)},
     {Enum::ID_MOVE_ITEMS, sizeof(Packet::MoveItems)},
+    {Enum::ID_WORLD_OBJECTS, sizeof(Packet::WorldObjects)},
 };
 
 /**
@@ -104,6 +106,7 @@ static const std::unordered_map<uint32_t, IWriter*> writerMap = {
     {Enum::ID_WORLD_UPDATE, &Packet::WorldUpdateSerializer::GetInstance()},
     {Enum::ID_CHAT, &Packet::ChatSerializer::GetInstance()},
     {Enum::ID_MOVE_ITEMS, &Packet::MoveItemsSerializer::GetInstance()},
+    {Enum::ID_WORLD_OBJECTS, &Packet::WorldObjectsSerializer::GetInstance()},
 };
 
 static const std::unordered_map<uint32_t, IReader*> readerMap = {

@@ -8,21 +8,21 @@ namespace Type {
 
 void ItemListSerializer::Write(RakNet::BitStream& bs,
                                const Type::ItemList& data) const {
+  ItemBaseSerializer itemBaseSerializer;
+
   uint32_t itemCount = data.itemCount;
   if (itemCount > BufferSizes::MAX_ITEM_LIST_SIZE)
     itemCount = BufferSizes::MAX_ITEM_LIST_SIZE;
-
-  bs.WriteCompressed(data.reservedSpace);
-  bs.WriteCompressed(data.maxSpace);
-  bs.WriteCompressed((uint32_t)100);
-  bs.WriteCompressed((uint32_t)100);
 
   std::map<Type::ItemBase, std::vector<uint32_t>> stacks;
   for (uint32_t i = 0; i < itemCount; ++i) {
     stacks[data.items[i].base].push_back(data.items[i].id);
   }
 
-  ItemBaseSerializer itemBaseSerializer;
+  bs.WriteCompressed(data.reservedSpace);
+  bs.WriteCompressed(data.maxSpace);
+  bs.WriteCompressed((uint32_t)100);
+  bs.WriteCompressed((uint32_t)100);
   bs.WriteCompressed((uint16_t)stacks.size());
   for (const auto& stack : stacks) {
     itemBaseSerializer.Write(bs, stack.first);
@@ -36,6 +36,8 @@ void ItemListSerializer::Write(RakNet::BitStream& bs,
 
 bool ItemListSerializer::Read(RakNet::BitStream& bs,
                               Type::ItemList& data) const {
+  ItemBaseSerializer itemBaseSerializer;
+
   uint32_t skip32;
   if (!bs.ReadCompressed(data.reservedSpace)) return false;
   if (!bs.ReadCompressed(data.maxSpace)) return false;
@@ -45,7 +47,6 @@ bool ItemListSerializer::Read(RakNet::BitStream& bs,
   uint16_t stackCount;
   if (!bs.ReadCompressed(stackCount)) return false;
 
-  ItemBaseSerializer itemBaseSerializer;
   data.itemCount = 0;
   for (uint16_t i = 0; i < stackCount; ++i) {
     Type::ItemBase base;

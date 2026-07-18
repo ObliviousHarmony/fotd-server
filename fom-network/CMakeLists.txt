@@ -37,6 +37,7 @@ set(FOMNETWORK_SRC
   "src/packets/WorldUpdateSerializer.cpp"
   "src/packets/ChatSerializer.cpp"
   "src/packets/MoveItemsSerializer.cpp"
+  "src/packets/WorldObjectsSerializer.cpp"
 )
 set(FOMNETWORK_INC
   # Core API
@@ -65,6 +66,7 @@ set(FOMNETWORK_INC
   "include/fom-network/enums/SkillType.h"
   "include/fom-network/enums/AttributeType.h"
   "include/fom-network/enums/ChatChannel.h"
+  "include/fom-network/enums/WorldObjectType.h"
 
   # Constants
   "include/fom-network/constants/BufferSizes.h"
@@ -103,6 +105,12 @@ set(FOMNETWORK_INC
   "src/types/faction/FactionPerksSerializer.h"
   "include/fom-network/types/WorldUpdate.h"
   "src/types/WorldUpdateSerializer.h"
+  "include/fom-network/types/world/WorldObject.h"
+  "src/types/world/WorldObjectSerializer.h"
+  "include/fom-network/types/world/WorldService.h"
+  "src/types/world/WorldServiceSerializer.h"
+  "include/fom-network/types/world/WorldServiceControl.h"
+  "src/types/world/WorldServiceControlSerializer.h"
 
   # RakNet Packets
   "include/fom-network/packets/raknet/AlreadyConnected.h"
@@ -139,6 +147,7 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/WorldUpdate.h"
   "include/fom-network/packets/Chat.h"
   "include/fom-network/packets/MoveItems.h"
+  "include/fom-network/packets/WorldObjects.h"
 )
 set(FOMNETWORK_TEST
     "tests/FOMDataSerializer_test.cpp"

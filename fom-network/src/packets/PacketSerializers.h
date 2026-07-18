@@ -128,5 +128,6 @@ SERIALIZER_READ(Update)
 SERIALIZER_WRITE(WorldUpdate)
 SERIALIZER_BOTH(Chat)
 SERIALIZER_BOTH(MoveItems);
+SERIALIZER_WRITE(WorldObjects);
 
 }  // namespace FOMNetwork
