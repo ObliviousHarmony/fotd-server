@@ -67,6 +67,7 @@ set(FOMNETWORK_INC
   "include/fom-network/enums/AttributeType.h"
   "include/fom-network/enums/ChatChannel.h"
   "include/fom-network/enums/WorldObjectType.h"
+  "include/fom-network/enums/WorldServiceType.h"
 
   # Constants
   "include/fom-network/constants/BufferSizes.h"

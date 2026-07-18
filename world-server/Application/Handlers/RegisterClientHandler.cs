@@ -5,6 +5,7 @@ using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Packets.Types;
 using FOMServer.Shared.Metadata;
+using FOMServer.World.Application.World;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
 
@@ -53,6 +54,10 @@ namespace FOMServer.World.Application.Handlers
             player.WriteTo(ref rData);
 
             _clientPacketSender.Send(response.Build());
+
+            using var worldObjects = new PacketWriter<WorldObjects>(sender);
+            DummyWorldServices.WriteTo(ref worldObjects.Data);
+            _clientPacketSender.Send(worldObjects.Build());
         }
     }
 }

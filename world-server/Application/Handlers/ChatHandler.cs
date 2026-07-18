@@ -36,13 +36,32 @@ namespace FOMServer.World.Application.Handlers
                 return;
             }
 
-            using var response = new PacketWriter<Chat>(sender);
-            ref var rData = ref response.Data;
-            rData.Channel = p.Channel;
-            rData.SenderId = p.SenderId;
-            rData.SenderName = "Naruto Uzumaki";
-            rData.Message = p.Message;
-            _clientPacketSender.Send(response.Build());
+            var responseMessage = "";
+
+            var cmd = p.Message;
+            if (cmd.StartsWith("!"))
+            {
+                cmd = cmd[1..];
+                switch (cmd)
+                {
+                    case "pos":
+                    {
+                        responseMessage = $"Player {player.Id} ({player.Position})";
+                        break;
+                    }
+                }
+            }
+
+            if (responseMessage.Length > 0)
+            {
+                using var response = new PacketWriter<Chat>(sender);
+                ref var rData = ref response.Data;
+                rData.Channel = p.Channel;
+                rData.SenderId = p.SenderId;
+                rData.SenderName = "Naruto Uzumaki";
+                rData.Message = responseMessage;
+                _clientPacketSender.Send(response.Build());
+            }
         }
     }
 }

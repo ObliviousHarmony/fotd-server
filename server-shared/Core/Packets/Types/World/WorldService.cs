@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Core.Enums;
 
 namespace FOMServer.Shared.Core.Packets.Types.World
 {
@@ -10,7 +11,7 @@ namespace FOMServer.Shared.Core.Packets.Types.World
         public const int PathBufferSize = 256;
 
         public uint Id;
-        public byte Type;
+        public WorldServiceType Type;
         public fixed byte RawModelPaths[PathBufferSize];
         public fixed byte RawSkinPaths[PathBufferSize];
         public fixed byte RawRenderStylePaths[PathBufferSize];

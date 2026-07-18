@@ -1,6 +1,7 @@
 #pragma once
 
 #include <fom-network/Interop.h>
+#include <fom-network/enums/WorldServiceType.h>
 #include <fom-network/types/PositionRotation.h>
 
 namespace FOMNetwork {
@@ -11,7 +12,7 @@ constexpr int32_t MAX_WORLD_SERVICE_PLACEMENTS = 32;
 #pragma pack(push, 1)
 struct WorldService {
   uint32_t id;
-  uint8_t type;
+  Enum::WorldServiceType type;
   uint8_t modelPaths[256];
   uint8_t skinPaths[256];
   uint8_t renderStylePaths[256];

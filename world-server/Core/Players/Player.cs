@@ -1,6 +1,7 @@
 using FOMServer.Shared.Core.Enums.Item;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
+using FOMServer.World.Core.World;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 using PacketWorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
 using RegisterClientReturnPacket = FOMServer.Shared.Core.Packets.RegisterClientReturn;
@@ -18,6 +19,7 @@ namespace FOMServer.World.Core.Players
             Id = id;
             _currentUpdate.Id = id;
 
+            Position = new ServerPosition();
             Attributes = new PlayerAttributes(this, attributes);
             Inventory = new PlayerInventory(this, inventory);
             Quickslots = new PlayerQuickslots(this, quickslots);
@@ -28,6 +30,8 @@ namespace FOMServer.World.Core.Players
         public uint Id { get; }
 
         public NetworkAddress Address { get; private set; } = NetworkAddress.Unassigned;
+
+        public ServerPosition Position { get; }
 
         public PlayerAttributes Attributes { get; }
 
@@ -53,6 +57,8 @@ namespace FOMServer.World.Core.Players
             {
                 _currentUpdate = update.Character;
                 _currentUpdate.Id = Id;
+
+                Position.ApplyUpdate(update.Character.Position);
             }
         }
 
@@ -62,6 +68,7 @@ namespace FOMServer.World.Core.Players
             {
                 p.Kind = PacketWorldUpdate.Type.Character;
                 p.Character = _currentUpdate;
+                Position.WriteTo(ref p.Character.Position);
             }
         }
 
