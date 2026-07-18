@@ -3,7 +3,7 @@
 #include <fom-network/Interop.h>
 #include <fom-network/enums/ApartmentType.h>
 #include <fom-network/enums/WorldId.h>
-#include <fom-network/types/ItemList.h>
+#include <fom-network/types/item/ItemList.h>
 
 namespace FOMNetwork {
 namespace Type {

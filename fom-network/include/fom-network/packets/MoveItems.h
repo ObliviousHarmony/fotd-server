@@ -1,8 +1,8 @@
 #pragma once
 
 #include <fom-network/Interop.h>
-#include <fom-network/enums/ItemContainerType.h>
-#include <fom-network/enums/ItemSlotType.h>
+#include <fom-network/enums/item/ItemContainerType.h>
+#include <fom-network/enums/item/ItemSlotType.h>
 
 namespace FOMNetwork {
 namespace Packet {

@@ -1,4 +1,4 @@
-using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Enums.Item;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
 using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;

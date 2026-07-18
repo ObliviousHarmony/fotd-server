@@ -5,7 +5,7 @@ using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.World.Core.Exceptions;
-using PacketPlayerAttributes = FOMServer.Shared.Core.Packets.Types.PlayerAttributes;
+using PacketPlayerAttributes = FOMServer.Shared.Core.Packets.Types.Player.PlayerAttributes;
 
 namespace FOMServer.World.Core.Players
 {

@@ -1,8 +1,7 @@
 using FOMServer.Shared.Core.Constants;
-using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Packets.Types;
+using FOMServer.Shared.Core.Enums.Item;
 using FOMServer.Shared.Core.Persistence;
-using PacketItem = FOMServer.Shared.Core.Packets.Types.Item;
+using PacketItem = FOMServer.Shared.Core.Packets.Types.Item.Item;
 
 namespace FOMServer.Shared.Core.Items
 {

@@ -2,8 +2,8 @@
 
 #include <fom-network/types/Apartment.h>
 
-#include "ItemListSerializer.h"
 #include "TypeSerializer.h"
+#include "item/ItemListSerializer.h"
 
 namespace FOMNetwork {
 namespace Type {

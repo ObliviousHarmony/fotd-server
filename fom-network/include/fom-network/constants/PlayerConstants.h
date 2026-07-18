@@ -1,7 +1,7 @@
 #pragma once
 
 #include <fom-network/InteropTypes.h>
-#include <fom-network/enums/ItemSlotType.h>
+#include <fom-network/enums/item/ItemSlotType.h>
 
 namespace FOMNetwork {
 namespace Constants {

@@ -4,14 +4,14 @@
 #include <fom-network/Interop.h>
 #include <fom-network/constants/PlayerConstants.h>
 #include <fom-network/types/Avatar.h>
-#include <fom-network/types/FactionEmblem.h>
-#include <fom-network/types/FactionPerks.h>
-#include <fom-network/types/Item.h>
-#include <fom-network/types/ItemList.h>
-#include <fom-network/types/PlayerAttributes.h>
-#include <fom-network/types/PlayerProfile.h>
-#include <fom-network/types/PlayerSkills.h>
 #include <fom-network/types/PositionRotation.h>
+#include <fom-network/types/faction/FactionEmblem.h>
+#include <fom-network/types/faction/FactionPerks.h>
+#include <fom-network/types/item/Item.h>
+#include <fom-network/types/item/ItemList.h>
+#include <fom-network/types/player/PlayerAttributes.h>
+#include <fom-network/types/player/PlayerProfile.h>
+#include <fom-network/types/player/PlayerSkills.h>
 
 namespace FOMNetwork {
 namespace Packet {

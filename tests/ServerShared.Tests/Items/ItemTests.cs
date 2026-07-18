@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Enums.Item;
 using FOMServer.Shared.Core.Items;
 
 namespace FOMServer.Shared.Tests.Items
