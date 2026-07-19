@@ -18,18 +18,6 @@ namespace FOMServer.Shared.Core.Packets.Types.World
         public PlacementIdArray PlacementIds;
         public PlacementArray Placements;
 
-        [InlineArray(MaxPlacements)]
-        public struct PlacementIdArray
-        {
-            private uint _id;
-        }
-
-        [InlineArray(MaxPlacements)]
-        public struct PlacementArray
-        {
-            private PositionRotation _placement;
-        }
-
         public string Target
         {
             get
@@ -46,6 +34,18 @@ namespace FOMServer.Shared.Core.Packets.Types.World
                     CStringParser.FromString(value, ptr, TargetSize);
                 }
             }
+        }
+
+        [InlineArray(MaxPlacements)]
+        public struct PlacementIdArray
+        {
+            private uint _id;
+        }
+
+        [InlineArray(MaxPlacements)]
+        public struct PlacementArray
+        {
+            private PositionRotation _placement;
         }
     }
 }

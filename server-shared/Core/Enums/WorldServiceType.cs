@@ -11,9 +11,11 @@ namespace FOMServer.Shared.Core.Enums
         MedicalUnit = 7, // WORLD_SERVICE_MEDICAL_UNIT
         Production = 8, // WORLD_SERVICE_PRODUCTION
         SchematicMarket = 9, // WORLD_SERVICE_SCHEMATIC_MARKET
+
         // 10
         ItemRecycler = 11, // WORLD_SERVICE_ITEM_RECYCLER
         VortexTerminal = 12, // WORLD_SERVICE_VORTEX_TERMINAL
+
         // 13
         StandardMarket = 14, // WORLD_SERVICE_STANDARD_MARKET
         ClothingMarket = 15, // WORLD_SERVICE_CLOTHING_MARKET

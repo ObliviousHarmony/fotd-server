@@ -20,8 +20,8 @@
 #include <fom-network/packets/WorldLogin.h>
 #include <fom-network/packets/WorldLoginReturn.h>
 #include <fom-network/packets/WorldObjects.h>
-#include <fom-network/packets/WorldUpdate.h>
 #include <fom-network/packets/WorldService.h>
+#include <fom-network/packets/WorldUpdate.h>
 #include <fom-network/packets/raknet/AlreadyConnected.h>
 #include <fom-network/packets/raknet/ConnectionAttemptFailed.h>
 #include <fom-network/packets/raknet/ConnectionBanned.h>
