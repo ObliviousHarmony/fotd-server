@@ -1,0 +1,10 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [],
+ "kind": "struct",
+ "len": 1,
+ "packed": true,
+ "path": "/FOM/Types/World/WorldNPC"
+}

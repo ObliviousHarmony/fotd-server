@@ -305,7 +305,7 @@
      "type": "/uint *"
     }
    ],
-   "returnType": "/void"
+   "returnType": "/bool"
   },
   {
    "addr": "1000cc80",
@@ -322,7 +322,7 @@
      "type": "/ushort *"
     }
    ],
-   "returnType": "/void"
+   "returnType": "/bool"
   },
   {
    "addr": "1000cca0",
@@ -339,7 +339,7 @@
      "type": "/char *"
     }
    ],
-   "returnType": "/void"
+   "returnType": "/bool"
   },
   {
    "addr": "1000ccc0",
@@ -361,7 +361,7 @@
   {
    "addr": "1000cce0",
    "callingConvention": "__cdecl",
-   "name": "ReadCompressed_T_char",
+   "name": "ReadCompressed_T_byte",
    "namespace": "RakNet::BitStream",
    "params": [
     {
@@ -373,7 +373,7 @@
      "type": "/byte *"
     }
    ],
-   "returnType": "/void"
+   "returnType": "/bool"
   },
   {
    "addr": "1000cd00",
@@ -407,7 +407,7 @@
      "type": "/uint *"
     }
    ],
-   "returnType": "/void"
+   "returnType": "/bool"
   },
   {
    "addr": "1000cdd0",
@@ -424,7 +424,7 @@
      "type": "/int *"
     }
    ],
-   "returnType": "/void"
+   "returnType": "/bool"
   },
   {
    "addr": "1000ce00",

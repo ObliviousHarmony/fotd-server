@@ -1,0 +1,39 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10056490",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::World::WorldNPCs",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/World/WorldNPCs *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100567e0",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Types::World::WorldNPCs",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/World/WorldNPCs *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

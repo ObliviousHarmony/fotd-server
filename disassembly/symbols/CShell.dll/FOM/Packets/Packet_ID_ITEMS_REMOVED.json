@@ -1,0 +1,69 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1018de80",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_ITEMS_REMOVED",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_ITEMS_REMOVED *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10192ab0",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_ITEMS_REMOVED",
+   "namespace": "FOM::Packets::Packet_ID_ITEMS_REMOVED",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_ITEMS_REMOVED *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  },
+  {
+   "addr": "10192b40",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_ITEMS_REMOVED",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_ITEMS_REMOVED *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10192ba0",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_ITEMS_REMOVED",
+   "namespace": "FOM::Packets::Packet_ID_ITEMS_REMOVED",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_ITEMS_REMOVED *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  }
+ ]
+}

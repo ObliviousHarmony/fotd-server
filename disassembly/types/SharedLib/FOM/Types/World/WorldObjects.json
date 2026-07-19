@@ -1,0 +1,18 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": "vector<WorldObject>",
+   "len": 16,
+   "name": "objects",
+   "offset": 0,
+   "type": "/std/vector"
+  }
+ ],
+ "kind": "struct",
+ "len": 16,
+ "packed": true,
+ "path": "/FOM/Types/World/WorldObjects"
+}

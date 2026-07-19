@@ -43,7 +43,7 @@
    "len": 1,
    "name": "slot",
    "offset": 10,
-   "type": "/FOM/Types/Item/ItemSlot"
+   "type": "/FOM/Types/Item/ItemSlotType"
   },
   {
    "comment": null,

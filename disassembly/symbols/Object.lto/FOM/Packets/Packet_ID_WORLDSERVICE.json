@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10024870",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_WORLDSERVICE",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_WORLDSERVICE *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100274e0",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_WORLDSERVICE",
+   "namespace": "FOM::Packets::Packet_ID_WORLDSERVICE",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_WORLDSERVICE *"
+    }
+   ],
+   "returnType": "/FOM/Packets/Packet_ID_WORLDSERVICE *"
+  },
+  {
+   "addr": "100288e0",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_WORLDSERVICE",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_WORLDSERVICE *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10028e90",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_WORLDSERVICE",
+   "namespace": "FOM::Packets::Packet_ID_WORLDSERVICE",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_WORLDSERVICE *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/undefined4 *"
+  }
+ ]
+}

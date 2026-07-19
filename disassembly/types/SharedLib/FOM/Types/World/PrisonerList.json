@@ -1,0 +1,32 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 0,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 4,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "prisoners",
+   "offset": 8,
+   "type": "/std/vector"
+  }
+ ],
+ "kind": "struct",
+ "len": 24,
+ "packed": true,
+ "path": "/FOM/Types/World/PrisonerList"
+}

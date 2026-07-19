@@ -361,6 +361,12 @@
  },
  {
   "kind": "class",
+  "name": "Packet_ID_VORTEX_GATE",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_VORTEX_GATE"
+ },
+ {
+  "kind": "class",
   "name": "CWindowMgr",
   "parent": "FOM::Windows",
   "path": "FOM::Windows::CWindowMgr"
@@ -541,6 +547,12 @@
  },
  {
   "kind": "class",
+  "name": "Packet_ID_WORLDSERVICE",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_WORLDSERVICE"
+ },
+ {
+  "kind": "class",
   "name": "CWindowTerminalPrisonManager",
   "parent": "FOM::Windows",
   "path": "FOM::Windows::CWindowTerminalPrisonManager"
@@ -661,6 +673,12 @@
  },
  {
   "kind": "class",
+  "name": "Packet_ID_ITEMS_REMOVED",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_ITEMS_REMOVED"
+ },
+ {
+  "kind": "class",
   "name": "Packet_ID_LOGIN_RETURN",
   "parent": "FOM::Packets",
   "path": "FOM::Packets::Packet_ID_LOGIN_RETURN"
@@ -718,6 +736,24 @@
   "name": "Item",
   "parent": "FOM::Types",
   "path": "FOM::Types::Item"
+ },
+ {
+  "kind": "namespace",
+  "name": "VortexMap",
+  "parent": "FOM::Types",
+  "path": "FOM::Types::VortexMap"
+ },
+ {
+  "kind": "namespace",
+  "name": "Faction",
+  "parent": "FOM::Types",
+  "path": "FOM::Types::Faction"
+ },
+ {
+  "kind": "namespace",
+  "name": "World",
+  "parent": "FOM::Types",
+  "path": "FOM::Types::World"
  },
  {
   "kind": "class",
@@ -892,5 +928,47 @@
   "name": "Avatar",
   "parent": "FOM::Types::Player",
   "path": "FOM::Types::Player::Avatar"
+ },
+ {
+  "kind": "class",
+  "name": "VortexMap",
+  "parent": "FOM::Types::VortexMap",
+  "path": "FOM::Types::VortexMap::VortexMap"
+ },
+ {
+  "kind": "class",
+  "name": "FactionEmblem",
+  "parent": "FOM::Types::Faction",
+  "path": "FOM::Types::Faction::FactionEmblem"
+ },
+ {
+  "kind": "class",
+  "name": "FactionEmblemLayer",
+  "parent": "FOM::Types::Faction",
+  "path": "FOM::Types::Faction::FactionEmblemLayer"
+ },
+ {
+  "kind": "class",
+  "name": "FactionPerks",
+  "parent": "FOM::Types::Faction",
+  "path": "FOM::Types::Faction::FactionPerks"
+ },
+ {
+  "kind": "class",
+  "name": "WorldServiceInfo",
+  "parent": "FOM::Types::World",
+  "path": "FOM::Types::World::WorldServiceInfo"
+ },
+ {
+  "kind": "class",
+  "name": "WorldServiceOwnership",
+  "parent": "FOM::Types::World",
+  "path": "FOM::Types::World::WorldServiceOwnership"
+ },
+ {
+  "kind": "class",
+  "name": "PrisonerList",
+  "parent": "FOM::Types::World",
+  "path": "FOM::Types::World::PrisonerList"
  }
 ]

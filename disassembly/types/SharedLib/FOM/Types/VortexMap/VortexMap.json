@@ -1,0 +1,39 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": "vector<VortexMapEntry>",
+   "len": 16,
+   "name": "destinations",
+   "offset": 0,
+   "type": "/std/vector"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 16,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 20,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 24,
+   "type": "/undefined4"
+  }
+ ],
+ "kind": "struct",
+ "len": 28,
+ "packed": true,
+ "path": "/FOM/Types/VortexMap/VortexMap"
+}

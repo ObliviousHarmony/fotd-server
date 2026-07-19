@@ -1,0 +1,84 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 16,
+   "name": null,
+   "offset": 0,
+   "type": "/std/vector"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": null,
+   "offset": 16,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 20,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 24,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 28,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 32,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 36,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 40,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 44,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 40,
+   "name": null,
+   "offset": 48,
+   "type": {
+    "arr": "/undefined1",
+    "n": 40
+   }
+  }
+ ],
+ "kind": "struct",
+ "len": 88,
+ "packed": true,
+ "path": "/FOM/Types/World/WorldServiceOwnership"
+}

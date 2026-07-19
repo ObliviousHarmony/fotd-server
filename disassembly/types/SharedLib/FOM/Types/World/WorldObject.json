@@ -1,0 +1,46 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": "id",
+   "offset": 0,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "itemType",
+   "offset": 4,
+   "type": "/FOM/Types/Item/ItemType"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "state",
+   "offset": 6,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "position",
+   "offset": 8,
+   "type": "/FOM/Types/PositionRotation"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "ownerPlayerId",
+   "offset": 24,
+   "type": "/stdint.h/uint32_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 28,
+ "packed": true,
+ "path": "/FOM/Types/World/WorldObject"
+}

@@ -1,0 +1,73 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_WORLD_MARKET",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_STORAGE_ACCESS",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_CHEMICAL_REFINERY",
+   "value": 3
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_REPAIR_STATION",
+   "value": 4
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_APARTMENT_ENTRY",
+   "value": 5
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_PRISON_MANAGER",
+   "value": 6
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_MEDICAL_UNIT",
+   "value": 7
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_PRODUCTION",
+   "value": 8
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_SCHEMATIC_MARKET",
+   "value": 9
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ITEM_RECYCLER",
+   "value": 11
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_VORTEX_TERMINAL",
+   "value": 12
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_STANDARD_MARKET",
+   "value": 14
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_CLOTHING_MARKET",
+   "value": 15
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Enums/WorldServiceType"
+}

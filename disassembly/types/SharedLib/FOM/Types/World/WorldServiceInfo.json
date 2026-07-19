@@ -1,0 +1,107 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": "id",
+   "offset": 0,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "type",
+   "offset": 4,
+   "type": "/FOM/Enums/WorldServiceType"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 5,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 8,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": null,
+   "offset": 12,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 16,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 32,
+   "name": null,
+   "offset": 20,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 32
+   }
+  },
+  {
+   "comment": null,
+   "len": 124,
+   "name": null,
+   "offset": 52,
+   "type": "/FOM/Types/Faction/FactionEmblem"
+  },
+  {
+   "comment": null,
+   "len": 32,
+   "name": null,
+   "offset": 176,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 32
+   }
+  },
+  {
+   "comment": null,
+   "len": 124,
+   "name": null,
+   "offset": 208,
+   "type": "/FOM/Types/Faction/FactionEmblem"
+  },
+  {
+   "comment": null,
+   "len": 32,
+   "name": null,
+   "offset": 332,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 32
+   }
+  },
+  {
+   "comment": null,
+   "len": 12,
+   "name": null,
+   "offset": 364,
+   "type": {
+    "arr": "/stdint.h/uint16_t",
+    "n": 6
+   }
+  }
+ ],
+ "kind": "struct",
+ "len": 376,
+ "packed": true,
+ "path": "/FOM/Types/World/WorldServiceInfo"
+}

@@ -9,10 +9,129 @@
    "name": "base",
    "offset": 0,
    "type": "/FOM/Packets/VariableSizedPacket"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "action",
+   "offset": 1072,
+   "type": "/FOM/Enums/Packets/WorldObjectsAction"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "objectId",
+   "offset": 1076,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "type",
+   "offset": 1080,
+   "type": "/FOM/Enums/WorldObjectType"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "isActive",
+   "offset": 1082,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "state",
+   "offset": 1083,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "objectSync",
+   "offset": 1084,
+   "type": "/FOM/Types/World/WorldObjects"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "backpacks",
+   "offset": 1100,
+   "type": "/FOM/Types/World/WorldObjects"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "items",
+   "offset": 1116,
+   "type": "/FOM/Types/World/WorldObjects"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "miningRigs",
+   "offset": 1132,
+   "type": "/FOM/Types/World/WorldObjects"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "worldServices",
+   "offset": 1148,
+   "type": "/FOM/Types/World/WorldServices"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": null,
+   "offset": 1164,
+   "type": "/FOM/Types/World/WorldObjects"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "influenceGenerators",
+   "offset": 1180,
+   "type": "/FOM/Types/World/WorldObjects"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "medicalUnits",
+   "offset": 1196,
+   "type": "/FOM/Types/World/WorldObjects"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "territoryObjects",
+   "offset": 1212,
+   "type": "/FOM/Types/World/WorldObjects"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "explosives",
+   "offset": 1228,
+   "type": "/FOM/Types/World/WorldObjects"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "worldServiceControls",
+   "offset": 1244,
+   "type": "/FOM/Types/World/WorldServiceControls"
+  },
+  {
+   "comment": null,
+   "len": 16,
+   "name": "npcs",
+   "offset": 1260,
+   "type": "/FOM/Types/World/WorldNPCs"
   }
  ],
  "kind": "struct",
- "len": 1072,
+ "len": 1280,
  "packed": true,
  "path": "/FOM/Packets/Packet_ID_WORLD_OBJECTS"
 }

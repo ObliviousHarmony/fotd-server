@@ -1,0 +1,53 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "VORTEX_GATE_INVALID",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "VORTEX_GATE_LEAVE_WORLD",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "VORTEX_GATE_MAP_RECEIVE_TICKET",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "VORTEX_GATE_GO_TO_WORLD",
+   "value": 4
+  },
+  {
+   "comment": null,
+   "name": "VORTEX_GATE_MAP_REQUEST",
+   "value": 5
+  },
+  {
+   "comment": null,
+   "name": "VORTEX_GATE_MAP_RETURN",
+   "value": 6
+  },
+  {
+   "comment": null,
+   "name": "VORTEX_GATE_MAP_BUY_TICKET",
+   "value": 7
+  },
+  {
+   "comment": null,
+   "name": "VORTEX_GATE_LOGOUT_START",
+   "value": 8
+  },
+  {
+   "comment": null,
+   "name": "VORTEX_GATE_LOGOUT_CANCEL",
+   "value": 9
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Enums/Packets/VortexGateAction"
+}

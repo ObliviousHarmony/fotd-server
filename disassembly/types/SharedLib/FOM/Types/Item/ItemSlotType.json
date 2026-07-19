@@ -1,0 +1,108 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_INVENTORY",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_WEAPON_1",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_WEAPON_2",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_WEAPON_3",
+   "value": 3
+  },
+  {
+   "comment": null,
+   "name": "WEAPON_SLOT_END",
+   "value": 4
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_HEAD",
+   "value": 5
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_EYES",
+   "value": 6
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_SHOULDERS",
+   "value": 7
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_TORSO",
+   "value": 8
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_ARMS",
+   "value": 9
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_HANDS",
+   "value": 10
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_LEGS",
+   "value": 11
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_BACK",
+   "value": 12
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_HAT",
+   "value": 13
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_SHIRT",
+   "value": 14
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_PANTS",
+   "value": 15
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_SHOES",
+   "value": 16
+  },
+  {
+   "comment": null,
+   "name": "EQUIPMENT_SLOT_END",
+   "value": 17
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_NANO_AUG",
+   "value": 26
+  },
+  {
+   "comment": null,
+   "name": "ITEM_SLOT_MURDER_CARD",
+   "value": 52
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Types/Item/ItemSlotType"
+}
