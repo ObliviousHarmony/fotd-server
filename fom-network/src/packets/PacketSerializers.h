@@ -129,5 +129,6 @@ SERIALIZER_WRITE(WorldUpdate)
 SERIALIZER_BOTH(Chat)
 SERIALIZER_BOTH(MoveItems);
 SERIALIZER_WRITE(WorldObjects);
+SERIALIZER_BOTH(WorldService);
 
 }  // namespace FOMNetwork

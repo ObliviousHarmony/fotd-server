@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Packets.Types.World;
 using FOMServer.Shared.Metadata;
+using PacketWorldService = FOMServer.Shared.Core.Packets.Types.World.WorldService;
 
 namespace FOMServer.Shared.Core.Packets
 {
@@ -36,7 +37,7 @@ namespace FOMServer.Shared.Core.Packets
         public WorldObject Object;
 
         [FieldOffset(9)]
-        public WorldService Service;
+        public PacketWorldService Service;
 
         [FieldOffset(9)]
         public WorldServiceControl Control;
@@ -83,7 +84,7 @@ namespace FOMServer.Shared.Core.Packets
             [InlineArray(MaxWorldServices)]
             public struct WorldServiceArray
             {
-                private WorldService _element;
+                private PacketWorldService _element;
             }
 
             [InlineArray(MaxWorldServiceControls)]

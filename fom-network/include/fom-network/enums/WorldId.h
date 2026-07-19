@@ -16,7 +16,7 @@ enum WorldId : uint8_t {
   // PARIS = 7,
   // TESTING = 8,
   // BERLIN = 9,
-  // UNUSED_WORLD = 10,
+  // 10
   // ANDROMEDA_CITY = 11,
   // NEW_HAVEN = 12,
   // GANYMEDE = 13,

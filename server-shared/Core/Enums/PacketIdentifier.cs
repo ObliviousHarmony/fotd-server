@@ -29,7 +29,6 @@ namespace FOMServer.Shared.Core.Enums
 
         ID_FOM_PACKET_START = 104,
         ID_REGISTER_WORLD = ID_FOM_PACKET_START,
-
         // 105
         // 106
         // ID_NOTIFY = 107,
@@ -38,11 +37,9 @@ namespace FOMServer.Shared.Core.Enums
         ID_LOGIN = 110,
         ID_LOGIN_RETURN = 111,
         ID_LOGIN_TOKEN_CHECK = 112,
-
         // ID_LOGOUT = 113,
         ID_WORLD_LOGIN = 114,
         ID_WORLD_LOGIN_RETURN = 115,
-
         // ID_WORLD_LOGOUT = 116,
         ID_PLAYER_MIGRATE_WORLD = 117,
         ID_PLAYER_WORLD_READY = 118,
@@ -50,28 +47,22 @@ namespace FOMServer.Shared.Core.Enums
         ID_REGISTER_CLIENT = 120,
         ID_REGISTER_CLIENT_RETURN = 121,
         ID_CREATE_CHARACTER = 122,
-
         // ID_VORTEX_GATE = 123,
         ID_CHECK_NAME = 124,
         ID_CHECK_NAME_RETURN = 125,
-
         ID_UPDATE = 126,
         ID_WORLD_UPDATE = 127,
-
         // ID_WEATHER = 128,
         // ID_ITEMS_REMOVED = 129,
         // ID_ITEMS_CHANGED = 130,
         // ID_ATTRIBUTE_CHANGE = 131,
         // ID_HIT = 132,
-
         ID_WORLD_OBJECTS = 133,
-
         // ID_ATTACK = 134,
         // ID_WEAPONFIRE = 135,
         // ID_ITEM_REMOVED = 136,
         // ID_EXPLOSIVE = 137,
         ID_MOVE_ITEMS = 138,
-
         // ID_CHECK_MAIL = 139,
         // ID_MAIL = 140,
         // ID_CHARACTER_UPDATE = 141,
@@ -83,7 +74,6 @@ namespace FOMServer.Shared.Core.Enums
         // ID_ITEMS_ADDED = 147,
         // ID_AVATAR_CHANGE = 148,
         ID_CHAT = 149,
-
         // ID_TAUNT = 150,
         // ID_FRIENDS = 151,
         // ID_TRANSFER_ITEMS = 152,
@@ -99,7 +89,7 @@ namespace FOMServer.Shared.Core.Enums
         // ID_SPLIT_CONTAINER = 162,
         // ID_SKILLS = 163,
         // ID_USE_ITEM = 164,
-        // ID_WORLDSERVICE = 165,
+        ID_WORLDSERVICE = 165,
         // ID_HACKING = 166,
         // 167
         // ID_CHEMICAL_LAB = 168,

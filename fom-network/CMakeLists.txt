@@ -38,6 +38,7 @@ set(FOMNETWORK_SRC
   "src/packets/ChatSerializer.cpp"
   "src/packets/MoveItemsSerializer.cpp"
   "src/packets/WorldObjectsSerializer.cpp"
+  "src/packets/WorldServiceSerializer.cpp"
 )
 set(FOMNETWORK_INC
   # Core API
@@ -149,6 +150,7 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/Chat.h"
   "include/fom-network/packets/MoveItems.h"
   "include/fom-network/packets/WorldObjects.h"
+  "include/fom-network/packets/WorldService.h"
 )
 set(FOMNETWORK_TEST
     "tests/FOMDataSerializer_test.cpp"

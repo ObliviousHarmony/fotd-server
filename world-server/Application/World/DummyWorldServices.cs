@@ -118,6 +118,11 @@ namespace FOMServer.World.Application.World
             ),
         ];
 
+        public static WorldServiceType GetFromId(uint id)
+        {
+            return (WorldServiceType)id - 100;
+        }
+
         public static void WriteTo(ref WorldObjects p)
         {
             p.Action = WorldObjects.WorldObjectsAction.WorldSync;

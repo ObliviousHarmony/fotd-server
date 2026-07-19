@@ -8,13 +8,12 @@ namespace FOMServer.Shared.Core.Enums
         // Brooklyn = 2, // NYC_BROOKLYN
         // Tokyo = 3, // TOKYO
         Apartments = 4, // APARTMENTS
-
         // TrainingGround = 5, // TRAINING_GROUND
         // NecarsField = 6, // NECARS_FIELD
         // Paris = 7, // PARIS
         // Testing = 8, // TESTING
         // Berlin = 9, // BERLIN
-        // Unused = 10, // UNUSED_WORLD
+        // 10
         // AndromedaCity = 11, // ANDROMEDA_CITY
         // NEW_HAVEN = 12,
         // GANYMEDE = 13,
