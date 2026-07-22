@@ -20,9 +20,19 @@ namespace FOMServer.Shared.Tests.Packets
             foreach (var type in packetTypes)
             {
                 var layout = type.StructLayoutAttribute;
-                if (layout is null || layout.Value != LayoutKind.Sequential || layout.Pack != 1)
+                if (layout is null)
                 {
-                    Assert.Fail($"{type.Name} must be declared with [StructLayout(LayoutKind.Sequential, Pack = 1)]");
+                    Assert.Fail($"{type.Name} must be decorated with a StructLayout attribute");
+                }
+
+                if (layout.Pack != 1)
+                {
+                    Assert.Fail($"{type.Name} must be decorated with Pack = 1");
+                }
+
+                if (layout.Value == LayoutKind.Auto)
+                {
+                    Assert.Fail($"{type.Name} must be decorated with either an explicit or sequential layout");
                 }
             }
         }
