@@ -1,4 +1,4 @@
-using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Enums.Item;
 
 namespace FOMServer.Shared.Core.Constants
 {

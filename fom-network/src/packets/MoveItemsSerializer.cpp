@@ -25,11 +25,12 @@ bool MoveItemsSerializer::Read(RakNet::BitStream& bs,
 
 void MoveItemsSerializer::Write(RakNet::BitStream& bs,
                                 const Packet::MoveItems* data) const {
-  bs.WriteCompressed(data->playerId);
-
   auto numItemIds = data->numItemIds;
   if (numItemIds > BufferSizes::MAX_ITEM_LIST_SIZE)
     numItemIds = BufferSizes::MAX_ITEM_LIST_SIZE;
+
+  bs.WriteCompressed(data->playerId);
+
   bs.WriteCompressed(numItemIds);
   for (int i = 0; i < numItemIds; ++i) {
     bs.WriteCompressed(data->itemIds[i]);

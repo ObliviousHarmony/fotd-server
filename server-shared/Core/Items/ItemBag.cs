@@ -1,8 +1,7 @@
 using System.Diagnostics;
 using FOMServer.Shared.Core.Constants;
-using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Packets.Types;
-using PacketItemList = FOMServer.Shared.Core.Packets.Types.ItemList;
+using FOMServer.Shared.Core.Enums.Item;
+using PacketItemList = FOMServer.Shared.Core.Packets.Types.Item.ItemList;
 
 namespace FOMServer.Shared.Core.Items
 {

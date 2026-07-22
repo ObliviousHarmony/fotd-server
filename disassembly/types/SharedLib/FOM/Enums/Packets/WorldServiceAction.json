@@ -1,0 +1,103 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_INVALID",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_OPEN",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_OPEN_CLONING",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_OPENED_STORAGE",
+   "value": 3
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_OPEN_UNKNOWN",
+   "value": 4
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_OPENED",
+   "value": 5
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_DEV",
+   "value": 6
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_MANAGER_REQUEST",
+   "value": 7
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_MANAGER_RETURN",
+   "value": 8
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_MANAGER_UPDATE",
+   "value": 9
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_ACTIVATE_CONTROL",
+   "value": 10
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_OPENED_PRISONER",
+   "value": 11
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_PRISON_BAIL_SUBMIT",
+   "value": 12
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_PRISON_BAIL_REQUEST",
+   "value": 13
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_PRISON_BAIL_RETURN",
+   "value": 14
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_PRISON_MANAGER_REQUEST",
+   "value": 15
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_PRISON_MANAGER_RETURN",
+   "value": 16
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_PRISON_MANAGER_RELEASE",
+   "value": 17
+  },
+  {
+   "comment": null,
+   "name": "WORLD_SERVICE_ACTION_PRISON_CLOSE",
+   "value": 18
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Enums/Packets/WorldServiceAction"
+}

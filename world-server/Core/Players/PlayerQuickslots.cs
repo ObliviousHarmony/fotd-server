@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using FOMServer.Shared.Core.Constants;
-using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Enums.Item;
 using FOMServer.Shared.Core.Persistence;
 using PacketQuickslots = FOMServer.Shared.Core.Packets.RegisterClientReturn.QuickSlotsArray;
 

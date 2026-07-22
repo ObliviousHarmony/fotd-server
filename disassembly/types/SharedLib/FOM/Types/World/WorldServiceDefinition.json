@@ -1,0 +1,76 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": "serviceId",
+   "offset": 0,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "serviceType",
+   "offset": 4,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 256,
+   "name": "modelPath",
+   "offset": 5,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 256
+   }
+  },
+  {
+   "comment": null,
+   "len": 256,
+   "name": "skinPath",
+   "offset": 261,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 256
+   }
+  },
+  {
+   "comment": null,
+   "len": 256,
+   "name": "renderStylePath",
+   "offset": 517,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 256
+   }
+  },
+  {
+   "comment": null,
+   "len": 2,
+   "name": "scale",
+   "offset": 774,
+   "type": "/stdint.h/uint16_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "moveToFloor",
+   "offset": 776,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "solid",
+   "offset": 777,
+   "type": "/stdint.h/uint8_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 780,
+ "packed": true,
+ "path": "/FOM/Types/World/WorldServiceDefinition"
+}

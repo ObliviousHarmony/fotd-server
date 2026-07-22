@@ -1,5 +1,5 @@
 using System.Numerics;
-using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Enums.Item;
 using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Networking;

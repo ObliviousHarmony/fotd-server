@@ -1,9 +1,9 @@
 using FOMServer.Shared.Core.Constants;
-using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Enums.Item;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
 using PacketEquipment = FOMServer.Shared.Core.Packets.RegisterClientReturn.EquipmentArray;
-using PacketInventory = FOMServer.Shared.Core.Packets.Types.ItemList;
+using PacketInventory = FOMServer.Shared.Core.Packets.Types.Item.ItemList;
 using PacketWeapons = FOMServer.Shared.Core.Packets.RegisterClientReturn.WeaponsArray;
 
 namespace FOMServer.World.Core.Players

@@ -2,7 +2,11 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Enums.Item;
 using FOMServer.Shared.Core.Packets.Types;
+using FOMServer.Shared.Core.Packets.Types.Faction;
+using FOMServer.Shared.Core.Packets.Types.Item;
+using FOMServer.Shared.Core.Packets.Types.Player;
 using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Packets

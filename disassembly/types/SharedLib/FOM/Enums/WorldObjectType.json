@@ -1,0 +1,78 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "WORLD_OBJECT_TURRET",
+   "value": 501
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECT_INTERACTIVE",
+   "value": 503
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECT_COLONY_CONTROL",
+   "value": 505
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECT_BACKPACK",
+   "value": 506
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECT_ITEM",
+   "value": 507
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECT_SERVICE",
+   "value": 508
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECT_DEPLOYABLE",
+   "value": 509
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECT_INFLUENCE_GENERATOR",
+   "value": 510
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECT_MEDICAL_UNIT",
+   "value": 511
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECT_MINING_RIG",
+   "value": 512
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECT_SERVICE_CONTROL",
+   "value": 513
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECT_NPC",
+   "value": 514
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECT_TERRITORY_OBJECT",
+   "value": 515
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECT_EXPLOSIVE_CHARGE",
+   "value": 516
+  }
+ ],
+ "kind": "enum",
+ "len": 2,
+ "path": "/FOM/Enums/WorldObjectType"
+}

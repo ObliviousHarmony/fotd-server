@@ -169,7 +169,7 @@
      "type": "/uint *"
     }
    ],
-   "returnType": "/void"
+   "returnType": "/bool"
   },
   {
    "addr": "10016800",
@@ -186,7 +186,7 @@
      "type": "/char *"
     }
    ],
-   "returnType": "/void"
+   "returnType": "/bool"
   },
   {
    "addr": "1004d820",
@@ -200,10 +200,10 @@
     },
     {
      "name": "param_1",
-     "type": "/void *"
+     "type": "/ushort *"
     }
    ],
-   "returnType": "/undefined4"
+   "returnType": "/bool"
   },
   {
    "addr": "1004e720",
@@ -220,7 +220,7 @@
      "type": "/uint *"
     }
    ],
-   "returnType": "/void"
+   "returnType": "/bool"
   },
   {
    "addr": "1005bd70",

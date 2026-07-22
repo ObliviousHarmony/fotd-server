@@ -20,16 +20,16 @@
   {
    "comment": null,
    "len": 1,
-   "name": "dest",
+   "name": "to",
    "offset": 1076,
-   "type": "/stdint.h/uint8_t"
+   "type": "/FOM/Types/Item/ItemContainerType"
   },
   {
    "comment": null,
    "len": 1,
-   "name": null,
+   "name": "toSlot",
    "offset": 1077,
-   "type": "/stdint.h/uint8_t"
+   "type": "/FOM/Types/Item/ItemSlotType"
   },
   {
    "comment": null,

@@ -1,0 +1,73 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "ITEM_CONTAINER_INVALID",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CONTAINER_INVENTORY",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CONTAINER_EQUIPMENT",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CONTAINER_WEAPONS",
+   "value": 3
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CONTAINER_NANOMACHINE_AUGMENTATIONS",
+   "value": 4
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CONTAINER_QUICKSLOTS",
+   "value": 5
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CONTAINER_STORAGE",
+   "value": 6
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CONTAINER_ACTIVE_CONSUMABLES",
+   "value": 7
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CONTAINER_DESTROY",
+   "value": 8
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CONTAINER_LOOT",
+   "value": 11
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CONTAINER_TRANSPORT_STORAGE",
+   "value": 13
+  },
+  {
+   "comment": null,
+   "name": "ITEM_CONTAINER_TRANSPORT_BUYBACK",
+   "value": 17
+  },
+  {
+   "comment": null,
+   "name": "NUM_ITEM_CONTAIENRS",
+   "value": 18
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Types/Item/ItemContainerType"
+}

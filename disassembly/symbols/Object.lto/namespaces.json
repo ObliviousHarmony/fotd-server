@@ -43,12 +43,6 @@
  },
  {
   "kind": "namespace",
-  "name": "World",
-  "parent": "FOM",
-  "path": "FOM::World"
- },
- {
-  "kind": "namespace",
   "name": "Game",
   "parent": "FOM",
   "path": "FOM::Game"
@@ -58,6 +52,12 @@
   "name": "VariableSizedPacket",
   "parent": "FOM::Packets",
   "path": "FOM::Packets::VariableSizedPacket"
+ },
+ {
+  "kind": "class",
+  "name": "Packet_ID_WORLDSERVICE",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_WORLDSERVICE"
  },
  {
   "kind": "class",
@@ -103,6 +103,12 @@
  },
  {
   "kind": "class",
+  "name": "Packet_ID_VORTEX_GATE",
+  "parent": "FOM::Packets",
+  "path": "FOM::Packets::Packet_ID_VORTEX_GATE"
+ },
+ {
+  "kind": "class",
   "name": "Apartment",
   "parent": "FOM::Types",
   "path": "FOM::Types::Apartment"
@@ -136,6 +142,18 @@
   "name": "WorldUpdate",
   "parent": "FOM::Types",
   "path": "FOM::Types::WorldUpdate"
+ },
+ {
+  "kind": "namespace",
+  "name": "VortexMap",
+  "parent": "FOM::Types",
+  "path": "FOM::Types::VortexMap"
+ },
+ {
+  "kind": "namespace",
+  "name": "World",
+  "parent": "FOM::Types",
+  "path": "FOM::Types::World"
  },
  {
   "kind": "class",
@@ -232,5 +250,89 @@
   "name": "FactionPerks",
   "parent": "FOM::Types::Faction",
   "path": "FOM::Types::Faction::FactionPerks"
+ },
+ {
+  "kind": "class",
+  "name": "VortexMap",
+  "parent": "FOM::Types::VortexMap",
+  "path": "FOM::Types::VortexMap::VortexMap"
+ },
+ {
+  "kind": "class",
+  "name": "WorldObjects",
+  "parent": "FOM::Types::World",
+  "path": "FOM::Types::World::WorldObjects"
+ },
+ {
+  "kind": "class",
+  "name": "WorldNPC",
+  "parent": "FOM::Types::World",
+  "path": "FOM::Types::World::WorldNPC"
+ },
+ {
+  "kind": "class",
+  "name": "WorldService",
+  "parent": "FOM::Types::World",
+  "path": "FOM::Types::World::WorldService"
+ },
+ {
+  "kind": "class",
+  "name": "WorldNPCs",
+  "parent": "FOM::Types::World",
+  "path": "FOM::Types::World::WorldNPCs"
+ },
+ {
+  "kind": "class",
+  "name": "WorldServices",
+  "parent": "FOM::Types::World",
+  "path": "FOM::Types::World::WorldServices"
+ },
+ {
+  "kind": "class",
+  "name": "WorldServiceControls",
+  "parent": "FOM::Types::World",
+  "path": "FOM::Types::World::WorldServiceControls"
+ },
+ {
+  "kind": "class",
+  "name": "WorldServiceControl",
+  "parent": "FOM::Types::World",
+  "path": "FOM::Types::World::WorldServiceControl"
+ },
+ {
+  "kind": "class",
+  "name": "WorldObject",
+  "parent": "FOM::Types::World",
+  "path": "FOM::Types::World::WorldObject"
+ },
+ {
+  "kind": "class",
+  "name": "WorldServiceDefinition",
+  "parent": "FOM::Types::World",
+  "path": "FOM::Types::World::WorldServiceDefinition"
+ },
+ {
+  "kind": "class",
+  "name": "WorldServiceControlDefinition",
+  "parent": "FOM::Types::World",
+  "path": "FOM::Types::World::WorldServiceControlDefinition"
+ },
+ {
+  "kind": "class",
+  "name": "WorldServiceInfo",
+  "parent": "FOM::Types::World",
+  "path": "FOM::Types::World::WorldServiceInfo"
+ },
+ {
+  "kind": "class",
+  "name": "PrisonerList",
+  "parent": "FOM::Types::World",
+  "path": "FOM::Types::World::PrisonerList"
+ },
+ {
+  "kind": "class",
+  "name": "WorldServiceOwnership",
+  "parent": "FOM::Types::World",
+  "path": "FOM::Types::World::WorldServiceOwnership"
  }
 ]

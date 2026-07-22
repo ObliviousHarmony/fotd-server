@@ -1,0 +1,39 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100a10a0",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::World::WorldServiceOwnership",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/World/WorldServiceOwnership *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "100a7ab0",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Types::World::WorldServiceOwnership",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/World/WorldServiceOwnership *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

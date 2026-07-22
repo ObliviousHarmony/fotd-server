@@ -53,7 +53,7 @@ enum PacketIdentifier : uint8_t {
   // ID_ITEMS_CHANGED = 130,
   // ID_ATTRIBUTE_CHANGE = 131,
   // ID_HIT = 132,
-  // ID_WORLD_OBJECTS = 133,
+  ID_WORLD_OBJECTS = 133,
   // ID_ATTACK = 134,
   // ID_WEAPONFIRE = 135,
   // ID_ITEM_REMOVED = 136,
@@ -85,7 +85,7 @@ enum PacketIdentifier : uint8_t {
   // ID_SPLIT_CONTAINER = 162,
   // ID_SKILLS = 163,
   // ID_USE_ITEM = 164,
-  // ID_WORLDSERVICE = 165,
+  ID_WORLDSERVICE = 165,
   // ID_HACKING = 166,
   // 167
   // ID_CHEMICAL_LAB = 168,

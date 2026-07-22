@@ -13,7 +13,7 @@
     },
     {
      "name": "messageType",
-     "type": "/byte"
+     "type": "/FOM/Enums/PacketIdentifier"
     }
    ],
    "returnType": "/FOM/Packets/VariableSizedPacket *"
@@ -157,7 +157,7 @@
      "type": "/ushort *"
     }
    ],
-   "returnType": "/void"
+   "returnType": "/bool"
   },
   {
    "addr": "1000cd70",
@@ -223,6 +223,40 @@
     {
      "name": "outValue",
      "type": "/uint *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "100388f0",
+   "callingConvention": "__thiscall",
+   "name": "ReadCompressed_byte",
+   "namespace": "FOM::Packets::VariableSizedPacket",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    },
+    {
+     "name": "param_1",
+     "type": "/byte *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10038910",
+   "callingConvention": "__thiscall",
+   "name": "WriteCompressed_byte",
+   "namespace": "FOM::Packets::VariableSizedPacket",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    },
+    {
+     "name": "inVal",
+     "type": "/byte"
     }
    ],
    "returnType": "/void"

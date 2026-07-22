@@ -1,0 +1,39 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1026ea50",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::VortexMap::VortexMap",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/VortexMap/VortexMap *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1026f2e0",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Types::VortexMap::VortexMap",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/VortexMap/VortexMap *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/bool"
+  }
+ ]
+}

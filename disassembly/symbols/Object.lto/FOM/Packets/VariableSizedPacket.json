@@ -13,7 +13,7 @@
     },
     {
      "name": "messageType",
-     "type": "/byte"
+     "type": "/FOM/Enums/PacketIdentifier"
     }
    ],
    "returnType": "/FOM/Packets/VariableSizedPacket *"
@@ -64,6 +64,23 @@
     }
    ],
    "returnType": "/void *"
+  },
+  {
+   "addr": "10014ce0",
+   "callingConvention": "__thiscall",
+   "name": "WriteBit",
+   "namespace": "FOM::Packets::VariableSizedPacket",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    },
+    {
+     "name": "param_1",
+     "type": "/char"
+    }
+   ],
+   "returnType": "/undefined"
   },
   {
    "addr": "10016090",
@@ -125,6 +142,40 @@
     {
      "name": "outValue",
      "type": "/undefined4"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10016860",
+   "callingConvention": "__thiscall",
+   "name": "ReadCompressed_byte",
+   "namespace": "FOM::Packets::VariableSizedPacket",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    },
+    {
+     "name": "outVal",
+     "type": "/byte *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10016880",
+   "callingConvention": "__thiscall",
+   "name": "WriteCompressed_byte",
+   "namespace": "FOM::Packets::VariableSizedPacket",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/VariableSizedPacket *"
+    },
+    {
+     "name": "inVal",
+     "type": "/byte"
     }
    ],
    "returnType": "/bool"

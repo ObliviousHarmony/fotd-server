@@ -1,5 +1,5 @@
 using System.Collections.Immutable;
-using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Enums.Item;
 using FOMServer.Shared.Core.Packets.Types;
 
 namespace FOMServer.Shared.Core.Items

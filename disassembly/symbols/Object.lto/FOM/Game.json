@@ -2,6 +2,36 @@
  "data": [],
  "functions": [
   {
+   "addr": "100461e0",
+   "callingConvention": "__fastcall",
+   "name": "FindObject",
+   "namespace": "FOM::Game",
+   "params": [
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10050130",
+   "callingConvention": "__thiscall",
+   "name": "FindEnemy",
+   "namespace": "FOM::Game",
+   "params": [
+    {
+     "name": "this",
+     "type": "/void *"
+    },
+    {
+     "name": "param_1",
+     "type": "/int"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
    "addr": "10079690",
    "callingConvention": "__stdcall",
    "name": "LogoutFromWorld",

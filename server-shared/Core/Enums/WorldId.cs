@@ -14,7 +14,7 @@ namespace FOMServer.Shared.Core.Enums
         // Paris = 7, // PARIS
         // Testing = 8, // TESTING
         // Berlin = 9, // BERLIN
-        // Unused = 10, // UNUSED_WORLD
+        // 10
         // AndromedaCity = 11, // ANDROMEDA_CITY
         // NEW_HAVEN = 12,
         // GANYMEDE = 13,

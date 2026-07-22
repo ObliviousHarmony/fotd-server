@@ -27,30 +27,30 @@
   {
    "comment": null,
    "len": 1,
-   "name": "src",
+   "name": "from",
    "offset": 1088,
-   "type": "/stdint.h/uint8_t"
+   "type": "/FOM/Types/Item/ItemContainerType"
   },
   {
    "comment": null,
    "len": 1,
-   "name": "dest",
+   "name": "to",
    "offset": 1089,
-   "type": "/stdint.h/uint8_t"
+   "type": "/FOM/Types/Item/ItemContainerType"
   },
   {
    "comment": null,
    "len": 1,
-   "name": "srcSlot",
+   "name": "fromSlot",
    "offset": 1090,
-   "type": "/stdint.h/uint8_t"
+   "type": "/FOM/Types/Item/ItemSlotType"
   },
   {
    "comment": null,
    "len": 1,
-   "name": "destSlot",
+   "name": "toSlot",
    "offset": 1091,
-   "type": "/stdint.h/uint8_t"
+   "type": "/FOM/Types/Item/ItemSlotType"
   }
  ],
  "kind": "struct",

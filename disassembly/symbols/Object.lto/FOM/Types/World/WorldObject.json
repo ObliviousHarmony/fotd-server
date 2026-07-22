@@ -1,0 +1,22 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "100db970",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::World::WorldObject",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/World/WorldObject *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}

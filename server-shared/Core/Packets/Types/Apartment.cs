@@ -1,6 +1,7 @@
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Core.Packets.Types.Item;
 
 namespace FOMServer.Shared.Core.Packets.Types
 {

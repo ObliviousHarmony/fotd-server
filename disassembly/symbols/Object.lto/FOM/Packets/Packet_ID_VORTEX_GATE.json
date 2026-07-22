@@ -1,0 +1,65 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "10082cb0",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Packets::Packet_ID_VORTEX_GATE",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_VORTEX_GATE *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "10084170",
+   "callingConvention": "__thiscall",
+   "name": "Packet_ID_VORTEX_GATE",
+   "namespace": "FOM::Packets::Packet_ID_VORTEX_GATE",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_VORTEX_GATE *"
+    }
+   ],
+   "returnType": "/undefined"
+  },
+  {
+   "addr": "10084240",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Packets::Packet_ID_VORTEX_GATE",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_VORTEX_GATE *"
+    },
+    {
+     "name": "packet",
+     "type": "/RakNet/Packet *"
+    }
+   ],
+   "returnType": "/bool"
+  },
+  {
+   "addr": "10084360",
+   "callingConvention": "__thiscall",
+   "name": "~Packet_ID_VORTEX_GATE",
+   "namespace": "FOM::Packets::Packet_ID_VORTEX_GATE",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Packets/Packet_ID_VORTEX_GATE *"
+    },
+    {
+     "name": "flags",
+     "type": "/byte"
+    }
+   ],
+   "returnType": "/void *"
+  }
+ ]
+}

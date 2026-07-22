@@ -1,0 +1,46 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 0,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 4,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": null,
+   "offset": 8,
+   "type": "/undefined4"
+  },
+  {
+   "comment": null,
+   "len": 72,
+   "name": "definition",
+   "offset": 12,
+   "type": "/FOM/Types/World/WorldServiceControlDefinition"
+  },
+  {
+   "comment": null,
+   "len": 4,
+   "name": "id",
+   "offset": 84,
+   "type": "/stdint.h/uint32_t"
+  }
+ ],
+ "kind": "struct",
+ "len": 88,
+ "packed": true,
+ "path": "/FOM/Types/World/WorldServiceControl"
+}

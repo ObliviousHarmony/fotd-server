@@ -2,14 +2,14 @@
 #include <fom-network/packets/RegisterClientReturn.h>
 
 #include "../types/AvatarSerializer.h"
-#include "../types/FactionEmblemSerializer.h"
-#include "../types/FactionPerksSerializer.h"
-#include "../types/ItemListSerializer.h"
-#include "../types/ItemSerializer.h"
-#include "../types/PlayerAttributesSerializer.h"
-#include "../types/PlayerProfileSerializer.h"
-#include "../types/PlayerSkillsSerializer.h"
 #include "../types/PositionRotationSerializer.h"
+#include "../types/faction/FactionEmblemSerializer.h"
+#include "../types/faction/FactionPerksSerializer.h"
+#include "../types/item/ItemListSerializer.h"
+#include "../types/item/ItemSerializer.h"
+#include "../types/player/PlayerAttributesSerializer.h"
+#include "../types/player/PlayerProfileSerializer.h"
+#include "../types/player/PlayerSkillsSerializer.h"
 #include "PacketSerializers.h"
 
 namespace FOMNetwork {

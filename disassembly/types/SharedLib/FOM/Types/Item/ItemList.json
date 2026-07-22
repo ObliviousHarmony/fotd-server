@@ -6,7 +6,7 @@
   {
    "comment": null,
    "len": 2,
-   "name": null,
+   "name": "reservedSpace",
    "offset": 0,
    "type": "/stdint.h/uint16_t"
   },
@@ -20,7 +20,7 @@
   {
    "comment": null,
    "len": 4,
-   "name": null,
+   "name": "maxItems",
    "offset": 20,
    "type": "/stdint.h/uint32_t"
   },

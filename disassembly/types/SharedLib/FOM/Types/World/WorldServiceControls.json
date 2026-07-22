@@ -1,0 +1,18 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": "vector<WorldServiceControl>",
+   "len": 16,
+   "name": "serviceControls",
+   "offset": 0,
+   "type": "/std/vector"
+  }
+ ],
+ "kind": "struct",
+ "len": 16,
+ "packed": true,
+ "path": "/FOM/Types/World/WorldServiceControls"
+}

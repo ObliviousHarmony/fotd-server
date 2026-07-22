@@ -1,0 +1,42 @@
+{
+ "desc": null,
+ "explicitAlign": null,
+ "explicitPack": null,
+ "fields": [
+  {
+   "comment": null,
+   "len": 4,
+   "name": "serviceId",
+   "offset": 0,
+   "type": "/stdint.h/uint32_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "state",
+   "offset": 4,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 1,
+   "name": "class",
+   "offset": 5,
+   "type": "/stdint.h/uint8_t"
+  },
+  {
+   "comment": null,
+   "len": 65,
+   "name": "target",
+   "offset": 6,
+   "type": {
+    "arr": "/stdint.h/uint8_t",
+    "n": 65
+   }
+  }
+ ],
+ "kind": "struct",
+ "len": 72,
+ "packed": true,
+ "path": "/FOM/Types/World/WorldServiceControlDefinition"
+}

@@ -1,0 +1,33 @@
+{
+ "desc": null,
+ "entries": [
+  {
+   "comment": null,
+   "name": "WORLD_OBJECTS_ACTION_INVALID",
+   "value": 0
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECTS_ACTION_WORLD_SYNC",
+   "value": 1
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECTS_ACTION_OBJECT_SYNC",
+   "value": 2
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECTS_ACTION_SET_ACTIVE",
+   "value": 3
+  },
+  {
+   "comment": null,
+   "name": "WORLD_OBJECTS_ACTION_CHANGE_STATE",
+   "value": 4
+  }
+ ],
+ "kind": "enum",
+ "len": 1,
+ "path": "/FOM/Enums/Packets/WorldObjectsAction"
+}

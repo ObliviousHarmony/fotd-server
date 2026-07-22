@@ -1,0 +1,35 @@
+{
+ "data": [],
+ "functions": [
+  {
+   "addr": "1015d2e0",
+   "callingConvention": "__thiscall",
+   "name": "Write",
+   "namespace": "FOM::Types::World::PrisonerList",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/World/PrisonerList *"
+    },
+    {
+     "name": "bs",
+     "type": "/RakNet/BitStream *"
+    }
+   ],
+   "returnType": "/void"
+  },
+  {
+   "addr": "1015e590",
+   "callingConvention": "__thiscall",
+   "name": "Read",
+   "namespace": "FOM::Types::World::PrisonerList",
+   "params": [
+    {
+     "name": "this",
+     "type": "/FOM/Types/World/PrisonerList *"
+    }
+   ],
+   "returnType": "/void"
+  }
+ ]
+}
