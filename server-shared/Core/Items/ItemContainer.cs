@@ -1,6 +1,5 @@
 using System.Collections.Immutable;
-using FOMServer.Shared.Core.Enums.Item;
-using FOMServer.Shared.Core.Packets.Types;
+using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 
 namespace FOMServer.Shared.Core.Items
 {
@@ -58,7 +57,9 @@ namespace FOMServer.Shared.Core.Items
 
                 if (!InsertCore(items))
                 {
-                    throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be inserted");
+                    throw new InvalidOperationException(
+                        $"ItemInterop(s) {string.Join(", ", ids)} could not be inserted"
+                    );
                 }
 
                 foreach (var item in items)
@@ -90,7 +91,9 @@ namespace FOMServer.Shared.Core.Items
                 var extracted = ExtractCore(ids);
                 if (extracted.Count != ids.Count)
                 {
-                    throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be extracted");
+                    throw new InvalidOperationException(
+                        $"ItemInterop(s) {string.Join(", ", ids)} could not be extracted"
+                    );
                 }
 
                 foreach (var item in extracted)
@@ -170,19 +173,23 @@ namespace FOMServer.Shared.Core.Items
                     if (displacedItems.Count != idsToDisplace.Count)
                     {
                         throw new InvalidOperationException(
-                            $"Item(s) {string.Join(", ", idsToDisplace)} could not be extracted"
+                            $"ItemInterop(s) {string.Join(", ", idsToDisplace)} could not be extracted"
                         );
                     }
 
                     var extractedItems = ExtractCore(ids);
                     if (extractedItems.Count != ids.Count)
                     {
-                        throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be extracted");
+                        throw new InvalidOperationException(
+                            $"ItemInterop(s) {string.Join(", ", ids)} could not be extracted"
+                        );
                     }
 
                     if (!to.InsertCore(extractedItems))
                     {
-                        throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be inserted");
+                        throw new InvalidOperationException(
+                            $"ItemInterop(s) {string.Join(", ", ids)} could not be inserted"
+                        );
                     }
 
                     foreach (var item in extractedItems)
@@ -198,7 +205,7 @@ namespace FOMServer.Shared.Core.Items
                         if (!InsertCore(displacedItems))
                         {
                             throw new InvalidOperationException(
-                                $"Item(s) {string.Join(", ", idsToDisplace)} could not be insert"
+                                $"ItemInterop(s) {string.Join(", ", idsToDisplace)} could not be insert"
                             );
                         }
 

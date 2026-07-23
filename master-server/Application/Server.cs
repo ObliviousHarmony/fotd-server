@@ -3,9 +3,9 @@ using FOMServer.Master.Application.Networking;
 using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Constants;
-using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Handlers;
-using FOMServer.Shared.Infrastructure.FOMNetwork;
+using FOMServer.Shared.Core.PacketHandlers;
+using FOMServer.Shared.Interop.FOMNetwork;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
 
 namespace FOMServer.Master.Application
 {
@@ -165,7 +165,7 @@ namespace FOMServer.Master.Application
                 packetProcessor
             );
 
-            // Clients connecting produce NewIncomingConnection. Claim it on the client network
+            // Clients connecting produce NewIncomingConnectionPacket. Claim it on the client network
             // so world-server connections (on the other manager) don't get registered as client sessions.
             networkManager.ClaimPacketId(
                 PacketIdentifier.ID_NEW_INCOMING_CONNECTION,

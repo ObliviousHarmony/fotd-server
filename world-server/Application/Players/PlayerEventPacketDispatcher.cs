@@ -1,7 +1,7 @@
 using System.Text;
 using System.Xml.Linq;
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
 
@@ -57,7 +57,7 @@ namespace FOMServer.World.Application.Players
         private void OnInventoryItemDestroyed(PlayerInventory inventory, Item item)
         {
             _logger.LogInformation(
-                "Item {ItemId} in player {PlayerId}'s inventory was destroyed",
+                "ItemInterop {ItemId} in player {PlayerId}'s inventory was destroyed",
                 item.Id,
                 inventory.PlayerId
             );

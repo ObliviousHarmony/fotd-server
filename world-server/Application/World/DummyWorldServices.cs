@@ -1,6 +1,6 @@
-using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Packets;
-using FOMServer.Shared.Core.Packets.Types;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
+using FOMServer.Shared.Interop.FOMNetwork.Packets;
+using FOMServer.Shared.Interop.FOMNetwork.Structs;
 
 namespace FOMServer.World.Application.World
 {
@@ -123,9 +123,9 @@ namespace FOMServer.World.Application.World
             return (WorldServiceType)id - 100;
         }
 
-        public static void WriteTo(ref WorldObjects p)
+        public static void WriteTo(ref WorldObjectsPacket p)
         {
-            p.Action = WorldObjects.WorldObjectsAction.WorldSync;
+            p.Action = WorldObjectsPacket.WorldObjectsAction.WorldSync;
 
             p.Sync.NumServices = (uint)s_definitions.Length;
             for (var i = 0; i < s_definitions.Length; ++i)
@@ -144,9 +144,9 @@ namespace FOMServer.World.Application.World
 
                 service.NumPlacements = 1;
                 service.PlacementIds[0] = 100 + (uint)definition.Type;
-                service.Placements[0] = new PositionRotation
+                service.Placements[0] = new PositionRotationInterop
                 {
-                    Pos = new Position
+                    Pos = new PositionInterop
                     {
                         X = definition.X,
                         Y = RingY,

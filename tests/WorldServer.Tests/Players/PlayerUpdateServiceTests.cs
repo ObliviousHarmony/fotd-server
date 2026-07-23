@@ -1,12 +1,12 @@
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Networking;
+using FOMServer.Shared.Interop.FOMNetwork;
+using FOMServer.Shared.Interop.FOMNetwork.Packets;
+using FOMServer.Shared.Interop.FOMNetwork.Structs;
 using FOMServer.World.Application.Ticks;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
 using FOMServer.World.Tests.Factories;
-using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
-using PacketWorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
-using WorldUpdatePacket = FOMServer.Shared.Core.Packets.WorldUpdate;
 
 namespace FOMServer.World.Tests.Players
 {
@@ -142,14 +142,14 @@ namespace FOMServer.World.Tests.Players
             // ceil(150 / 100) = 2 packets, each within the cap, with every mover present and none dropped.
             Assert.Equal(2, packets.Count);
             Assert.All(packets, p => Assert.True(p.UpdateCount <= WorldUpdatePacket.MaxWorldUpdates));
-            Assert.Equal(moverCount, packets.Sum(p => (int)p.UpdateCount));
+            Assert.Equal(moverCount, packets.Sum(p => p.UpdateCount));
             var received = packets.SelectMany(p => p.Entries.Select(e => e.Character.Id)).ToHashSet();
             Assert.True(received.SetEquals(Enumerable.Range(100, moverCount).Select(i => (uint)i)));
         }
 
         private static void Move(Player player, ushort animation)
         {
-            player.ApplyUpdate(new PacketWorldUpdate.PlayerUpdate { Character = new() { AnimationId = animation } });
+            player.ApplyUpdate(new WorldUpdateInterop.PlayerUpdate { Character = new() { AnimationId = animation } });
         }
 
         private sealed class Fixture
@@ -173,7 +173,7 @@ namespace FOMServer.World.Tests.Players
             }
         }
 
-        private sealed record Capture(uint PlayerId, byte UpdateCount, PacketWorldUpdate[] Entries);
+        private sealed record Capture(uint PlayerId, byte UpdateCount, WorldUpdateInterop[] Entries);
 
         private sealed class CapturingSender : IClientPacketSender
         {
@@ -184,7 +184,7 @@ namespace FOMServer.World.Tests.Players
                 // Decode immediately: the packet's buffer is pooled and released here.
                 var update = MemoryMarshal.Read<WorldUpdatePacket>(packet.Data);
 
-                var entries = new PacketWorldUpdate[update.UpdateCount];
+                var entries = new WorldUpdateInterop[update.UpdateCount];
                 for (var i = 0; i < update.UpdateCount; i++)
                 {
                     entries[i] = update.Updates[i];

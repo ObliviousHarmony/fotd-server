@@ -1,9 +1,9 @@
 using System.Buffers;
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Buffers;
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Utilities;
-using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
+using FOMServer.Shared.Interop.FOMNetwork;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
 
 namespace FOMServer.Shared.Core.Networking
 {

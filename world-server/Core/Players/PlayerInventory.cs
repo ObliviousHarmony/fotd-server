@@ -1,10 +1,10 @@
 using FOMServer.Shared.Core.Constants;
-using FOMServer.Shared.Core.Enums.Item;
+using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
-using PacketEquipment = FOMServer.Shared.Core.Packets.RegisterClientReturn.EquipmentArray;
-using PacketInventory = FOMServer.Shared.Core.Packets.Types.Item.ItemList;
-using PacketWeapons = FOMServer.Shared.Core.Packets.RegisterClientReturn.WeaponsArray;
+using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
+using FOMServer.Shared.Interop.FOMNetwork.Packets;
+using FOMServer.Shared.Interop.FOMNetwork.Structs.Item;
 
 namespace FOMServer.World.Core.Players
 {
@@ -40,7 +40,7 @@ namespace FOMServer.World.Core.Players
                     if (!slotItems.TryAdd(slot, item))
                     {
                         throw new ArgumentException(
-                            $"Item {item} cannot be placed in occupied slot {slot}",
+                            $"ItemInterop {item} cannot be placed in occupied slot {slot}",
                             nameof(items)
                         );
                     }
@@ -51,7 +51,7 @@ namespace FOMServer.World.Core.Players
                 }
                 else
                 {
-                    throw new ArgumentException($"Item {item} does not belong in the inventory");
+                    throw new ArgumentException($"ItemInterop {item} does not belong in the inventory");
                 }
             }
 
@@ -122,7 +122,11 @@ namespace FOMServer.World.Core.Players
             return null;
         }
 
-        public void WriteTo(ref PacketInventory inventory, ref PacketWeapons weapons, ref PacketEquipment equipment)
+        public void WriteTo(
+            ref ItemListInterop inventory,
+            ref RegisterClientReturnPacket.WeaponsArray weapons,
+            ref RegisterClientReturnPacket.EquipmentArray equipment
+        )
         {
             _backpackItems.WriteTo(ref inventory);
 

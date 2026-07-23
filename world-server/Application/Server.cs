@@ -1,15 +1,13 @@
 using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core;
 using FOMServer.Shared.Core.Constants;
-using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Handlers;
 using FOMServer.Shared.Core.Networking;
-using FOMServer.Shared.Core.Packets;
-using FOMServer.Shared.Infrastructure.FOMNetwork;
+using FOMServer.Shared.Core.PacketHandlers;
+using FOMServer.Shared.Interop.FOMNetwork;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
+using FOMServer.Shared.Interop.FOMNetwork.Packets;
 using FOMServer.World.Application.Networking;
 using FOMServer.World.Core;
-using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
-using RegisterWorldPacket = FOMServer.Shared.Core.Packets.RegisterWorld;
 
 namespace FOMServer.World.Application
 {

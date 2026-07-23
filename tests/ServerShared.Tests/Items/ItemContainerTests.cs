@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
-using FOMServer.Shared.Core.Enums.Item;
+using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
+using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 
 namespace FOMServer.Shared.Tests.Items
 {

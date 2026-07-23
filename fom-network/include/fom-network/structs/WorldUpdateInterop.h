@@ -1,0 +1,72 @@
+#pragma once
+
+#include <fom-network/Interop.h>
+#include <fom-network/structs/AvatarInterop.h>
+#include <fom-network/structs/PositionInterop.h>
+#include <fom-network/structs/PositionRotationInterop.h>
+
+namespace FOMNetwork {
+
+enum WorldUpdateType : uint8_t {
+  WORLD_UPDATE_TYPE_INVALID = 0,
+  WORLD_UPDATE_TYPE_PLAYER = 1,
+  WORLD_UPDATE_TYPE_CHARACTER = 2,
+};
+
+#pragma pack(push, 1)
+struct WorldUpdateInterop {
+  struct CharacterUpdate {
+    uint32_t id;
+    PositionRotationInterop position;
+    AvatarInterop avatar;
+    uint8_t isDead;
+
+    // === !isDead ===
+    int16_t verticalLookAngle;
+    uint16_t animationId;
+    uint8_t movementStateId;
+
+    uint16_t equippedWeapon;
+    uint8_t isWeaponAimed;          // equippedWeapon != 0
+    uint8_t consumedAmmo;           // equippedWeapon != 0
+    PositionInterop firedPosition;  // consumedAmmo != 0
+
+    uint8_t wasHit;
+    uint8_t hitAnimationId;  // wasHit == 1
+    uint8_t hitDirection;    // wasHit == 1
+
+    uint8_t emoteId;
+
+    uint16_t activeImplants;
+    uint8_t shieldSetting;
+
+    uint8_t movementSpeed;
+    uint8_t unknown2;
+    uint8_t unknown3;
+    uint16_t unknown4;
+    uint16_t unknown5;
+    uint8_t isShieldActive;
+  };
+
+  struct PlayerUpdate {
+    uint32_t grid1;
+    uint32_t grid2;
+    uint8_t visibilityAreaId;
+    uint32_t targetingTurretId;
+    uint8_t activeMedicalTreatment;
+    uint32_t unknown1;
+
+    CharacterUpdate character;
+  };
+
+  WorldUpdateType kind;
+  union {
+    PlayerUpdate player;
+    CharacterUpdate character;
+  };
+};
+#pragma pack(pop)
+
+ASSERT_BLITTABLE(WorldUpdateInterop);
+
+}  // namespace FOMNetwork

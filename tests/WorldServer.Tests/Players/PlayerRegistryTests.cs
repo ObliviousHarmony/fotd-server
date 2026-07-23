@@ -1,10 +1,10 @@
 using FOMServer.Shared.Core.Persistence;
+using FOMServer.Shared.Interop.FOMNetwork;
 using FOMServer.World.Application.Players;
 using FOMServer.World.Core.Players;
 using FOMServer.World.Core.Players.Registration;
 using FOMServer.World.Tests.Factories;
 using Microsoft.Extensions.Time.Testing;
-using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.World.Tests.Players
 {

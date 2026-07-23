@@ -1,6 +1,6 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
-using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Core.PacketHandlers;
 using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Tests.Packets

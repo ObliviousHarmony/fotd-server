@@ -187,7 +187,7 @@ expensive IO. This maximizes throughput so that it can handle them as quickly as
 ### Packet Handlers
 
 The class library provides a framework for making it easy to handle packets. Handlers extend
-`BasePacketHandler<T>` where `T` is the specific packet struct they process. Once registered
+`PacketHandlerBase<T>` where `T` is the specific packet struct they process. Once registered
 with the DI container (via the `[PacketHandler]` attribute), they are automatically discovered
 and added to the processing pipeline.
 

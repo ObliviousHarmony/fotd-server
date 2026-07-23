@@ -1,0 +1,46 @@
+#pragma once
+
+#include <fom-network/Interop.h>
+#include <fom-network/enums/WorldServiceType.h>
+#include <fom-network/structs/item/ItemListInterop.h>
+
+namespace FOMNetwork {
+
+enum WorldServiceAction : uint8_t {
+  WORLD_SERVICE_ACTION_INVALID = 0,
+  WORLD_SERVICE_ACTION_OPEN = 1,
+  WORLD_SERVICE_ACTION_OPEN_CLONING = 2,
+  WORLD_SERVICE_ACTION_OPENED_STORAGE = 3,
+  WORLD_SERVICE_ACTION_OPEN_UNKNOWN = 4,
+  WORLD_SERVICE_ACTION_OPENED = 5,
+  WORLD_SERVICE_ACTION_DEV = 6,
+  WORLD_SERVICE_ACTION_MANAGER_REQUEST = 7,
+  WORLD_SERVICE_ACTION_MANAGER_RETURN = 8,
+  WORLD_SERVICE_ACTION_MANAGER_UPDATE = 9,
+  WORLD_SERVICE_ACTION_ACTIVATE_CONTROL = 10,
+  WORLD_SERVICE_ACTION_OPENED_PRISONER = 11,
+  WORLD_SERVICE_ACTION_PRISON_BAIL_SUBMIT = 12,
+  WORLD_SERVICE_ACTION_PRISON_BAIL_REQUEST = 13,
+  WORLD_SERVICE_ACTION_PRISON_BAIL_RETURN = 14,
+  WORLD_SERVICE_ACTION_PRISON_MANAGER_REQUEST = 15,
+  WORLD_SERVICE_ACTION_PRISON_MANAGER_RETURN = 16,
+  WORLD_SERVICE_ACTION_PRISON_MANAGER_RELEASE = 17,
+  WORLD_SERVICE_ACTION_CLOSE = 18,
+};
+
+#pragma pack(push, 1)
+struct WorldServicePacket {
+  WorldServiceAction action;
+  uint32_t playerId;
+  uint32_t id;
+
+  uint32_t serviceId;
+  Enum::WorldServiceType serviceType;
+
+  ItemListInterop storage;
+};
+#pragma pack(pop)
+
+ASSERT_BLITTABLE(WorldServicePacket);
+
+}  // namespace FOMNetwork

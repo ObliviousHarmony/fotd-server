@@ -1,9 +1,10 @@
 using System.Xml.Linq;
 using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Enums.Item;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
+using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 using FOMServer.World.Core.Players;
 
 namespace FOMServer.World.Tests.Factories
@@ -57,7 +58,7 @@ namespace FOMServer.World.Tests.Factories
         {
             if (!_items.TryGetValue(container, out var itemList))
             {
-                throw new InvalidOperationException($"Item container {container} is invalid");
+                throw new InvalidOperationException($"ItemInterop container {container} is invalid");
             }
 
             var item = new Item(

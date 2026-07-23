@@ -1,6 +1,6 @@
 using System.Net.Sockets;
 using FOMServer.Shared.Core.Constants;
-using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
 using FOMServer.World.Core.Exceptions;
 using FOMServer.World.Core.Players;
 using FOMServer.World.Tests.Factories;

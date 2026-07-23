@@ -1,0 +1,131 @@
+namespace FOMServer.Shared.Interop.FOMNetwork.Enums
+{
+    public enum SkillType : uint
+    {
+        Invalid = 0,
+        BasicApplication = 1,
+        StandardProcedures = 2,
+        AdvancedApplication = 3,
+        EmergencyMedication = 4,
+        Biology = 5,
+
+        // 6
+        NanomachineMedication = 7,
+        PhysicalEducation = 8,
+        LightBallisticProtection = 9,
+        HeavyBallisticProtection = 10,
+        AlternativeArmorTechnology = 11,
+        ArmorEfficiency = 12,
+        WeightTraining = 13,
+        LightEnergyProtection = 14,
+        HeavyEnergyProtection = 15,
+        EnergyEfficiency = 16,
+        PhysicalEnhancement = 17,
+        Decryption = 18,
+        Infiltration = 19,
+        InfluenceManipulation = 20,
+
+        // 21
+        MechanicalAugmentation = 22,
+        NanomachineAugmentation = 23,
+        GeneticReconfiguration = 24,
+        BioelectricEfficiency = 25,
+
+        // 26
+        Zanathid5Inflex = 27,
+        Ryx7Streamline = 28,
+        ArmaliteSurvival = 29,
+        Techtronic6x6 = 30,
+
+        // 31
+        // 32
+        RGI9 = 33,
+        OrbitXBInfineon = 34,
+        EnfieldLifeProtector = 35,
+        FGz78 = 36,
+        MilitekEMP = 37,
+        HallemTAR7 = 38,
+        ChronoEnervonEP24 = 39,
+        LinnerPP7 = 40,
+        SalvotecHP220 = 41,
+        EMPRv3 = 42,
+        GakkMG6 = 43,
+        ProtonixBarracuda = 44,
+        AurelianDominator = 45,
+        CryoTechMedigunCM1 = 46,
+        Frostbite = 47,
+        HR420 = 48,
+        EnfieldERX = 49,
+        CryoTechMedigunCM2 = 50,
+        ExperimentalX01 = 51,
+        Zanathid55CopKiller = 52,
+        DOA187 = 53,
+        HallemIX78 = 54,
+        Hawk72 = 55,
+        MiningEquipment = 56,
+        MineralScanners = 57,
+        DrillingOperations = 58,
+
+        // 59
+        CarbonTechnology = 60,
+        MetalRefinement = 61,
+        Compression = 62,
+        SiliconTechnology = 63,
+        SyntacticFoam = 64,
+        Electronics = 65,
+        AdvancedElectronics = 66,
+        CarbonEnhancement = 67,
+        BallisticAmmunitionProduction = 68,
+        EnergyAmmunitionProduction = 69,
+        AlienTechnology = 70,
+        IllegalRefinement = 71,
+        FoodCreation = 72,
+        OrganicRefinement = 73,
+        ChemicalEducation = 74,
+        ChemicalManipulation = 75,
+        BadgeOfValor = 76,
+        ShieldExpertise = 77,
+        MobileMedicalStation = 78,
+        BountyCollection = 79,
+        AdvancedTracking = 80,
+        ContractualEfficiency = 81,
+        LicenseToKill = 82,
+        BallisticHandgunProduction = 83,
+        BallisticRifleProduction = 84,
+        KnifeProduction = 85,
+        SMGProduction = 86,
+        LongRangedRifleProduction = 87,
+        HandheldExplosiveProduction = 88,
+        EnergyPistolProduction = 89,
+        TazerProduction = 90,
+        EnergyRifleProduction = 91,
+        MedicalArmsProduction = 92,
+        AlienArmsProduction = 93,
+        EnergyLongrifleProduction = 94,
+        StandardArmorProduction = 95,
+        LightBallisticArmorProduction = 96,
+        LightEnergyArmorProduction = 97,
+        HeavyBallisticArmorProduction = 98,
+        HeavyEnergyArmorProduction = 99,
+
+        // 100
+        // 101
+        // 102
+        // 103
+        MedikitProduction = 104,
+        InjectorProduction = 105,
+        MechanicalAugmentationProduction = 106,
+        NanomachineAugmentationProduction = 107,
+        PositioningSystems = 108,
+        DeployableProduction = 109,
+        BypassHackingProduction = 110,
+        InfiltrationHackingProduction = 111,
+        BadgeOfDominance = 112,
+        DeployableExplosives = 113,
+
+        // 114
+        // 115
+
+        NUM_SKILL_TYPES = 116,
+    }
+}

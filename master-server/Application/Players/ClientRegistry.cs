@@ -1,6 +1,6 @@
 using System.Collections.Concurrent;
 using FOMServer.Master.Core.Players;
-using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
+using FOMServer.Shared.Interop.FOMNetwork;
 
 namespace FOMServer.Master.Application.Players
 {

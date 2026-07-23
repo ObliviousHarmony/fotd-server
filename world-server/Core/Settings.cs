@@ -1,6 +1,6 @@
 using System.Net;
 using System.Net.Sockets;
-using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
 
 namespace FOMServer.World.Core
 {

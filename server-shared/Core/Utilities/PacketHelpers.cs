@@ -2,8 +2,8 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using FOMServer.Shared.Core.Buffers;
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
 using FOMServer.Shared.Metadata;
 
 namespace FOMServer.Shared.Core.Utilities

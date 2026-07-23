@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using FOMServer.Shared.Core.Constants;
-using FOMServer.Shared.Core.Enums.Item;
 using FOMServer.Shared.Core.Persistence;
-using PacketQuickslots = FOMServer.Shared.Core.Packets.RegisterClientReturn.QuickSlotsArray;
+using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
+using FOMServer.Shared.Interop.FOMNetwork.Packets;
 
 namespace FOMServer.World.Core.Players
 {
@@ -32,7 +32,7 @@ namespace FOMServer.World.Core.Players
 
         public uint PlayerId => _player.Id;
 
-        public void WriteTo(ref PacketQuickslots quickslots)
+        public void WriteTo(ref RegisterClientReturnPacket.QuickSlotsArray quickslots)
         {
             for (var i = 0; i < PlayerConstants.NumQuickslots; ++i)
             {
