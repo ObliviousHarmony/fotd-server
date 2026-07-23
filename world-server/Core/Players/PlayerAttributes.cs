@@ -1,11 +1,10 @@
 using System.Diagnostics;
 using FOMServer.Shared.Core.Constants;
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
-using FOMServer.Shared.Core.Packets;
 using FOMServer.Shared.Core.Persistence;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
+using FOMServer.Shared.Interop.FOMNetwork.Structs.Player;
 using FOMServer.World.Core.Exceptions;
-using PacketPlayerAttributes = FOMServer.Shared.Core.Packets.Types.Player.PlayerAttributes;
 
 namespace FOMServer.World.Core.Players
 {
@@ -155,7 +154,7 @@ namespace FOMServer.World.Core.Players
             return updated;
         }
 
-        public void WriteTo(ref PacketPlayerAttributes p)
+        public void WriteTo(ref PlayerAttributesInterop p)
         {
             unsafe
             {

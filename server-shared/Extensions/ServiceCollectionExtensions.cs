@@ -2,12 +2,12 @@ using System.Reflection;
 using FOMServer.Shared.Application.Persistence;
 using FOMServer.Shared.Application.Ticks;
 using FOMServer.Shared.Core;
-using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Core.PacketHandlers;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Core.Repositories;
-using FOMServer.Shared.Infrastructure.FOMNetwork;
 using FOMServer.Shared.Infrastructure.Logging;
 using FOMServer.Shared.Infrastructure.Repositories;
+using FOMServer.Shared.Interop.FOMNetwork;
 using FOMServer.Shared.Services.FOMNetwork;
 
 namespace FOMServer.Shared.Extensions

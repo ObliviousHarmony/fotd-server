@@ -1,16 +1,16 @@
-using FOMServer.Master.Application.Handlers;
+using FOMServer.Master.Application.PacketHandlers;
 using FOMServer.Master.Application.Players;
 using FOMServer.Master.Core.Networking;
 using FOMServer.Shared.Core.Dtos;
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Networking;
-using FOMServer.Shared.Core.Packets;
-using FOMServer.Shared.Core.Packets.RakNet;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Core.Repositories;
 using FOMServer.Shared.Core.Utilities;
+using FOMServer.Shared.Interop.FOMNetwork;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
+using FOMServer.Shared.Interop.FOMNetwork.Packets;
+using FOMServer.Shared.Interop.FOMNetwork.Packets.RakNet;
 using Microsoft.Extensions.Logging.Abstractions;
-using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.Master.Tests
 {
@@ -24,8 +24,8 @@ namespace FOMServer.Master.Tests
             var fixture = new Fixture();
             var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
-            // 1. Connect: NewIncomingConnection registers a bare session.
-            fixture.NewConnection.Handle(address, new NewIncomingConnection());
+            // 1. Connect: NewIncomingConnectionPacket registers a bare session.
+            fixture.NewConnection.Handle(address, new NewIncomingConnectionPacket());
 
             var session = fixture.ClientRegistry.Get(address);
             Assert.NotNull(session);
@@ -33,17 +33,17 @@ namespace FOMServer.Master.Tests
             Assert.False(session.IsReady);
             Assert.Null(fixture.PlayerRegistry.Get(PlayerId));
 
-            // 2. Login: starts login, loads + completes the player, replies.
-            fixture.Login.Handle(address, new Login());
+            // 2. LoginPacket: starts login, loads + completes the player, replies.
+            fixture.Login.Handle(address, new LoginPacket());
 
             Assert.True(session.IsReady);
             Assert.NotNull(session.Player);
             Assert.Equal(PlayerId, session.Player!.Id);
             Assert.Same(session.Player, fixture.PlayerRegistry.Get(PlayerId));
-            Assert.Contains(PacketHelpers.GetPacketTypeId<LoginReturn>(), fixture.Sender.Sent);
+            Assert.Contains(PacketHelpers.GetPacketTypeId<LoginReturnPacket>(), fixture.Sender.Sent);
 
             // 3. Disconnect: unregisters the session and logs the player out.
-            fixture.Disconnect.Handle(address, new DisconnectionNotification());
+            fixture.Disconnect.Handle(address, new DisconnectionNotificationPacket());
 
             Assert.Null(fixture.ClientRegistry.Get(address));
             Assert.Null(fixture.PlayerRegistry.Get(PlayerId));
@@ -55,11 +55,11 @@ namespace FOMServer.Master.Tests
             var fixture = new Fixture();
             var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
-            fixture.NewConnection.Handle(address, new NewIncomingConnection());
-            fixture.Login.Handle(address, new Login());
+            fixture.NewConnection.Handle(address, new NewIncomingConnectionPacket());
+            fixture.Login.Handle(address, new LoginPacket());
             Assert.NotNull(fixture.PlayerRegistry.Get(PlayerId));
 
-            fixture.ConnectionLost.Handle(address, new ConnectionLost());
+            fixture.ConnectionLost.Handle(address, new ConnectionLostPacket());
 
             Assert.Null(fixture.ClientRegistry.Get(address));
             Assert.Null(fixture.PlayerRegistry.Get(PlayerId));
@@ -71,8 +71,8 @@ namespace FOMServer.Master.Tests
             var fixture = new Fixture();
             var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
-            // No NewIncomingConnection first, so there's no session.
-            fixture.Login.Handle(address, new Login());
+            // No NewIncomingConnectionPacket first, so there's no session.
+            fixture.Login.Handle(address, new LoginPacket());
 
             Assert.Null(fixture.ClientRegistry.Get(address));
             Assert.Empty(fixture.Sender.Sent);
@@ -104,29 +104,29 @@ namespace FOMServer.Master.Tests
                 // A hand-written stub sidesteps that and is all the disconnect path needs.
                 var worlds = new EmptyWorldRegistry();
 
-                NewConnection = new NewIncomingConnectionHandler(
+                NewConnection = new NewIncomingConnectionPacketHandler(
                     ClientRegistry,
-                    NullLogger<NewIncomingConnectionHandler>.Instance
+                    NullLogger<NewIncomingConnectionPacketHandler>.Instance
                 );
-                Login = new LoginHandler(
+                Login = new LoginPacketHandler(
                     accounts.Object,
                     players.Object,
                     ClientRegistry,
                     PlayerRegistry,
                     Sender,
-                    NullLogger<LoginHandler>.Instance
+                    NullLogger<LoginPacketHandler>.Instance
                 );
-                Disconnect = new DisconnectionHandler(
+                Disconnect = new DisconnectionPacketHandler(
                     worlds,
                     ClientRegistry,
                     PlayerRegistry,
-                    NullLogger<DisconnectionHandler>.Instance
+                    NullLogger<DisconnectionPacketHandler>.Instance
                 );
-                ConnectionLost = new ConnectionLostHandler(
+                ConnectionLost = new ConnectionLostPacketHandler(
                     worlds,
                     ClientRegistry,
                     PlayerRegistry,
-                    NullLogger<ConnectionLostHandler>.Instance
+                    NullLogger<ConnectionLostPacketHandler>.Instance
                 );
             }
 
@@ -136,13 +136,13 @@ namespace FOMServer.Master.Tests
 
             public PlayerRegistry PlayerRegistry { get; }
 
-            public NewIncomingConnectionHandler NewConnection { get; }
+            public NewIncomingConnectionPacketHandler NewConnection { get; }
 
-            public LoginHandler Login { get; }
+            public LoginPacketHandler Login { get; }
 
-            public DisconnectionHandler Disconnect { get; }
+            public DisconnectionPacketHandler Disconnect { get; }
 
-            public ConnectionLostHandler ConnectionLost { get; }
+            public ConnectionLostPacketHandler ConnectionLost { get; }
         }
 
         private sealed class EmptyWorldRegistry : IWorldServerRegistry

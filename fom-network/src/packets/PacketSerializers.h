@@ -78,57 +78,51 @@ class EmptyPacketSerializer : public IWriter, public IReader {
  * --------------------------------------------------
  */
 #define SERIALIZER_BOTH(TYPE)                                                \
-  namespace Packet {                                                         \
   struct TYPE;                                                               \
   class TYPE##Serializer : public PacketSerializer<TYPE##Serializer, TYPE> { \
    public:                                                                   \
     void Write(RakNet::BitStream& bs, const TYPE* data) const override;      \
     bool Read(RakNet::BitStream& bs, TYPE* data) const override;             \
-  };                                                                         \
-  }
+  };
 
 #define SERIALIZER_WRITE(TYPE)                                           \
-  namespace Packet {                                                     \
   struct TYPE;                                                           \
   class TYPE##Serializer : public PacketWriter<TYPE##Serializer, TYPE> { \
    public:                                                               \
     void Write(RakNet::BitStream& bs, const TYPE* data) const override;  \
-  };                                                                     \
-  }
+  };
 
 #define SERIALIZER_READ(TYPE)                                            \
-  namespace Packet {                                                     \
   struct TYPE;                                                           \
   class TYPE##Serializer : public PacketReader<TYPE##Serializer, TYPE> { \
    public:                                                               \
     bool Read(RakNet::BitStream& bs, TYPE* data) const override;         \
-  };                                                                     \
-  }
+  };
 
 /**
  * Packet Serializer Declarations
  */
-SERIALIZER_BOTH(RegisterWorld)
-SERIALIZER_READ(LoginRequest)
-SERIALIZER_WRITE(LoginRequestReturn)
-SERIALIZER_READ(Login)
-SERIALIZER_BOTH(LoginTokenCheck)
-SERIALIZER_READ(CheckName)
-SERIALIZER_WRITE(CheckNameReturn)
-SERIALIZER_READ(CreateCharacter)
-SERIALIZER_WRITE(LoginReturn)
-SERIALIZER_READ(WorldLogin)
-SERIALIZER_WRITE(WorldLoginReturn)
-SERIALIZER_BOTH(PlayerMigrateWorld)
-SERIALIZER_BOTH(PlayerWorldReady)
-SERIALIZER_BOTH(PlayerLeavingWorld)
-SERIALIZER_READ(RegisterClient)
-SERIALIZER_WRITE(RegisterClientReturn)
-SERIALIZER_READ(Update)
-SERIALIZER_WRITE(WorldUpdate)
-SERIALIZER_BOTH(Chat)
-SERIALIZER_BOTH(MoveItems);
-SERIALIZER_WRITE(WorldObjects);
-SERIALIZER_BOTH(WorldService);
+SERIALIZER_BOTH(RegisterWorldPacket)
+SERIALIZER_READ(LoginRequestPacket)
+SERIALIZER_WRITE(LoginRequestReturnPacket)
+SERIALIZER_READ(LoginPacket)
+SERIALIZER_BOTH(LoginTokenCheckPacket)
+SERIALIZER_READ(CheckNamePacket)
+SERIALIZER_WRITE(CheckNameReturnPacket)
+SERIALIZER_READ(CreateCharacterPacket)
+SERIALIZER_WRITE(LoginReturnPacket)
+SERIALIZER_READ(WorldLoginPacket)
+SERIALIZER_WRITE(WorldLoginReturnPacket)
+SERIALIZER_BOTH(PlayerMigrateWorldPacket)
+SERIALIZER_BOTH(PlayerWorldReadyPacket)
+SERIALIZER_BOTH(PlayerLeavingWorldPacket)
+SERIALIZER_READ(RegisterClientPacket)
+SERIALIZER_WRITE(RegisterClientReturnPacket)
+SERIALIZER_READ(UpdatePacket)
+SERIALIZER_WRITE(WorldUpdatePacket)
+SERIALIZER_BOTH(ChatPacket)
+SERIALIZER_BOTH(MoveItemsPacket);
+SERIALIZER_WRITE(WorldObjectsPacket);
+SERIALIZER_BOTH(WorldServicePacket);
 
 }  // namespace FOMNetwork

@@ -1,5 +1,4 @@
-using PacketPosition = FOMServer.Shared.Core.Packets.Types.Position;
-using PacketPositionRotation = FOMServer.Shared.Core.Packets.Types.PositionRotation;
+using FOMServer.Shared.Interop.FOMNetwork.Structs;
 
 namespace FOMServer.World.Core.World
 {
@@ -56,7 +55,10 @@ namespace FOMServer.World.Core.World
             }
         }
 
-        public void ApplyUpdate(in PacketPosition p)
+        /// <summary>
+        /// TEMPORARY, FOR TESTING, in the future, use translation and return distance between move
+        /// </summary>
+        public void ApplyUpdate(in PositionInterop p)
         {
             lock (_syncRoot)
             {
@@ -66,7 +68,10 @@ namespace FOMServer.World.Core.World
             }
         }
 
-        public void ApplyUpdate(in PacketPositionRotation p)
+        /// <summary>
+        /// TEMPORARY, FOR TESTING, in the future, use translation and return distance between move
+        /// </summary>
+        public void ApplyUpdate(in PositionRotationInterop p)
         {
             lock (_syncRoot)
             {
@@ -77,7 +82,7 @@ namespace FOMServer.World.Core.World
             }
         }
 
-        public void WriteTo(ref PacketPosition p)
+        public void WriteTo(ref PositionInterop p)
         {
             lock (_syncRoot)
             {
@@ -87,7 +92,7 @@ namespace FOMServer.World.Core.World
             }
         }
 
-        public void WriteTo(ref PacketPositionRotation p)
+        public void WriteTo(ref PositionRotationInterop p)
         {
             lock (_syncRoot)
             {

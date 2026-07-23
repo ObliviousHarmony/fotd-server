@@ -1,11 +1,10 @@
 using System.Buffers;
 using FOMServer.Shared.Application.Networking;
 using FOMServer.Shared.Core.Buffers;
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Utilities;
-using FOMServer.Shared.Infrastructure.FOMNetwork;
-using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
+using FOMServer.Shared.Interop.FOMNetwork;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
 
 namespace FOMServer.Shared.Tests.Packets
 {

@@ -1,10 +1,10 @@
 using System.Reflection;
 using System.Threading.Channels;
 using FOMServer.Shared.Core;
-using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Handlers;
+using FOMServer.Shared.Core.PacketHandlers;
+using FOMServer.Shared.Interop.FOMNetwork;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
 using FOMServer.Shared.Metadata;
-using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.Shared.Application.Networking
 {

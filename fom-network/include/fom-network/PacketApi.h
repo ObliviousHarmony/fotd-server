@@ -1,8 +1,8 @@
 #pragma once
 
 #include <fom-network/Interop.h>
+#include <fom-network/NetworkAddress.h>
 #include <fom-network/enums/PacketIdentifier.h>
-#include <fom-network/types/NetworkAddress.h>
 
 /**
  * Container for passing a buffer of received packets around.
@@ -25,7 +25,7 @@ struct ReceivedPackets {
   /**
    * The senders for each of the received packets.
    */
-  FOMNetwork::Type::NetworkAddress* senders;
+  FOMNetwork::NetworkAddress* senders;
 
   /**
    * The packet identifiers for each of the received packets.
@@ -62,7 +62,7 @@ struct SendPacket {
    * An array of network addresses to either send the packet to or
    * exclude from a broadcast.
    */
-  FOMNetwork::Type::NetworkAddress* networkAddresses;
+  FOMNetwork::NetworkAddress* networkAddresses;
 
   /**
    * The priority of the packet to be sent to the networking library.
@@ -164,7 +164,7 @@ FOM_API int32_t FOMNetwork_Send(FOMNetworkPeer* peer, const SendPacket* packets,
  * @retval -1 An invalid peer was provided.
  */
 FOM_API int32_t FOMNetwork_CloseConnection(
-    FOMNetworkPeer* peer, FOMNetwork::Type::NetworkAddress address,
+    FOMNetworkPeer* peer, FOMNetwork::NetworkAddress address,
     uint8_t sendDisconnectionNotification);
 
 #ifdef __cplusplus

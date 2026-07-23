@@ -1,9 +1,9 @@
 using FOMServer.Shared.Application;
 using FOMServer.Shared.Core;
-using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Core.Ticks;
 using FOMServer.Shared.Infrastructure;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
 using FOMServer.World.Application;
 using FOMServer.World.Application.Networking;
 using FOMServer.World.Application.Persistence;

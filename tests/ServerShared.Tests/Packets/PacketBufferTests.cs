@@ -1,9 +1,9 @@
 using FOMServer.Shared.Application.Networking;
-using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Packets.RakNet;
 using FOMServer.Shared.Core.Utilities;
 using FOMServer.Shared.Infrastructure.FOMNetwork;
-using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
+using FOMServer.Shared.Interop.FOMNetwork;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
+using FOMServer.Shared.Interop.FOMNetwork.Packets.RakNet;
 
 namespace FOMServer.Shared.Tests.Packets
 {
@@ -263,7 +263,7 @@ namespace FOMServer.Shared.Tests.Packets
             var packets = buffer.GetPackets();
             var packet = packets[0];
 
-            Assert.Throws<InvalidOperationException>(() => packet.Data<ConnectionRequestAccepted>());
+            Assert.Throws<InvalidOperationException>(() => packet.Data<ConnectionRequestAcceptedPacket>());
 
             packet.Dispose();
         }

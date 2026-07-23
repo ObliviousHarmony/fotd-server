@@ -1,6 +1,6 @@
 using System.Diagnostics;
-using FOMServer.Shared.Core.Enums.Item;
-using PacketItem = FOMServer.Shared.Core.Packets.Types.Item.Item;
+using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
+using FOMServer.Shared.Interop.FOMNetwork.Structs.Item;
 
 namespace FOMServer.Shared.Core.Items
 {
@@ -19,7 +19,7 @@ namespace FOMServer.Shared.Core.Items
             }
         }
 
-        public void WriteTo(ref PacketItem p)
+        public void WriteTo(ref ItemInterop p)
         {
             lock (_syncRoot)
             {

@@ -1,6 +1,6 @@
 using FOMServer.Shared.Core.Networking;
-using FOMServer.Shared.Core.Packets.RakNet;
-using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
+using FOMServer.Shared.Interop.FOMNetwork;
+using FOMServer.Shared.Interop.FOMNetwork.Packets.RakNet;
 
 namespace FOMServer.Shared.Tests.Packets
 {
@@ -11,7 +11,7 @@ namespace FOMServer.Shared.Tests.Packets
         {
             var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
-            using var writer = new PacketWriter<ConnectionRequestAccepted>(address);
+            using var writer = new PacketWriter<ConnectionRequestAcceptedPacket>(address);
 
             var packet = writer.Build();
             var addresses = packet.NetworkAddresses;
@@ -29,7 +29,7 @@ namespace FOMServer.Shared.Tests.Packets
             var address2 = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7778 };
             var address3 = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7779 };
 
-            using var writer = new PacketWriter<ConnectionRequestAccepted>(address1);
+            using var writer = new PacketWriter<ConnectionRequestAcceptedPacket>(address1);
             writer.AddDestination(address2);
             writer.AddDestination(address3);
 
@@ -49,7 +49,7 @@ namespace FOMServer.Shared.Tests.Packets
         {
             var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
-            using var writer = new PacketWriter<ConnectionRequestAccepted>(address);
+            using var writer = new PacketWriter<ConnectionRequestAcceptedPacket>(address);
             for (var i = 1; i < QueuePacket.MaxNetworkAddressesPerPacket; ++i)
             {
                 writer.AddDestination(address);
@@ -70,7 +70,7 @@ namespace FOMServer.Shared.Tests.Packets
         [Fact]
         public void Build_ThrowsInvalidOperation_WhenNotInitialized()
         {
-            using var writer = new PacketWriter<ConnectionRequestAccepted>();
+            using var writer = new PacketWriter<ConnectionRequestAcceptedPacket>();
 
             try
             {
@@ -85,7 +85,7 @@ namespace FOMServer.Shared.Tests.Packets
         {
             var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
-            using var writer = new PacketWriter<ConnectionRequestAccepted>(address);
+            using var writer = new PacketWriter<ConnectionRequestAcceptedPacket>(address);
             var packet = writer.Build();
 
             try
@@ -103,7 +103,7 @@ namespace FOMServer.Shared.Tests.Packets
         {
             var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
-            using var writer = new PacketWriter<ConnectionRequestAccepted>(address);
+            using var writer = new PacketWriter<ConnectionRequestAcceptedPacket>(address);
             var packet = writer.Build();
 
             try
@@ -121,7 +121,7 @@ namespace FOMServer.Shared.Tests.Packets
         {
             var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
-            using var writer = new PacketWriter<ConnectionRequestAccepted>(address);
+            using var writer = new PacketWriter<ConnectionRequestAcceptedPacket>(address);
             var packet = writer.Build();
 
             try

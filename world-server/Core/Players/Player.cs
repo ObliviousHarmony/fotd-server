@@ -1,10 +1,10 @@
-using FOMServer.Shared.Core.Enums.Item;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
+using FOMServer.Shared.Interop.FOMNetwork;
+using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
+using FOMServer.Shared.Interop.FOMNetwork.Packets;
+using FOMServer.Shared.Interop.FOMNetwork.Structs;
 using FOMServer.World.Core.World;
-using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
-using PacketWorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
-using RegisterClientReturnPacket = FOMServer.Shared.Core.Packets.RegisterClientReturn;
 
 namespace FOMServer.World.Core.Players
 {
@@ -12,7 +12,7 @@ namespace FOMServer.World.Core.Players
     {
         private readonly Lock _syncRoot = new();
 
-        private PacketWorldUpdate.CharacterUpdate _currentUpdate;
+        private WorldUpdateInterop.CharacterUpdate _currentUpdate;
 
         public Player(uint id, uint[] attributes, IDictionary<uint, Item> inventory, ReadOnlySpan<ItemType> quickslots)
         {
@@ -51,7 +51,7 @@ namespace FOMServer.World.Core.Players
             }
         }
 
-        public void ApplyUpdate(in PacketWorldUpdate.PlayerUpdate update)
+        public void ApplyUpdate(in WorldUpdateInterop.PlayerUpdate update)
         {
             lock (_syncRoot)
             {
@@ -62,11 +62,11 @@ namespace FOMServer.World.Core.Players
             }
         }
 
-        public void WriteTo(ref PacketWorldUpdate p)
+        public void WriteTo(ref WorldUpdateInterop p)
         {
             lock (_syncRoot)
             {
-                p.Kind = PacketWorldUpdate.Type.Character;
+                p.Kind = WorldUpdateInterop.Type.Character;
                 p.Character = _currentUpdate;
                 Position.WriteTo(ref p.Character.Position);
             }

@@ -1,6 +1,6 @@
 using FOMServer.Shared.Core.Networking;
+using FOMServer.Shared.Interop.FOMNetwork;
 using FOMServer.World.Core.Networking;
-using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.World.Application.Networking
 {

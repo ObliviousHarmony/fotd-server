@@ -1,9 +1,9 @@
 using System.Collections.Concurrent;
 using FOMServer.Shared.Core.Persistence;
+using FOMServer.Shared.Interop.FOMNetwork;
 using FOMServer.World.Application.Players.Registration;
 using FOMServer.World.Core.Players;
 using FOMServer.World.Core.Players.Registration;
-using NetworkAddress = FOMServer.Shared.Core.Packets.Types.NetworkAddress;
 
 namespace FOMServer.World.Application.Players
 {

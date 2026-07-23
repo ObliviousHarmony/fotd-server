@@ -74,7 +74,7 @@ namespace FOMServer.Shared.Tests
             service.Register(player);
             service.Register(item);
 
-            // Item changes and registers player as an association
+            // ItemInterop changes and registers player as an association
             // (player must wait for item to persist before its wait completes)
             item.MarkChanged(player);
 
@@ -131,7 +131,7 @@ namespace FOMServer.Shared.Tests
             service.Register(player);
             service.Register(item);
 
-            // Item changes and registers player as an association
+            // ItemInterop changes and registers player as an association
             item.MarkChanged(player);
 
             service.WaitForPersistence(player, callbackFired.SetResult);

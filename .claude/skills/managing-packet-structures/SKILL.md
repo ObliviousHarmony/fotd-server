@@ -11,13 +11,13 @@ Packets are blittable structs passed between managed and native code. These pack
 
 - `bool` is not blittable and is passed around as `uint8_t`
 
-Two categories of struct live side by side: **packets** (top-level messages, marked with a packet ID) and **types** (reusable component structs composed into packets). They live in parallel folders in each project.
+Two categories of struct live side by side: **packets** (top-level messages, marked with a packet ID, suffixed `…Packet`) and **interop structs** (reusable component structs composed into packets, suffixed `…Interop`). They live in parallel folders in each project.
 
 ## Managed Code
 
-The ServerShared project contains [the managed packet structs](/server-shared/Core/Packets).
+The ServerShared project contains [the managed packet structs](/server-shared/Interop/FOMNetwork/Packets).
 
-- [PacketIdentifier Enum](/server-shared/Core/Enums/PacketIdentifier.cs) matches native code.
+- [PacketIdentifier Enum](/server-shared/Interop/FOMNetwork/Enums/PacketIdentifier.cs) matches native code.
 - Required `struct` Attributes:
   - `[PacketId(PacketIdentifier.{VALUE})]` hooks into validation and testing.
   - `[StructLayout(LayoutKind.Sequential, Pack = 1)]` for blittability.
@@ -26,7 +26,7 @@ The ServerShared project contains [the managed packet structs](/server-shared/Co
 - `InlineArray` attribute for arrays of other blittable structs.
 - `uint8_t` bools are parsed using a property getter.
 - C-style strings are parsed into `string` types using a property getter.
-- [Types contain shared component structs](/server-shared/Core/Packets/Types).
+- [Interop structs are shared component structs](/server-shared/Interop/FOMNetwork/Structs).
 
 ## Native Code
 
@@ -35,10 +35,10 @@ The FOMNetwork project contains [the native packet structs](/fom-network/include
 ### Structures
 
 - [PacketIdentifier Enum](/fom-network/include/fom-network/enums/PacketIdentifier.h) matches managed code.
-- `#pragma pack(push, 1)` and `#pragma pack(pop)` wrapping `struct` definitions for both packets and types.
+- `#pragma pack(push, 1)` and `#pragma pack(pop)` wrapping `struct` definitions for both packets and interop structs.
 - `ASSERT_BLITTABLE()` macro does basic compile-time checks.
 - Only use `<cstdint>` `_t` types for packet data.
-- [Types contain shared component structs](/fom-network/include/fom-network/types).
+- [Interop structs are shared component structs](/fom-network/include/fom-network/structs).
 
 ### Serializers
 
@@ -48,11 +48,11 @@ The FOMNetwork project contains [the native packet structs](/fom-network/include
 - `WriteRawString/ReadRawString` for raw C-style strings.
 - `WriteBits/ReadBits` for specific lengths.
 - `bs.Read()` to read bools and `bs.Write(val == 1)` for writing `uint8_t` bools.
-- [Types have dedicated serializers](/fom-network/src/types).
+- [Interop structs have dedicated serializers](/fom-network/src/structs).
 
 ## Examples
 
 - Login Return Packet
-  - [Managed Struct](/server-shared/Core/Packets/LoginReturn.cs)
-  - [Native Struct](/fom-network/include/fom-network/packets/LoginReturn.h)
-  - [Native Serializer](/fom-network/src/packets/LoginReturnSerializer.cpp)
+  - [Managed Struct](/server-shared/Interop/FOMNetwork/Packets/LoginReturnPacket.cs)
+  - [Native Struct](/fom-network/include/fom-network/packets/LoginReturnPacket.h)
+  - [Native Serializer](/fom-network/src/packets/LoginReturnPacketSerializer.cpp)

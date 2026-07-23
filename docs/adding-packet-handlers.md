@@ -17,7 +17,6 @@ must be done in order to achieve that.
 #include <fom-network/Interop.h>
 
 namespace FOMNetwork {
-namespace Packet {
 
 #pragma pack(push, 1)
 struct ExamplePacket {
@@ -28,7 +27,6 @@ struct ExamplePacket {
 
 ASSERT_BLITTABLE(ExamplePacket);
 
-}  // namespace Packet
 }  // namespace FOMNetwork
 ```
 
@@ -57,13 +55,13 @@ SERIALIZER_BOTH(ExamplePacket)
 namespace FOMNetwork {
 
 void ExamplePacketSerializer::Write(RakNet::BitStream& bs,
-                                    const Packet::ExamplePacket* data) const {
+                                    const ExamplePacket* data) const {
   EncodeString(bs, data->exampleString);
   bs.WriteCompressed(data->exampleShort);
 }
 
 bool ExamplePacketSerializer::Read(RakNet::BitStream& bs,
-                                   Packet::ExamplePacket* data) const {
+                                   ExamplePacket* data) const {
   if (!DecodeString(bs, data->exampleString)) return false;
   if (!bs.ReadCompressed(data->exampleShort)) return false;
   return true;
@@ -85,7 +83,7 @@ bool ExamplePacketSerializer::Read(RakNet::BitStream& bs,
 ```cpp
 static const std::unordered_map<uint8_t, size_t> packetSizes = {
     ...
-    {Enum::ID_EXAMPLE, sizeof(Packet::ExamplePacket)},
+    {Enum::ID_EXAMPLE, sizeof(ExamplePacket)},
 };
 
 static const std::unordered_map<uint32_t, IWriter*> writerMap = {
@@ -114,20 +112,20 @@ set(FOMNETWORK_INC
 )
 ```
 
-## [ServerShared](/server-shared/Core/Enums/PacketIdentifier.cs)
+## [ServerShared](/server-shared/Interop/FOMNetwork/Enums/PacketIdentifier.cs)
 
 - [ ] **Packet Data**: Each native packet data struct requires a mirror copy [in the
-  shared server class library](/server-shared/Core/Packets/).
+  interop contracts module](/server-shared/Interop/FOMNetwork/Packets/).
 
 > [!CAUTION]
 > Both the data types and field order must be identical!
 
 ```csharp
 using System.Runtime.InteropServices;
-using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
 using FOMServer.Shared.Metadata;
 
-namespace FOMServer.Shared.Core.Packets
+namespace FOMServer.Shared.Interop.FOMNetwork.Packets
 {
     // Each packet must be given a PacketId attribute.
     // This hooks the struct up and ensures that it
@@ -157,8 +155,8 @@ by one of the server types. Each packet handler is defined in their respective s
 
 ```csharp
 using FOMServer.Shared.Core.Handlers;
-using FOMServer.Shared.Core.Packets;
-using FOMServer.Shared.Core.Packets.Types;
+using FOMServer.Shared.Interop.FOMNetwork;
+using FOMServer.Shared.Interop.FOMNetwork.Packets;
 using FOMServer.Shared.Metadata;
 
 namespace FOMServer.<Master|World>.Application.Handlers

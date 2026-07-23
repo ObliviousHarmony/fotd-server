@@ -1,8 +1,9 @@
 using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
-using FOMServer.Shared.Core.Enums.Item;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Repositories;
+using FOMServer.Shared.Interop.FOMNetwork.Enums;
+using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 using FOMServer.World.Core.Players;
 using FOMServer.World.Core.Players.Registration;
 

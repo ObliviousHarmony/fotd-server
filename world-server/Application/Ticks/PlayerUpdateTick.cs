@@ -2,11 +2,11 @@ using System.Collections.Concurrent;
 using System.Threading.Channels;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.Ticks;
+using FOMServer.Shared.Interop.FOMNetwork.Packets;
+using FOMServer.Shared.Interop.FOMNetwork.Structs;
 using FOMServer.World.Core.Networking;
 using FOMServer.World.Core.Players;
 using FOMServer.World.Core.Tick;
-using PacketWorldUpdate = FOMServer.Shared.Core.Packets.Types.WorldUpdate;
-using WorldUpdatePacket = FOMServer.Shared.Core.Packets.WorldUpdate;
 
 namespace FOMServer.World.Application.Ticks
 {
@@ -74,7 +74,7 @@ namespace FOMServer.World.Application.Ticks
                 // its newer state is picked up next tick rather than lost.
                 Interlocked.Exchange(ref source.IsPending, 0);
 
-                var update = new PacketWorldUpdate();
+                var update = new WorldUpdateInterop();
                 source.Player.WriteTo(ref update);
                 foreach (var recipient in _recipientSnapshot)
                 {
@@ -105,7 +105,7 @@ namespace FOMServer.World.Application.Ticks
             return ValueTask.CompletedTask;
         }
 
-        private void SendTo(Player recipient, List<PacketWorldUpdate> sendBuffer)
+        private void SendTo(Player recipient, List<WorldUpdateInterop> sendBuffer)
         {
             for (var offset = 0; offset < sendBuffer.Count; offset += WorldUpdatePacket.MaxWorldUpdates)
             {
@@ -136,7 +136,7 @@ namespace FOMServer.World.Application.Ticks
 
             public Player Player { get; }
 
-            public List<PacketWorldUpdate> Buffer { get; } = [];
+            public List<WorldUpdateInterop> Buffer { get; } = [];
         }
     }
 }

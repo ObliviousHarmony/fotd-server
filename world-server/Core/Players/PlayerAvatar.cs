@@ -4,7 +4,7 @@ namespace FOMServer.World.Core.Players
 {
     /// <summary>
     /// Server-side projection of a player's avatar. The wire
-    /// <see cref="FOMServer.Shared.Core.Packets.Types.Avatar"/> is populated from
+    /// <see cref="Shared.Interop.FOMNetwork.Structs.AvatarInterop"/> is populated from
     /// this at send time; appearance slots are kept current as equipment changes.
     /// </summary>
     internal class PlayerAvatar

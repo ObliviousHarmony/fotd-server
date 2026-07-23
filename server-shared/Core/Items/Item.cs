@@ -1,7 +1,8 @@
 using FOMServer.Shared.Core.Constants;
-using FOMServer.Shared.Core.Enums.Item;
+using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Persistence;
-using PacketItem = FOMServer.Shared.Core.Packets.Types.Item.Item;
+using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
+using FOMServer.Shared.Interop.FOMNetwork.Structs.Item;
 
 namespace FOMServer.Shared.Core.Items
 {
@@ -10,7 +11,7 @@ namespace FOMServer.Shared.Core.Items
     public sealed class ItemDestroyedException : InvalidOperationException
     {
         public ItemDestroyedException(Item item)
-            : base($"Item {item.Id} has been destroyed") { }
+            : base($"ItemInterop {item.Id} has been destroyed") { }
     }
 
     public class Item : IPersistable
@@ -88,7 +89,7 @@ namespace FOMServer.Shared.Core.Items
                 }
 
                 throw new ArgumentException(
-                    $"Item {this} does not belong (location={locationRef.Type}, locationId={locationRef.Id}, slot={slot})",
+                    $"ItemInterop {this} does not belong (location={locationRef.Type}, locationId={locationRef.Id}, slot={slot})",
                     nameof(location)
                 );
             }
@@ -228,7 +229,7 @@ namespace FOMServer.Shared.Core.Items
             return false;
         }
 
-        public void WriteTo(ref PacketItem p)
+        public void WriteTo(ref ItemInterop p)
         {
             lock (_syncRoot)
             {

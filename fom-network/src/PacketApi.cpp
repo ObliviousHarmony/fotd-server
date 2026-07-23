@@ -65,7 +65,7 @@ ReceivedPackets FOMNetwork_ReceivePackets(FOMNetworkPeer* peer) {
   received.count = count;
   if (received.count > 0) {
     received.packets = new void*[count];
-    received.senders = new FOMNetwork::Type::NetworkAddress[count];
+    received.senders = new FOMNetwork::NetworkAddress[count];
     received.identifiers = new FOMNetwork::Enum::PacketIdentifier[count];
     for (int i = 0; i < count; i++) {
       Packet* p = receiveBuffer[i];
@@ -197,7 +197,7 @@ int32_t FOMNetwork_Send(FOMNetworkPeer* peer, const SendPacket* packets,
     }
 
     for (int32_t j = 0; j < s.numNetworkAddresses; j++) {
-      const FOMNetwork::Type::NetworkAddress& addr = s.networkAddresses[j];
+      const FOMNetwork::NetworkAddress& addr = s.networkAddresses[j];
 
       bool sent = rakPeer->Send(
           &bs, (PacketPriority)s.priority, (PacketReliability)s.reliability,
@@ -213,7 +213,7 @@ int32_t FOMNetwork_Send(FOMNetworkPeer* peer, const SendPacket* packets,
 }
 
 int32_t FOMNetwork_CloseConnection(FOMNetworkPeer* peer,
-                                   FOMNetwork::Type::NetworkAddress address,
+                                   FOMNetwork::NetworkAddress address,
                                    uint8_t sendDisconnectionNotification) {
   auto rakPeer = static_cast<RakPeerInterface*>(peer);
   if (!rakPeer) {
