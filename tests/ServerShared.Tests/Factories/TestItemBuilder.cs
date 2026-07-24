@@ -20,12 +20,12 @@ namespace FOMServer.Shared.Tests.Factories
         private ushort _valueMax;
         private byte _durabilityLossFactor;
         private ItemSecurity _security;
+        private ItemRarity _rarity;
         private uint _creatorPlayerId;
         private uint _stolenFromPlayerId;
         private uint _timeout;
-        private byte _recipeVariation;
-        private ItemRarity _rarity;
         private byte _attributeBonus;
+        private byte _recipeVariation;
         private readonly byte[] _recipeBalanceValues = new byte[BufferSizes.NumItemBalanceSliders];
 
         public TestItemBuilder(uint id, ItemType type)
@@ -41,15 +41,15 @@ namespace FOMServer.Shared.Tests.Factories
             _valueMax = 10000;
             _durabilityLossFactor = 100;
             _security = ItemSecurity.Normal;
+            _rarity = ItemRarity.Standard;
             _creatorPlayerId = 0;
             _stolenFromPlayerId = 0;
             _timeout = 0;
-            _recipeVariation = 0;
-            _rarity = ItemRarity.Standard;
             _attributeBonus = 0;
+            _recipeVariation = 0;
             for (var i = 0; i < _recipeBalanceValues.Length; ++i)
             {
-                _recipeBalanceValues[i] = 50;
+                _recipeBalanceValues[i] = 3;
             }
         }
 
@@ -96,6 +96,12 @@ namespace FOMServer.Shared.Tests.Factories
             return this;
         }
 
+        public TestItemBuilder WithRarity(ItemRarity rarity)
+        {
+            _rarity = rarity;
+            return this;
+        }
+
         public TestItemBuilder WithCreatorPlayerId(uint playerId)
         {
             _creatorPlayerId = playerId;
@@ -114,21 +120,15 @@ namespace FOMServer.Shared.Tests.Factories
             return this;
         }
 
-        public TestItemBuilder WithRecipeVariation(byte recipeVariation)
-        {
-            _recipeVariation = recipeVariation;
-            return this;
-        }
-
-        public TestItemBuilder WithRarity(ItemRarity rarity)
-        {
-            _rarity = rarity;
-            return this;
-        }
-
         public TestItemBuilder WithAttributeBonus(byte bonus)
         {
             _attributeBonus = bonus;
+            return this;
+        }
+
+        public TestItemBuilder WithRecipeVariation(byte recipeVariation)
+        {
+            _recipeVariation = recipeVariation;
             return this;
         }
 
@@ -159,12 +159,12 @@ namespace FOMServer.Shared.Tests.Factories
                 _valueMax,
                 _durabilityLossFactor,
                 _security,
+                _rarity,
                 _creatorPlayerId,
                 _stolenFromPlayerId,
                 _timeout,
-                _recipeVariation,
-                _rarity,
                 _attributeBonus,
+                _recipeVariation,
                 _recipeBalanceValues
             );
         }

@@ -17,12 +17,12 @@ struct ItemBaseInterop {
   uint16_t durability;
   uint8_t durabilityLossFactor;
   Enum::ItemSecurity security;
+  Enum::ItemRarity rarity;
   uint32_t creatorPlayerId;
   uint32_t stolenFromPlayerId;
   uint32_t timeout;
-  uint8_t recipeVariation;
-  Enum::ItemRarity rarity;
   uint8_t attributeBonus;
+  uint8_t recipeVariation;
   uint8_t recipeBalanceValues[BufferSizes::NUM_ITEM_BALANCE_SLIDERS];
 };
 #pragma pack(pop)

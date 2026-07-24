@@ -30,12 +30,12 @@ namespace FOMServer.Shared.Core.Items
         private readonly ushort _valueMax;
         private readonly byte _durabilityLossFactor;
         private readonly ItemSecurity _security;
+        private readonly ItemRarity _rarity;
         private readonly uint _creatorPlayerId;
         private readonly uint _stolenFromPlayerId;
         private readonly uint _timeout;
-        private readonly byte _recipeVariation;
-        private readonly ItemRarity _rarity;
         private readonly byte _attributeBonus;
+        private readonly byte _recipeVariation;
         private readonly byte[] _recipeBalanceValues = new byte[BufferSizes.NumItemBalanceSliders];
 
         public Item(
@@ -49,12 +49,12 @@ namespace FOMServer.Shared.Core.Items
             ushort durabilityMax,
             byte durabilityLossFactor,
             ItemSecurity security,
+            ItemRarity rarity,
             uint creatorPlayerId,
             uint stolenFromPlayerId,
             uint timeout,
-            byte recipeVariation,
-            ItemRarity rarity,
             byte attributeBonus,
+            byte recipeVariation,
             ReadOnlySpan<byte> recipeBalanceValues
         )
         {
@@ -69,12 +69,12 @@ namespace FOMServer.Shared.Core.Items
             _valueMax = durabilityMax;
             _durabilityLossFactor = durabilityLossFactor;
             _security = security;
+            _rarity = rarity;
             _creatorPlayerId = creatorPlayerId;
             _stolenFromPlayerId = stolenFromPlayerId;
             _timeout = timeout;
-            _recipeVariation = recipeVariation;
-            _rarity = rarity;
             _attributeBonus = attributeBonus;
+            _recipeVariation = recipeVariation;
 
             if (recipeBalanceValues.Length != BufferSizes.NumItemBalanceSliders)
             {
@@ -287,15 +287,13 @@ namespace FOMServer.Shared.Core.Items
                 p.Base.ValueMax = _valueMax;
                 p.Base.Durability = _durability;
                 p.Base.DurabilityLossFactor = _durabilityLossFactor;
-
                 p.Base.Security = _security;
+                p.Base.Rarity = _rarity;
                 p.Base.CreatorPlayerId = _creatorPlayerId;
                 p.Base.StolenFromPlayerId = _stolenFromPlayerId;
                 p.Base.Timeout = _timeout;
-                p.Base.RecipeVariation = _recipeVariation;
-                p.Base.Rarity = _rarity;
                 p.Base.AttributeBonus = _attributeBonus;
-
+                p.Base.RecipeVariation = _recipeVariation;
                 for (var i = 0; i < BufferSizes.NumItemBalanceSliders; ++i)
                 {
                     p.Base.RecipeBalanceValues[i] = _recipeBalanceValues[i];

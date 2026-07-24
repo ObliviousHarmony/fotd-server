@@ -13,12 +13,12 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Structs.Item
         public ushort Durability;
         public byte DurabilityLossFactor;
         public ItemSecurity Security;
+        public ItemRarity Rarity;
         public uint CreatorPlayerId;
         public uint StolenFromPlayerId;
         public uint Timeout;
-        public byte RecipeVariation;
-        public ItemRarity Rarity;
         public byte AttributeBonus;
+        public byte RecipeVariation;
         public fixed byte RecipeBalanceValues[BufferSizes.NumItemBalanceSliders];
     }
 }
