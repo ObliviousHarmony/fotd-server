@@ -55,7 +55,25 @@ namespace FOMServer.World.Application.Players.Registration
             var nextItemId = id * 1000;
             void addItem(ItemType type, ItemSlotType slot = ItemSlotType.None)
             {
-                var item = new Item(nextItemId++, type, ItemLocationType.Inventory, id, slot, 100, 1000, 1000, 100);
+                var item = new Item(
+                    nextItemId++,
+                    type,
+                    ItemLocationType.Inventory,
+                    id,
+                    slot,
+                    100,
+                    100,
+                    10000,
+                    100,
+                    ItemSecurity.Normal,
+                    id,
+                    0,
+                    0,
+                    0,
+                    ItemRarity.Standard,
+                    0,
+                    [50, 50, 50, 50]
+                );
                 loadedItems[item.Id] = item;
             }
 

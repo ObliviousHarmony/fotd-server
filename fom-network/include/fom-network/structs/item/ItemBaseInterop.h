@@ -13,7 +13,7 @@ namespace FOMNetwork {
 struct ItemBaseInterop {
   Enum::ItemType type;
   uint16_t value;
-  uint16_t durabilityMax;
+  uint16_t valueMax;
   uint16_t durability;
   uint8_t durabilityLossFactor;
   Enum::ItemSecurity security;

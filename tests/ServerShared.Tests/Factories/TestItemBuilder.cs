@@ -17,7 +17,7 @@ namespace FOMServer.Shared.Tests.Factories
         private ItemSlotType _slot;
         private ushort _value;
         private ushort _durability;
-        private ushort _durabilityMax;
+        private ushort _valueMax;
         private byte _durabilityLossFactor;
         private ItemSecurity _security;
         private uint _creatorPlayerId;
@@ -38,7 +38,7 @@ namespace FOMServer.Shared.Tests.Factories
             _slot = ItemSlotType.None;
             _value = 0;
             _durability = 10000;
-            _durabilityMax = 10000;
+            _valueMax = 10000;
             _durabilityLossFactor = 100;
             _security = ItemSecurity.Normal;
             _creatorPlayerId = 0;
@@ -78,9 +78,9 @@ namespace FOMServer.Shared.Tests.Factories
             return this;
         }
 
-        public TestItemBuilder WithDurabilityMax(ushort durabilityMax)
+        public TestItemBuilder WithValueMax(ushort valueMax)
         {
-            _durabilityMax = durabilityMax;
+            _valueMax = valueMax;
             return this;
         }
 
@@ -156,7 +156,7 @@ namespace FOMServer.Shared.Tests.Factories
                 _slot,
                 _value,
                 _durability,
-                _durabilityMax,
+                _valueMax,
                 _durabilityLossFactor,
                 _security,
                 _creatorPlayerId,

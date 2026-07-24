@@ -9,7 +9,7 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Structs.Item
     {
         public ItemType Type;
         public ushort Value;
-        public ushort DurabilityMax;
+        public ushort ValueMax;
         public ushort Durability;
         public byte DurabilityLossFactor;
         public ItemSecurity Security;

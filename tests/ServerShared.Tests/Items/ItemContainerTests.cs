@@ -13,7 +13,10 @@ namespace FOMServer.Shared.Tests.Items
             var location = new TestLocation(ItemLocationType.Inventory, 1);
             var container = new TestItemContainer(location, ItemSlotType.None);
 
-            var item = CreateItem(id: 1);
+            var item = TestItemBuilder
+                .Create(ItemType.Zanathid5Inflex, 1)
+                .WithLocation(ItemLocationType.Inventory, 1)
+                .Build();
 
             Assert.True(container.TryAdd(item));
 
@@ -27,8 +30,14 @@ namespace FOMServer.Shared.Tests.Items
             var location = new TestLocation(ItemLocationType.Inventory, 1);
             var container = new TestItemContainer(location, ItemSlotType.None);
 
-            var first = CreateItem(id: 5);
-            var second = CreateItem(id: 5);
+            var first = TestItemBuilder
+                .Create(ItemType.Zanathid5Inflex, 5)
+                .WithLocation(ItemLocationType.Inventory, 1)
+                .Build();
+            var second = TestItemBuilder
+                .Create(ItemType.Zanathid5Inflex, 5)
+                .WithLocation(ItemLocationType.Inventory, 1)
+                .Build();
 
             Assert.True(container.TryAdd(first));
             Assert.False(container.TryAdd(second));
@@ -42,8 +51,15 @@ namespace FOMServer.Shared.Tests.Items
             var locationB = new TestLocation(ItemLocationType.Inventory, 2);
             var containerB = new TestItemContainer(locationB, ItemSlotType.None);
 
-            var item = CreateItem(id: 7);
-            var item2 = CreateItem(id: 8);
+            var item = TestItemBuilder
+                .Create(ItemType.Zanathid5Inflex, 7)
+                .WithLocation(ItemLocationType.Inventory, 1)
+                .Build();
+            var item2 = TestItemBuilder
+                .Create(ItemType.Zanathid5Inflex, 8)
+                .WithLocation(ItemLocationType.Inventory, 1)
+                .Build();
+
             containerA.TryAdd(item);
             containerA.TryAdd(item2);
 
@@ -65,7 +81,11 @@ namespace FOMServer.Shared.Tests.Items
             var locationB = new TestLocation(ItemLocationType.Inventory, 2);
             var containerB = new TestItemContainer(locationB, ItemSlotType.None);
 
-            var item = CreateItem(id: 7);
+            var item = TestItemBuilder
+                .Create(ItemType.Zanathid5Inflex, 7)
+                .WithLocation(ItemLocationType.Inventory, 1)
+                .Build();
+
             containerA.TryAdd(item);
 
             Assert.True(containerA.TryTransfer(containerB, out var transferred, out _, item.Id));
@@ -83,9 +103,15 @@ namespace FOMServer.Shared.Tests.Items
             var locationB = new TestLocation(ItemLocationType.Inventory, 2);
             var containerB = new TestItemContainer(locationB, ItemSlotType.None);
 
-            var itemA = CreateItem(id: 9);
+            var itemA = TestItemBuilder
+                .Create(ItemType.Zanathid5Inflex, 9)
+                .WithLocation(ItemLocationType.Inventory, 1)
+                .Build();
             containerA.TryAdd(itemA);
-            var itemB = CreateItem(id: 9);
+            var itemB = TestItemBuilder
+                .Create(ItemType.Zanathid5Inflex, 9)
+                .WithLocation(ItemLocationType.Inventory, 1)
+                .Build();
             containerB.TryAdd(itemB);
 
             Assert.False(containerA.TryTransfer(containerB, out var transferred, out _, itemA.Id));
@@ -102,7 +128,12 @@ namespace FOMServer.Shared.Tests.Items
             var locationB = new TestLocation(ItemLocationType.Inventory, 2);
             var containerB = new TestItemContainer(locationB, ItemSlotType.None);
 
-            var item = CreateItem(id: 3, durability: 10, durabilityLossFactor: 100);
+            var item = TestItemBuilder
+                .Create(ItemType.Zanathid5Inflex, 1)
+                .WithLocation(ItemLocationType.Inventory, 1)
+                .WithDurability(10)
+                .Build();
+
             containerA.TryAdd(item);
 
             containerA.TryTransfer(containerB, out _, out _, item.Id);
@@ -120,8 +151,14 @@ namespace FOMServer.Shared.Tests.Items
             var locationB = new TestLocation(ItemLocationType.Inventory, 2);
             var containerB = new TestItemContainer(locationB, ItemSlotType.None, maxItems: 1);
 
-            var incoming = CreateItem(id: 10);
-            var existing = CreateItem(id: 20);
+            var incoming = TestItemBuilder
+                .Create(ItemType.Zanathid5Inflex, 10)
+                .WithLocation(ItemLocationType.Inventory, 1)
+                .Build();
+            var existing = TestItemBuilder
+                .Create(ItemType.Zanathid5Inflex, 20)
+                .WithLocation(ItemLocationType.Inventory, 1)
+                .Build();
 
             containerA.TryAdd(incoming);
             containerB.TryAdd(existing);
@@ -140,24 +177,6 @@ namespace FOMServer.Shared.Tests.Items
             Assert.True(containerA.TryRemove(out var removedFromA, existing.Id));
             Assert.Contains(existing, removedFromA);
             Assert.False(containerA.TryRemove(out _, incoming.Id));
-        }
-
-        private static Item CreateItem(
-            uint id = 1,
-            ushort value = 100,
-            ushort durability = 100,
-            ushort durabilityMax = 100,
-            byte durabilityLossFactor = 100
-        )
-        {
-            return TestItemBuilder
-                .Create(ItemType.Zanathid5Inflex, id)
-                .WithLocation(ItemLocationType.Inventory, 1)
-                .WithValue(value)
-                .WithDurability(durability)
-                .WithDurabilityMax(durabilityMax)
-                .WithDurabilityLossFactor(durabilityLossFactor)
-                .Build();
         }
 
         private sealed class TestLocation : IItemLocation

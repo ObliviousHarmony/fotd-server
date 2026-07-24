@@ -27,7 +27,7 @@ namespace FOMServer.Shared.Core.Items
         private IItemLocation? _location;
         private bool _destroyed;
 
-        private readonly ushort _durabilityMax;
+        private readonly ushort _valueMax;
         private readonly byte _durabilityLossFactor;
         private readonly ItemSecurity _security;
         private readonly uint _creatorPlayerId;
@@ -66,7 +66,7 @@ namespace FOMServer.Shared.Core.Items
             _slot = slot;
             _value = value;
             _durability = durability;
-            _durabilityMax = durabilityMax;
+            _valueMax = durabilityMax;
             _durabilityLossFactor = durabilityLossFactor;
             _security = security;
             _creatorPlayerId = creatorPlayerId;
@@ -276,7 +276,7 @@ namespace FOMServer.Shared.Core.Items
                 p.Id = Id;
                 p.Base.Type = Type;
                 p.Base.Value = _value;
-                p.Base.DurabilityMax = _durabilityMax;
+                p.Base.ValueMax = _valueMax;
                 p.Base.Durability = _durability;
                 p.Base.DurabilityLossFactor = _durabilityLossFactor;
 
