@@ -1,4 +1,4 @@
-using FOMServer.Shared.Core.Constants;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 
 namespace FOMServer.World.Core.Players
 {

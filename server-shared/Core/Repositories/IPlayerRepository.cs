@@ -1,5 +1,5 @@
-using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Dtos;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 
 namespace FOMServer.Shared.Core.Repositories
 {

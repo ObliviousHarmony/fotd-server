@@ -1,6 +1,6 @@
 using FOMServer.Shared.Interop.FOMNetwork.Structs;
 
-namespace FOMServer.Shared.Core.Constants
+namespace FOMServer.Shared.Interop.FOMNetwork.Constants
 {
     public static class AvatarConstants
     {

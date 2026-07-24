@@ -1,6 +1,6 @@
-using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Persistence;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 using FOMServer.Shared.Interop.FOMNetwork.Structs.Item;
 
@@ -31,12 +31,12 @@ namespace FOMServer.Shared.Core.Items
         private readonly byte _durabilityLossFactor;
         private readonly ItemSecurity _security;
         private readonly uint _creatorPlayerId;
-        private readonly uint _timeout;
         private readonly uint _stolenFromPlayerId;
-        private readonly byte _classification;
+        private readonly uint _timeout;
+        private readonly byte _recipeVariation;
         private readonly ItemRarity _rarity;
         private readonly byte _attributeBonus;
-        private readonly byte[] _balanceValues = new byte[BufferSizes.NumItemBalanceSliders];
+        private readonly byte[] _recipeBalanceValues = new byte[BufferSizes.NumItemBalanceSliders];
 
         public Item(
             uint id,
@@ -50,12 +50,12 @@ namespace FOMServer.Shared.Core.Items
             byte durabilityLossFactor,
             ItemSecurity security,
             uint creatorPlayerId,
-            uint timeout,
             uint stolenFromPlayerId,
-            byte classification,
+            uint timeout,
+            byte recipeVariation,
             ItemRarity rarity,
             byte attributeBonus,
-            ReadOnlySpan<byte> balanceValues
+            ReadOnlySpan<byte> recipeBalanceValues
         )
         {
             Id = id;
@@ -70,22 +70,30 @@ namespace FOMServer.Shared.Core.Items
             _durabilityLossFactor = durabilityLossFactor;
             _security = security;
             _creatorPlayerId = creatorPlayerId;
-            _timeout = timeout;
             _stolenFromPlayerId = stolenFromPlayerId;
-            _classification = classification;
+            _timeout = timeout;
+            _recipeVariation = recipeVariation;
             _rarity = rarity;
             _attributeBonus = attributeBonus;
 
-            if (balanceValues.Length != BufferSizes.NumItemBalanceSliders)
+            if (recipeBalanceValues.Length != BufferSizes.NumItemBalanceSliders)
             {
                 throw new ArgumentException(
-                    nameof(balanceValues),
-                    $"Received {balanceValues.Length} balance values, expected {BufferSizes.NumItemBalanceSliders}"
+                    nameof(recipeBalanceValues),
+                    $"Received {recipeBalanceValues.Length} balance values, expected {BufferSizes.NumItemBalanceSliders}"
                 );
             }
-            for (var i = 0; i < balanceValues.Length; i++)
+            for (var i = 0; i < recipeBalanceValues.Length; i++)
             {
-                _balanceValues[i] = balanceValues[i];
+                if (recipeBalanceValues[i] > ItemConstants.RecipeBalanceSliderMax)
+                {
+                    throw new ArgumentException(
+                        nameof(recipeBalanceValues),
+                        $"Balance slider {i} has a value {recipeBalanceValues[i]} above the maximum of {ItemConstants.RecipeBalanceSliderMax}"
+                    );
+                }
+
+                _recipeBalanceValues[i] = recipeBalanceValues[i];
             }
 
             _destroyed = false;
@@ -282,15 +290,15 @@ namespace FOMServer.Shared.Core.Items
 
                 p.Base.Security = _security;
                 p.Base.CreatorPlayerId = _creatorPlayerId;
-                p.Base.Timeout = _timeout;
                 p.Base.StolenFromPlayerId = _stolenFromPlayerId;
-                p.Base.Classification = _classification;
-                p.Base.Quality = _rarity;
+                p.Base.Timeout = _timeout;
+                p.Base.RecipeVariation = _recipeVariation;
+                p.Base.Rarity = _rarity;
                 p.Base.AttributeBonus = _attributeBonus;
 
                 for (var i = 0; i < BufferSizes.NumItemBalanceSliders; ++i)
                 {
-                    p.Base.BalanceValues[i] = _balanceValues[i];
+                    p.Base.RecipeBalanceValues[i] = _recipeBalanceValues[i];
                 }
             }
         }

@@ -1,8 +1,8 @@
 using System.Xml.Linq;
-using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 using FOMServer.World.Core.Players;

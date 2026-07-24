@@ -1,6 +1,6 @@
-using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Dtos;
 using FOMServer.Shared.Core.Repositories;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using MySqlConnector;
 
 namespace FOMServer.Shared.Infrastructure.Repositories

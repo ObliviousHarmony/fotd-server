@@ -74,6 +74,7 @@ set(FOMNETWORK_INC
   "include/fom-network/constants/BufferSizes.h"
   "include/fom-network/constants/FactionConstants.h"
   "include/fom-network/constants/PlayerConstants.h"
+  "include/fom-network/constants/ItemConstants.h"
 
   # Types
   "src/structs/InteropTypeSerializer.h"

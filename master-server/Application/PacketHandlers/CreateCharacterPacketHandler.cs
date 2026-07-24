@@ -1,10 +1,10 @@
 using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Core.Players;
-using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.PacketHandlers;
 using FOMServer.Shared.Core.Repositories;
 using FOMServer.Shared.Interop.FOMNetwork;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums;
 using FOMServer.Shared.Interop.FOMNetwork.Packets;
 using FOMServer.Shared.Interop.FOMNetwork.Structs;

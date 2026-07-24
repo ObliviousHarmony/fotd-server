@@ -8,6 +8,6 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Enums.Item
         Rare = 3, // ITEM_RARITY_RARE
         SpecialRare = 4, // ITEM_RARITY_SPECIAL_RARE
 
-        NUM_ITEM_QUALITIES = 4,
+        NUM_ITEM_RARITIES = 4,
     }
 }

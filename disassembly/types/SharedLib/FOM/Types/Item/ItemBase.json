@@ -76,21 +76,21 @@
   {
    "comment": null,
    "len": 1,
-   "name": "quality",
+   "name": "rarity",
    "offset": 25,
-   "type": "/FOM/Types/Item/ItemQuality"
+   "type": "/FOM/Types/Item/ItemRarity"
   },
   {
    "comment": null,
    "len": 1,
-   "name": "classification",
+   "name": "recipeVariation",
    "offset": 26,
    "type": "/stdint.h/uint8_t"
   },
   {
    "comment": null,
    "len": 4,
-   "name": "balanceValues",
+   "name": "recipeBalanceValues",
    "offset": 27,
    "type": {
     "arr": "/stdint.h/uint8_t",

@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using FOMServer.Shared.Core.Constants;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 using FOMServer.Shared.Interop.FOMNetwork.Structs.Item;
 

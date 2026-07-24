@@ -1,7 +1,7 @@
-using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Repositories;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 using FOMServer.World.Core.Players;
@@ -51,52 +51,6 @@ namespace FOMServer.World.Application.Players.Registration
         private IDictionary<uint, Item> LoadItems(uint id)
         {
             Dictionary<uint, Item> loadedItems = [];
-
-            var nextItemId = id * 1000;
-            void addItem(ItemType type, ItemSlotType slot = ItemSlotType.None)
-            {
-                var item = new Item(
-                    nextItemId++,
-                    type,
-                    ItemLocationType.Inventory,
-                    id,
-                    slot,
-                    100,
-                    100,
-                    10000,
-                    100,
-                    ItemSecurity.Normal,
-                    id,
-                    0,
-                    0,
-                    0,
-                    ItemRarity.Standard,
-                    0,
-                    [50, 50, 50, 50]
-                );
-                loadedItems[item.Id] = item;
-            }
-
-            addItem(ItemType.Techtronic6x6);
-            addItem(ItemType._9mmStandardRounds);
-            addItem(ItemType.BackerHelmet);
-
-            addItem(ItemType._9mmStandardRounds);
-            addItem(ItemType.EmergencyMedikit);
-            addItem(ItemType.ShieldAugmentation);
-            addItem(ItemType.BackerTShirtMale);
-            addItem(ItemType.AssaultPantsMale);
-            addItem(ItemType.EsporteAllTerrainShoesMale);
-
-            addItem(ItemType.Fedora, ItemSlotType.Hat);
-            addItem(ItemType.AdvancedCivilianHelmet, ItemSlotType.Head);
-            addItem(ItemType.ShieldAugmentation, ItemSlotType.Back);
-            addItem(ItemType.AlmDesignsGlassesBlack, ItemSlotType.Eyes);
-            addItem(ItemType.AllWeatherTShirtMale, ItemSlotType.Shirt);
-            addItem(ItemType.AntiRiotPantsMale, ItemSlotType.Pants);
-            addItem(ItemType.BlackDressShoesMale, ItemSlotType.Shoes);
-
-            addItem(ItemType.DOA187, ItemSlotType.Weapon1);
 
             return loadedItems;
         }

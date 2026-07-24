@@ -1,5 +1,5 @@
 using System.Runtime.InteropServices;
-using FOMServer.Shared.Core.Constants;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 
 namespace FOMServer.Shared.Interop.FOMNetwork.Structs.Item
@@ -14,11 +14,11 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Structs.Item
         public byte DurabilityLossFactor;
         public ItemSecurity Security;
         public uint CreatorPlayerId;
-        public uint Timeout;
         public uint StolenFromPlayerId;
-        public byte Classification;
-        public ItemRarity Quality;
+        public uint Timeout;
+        public byte RecipeVariation;
+        public ItemRarity Rarity;
         public byte AttributeBonus;
-        public fixed byte BalanceValues[BufferSizes.NumItemBalanceSliders];
+        public fixed byte RecipeBalanceValues[BufferSizes.NumItemBalanceSliders];
     }
 }

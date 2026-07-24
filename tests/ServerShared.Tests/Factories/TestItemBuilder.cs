@@ -1,6 +1,6 @@
-using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 
 namespace FOMServer.Shared.Tests.Factories
@@ -21,12 +21,12 @@ namespace FOMServer.Shared.Tests.Factories
         private byte _durabilityLossFactor;
         private ItemSecurity _security;
         private uint _creatorPlayerId;
-        private uint _timeout;
         private uint _stolenFromPlayerId;
-        private byte _classification;
+        private uint _timeout;
+        private byte _recipeVariation;
         private ItemRarity _rarity;
         private byte _attributeBonus;
-        private readonly byte[] _balanceValues = new byte[BufferSizes.NumItemBalanceSliders];
+        private readonly byte[] _recipeBalanceValues = new byte[BufferSizes.NumItemBalanceSliders];
 
         public TestItemBuilder(uint id, ItemType type)
         {
@@ -42,14 +42,14 @@ namespace FOMServer.Shared.Tests.Factories
             _durabilityLossFactor = 100;
             _security = ItemSecurity.Normal;
             _creatorPlayerId = 0;
-            _timeout = 0;
             _stolenFromPlayerId = 0;
-            _classification = 0;
+            _timeout = 0;
+            _recipeVariation = 0;
             _rarity = ItemRarity.Standard;
             _attributeBonus = 0;
-            for (var i = 0; i < _balanceValues.Length; ++i)
+            for (var i = 0; i < _recipeBalanceValues.Length; ++i)
             {
-                _balanceValues[i] = 50;
+                _recipeBalanceValues[i] = 50;
             }
         }
 
@@ -102,21 +102,21 @@ namespace FOMServer.Shared.Tests.Factories
             return this;
         }
 
-        public TestItemBuilder WithTimeout(uint timeout)
-        {
-            _timeout = timeout;
-            return this;
-        }
-
         public TestItemBuilder WithStolenFromPlayerId(uint playerId)
         {
             _stolenFromPlayerId = playerId;
             return this;
         }
 
-        public TestItemBuilder WithClassification(byte classification)
+        public TestItemBuilder WithTimeout(uint timeout)
         {
-            _classification = classification;
+            _timeout = timeout;
+            return this;
+        }
+
+        public TestItemBuilder WithRecipeVariation(byte recipeVariation)
+        {
+            _recipeVariation = recipeVariation;
             return this;
         }
 
@@ -132,7 +132,7 @@ namespace FOMServer.Shared.Tests.Factories
             return this;
         }
 
-        public TestItemBuilder WithBalanceValue(int index, byte value)
+        public TestItemBuilder WithRecipeBalanceValue(int index, byte value)
         {
             if (index >= BufferSizes.NumItemBalanceSliders)
             {
@@ -142,7 +142,7 @@ namespace FOMServer.Shared.Tests.Factories
                 );
             }
 
-            _balanceValues[index] = value;
+            _recipeBalanceValues[index] = value;
             return this;
         }
 
@@ -160,12 +160,12 @@ namespace FOMServer.Shared.Tests.Factories
                 _durabilityLossFactor,
                 _security,
                 _creatorPlayerId,
-                _timeout,
                 _stolenFromPlayerId,
-                _classification,
+                _timeout,
+                _recipeVariation,
                 _rarity,
                 _attributeBonus,
-                _balanceValues
+                _recipeBalanceValues
             );
         }
 
