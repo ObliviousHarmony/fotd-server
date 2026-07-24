@@ -1,7 +1,7 @@
-using System.Collections.ObjectModel;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
+using FOMServer.Shared.Tests.Factories;
 
 namespace FOMServer.Shared.Tests.Items
 {
@@ -150,17 +150,14 @@ namespace FOMServer.Shared.Tests.Items
             byte durabilityLossFactor = 100
         )
         {
-            return new Item(
-                id,
-                ItemType.Zanathid5Inflex,
-                ItemLocationType.Inventory,
-                1,
-                ItemSlotType.None,
-                value,
-                durability,
-                durabilityMax,
-                durabilityLossFactor
-            );
+            return TestItemBuilder
+                .Create(ItemType.Zanathid5Inflex, id)
+                .WithLocation(ItemLocationType.Inventory, 1)
+                .WithValue(value)
+                .WithDurability(durability)
+                .WithDurabilityMax(durabilityMax)
+                .WithDurabilityLossFactor(durabilityLossFactor)
+                .Build();
         }
 
         private sealed class TestLocation : IItemLocation

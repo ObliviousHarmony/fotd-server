@@ -1,7 +1,7 @@
 #pragma once
 
 #include <fom-network/Interop.h>
-#include <fom-network/enums/item/ItemQuality.h>
+#include <fom-network/enums/item/ItemRarity.h>
 #include <fom-network/enums/item/ItemSecurity.h>
 #include <fom-network/enums/item/ItemType.h>
 
@@ -21,7 +21,7 @@ struct ItemBaseInterop {
   uint32_t timeout;
   uint32_t stolenFromPlayerId;
   uint8_t classification;
-  Enum::ItemQuality quality;
+  Enum::ItemRarity quality;
   uint8_t attributeBonus;
   uint8_t balanceValues[BufferSizes::NUM_ITEM_BALANCE_SLIDERS];
 };

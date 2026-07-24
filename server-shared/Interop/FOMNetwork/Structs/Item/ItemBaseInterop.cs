@@ -17,7 +17,7 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Structs.Item
         public uint Timeout;
         public uint StolenFromPlayerId;
         public byte Classification;
-        public ItemQuality Quality;
+        public ItemRarity Quality;
         public byte AttributeBonus;
         public fixed byte BalanceValues[BufferSizes.NumItemBalanceSliders];
     }

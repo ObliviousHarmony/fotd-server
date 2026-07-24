@@ -11,10 +11,9 @@ namespace FOMServer.World.Tests.Factories
 {
     internal class TestPlayerBuilder
     {
-        private static uint s_nextPlayerId;
+        private static uint s_nextPlayerId = 1;
 
         private readonly uint _id;
-        private uint _nextItemId;
         private readonly uint[] _attributes = new uint[(int)AttributeType.NUM_ATTRIBUTE_TYPES];
         private readonly Dictionary<ItemContainerType, Dictionary<uint, Item>> _items;
         private readonly ItemType[] _quickslots;
@@ -22,7 +21,6 @@ namespace FOMServer.World.Tests.Factories
         public TestPlayerBuilder(uint id)
         {
             _id = id;
-            _nextItemId = id * 1000;
 
             for (var i = 0; i < (int)AttributeType.NUM_ATTRIBUTE_TYPES; ++i)
             {
@@ -44,34 +42,13 @@ namespace FOMServer.World.Tests.Factories
             return this;
         }
 
-        public TestPlayerBuilder WithItem(
-            ItemContainerType container,
-            ItemType type,
-            ItemLocationType locationType,
-            uint locationId,
-            ItemSlotType slot,
-            ushort value,
-            ushort durability,
-            ushort durabilityMax,
-            byte durabilityLossFactor
-        )
+        public TestPlayerBuilder WithItem(ItemContainerType container, Item item)
         {
             if (!_items.TryGetValue(container, out var itemList))
             {
                 throw new InvalidOperationException($"ItemInterop container {container} is invalid");
             }
 
-            var item = new Item(
-                _nextItemId++,
-                type,
-                locationType,
-                locationId,
-                slot,
-                value,
-                durability,
-                durabilityMax,
-                durabilityLossFactor
-            );
             itemList[item.Id] = item;
 
             return this;

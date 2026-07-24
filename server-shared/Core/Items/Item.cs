@@ -29,6 +29,14 @@ namespace FOMServer.Shared.Core.Items
 
         private readonly ushort _durabilityMax;
         private readonly byte _durabilityLossFactor;
+        private readonly ItemSecurity _security;
+        private readonly uint _creatorPlayerId;
+        private readonly uint _timeout;
+        private readonly uint _stolenFromPlayerId;
+        private readonly byte _classification;
+        private readonly ItemRarity _rarity;
+        private readonly byte _attributeBonus;
+        private readonly byte[] _balanceValues = new byte[BufferSizes.NumItemBalanceSliders];
 
         public Item(
             uint id,
@@ -39,7 +47,15 @@ namespace FOMServer.Shared.Core.Items
             ushort value,
             ushort durability,
             ushort durabilityMax,
-            byte durabilityLossFactor
+            byte durabilityLossFactor,
+            ItemSecurity security,
+            uint creatorPlayerId,
+            uint timeout,
+            uint stolenFromPlayerId,
+            byte classification,
+            ItemRarity rarity,
+            byte attributeBonus,
+            ReadOnlySpan<byte> balanceValues
         )
         {
             Id = id;
@@ -52,6 +68,25 @@ namespace FOMServer.Shared.Core.Items
             _durability = durability;
             _durabilityMax = durabilityMax;
             _durabilityLossFactor = durabilityLossFactor;
+            _security = security;
+            _creatorPlayerId = creatorPlayerId;
+            _timeout = timeout;
+            _stolenFromPlayerId = stolenFromPlayerId;
+            _classification = classification;
+            _rarity = rarity;
+            _attributeBonus = attributeBonus;
+
+            if (balanceValues.Length != BufferSizes.NumItemBalanceSliders)
+            {
+                throw new ArgumentException(
+                    nameof(balanceValues),
+                    $"Received {balanceValues.Length} balance values, expected {BufferSizes.NumItemBalanceSliders}"
+                );
+            }
+            for (var i = 0; i < balanceValues.Length; i++)
+            {
+                _balanceValues[i] = balanceValues[i];
+            }
 
             _destroyed = false;
         }
@@ -229,7 +264,7 @@ namespace FOMServer.Shared.Core.Items
             return false;
         }
 
-        public void WriteTo(ref ItemInterop p)
+        public unsafe void WriteTo(ref ItemInterop p)
         {
             lock (_syncRoot)
             {
@@ -245,20 +280,17 @@ namespace FOMServer.Shared.Core.Items
                 p.Base.Durability = _durability;
                 p.Base.DurabilityLossFactor = _durabilityLossFactor;
 
-                p.Base.Security = ItemSecurity.Normal;
-                p.Base.CreatorPlayerId = 0;
-                p.Base.Timeout = 0;
-                p.Base.StolenFromPlayerId = 0;
-                p.Base.Classification = 1;
-                p.Base.Quality = ItemQuality.Standard;
-                p.Base.AttributeBonus = 0;
+                p.Base.Security = _security;
+                p.Base.CreatorPlayerId = _creatorPlayerId;
+                p.Base.Timeout = _timeout;
+                p.Base.StolenFromPlayerId = _stolenFromPlayerId;
+                p.Base.Classification = _classification;
+                p.Base.Quality = _rarity;
+                p.Base.AttributeBonus = _attributeBonus;
 
-                unsafe
+                for (var i = 0; i < BufferSizes.NumItemBalanceSliders; ++i)
                 {
-                    for (var i = 0; i < BufferSizes.NumItemBalanceSliders; ++i)
-                    {
-                        p.Base.BalanceValues[i] = 0;
-                    }
+                    p.Base.BalanceValues[i] = _balanceValues[i];
                 }
             }
         }

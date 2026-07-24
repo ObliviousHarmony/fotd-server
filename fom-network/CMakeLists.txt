@@ -62,7 +62,7 @@ set(FOMNETWORK_INC
   "include/fom-network/enums/item/ItemSlotType.h"
   "include/fom-network/enums/item/ItemContainerType.h"
   "include/fom-network/enums/item/ItemSecurity.h"
-  "include/fom-network/enums/item/ItemQuality.h"
+  "include/fom-network/enums/item/ItemRarity.h"
   "include/fom-network/enums/ApartmentType.h"
   "include/fom-network/enums/SkillType.h"
   "include/fom-network/enums/AttributeType.h"

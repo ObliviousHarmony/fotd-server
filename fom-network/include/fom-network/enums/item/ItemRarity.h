@@ -5,12 +5,12 @@
 namespace FOMNetwork {
 namespace Enum {
 
-enum ItemQuality : uint8_t {
-  ITEM_QUALITY_STANDARD = 0,
-  ITEM_QUALITY_CUSTOM = 1,
-  ITEM_QUALITY_SPECIAL = 2,
-  ITEM_QUALITY_RARE = 3,
-  ITEM_QUALITY_SPECIAL_RARE = 4,
+enum ItemRarity : uint8_t {
+  ITEM_RARITY_STANDARD = 0,
+  ITEM_RARITY_CUSTOM = 1,
+  ITEM_RARITY_SPECIAL = 2,
+  ITEM_RARITY_RARE = 3,
+  ITEM_RARITY_SPECIAL_RARE = 4,
 
   NUM_ITEM_QUALITIES = 5
 };
