@@ -52,7 +52,7 @@ namespace FOMServer.World.Tests.Factories
             ItemSlotType slot,
             ushort value,
             ushort durability,
-            ushort maxDurability,
+            ushort durabilityMax,
             byte durabilityLossFactor
         )
         {
@@ -69,7 +69,7 @@ namespace FOMServer.World.Tests.Factories
                 slot,
                 value,
                 durability,
-                maxDurability,
+                durabilityMax,
                 durabilityLossFactor
             );
             itemList[item.Id] = item;

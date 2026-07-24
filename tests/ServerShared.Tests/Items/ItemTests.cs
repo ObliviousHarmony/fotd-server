@@ -68,7 +68,7 @@ namespace FOMServer.Shared.Tests.Items
         private static Item CreateItem(
             ushort value = 100,
             ushort durability = 100,
-            ushort maxDurability = 100,
+            ushort durabilityMax = 100,
             byte durabilityLossFactor = 100
         )
         {
@@ -80,7 +80,7 @@ namespace FOMServer.Shared.Tests.Items
                 ItemSlotType.None,
                 value,
                 durability,
-                maxDurability,
+                durabilityMax,
                 durabilityLossFactor
             );
         }

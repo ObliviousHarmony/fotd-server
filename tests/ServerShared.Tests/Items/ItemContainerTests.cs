@@ -146,7 +146,7 @@ namespace FOMServer.Shared.Tests.Items
             uint id = 1,
             ushort value = 100,
             ushort durability = 100,
-            ushort maxDurability = 100,
+            ushort durabilityMax = 100,
             byte durabilityLossFactor = 100
         )
         {
@@ -158,7 +158,7 @@ namespace FOMServer.Shared.Tests.Items
                 ItemSlotType.None,
                 value,
                 durability,
-                maxDurability,
+                durabilityMax,
                 durabilityLossFactor
             );
         }

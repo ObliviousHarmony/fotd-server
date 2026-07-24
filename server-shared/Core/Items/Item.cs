@@ -27,7 +27,7 @@ namespace FOMServer.Shared.Core.Items
         private IItemLocation? _location;
         private bool _destroyed;
 
-        private readonly ushort _maxDurability;
+        private readonly ushort _durabilityMax;
         private readonly byte _durabilityLossFactor;
 
         public Item(
@@ -38,7 +38,7 @@ namespace FOMServer.Shared.Core.Items
             ItemSlotType slot,
             ushort value,
             ushort durability,
-            ushort maxDurability,
+            ushort durabilityMax,
             byte durabilityLossFactor
         )
         {
@@ -50,7 +50,7 @@ namespace FOMServer.Shared.Core.Items
             _slot = slot;
             _value = value;
             _durability = durability;
-            _maxDurability = maxDurability;
+            _durabilityMax = durabilityMax;
             _durabilityLossFactor = durabilityLossFactor;
 
             _destroyed = false;
@@ -241,7 +241,7 @@ namespace FOMServer.Shared.Core.Items
                 p.Id = Id;
                 p.Base.Type = Type;
                 p.Base.Value = _value;
-                p.Base.MaxDurability = _maxDurability;
+                p.Base.DurabilityMax = _durabilityMax;
                 p.Base.Durability = _durability;
                 p.Base.DurabilityLossFactor = _durabilityLossFactor;
 

@@ -1,0 +1,12 @@
+.claude/
+.git/
+.github/
+cmake/
+disassembly/
+docker/
+docs/
+fom-network/
+extern/
+
+# Exclude migrations so we can maintain legible column descriptor indentation.
+server-shared/Infrastructure/Migrations
