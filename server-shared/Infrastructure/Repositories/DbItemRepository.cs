@@ -40,7 +40,7 @@ namespace FOMServer.Shared.Infrastructure.Repositories
             _dbConnectionFactory = dbConnectionFactory;
         }
 
-        public uint? Create(ItemDto item, WorldId? worldId)
+        public uint? Create(ItemDto item, WorldId? worldId = null)
         {
             using var connection = _dbConnectionFactory.Create();
 

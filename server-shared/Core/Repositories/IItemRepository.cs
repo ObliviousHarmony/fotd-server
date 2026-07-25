@@ -7,7 +7,7 @@ namespace FOMServer.Shared.Core.Repositories
 {
     public interface IItemRepository
     {
-        uint? Create(ItemDto item, WorldId? worldId);
+        uint? Create(ItemDto item, WorldId? worldId = null);
 
         ItemDto? GetById(uint id);
 

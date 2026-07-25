@@ -1,4 +1,5 @@
 using FOMServer.Shared.Interop.FOMNetwork.Constants;
+using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 
 namespace FOMServer.Shared.Core.Dtos
 {
@@ -15,5 +16,13 @@ namespace FOMServer.Shared.Core.Dtos
         public ushort face { get; init; }
 
         public ushort hair { get; init; }
+
+        public ItemType quickslot_1 { get; init; }
+
+        public ItemType quickslot_2 { get; init; }
+
+        public ItemType quickslot_3 { get; init; }
+
+        public ItemType quickslot_4 { get; init; }
     }
 }

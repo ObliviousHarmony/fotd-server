@@ -1,11 +1,13 @@
 using FOMServer.Master.Core.Networking;
 using FOMServer.Master.Core.Players;
+using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.PacketHandlers;
 using FOMServer.Shared.Core.Repositories;
 using FOMServer.Shared.Interop.FOMNetwork;
 using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums;
+using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 using FOMServer.Shared.Interop.FOMNetwork.Packets;
 using FOMServer.Shared.Interop.FOMNetwork.Structs;
 using FOMServer.Shared.Metadata;
@@ -16,6 +18,7 @@ namespace FOMServer.Master.Application.PacketHandlers
     internal class CreateCharacterPacketHandler : PacketHandlerBase<CreateCharacterPacket>
     {
         private readonly IPlayerRepository _playerRepository;
+        private readonly IItemRepository _itemRepository;
         private readonly IClientRegistry _clientRegistry;
         private readonly IPlayerRegistry _playerRegistry;
         private readonly IClientPacketSender _clientPacketSender;
@@ -23,6 +26,7 @@ namespace FOMServer.Master.Application.PacketHandlers
 
         public CreateCharacterPacketHandler(
             IPlayerRepository playerRepository,
+            IItemRepository itemRepository,
             IClientRegistry clientRegistry,
             IPlayerRegistry playerRegistry,
             IClientPacketSender clientPacketSender,
@@ -30,6 +34,7 @@ namespace FOMServer.Master.Application.PacketHandlers
         )
         {
             _playerRepository = playerRepository;
+            _itemRepository = itemRepository;
             _clientRegistry = clientRegistry;
             _playerRegistry = playerRegistry;
             _clientPacketSender = clientPacketSender;
@@ -91,6 +96,15 @@ namespace FOMServer.Master.Application.PacketHandlers
                 return;
             }
 
+            if (!CreateClothes(p.PlayerId, p.Avatar))
+            {
+                _logger.LogError("Failed to create starter clothes for player {PlayerId}", p.PlayerId);
+
+                rData.Status = LoginReturnPacket.StatusCode.CreateCharacterError;
+                _clientPacketSender.Send(response.Build());
+                return;
+            }
+
             _clientRegistry.BeginLogin(session, p.PlayerId);
             _playerRegistry.Login(session);
 
@@ -112,12 +126,12 @@ namespace FOMServer.Master.Application.PacketHandlers
             {
                 switch (avatar.Shirt)
                 {
-                    case 611:
-                    case 640:
-                    case 673:
-                    case 690:
-                    case 621:
-                    case 644:
+                    case ItemType.ExerciseTShirtMale:
+                    case ItemType.CommandoJacketMale:
+                    case ItemType.RiotTrenchcoatMale:
+                    case ItemType.DefenderRobeMale:
+                    case ItemType.SquadTShirtMale:
+                    case ItemType.AlmJacketMale:
                         break;
 
                     default:
@@ -126,12 +140,12 @@ namespace FOMServer.Master.Application.PacketHandlers
 
                 switch (avatar.Bottoms)
                 {
-                    case 760:
-                    case 706:
-                    case 728:
-                    case 781:
-                    case 701:
-                    case 766:
+                    case ItemType.BlueTacticalTrousersMale:
+                    case ItemType.BattleTrousersMale:
+                    case ItemType.AnarchyTrousersMale:
+                    case ItemType.HarmonyTrousersMale:
+                    case ItemType.LiberationTrousersMale:
+                    case ItemType.NucleoTrousersMale:
                         break;
 
                     default:
@@ -140,12 +154,12 @@ namespace FOMServer.Master.Application.PacketHandlers
 
                 switch (avatar.Shoes)
                 {
-                    case 500:
-                    case 503:
-                    case 505:
-                    case 508:
-                    case 507:
-                    case 521:
+                    case ItemType.BlackDressShoesMale:
+                    case ItemType.IndirectDesignShoesMale:
+                    case ItemType.FearToTreadShoesMale:
+                    case ItemType.DiscreetDressShoesMale:
+                    case ItemType.MilatechShoesMale:
+                    case ItemType.EsporteComfortShoesMale:
                         break;
 
                     default:
@@ -156,12 +170,12 @@ namespace FOMServer.Master.Application.PacketHandlers
             {
                 switch (avatar.Shirt)
                 {
-                    case 797:
-                    case 832:
-                    case 855:
-                    case 870:
-                    case 791:
-                    case 822:
+                    case ItemType.DeathDealerTShirtFemale:
+                    case ItemType.NeonMiningJacketFemale:
+                    case ItemType.GrayDefenseTrenchcoatFemale:
+                    case ItemType.ProtectorRobeFemale:
+                    case ItemType.AdvocateTShirtFemale:
+                    case ItemType.GrayDefenseJacketFemale:
                         break;
 
                     default:
@@ -170,12 +184,12 @@ namespace FOMServer.Master.Application.PacketHandlers
 
                 switch (avatar.Bottoms)
                 {
-                    case 907:
-                    case 891:
-                    case 945:
-                    case 961:
-                    case 900:
-                    case 946:
+                    case ItemType.AssassinTrousersFemale907:
+                    case ItemType.NeonSkirtFemale:
+                    case ItemType.BrownAssaultTrousersFemale:
+                    case ItemType.DiplomaticTrousersFemale:
+                    case ItemType.PatrolmanTrousersFemale:
+                    case ItemType.GrayAssaultTrousersFemale:
                         break;
 
                     default:
@@ -184,12 +198,12 @@ namespace FOMServer.Master.Application.PacketHandlers
 
                 switch (avatar.Shoes)
                 {
-                    case 510:
-                    case 513:
-                    case 515:
-                    case 518:
-                    case 517:
-                    case 525:
+                    case ItemType.LizardTechBlueShoesfemale:
+                    case ItemType.ScarpaSolidShoesFemale:
+                    case ItemType.ZapatoDichromaticBootsFemale:
+                    case ItemType.ZapatoLightAnkleBootsFemale:
+                    case ItemType.ZapatoStuddedBootsFemale:
+                    case ItemType.EsporteRunnerShoesfemale:
                         break;
 
                     default:
@@ -197,6 +211,53 @@ namespace FOMServer.Master.Application.PacketHandlers
                 }
             }
             else
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool CreateClothes(uint playerId, AvatarInterop avatar)
+        {
+            var createdId = _itemRepository.Create(
+                new()
+                {
+                    location_type = ItemLocationType.Inventory,
+                    location_id = playerId,
+                    slot = ItemSlotType.Shirt,
+                    type = avatar.Shirt,
+                }
+            );
+            if (createdId is null)
+            {
+                return false;
+            }
+
+            createdId = _itemRepository.Create(
+                new()
+                {
+                    location_type = ItemLocationType.Inventory,
+                    location_id = playerId,
+                    slot = ItemSlotType.Bottoms,
+                    type = avatar.Bottoms,
+                }
+            );
+            if (createdId is null)
+            {
+                return false;
+            }
+
+            createdId = _itemRepository.Create(
+                new()
+                {
+                    location_type = ItemLocationType.Inventory,
+                    location_id = playerId,
+                    slot = ItemSlotType.Shoes,
+                    type = avatar.Shoes,
+                }
+            );
+            if (createdId is null)
             {
                 return false;
             }

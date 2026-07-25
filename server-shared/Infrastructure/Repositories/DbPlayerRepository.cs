@@ -13,7 +13,11 @@ namespace FOMServer.Shared.Infrastructure.Repositories
             `sex`,
             `race`,
             `face`,
-            `hair`
+            `hair`,
+            `quickslot_1`,
+            `quickslot_2`,
+            `quickslot_3`,
+            `quickslot_4`
             """;
 
         private readonly IDbConnectionFactory _dbConnectionFactory;

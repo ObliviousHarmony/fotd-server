@@ -22,7 +22,7 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Enums.Item
         Back = 12, // ITEM_SLOT_BACK
         Hat = 13, // ITEM_SLOT_HAT
         Shirt = 14, // ITEM_SLOT_SHIRT
-        Pants = 15, // ITEM_SLOT_PANTS
+        Bottoms = 15, // ITEM_SLOT_BOTTOMS
         Shoes = 16, // ITEM_SLOT_SHOES
         EquipmentEnd = 17, // EQUIPMENT_SLOT_END
         NumEquipmentSlots = EquipmentEnd - EquipmentStart, // NUM_EQUIPMENT_SLOTS
