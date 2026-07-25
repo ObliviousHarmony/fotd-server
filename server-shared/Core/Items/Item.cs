@@ -99,8 +99,7 @@ namespace FOMServer.Shared.Core.Items
             _destroyed = false;
         }
 
-        public event PersistableChangeCallback? PersistableChange;
-
+        public event PersistableChangeHandler? PersistableChange;
         public event ItemDestroyedHandler? ItemDestroyed;
 
         public uint Id { get; }
@@ -324,8 +323,8 @@ namespace FOMServer.Shared.Core.Items
                 locationPersistable = _location?.LocationRef.Persistable;
             }
 
-            ItemDestroyed?.Invoke(this);
             PersistableChange?.Invoke(this, locationPersistable);
+            ItemDestroyed?.Invoke(this);
 
             return true;
         }

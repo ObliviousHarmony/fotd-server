@@ -8,9 +8,10 @@ using FOMServer.Shared.Interop.FOMNetwork.Structs.Item;
 
 namespace FOMServer.World.Core.Players
 {
-    internal delegate void ItemDestroyedInInventory(PlayerInventory inventory, Item item);
+    internal delegate void EquipmentChangedHandler(PlayerInventory inventory);
+    internal delegate void ItemDestroyedInInventoryHandler(PlayerInventory inventory, Item item);
 
-    internal class PlayerInventory : IItemLocation
+    internal class PlayerInventory : IItemLocation, IPersistableProvider
     {
         private readonly Player _player;
         private readonly ItemBag _backpackItems;
@@ -62,12 +63,25 @@ namespace FOMServer.World.Core.Players
             foreach (var slotType in validSlotTypes)
             {
                 slotItems.TryGetValue(slotType, out var item);
-                _itemSlots[slotType] = new ItemSlot(this, slotType, item);
-                _itemSlots[slotType].ItemDestroyed += OnItemDestroyed;
+
+                var slot = new ItemSlot(this, slotType, item);
+
+                slot.ItemDestroyed += OnItemDestroyed;
+
+                if (slotType is >= ItemSlotType.EquipmentStart and < ItemSlotType.EquipmentEnd)
+                {
+                    slot.ItemsAdded += (_, _) => OnEquipmentChanged();
+                    slot.ItemsRemoved += (_, _) => OnEquipmentChanged();
+                    slot.ItemsTransferred += (_, _, _) => OnEquipmentChanged();
+                    slot.ItemDestroyed += (_, _) => OnEquipmentChanged();
+                }
+
+                _itemSlots[slotType] = slot;
             }
         }
 
-        public event ItemDestroyedInInventory? ItemDestroyed;
+        public event EquipmentChangedHandler? EquipmentChanged;
+        public event ItemDestroyedInInventoryHandler? ItemDestroyed;
 
         public uint PlayerId => _player.Id;
 
@@ -91,6 +105,15 @@ namespace FOMServer.World.Core.Players
             }
 
             return ItemContainerType.None;
+        }
+
+        public void CollectPersistables(ICollection<IPersistable> destination)
+        {
+            _backpackItems.CollectPersistables(destination);
+            foreach (var slot in _itemSlots.Values)
+            {
+                slot.CollectPersistables(destination);
+            }
         }
 
         public IEnumerable<ItemContainer> GetItemContainers()
@@ -139,6 +162,11 @@ namespace FOMServer.World.Core.Players
             {
                 _itemSlots[slot].WriteTo(ref equipment[slot - ItemSlotType.EquipmentStart]);
             }
+        }
+
+        private void OnEquipmentChanged()
+        {
+            EquipmentChanged?.Invoke(this);
         }
 
         private void OnItemDestroyed(ItemContainer itemContainer, Item item)

@@ -94,8 +94,7 @@ namespace FOMServer.World.Core.Players
             }
         }
 
-        public event PersistableChangeCallback? PersistableChange;
-
+        public event PersistableChangeHandler? PersistableChange;
         public event AttributesChangedHandler? AttributesChanged;
 
         public uint PlayerId => _player.Id;

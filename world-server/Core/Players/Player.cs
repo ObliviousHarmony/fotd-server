@@ -8,7 +8,7 @@ using FOMServer.World.Core.World;
 
 namespace FOMServer.World.Core.Players
 {
-    internal class Player : IPersistable
+    internal class Player : IPersistable, IPersistableProvider
     {
         private volatile string _name;
 
@@ -35,7 +35,7 @@ namespace FOMServer.World.Core.Players
             Quickslots = new PlayerQuickslots(this, quickslots);
         }
 
-        public event PersistableChangeCallback? PersistableChange;
+        public event PersistableChangeHandler? PersistableChange;
 
         public uint Id { get; }
 
@@ -64,6 +64,14 @@ namespace FOMServer.World.Core.Players
                 throw new InvalidOperationException($"Client '{address}' cannot claim player {Id} ({Address})");
             }
             Address = address;
+        }
+
+        public void CollectPersistables(ICollection<IPersistable> destination)
+        {
+            destination.Add(this);
+            Inventory.CollectPersistables(destination);
+            destination.Add(Attributes);
+            destination.Add(Quickslots);
         }
 
         public void ApplyUpdate(in WorldUpdateInterop.PlayerUpdate update)

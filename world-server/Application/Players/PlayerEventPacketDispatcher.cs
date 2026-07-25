@@ -30,7 +30,7 @@ namespace FOMServer.World.Application.Players
         public void Unregister(Player player)
         {
             player.Attributes.AttributesChanged -= OnAttributesChanged;
-            player.Inventory.ItemDestroyed += OnInventoryItemDestroyed;
+            player.Inventory.ItemDestroyed -= OnInventoryItemDestroyed;
         }
 
         private void OnAttributesChanged(PlayerAttributes attributes, long changedAttributeMask)

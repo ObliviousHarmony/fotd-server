@@ -1,11 +1,18 @@
-using System.Collections.Immutable;
+using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 
 namespace FOMServer.Shared.Core.Items
 {
+    public delegate void ItemsAddedToContainerHandler(ItemContainer container, IReadOnlyCollection<Item> items);
+    public delegate void ItemsRemovedFromContainerHandler(ItemContainer container, IReadOnlyCollection<Item> items);
+    public delegate void ItemsTransferredBetweenContainers(
+        ItemContainer fromContainer,
+        ItemContainer toContainer,
+        IReadOnlyCollection<Item> items
+    );
     public delegate void ItemDestroyedInContainerHandler(ItemContainer container, Item item);
 
-    public abstract class ItemContainer
+    public abstract class ItemContainer : IPersistableProvider
     {
         protected readonly Lock _syncRoot = new();
 
@@ -18,19 +25,23 @@ namespace FOMServer.Shared.Core.Items
             SlotType = slotType;
         }
 
+        public event ItemsAddedToContainerHandler? ItemsAdded;
+        public event ItemsRemovedFromContainerHandler? ItemsRemoved;
+        public event ItemsTransferredBetweenContainers? ItemsTransferred;
         public event ItemDestroyedInContainerHandler? ItemDestroyed;
 
         public IItemLocation Location { get; }
 
         public ItemSlotType SlotType { get; }
 
-        public IReadOnlyCollection<Item> GetAll()
+        public void CollectPersistables(ICollection<IPersistable> destination)
         {
             lock (_syncRoot)
             {
-                // Always create a new collection so we protect ourselves
-                // from accidentally returning the backing array.
-                return [.. GetAllCore()];
+                foreach (var item in GetAllCore())
+                {
+                    destination.Add(item);
+                }
             }
         }
 
@@ -69,6 +80,8 @@ namespace FOMServer.Shared.Core.Items
                 }
             }
 
+            ItemsAdded?.Invoke(this, items);
+
             return true;
         }
 
@@ -104,6 +117,8 @@ namespace FOMServer.Shared.Core.Items
                     removed.Add(item);
                 }
             }
+
+            ItemsRemoved?.Invoke(this, removed);
 
             return true;
         }
@@ -218,6 +233,14 @@ namespace FOMServer.Shared.Core.Items
                         }
                     }
                 }
+            }
+
+            ItemsTransferred?.Invoke(this, to, transferred);
+            to.ItemsTransferred?.Invoke(this, to, transferred);
+            if (displaced.Count > 0)
+            {
+                ItemsTransferred?.Invoke(to, this, displaced);
+                to.ItemsTransferred?.Invoke(to, this, displaced);
             }
 
             return true;

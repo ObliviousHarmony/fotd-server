@@ -28,7 +28,7 @@ namespace FOMServer.World.Core.Players
             _quickslots = [.. quickslots];
         }
 
-        public event PersistableChangeCallback? PersistableChange;
+        public event PersistableChangeHandler? PersistableChange;
 
         public uint PlayerId => _player.Id;
 

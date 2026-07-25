@@ -277,7 +277,7 @@ namespace FOMServer.Shared.Tests
 
         private class TestEntity : IPersistable
         {
-            public event PersistableChangeCallback? PersistableChange;
+            public event PersistableChangeHandler? PersistableChange;
 
             public void MarkChanged(params ReadOnlySpan<IPersistable?> associations)
             {
