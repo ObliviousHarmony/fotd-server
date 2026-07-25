@@ -35,14 +35,13 @@ namespace FOMServer.World.Core.Players
 
             Address = NetworkAddress.Unassigned;
             Position = new ServerPosition();
-            Avatar = new PlayerAvatar(this, sex, race, face, hair);
             Attributes = new PlayerAttributes(this, attributes);
             Inventory = new PlayerInventory(this, inventory);
             Equipment = new PlayerEquipment(this, equipment);
+            Avatar = new PlayerAvatar(this, sex, race, face, hair, Equipment.ToSnapshots());
             Quickslots = new PlayerQuickslots(this, quickslots);
 
             Equipment.EquipmentChanged += (_, snapshots) => Avatar.UpdateEquipment(snapshots);
-            Avatar.UpdateEquipment(Equipment.ToSnapshots());
         }
 
         public event PersistableChangeHandler? PersistableChange;

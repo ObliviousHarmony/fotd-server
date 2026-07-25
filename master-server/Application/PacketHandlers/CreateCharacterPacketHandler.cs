@@ -96,9 +96,18 @@ namespace FOMServer.Master.Application.PacketHandlers
                 return;
             }
 
-            if (!CreateClothes(p.PlayerId, p.Avatar))
+            if (!CreateStarterClothes(p.PlayerId, p.Avatar))
             {
                 _logger.LogError("Failed to create starter clothes for player {PlayerId}", p.PlayerId);
+
+                rData.Status = LoginReturnPacket.StatusCode.CreateCharacterError;
+                _clientPacketSender.Send(response.Build());
+                return;
+            }
+
+            if (!CreateStarterInventory(p.PlayerId))
+            {
+                _logger.LogError("Failed to create starter inventory for player {PlayerId}", p.PlayerId);
 
                 rData.Status = LoginReturnPacket.StatusCode.CreateCharacterError;
                 _clientPacketSender.Send(response.Build());
@@ -218,7 +227,7 @@ namespace FOMServer.Master.Application.PacketHandlers
             return true;
         }
 
-        private bool CreateClothes(uint playerId, AvatarInterop avatar)
+        private bool CreateStarterClothes(uint playerId, AvatarInterop avatar)
         {
             var createdId = _itemRepository.Create(
                 new()
@@ -257,6 +266,139 @@ namespace FOMServer.Master.Application.PacketHandlers
                     location_id = playerId,
                     slot = ItemSlotType.Shoes,
                     type = avatar.Shoes,
+                    security = ItemSecurity.Bound,
+                }
+            );
+            if (createdId is null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool CreateStarterInventory(uint playerId)
+        {
+            var createdId = _itemRepository.Create(
+                new()
+                {
+                    location_type = ItemLocationType.Inventory,
+                    location_id = playerId,
+                    type = ItemType.Zanathid5Inflex,
+                    security = ItemSecurity.Bound,
+                    value = 100,
+                }
+            );
+            if (createdId is null)
+            {
+                return false;
+            }
+
+            createdId = _itemRepository.Create(
+                new()
+                {
+                    location_type = ItemLocationType.Inventory,
+                    location_id = playerId,
+                    type = ItemType._9mmStandardRounds,
+                    security = ItemSecurity.Bound,
+                    value = 100,
+                }
+            );
+            if (createdId is null)
+            {
+                return false;
+            }
+
+            createdId = _itemRepository.Create(
+                new()
+                {
+                    location_type = ItemLocationType.Inventory,
+                    location_id = playerId,
+                    type = ItemType.AdvancedCivilianHelmet,
+                    security = ItemSecurity.Bound,
+                }
+            );
+            if (createdId is null)
+            {
+                return false;
+            }
+
+            createdId = _itemRepository.Create(
+                new()
+                {
+                    location_type = ItemLocationType.Inventory,
+                    location_id = playerId,
+                    type = ItemType.AdvancedCivilianShoulderPads,
+                    security = ItemSecurity.Bound,
+                }
+            );
+            if (createdId is null)
+            {
+                return false;
+            }
+
+            createdId = _itemRepository.Create(
+                new()
+                {
+                    location_type = ItemLocationType.Inventory,
+                    location_id = playerId,
+                    type = ItemType.AdvancedCivilianArmPads,
+                    security = ItemSecurity.Bound,
+                }
+            );
+            if (createdId is null)
+            {
+                return false;
+            }
+
+            createdId = _itemRepository.Create(
+                new()
+                {
+                    location_type = ItemLocationType.Inventory,
+                    location_id = playerId,
+                    type = ItemType.AdvancedCivilianTorsoArmor,
+                    security = ItemSecurity.Bound,
+                }
+            );
+            if (createdId is null)
+            {
+                return false;
+            }
+
+            createdId = _itemRepository.Create(
+                new()
+                {
+                    location_type = ItemLocationType.Inventory,
+                    location_id = playerId,
+                    type = ItemType.AdvancedCivilianLegPads,
+                    security = ItemSecurity.Bound,
+                }
+            );
+            if (createdId is null)
+            {
+                return false;
+            }
+
+            createdId = _itemRepository.Create(
+                new()
+                {
+                    location_type = ItemLocationType.Inventory,
+                    location_id = playerId,
+                    type = ItemType.BattleMedikit,
+                    security = ItemSecurity.Bound,
+                }
+            );
+            if (createdId is null)
+            {
+                return false;
+            }
+
+            createdId = _itemRepository.Create(
+                new()
+                {
+                    location_type = ItemLocationType.Inventory,
+                    location_id = playerId,
+                    type = ItemType.BattleMedikit,
                     security = ItemSecurity.Bound,
                 }
             );

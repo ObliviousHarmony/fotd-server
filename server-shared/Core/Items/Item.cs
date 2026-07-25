@@ -293,7 +293,7 @@ namespace FOMServer.Shared.Core.Items
                     Timeout = _timeout,
                     AttributeBonus = _attributeBonus,
                     RecipeVariation = _recipeVariation,
-                    Destroyed = _destroyed,
+                    IsDestroyed = _destroyed,
                 };
             }
         }

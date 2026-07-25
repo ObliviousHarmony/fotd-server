@@ -5,6 +5,8 @@ using FOMServer.Shared.Interop.FOMNetwork.Structs;
 
 namespace FOMServer.World.Core.Players
 {
+    internal delegate void PlayerAvatarChangedHandler(PlayerAvatar avatar);
+
     internal class PlayerAvatar
     {
         private readonly Lock _syncRoot = new();
@@ -17,7 +19,14 @@ namespace FOMServer.World.Core.Players
         private readonly ushort _hair;
         private readonly ItemType[] _equipmentCache;
 
-        public PlayerAvatar(Player player, AvatarConstants.Sex sex, AvatarConstants.Race race, ushort face, ushort hair)
+        public PlayerAvatar(
+            Player player,
+            AvatarConstants.Sex sex,
+            AvatarConstants.Race race,
+            ushort face,
+            ushort hair,
+            IReadOnlyCollection<ItemSnapshot> equipment
+        )
         {
             _player = player;
             _sex = sex;
@@ -30,7 +39,13 @@ namespace FOMServer.World.Core.Players
             {
                 SetEquipment(i, ItemType.Invalid);
             }
+            foreach (var item in equipment)
+            {
+                SetEquipment(item.Slot, item.Type);
+            }
         }
+
+        public event PlayerAvatarChangedHandler? AvatarChanged;
 
         public uint PlayerId => _player.Id;
 
@@ -48,6 +63,8 @@ namespace FOMServer.World.Core.Players
                     SetEquipment(item.Slot, item.Type);
                 }
             }
+
+            AvatarChanged?.Invoke(this);
         }
 
         public void WriteTo(ref AvatarInterop avatar)

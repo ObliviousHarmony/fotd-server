@@ -23,6 +23,7 @@ namespace FOMServer.World.Application.Players
 
         public void Register(Player player)
         {
+            player.Avatar.AvatarChanged += OnPlayerAvatarChange;
             player.Attributes.AttributesChanged += OnAttributesChanged;
             player.Inventory.ItemDestroyed += OnInventoryItemDestroyed;
             player.Equipment.ItemDestroyed += OnEquipmentItemDestroyed;
@@ -30,6 +31,7 @@ namespace FOMServer.World.Application.Players
 
         public void Unregister(Player player)
         {
+            player.Avatar.AvatarChanged -= OnPlayerAvatarChange;
             player.Attributes.AttributesChanged -= OnAttributesChanged;
             player.Inventory.ItemDestroyed -= OnInventoryItemDestroyed;
             player.Equipment.ItemDestroyed -= OnEquipmentItemDestroyed;
@@ -72,6 +74,11 @@ namespace FOMServer.World.Application.Players
                 item.Id,
                 equipment.PlayerId
             );
+        }
+
+        private void OnPlayerAvatarChange(PlayerAvatar avatar)
+        {
+            _logger.LogInformation("Player {PlayerId}'s avatar changed", avatar.PlayerId);
         }
     }
 }

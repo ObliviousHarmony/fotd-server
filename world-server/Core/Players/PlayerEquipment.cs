@@ -74,7 +74,7 @@ namespace FOMServer.World.Core.Players
                 slot.ItemsRemoved += (_, _) => OnEquipmentChanged();
                 slot.ItemsTransferred += (_, _, _) => OnEquipmentChanged();
                 slot.ItemDestroyed += (_, _) => OnEquipmentChanged();
-                slot.ItemDestroyed += OnItemDestroyed;
+                slot.ItemDestroyed += (_, item) => ItemDestroyed?.Invoke(this, item);
 
                 _itemSlots[slotType] = slot;
             }
@@ -149,11 +149,6 @@ namespace FOMServer.World.Core.Players
         private void OnEquipmentChanged()
         {
             EquipmentChanged?.Invoke(this, ToSnapshots());
-        }
-
-        private void OnItemDestroyed(ItemContainer itemContainer, Item item)
-        {
-            ItemDestroyed?.Invoke(this, item);
         }
 
         private class WeaponSlot : ItemSlot

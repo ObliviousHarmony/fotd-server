@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
@@ -11,6 +7,8 @@ namespace FOMServer.World.Core.Players
 {
     internal class PlayerQuickslots : IPersistable
     {
+        private readonly Lock _syncRoot = new();
+
         private readonly Player _player;
         private readonly ItemType[] _quickslots;
 
@@ -33,14 +31,6 @@ namespace FOMServer.World.Core.Players
 
         public uint PlayerId => _player.Id;
 
-        public void WriteTo(ref RegisterClientReturnPacket.QuickSlotsArray quickslots)
-        {
-            for (var i = 0; i < PlayerConstants.NumQuickslots; ++i)
-            {
-                quickslots[i] = _quickslots[i];
-            }
-        }
-
         public bool PutItemInSlot(ItemSlotType fromSlot, ItemSlotType toSlot, uint? itemId)
         {
             // Unlike normal item slots, quickslots only contain the type of the item that
@@ -52,15 +42,23 @@ namespace FOMServer.World.Core.Players
                 var fromQuickslot = fromSlot - ItemSlotType.QuickslotStart;
                 if (toSlot is >= ItemSlotType.QuickslotStart and < ItemSlotType.QuickslotEnd)
                 {
-                    (_quickslots[fromQuickslot], _quickslots[toQuickslot]) = (
-                        _quickslots[toQuickslot],
-                        _quickslots[fromQuickslot]
-                    );
+                    lock (_syncRoot)
+                    {
+                        (_quickslots[fromQuickslot], _quickslots[toQuickslot]) = (
+                            _quickslots[toQuickslot],
+                            _quickslots[fromQuickslot]
+                        );
+                    }
+
                     PersistableChange?.Invoke(this, _player);
                     return true;
                 }
 
-                _quickslots[fromQuickslot] = ItemType.Invalid;
+                lock (_syncRoot)
+                {
+                    _quickslots[fromQuickslot] = ItemType.Invalid;
+                }
+
                 PersistableChange?.Invoke(this, _player);
                 return true;
             }
@@ -86,9 +84,32 @@ namespace FOMServer.World.Core.Players
                 return false;
             }
 
-            _quickslots[toQuickslot] = snapshot.Type;
+            lock (_syncRoot)
+            {
+                _quickslots[toQuickslot] = snapshot.Type;
+            }
+
             PersistableChange?.Invoke(this, _player);
             return true;
+        }
+
+        public void CopyTo(Span<ItemType> destination)
+        {
+            lock (_syncRoot)
+            {
+                _quickslots.CopyTo(destination);
+            }
+        }
+
+        public void WriteTo(ref RegisterClientReturnPacket.QuickSlotsArray quickslots)
+        {
+            lock (_syncRoot)
+            {
+                for (var i = 0; i < PlayerConstants.NumQuickslots; ++i)
+                {
+                    quickslots[i] = _quickslots[i];
+                }
+            }
         }
     }
 }
