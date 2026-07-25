@@ -255,16 +255,18 @@ namespace FOMServer.World.Application.PacketHandlers
         private ItemContainer GetItemContainer(Player player, ItemContainerType containerType, ItemSlotType slotType)
         {
             IItemLocation? location = null;
-            if (
-                containerType is ItemContainerType.Inventory or ItemContainerType.Weapons or ItemContainerType.Equipment
-            )
+            if (containerType == ItemContainerType.Inventory)
             {
                 location = player.Inventory;
+            }
+            else if (containerType is ItemContainerType.Weapons or ItemContainerType.Equipment)
+            {
+                location = player.Equipment;
             }
 
             if (location is null)
             {
-                throw new ArgumentException($"ItemInterop container {containerType} has no associated location");
+                throw new ArgumentException($"Item container {containerType} has no associated location");
             }
 
             var container = location.GetItemContainer(slotType);
@@ -272,7 +274,7 @@ namespace FOMServer.World.Application.PacketHandlers
             {
                 var locationRef = location.LocationRef;
                 throw new ArgumentException(
-                    $"ItemInterop container {containerType} does not exist in location {locationRef.Type} / {locationRef.Id}"
+                    $"Item container {containerType} does not exist in location {locationRef.Type} / {locationRef.Id}"
                 );
             }
 

@@ -223,7 +223,7 @@ namespace FOMServer.Master.Application.PacketHandlers
             var createdId = _itemRepository.Create(
                 new()
                 {
-                    location_type = ItemLocationType.Inventory,
+                    location_type = ItemLocationType.Equipment,
                     location_id = playerId,
                     slot = ItemSlotType.Shirt,
                     type = avatar.Shirt,
@@ -237,7 +237,7 @@ namespace FOMServer.Master.Application.PacketHandlers
             createdId = _itemRepository.Create(
                 new()
                 {
-                    location_type = ItemLocationType.Inventory,
+                    location_type = ItemLocationType.Equipment,
                     location_id = playerId,
                     slot = ItemSlotType.Bottoms,
                     type = avatar.Bottoms,
@@ -251,7 +251,7 @@ namespace FOMServer.Master.Application.PacketHandlers
             createdId = _itemRepository.Create(
                 new()
                 {
-                    location_type = ItemLocationType.Inventory,
+                    location_type = ItemLocationType.Equipment,
                     location_id = playerId,
                     slot = ItemSlotType.Shoes,
                     type = avatar.Shoes,

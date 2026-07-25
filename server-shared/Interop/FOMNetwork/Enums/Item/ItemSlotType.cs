@@ -6,8 +6,8 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Enums.Item
 
         WeaponStart = 1, // WEAPON_SLOT_START
         Weapon1 = WeaponStart, // ITEM_SLOT_WEAPON_1
-        Weapon2 = 2, // ITEM_SLOT_WEAPON_1
-        Weapon3 = 3, // ITEM_SLOT_WEAPON_1
+        Weapon2 = 2, // ITEM_SLOT_WEAPON_2
+        Weapon3 = 3, // ITEM_SLOT_WEAPON_3
         WeaponEnd = 4, // WEAPON_SLOT_END
         NumWeaponSlots = WeaponEnd - WeaponStart, // NUM_WEAPON_SLOTS
 
@@ -38,5 +38,28 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Enums.Item
         NanoAug = 26, // ITEM_SLOT_NANO_AUG
 
         MurderCard = 52, // ITEM_SLOT_MURDER_CARD
+    }
+
+    public static class ItemSlotTypeExtensions
+    {
+        public static ItemContainerType GetContainerType(this ItemSlotType slotType)
+        {
+            if (slotType == ItemSlotType.None)
+            {
+                return ItemContainerType.Inventory;
+            }
+
+            if (slotType is >= ItemSlotType.WeaponStart and < ItemSlotType.WeaponEnd)
+            {
+                return ItemContainerType.Weapons;
+            }
+
+            if (slotType is >= ItemSlotType.EquipmentStart and < ItemSlotType.EquipmentEnd)
+            {
+                return ItemContainerType.Equipment;
+            }
+
+            return ItemContainerType.None;
+        }
     }
 }

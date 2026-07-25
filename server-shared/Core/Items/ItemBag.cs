@@ -50,6 +50,12 @@ namespace FOMServer.Shared.Core.Items
             p.ItemCount = (uint)i;
         }
 
+        protected override Item? GetCore(uint id)
+        {
+            _items.TryGetValue(id, out var item);
+            return item;
+        }
+
         protected override IReadOnlyCollection<Item> GetAllCore()
         {
             return _items.Values;

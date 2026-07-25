@@ -11,7 +11,7 @@ namespace FOMServer.Shared.Core.Items
     public sealed class ItemDestroyedException : InvalidOperationException
     {
         public ItemDestroyedException(Item item)
-            : base($"ItemInterop {item.Id} has been destroyed") { }
+            : base($"Item {item.Id} has been destroyed") { }
     }
 
     public class Item : IPersistable
@@ -131,7 +131,7 @@ namespace FOMServer.Shared.Core.Items
                 }
 
                 throw new ArgumentException(
-                    $"ItemInterop {this} does not belong (location={locationRef.Type}, locationId={locationRef.Id}, slot={slot})",
+                    $"Item {this} does not belong (location={locationRef.Type}, locationId={locationRef.Id}, slot={slot})",
                     nameof(location)
                 );
             }
@@ -271,7 +271,34 @@ namespace FOMServer.Shared.Core.Items
             return false;
         }
 
-        public unsafe void WriteTo(ref ItemInterop p)
+        public ItemSnapshot ToSnapshot()
+        {
+            lock (_syncRoot)
+            {
+                return new ItemSnapshot(_recipeBalanceValues)
+                {
+                    Id = Id,
+                    Type = Type,
+                    LocationType = _locationType,
+                    LocationId = _locationId,
+                    Slot = _slot,
+                    Value = _value,
+                    ValueMax = _valueMax,
+                    Durability = _durability,
+                    DurabilityLossFactor = _durabilityLossFactor,
+                    Security = _security,
+                    Rarity = _rarity,
+                    CreatorPlayerId = _creatorPlayerId,
+                    StolenFromPlayerId = _stolenFromPlayerId,
+                    Timeout = _timeout,
+                    AttributeBonus = _attributeBonus,
+                    RecipeVariation = _recipeVariation,
+                    Destroyed = _destroyed,
+                };
+            }
+        }
+
+        public void WriteTo(ref ItemInterop p)
         {
             lock (_syncRoot)
             {

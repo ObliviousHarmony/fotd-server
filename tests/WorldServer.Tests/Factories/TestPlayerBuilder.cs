@@ -48,7 +48,7 @@ namespace FOMServer.World.Tests.Factories
         {
             if (!_items.TryGetValue(container, out var itemList))
             {
-                throw new InvalidOperationException($"ItemInterop container {container} is invalid");
+                throw new InvalidOperationException($"Item container {container} is invalid");
             }
 
             itemList[item.Id] = item;
@@ -70,7 +70,14 @@ namespace FOMServer.World.Tests.Factories
 
         public Player Build()
         {
-            var player = new Player(_id, _name, _attributes, _items[ItemContainerType.Inventory], _quickslots);
+            var player = new Player(
+                _id,
+                _name,
+                _attributes,
+                _items[ItemContainerType.Inventory],
+                _items[ItemContainerType.Equipment],
+                _quickslots
+            );
 
             return player;
         }

@@ -20,6 +20,7 @@ namespace FOMServer.World.Core.Players
             string name,
             uint[] attributes,
             IDictionary<uint, Item> inventory,
+            IDictionary<uint, Item> equipment,
             ReadOnlySpan<ItemType> quickslots
         )
         {
@@ -32,6 +33,7 @@ namespace FOMServer.World.Core.Players
             Position = new ServerPosition();
             Attributes = new PlayerAttributes(this, attributes);
             Inventory = new PlayerInventory(this, inventory);
+            Equipment = new PlayerEquipment(this, equipment);
             Quickslots = new PlayerQuickslots(this, quickslots);
         }
 
@@ -50,11 +52,9 @@ namespace FOMServer.World.Core.Players
         public NetworkAddress Address { get; private set; }
 
         public ServerPosition Position { get; }
-
         public PlayerAttributes Attributes { get; }
-
         public PlayerInventory Inventory { get; }
-
+        public PlayerEquipment Equipment { get; }
         public PlayerQuickslots Quickslots { get; }
 
         public void ClaimForClient(NetworkAddress address)
@@ -70,6 +70,7 @@ namespace FOMServer.World.Core.Players
         {
             destination.Add(this);
             Inventory.CollectPersistables(destination);
+            Equipment.CollectPersistables(destination);
             destination.Add(Attributes);
             destination.Add(Quickslots);
         }
@@ -107,7 +108,8 @@ namespace FOMServer.World.Core.Players
             p.Avatar.Shoes = 0;
 
             Attributes.WriteTo(ref p.Attributes);
-            Inventory.WriteTo(ref p.Inventory, ref p.Weapons, ref p.Equipment);
+            Inventory.WriteTo(ref p.Inventory);
+            Equipment.WriteTo(ref p.Weapons, ref p.Equipment);
             Quickslots.WriteTo(ref p.Quickslots);
         }
     }

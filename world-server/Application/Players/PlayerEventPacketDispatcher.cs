@@ -57,7 +57,7 @@ namespace FOMServer.World.Application.Players
         private void OnInventoryItemDestroyed(PlayerInventory inventory, Item item)
         {
             _logger.LogInformation(
-                "ItemInterop {ItemId} in player {PlayerId}'s inventory was destroyed",
+                "Item {ItemId} in player {PlayerId}'s inventory was destroyed",
                 item.Id,
                 inventory.PlayerId
             );

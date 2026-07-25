@@ -30,12 +30,19 @@ namespace FOMServer.World.Application.Players.Registration
             var items = LoadItems(id);
             var quickslots = LoadQuickslots(id);
 
-            var player = new Player(id, playerDto.name, attributes, items, quickslots);
+            var player = new Player(
+                id,
+                playerDto.name,
+                attributes,
+                items[ItemContainerType.Inventory],
+                items[ItemContainerType.Equipment],
+                quickslots
+            );
 
             return player;
         }
 
-        private uint[] LoadAttributes(uint id)
+        private uint[] LoadAttributes(uint playerId)
         {
             var attributes = new uint[(int)AttributeType.NUM_ATTRIBUTE_TYPES];
             for (var i = 0; i < (int)AttributeType.NUM_ATTRIBUTE_TYPES; ++i)
@@ -48,14 +55,17 @@ namespace FOMServer.World.Application.Players.Registration
             return attributes;
         }
 
-        private IDictionary<uint, Item> LoadItems(uint id)
+        private Dictionary<ItemContainerType, Dictionary<uint, Item>> LoadItems(uint playerId)
         {
-            Dictionary<uint, Item> loadedItems = [];
+            Dictionary<ItemContainerType, Dictionary<uint, Item>> loadedItems = [];
+
+            loadedItems[ItemContainerType.Inventory] = [];
+            loadedItems[ItemContainerType.Equipment] = [];
 
             return loadedItems;
         }
 
-        private ItemType[] LoadQuickslots(uint id)
+        private ItemType[] LoadQuickslots(uint playerId)
         {
             var quickslots = new ItemType[PlayerConstants.NumQuickslots];
             for (var i = 0; i < quickslots.Length; ++i)

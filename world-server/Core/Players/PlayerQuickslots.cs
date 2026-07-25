@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
@@ -80,18 +81,14 @@ namespace FOMServer.World.Core.Players
                 return false;
             }
 
-            var items = fromContainer.GetAll();
-            foreach (var item in items)
+            if (!fromContainer.TryGetItemSnapshot(itemId.Value, out var snapshot))
             {
-                if (item.Id == itemId)
-                {
-                    _quickslots[toQuickslot] = item.Type;
-                    PersistableChange?.Invoke(this, _player);
-                    return true;
-                }
+                return false;
             }
 
-            return false;
+            _quickslots[toQuickslot] = snapshot.Type;
+            PersistableChange?.Invoke(this, _player);
+            return true;
         }
     }
 }

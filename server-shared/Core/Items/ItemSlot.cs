@@ -32,6 +32,16 @@ namespace FOMServer.Shared.Core.Items
             }
         }
 
+        protected override Item? GetCore(uint id)
+        {
+            if (_item is null || _item.Id != id)
+            {
+                return null;
+            }
+
+            return _item;
+        }
+
         protected override IReadOnlyCollection<Item> GetAllCore()
         {
             if (_item is null)

@@ -4,5 +4,6 @@ namespace FOMServer.Shared.Core.Enums
     {
         None = 0,
         Inventory = 1,
+        Equipment = 2,
     }
 }

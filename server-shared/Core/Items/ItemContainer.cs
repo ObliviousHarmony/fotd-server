@@ -45,6 +45,24 @@ namespace FOMServer.Shared.Core.Items
             }
         }
 
+        public bool TryGetItemSnapshot(uint id, out ItemSnapshot snapshot)
+        {
+            Item? item;
+            lock (_syncRoot)
+            {
+                item = GetCore(id);
+            }
+
+            if (item is null)
+            {
+                snapshot = default;
+                return false;
+            }
+
+            snapshot = item.ToSnapshot();
+            return true;
+        }
+
         public bool TryAdd(params IReadOnlyCollection<Item> items)
         {
             if (items.Count == 0)
@@ -252,6 +270,8 @@ namespace FOMServer.Shared.Core.Items
 
             ItemDestroyed?.Invoke(this, item);
         }
+
+        protected abstract Item? GetCore(uint id);
 
         protected abstract IReadOnlyCollection<Item> GetAllCore();
 

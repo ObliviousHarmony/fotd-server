@@ -1,172 +1,64 @@
-using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
-using FOMServer.Shared.Interop.FOMNetwork.Packets;
 using FOMServer.Shared.Interop.FOMNetwork.Structs.Item;
 
 namespace FOMServer.World.Core.Players
 {
-    internal delegate void EquipmentChangedHandler(PlayerInventory inventory);
     internal delegate void ItemDestroyedInInventoryHandler(PlayerInventory inventory, Item item);
 
     internal class PlayerInventory : IItemLocation, IPersistableProvider
     {
         private readonly Player _player;
         private readonly ItemBag _backpackItems;
-        private readonly Dictionary<ItemSlotType, ItemSlot> _itemSlots;
 
         public PlayerInventory(Player player, IDictionary<uint, Item> items)
         {
             _player = player;
 
-            HashSet<ItemSlotType> validSlotTypes = [];
-            for (var i = ItemSlotType.WeaponStart; i < ItemSlotType.WeaponEnd; ++i)
-            {
-                validSlotTypes.Add(i);
-            }
-            for (var i = ItemSlotType.EquipmentStart; i < ItemSlotType.EquipmentEnd; ++i)
-            {
-                validSlotTypes.Add(i);
-            }
-
-            var inventory = new Dictionary<uint, Item>();
-            var slotItems = new Dictionary<ItemSlotType, Item>();
             foreach (var (_, item) in items)
             {
                 var slot = item.Slot;
-                if (validSlotTypes.Contains(slot))
+                if (slot != ItemSlotType.None)
                 {
-                    if (!slotItems.TryAdd(slot, item))
-                    {
-                        throw new ArgumentException(
-                            $"ItemInterop {item} cannot be placed in occupied slot {slot}",
-                            nameof(items)
-                        );
-                    }
-                }
-                else if (slot == ItemSlotType.None)
-                {
-                    inventory[item.Id] = item;
-                }
-                else
-                {
-                    throw new ArgumentException($"ItemInterop {item} does not belong in the inventory");
+                    throw new ArgumentException($"Item {item} does not belong in the inventory");
                 }
             }
 
-            _backpackItems = new ItemBag(this, inventory);
+            _backpackItems = new ItemBag(this, items);
             _backpackItems.ItemDestroyed += OnItemDestroyed;
-
-            _itemSlots = [];
-            foreach (var slotType in validSlotTypes)
-            {
-                slotItems.TryGetValue(slotType, out var item);
-
-                var slot = new ItemSlot(this, slotType, item);
-
-                slot.ItemDestroyed += OnItemDestroyed;
-
-                if (slotType is >= ItemSlotType.EquipmentStart and < ItemSlotType.EquipmentEnd)
-                {
-                    slot.ItemsAdded += (_, _) => OnEquipmentChanged();
-                    slot.ItemsRemoved += (_, _) => OnEquipmentChanged();
-                    slot.ItemsTransferred += (_, _, _) => OnEquipmentChanged();
-                    slot.ItemDestroyed += (_, _) => OnEquipmentChanged();
-                }
-
-                _itemSlots[slotType] = slot;
-            }
         }
 
-        public event EquipmentChangedHandler? EquipmentChanged;
         public event ItemDestroyedInInventoryHandler? ItemDestroyed;
 
         public uint PlayerId => _player.Id;
 
         public ItemLocationRef LocationRef => new(ItemLocationType.Inventory, _player.Id, _player);
 
-        public static ItemContainerType GetContainerType(ItemSlotType slotType)
-        {
-            if (slotType == ItemSlotType.None)
-            {
-                return ItemContainerType.Inventory;
-            }
-
-            if (slotType is >= ItemSlotType.WeaponStart and < ItemSlotType.WeaponEnd)
-            {
-                return ItemContainerType.Weapons;
-            }
-
-            if (slotType is >= ItemSlotType.EquipmentStart and < ItemSlotType.EquipmentEnd)
-            {
-                return ItemContainerType.Equipment;
-            }
-
-            return ItemContainerType.None;
-        }
-
         public void CollectPersistables(ICollection<IPersistable> destination)
         {
             _backpackItems.CollectPersistables(destination);
-            foreach (var slot in _itemSlots.Values)
-            {
-                slot.CollectPersistables(destination);
-            }
         }
 
         public IEnumerable<ItemContainer> GetItemContainers()
         {
             yield return _backpackItems;
-            foreach (var slot in _itemSlots.Values)
-            {
-                yield return slot;
-            }
         }
 
         public ItemContainer? GetItemContainer(ItemSlotType slotType)
         {
-            var containerType = GetContainerType(slotType);
-            if (containerType == ItemContainerType.Inventory)
+            if (slotType.GetContainerType() == ItemContainerType.Inventory)
             {
                 return _backpackItems;
-            }
-            else if (containerType is ItemContainerType.Weapons or ItemContainerType.Equipment)
-            {
-                if (!_itemSlots.TryGetValue(slotType, out var slot))
-                {
-                    return null;
-                }
-
-                return slot;
             }
 
             return null;
         }
 
-        public void WriteTo(
-            ref ItemListInterop inventory,
-            ref RegisterClientReturnPacket.WeaponsArray weapons,
-            ref RegisterClientReturnPacket.EquipmentArray equipment
-        )
+        public void WriteTo(ref ItemListInterop inventory)
         {
             _backpackItems.WriteTo(ref inventory);
-
-            for (var slot = ItemSlotType.WeaponStart; slot < ItemSlotType.WeaponEnd; ++slot)
-            {
-                _itemSlots[slot].WriteTo(ref weapons[slot - ItemSlotType.WeaponStart]);
-            }
-
-            for (var slot = ItemSlotType.EquipmentStart; slot < ItemSlotType.EquipmentEnd; ++slot)
-            {
-                _itemSlots[slot].WriteTo(ref equipment[slot - ItemSlotType.EquipmentStart]);
-            }
-        }
-
-        private void OnEquipmentChanged()
-        {
-            EquipmentChanged?.Invoke(this);
         }
 
         private void OnItemDestroyed(ItemContainer itemContainer, Item item)
