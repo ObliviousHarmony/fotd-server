@@ -10,16 +10,25 @@ namespace FOMServer.World.Core.Players
 {
     internal class Player : IPersistable
     {
-        private readonly Lock _syncRoot = new();
+        private volatile string _name;
 
+        private readonly Lock _currentUpdateLock = new();
         private WorldUpdateInterop.CharacterUpdate _currentUpdate;
 
-        public Player(uint id, uint[] attributes, IDictionary<uint, Item> inventory, ReadOnlySpan<ItemType> quickslots)
+        public Player(
+            uint id,
+            string name,
+            uint[] attributes,
+            IDictionary<uint, Item> inventory,
+            ReadOnlySpan<ItemType> quickslots
+        )
         {
             Id = id;
+            _name = name;
             _currentUpdate.Id = id;
 
             Address = NetworkAddress.Unassigned;
+
             Position = new ServerPosition();
             Attributes = new PlayerAttributes(this, attributes);
             Inventory = new PlayerInventory(this, inventory);
@@ -29,6 +38,12 @@ namespace FOMServer.World.Core.Players
         public event PersistableChangeCallback? PersistableChange;
 
         public uint Id { get; }
+
+        public string Name
+        {
+            get => _name;
+            private set => _name = value;
+        }
 
         // Deliberately left unlocked. It's write-once, set before the player is published and so any reader that obtains a player
         // from the registry is guaranteed to see the complete write.
@@ -44,19 +59,16 @@ namespace FOMServer.World.Core.Players
 
         public void ClaimForClient(NetworkAddress address)
         {
-            lock (_syncRoot)
+            if (Address != NetworkAddress.Unassigned)
             {
-                if (Address != NetworkAddress.Unassigned)
-                {
-                    throw new InvalidOperationException($"Client '{address}' cannot claim player {Id} ({Address})");
-                }
-                Address = address;
+                throw new InvalidOperationException($"Client '{address}' cannot claim player {Id} ({Address})");
             }
+            Address = address;
         }
 
         public void ApplyUpdate(in WorldUpdateInterop.PlayerUpdate update)
         {
-            lock (_syncRoot)
+            lock (_currentUpdateLock)
             {
                 _currentUpdate = update.Character;
                 _currentUpdate.Id = Id;
@@ -67,7 +79,7 @@ namespace FOMServer.World.Core.Players
 
         public void WriteTo(ref WorldUpdateInterop p)
         {
-            lock (_syncRoot)
+            lock (_currentUpdateLock)
             {
                 p.Kind = WorldUpdateInterop.Type.Character;
                 p.Character = _currentUpdate;
@@ -77,21 +89,18 @@ namespace FOMServer.World.Core.Players
 
         public void WriteTo(ref RegisterClientReturnPacket p)
         {
-            lock (_syncRoot)
-            {
-                p.PlayerId = Id;
-                p.Profile.PlayerName = "Naruto Uzumaki";
+            p.PlayerId = Id;
+            p.Profile.PlayerName = _name;
 
-                p.Avatar.Face = 5;
-                p.Avatar.Hair = 2;
-                p.Avatar.Shirt = 0;
-                p.Avatar.Bottoms = 0;
-                p.Avatar.Shoes = 0;
+            p.Avatar.Face = 5;
+            p.Avatar.Hair = 2;
+            p.Avatar.Shirt = 0;
+            p.Avatar.Bottoms = 0;
+            p.Avatar.Shoes = 0;
 
-                Attributes.WriteTo(ref p.Attributes);
-                Inventory.WriteTo(ref p.Inventory, ref p.Weapons, ref p.Equipment);
-                Quickslots.WriteTo(ref p.Quickslots);
-            }
+            Attributes.WriteTo(ref p.Attributes);
+            Inventory.WriteTo(ref p.Inventory, ref p.Weapons, ref p.Equipment);
+            Quickslots.WriteTo(ref p.Quickslots);
         }
     }
 }

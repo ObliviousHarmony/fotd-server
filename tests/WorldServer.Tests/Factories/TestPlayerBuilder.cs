@@ -14,13 +14,15 @@ namespace FOMServer.World.Tests.Factories
         private static uint s_nextPlayerId = 1;
 
         private readonly uint _id;
+        private readonly string _name;
         private readonly uint[] _attributes = new uint[(int)AttributeType.NUM_ATTRIBUTE_TYPES];
         private readonly Dictionary<ItemContainerType, Dictionary<uint, Item>> _items;
         private readonly ItemType[] _quickslots;
 
-        public TestPlayerBuilder(uint id)
+        public TestPlayerBuilder(uint id, string name)
         {
             _id = id;
+            _name = name;
 
             for (var i = 0; i < (int)AttributeType.NUM_ATTRIBUTE_TYPES; ++i)
             {
@@ -68,7 +70,7 @@ namespace FOMServer.World.Tests.Factories
 
         public Player Build()
         {
-            var player = new Player(_id, _attributes, _items[ItemContainerType.Inventory], _quickslots);
+            var player = new Player(_id, _name, _attributes, _items[ItemContainerType.Inventory], _quickslots);
 
             return player;
         }
@@ -81,7 +83,7 @@ namespace FOMServer.World.Tests.Factories
                 s_nextPlayerId = id.Value + 1;
             }
 
-            return new TestPlayerBuilder(id ?? s_nextPlayerId++);
+            return new TestPlayerBuilder(id ?? s_nextPlayerId++, "Test Player");
         }
     }
 }
