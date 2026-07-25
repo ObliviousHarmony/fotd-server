@@ -1,7 +1,7 @@
-using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Repositories;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 using FOMServer.World.Core.Players;
@@ -12,10 +12,12 @@ namespace FOMServer.World.Application.Players.Registration
     internal class PlayerLoader : IPlayerLoader
     {
         private readonly IPlayerRepository _playerRepository;
+        private readonly IItemRepository _itemRepository;
 
-        public PlayerLoader(IPlayerRepository playerRepository)
+        public PlayerLoader(IPlayerRepository playerRepository, IItemRepository itemRepository)
         {
             _playerRepository = playerRepository;
+            _itemRepository = itemRepository;
         }
 
         public Player? Load(uint id)
@@ -28,14 +30,32 @@ namespace FOMServer.World.Application.Players.Registration
 
             var attributes = LoadAttributes(id);
             var items = LoadItems(id);
-            var quickslots = LoadQuickslots(id);
 
-            var player = new Player(id, attributes, items, quickslots);
+            ReadOnlySpan<ItemType> quickslots =
+            [
+                playerDto.quickslot_1,
+                playerDto.quickslot_2,
+                playerDto.quickslot_3,
+                playerDto.quickslot_4,
+            ];
+
+            var player = new Player(
+                id,
+                playerDto.name,
+                playerDto.sex,
+                playerDto.race,
+                playerDto.face,
+                playerDto.hair,
+                attributes,
+                items[ItemLocationType.Inventory],
+                items[ItemLocationType.Equipment],
+                quickslots
+            );
 
             return player;
         }
 
-        private uint[] LoadAttributes(uint id)
+        private uint[] LoadAttributes(uint playerId)
         {
             var attributes = new uint[(int)AttributeType.NUM_ATTRIBUTE_TYPES];
             for (var i = 0; i < (int)AttributeType.NUM_ATTRIBUTE_TYPES; ++i)
@@ -48,52 +68,49 @@ namespace FOMServer.World.Application.Players.Registration
             return attributes;
         }
 
-        private IDictionary<uint, Item> LoadItems(uint id)
+        private Dictionary<ItemLocationType, Dictionary<uint, Item>> LoadItems(uint playerId)
         {
-            Dictionary<uint, Item> loadedItems = [];
+            var itemDtos = _itemRepository.GetPlayerItems(playerId, WorldId.Manhattan);
 
-            var nextItemId = id * 1000;
-            void addItem(ItemType type, ItemSlotType slot = ItemSlotType.None)
+            Dictionary<ItemLocationType, Dictionary<uint, Item>> loadedItems = [];
+
+            loadedItems[ItemLocationType.Inventory] = [];
+            loadedItems[ItemLocationType.Equipment] = [];
+
+            foreach (var (id, dto) in itemDtos)
             {
-                var item = new Item(nextItemId++, type, ItemLocationType.Inventory, id, slot, 100, 1000, 1000, 100);
-                loadedItems[item.Id] = item;
+                ReadOnlySpan<byte> balanceValues =
+                [
+                    dto.recipe_balance_1,
+                    dto.recipe_balance_2,
+                    dto.recipe_balance_3,
+                    dto.recipe_balance_4,
+                ];
+
+                var item = new Item(
+                    id,
+                    dto.type,
+                    dto.location_type,
+                    dto.location_id,
+                    dto.slot,
+                    dto.value,
+                    dto.value_max,
+                    dto.durability,
+                    dto.durability_loss_factor,
+                    dto.security,
+                    dto.rarity,
+                    dto.creator_player_id,
+                    dto.stolen_from_player_id,
+                    dto.timeout,
+                    dto.attribute_bonus,
+                    dto.recipe_variation,
+                    balanceValues
+                );
+
+                loadedItems[dto.location_type].Add(id, item);
             }
-
-            addItem(ItemType.Techtronic6x6);
-            addItem(ItemType._9mmStandardRounds);
-            addItem(ItemType.BackerHelmet);
-
-            addItem(ItemType._9mmStandardRounds);
-            addItem(ItemType.EmergencyMedikit);
-            addItem(ItemType.ShieldAugmentation);
-            addItem(ItemType.BackerTShirtMale);
-            addItem(ItemType.AssaultPantsMale);
-            addItem(ItemType.EsporteAllTerrainShoesMale);
-
-            addItem(ItemType.Fedora, ItemSlotType.Hat);
-            addItem(ItemType.AdvancedCivilianHelmet, ItemSlotType.Head);
-            addItem(ItemType.ShieldAugmentation, ItemSlotType.Back);
-            addItem(ItemType.AlmDesignsGlassesBlack, ItemSlotType.Eyes);
-            addItem(ItemType.AllWeatherTShirtMale, ItemSlotType.Shirt);
-            addItem(ItemType.AntiRiotPantsMale, ItemSlotType.Pants);
-            addItem(ItemType.BlackDressShoesMale, ItemSlotType.Shoes);
-
-            addItem(ItemType.DOA187, ItemSlotType.Weapon1);
 
             return loadedItems;
-        }
-
-        private ItemType[] LoadQuickslots(uint id)
-        {
-            var quickslots = new ItemType[PlayerConstants.NumQuickslots];
-            for (var i = 0; i < quickslots.Length; ++i)
-            {
-                quickslots[i] = ItemType.Invalid;
-            }
-
-            quickslots[1] = ItemType.AdrenalineAutoinjector;
-
-            return quickslots;
         }
     }
 }

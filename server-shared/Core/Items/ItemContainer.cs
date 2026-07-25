@@ -1,11 +1,18 @@
-using System.Collections.Immutable;
+using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 
 namespace FOMServer.Shared.Core.Items
 {
-    public delegate void ItemDestroyedInContainerHandler(ItemContainer container, Item item);
+    public delegate void ItemsAddedToContainerHandler(ItemContainer container, IReadOnlyCollection<Item> items);
+    public delegate void ItemsRemovedFromContainerHandler(ItemContainer container, IReadOnlyCollection<Item> items);
+    public delegate void ItemsTransferredBetweenContainers(
+        ItemContainer fromContainer,
+        ItemContainer toContainer,
+        IReadOnlyCollection<Item> items
+    );
+    public delegate void ItemsDeletedFromContainer(ItemContainer container, IReadOnlyCollection<Item> item);
 
-    public abstract class ItemContainer
+    public abstract class ItemContainer : IPersistableProvider
     {
         protected readonly Lock _syncRoot = new();
 
@@ -18,20 +25,53 @@ namespace FOMServer.Shared.Core.Items
             SlotType = slotType;
         }
 
-        public event ItemDestroyedInContainerHandler? ItemDestroyed;
+        public event ItemsAddedToContainerHandler? ItemsAdded;
+        public event ItemsRemovedFromContainerHandler? ItemsRemoved;
+        public event ItemsTransferredBetweenContainers? ItemsTransferred;
+        public event ItemsDeletedFromContainer? ItemsDeleted;
 
         public IItemLocation Location { get; }
 
         public ItemSlotType SlotType { get; }
 
-        public IReadOnlyCollection<Item> GetAll()
+        public void CollectPersistables(ICollection<IPersistable> destination)
         {
             lock (_syncRoot)
             {
-                // Always create a new collection so we protect ourselves
-                // from accidentally returning the backing array.
-                return [.. GetAllCore()];
+                foreach (var item in GetAllCore())
+                {
+                    destination.Add(item);
+                }
             }
+        }
+
+        public void CollectSnapshots(ICollection<ItemSnapshot> destination)
+        {
+            lock (_syncRoot)
+            {
+                foreach (var item in GetAllCore())
+                {
+                    destination.Add(item.ToSnapshot());
+                }
+            }
+        }
+
+        public bool TryGetItemSnapshot(uint id, out ItemSnapshot snapshot)
+        {
+            Item? item;
+            lock (_syncRoot)
+            {
+                item = GetCore(id);
+            }
+
+            if (item is null)
+            {
+                snapshot = default;
+                return false;
+            }
+
+            snapshot = item.ToSnapshot();
+            return true;
         }
 
         public bool TryAdd(params IReadOnlyCollection<Item> items)
@@ -57,17 +97,16 @@ namespace FOMServer.Shared.Core.Items
 
                 if (!InsertCore(items))
                 {
-                    throw new InvalidOperationException(
-                        $"ItemInterop(s) {string.Join(", ", ids)} could not be inserted"
-                    );
+                    throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be inserted");
                 }
 
                 foreach (var item in items)
                 {
-                    item.ItemDestroyed += OnItemDestroyed;
                     item.ChangeLocation(Location, SlotType);
                 }
             }
+
+            ItemsAdded?.Invoke(this, items);
 
             return true;
         }
@@ -91,19 +130,18 @@ namespace FOMServer.Shared.Core.Items
                 var extracted = ExtractCore(ids);
                 if (extracted.Count != ids.Count)
                 {
-                    throw new InvalidOperationException(
-                        $"ItemInterop(s) {string.Join(", ", ids)} could not be extracted"
-                    );
+                    throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be extracted");
                 }
 
                 foreach (var item in extracted)
                 {
-                    item.ItemDestroyed -= OnItemDestroyed;
                     item.ChangeLocation(null, ItemSlotType.None);
 
                     removed.Add(item);
                 }
             }
+
+            ItemsRemoved?.Invoke(this, removed);
 
             return true;
         }
@@ -173,29 +211,23 @@ namespace FOMServer.Shared.Core.Items
                     if (displacedItems.Count != idsToDisplace.Count)
                     {
                         throw new InvalidOperationException(
-                            $"ItemInterop(s) {string.Join(", ", idsToDisplace)} could not be extracted"
+                            $"Item(s) {string.Join(", ", idsToDisplace)} could not be extracted"
                         );
                     }
 
                     var extractedItems = ExtractCore(ids);
                     if (extractedItems.Count != ids.Count)
                     {
-                        throw new InvalidOperationException(
-                            $"ItemInterop(s) {string.Join(", ", ids)} could not be extracted"
-                        );
+                        throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be extracted");
                     }
 
                     if (!to.InsertCore(extractedItems))
                     {
-                        throw new InvalidOperationException(
-                            $"ItemInterop(s) {string.Join(", ", ids)} could not be inserted"
-                        );
+                        throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be inserted");
                     }
 
                     foreach (var item in extractedItems)
                     {
-                        item.ItemDestroyed -= OnItemDestroyed;
-                        item.ItemDestroyed += to.OnItemDestroyed;
                         item.ChangeLocation(to.Location, to.SlotType);
                         transferred.Add(item);
                     }
@@ -205,14 +237,12 @@ namespace FOMServer.Shared.Core.Items
                         if (!InsertCore(displacedItems))
                         {
                             throw new InvalidOperationException(
-                                $"ItemInterop(s) {string.Join(", ", idsToDisplace)} could not be insert"
+                                $"Item(s) {string.Join(", ", idsToDisplace)} could not be insert"
                             );
                         }
 
                         foreach (var item in displacedItems)
                         {
-                            item.ItemDestroyed -= to.OnItemDestroyed;
-                            item.ItemDestroyed += OnItemDestroyed;
                             item.ChangeLocation(Location, SlotType);
                             displaced.Add(item);
                         }
@@ -220,15 +250,50 @@ namespace FOMServer.Shared.Core.Items
                 }
             }
 
+            ItemsTransferred?.Invoke(this, to, transferred);
+            to.ItemsTransferred?.Invoke(this, to, transferred);
+            if (displaced.Count > 0)
+            {
+                ItemsTransferred?.Invoke(to, this, displaced);
+                to.ItemsTransferred?.Invoke(to, this, displaced);
+            }
+
             return true;
         }
 
-        protected void OnItemDestroyed(Item item)
+        public bool TryDeleteItems(params IReadOnlyCollection<uint> ids)
         {
-            OnItemDestroyedCore(item);
+            if (ids.Count == 0)
+            {
+                return true;
+            }
 
-            ItemDestroyed?.Invoke(this, item);
+            IReadOnlyCollection<Item> extracted;
+            lock (_syncRoot)
+            {
+                if (!CanExtractCore(ids))
+                {
+                    return false;
+                }
+
+                extracted = ExtractCore(ids);
+                if (extracted.Count != ids.Count)
+                {
+                    throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be extracted");
+                }
+            }
+
+            foreach (var item in extracted)
+            {
+                item.Delete();
+            }
+
+            ItemsDeleted?.Invoke(this, extracted);
+
+            return true;
         }
+
+        protected abstract Item? GetCore(uint id);
 
         protected abstract IReadOnlyCollection<Item> GetAllCore();
 
@@ -246,7 +311,5 @@ namespace FOMServer.Shared.Core.Items
         protected abstract bool CanExtractCore(params IReadOnlyCollection<uint> idsToExtract);
 
         protected abstract IReadOnlyCollection<Item> ExtractCore(params IReadOnlyCollection<uint> idsToExtract);
-
-        protected abstract void OnItemDestroyedCore(Item item);
     }
 }

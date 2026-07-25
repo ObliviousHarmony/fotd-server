@@ -9,9 +9,5 @@ namespace FOMServer.Shared.Core.Dtos
         public string password { get; init; } = "";
 
         public bool logged_in { get; init; }
-
-        public DateTime created_at { get; init; }
-
-        public DateTime updated_at { get; init; }
     }
 }

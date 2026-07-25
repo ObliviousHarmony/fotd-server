@@ -1,6 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
+using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.World.Core.Players;
 using FOMServer.World.Core.Players.Registration;
@@ -32,15 +30,17 @@ namespace FOMServer.World.Application.Players.Registration
         {
             foreach (var container in _player.Inventory.GetItemContainers())
             {
-                var items = container.GetAll();
-                foreach (var item in items)
-                {
-                    _persistenceService.Register(item);
-                }
+                container.ItemsAdded += OnItemsAddedToPlayer;
+                container.ItemsRemoved += OnItemsRemovedFromPlayer;
+                container.ItemsDeleted += OnItemsRemovedFromPlayer;
             }
-            _persistenceService.Register(_player);
-            _persistenceService.Register(_player.Attributes);
-            _persistenceService.Register(_player.Quickslots);
+
+            var persistables = new List<IPersistable>();
+            _player.CollectPersistables(persistables);
+            foreach (var persistable in persistables)
+            {
+                _persistenceService.Register(persistable);
+            }
 
             _eventPacketDispatcher.Register(_player);
             _playerUpdateService.Register(_player);
@@ -51,16 +51,34 @@ namespace FOMServer.World.Application.Players.Registration
             _playerUpdateService.Unregister(_player);
             _eventPacketDispatcher.Unregister(_player);
 
-            _persistenceService.Unregister(_player.Quickslots);
-            _persistenceService.Unregister(_player.Attributes);
-            _persistenceService.Unregister(_player);
+            var persistables = new List<IPersistable>();
+            _player.CollectPersistables(persistables);
+            foreach (var persistable in persistables)
+            {
+                _persistenceService.Unregister(persistable);
+            }
+
             foreach (var container in _player.Inventory.GetItemContainers())
             {
-                var items = container.GetAll();
-                foreach (var item in items)
-                {
-                    _persistenceService.Unregister(item);
-                }
+                container.ItemsAdded -= OnItemsAddedToPlayer;
+                container.ItemsRemoved -= OnItemsRemovedFromPlayer;
+                container.ItemsDeleted -= OnItemsRemovedFromPlayer;
+            }
+        }
+
+        private void OnItemsAddedToPlayer(ItemContainer container, IReadOnlyCollection<Item> items)
+        {
+            foreach (var persistable in items)
+            {
+                _persistenceService.Register(persistable);
+            }
+        }
+
+        private void OnItemsRemovedFromPlayer(ItemContainer container, IReadOnlyCollection<Item> items)
+        {
+            foreach (var persistable in items)
+            {
+                _persistenceService.Unregister(persistable);
             }
         }
     }

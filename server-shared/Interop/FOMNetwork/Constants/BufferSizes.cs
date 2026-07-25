@@ -1,4 +1,4 @@
-namespace FOMServer.Shared.Core.Constants
+namespace FOMServer.Shared.Interop.FOMNetwork.Constants
 {
     /// <summary>
     /// A reference for the sizes of common fixed-length buffers.

@@ -1,5 +1,5 @@
 using System.Runtime.InteropServices;
-using FOMServer.Shared.Core.Constants;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 
 namespace FOMServer.Shared.Interop.FOMNetwork.Structs.Player
 {

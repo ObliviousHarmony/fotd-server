@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
-using FOMServer.Shared.Core.Constants;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
+using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 
 namespace FOMServer.Shared.Interop.FOMNetwork.Structs
 {
@@ -16,18 +17,18 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Structs
         public ushort Unknown1;
         public ushort LegacyFactionId;
 
-        public ushort Shirt;
-        public ushort Bottoms;
-        public ushort Shoes;
-        public ushort Hat;
-        public ushort Head;
-        public ushort Eyes;
-        public ushort Shoulder;
-        public ushort Arms;
-        public ushort Torso;
-        public ushort Back;
-        public ushort Legs;
-        public ushort Hands;
+        public ItemType Shirt;
+        public ItemType Bottoms;
+        public ItemType Shoes;
+        public ItemType Hat;
+        public ItemType Head;
+        public ItemType Eyes;
+        public ItemType Shoulders;
+        public ItemType Arms;
+        public ItemType Torso;
+        public ItemType Back;
+        public ItemType Legs;
+        public ItemType Hands;
 
         public byte IsCommander;
         public byte Unknown2;

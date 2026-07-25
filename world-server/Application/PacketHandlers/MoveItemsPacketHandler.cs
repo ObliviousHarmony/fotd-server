@@ -33,9 +33,9 @@ namespace FOMServer.World.Application.PacketHandlers
             _transferRules = BuildTransferRules();
         }
 
-        private delegate string? TransferValidator(Player player, in MoveItemsPacket packet);
+        private delegate string? TransferValidatorHandler(Player player, in MoveItemsPacket packet);
 
-        private delegate bool TransferExecutor(Player player, in MoveItemsPacket packet);
+        private delegate bool TransferExecutorHandler(Player player, in MoveItemsPacket packet);
 
         public override void Handle(NetworkAddress sender, in MoveItemsPacket p)
         {
@@ -115,8 +115,8 @@ namespace FOMServer.World.Application.PacketHandlers
             void Rule(
                 ItemContainerType from,
                 ItemContainerType to,
-                TransferValidator? validate = null,
-                TransferExecutor? execute = null
+                TransferValidatorHandler? validate = null,
+                TransferExecutorHandler? execute = null
             )
             {
                 rules[new TransferKey(from, to)] = new TransferRule(validate, execute);
@@ -244,7 +244,7 @@ namespace FOMServer.World.Application.PacketHandlers
         private bool DestroyItems(Player player, in MoveItemsPacket p)
         {
             var fromContainer = GetItemContainer(player, p.From, p.FromSlot);
-            if (!fromContainer.TryRemove(out _, [.. p.ItemIds]))
+            if (!fromContainer.TryDeleteItems([.. p.ItemIds]))
             {
                 return false;
             }
@@ -255,16 +255,18 @@ namespace FOMServer.World.Application.PacketHandlers
         private ItemContainer GetItemContainer(Player player, ItemContainerType containerType, ItemSlotType slotType)
         {
             IItemLocation? location = null;
-            if (
-                containerType is ItemContainerType.Inventory or ItemContainerType.Weapons or ItemContainerType.Equipment
-            )
+            if (containerType == ItemContainerType.Inventory)
             {
                 location = player.Inventory;
+            }
+            else if (containerType is ItemContainerType.Weapons or ItemContainerType.Equipment)
+            {
+                location = player.Equipment;
             }
 
             if (location is null)
             {
-                throw new ArgumentException($"ItemInterop container {containerType} has no associated location");
+                throw new ArgumentException($"Item container {containerType} has no associated location");
             }
 
             var container = location.GetItemContainer(slotType);
@@ -272,7 +274,7 @@ namespace FOMServer.World.Application.PacketHandlers
             {
                 var locationRef = location.LocationRef;
                 throw new ArgumentException(
-                    $"ItemInterop container {containerType} does not exist in location {locationRef.Type} / {locationRef.Id}"
+                    $"Item container {containerType} does not exist in location {locationRef.Type} / {locationRef.Id}"
                 );
             }
 
@@ -281,6 +283,9 @@ namespace FOMServer.World.Application.PacketHandlers
 
         private readonly record struct TransferKey(ItemContainerType From, ItemContainerType To);
 
-        private sealed record TransferRule(TransferValidator? Validate = null, TransferExecutor? Execute = null);
+        private sealed record TransferRule(
+            TransferValidatorHandler? Validate = null,
+            TransferExecutorHandler? Execute = null
+        );
     }
 }

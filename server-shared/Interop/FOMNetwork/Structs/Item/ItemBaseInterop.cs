@@ -1,24 +1,31 @@
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using FOMServer.Shared.Core.Constants;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 
 namespace FOMServer.Shared.Interop.FOMNetwork.Structs.Item
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public unsafe struct ItemBaseInterop
+    public struct ItemBaseInterop
     {
         public ItemType Type;
         public ushort Value;
-        public ushort MaxDurability;
+        public ushort ValueMax;
         public ushort Durability;
         public byte DurabilityLossFactor;
         public ItemSecurity Security;
+        public ItemRarity Rarity;
         public uint CreatorPlayerId;
-        public uint Timeout;
         public uint StolenFromPlayerId;
-        public byte Classification;
-        public ItemQuality Quality;
+        public uint Timeout;
         public byte AttributeBonus;
-        public fixed byte BalanceValues[BufferSizes.NumItemBalanceSliders];
+        public byte RecipeVariation;
+        public RecipeBalanceBuffer RecipeBalanceValues;
+
+        [InlineArray(BufferSizes.NumItemBalanceSliders)]
+        public struct RecipeBalanceBuffer
+        {
+            private byte _element0;
+        }
     }
 }

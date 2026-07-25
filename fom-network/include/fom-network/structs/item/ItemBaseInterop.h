@@ -1,7 +1,7 @@
 #pragma once
 
 #include <fom-network/Interop.h>
-#include <fom-network/enums/item/ItemQuality.h>
+#include <fom-network/enums/item/ItemRarity.h>
 #include <fom-network/enums/item/ItemSecurity.h>
 #include <fom-network/enums/item/ItemType.h>
 
@@ -13,17 +13,17 @@ namespace FOMNetwork {
 struct ItemBaseInterop {
   Enum::ItemType type;
   uint16_t value;
-  uint16_t maxDurability;
+  uint16_t valueMax;
   uint16_t durability;
   uint8_t durabilityLossFactor;
   Enum::ItemSecurity security;
+  Enum::ItemRarity rarity;
   uint32_t creatorPlayerId;
-  uint32_t timeout;
   uint32_t stolenFromPlayerId;
-  uint8_t classification;
-  Enum::ItemQuality quality;
+  uint32_t timeout;
   uint8_t attributeBonus;
-  uint8_t balanceValues[BufferSizes::NUM_ITEM_BALANCE_SLIDERS];
+  uint8_t recipeVariation;
+  uint8_t recipeBalanceValues[BufferSizes::NUM_ITEM_BALANCE_SLIDERS];
 };
 #pragma pack(pop)
 

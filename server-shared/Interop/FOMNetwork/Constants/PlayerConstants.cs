@@ -1,10 +1,7 @@
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 
-namespace FOMServer.Shared.Core.Constants
+namespace FOMServer.Shared.Interop.FOMNetwork.Constants
 {
-    /// <summary>
-    /// Inventory-related constants for slot counts and limits.
-    /// </summary>
     public static class PlayerConstants
     {
         public const int NumEquipmentSlots = (int)ItemSlotType.NumEquipmentSlots; // NUM_EQUIPMENT_SLOTS

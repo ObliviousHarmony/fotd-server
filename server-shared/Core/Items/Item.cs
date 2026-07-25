@@ -1,17 +1,15 @@
-using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Persistence;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 using FOMServer.Shared.Interop.FOMNetwork.Structs.Item;
 
 namespace FOMServer.Shared.Core.Items
 {
-    public delegate void ItemDestroyedHandler(Item item);
-
-    public sealed class ItemDestroyedException : InvalidOperationException
+    public sealed class ItemDeletedException : InvalidOperationException
     {
-        public ItemDestroyedException(Item item)
-            : base($"ItemInterop {item.Id} has been destroyed") { }
+        public ItemDeletedException(Item item)
+            : base($"Item {item.Id} has been deleted") { }
     }
 
     public class Item : IPersistable
@@ -25,10 +23,18 @@ namespace FOMServer.Shared.Core.Items
         private ushort _durability;
 
         private IItemLocation? _location;
-        private bool _destroyed;
+        private bool _deleted;
 
-        private readonly ushort _maxDurability;
+        private readonly ushort _valueMax;
         private readonly byte _durabilityLossFactor;
+        private readonly ItemSecurity _security;
+        private readonly ItemRarity _rarity;
+        private readonly uint _creatorPlayerId;
+        private readonly uint _stolenFromPlayerId;
+        private readonly uint _timeout;
+        private readonly byte _attributeBonus;
+        private readonly byte _recipeVariation;
+        private readonly byte[] _recipeBalanceValues = new byte[BufferSizes.NumItemBalanceSliders];
 
         public Item(
             uint id,
@@ -37,9 +43,17 @@ namespace FOMServer.Shared.Core.Items
             uint locationId,
             ItemSlotType slot,
             ushort value,
+            ushort valueMax,
             ushort durability,
-            ushort maxDurability,
-            byte durabilityLossFactor
+            byte durabilityLossFactor,
+            ItemSecurity security,
+            ItemRarity rarity,
+            uint creatorPlayerId,
+            uint stolenFromPlayerId,
+            uint timeout,
+            byte attributeBonus,
+            byte recipeVariation,
+            ReadOnlySpan<byte> recipeBalanceValues
         )
         {
             Id = id;
@@ -49,16 +63,41 @@ namespace FOMServer.Shared.Core.Items
             _locationId = locationId;
             _slot = slot;
             _value = value;
+            _valueMax = valueMax;
             _durability = durability;
-            _maxDurability = maxDurability;
             _durabilityLossFactor = durabilityLossFactor;
+            _security = security;
+            _rarity = rarity;
+            _creatorPlayerId = creatorPlayerId;
+            _stolenFromPlayerId = stolenFromPlayerId;
+            _timeout = timeout;
+            _attributeBonus = attributeBonus;
+            _recipeVariation = recipeVariation;
 
-            _destroyed = false;
+            if (recipeBalanceValues.Length != BufferSizes.NumItemBalanceSliders)
+            {
+                throw new ArgumentException(
+                    nameof(recipeBalanceValues),
+                    $"Received {recipeBalanceValues.Length} balance values, expected {BufferSizes.NumItemBalanceSliders}"
+                );
+            }
+            for (var i = 0; i < recipeBalanceValues.Length; i++)
+            {
+                if (recipeBalanceValues[i] > ItemConstants.RecipeBalanceSliderMax)
+                {
+                    throw new ArgumentException(
+                        nameof(recipeBalanceValues),
+                        $"Balance slider {i} has a value {recipeBalanceValues[i]} above the maximum of {ItemConstants.RecipeBalanceSliderMax}"
+                    );
+                }
+
+                _recipeBalanceValues[i] = recipeBalanceValues[i];
+            }
+
+            _deleted = false;
         }
 
-        public event PersistableChangeCallback? PersistableChange;
-
-        public event ItemDestroyedHandler? ItemDestroyed;
+        public event PersistableChangeHandler? PersistableChange;
 
         public uint Id { get; }
 
@@ -75,11 +114,33 @@ namespace FOMServer.Shared.Core.Items
             }
         }
 
+        public bool IsBroken
+        {
+            get
+            {
+                lock (_syncRoot)
+                {
+                    return _durability == 0;
+                }
+            }
+        }
+
+        public bool IsDeleted
+        {
+            get
+            {
+                lock (_syncRoot)
+                {
+                    return _deleted;
+                }
+            }
+        }
+
         public void BindLocation(IItemLocation location, ItemSlotType slot)
         {
             lock (_syncRoot)
             {
-                ThrowIfDestroyed();
+                ThrowIfDeleted();
 
                 var locationRef = location.LocationRef;
                 if (locationRef.Type == _locationType && locationRef.Id == _locationId && slot == _slot)
@@ -89,7 +150,7 @@ namespace FOMServer.Shared.Core.Items
                 }
 
                 throw new ArgumentException(
-                    $"ItemInterop {this} does not belong (location={locationRef.Type}, locationId={locationRef.Id}, slot={slot})",
+                    $"Item {this} does not belong (location={locationRef.Type}, locationId={locationRef.Id}, slot={slot})",
                     nameof(location)
                 );
             }
@@ -101,7 +162,7 @@ namespace FOMServer.Shared.Core.Items
             IPersistable? newLocationPersistable;
             lock (_syncRoot)
             {
-                ThrowIfDestroyed();
+                ThrowIfDeleted();
 
                 oldLocationPersistable = _location?.LocationRef.Persistable;
 
@@ -135,7 +196,7 @@ namespace FOMServer.Shared.Core.Items
             IPersistable? locationPersistable;
             lock (_syncRoot)
             {
-                ThrowIfDestroyed();
+                ThrowIfDeleted();
 
                 _value = newValue;
 
@@ -149,10 +210,9 @@ namespace FOMServer.Shared.Core.Items
         {
             IPersistable? locationPersistable;
             ushort uses;
-            var shouldDestroy = false;
             lock (_syncRoot)
             {
-                ThrowIfDestroyed();
+                ThrowIfDeleted();
 
                 uses = Math.Min(_value, numUses);
                 if (uses == 0)
@@ -165,75 +225,83 @@ namespace FOMServer.Shared.Core.Items
                 if (decreaseDurability)
                 {
                     _durability -= (ushort)Math.Min(_durability, Math.Ceiling(uses * _durabilityLossFactor / 100.0));
-                    if (_durability == 0)
-                    {
-                        shouldDestroy = true;
-                    }
                 }
 
                 locationPersistable = _location?.LocationRef.Persistable;
             }
 
-            if (shouldDestroy)
-            {
-                Destroy();
-            }
-            else
-            {
-                PersistableChange?.Invoke(this, locationPersistable);
-            }
+            PersistableChange?.Invoke(this, locationPersistable);
 
             return uses;
         }
 
-        public void ApplyDurabilityLoss(ushort durabilityLoss)
+        public ushort ApplyDurabilityLoss(ushort durabilityLoss)
         {
             IPersistable? locationPersistable;
-            var shouldDestroy = false;
+            ushort remaining;
             lock (_syncRoot)
             {
-                ThrowIfDestroyed();
+                ThrowIfDeleted();
 
                 var loss = (ushort)Math.Min(_durability, Math.Ceiling(durabilityLoss * _durabilityLossFactor / 100.0));
                 if (loss == 0)
                 {
-                    return;
+                    return _durability;
                 }
 
                 _durability -= loss;
-                if (_durability == 0)
-                {
-                    shouldDestroy = true;
-                }
+                remaining = _durability;
 
                 locationPersistable = _location?.LocationRef.Persistable;
             }
 
-            if (shouldDestroy)
-            {
-                Destroy();
-            }
-            else
-            {
-                PersistableChange?.Invoke(this, locationPersistable);
-            }
+            PersistableChange?.Invoke(this, locationPersistable);
+
+            return remaining;
         }
 
         public bool ShouldDropOnDeath()
         {
             lock (_syncRoot)
             {
-                ThrowIfDestroyed();
+                ThrowIfDeleted();
             }
 
             return false;
+        }
+
+        public ItemSnapshot ToSnapshot()
+        {
+            lock (_syncRoot)
+            {
+                return new ItemSnapshot(_recipeBalanceValues)
+                {
+                    Id = Id,
+                    Type = Type,
+                    LocationType = _locationType,
+                    LocationId = _locationId,
+                    Slot = _slot,
+                    Value = _value,
+                    ValueMax = _valueMax,
+                    Durability = _durability,
+                    DurabilityLossFactor = _durabilityLossFactor,
+                    Security = _security,
+                    Rarity = _rarity,
+                    CreatorPlayerId = _creatorPlayerId,
+                    StolenFromPlayerId = _stolenFromPlayerId,
+                    Timeout = _timeout,
+                    AttributeBonus = _attributeBonus,
+                    RecipeVariation = _recipeVariation,
+                    IsDeleted = _deleted,
+                };
+            }
         }
 
         public void WriteTo(ref ItemInterop p)
         {
             lock (_syncRoot)
             {
-                if (_destroyed)
+                if (_deleted)
                 {
                     return;
                 }
@@ -241,26 +309,41 @@ namespace FOMServer.Shared.Core.Items
                 p.Id = Id;
                 p.Base.Type = Type;
                 p.Base.Value = _value;
-                p.Base.MaxDurability = _maxDurability;
+                p.Base.ValueMax = _valueMax;
                 p.Base.Durability = _durability;
                 p.Base.DurabilityLossFactor = _durabilityLossFactor;
-
-                p.Base.Security = ItemSecurity.Normal;
-                p.Base.CreatorPlayerId = 0;
-                p.Base.Timeout = 0;
-                p.Base.StolenFromPlayerId = 0;
-                p.Base.Classification = 1;
-                p.Base.Quality = ItemQuality.Standard;
-                p.Base.AttributeBonus = 0;
-
-                unsafe
+                p.Base.Security = _security;
+                p.Base.Rarity = _rarity;
+                p.Base.CreatorPlayerId = _creatorPlayerId;
+                p.Base.StolenFromPlayerId = _stolenFromPlayerId;
+                p.Base.Timeout = _timeout;
+                p.Base.AttributeBonus = _attributeBonus;
+                p.Base.RecipeVariation = _recipeVariation;
+                for (var i = 0; i < BufferSizes.NumItemBalanceSliders; ++i)
                 {
-                    for (var i = 0; i < BufferSizes.NumItemBalanceSliders; ++i)
-                    {
-                        p.Base.BalanceValues[i] = 0;
-                    }
+                    p.Base.RecipeBalanceValues[i] = _recipeBalanceValues[i];
                 }
             }
+        }
+
+        public bool Delete()
+        {
+            IPersistable? locationPersistable;
+            lock (_syncRoot)
+            {
+                if (_deleted)
+                {
+                    return false;
+                }
+
+                _deleted = true;
+
+                locationPersistable = _location?.LocationRef.Persistable;
+            }
+
+            PersistableChange?.Invoke(this, locationPersistable);
+
+            return true;
         }
 
         public override string ToString()
@@ -271,34 +354,13 @@ namespace FOMServer.Shared.Core.Items
             }
         }
 
-        private bool Destroy()
-        {
-            IPersistable? locationPersistable;
-            lock (_syncRoot)
-            {
-                if (_destroyed)
-                {
-                    return false;
-                }
-
-                _destroyed = true;
-
-                locationPersistable = _location?.LocationRef.Persistable;
-            }
-
-            ItemDestroyed?.Invoke(this);
-            PersistableChange?.Invoke(this, locationPersistable);
-
-            return true;
-        }
-
-        private void ThrowIfDestroyed()
+        private void ThrowIfDeleted()
         {
             lock (_syncRoot)
             {
-                if (_destroyed)
+                if (_deleted)
                 {
-                    throw new ItemDestroyedException(this);
+                    throw new ItemDeletedException(this);
                 }
             }
         }

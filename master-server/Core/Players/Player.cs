@@ -12,7 +12,7 @@ namespace FOMServer.Master.Core.Players
             _session = session;
         }
 
-        public event PersistableChangeCallback? PersistableChange;
+        public event PersistableChangeHandler? PersistableChange;
 
         public uint Id { get; }
     }

@@ -64,6 +64,7 @@ namespace FOMServer.Shared.Extensions
         {
             services.AddSingleton<IAccountRepository, DbAccountRepository>();
             services.AddSingleton<IPlayerRepository, DbPlayerRepository>();
+            services.AddSingleton<IItemRepository, DbItemRepository>();
 
             return services;
         }

@@ -1,5 +1,5 @@
 using System.Net.Sockets;
-using FOMServer.Shared.Core.Constants;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums;
 using FOMServer.World.Core.Exceptions;
 using FOMServer.World.Core.Players;

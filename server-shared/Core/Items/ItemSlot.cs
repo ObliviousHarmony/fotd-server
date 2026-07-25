@@ -15,7 +15,6 @@ namespace FOMServer.Shared.Core.Items
             {
                 InsertCore(item);
                 item.BindLocation(Location, SlotType);
-                item.ItemDestroyed += OnItemDestroyed;
             }
         }
 
@@ -30,6 +29,16 @@ namespace FOMServer.Shared.Core.Items
 
                 _item.WriteTo(ref p);
             }
+        }
+
+        protected override Item? GetCore(uint id)
+        {
+            if (_item is null || _item.Id != id)
+            {
+                return null;
+            }
+
+            return _item;
         }
 
         protected override IReadOnlyCollection<Item> GetAllCore()
@@ -145,17 +154,6 @@ namespace FOMServer.Shared.Core.Items
             var item = _item;
             _item = null;
             return [item];
-        }
-
-        protected override void OnItemDestroyedCore(Item item)
-        {
-            lock (_syncRoot)
-            {
-                if (ReferenceEquals(item, _item))
-                {
-                    _item = null;
-                }
-            }
         }
     }
 }

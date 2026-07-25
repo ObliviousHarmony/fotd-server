@@ -1,8 +1,8 @@
 using System.Xml.Linq;
-using FOMServer.Shared.Core.Constants;
 using FOMServer.Shared.Core.Enums;
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 using FOMServer.World.Core.Players;
@@ -11,25 +11,29 @@ namespace FOMServer.World.Tests.Factories
 {
     internal class TestPlayerBuilder
     {
-        private static uint s_nextPlayerId;
+        private static uint s_nextPlayerId = 1;
 
         private readonly uint _id;
-        private uint _nextItemId;
+        private readonly string _name;
         private readonly uint[] _attributes = new uint[(int)AttributeType.NUM_ATTRIBUTE_TYPES];
         private readonly Dictionary<ItemContainerType, Dictionary<uint, Item>> _items;
         private readonly ItemType[] _quickslots;
 
-        public TestPlayerBuilder(uint id)
+        public TestPlayerBuilder(uint id, string name)
         {
             _id = id;
-            _nextItemId = id * 1000;
+            _name = name;
 
             for (var i = 0; i < (int)AttributeType.NUM_ATTRIBUTE_TYPES; ++i)
             {
                 _attributes[i] = PlayerAttributes.GetMetadata((AttributeType)i).Default;
             }
 
-            _items = new Dictionary<ItemContainerType, Dictionary<uint, Item>> { [ItemContainerType.Inventory] = [] };
+            _items = new Dictionary<ItemContainerType, Dictionary<uint, Item>>
+            {
+                { ItemContainerType.Inventory, [] },
+                { ItemContainerType.Equipment, [] },
+            };
 
             _quickslots = new ItemType[PlayerConstants.NumQuickslots];
             for (var i = 0; i < _quickslots.Length; ++i)
@@ -44,34 +48,13 @@ namespace FOMServer.World.Tests.Factories
             return this;
         }
 
-        public TestPlayerBuilder WithItem(
-            ItemContainerType container,
-            ItemType type,
-            ItemLocationType locationType,
-            uint locationId,
-            ItemSlotType slot,
-            ushort value,
-            ushort durability,
-            ushort maxDurability,
-            byte durabilityLossFactor
-        )
+        public TestPlayerBuilder WithItem(ItemContainerType container, Item item)
         {
             if (!_items.TryGetValue(container, out var itemList))
             {
-                throw new InvalidOperationException($"ItemInterop container {container} is invalid");
+                throw new InvalidOperationException($"Item container {container} is invalid");
             }
 
-            var item = new Item(
-                _nextItemId++,
-                type,
-                locationType,
-                locationId,
-                slot,
-                value,
-                durability,
-                maxDurability,
-                durabilityLossFactor
-            );
             itemList[item.Id] = item;
 
             return this;
@@ -91,7 +74,18 @@ namespace FOMServer.World.Tests.Factories
 
         public Player Build()
         {
-            var player = new Player(_id, _attributes, _items[ItemContainerType.Inventory], _quickslots);
+            var player = new Player(
+                _id,
+                _name,
+                AvatarConstants.Sex.Male,
+                AvatarConstants.Race.White,
+                0,
+                0,
+                _attributes,
+                _items[ItemContainerType.Inventory],
+                _items[ItemContainerType.Equipment],
+                _quickslots
+            );
 
             return player;
         }
@@ -104,7 +98,7 @@ namespace FOMServer.World.Tests.Factories
                 s_nextPlayerId = id.Value + 1;
             }
 
-            return new TestPlayerBuilder(id ?? s_nextPlayerId++);
+            return new TestPlayerBuilder(id ?? s_nextPlayerId++, "Test Player");
         }
     }
 }

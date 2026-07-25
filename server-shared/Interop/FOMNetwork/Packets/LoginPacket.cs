@@ -1,5 +1,5 @@
 using System.Runtime.InteropServices;
-using FOMServer.Shared.Core.Constants;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums;
 using FOMServer.Shared.Metadata;
 
@@ -79,10 +79,8 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Packets
 
         public string GetDriveModel(int index)
         {
-            if (index is < 0 or >= DriveCount)
-            {
-                throw new ArgumentOutOfRangeException(nameof(index));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(index);
+            ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(index, DriveCount);
 
             fixed (byte* ptr = RawDriveModels)
             {
@@ -92,10 +90,8 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Packets
 
         public string GetDriveSerialNumber(int index)
         {
-            if (index is < 0 or >= DriveCount)
-            {
-                throw new ArgumentOutOfRangeException(nameof(index));
-            }
+            ArgumentOutOfRangeException.ThrowIfNegative(index);
+            ArgumentOutOfRangeException.ThrowIfGreaterThanOrEqual(index, DriveCount);
 
             fixed (byte* ptr = RawDriveSerialNumbers)
             {

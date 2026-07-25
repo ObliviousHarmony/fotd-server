@@ -2,6 +2,7 @@
 
 #include <fom-network/Interop.h>
 #include <fom-network/enums/Avatar.h>
+#include <fom-network/enums/item/ItemType.h>
 
 namespace FOMNetwork {
 
@@ -17,18 +18,18 @@ struct AvatarInterop {
   uint16_t unknown1;
   uint16_t legacyFactionId;
 
-  uint16_t shirt;
-  uint16_t bottoms;
-  uint16_t shoes;
-  uint16_t hat;
-  uint16_t head;
-  uint16_t eyes;
-  uint16_t shoulder;
-  uint16_t arms;
-  uint16_t torso;
-  uint16_t back;
-  uint16_t legs;
-  uint16_t hands;
+  Enum::ItemType shirt;
+  Enum::ItemType bottoms;
+  Enum::ItemType shoes;
+  Enum::ItemType hat;
+  Enum::ItemType head;
+  Enum::ItemType eyes;
+  Enum::ItemType shoulders;
+  Enum::ItemType arms;
+  Enum::ItemType torso;
+  Enum::ItemType back;
+  Enum::ItemType legs;
+  Enum::ItemType hands;
 
   uint8_t isCommander;
   uint8_t unknown2;

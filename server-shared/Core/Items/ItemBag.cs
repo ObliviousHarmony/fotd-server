@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using FOMServer.Shared.Core.Constants;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 using FOMServer.Shared.Interop.FOMNetwork.Structs.Item;
 
@@ -22,7 +22,6 @@ namespace FOMServer.Shared.Core.Items
             {
                 InsertCore(item);
                 item.BindLocation(Location, SlotType);
-                item.ItemDestroyed += OnItemDestroyed;
             }
         }
 
@@ -48,6 +47,12 @@ namespace FOMServer.Shared.Core.Items
                 item.WriteTo(ref p.Items[i++]);
             }
             p.ItemCount = (uint)i;
+        }
+
+        protected override Item? GetCore(uint id)
+        {
+            _items.TryGetValue(id, out var item);
+            return item;
         }
 
         protected override IReadOnlyCollection<Item> GetAllCore()
@@ -183,16 +188,6 @@ namespace FOMServer.Shared.Core.Items
             }
 
             return extracted;
-        }
-
-        protected override void OnItemDestroyedCore(Item item)
-        {
-            lock (_syncRoot)
-            {
-                item.ItemDestroyed -= OnItemDestroyed;
-                _items.Remove(item.Id);
-                ExtractTypeIndex(item);
-            }
         }
 
         private void InsertTypeIndex(Item item)
