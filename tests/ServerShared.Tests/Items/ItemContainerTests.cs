@@ -121,29 +121,6 @@ namespace FOMServer.Shared.Tests.Items
         }
 
         [Fact]
-        public void Transfer_ThenDestroy_RemovesFromDestinationBag()
-        {
-            var locationA = new TestLocation(ItemLocationType.Inventory, 1);
-            var containerA = new TestItemContainer(locationA, ItemSlotType.None);
-            var locationB = new TestLocation(ItemLocationType.Inventory, 2);
-            var containerB = new TestItemContainer(locationB, ItemSlotType.None);
-
-            var item = TestItemBuilder
-                .Create(ItemType.Zanathid5Inflex, 1)
-                .WithLocation(ItemLocationType.Inventory, 1)
-                .WithDurability(10)
-                .Build();
-
-            containerA.TryAdd(item);
-
-            containerA.TryTransfer(containerB, out _, out _, item.Id);
-
-            item.ApplyDurabilityLoss(10);
-
-            Assert.False(containerB.TryRemove(out _, item.Id));
-        }
-
-        [Fact]
         public void Transfer_DisplacesExistingItemAtDestination()
         {
             var locationA = new TestLocation(ItemLocationType.Inventory, 1);
@@ -326,15 +303,6 @@ namespace FOMServer.Shared.Tests.Items
                 }
 
                 return extracted;
-            }
-
-            protected override void OnItemDestroyedCore(Item item)
-            {
-                lock (_syncRoot)
-                {
-                    item.ItemDestroyed -= OnItemDestroyed;
-                    _items.Remove(item.Id);
-                }
             }
         }
     }

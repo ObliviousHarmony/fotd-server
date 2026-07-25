@@ -33,7 +33,7 @@ namespace FOMServer.Shared.Core.Items
         public uint Timeout { get; init; }
         public byte AttributeBonus { get; init; }
         public byte RecipeVariation { get; init; }
-        public bool IsDestroyed { get; init; }
+        public bool IsDeleted { get; init; }
 
         [InlineArray(BufferSizes.NumItemBalanceSliders)]
         public struct RecipeBalanceBuffer

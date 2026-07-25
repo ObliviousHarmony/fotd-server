@@ -27,7 +27,7 @@ namespace FOMServer.World.Application.Persistence
                     `slot` = @slot,
                     `location_type` = @locationType,
                     `location_id` = @locationId,
-                    `deleted_at` = IF(@destroyed, CURRENT_TIMESTAMP, `deleted_at`)
+                    `deleted_at` = IF(@deleted, CURRENT_TIMESTAMP, `deleted_at`)
                 WHERE `id` = @id
                 """,
                 new
@@ -38,7 +38,7 @@ namespace FOMServer.World.Application.Persistence
                     slot = snapshot.Slot,
                     locationType = snapshot.LocationType,
                     locationId = snapshot.LocationId,
-                    destroyed = snapshot.IsDestroyed,
+                    deleted = snapshot.IsDeleted,
                 }
             );
         }

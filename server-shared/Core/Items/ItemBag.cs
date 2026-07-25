@@ -22,7 +22,6 @@ namespace FOMServer.Shared.Core.Items
             {
                 InsertCore(item);
                 item.BindLocation(Location, SlotType);
-                item.ItemDestroyed += OnItemDestroyed;
             }
         }
 
@@ -189,16 +188,6 @@ namespace FOMServer.Shared.Core.Items
             }
 
             return extracted;
-        }
-
-        protected override void OnItemDestroyedCore(Item item)
-        {
-            lock (_syncRoot)
-            {
-                item.ItemDestroyed -= OnItemDestroyed;
-                _items.Remove(item.Id);
-                ExtractTypeIndex(item);
-            }
         }
 
         private void InsertTypeIndex(Item item)

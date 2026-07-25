@@ -24,59 +24,7 @@ namespace FOMServer.Shared.Tests.Items
         }
 
         [Fact]
-        public void UseValue_WithDurability_DestroysItemWhenDurabilityReachesZero()
-        {
-            var item = TestItemBuilder
-                .Create(ItemType.Zanathid5Inflex)
-                .WithValue(100)
-                .WithDurability(10)
-                .WithDurabilityLossFactor(100)
-                .Build();
-
-            var destroyedCount = 0;
-            item.ItemDestroyed += _ => destroyedCount++;
-
-            item.UseValue(10, true);
-
-            Assert.Equal(1, destroyedCount);
-        }
-
-        [Fact]
-        public void ApplyDurabilityLoss_DurabilityReachesZero_DestroysItem()
-        {
-            var item = TestItemBuilder
-                .Create(ItemType.Zanathid5Inflex)
-                .WithDurability(20)
-                .WithDurabilityLossFactor(100)
-                .Build();
-
-            var destroyedCount = 0;
-            item.ItemDestroyed += _ => destroyedCount++;
-
-            item.ApplyDurabilityLoss(20);
-
-            Assert.Equal(1, destroyedCount);
-        }
-
-        [Fact]
-        public void ApplyDurabilityLoss_LargeLossFactor_DestroysInsteadOfWrappingAround()
-        {
-            var item = TestItemBuilder
-                .Create(ItemType.Zanathid5Inflex)
-                .WithDurability(50)
-                .WithDurabilityLossFactor(250)
-                .Build();
-
-            var destroyedCount = 0;
-            item.ItemDestroyed += _ => destroyedCount++;
-
-            item.ApplyDurabilityLoss(60000);
-
-            Assert.Equal(1, destroyedCount);
-        }
-
-        [Fact]
-        public void PostDestruction_UseValueAndApplyDurabilityLoss_BothThrow()
+        public void PostDeletion_UseValueAndApplyDurabilityLoss_BothThrow()
         {
             var item = TestItemBuilder
                 .Create(ItemType.Zanathid5Inflex)
@@ -84,10 +32,10 @@ namespace FOMServer.Shared.Tests.Items
                 .WithDurabilityLossFactor(100)
                 .Build();
 
-            item.ApplyDurabilityLoss(10);
+            item.Delete();
 
-            Assert.Throws<ItemDestroyedException>(() => item.UseValue(1));
-            Assert.Throws<ItemDestroyedException>(() => item.ApplyDurabilityLoss(1));
+            Assert.Throws<ItemDeletedException>(() => item.UseValue(1));
+            Assert.Throws<ItemDeletedException>(() => item.ApplyDurabilityLoss(1));
         }
     }
 }

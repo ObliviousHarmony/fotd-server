@@ -29,7 +29,11 @@ namespace FOMServer.World.Tests.Factories
                 _attributes[i] = PlayerAttributes.GetMetadata((AttributeType)i).Default;
             }
 
-            _items = new Dictionary<ItemContainerType, Dictionary<uint, Item>> { [ItemContainerType.Inventory] = [] };
+            _items = new Dictionary<ItemContainerType, Dictionary<uint, Item>>
+            {
+                { ItemContainerType.Inventory, [] },
+                { ItemContainerType.Equipment, [] },
+            };
 
             _quickslots = new ItemType[PlayerConstants.NumQuickslots];
             for (var i = 0; i < _quickslots.Length; ++i)

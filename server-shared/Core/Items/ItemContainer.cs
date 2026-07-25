@@ -10,7 +10,7 @@ namespace FOMServer.Shared.Core.Items
         ItemContainer toContainer,
         IReadOnlyCollection<Item> items
     );
-    public delegate void ItemDestroyedInContainerHandler(ItemContainer container, Item item);
+    public delegate void ItemsDeletedFromContainer(ItemContainer container, IReadOnlyCollection<Item> item);
 
     public abstract class ItemContainer : IPersistableProvider
     {
@@ -28,7 +28,7 @@ namespace FOMServer.Shared.Core.Items
         public event ItemsAddedToContainerHandler? ItemsAdded;
         public event ItemsRemovedFromContainerHandler? ItemsRemoved;
         public event ItemsTransferredBetweenContainers? ItemsTransferred;
-        public event ItemDestroyedInContainerHandler? ItemDestroyed;
+        public event ItemsDeletedFromContainer? ItemsDeleted;
 
         public IItemLocation Location { get; }
 
@@ -97,14 +97,11 @@ namespace FOMServer.Shared.Core.Items
 
                 if (!InsertCore(items))
                 {
-                    throw new InvalidOperationException(
-                        $"ItemInterop(s) {string.Join(", ", ids)} could not be inserted"
-                    );
+                    throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be inserted");
                 }
 
                 foreach (var item in items)
                 {
-                    item.ItemDestroyed += OnItemDestroyed;
                     item.ChangeLocation(Location, SlotType);
                 }
             }
@@ -133,14 +130,11 @@ namespace FOMServer.Shared.Core.Items
                 var extracted = ExtractCore(ids);
                 if (extracted.Count != ids.Count)
                 {
-                    throw new InvalidOperationException(
-                        $"ItemInterop(s) {string.Join(", ", ids)} could not be extracted"
-                    );
+                    throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be extracted");
                 }
 
                 foreach (var item in extracted)
                 {
-                    item.ItemDestroyed -= OnItemDestroyed;
                     item.ChangeLocation(null, ItemSlotType.None);
 
                     removed.Add(item);
@@ -217,29 +211,23 @@ namespace FOMServer.Shared.Core.Items
                     if (displacedItems.Count != idsToDisplace.Count)
                     {
                         throw new InvalidOperationException(
-                            $"ItemInterop(s) {string.Join(", ", idsToDisplace)} could not be extracted"
+                            $"Item(s) {string.Join(", ", idsToDisplace)} could not be extracted"
                         );
                     }
 
                     var extractedItems = ExtractCore(ids);
                     if (extractedItems.Count != ids.Count)
                     {
-                        throw new InvalidOperationException(
-                            $"ItemInterop(s) {string.Join(", ", ids)} could not be extracted"
-                        );
+                        throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be extracted");
                     }
 
                     if (!to.InsertCore(extractedItems))
                     {
-                        throw new InvalidOperationException(
-                            $"ItemInterop(s) {string.Join(", ", ids)} could not be inserted"
-                        );
+                        throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be inserted");
                     }
 
                     foreach (var item in extractedItems)
                     {
-                        item.ItemDestroyed -= OnItemDestroyed;
-                        item.ItemDestroyed += to.OnItemDestroyed;
                         item.ChangeLocation(to.Location, to.SlotType);
                         transferred.Add(item);
                     }
@@ -249,14 +237,12 @@ namespace FOMServer.Shared.Core.Items
                         if (!InsertCore(displacedItems))
                         {
                             throw new InvalidOperationException(
-                                $"ItemInterop(s) {string.Join(", ", idsToDisplace)} could not be insert"
+                                $"Item(s) {string.Join(", ", idsToDisplace)} could not be insert"
                             );
                         }
 
                         foreach (var item in displacedItems)
                         {
-                            item.ItemDestroyed -= to.OnItemDestroyed;
-                            item.ItemDestroyed += OnItemDestroyed;
                             item.ChangeLocation(Location, SlotType);
                             displaced.Add(item);
                         }
@@ -275,11 +261,36 @@ namespace FOMServer.Shared.Core.Items
             return true;
         }
 
-        protected void OnItemDestroyed(Item item)
+        public bool TryDeleteItems(params IReadOnlyCollection<uint> ids)
         {
-            OnItemDestroyedCore(item);
+            if (ids.Count == 0)
+            {
+                return true;
+            }
 
-            ItemDestroyed?.Invoke(this, item);
+            IReadOnlyCollection<Item> extracted;
+            lock (_syncRoot)
+            {
+                if (!CanExtractCore(ids))
+                {
+                    return false;
+                }
+
+                extracted = ExtractCore(ids);
+                if (extracted.Count != ids.Count)
+                {
+                    throw new InvalidOperationException($"Item(s) {string.Join(", ", ids)} could not be extracted");
+                }
+            }
+
+            foreach (var item in extracted)
+            {
+                item.Delete();
+            }
+
+            ItemsDeleted?.Invoke(this, extracted);
+
+            return true;
         }
 
         protected abstract Item? GetCore(uint id);
@@ -300,7 +311,5 @@ namespace FOMServer.Shared.Core.Items
         protected abstract bool CanExtractCore(params IReadOnlyCollection<uint> idsToExtract);
 
         protected abstract IReadOnlyCollection<Item> ExtractCore(params IReadOnlyCollection<uint> idsToExtract);
-
-        protected abstract void OnItemDestroyedCore(Item item);
     }
 }

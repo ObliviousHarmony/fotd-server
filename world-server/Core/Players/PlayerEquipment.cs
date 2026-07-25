@@ -10,7 +10,6 @@ namespace FOMServer.World.Core.Players
         PlayerEquipment equipment,
         IReadOnlyCollection<ItemSnapshot> items
     );
-    internal delegate void ItemDestroyedInEquipmentHandler(PlayerEquipment equipment, Item item);
 
     internal class PlayerEquipment : IItemLocation, IPersistableProvider
     {
@@ -73,15 +72,13 @@ namespace FOMServer.World.Core.Players
                 slot.ItemsAdded += (_, _) => OnEquipmentChanged();
                 slot.ItemsRemoved += (_, _) => OnEquipmentChanged();
                 slot.ItemsTransferred += (_, _, _) => OnEquipmentChanged();
-                slot.ItemDestroyed += (_, _) => OnEquipmentChanged();
-                slot.ItemDestroyed += (_, item) => ItemDestroyed?.Invoke(this, item);
+                slot.ItemsDeleted += (_, _) => OnEquipmentChanged();
 
                 _itemSlots[slotType] = slot;
             }
         }
 
         public event PlayerEquipmentChangedHandler? EquipmentChanged;
-        public event ItemDestroyedInEquipmentHandler? ItemDestroyed;
 
         public uint PlayerId => _player.Id;
 

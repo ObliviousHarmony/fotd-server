@@ -32,7 +32,7 @@ namespace FOMServer.World.Application.Players.Registration
             {
                 container.ItemsAdded += OnItemsAddedToPlayer;
                 container.ItemsRemoved += OnItemsRemovedFromPlayer;
-                container.ItemDestroyed += OnPlayerItemDestroyed;
+                container.ItemsDeleted += OnItemsRemovedFromPlayer;
             }
 
             var persistables = new List<IPersistable>();
@@ -62,7 +62,7 @@ namespace FOMServer.World.Application.Players.Registration
             {
                 container.ItemsAdded -= OnItemsAddedToPlayer;
                 container.ItemsRemoved -= OnItemsRemovedFromPlayer;
-                container.ItemDestroyed -= OnPlayerItemDestroyed;
+                container.ItemsDeleted -= OnItemsRemovedFromPlayer;
             }
         }
 
@@ -80,11 +80,6 @@ namespace FOMServer.World.Application.Players.Registration
             {
                 _persistenceService.Unregister(persistable);
             }
-        }
-
-        private void OnPlayerItemDestroyed(ItemContainer container, Item item)
-        {
-            _persistenceService.Unregister(item);
         }
     }
 }

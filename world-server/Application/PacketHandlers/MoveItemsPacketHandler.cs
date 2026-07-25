@@ -244,7 +244,7 @@ namespace FOMServer.World.Application.PacketHandlers
         private bool DestroyItems(Player player, in MoveItemsPacket p)
         {
             var fromContainer = GetItemContainer(player, p.From, p.FromSlot);
-            if (!fromContainer.TryRemove(out _, [.. p.ItemIds]))
+            if (!fromContainer.TryDeleteItems([.. p.ItemIds]))
             {
                 return false;
             }

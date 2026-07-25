@@ -6,8 +6,6 @@ using FOMServer.Shared.Interop.FOMNetwork.Structs.Item;
 
 namespace FOMServer.World.Core.Players
 {
-    internal delegate void ItemDestroyedInInventoryHandler(PlayerInventory inventory, Item item);
-
     internal class PlayerInventory : IItemLocation, IPersistableProvider
     {
         private readonly Player _player;
@@ -27,10 +25,7 @@ namespace FOMServer.World.Core.Players
             }
 
             _backpackItems = new ItemBag(this, items);
-            _backpackItems.ItemDestroyed += (_, item) => ItemDestroyed?.Invoke(this, item);
         }
-
-        public event ItemDestroyedInInventoryHandler? ItemDestroyed;
 
         public uint PlayerId => _player.Id;
 
