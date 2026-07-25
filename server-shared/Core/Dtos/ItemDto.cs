@@ -1,4 +1,5 @@
 using FOMServer.Shared.Core.Enums;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 
@@ -18,11 +19,11 @@ namespace FOMServer.Shared.Core.Dtos
 
         public ushort value { get; init; }
 
-        public ushort value_max { get; init; }
+        public ushort value_max { get; init; } = ItemConstants.DefaultMaxValue;
 
-        public ushort durability { get; init; }
+        public ushort durability { get; init; } = ItemConstants.DefaultDurability;
 
-        public byte durability_loss_factor { get; init; }
+        public byte durability_loss_factor { get; init; } = ItemConstants.DefaultDurabilityLossFactor;
 
         public ItemSecurity security { get; init; }
 
@@ -38,12 +39,12 @@ namespace FOMServer.Shared.Core.Dtos
 
         public byte recipe_variation { get; init; }
 
-        public byte recipe_balance_1 { get; init; }
+        public byte recipe_balance_1 { get; init; } = ItemConstants.RecipeBalanceSliderMax / 2;
 
-        public byte recipe_balance_2 { get; init; }
+        public byte recipe_balance_2 { get; init; } = ItemConstants.RecipeBalanceSliderMax / 2;
 
-        public byte recipe_balance_3 { get; init; }
+        public byte recipe_balance_3 { get; init; } = ItemConstants.RecipeBalanceSliderMax / 2;
 
-        public byte recipe_balance_4 { get; init; }
+        public byte recipe_balance_4 { get; init; } = ItemConstants.RecipeBalanceSliderMax / 2;
     }
 }

@@ -11,10 +11,6 @@ namespace FOMServer.Shared.Core.Repositories
 
         ItemDto? GetById(uint id);
 
-        IReadOnlyDictionary<uint, ItemDto> GetByLocation(
-            ItemLocationType location,
-            uint locationId,
-            WorldId? worldId = null
-        );
+        IReadOnlyDictionary<uint, ItemDto> GetPlayerItems(uint playerId, WorldId worldId);
     }
 }

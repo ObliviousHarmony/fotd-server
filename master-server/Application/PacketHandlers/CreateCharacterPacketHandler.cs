@@ -227,6 +227,7 @@ namespace FOMServer.Master.Application.PacketHandlers
                     location_id = playerId,
                     slot = ItemSlotType.Shirt,
                     type = avatar.Shirt,
+                    security = ItemSecurity.Bound,
                 }
             );
             if (createdId is null)
@@ -241,6 +242,7 @@ namespace FOMServer.Master.Application.PacketHandlers
                     location_id = playerId,
                     slot = ItemSlotType.Bottoms,
                     type = avatar.Bottoms,
+                    security = ItemSecurity.Bound,
                 }
             );
             if (createdId is null)
@@ -255,6 +257,7 @@ namespace FOMServer.Master.Application.PacketHandlers
                     location_id = playerId,
                     slot = ItemSlotType.Shoes,
                     type = avatar.Shoes,
+                    security = ItemSecurity.Bound,
                 }
             );
             if (createdId is null)

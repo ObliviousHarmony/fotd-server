@@ -26,9 +26,9 @@ class AvatarInteropSerializer : protected InteropTypeSerializer<AvatarInterop> {
     WriteBits(bs, data.bottoms, 12);
     WriteBits(bs, data.shoes, 12);
 
-    bool hasAttachments = data.hat || data.head || data.eyes || data.shoulders ||
-                          data.arms || data.torso || data.back || data.legs ||
-                          data.hands;
+    bool hasAttachments = data.hat || data.head || data.eyes ||
+                          data.shoulders || data.arms || data.torso ||
+                          data.back || data.legs || data.hands;
 
     bs.Write(hasAttachments);
     if (hasAttachments) {

@@ -45,8 +45,8 @@ namespace FOMServer.Shared.Core.Items
             uint locationId,
             ItemSlotType slot,
             ushort value,
+            ushort valueMax,
             ushort durability,
-            ushort durabilityMax,
             byte durabilityLossFactor,
             ItemSecurity security,
             ItemRarity rarity,
@@ -65,8 +65,8 @@ namespace FOMServer.Shared.Core.Items
             _locationId = locationId;
             _slot = slot;
             _value = value;
+            _valueMax = valueMax;
             _durability = durability;
-            _valueMax = durabilityMax;
             _durabilityLossFactor = durabilityLossFactor;
             _security = security;
             _rarity = rarity;

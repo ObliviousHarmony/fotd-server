@@ -98,11 +98,7 @@ namespace FOMServer.Shared.Infrastructure.Repositories
             );
         }
 
-        public IReadOnlyDictionary<uint, ItemDto> GetByLocation(
-            ItemLocationType location,
-            uint locationId,
-            WorldId? worldId = null
-        )
+        public IReadOnlyDictionary<uint, ItemDto> GetPlayerItems(uint playerId, WorldId worldId)
         {
             using var connection = _dbConnectionFactory.Create();
 
@@ -111,15 +107,15 @@ namespace FOMServer.Shared.Infrastructure.Repositories
                     $"""
                     SELECT {SelectColumns}
                     FROM `item`
-                    WHERE `location_type` = @location
-                      AND `location_id` = @locationId
-                      AND `world_id` <=> @worldId
+                    WHERE `location_type` IN @locationTypes
+                      AND `location_id` = @playerId
+                      AND (`world_id` IS NULL OR `world_id` = @worldId)
                       AND `deleted_at` IS NULL
                     """,
                     new
                     {
-                        location,
-                        locationId,
+                        locationTypes = new[] { ItemLocationType.Inventory, ItemLocationType.Equipment },
+                        playerId,
                         worldId,
                     }
                 )
