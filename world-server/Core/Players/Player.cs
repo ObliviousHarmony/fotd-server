@@ -19,6 +19,7 @@ namespace FOMServer.World.Core.Players
             Id = id;
             _currentUpdate.Id = id;
 
+            Address = NetworkAddress.Unassigned;
             Position = new ServerPosition();
             Attributes = new PlayerAttributes(this, attributes);
             Inventory = new PlayerInventory(this, inventory);
@@ -29,7 +30,9 @@ namespace FOMServer.World.Core.Players
 
         public uint Id { get; }
 
-        public NetworkAddress Address { get; private set; } = NetworkAddress.Unassigned;
+        // Deliberately left unlocked. It's write-once, set before the player is published and so any reader that obtains a player
+        // from the registry is guaranteed to see the complete write.
+        public NetworkAddress Address { get; private set; }
 
         public ServerPosition Position { get; }
 

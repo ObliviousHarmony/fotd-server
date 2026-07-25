@@ -72,13 +72,16 @@ namespace FOMServer.Master.Application.PacketHandlers
             }
 
             var created = _playerRepository.Create(
-                p.PlayerId,
-                p.Name,
-                p.Biography,
-                p.Avatar.Sex,
-                p.Avatar.Race,
-                p.Avatar.Face,
-                p.Avatar.Hair
+                new()
+                {
+                    id = p.PlayerId,
+                    name = p.Name,
+                    sex = p.Avatar.Sex,
+                    race = p.Avatar.Race,
+                    face = p.Avatar.Face,
+                    hair = p.Avatar.Hair,
+                },
+                p.Biography
             );
 
             if (created is null)

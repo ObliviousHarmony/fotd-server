@@ -5,15 +5,7 @@ namespace FOMServer.Shared.Core.Repositories
 {
     public interface IPlayerRepository
     {
-        PlayerDto? Create(
-            uint id,
-            string name,
-            string biography,
-            AvatarConstants.Sex sex,
-            AvatarConstants.Race race,
-            ushort face,
-            ushort hair
-        );
+        uint? Create(PlayerDto player, string biography);
 
         PlayerDto? GetById(uint id);
 

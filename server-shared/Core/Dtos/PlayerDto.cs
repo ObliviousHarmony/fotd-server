@@ -8,8 +8,6 @@ namespace FOMServer.Shared.Core.Dtos
 
         public string name { get; init; } = "";
 
-        public string biography { get; init; } = "";
-
         public AvatarConstants.Sex sex { get; init; }
 
         public AvatarConstants.Race race { get; init; }
@@ -17,9 +15,5 @@ namespace FOMServer.Shared.Core.Dtos
         public ushort face { get; init; }
 
         public ushort hair { get; init; }
-
-        public DateTime created_at { get; init; }
-
-        public DateTime updated_at { get; init; }
     }
 }

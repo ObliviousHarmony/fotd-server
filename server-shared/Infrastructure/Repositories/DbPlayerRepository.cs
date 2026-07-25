@@ -7,6 +7,15 @@ namespace FOMServer.Shared.Infrastructure.Repositories
 {
     internal class DbPlayerRepository : IPlayerRepository
     {
+        private const string SelectColumns = """
+            `id`,
+            `name`,
+            `sex`,
+            `race`,
+            `face`,
+            `hair`
+            """;
+
         private readonly IDbConnectionFactory _dbConnectionFactory;
 
         public DbPlayerRepository(IDbConnectionFactory dbConnectionFactory)
@@ -14,41 +23,38 @@ namespace FOMServer.Shared.Infrastructure.Repositories
             _dbConnectionFactory = dbConnectionFactory;
         }
 
-        public PlayerDto? Create(
-            uint id,
-            string name,
-            string biography,
-            AvatarConstants.Sex sex,
-            AvatarConstants.Race race,
-            ushort face,
-            ushort hair
-        )
+        public uint? Create(PlayerDto player, string biography)
         {
             try
             {
                 using var connection = _dbConnectionFactory.Create();
 
                 connection.Execute(
-                    @"INSERT INTO `player` (`id`, `name`, `biography`, `sex`, `race`, `face`, `hair`)
-                      VALUES (@id, @name, @biography, @sex, @race, @face, @hair)",
+                    """
+                    INSERT INTO `player` (
+                        `id`, `name`, `biography`, `sex`, `race`, `face`, `hair`
+                    ) VALUES (
+                        @id, @name, @biography, @sex, @race, @face, @hair
+                    )
+                    """,
                     new
                     {
-                        id,
-                        name,
+                        player.id,
+                        player.name,
                         biography,
-                        sex = (byte)sex,
-                        race = (byte)race,
-                        face,
-                        hair,
+                        player.sex,
+                        player.race,
+                        player.face,
+                        player.hair,
                     }
                 );
+
+                return player.id;
             }
-            catch (MySqlException)
+            catch (MySqlException e) when (e.ErrorCode == MySqlErrorCode.DuplicateKeyEntry)
             {
                 return null;
             }
-
-            return GetById(id)!;
         }
 
         public PlayerDto? GetById(uint id)
@@ -56,7 +62,7 @@ namespace FOMServer.Shared.Infrastructure.Repositories
             using var connection = _dbConnectionFactory.Create();
 
             return connection.QuerySingleOrDefault<PlayerDto?>(
-                "SELECT `id`, `name`, `sex`, `race`, `face`, `hair`, `created_at`, `updated_at` FROM `player` WHERE `id` = @id",
+                $"SELECT {SelectColumns} FROM `player` WHERE `id` = @id",
                 new { id }
             );
         }
@@ -66,7 +72,7 @@ namespace FOMServer.Shared.Infrastructure.Repositories
             using var connection = _dbConnectionFactory.Create();
 
             return connection.QuerySingleOrDefault<PlayerDto?>(
-                "SELECT `id`, `name`, `sex`, `race`, `face`, `hair`, `created_at`, `updated_at` FROM `player` WHERE `name` = @name",
+                $"SELECT {SelectColumns} FROM `player` WHERE `name` = @name",
                 new { name }
             );
         }

@@ -29,7 +29,6 @@ namespace FOMServer.Shared.Infrastructure.Migrations.Item
                 .WithColumn("recipe_balance_2").AsUInt8().NotNullable()
                 .WithColumn("recipe_balance_3").AsUInt8().NotNullable()
                 .WithColumn("recipe_balance_4").AsUInt8().NotNullable()
-
                 .WithColumn("created_at").AsCreatedAtTimestamp()
                 .WithColumn("updated_at").AsUpdatedAtTimestamp()
                 .WithColumn("deleted_at").AsTimestamp().Nullable();

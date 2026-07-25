@@ -5,6 +5,13 @@ namespace FOMServer.Shared.Infrastructure.Repositories
 {
     internal class DbAccountRepository : IAccountRepository
     {
+        private const string SelectColumns = """
+            `id`,
+            `username`,
+            `password`,
+            `logged_in`
+            """;
+
         private readonly IDbConnectionFactory _dbConnectionFactory;
 
         public DbAccountRepository(IDbConnectionFactory dbConnectionFactory)
@@ -17,7 +24,7 @@ namespace FOMServer.Shared.Infrastructure.Repositories
             using var connection = _dbConnectionFactory.Create();
 
             return connection.QuerySingleOrDefault<AccountDto?>(
-                "SELECT `id`, `username`, `password`, `logged_in`, `created_at`, `updated_at` FROM `account` WHERE `id` = @id",
+                $"SELECT {SelectColumns} FROM `account` WHERE `id` = @id",
                 new { id }
             );
         }
@@ -27,7 +34,7 @@ namespace FOMServer.Shared.Infrastructure.Repositories
             using var connection = _dbConnectionFactory.Create();
 
             return connection.QuerySingleOrDefault<AccountDto?>(
-                "SELECT `id`, `username`, `password`, `logged_in`, `created_at`, `updated_at` FROM `account` WHERE `username` = @username",
+                $"SELECT {SelectColumns} FROM `account` WHERE `username` = @username",
                 new { username }
             );
         }

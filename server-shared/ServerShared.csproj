@@ -15,7 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\fom-network\FOMNetwork.vcxproj" Condition="'$(BuildNativeLib)' == 'true'" />
+    <ProjectReference
+      Include="..\fom-network\FOMNetwork.vcxproj"
+      Condition="'$(BuildNativeLib)' == 'true'"
+    />
     <PackageReference Include="FluentMigrator" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.2" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.0" />
