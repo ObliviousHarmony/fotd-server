@@ -20,17 +20,21 @@ internal static class CStringParser
 
     /// <summary>
     /// Copies a C# string into a fixed-size byte buffer as a null-terminated ASCII string.
+    /// Any space beyond the terminator is zeroed so that reused buffers do not leak the
+    /// remains of a previous value onto the wire.
     /// </summary>
     public static unsafe void FromString(string str, byte* buffer, int len)
     {
-        var bytes = Encoding.ASCII.GetBytes(str);
+        // The buffer has to hold a terminator even when the string is empty.
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(len);
 
-        var copyLength = Math.Min(bytes.Length, len - 1);
-        for (var i = 0; i < copyLength; i++)
-        {
-            buffer[i] = bytes[i];
-        }
+        var destination = new Span<byte>(buffer, len);
 
-        buffer[copyLength] = 0;
+        // Encoded straight into the destination; ASCII is one byte per char, so truncating
+        // the source to len - 1 chars leaves exactly one byte for the terminator.
+        var source = str.AsSpan(0, Math.Min(str.Length, len - 1));
+        var written = Encoding.ASCII.GetBytes(source, destination);
+
+        destination[written..].Clear();
     }
 }
