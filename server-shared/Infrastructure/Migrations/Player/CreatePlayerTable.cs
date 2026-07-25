@@ -15,6 +15,10 @@ namespace FOMServer.Shared.Infrastructure.Migrations.Player
                 .WithColumn("race").AsUInt8().NotNullable()
                 .WithColumn("face").AsUInt16().NotNullable()
                 .WithColumn("hair").AsUInt16().NotNullable()
+                .WithColumn("quickslot_1").AsUInt16().NotNullable().WithDefaultValue(0)
+                .WithColumn("quickslot_2").AsUInt16().NotNullable().WithDefaultValue(0)
+                .WithColumn("quickslot_3").AsUInt16().NotNullable().WithDefaultValue(0)
+                .WithColumn("quickslot_4").AsUInt16().NotNullable().WithDefaultValue(0)
                 .WithColumn("created_at").AsCreatedAtTimestamp()
                 .WithColumn("updated_at").AsUpdatedAtTimestamp();
         }
