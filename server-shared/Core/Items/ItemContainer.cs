@@ -45,6 +45,17 @@ namespace FOMServer.Shared.Core.Items
             }
         }
 
+        public void CollectSnapshots(ICollection<ItemSnapshot> destination)
+        {
+            lock (_syncRoot)
+            {
+                foreach (var item in GetAllCore())
+                {
+                    destination.Add(item.ToSnapshot());
+                }
+            }
+        }
+
         public bool TryGetItemSnapshot(uint id, out ItemSnapshot snapshot)
         {
             Item? item;

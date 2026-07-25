@@ -25,12 +25,14 @@ namespace FOMServer.World.Application.Players
         {
             player.Attributes.AttributesChanged += OnAttributesChanged;
             player.Inventory.ItemDestroyed += OnInventoryItemDestroyed;
+            player.Equipment.ItemDestroyed += OnEquipmentItemDestroyed;
         }
 
         public void Unregister(Player player)
         {
             player.Attributes.AttributesChanged -= OnAttributesChanged;
             player.Inventory.ItemDestroyed -= OnInventoryItemDestroyed;
+            player.Equipment.ItemDestroyed -= OnEquipmentItemDestroyed;
         }
 
         private void OnAttributesChanged(PlayerAttributes attributes, long changedAttributeMask)
@@ -60,6 +62,15 @@ namespace FOMServer.World.Application.Players
                 "Item {ItemId} in player {PlayerId}'s inventory was destroyed",
                 item.Id,
                 inventory.PlayerId
+            );
+        }
+
+        private void OnEquipmentItemDestroyed(PlayerEquipment equipment, Item item)
+        {
+            _logger.LogInformation(
+                "Item {ItemId} in player {PlayerId}'s equipment was destroyed",
+                item.Id,
+                equipment.PlayerId
             );
         }
     }

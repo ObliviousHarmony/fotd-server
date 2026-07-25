@@ -23,7 +23,7 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Structs
         public ItemType Hat;
         public ItemType Head;
         public ItemType Eyes;
-        public ItemType Shoulder;
+        public ItemType Shoulders;
         public ItemType Arms;
         public ItemType Torso;
         public ItemType Back;

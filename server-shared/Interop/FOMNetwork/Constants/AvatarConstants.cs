@@ -1,3 +1,5 @@
+using System.Collections.Frozen;
+using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 using FOMServer.Shared.Interop.FOMNetwork.Structs;
 
 namespace FOMServer.Shared.Interop.FOMNetwork.Constants
@@ -37,6 +39,23 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Constants
             Race.White, // 26
             Race.White, // 27
         ];
+
+        public static readonly FrozenDictionary<Sex, FrozenDictionary<ItemSlotType, ItemType>> FallbackEquipment =
+            new Dictionary<Sex, FrozenDictionary<ItemSlotType, ItemType>>
+            {
+                [Sex.Male] = new Dictionary<ItemSlotType, ItemType>
+                {
+                    [ItemSlotType.Shirt] = ItemType.ExerciseTShirtMale,
+                    [ItemSlotType.Bottoms] = ItemType.BlueTacticalTrousersMale,
+                    [ItemSlotType.Shoes] = ItemType.BlackDressShoesMale,
+                }.ToFrozenDictionary(),
+                [Sex.Female] = new Dictionary<ItemSlotType, ItemType>
+                {
+                    [ItemSlotType.Shirt] = ItemType.DeathDealerTShirtFemale,
+                    [ItemSlotType.Bottoms] = ItemType.AssassinTrousersFemale907,
+                    [ItemSlotType.Shoes] = ItemType.LizardTechBlueShoesfemale,
+                }.ToFrozenDictionary(),
+            }.ToFrozenDictionary();
 
         public enum Sex : byte
         {

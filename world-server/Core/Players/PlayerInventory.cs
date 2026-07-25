@@ -27,7 +27,7 @@ namespace FOMServer.World.Core.Players
             }
 
             _backpackItems = new ItemBag(this, items);
-            _backpackItems.ItemDestroyed += OnItemDestroyed;
+            _backpackItems.ItemDestroyed += (_, item) => ItemDestroyed?.Invoke(this, item);
         }
 
         public event ItemDestroyedInInventoryHandler? ItemDestroyed;
@@ -59,11 +59,6 @@ namespace FOMServer.World.Core.Players
         public void WriteTo(ref ItemListInterop inventory)
         {
             _backpackItems.WriteTo(ref inventory);
-        }
-
-        private void OnItemDestroyed(ItemContainer itemContainer, Item item)
-        {
-            ItemDestroyed?.Invoke(this, item);
         }
     }
 }

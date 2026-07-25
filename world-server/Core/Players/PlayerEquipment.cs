@@ -6,6 +6,10 @@ using FOMServer.Shared.Interop.FOMNetwork.Packets;
 
 namespace FOMServer.World.Core.Players
 {
+    internal delegate void PlayerEquipmentChangedHandler(
+        PlayerEquipment equipment,
+        IReadOnlyCollection<ItemSnapshot> items
+    );
     internal delegate void ItemDestroyedInEquipmentHandler(PlayerEquipment equipment, Item item);
 
     internal class PlayerEquipment : IItemLocation, IPersistableProvider
@@ -66,12 +70,17 @@ namespace FOMServer.World.Core.Players
                     slot = new ItemSlot(this, slotType, item);
                 }
 
+                slot.ItemsAdded += (_, _) => OnEquipmentChanged();
+                slot.ItemsRemoved += (_, _) => OnEquipmentChanged();
+                slot.ItemsTransferred += (_, _, _) => OnEquipmentChanged();
+                slot.ItemDestroyed += (_, _) => OnEquipmentChanged();
                 slot.ItemDestroyed += OnItemDestroyed;
 
                 _itemSlots[slotType] = slot;
             }
         }
 
+        public event PlayerEquipmentChangedHandler? EquipmentChanged;
         public event ItemDestroyedInEquipmentHandler? ItemDestroyed;
 
         public uint PlayerId => _player.Id;
@@ -110,6 +119,17 @@ namespace FOMServer.World.Core.Players
             return null;
         }
 
+        public IReadOnlyList<ItemSnapshot> ToSnapshots()
+        {
+            List<ItemSnapshot> snapshots = [];
+            foreach (var slot in _itemSlots.Values)
+            {
+                slot.CollectSnapshots(snapshots);
+            }
+
+            return snapshots;
+        }
+
         public void WriteTo(
             ref RegisterClientReturnPacket.WeaponsArray weapons,
             ref RegisterClientReturnPacket.EquipmentArray equipment
@@ -124,6 +144,11 @@ namespace FOMServer.World.Core.Players
             {
                 _itemSlots[slot].WriteTo(ref equipment[slot - ItemSlotType.EquipmentStart]);
             }
+        }
+
+        private void OnEquipmentChanged()
+        {
+            EquipmentChanged?.Invoke(this, ToSnapshots());
         }
 
         private void OnItemDestroyed(ItemContainer itemContainer, Item item)

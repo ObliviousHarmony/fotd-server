@@ -1,6 +1,7 @@
 using FOMServer.Shared.Core.Items;
 using FOMServer.Shared.Core.Persistence;
 using FOMServer.Shared.Interop.FOMNetwork;
+using FOMServer.Shared.Interop.FOMNetwork.Constants;
 using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 using FOMServer.Shared.Interop.FOMNetwork.Packets;
 using FOMServer.Shared.Interop.FOMNetwork.Structs;
@@ -18,6 +19,10 @@ namespace FOMServer.World.Core.Players
         public Player(
             uint id,
             string name,
+            AvatarConstants.Sex sex,
+            AvatarConstants.Race race,
+            ushort face,
+            ushort hair,
             uint[] attributes,
             IDictionary<uint, Item> inventory,
             IDictionary<uint, Item> equipment,
@@ -29,12 +34,15 @@ namespace FOMServer.World.Core.Players
             _currentUpdate.Id = id;
 
             Address = NetworkAddress.Unassigned;
-
             Position = new ServerPosition();
+            Avatar = new PlayerAvatar(this, sex, race, face, hair);
             Attributes = new PlayerAttributes(this, attributes);
             Inventory = new PlayerInventory(this, inventory);
             Equipment = new PlayerEquipment(this, equipment);
             Quickslots = new PlayerQuickslots(this, quickslots);
+
+            Equipment.EquipmentChanged += (_, snapshots) => Avatar.UpdateEquipment(snapshots);
+            Avatar.UpdateEquipment(Equipment.ToSnapshots());
         }
 
         public event PersistableChangeHandler? PersistableChange;
@@ -52,6 +60,7 @@ namespace FOMServer.World.Core.Players
         public NetworkAddress Address { get; private set; }
 
         public ServerPosition Position { get; }
+        public PlayerAvatar Avatar { get; }
         public PlayerAttributes Attributes { get; }
         public PlayerInventory Inventory { get; }
         public PlayerEquipment Equipment { get; }
@@ -92,6 +101,7 @@ namespace FOMServer.World.Core.Players
             {
                 p.Kind = WorldUpdateInterop.Type.Character;
                 p.Character = _currentUpdate;
+                Avatar.WriteTo(ref p.Character.Avatar);
                 Position.WriteTo(ref p.Character.Position);
             }
         }
@@ -101,12 +111,7 @@ namespace FOMServer.World.Core.Players
             p.PlayerId = Id;
             p.Profile.PlayerName = _name;
 
-            p.Avatar.Face = 5;
-            p.Avatar.Hair = 2;
-            p.Avatar.Shirt = 0;
-            p.Avatar.Bottoms = 0;
-            p.Avatar.Shoes = 0;
-
+            Avatar.WriteTo(ref p.Avatar);
             Attributes.WriteTo(ref p.Attributes);
             Inventory.WriteTo(ref p.Inventory);
             Equipment.WriteTo(ref p.Weapons, ref p.Equipment);

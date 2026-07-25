@@ -33,6 +33,10 @@ namespace FOMServer.World.Application.Players.Registration
             var player = new Player(
                 id,
                 playerDto.name,
+                playerDto.sex,
+                playerDto.race,
+                playerDto.face,
+                playerDto.hair,
                 attributes,
                 items[ItemContainerType.Inventory],
                 items[ItemContainerType.Equipment],

@@ -73,6 +73,10 @@ namespace FOMServer.World.Tests.Factories
             var player = new Player(
                 _id,
                 _name,
+                AvatarConstants.Sex.Male,
+                AvatarConstants.Race.White,
+                0,
+                0,
                 _attributes,
                 _items[ItemContainerType.Inventory],
                 _items[ItemContainerType.Equipment],

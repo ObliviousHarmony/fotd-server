@@ -58,7 +58,7 @@ namespace FOMServer.World.Application.PacketHandlers
                 ref var rData = ref response.Data;
                 rData.Channel = p.Channel;
                 rData.SenderId = p.SenderId;
-                rData.SenderName = "Naruto Uzumaki";
+                rData.SenderName = player.Name;
                 rData.Message = responseMessage;
                 _clientPacketSender.Send(response.Build());
             }
