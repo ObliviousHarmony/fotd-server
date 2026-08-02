@@ -20,8 +20,8 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Structs
         public ItemType Shirt;
         public ItemType Bottoms;
         public ItemType Shoes;
-        public ItemType Hat;
         public ItemType Head;
+        public ItemType Hat;
         public ItemType Eyes;
         public ItemType Shoulders;
         public ItemType Arms;
