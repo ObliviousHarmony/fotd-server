@@ -39,6 +39,8 @@ set(FOMNETWORK_SRC
   "src/packets/MoveItemsPacketSerializer.cpp"
   "src/packets/WorldObjectsPacketSerializer.cpp"
   "src/packets/WorldServicePacketSerializer.cpp"
+  "src/packets/AttributeChangePacketSerializer.cpp"
+  "src/packets/AvatarChangePacketSerializer.cpp"
 )
 set(FOMNETWORK_INC
   # Core API
@@ -152,6 +154,8 @@ set(FOMNETWORK_INC
   "include/fom-network/packets/MoveItemsPacket.h"
   "include/fom-network/packets/WorldObjectsPacket.h"
   "include/fom-network/packets/WorldServicePacket.h"
+  "include/fom-network/packets/AttributeChangePacket.h"
+  "include/fom-network/packets/AvatarChangePacket.h"
 )
 set(FOMNETWORK_TEST
     "tests/FOMDataSerializer_test.cpp"
