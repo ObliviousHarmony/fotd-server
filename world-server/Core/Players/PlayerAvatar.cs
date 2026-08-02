@@ -84,8 +84,8 @@ namespace FOMServer.World.Core.Players
                 avatar.Shirt = GetEquipment(ItemSlotType.Shirt);
                 avatar.Bottoms = GetEquipment(ItemSlotType.Bottoms);
                 avatar.Shoes = GetEquipment(ItemSlotType.Shoes);
-                avatar.Hat = GetEquipment(ItemSlotType.Hat);
                 avatar.Head = GetEquipment(ItemSlotType.Head);
+                avatar.Hat = GetEquipment(ItemSlotType.Hat);
                 avatar.Eyes = GetEquipment(ItemSlotType.Eyes);
                 avatar.Shoulders = GetEquipment(ItemSlotType.Shoulders);
                 avatar.Arms = GetEquipment(ItemSlotType.Arms);

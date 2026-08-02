@@ -21,8 +21,8 @@ struct AvatarInterop {
   Enum::ItemType shirt;
   Enum::ItemType bottoms;
   Enum::ItemType shoes;
-  Enum::ItemType hat;
   Enum::ItemType head;
+  Enum::ItemType hat;
   Enum::ItemType eyes;
   Enum::ItemType shoulders;
   Enum::ItemType arms;

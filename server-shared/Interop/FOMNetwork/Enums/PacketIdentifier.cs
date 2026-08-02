@@ -60,7 +60,8 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Enums
         // ID_WEATHER = 128,
         // ID_ITEMS_REMOVED = 129,
         // ID_ITEMS_CHANGED = 130,
-        // ID_ATTRIBUTE_CHANGE = 131,
+        ID_ATTRIBUTE_CHANGE = 131,
+
         // ID_HIT = 132,
         ID_WORLD_OBJECTS = 133,
 
@@ -79,7 +80,7 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Enums
         // ID_RELOAD = 145,
         // ID_BACKPACK_CONTENTS = 146,
         // ID_ITEMS_ADDED = 147,
-        // ID_AVATAR_CHANGE = 148,
+        ID_AVATAR_CHANGE = 148,
         ID_CHAT = 149,
 
         // ID_TAUNT = 150,

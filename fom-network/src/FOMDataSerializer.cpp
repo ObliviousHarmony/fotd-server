@@ -1,5 +1,7 @@
 #include "FOMDataSerializer.h"
 
+#include <fom-network/packets/AttributeChangePacket.h>
+#include <fom-network/packets/AvatarChangePacket.h>
 #include <fom-network/packets/ChatPacket.h>
 #include <fom-network/packets/CheckNamePacket.h>
 #include <fom-network/packets/CheckNameReturnPacket.h>
@@ -79,6 +81,8 @@ static const std::unordered_map<uint8_t, size_t> packetSizes = {
     {Enum::ID_MOVE_ITEMS, sizeof(MoveItemsPacket)},
     {Enum::ID_WORLD_OBJECTS, sizeof(WorldObjectsPacket)},
     {Enum::ID_WORLDSERVICE, sizeof(WorldServicePacket)},
+    {Enum::ID_ATTRIBUTE_CHANGE, sizeof(AttributeChangePacket)},
+    {Enum::ID_AVATAR_CHANGE, sizeof(AvatarChangePacket)},
 };
 
 /**
@@ -109,6 +113,9 @@ static const std::unordered_map<uint32_t, IWriter*> writerMap = {
     {Enum::ID_MOVE_ITEMS, &MoveItemsPacketSerializer::GetInstance()},
     {Enum::ID_WORLD_OBJECTS, &WorldObjectsPacketSerializer::GetInstance()},
     {Enum::ID_WORLDSERVICE, &WorldServicePacketSerializer::GetInstance()},
+    {Enum::ID_ATTRIBUTE_CHANGE,
+     &AttributeChangePacketSerializer::GetInstance()},
+    {Enum::ID_AVATAR_CHANGE, &AvatarChangePacketSerializer::GetInstance()},
 };
 
 static const std::unordered_map<uint32_t, IReader*> readerMap = {

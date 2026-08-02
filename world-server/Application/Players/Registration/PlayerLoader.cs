@@ -64,6 +64,7 @@ namespace FOMServer.World.Application.Players.Registration
             }
 
             attributes[(int)AttributeType.Stamina] = 10000;
+            attributes[(int)AttributeType.MaxStamina] = 10000;
 
             return attributes;
         }

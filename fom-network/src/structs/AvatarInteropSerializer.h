@@ -32,8 +32,8 @@ class AvatarInteropSerializer : protected InteropTypeSerializer<AvatarInterop> {
 
     bs.Write(hasAttachments);
     if (hasAttachments) {
-      WriteBits(bs, data.hat, 12);
       WriteBits(bs, data.head, 12);
+      WriteBits(bs, data.hat, 12);
       WriteBits(bs, data.eyes, 12);
       WriteBits(bs, data.shoulders, 12);
       WriteBits(bs, data.arms, 12);
@@ -73,8 +73,8 @@ class AvatarInteropSerializer : protected InteropTypeSerializer<AvatarInterop> {
     bool hasAttachments;
     if (!bs.Read(hasAttachments)) return false;
     if (hasAttachments) {
-      if (!ReadBits(bs, data.hat, 12)) return false;
       if (!ReadBits(bs, data.head, 12)) return false;
+      if (!ReadBits(bs, data.hat, 12)) return false;
       if (!ReadBits(bs, data.eyes, 12)) return false;
       if (!ReadBits(bs, data.shoulders, 12)) return false;
       if (!ReadBits(bs, data.arms, 12)) return false;
