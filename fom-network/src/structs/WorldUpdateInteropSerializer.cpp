@@ -1,18 +1,12 @@
 #include "WorldUpdateInteropSerializer.h"
 
+#include <fom-network/enums/item/ItemSlotType.h>
+
 namespace FOMNetwork {
 
 namespace {
 
-// TODO: mirror the client's avatar predicate (Ghidra FUN_100c8b60 /
-// FUN_102575b0) that gates the implant block. Returning false skips the block,
-// which round-trips with itself but will desync against a real client whose
-// avatar carries implants.
-bool HasImplantData(const AvatarInterop& /*avatar*/) { return false; }
-
-// TODO: mirror the client's item-definition lookup (g_ItemDefTable[0x68]) that
-// decides whether the equipped implant exposes a shield setting.
-bool ImplantUsesShield(uint16_t /*activeImplants*/) { return false; }
+constexpr uint32_t WEAPON_FIRE_POSITION_PRECISION = 9;
 
 }  // namespace
 
@@ -103,7 +97,8 @@ void WorldUpdateInteropSerializer::WriteCharacter(
     const WorldUpdateInterop::CharacterUpdate& data) const {
   PositionRotationInteropSerializer positionSerializer;
   AvatarInteropSerializer avatarSerializer;
-  PositionInteropSerializer firedPositionSerializer;
+  PositionInteropSerializer weaponFirePositionSerializer(
+      WEAPON_FIRE_POSITION_PRECISION);
 
   bs.WriteCompressed(data.id);
   positionSerializer.Write(bs, data.position);
@@ -134,15 +129,15 @@ void WorldUpdateInteropSerializer::WriteCharacter(
     bs.WriteCompressed(data.equippedWeapon);
     bs.Write(data.isWeaponAimed == 1);
 
-    if (data.consumedAmmo != 0) {
+    if (data.weaponFireSequence != 0) {
       bs.Write(true);
-      WriteBits(bs, data.consumedAmmo, 7);
+      WriteBits(bs, data.weaponFireSequence, 7);
     } else {
       bs.Write(false);
     }
 
-    if (data.consumedAmmo != 0) {
-      firedPositionSerializer.Write(bs, data.firedPosition);
+    if (data.weaponFireSequence != 0) {
+      weaponFirePositionSerializer.Write(bs, data.weaponFirePosition);
     }
   } else {
     bs.Write(false);
@@ -161,14 +156,14 @@ void WorldUpdateInteropSerializer::WriteCharacter(
     bs.Write(false);
   }
 
-  if (HasImplantData(data.avatar)) {
-    if (data.activeImplants != 0) {
+  if (data.avatar.IsWearingEquipment()) {
+    if (data.activeEquipmentSlots != 0) {
       bs.Write(true);
-      bs.WriteCompressed(data.activeImplants);
+      bs.WriteCompressed(data.activeEquipmentSlots);
     } else {
       bs.Write(false);
     }
-    if (ImplantUsesShield(data.activeImplants)) {
+    if (data.IsEquipmentSlotActive(Enum::ITEM_SLOT_BACK)) {
       WriteBits(bs, data.shieldSetting, 7);
     }
   }
@@ -185,7 +180,8 @@ bool WorldUpdateInteropSerializer::ReadCharacter(
     RakNet::BitStream& bs, WorldUpdateInterop::CharacterUpdate& data) const {
   PositionRotationInteropSerializer positionSerializer;
   AvatarInteropSerializer avatarSerializer;
-  PositionInteropSerializer firedPositionSerializer;
+  PositionInteropSerializer firedPositionSerializer(
+      WEAPON_FIRE_POSITION_PRECISION);
 
   if (!bs.ReadCompressed(data.id)) return false;
   if (!positionSerializer.Read(bs, data.position)) return false;
@@ -228,13 +224,14 @@ bool WorldUpdateInteropSerializer::ReadCharacter(
     bool hasConsumedAmmo;
     if (!bs.Read(hasConsumedAmmo)) return false;
     if (hasConsumedAmmo) {
-      if (!ReadBits(bs, data.consumedAmmo, 7)) return false;
+      if (!ReadBits(bs, data.weaponFireSequence, 7)) return false;
     } else {
-      data.consumedAmmo = 0;
+      data.weaponFireSequence = 0;
     }
 
-    if (data.consumedAmmo != 0) {
-      if (!firedPositionSerializer.Read(bs, data.firedPosition)) return false;
+    if (data.weaponFireSequence != 0) {
+      if (!firedPositionSerializer.Read(bs, data.weaponFirePosition))
+        return false;
     }
   } else {
     data.equippedWeapon = 0;
@@ -256,15 +253,15 @@ bool WorldUpdateInteropSerializer::ReadCharacter(
     data.emoteId = 0;
   }
 
-  if (HasImplantData(data.avatar)) {
+  if (data.avatar.IsWearingEquipment()) {
     bool hasImplants;
     if (!bs.Read(hasImplants)) return false;
     if (hasImplants) {
-      if (!bs.ReadCompressed(data.activeImplants)) return false;
+      if (!bs.ReadCompressed(data.activeEquipmentSlots)) return false;
     } else {
-      data.activeImplants = 0;
+      data.activeEquipmentSlots = 0;
     }
-    if (ImplantUsesShield(data.activeImplants)) {
+    if (data.IsEquipmentSlotActive(Enum::ITEM_SLOT_BACK)) {
       if (!ReadBits(bs, data.shieldSetting, 7)) return false;
     }
   }

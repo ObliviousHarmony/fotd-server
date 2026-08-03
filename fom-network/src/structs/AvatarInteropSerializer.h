@@ -26,12 +26,8 @@ class AvatarInteropSerializer : protected InteropTypeSerializer<AvatarInterop> {
     WriteBits(bs, data.bottoms, 12);
     WriteBits(bs, data.shoes, 12);
 
-    bool hasAttachments = data.hat || data.head || data.eyes ||
-                          data.shoulders || data.arms || data.torso ||
-                          data.back || data.legs || data.hands;
-
-    bs.Write(hasAttachments);
-    if (hasAttachments) {
+    bs.Write(data.IsWearingEquipment());
+    if (data.IsWearingEquipment()) {
       WriteBits(bs, data.head, 12);
       WriteBits(bs, data.hat, 12);
       WriteBits(bs, data.eyes, 12);
@@ -70,9 +66,9 @@ class AvatarInteropSerializer : protected InteropTypeSerializer<AvatarInterop> {
     if (!ReadBits(bs, data.bottoms, 12)) return false;
     if (!ReadBits(bs, data.shoes, 12)) return false;
 
-    bool hasAttachments;
-    if (!bs.Read(hasAttachments)) return false;
-    if (hasAttachments) {
+    bool isWearingEquipment;
+    if (!bs.Read(isWearingEquipment)) return false;
+    if (isWearingEquipment) {
       if (!ReadBits(bs, data.head, 12)) return false;
       if (!ReadBits(bs, data.hat, 12)) return false;
       if (!ReadBits(bs, data.eyes, 12)) return false;

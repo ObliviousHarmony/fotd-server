@@ -20,6 +20,8 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Structs
         public ItemType Shirt;
         public ItemType Bottoms;
         public ItemType Shoes;
+
+        // ----- Equipment -----
         public ItemType Head;
         public ItemType Hat;
         public ItemType Eyes;
@@ -34,5 +36,18 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Structs
         public byte Unknown2;
         public byte Unknown3;
         public byte IsGroupLeader;
+
+        public readonly bool IsWearingEquipment()
+        {
+            return Hat != ItemType.Invalid
+                || Head != ItemType.Invalid
+                || Eyes != ItemType.Invalid
+                || Shoulders != ItemType.Invalid
+                || Arms != ItemType.Invalid
+                || Torso != ItemType.Invalid
+                || Back != ItemType.Invalid
+                || Legs != ItemType.Invalid
+                || Hands != ItemType.Invalid;
+        }
     }
 }

@@ -21,6 +21,8 @@ struct AvatarInterop {
   Enum::ItemType shirt;
   Enum::ItemType bottoms;
   Enum::ItemType shoes;
+
+  // ----- Equipment -----
   Enum::ItemType head;
   Enum::ItemType hat;
   Enum::ItemType eyes;
@@ -35,6 +37,16 @@ struct AvatarInterop {
   uint8_t unknown2;
   uint8_t unknown3;
   uint8_t isGroupLeader;
+
+  bool IsWearingEquipment() const {
+    return hat != Enum::ITEM_TYPE_INVALID || head != Enum::ITEM_TYPE_INVALID ||
+           eyes != Enum::ITEM_TYPE_INVALID ||
+           shoulders != Enum::ITEM_TYPE_INVALID ||
+           arms != Enum::ITEM_TYPE_INVALID ||
+           torso != Enum::ITEM_TYPE_INVALID ||
+           back != Enum::ITEM_TYPE_INVALID || legs != Enum::ITEM_TYPE_INVALID ||
+           hands != Enum::ITEM_TYPE_INVALID;
+  }
 };
 #pragma pack(pop)
 
