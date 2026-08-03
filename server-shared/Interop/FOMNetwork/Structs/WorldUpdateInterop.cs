@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using FOMServer.Shared.Interop.FOMNetwork.Enums.Item;
 
 namespace FOMServer.Shared.Interop.FOMNetwork.Structs
 {
@@ -48,17 +49,17 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Structs
             public byte MovementStateId;
 
             public ushort EquippedWeapon;
-            public byte IsWeaponAimed;
-            public byte ConsumedAmmo;
-            public PositionInterop FiredPosition;
+            public byte IsWeaponAimed; // EquippedWeapon != 0
+            public byte WeaponFireSequence; // EquippedWeapon != 0
+            public PositionInterop WeaponFirePosition; // WeaponFireSequence != 0
 
             public byte WasHit;
-            public byte HitAnimationId;
-            public byte HitDirection;
+            public byte HitAnimationId; // WasHit == 1
+            public byte HitDirection; // WasHit == 1
 
             public byte EmoteId;
 
-            public ushort ActiveImplants;
+            public ushort ActiveEquipmentSlots;
             public byte ShieldSetting;
 
             public byte MovementSpeed;
@@ -67,6 +68,13 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Structs
             public ushort Unknown4;
             public ushort Unknown5;
             public byte IsShieldActive;
+
+            public readonly bool IsEquipmentSlotActive(ItemSlotType slot)
+            {
+                // Equipment slots start at bit 1, not bit 0.
+                var slotBit = (ushort)(1 << (slot - ItemSlotType.EquipmentStart + 1));
+                return (ActiveEquipmentSlots & slotBit) != 0;
+            }
         }
     }
 }

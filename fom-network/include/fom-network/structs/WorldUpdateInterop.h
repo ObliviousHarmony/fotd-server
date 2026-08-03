@@ -1,6 +1,7 @@
 #pragma once
 
 #include <fom-network/Interop.h>
+#include <fom-network/enums/item/ItemSlotType.h>
 #include <fom-network/structs/AvatarInterop.h>
 #include <fom-network/structs/PositionInterop.h>
 #include <fom-network/structs/PositionRotationInterop.h>
@@ -27,9 +28,9 @@ struct WorldUpdateInterop {
     uint8_t movementStateId;
 
     uint16_t equippedWeapon;
-    uint8_t isWeaponAimed;          // equippedWeapon != 0
-    uint8_t consumedAmmo;           // equippedWeapon != 0
-    PositionInterop firedPosition;  // consumedAmmo != 0
+    uint8_t isWeaponAimed;               // equippedWeapon != 0
+    uint8_t weaponFireSequence;          // equippedWeapon != 0
+    PositionInterop weaponFirePosition;  // weaponFireSequence != 0
 
     uint8_t wasHit;
     uint8_t hitAnimationId;  // wasHit == 1
@@ -37,7 +38,7 @@ struct WorldUpdateInterop {
 
     uint8_t emoteId;
 
-    uint16_t activeImplants;
+    uint16_t activeEquipmentSlots;
     uint8_t shieldSetting;
 
     uint8_t movementSpeed;
@@ -46,6 +47,14 @@ struct WorldUpdateInterop {
     uint16_t unknown4;
     uint16_t unknown5;
     uint8_t isShieldActive;
+
+    bool IsEquipmentSlotActive(Enum::ItemSlotType slot) const {
+      // Equipment slots start at bit 1, not bit 0.
+      auto slotBit =
+          (uint16_t)(1 << (slot - Enum::ItemSlotType::EQUIPMENT_SLOT_START +
+                           1));
+      return (activeEquipmentSlots & slotBit) != 0;
+    }
   };
 
   struct PlayerUpdate {
