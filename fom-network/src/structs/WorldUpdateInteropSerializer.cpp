@@ -161,7 +161,7 @@ void WorldUpdateInteropSerializer::WriteCharacter(
     bs.Write(false);
   }
 
-  if (HasImplantData(data.avatar)) {
+  if (data.avatar.IsWearingEquipment()) {
     if (data.activeImplants != 0) {
       bs.Write(true);
       bs.WriteCompressed(data.activeImplants);
@@ -256,7 +256,7 @@ bool WorldUpdateInteropSerializer::ReadCharacter(
     data.emoteId = 0;
   }
 
-  if (HasImplantData(data.avatar)) {
+  if (data.avatar.IsWearingEquipment()) {
     bool hasImplants;
     if (!bs.Read(hasImplants)) return false;
     if (hasImplants) {
