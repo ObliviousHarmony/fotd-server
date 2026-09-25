@@ -18,6 +18,10 @@ namespace FOMServer.Master.Tests
     {
         private const uint PlayerId = 42;
 
+        // MD5("password"), and the client's MD5(StoredHash + "TestPlayer") - computed with openssl.
+        private const string StoredHash = "5F4DCC3B5AA765D61D8327DEB882CF99";
+        private const string ClientHash = "2DD901A5A846AF3A230E0548738BD19C";
+
         [Fact]
         public void Connect_Login_Disconnect_DrivesSessionAndPlayerLifecycle()
         {
@@ -34,7 +38,7 @@ namespace FOMServer.Master.Tests
             Assert.Null(fixture.PlayerRegistry.Get(PlayerId));
 
             // 2. LoginPacket: starts login, loads + completes the player, replies.
-            fixture.Login.Handle(address, new LoginPacket());
+            fixture.Login.Handle(address, ValidLogin());
 
             Assert.True(session.IsReady);
             Assert.NotNull(session.Player);
@@ -56,7 +60,7 @@ namespace FOMServer.Master.Tests
             var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
 
             fixture.NewConnection.Handle(address, new NewIncomingConnectionPacket());
-            fixture.Login.Handle(address, new LoginPacket());
+            fixture.Login.Handle(address, ValidLogin());
             Assert.NotNull(fixture.PlayerRegistry.Get(PlayerId));
 
             fixture.ConnectionLost.Handle(address, new ConnectionLostPacket());
@@ -78,6 +82,29 @@ namespace FOMServer.Master.Tests
             Assert.Empty(fixture.Sender.Sent);
         }
 
+        [Fact]
+        public void Login_WithWrongPassword_IsRejectedAndDoesNotLogIn()
+        {
+            var fixture = new Fixture();
+            var address = new NetworkAddress { BinaryAddress = 0x0100007F, Port = 7777 };
+
+            fixture.NewConnection.Handle(address, new NewIncomingConnectionPacket());
+            var login = ValidLogin();
+            login.PasswordHash = "00000000000000000000000000000000";
+            fixture.Login.Handle(address, login);
+
+            var session = fixture.ClientRegistry.Get(address);
+            Assert.NotNull(session);
+            Assert.False(session!.IsReady);
+            Assert.Null(fixture.PlayerRegistry.Get(PlayerId));
+            Assert.Contains(PacketHelpers.GetPacketTypeId<LoginReturnPacket>(), fixture.Sender.Sent);
+        }
+
+        private static LoginPacket ValidLogin()
+        {
+            return new LoginPacket { Username = "TestPlayer", PasswordHash = ClientHash };
+        }
+
         private sealed class Fixture
         {
             public Fixture()
@@ -94,7 +121,9 @@ namespace FOMServer.Master.Tests
                 PlayerRegistry = new PlayerRegistry(persistence.Object);
 
                 var accounts = new Mock<IAccountRepository>();
-                accounts.Setup(r => r.GetByUsername(It.IsAny<string>())).Returns(new AccountDto { id = PlayerId });
+                accounts
+                    .Setup(r => r.GetByUsername(It.IsAny<string>()))
+                    .Returns(new AccountDto { id = PlayerId, password = StoredHash });
 
                 var players = new Mock<IPlayerRepository>();
                 players.Setup(r => r.GetById(PlayerId)).Returns(new PlayerDto { id = PlayerId, name = "Tester" });

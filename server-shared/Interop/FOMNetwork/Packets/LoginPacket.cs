@@ -42,6 +42,13 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Packets
                     return CStringParser.ToString(ptr, BufferSizes.Username);
                 }
             }
+            set
+            {
+                fixed (byte* ptr = RawUsername)
+                {
+                    CStringParser.FromString(value, ptr, BufferSizes.Username);
+                }
+            }
         }
 
         public string PasswordHash
@@ -51,6 +58,13 @@ namespace FOMServer.Shared.Interop.FOMNetwork.Packets
                 fixed (byte* ptr = RawPasswordHash)
                 {
                     return CStringParser.ToString(ptr, PasswordHashSize);
+                }
+            }
+            set
+            {
+                fixed (byte* ptr = RawPasswordHash)
+                {
+                    CStringParser.FromString(value, ptr, PasswordHashSize);
                 }
             }
         }

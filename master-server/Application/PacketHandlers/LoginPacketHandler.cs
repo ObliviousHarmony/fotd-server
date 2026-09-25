@@ -3,6 +3,7 @@ using FOMServer.Master.Core.Players;
 using FOMServer.Shared.Core.Networking;
 using FOMServer.Shared.Core.PacketHandlers;
 using FOMServer.Shared.Core.Repositories;
+using FOMServer.Shared.Core.Utilities;
 using FOMServer.Shared.Interop.FOMNetwork;
 using FOMServer.Shared.Interop.FOMNetwork.Enums;
 using FOMServer.Shared.Interop.FOMNetwork.Packets;
@@ -69,7 +70,13 @@ namespace FOMServer.Master.Application.PacketHandlers
 
             // Check Ban Status
 
-            // Check Password
+            if (!PasswordHashing.Verify(account.password, p.Username, p.PasswordHash))
+            {
+                _logger.LogInformation("Rejected login for '{Username}': incorrect password", p.Username);
+                rData.Status = LoginReturnPacket.StatusCode.IncorrectPassword;
+                _clientPacketSender.Send(response.Build());
+                return;
+            }
 
             rData.PlayerId = account.id;
 
